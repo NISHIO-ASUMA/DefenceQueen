@@ -105,10 +105,10 @@ CCamera::~CCamera()
 HRESULT CCamera::Init(void)
 {
 	// 初期値を設定する
-	m_pCamera.posV = D3DXVECTOR3(0.0f, 500.0f, -600.0f);		// カメラの位置
+	m_pCamera.posV = D3DXVECTOR3(0.0f, 1200.0f, 0.0f);			// カメラの位置
 	m_pCamera.posR = VECTOR3_NULL;								// カメラの見ている位置
-	m_pCamera.vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);				// 上方向ベクトル
-	m_pCamera.rot = D3DXVECTOR3(D3DX_PI * 0.55f, 0.0f, 0.0f);	// 角度
+	m_pCamera.vecU = D3DXVECTOR3(0.0f, 0.0f, 1.0f);				// 上方向ベクトル
+	m_pCamera.rot = D3DXVECTOR3(D3DX_PI * 0.5f, 0.0f, 0.0f);	// 角度
 
 	// 距離を計算
 	float fRotx = m_pCamera.posV.x - m_pCamera.posR.x;
@@ -117,9 +117,6 @@ HRESULT CCamera::Init(void)
 
 	// 視点から注視点までの距離
 	m_pCamera.fDistance = sqrtf((fRotx * fRotx) + (fRoty * fRoty) + (fRotz * fRotz));
-
-	// モードの初期化
-	m_pCamera.nMode = MODE_NONE;
 
 	// 初期化結果を返す
 	return S_OK;
@@ -142,10 +139,7 @@ void CCamera::Update(void)
 		// 振動更新
 		UpdateShake();
 	}
-
-	// マウスの視点移動モード
-	m_pCamera.nMode = MODE_MOUSE;
-
+	
 	// 角度の正規化
 	if (m_pCamera.rot.y > D3DX_PI)
 	{// D3DX_PIより大きくなったら
@@ -157,7 +151,6 @@ void CCamera::Update(void)
 	{// D3DX_PIより小さくなったら
 		m_pCamera.rot.y += CAMERAINFO::NorRot;
 	}
-
 }
 //=================================
 // カメラをセット
@@ -170,12 +163,9 @@ void CCamera::SetCamera(void)
 	// ビューマトリックスの初期化
 	D3DXMatrixIdentity(&m_pCamera.mtxView);
 
-	// 算出された座標を基準にする
-	D3DXVECTOR3 posVForView = m_pCamera.posV;
-
 	// ビューマトリックスの作成
 	D3DXMatrixLookAtLH(&m_pCamera.mtxView,
-		&posVForView,
+		&m_pCamera.posV,
 		&m_pCamera.posR,
 		&m_pCamera.vecU);
 
@@ -267,7 +257,6 @@ void CCamera::MouseView(CInputMouse * pMouse)
 		m_pCamera.posR.x = m_pCamera.posV.x + sinf(m_pCamera.rot.x) * sinf(m_pCamera.rot.y) * m_pCamera.fDistance;
 		m_pCamera.posR.y = m_pCamera.posV.y + cosf(m_pCamera.rot.x) * m_pCamera.fDistance;
 		m_pCamera.posR.z = m_pCamera.posV.z + sinf(m_pCamera.rot.x) * cosf(m_pCamera.rot.y) * m_pCamera.fDistance;
-
 	}
 
 	// 正規化

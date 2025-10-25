@@ -26,8 +26,7 @@ namespace GAMESTATE
 //===============================
 // コンストラクタ
 //===============================
-CGameState::CGameState() 
-: m_pGame(nullptr),
+CGameState::CGameState() : m_pGame(nullptr),
 m_Progress(PROGRESS_NONE),
 m_nCount(NULL)
 {
@@ -45,7 +44,7 @@ CGameState::~CGameState()
 //===============================
 void CGameState::OnStart()
 {
-	// 状態変更
+	// 初期状態をセットする
 	m_Progress = PROGRESS_NORMAL;
 }
 //===============================
@@ -53,6 +52,7 @@ void CGameState::OnStart()
 //===============================
 void CGameState::OnUpdate()
 {
+	// ポインタが無かったら
 	if (m_pGame == nullptr) return;
 
 	// フェード取得
@@ -61,6 +61,7 @@ void CGameState::OnUpdate()
 
 	// 使用オブジェクト取得
 	auto GameSceneObject = m_pGame->GetGameObject();
+	if (GameSceneObject == nullptr) return;
 
 	switch (m_Progress)
 	{
@@ -90,7 +91,7 @@ void CGameState::OnUpdate()
 				pFade->SetFade(std::make_unique<CResult>());
 
 				// スコアを書き出しする
-				GameSceneObject->GetScore()->SaveScore();
+				// GameSceneObject->GetScore()->SaveScore();
 
 				// 処理終了
 				return;
@@ -107,5 +108,6 @@ void CGameState::OnUpdate()
 //===============================
 void CGameState::OnExit()
 {
+	// ポインタのnull初期化
 	m_pGame = nullptr;
 }

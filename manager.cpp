@@ -84,7 +84,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 		return E_FAIL;
 	}
 
-	// カメラ生成
+	// カメラの生成処理
 	m_pCamera = std::make_unique<CCamera>();
 
 	// 初期化に失敗したら
@@ -120,10 +120,10 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// テクスチャ全読み込み
 	m_pTexture->Load();
 
-	// ポインタ生成
+	// Xファイルオブジェクトマネージャー生成
 	m_pXfileManager = std::make_unique <CXfileManager>();
 
-	// 読み込み
+	// 全モデルの読み込み
 	m_pXfileManager->Load();
 
 	// フェード生成
@@ -138,10 +138,10 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 
 #ifdef _DEBUG
 	// シーンセット
-	m_pFade->SetFade(std::make_unique<CTitle>());
+	m_pFade->SetFade(std::make_unique<CGame>());
 #else
 	// シーンセット
-	m_pFade->SetFade(new CTitle());
+	m_pFade->SetFade(std::make_unique<CTitle>());
 
 #endif // _DEBUG
 
@@ -152,36 +152,17 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 //===========================
 void CManager::Uninit(void)
 {
-	// 全オブジェクトの破棄
-	CObject::ReleaseAll();
-
 	// キーボードインスタンスの破棄
-	if (m_pInputKeyboard)
-	{
-		m_pInputKeyboard->Uninit();
-		m_pInputKeyboard.reset();
-	}
+	m_pInputKeyboard.reset();
 
 	// ゲームパッドインスタンスの破棄
-	if (m_pJoyPad)
-	{
-		m_pJoyPad->Uninit();
-		m_pJoyPad.reset();
-	}
+	m_pJoyPad.reset();
 
 	// マウスインスタンスの破棄
-	if (m_pInputMouse)
-	{
-		m_pInputMouse->Uninit();
-		m_pInputMouse.reset();
-	}
+	m_pInputMouse.reset();
 
 	// サウンドインスタンスの破棄
-	if (m_pSound)
-	{
-		m_pSound->Uninit();
-		m_pSound.reset();
-	}
+	m_pSound.reset();
 
 	// カメラインスタンスの破棄
 	m_pCamera.reset();

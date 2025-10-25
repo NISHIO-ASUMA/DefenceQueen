@@ -1,4 +1,4 @@
-//====================================
+//=====================================
 //
 // ビルボード処理 [ billboard.cpp ]
 // Author: Asuma Nishio
@@ -75,8 +75,9 @@ HRESULT CBillboard::Init(void)
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// 頂点バッファの生成
-	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * 4,
-		D3DUSAGE_WRITEONLY, FVF_VERTEX_3D,
+	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * BASEVERTEX,
+		D3DUSAGE_WRITEONLY, 
+		FVF_VERTEX_3D,
 		D3DPOOL_MANAGED,
 		&m_pVtxBuff,
 		NULL);
@@ -309,7 +310,7 @@ void CBillboard::SetAnim(const int nMaxPattern,const int nMaxAnimCount,float fTe
 	// パターンナンバーが最大値より大きくなった時
 	if (m_nPatterAnim > nMaxPattern)
 	{
-		m_nPatterAnim = NULL;			// パターンナンバーを初期値に戻す
+		m_nPatterAnim = NULL;		// パターンナンバーを初期値に戻す
 	}
 }
 //================================

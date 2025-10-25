@@ -75,15 +75,6 @@ void CTitle::Update(void)
 		// マネージャーの更新処理
 		m_pTitleManager->Update();
 	}
-
-	CJoyPad* pJoyPad = CManager::GetInstance()->GetJoyPad();
-
-	// コントローラー取得
-	if (CManager::GetInstance()->GetJoyPad()->GetTrigger(pJoyPad->JOYKEY_BACK))
-	{
-		PostQuitMessage(0);
-		return;
-	}
 }
 //=====================================
 // 描画処理

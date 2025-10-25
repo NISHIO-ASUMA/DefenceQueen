@@ -107,7 +107,7 @@ CInputKeyboard::CInputKeyboard()
 //====================================
 CInputKeyboard::~CInputKeyboard()
 {
-	// 無し
+	Uninit();
 }
 //====================================
 // キーボードクラスの初期化処理
@@ -257,7 +257,7 @@ CJoyPad::CJoyPad()
 //====================================
 CJoyPad::~CJoyPad()
 {
-	// 無し
+	Uninit();
 }
 //====================================
 // ゲームパッドの初期化処理
@@ -467,7 +467,7 @@ CInputMouse::CInputMouse()
 //====================================
 CInputMouse::~CInputMouse()
 {
-	// 無い
+	Uninit();
 }
 //====================================
 // マウスの初期化処理
@@ -477,6 +477,7 @@ HRESULT CInputMouse::Init(HINSTANCE hInstance, HWND hWnd)
 	// 親クラスの初期化処理
 	CInput::Init(hInstance,hWnd);
 
+	// デバイス生成
 	if (FAILED(m_pInput->CreateDevice(
 		GUID_SysMouse,
 		&m_pDevice,
@@ -485,6 +486,7 @@ HRESULT CInputMouse::Init(HINSTANCE hInstance, HWND hWnd)
 		return E_FAIL;
 	}
 
+	// フォーマット設定
 	if (FAILED(m_pDevice->SetDataFormat(&c_dfDIMouse)))
 	{
 		return E_FAIL;
@@ -611,7 +613,7 @@ bool CInputMouse::GetState(DIMOUSESTATE* mouseState)
 	// 入力デバイスを取得
 	LPDIRECTINPUTDEVICE8 pMouse = GetInputDevice();
 
-	if (pMouse == NULL)
+	if (pMouse == nullptr)
 	{
 		return false;
 	}

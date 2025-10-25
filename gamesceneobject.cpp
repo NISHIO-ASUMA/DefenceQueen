@@ -11,6 +11,7 @@
 #include "gamesceneobject.h"
 #include "ui.h"
 #include "player.h"
+#include "meshfield.h"
 
 //**********************
 // 静的メンバ変数
@@ -41,6 +42,9 @@ HRESULT CGameSceneObject::Init(void)
 
 	// スコアクラス生成
 	m_pScore = CScore::Create(D3DXVECTOR3(600.0f, 200.0f, 0.0f), 60.0f, 40.0f);
+
+	// メッシュ生成
+	CMeshField::Create(VECTOR3_NULL, 3000.0f,3000.0f,1,1);
 
 	return S_OK;
 }

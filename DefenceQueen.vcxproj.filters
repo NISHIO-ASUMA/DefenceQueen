@@ -13,30 +13,60 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\BaseClass">
+      <UniqueIdentifier>{6ac103dd-8346-43fd-a0b2-fd4ae01240ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\BaseClass\2D">
+      <UniqueIdentifier>{145352cf-41e6-47c4-935a-c0e85c52ee36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\BaseClass\3D">
+      <UniqueIdentifier>{a8f27f14-8f7e-4efe-8216-c5b90baf5547}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\BaseClass\Object">
+      <UniqueIdentifier>{94e63e17-d842-4929-87bf-6806285154ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Physics">
+      <UniqueIdentifier>{d826c114-c7eb-456c-85f4-05de928d309f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Physics\Collider">
+      <UniqueIdentifier>{a12984fc-c9d2-49f3-ac1a-1f40b0e8ba25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Physics\Collision">
+      <UniqueIdentifier>{fd781062-acb0-4789-a4f6-b46d5d8134f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charactor">
+      <UniqueIdentifier>{eeefe4b7-0ce5-474e-afa2-eac34acc7f75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charactor\Player">
+      <UniqueIdentifier>{5711bbc8-c959-422b-89ea-4e22759abd09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charactor\Enemy">
+      <UniqueIdentifier>{a64579a3-0b9b-459c-a0d0-46847cc88c3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charactor\Array">
+      <UniqueIdentifier>{4812ad21-4693-43e9-802e-9c6477b2832b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charactor\Defence">
+      <UniqueIdentifier>{3fbfdd4d-8783-423d-9d1c-4e4e3877ed3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scenes">
+      <UniqueIdentifier>{ef473418-6d44-424c-bfd5-c8257cf6c8a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scenes\BaseScene">
+      <UniqueIdentifier>{88135b18-20b6-460f-812c-546a7482948c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scenes\SceneManager">
+      <UniqueIdentifier>{e903b709-abda-4d81-93f8-c0c28f5f0d17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scenes\SceneObject">
+      <UniqueIdentifier>{b8eb7756-26f6-4d4c-9b64-8f5d112fd7de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="billboard.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="boxcollider.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="camera.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="charactorparam.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="collider.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="collision.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="collisionbox.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="collisionsphere.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="debugproc.cpp">
@@ -69,7 +99,7 @@
     <ClCompile Include="fade.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="gage.cpp">
+    <ClCompile Include="gauge.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="game.cpp">
@@ -123,25 +153,7 @@
     <ClCompile Include="motion.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="movecharactor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="nomovecharactor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="number.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="object.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="object2D.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="object3D.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="objectX.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="parameter.cpp">
@@ -201,9 +213,6 @@
     <ClCompile Include="sound.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="spherecollider.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="state.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -241,6 +250,48 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="xfilemanager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="object2D.cpp">
+      <Filter>ソース ファイル\BaseClass\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="object3D.cpp">
+      <Filter>ソース ファイル\BaseClass\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="objectX.cpp">
+      <Filter>ソース ファイル\BaseClass\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="billboard.cpp">
+      <Filter>ソース ファイル\BaseClass\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="object.cpp">
+      <Filter>ソース ファイル\BaseClass\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="movecharactor.cpp">
+      <Filter>ソース ファイル\BaseClass\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="nomovecharactor.cpp">
+      <Filter>ソース ファイル\BaseClass\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="collider.cpp">
+      <Filter>ソース ファイル\Physics\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="boxcollider.cpp">
+      <Filter>ソース ファイル\Physics\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="collision.cpp">
+      <Filter>ソース ファイル\Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="collisionbox.cpp">
+      <Filter>ソース ファイル\Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="collisionsphere.cpp">
+      <Filter>ソース ファイル\Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="spherecollider.cpp">
+      <Filter>ソース ファイル\Physics\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="titleobject.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -299,7 +350,7 @@
     <ClInclude Include="fade.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="gage.h">
+    <ClInclude Include="gauge.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="game.h">
@@ -477,6 +528,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="xfilemanager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="titleobject.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

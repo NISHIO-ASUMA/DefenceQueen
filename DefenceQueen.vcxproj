@@ -170,7 +170,7 @@
     <ClCompile Include="enemystate.cpp" />
     <ClCompile Include="enemystatebase.cpp" />
     <ClCompile Include="fade.cpp" />
-    <ClCompile Include="gage.cpp" />
+    <ClCompile Include="gauge.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gamemanager.cpp" />
     <ClCompile Include="gamesceneobject.cpp" />
@@ -224,6 +224,7 @@
     <ClCompile Include="time.cpp" />
     <ClCompile Include="title.cpp" />
     <ClCompile Include="titlemanager.cpp" />
+    <ClCompile Include="titleobject.cpp" />
     <ClCompile Include="titleui.cpp" />
     <ClCompile Include="tutorial.cpp" />
     <ClCompile Include="tutorialmanager.cpp" />
@@ -250,7 +251,7 @@
     <ClInclude Include="enemystate.h" />
     <ClInclude Include="enemystatebase.h" />
     <ClInclude Include="fade.h" />
-    <ClInclude Include="gage.h" />
+    <ClInclude Include="gauge.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gamemanager.h" />
     <ClInclude Include="gamesceneobject.h" />
@@ -304,6 +305,7 @@
     <ClInclude Include="time.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="titlemanager.h" />
+    <ClInclude Include="titleobject.h" />
     <ClInclude Include="titleui.h" />
     <ClInclude Include="tutorial.h" />
     <ClInclude Include="tutorialmanager.h" />

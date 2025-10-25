@@ -23,10 +23,10 @@ CObject2D::CObject2D(int nPriority) : CObject(nPriority)
 	// 値のクリア
 	m_pTexture = NULL;
 	m_pVtxBuff = NULL;
-	m_Pos = VECTOR3_NULL;
+	m_pos = VECTOR3_NULL;
 	m_fWidth = NULL;
 	m_fHeight = NULL;
-	m_Rot = VECTOR3_NULL;
+	m_rot = VECTOR3_NULL;
 	m_col = COLOR_WHITE;
 	m_nAnchorType = ANCHORTYPE_NONE;
 	m_nColorCount = NULL;
@@ -289,10 +289,10 @@ void CObject2D::SetCenter(void)
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 	// 頂点座標の設定
-	pVtx[0].pos = D3DXVECTOR3(m_Pos.x - m_fWidth, m_Pos.y - m_fHeight, 0.0f);
-	pVtx[1].pos = D3DXVECTOR3(m_Pos.x + m_fWidth, m_Pos.y - m_fHeight, 0.0f);
-	pVtx[2].pos = D3DXVECTOR3(m_Pos.x - m_fWidth, m_Pos.y + m_fHeight, 0.0f);
-	pVtx[3].pos = D3DXVECTOR3(m_Pos.x + m_fWidth, m_Pos.y + m_fHeight, 0.0f);
+	pVtx[0].pos = D3DXVECTOR3(m_pos.x - m_fWidth, m_pos.y - m_fHeight, 0.0f);
+	pVtx[1].pos = D3DXVECTOR3(m_pos.x + m_fWidth, m_pos.y - m_fHeight, 0.0f);
+	pVtx[2].pos = D3DXVECTOR3(m_pos.x - m_fWidth, m_pos.y + m_fHeight, 0.0f);
+	pVtx[3].pos = D3DXVECTOR3(m_pos.x + m_fWidth, m_pos.y + m_fHeight, 0.0f);
 
 	// rhwの設定( 1.0fで固定 )
 	pVtx[0].rhw =
@@ -327,10 +327,10 @@ void CObject2D::SetLeft(void)
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 	// 頂点座標の設定
-	pVtx[0].pos = D3DXVECTOR3(m_Pos.x, m_Pos.y, 0.0f);
-	pVtx[1].pos = D3DXVECTOR3(m_Pos.x + m_fWidth, m_Pos.y, 0.0f);
-	pVtx[2].pos = D3DXVECTOR3(m_Pos.x, m_Pos.y + m_fHeight, 0.0f);
-	pVtx[3].pos = D3DXVECTOR3(m_Pos.x + m_fWidth, m_Pos.y + m_fHeight, 0.0f);
+	pVtx[0].pos = D3DXVECTOR3(m_pos.x, m_pos.y, 0.0f);
+	pVtx[1].pos = D3DXVECTOR3(m_pos.x + m_fWidth, m_pos.y, 0.0f);
+	pVtx[2].pos = D3DXVECTOR3(m_pos.x, m_pos.y + m_fHeight, 0.0f);
+	pVtx[3].pos = D3DXVECTOR3(m_pos.x + m_fWidth, m_pos.y + m_fHeight, 0.0f);
 
 	// rhwの設定( 1.0fで固定 )
 	pVtx[0].rhw =
@@ -365,10 +365,10 @@ void CObject2D::SetRight(void)
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 	// 頂点座標の設定
-	pVtx[0].pos = D3DXVECTOR3(m_Pos.x - m_fWidth, m_Pos.y, 0.0f);
-	pVtx[1].pos = D3DXVECTOR3(m_Pos.x, m_Pos.y, 0.0f);
-	pVtx[2].pos = D3DXVECTOR3(m_Pos.x - m_fWidth, m_Pos.y + m_fHeight, 0.0f);
-	pVtx[3].pos = D3DXVECTOR3(m_Pos.x, m_Pos.y + m_fHeight, 0.0f);
+	pVtx[0].pos = D3DXVECTOR3(m_pos.x - m_fWidth, m_pos.y, 0.0f);
+	pVtx[1].pos = D3DXVECTOR3(m_pos.x, m_pos.y, 0.0f);
+	pVtx[2].pos = D3DXVECTOR3(m_pos.x - m_fWidth, m_pos.y + m_fHeight, 0.0f);
+	pVtx[3].pos = D3DXVECTOR3(m_pos.x, m_pos.y + m_fHeight, 0.0f);
 
 	// rhwの設定(1.0fで固定)
 	pVtx[0].rhw =
@@ -404,6 +404,6 @@ void CObject2D::SetTexture(const char* pRegisterName)
 	std::string TexName = "data/TEXTURE/";
 	TexName += pRegisterName;
 
-	// 割り当てする
+	// 割り当てる
 	m_nIdxTexture = pTexture->Register(TexName.c_str());
 }

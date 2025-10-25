@@ -62,7 +62,7 @@ HRESULT CGame::Init(void)
 	m_pGameObject->Init();
 
 	// ステート生成
-	m_pState =new CGameState;
+	m_pState = new CGameState;
 	if (m_pState == nullptr) return E_FAIL;
 
 	// 開始
@@ -114,17 +114,22 @@ void CGame::Uninit(void)
 //==================================
 void CGame::Update(void)
 {	
+	// ゲーム進行管理の更新処理
+	m_pState->OnUpdate();
+
+	// 状態取得
+	auto State = m_pState->GetProgress();
+
+	if (State == m_pState->PROGRESS_END) return;
+
 	// ポーズのキー入力判定
 	m_pPausemanager->SetEnablePause();
 	
 	// ポーズの更新処理
 	m_pPausemanager->Update();
 	
-	// ゲーム進行管理の更新処理
-	m_pState->OnUpdate();
-
 	// falseの時に更新
-	if (m_pPausemanager->GetPause() == false)
+	if (!m_pPausemanager->GetPause())
 	{
 		// ゲームマネージャー更新
 		m_pGameManager->Update();

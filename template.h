@@ -23,8 +23,8 @@ namespace TEMPLATE
 //*********************************
 template <class T>T Clump(const T t, const T min, const T max)
 {
-	if (t > max) return max; // è„å¿í¥Ç¶ÇΩÇÁè„å¿ê›íË
-	if (t < min) return min; // â∫å¿à»â∫Ç»ÇÁâ∫å¿ê›íË
+	if (t > max) return max; // è„å¿í¥Ç¶ÇΩÇÁè„å¿Ç÷ê›íË
+	if (t < min) return min; // â∫å¿à»â∫Ç»ÇÁâ∫å¿Ç÷ê›íË
 	return t;
 }
 

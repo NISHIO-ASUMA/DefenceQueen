@@ -59,13 +59,13 @@ public:
 	// セッター
 	void SetUV(float TexU, float TexV);
 	void SetCol(D3DXCOLOR col) { m_col = col; }
-	void SetPos(D3DXVECTOR3 pos) { m_Pos = pos; }
-	void SetRot(D3DXVECTOR3 rot) { m_Rot = rot; }
+	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
+	void SetRot(D3DXVECTOR3 rot) { m_rot = rot; }
 	void SetSize(float fWidth, float fHeight) { m_fWidth = fWidth, m_fHeight = fHeight; }
 	void SetWidth(float fWidth) { m_fWidth = fWidth; }
 	void SetHeight(float fHeight) { m_fWidth = fHeight; }
 	void SetFlash(const int nFirstcount, const int nEndcount, const D3DXCOLOR col);
-	void SetAnchor(int Type) { m_nAnchorType = Type; }
+	void SetAnchor(int Type = ANCHORTYPE_CENTER) { m_nAnchorType = Type; }
 	void SetDrawType(int nType) { m_nDrawType = nType; }
 	void SetCenter(void);
 	void SetLeft(void);
@@ -73,20 +73,21 @@ public:
 	void SetTexture(const char* pRegisterName);
 
 	// ゲッター
-	D3DXVECTOR3 GetPos(void) { return m_Pos; }	// 現在の座標を取得
-	D3DXVECTOR3 GetRot(void) { return m_Rot; }	// 現在の角度を取得
-	D3DXCOLOR GetCol(void) { return m_col; }	// 現在の色を取得
-	float GetWidth(void) { return m_fWidth; }
-	float GetHeight(void) { return m_fHeight; }
-	int GetDrawType(void) { return m_nDrawType; }
+	D3DXVECTOR3 GetPos(void) const { return m_pos; }	// 現在の座標を取得
+	D3DXVECTOR3 GetRot(void) const { return m_rot; }	// 現在の角度を取得
+	D3DXCOLOR GetCol(void) const { return m_col; }		// 現在の色を取得
+	float GetWidth(void) const { return m_fWidth; }		// 横幅取得
+	float GetHeight(void) const { return m_fHeight; }	// 高さ取得
+	int GetDrawType(void) const { return m_nDrawType; }
 
 private:
 
 	LPDIRECT3DTEXTURE9 m_pTexture;		// テクスチャポインタ
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff; // 頂点バッファのポインタ
 
-	D3DXVECTOR3 m_Rot;	// 角度情報
-	D3DXVECTOR3 m_Pos;	// 座標情報
+	
+	D3DXVECTOR3 m_pos;	// 座標情報
+	D3DXVECTOR3 m_rot;	// 角度情報
 	D3DXCOLOR m_col;	// 色情報
 
 	int m_nAnchorType;	// 基準座標設定

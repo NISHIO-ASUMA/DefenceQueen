@@ -11,11 +11,6 @@
 #pragma once
 
 //**********************
-// インクルードファイル
-//**********************
-#include <memory>
-
-//**********************
 // 前方宣言
 //**********************
 class CGame;
@@ -47,6 +42,8 @@ public:
 
 	void SetProgress(PROGRESS progtype) { m_Progress = progtype; }
 	void SetGame(CGame* pGame) { m_pGame = pGame; }
+
+	int GetProgress(void) { return static_cast<int>(m_Progress); }
 
 private:
 	int m_nCount;			// 進行管理カウント
