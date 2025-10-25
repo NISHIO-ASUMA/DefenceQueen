@@ -1,0 +1,7 @@
+[
+  { "Texture": "data/TEXTURE/PauseBack.png" },
+  { "Texture": "data/TEXTURE/pausemenu_continue.png" },
+  { "Texture": "data/TEXTURE/pausemenu_quit.png" },
+  { "Texture": "data/TEXTURE/pausemenu_retry.png" },
+  { "Texture": "data/TEXTURE/wall001.jpg" }
+]

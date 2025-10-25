@@ -1,0 +1,111 @@
+//===============================================
+//
+// ゲーム状態管理処理 [ gamestate.cpp ]
+// Author: Asuma Nishio
+//
+//===============================================
+
+//**********************
+// インクルードファイル
+//**********************
+#include "gamestate.h"
+#include "gamesceneobject.h"
+#include "fade.h"
+#include "result.h"
+#include "game.h"
+#include "manager.h"
+
+//**********************
+// 定数名前空間
+//**********************
+namespace GAMESTATE
+{
+	constexpr int STATECOUNT = 30; // 画面切り替えるまでのカウント
+};
+
+//===============================
+// コンストラクタ
+//===============================
+CGameState::CGameState() 
+: m_pGame(nullptr),
+m_Progress(PROGRESS_NONE),
+m_nCount(NULL)
+{
+	// 値のクリア
+}
+//===============================
+// デストラクタ
+//===============================
+CGameState::~CGameState()
+{
+	// 無し
+}
+//===============================
+// 状態開始関数
+//===============================
+void CGameState::OnStart()
+{
+	// 状態変更
+	m_Progress = PROGRESS_NORMAL;
+}
+//===============================
+// 状態更新関数
+//===============================
+void CGameState::OnUpdate()
+{
+	if (m_pGame == nullptr) return;
+
+	// フェード取得
+	auto pFade = CManager::GetInstance()->GetFade();
+	if (pFade == nullptr) return;
+
+	// 使用オブジェクト取得
+	auto GameSceneObject = m_pGame->GetGameObject();
+
+	switch (m_Progress)
+	{
+	case CGameState::PROGRESS_NONE: // 何もない
+		break;
+
+	case CGameState::PROGRESS_NORMAL: // 進行を続ける
+		break;
+
+	case CGameState::PROGRESS_END: // 終了し,画面遷移
+
+		// カウントを加算
+		m_nCount++;
+
+		if (m_nCount >= GAMESTATE::STATECOUNT)
+		{
+			// カウンターを初期化
+			m_nCount = NULL;
+
+			// 1秒経過
+			m_Progress = PROGRESS_NONE; // 何もしていない状態
+
+			// フェードが取得できたら
+			if (pFade != nullptr)
+			{
+				// リザルトシーンに遷移
+				pFade->SetFade(std::make_unique<CResult>());
+
+				// スコアを書き出しする
+				GameSceneObject->GetScore()->SaveScore();
+
+				// 処理終了
+				return;
+			}
+		}
+		break;
+
+	default:
+		break;
+	}
+}
+//===============================
+// 状態終了関数
+//===============================
+void CGameState::OnExit()
+{
+	m_pGame = nullptr;
+}
