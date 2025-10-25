@@ -79,7 +79,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE /*hInstancePrev
 		hInstance,						// インスタンスハンドル
 		NULL);							// ウインドウ作成データ
 
-	// メモリ確保
+	// マネージャーのインスタンス取得
 	pManager = CManager::GetInstance();
 
 	// マネージャーの初期化処理

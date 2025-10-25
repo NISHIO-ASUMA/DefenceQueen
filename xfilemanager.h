@@ -40,18 +40,28 @@ public:
 
 	HRESULT Load(void);
 	void UnLoad(void);
-	void LoadModel(const char* pModelName);
 	int Register(const char* pFileName);
 
-	XFILEDATA GetInfo(const int nIdx) { return m_aFileData[nIdx]; } // 配列番号取得
-	std::vector<XFILEDATA>& GetList(void) { return m_aFileData; } // オブジェクト本体
+	/// <summary>
+	/// 配列番号を指定して情報を取得
+	/// </summary>
+	/// <param name="nIdx">取得するオブジェクトインデックス</param>
+	/// <returns>インデックス番号に応じたデータ</returns>
+	XFILEDATA GetInfo(const int nIdx) { return m_aFileData[nIdx]; }
+
+	/// <summary>
+	/// 動的配列の取得
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns>配列ポインタ</returns>
+	std::vector<XFILEDATA>& GetList(void) { return m_aFileData; }
 
 private:
 
-	HRESULT LoadJson(void); // json読み込み
+	HRESULT LoadJson(void);					// jsonfile読み込み関数
+	void LoadModel(const char* pModelName); // モデル登録関数
 
-	// 動的配列
-	std::vector<XFILEDATA>m_aFileData;	// モデル管理配列
+	std::vector<XFILEDATA>m_aFileData;	// モデルデータ管理配列
 	static int m_nNumAll; // モデルの総数
 };
 
