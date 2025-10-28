@@ -53,6 +53,7 @@ CPlayerStateNeutral::~CPlayerStateNeutral()
 //==================================
 void CPlayerStateNeutral::OnStart()
 {
+#if 0
 	// 直前が着地なら
 	if (m_pPlayer->GetMotion()->GetMotionType() == CPlayer::MOTION_LANDING)
 	{
@@ -64,6 +65,7 @@ void CPlayerStateNeutral::OnStart()
 		// ニュートラルモーションに設定
 		m_pPlayer->GetMotion()->SetMotion(CPlayer::MOTION_NEUTRAL, true, 5, false);
 	}
+#endif
 }
 //==================================
 // 待機状態更新関数
@@ -119,8 +121,6 @@ CPlayerStateAction::~CPlayerStateAction()
 //==================================
 void CPlayerStateAction::OnStart()
 {
-	// 攻撃モーションに変更
-	m_pPlayer->GetMotion()->SetMotion(CPlayer::MOTION_ACTION);
 }
 //==================================
 // 攻撃状態更新関数

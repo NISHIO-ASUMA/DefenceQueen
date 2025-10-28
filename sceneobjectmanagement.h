@@ -18,12 +18,12 @@ class CSceneObjectManagement
 public:
 
 	CSceneObjectManagement();
-	virtual ~CSceneObjectManagement();
+	~CSceneObjectManagement();
 
-	virtual HRESULT Init(void);
-	virtual void Uninit(void);
-	virtual void Update(void);
-	virtual void Draw(void);
+	HRESULT Init(void);
+	void Uninit(void);
+	void Update(void);
+	void Draw(void);
 
 private:
 

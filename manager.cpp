@@ -116,14 +116,10 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 
 	// テクスチャ生成
 	m_pTexture = std::make_unique <CTexture>();
-
-	// テクスチャ全読み込み
 	m_pTexture->Load();
 
 	// Xファイルオブジェクトマネージャー生成
 	m_pXfileManager = std::make_unique <CXfileManager>();
-
-	// 全モデルの読み込み
 	m_pXfileManager->Load();
 
 	// フェード生成
@@ -137,7 +133,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	}
 
 #ifdef _DEBUG
-	// シーンセット
+	// デバッグ用シーンセット
 	m_pFade->SetFade(std::make_unique<CGame>());
 #else
 	// シーンセット

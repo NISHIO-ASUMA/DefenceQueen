@@ -51,9 +51,12 @@ public:
 	virtual void Draw(void) override;
 
 	void SetPos(const D3DXVECTOR3 pos) { m_pos = pos; }
-	void SetRot(const D3DXVECTOR3 rot) { m_rot = rot; }
-	void SetScale(const D3DXVECTOR3 scale = INITSCALE) { m_scale = scale; }
 	void SetOldPos(const D3DXVECTOR3 posOld) { m_posOld = posOld; }
+
+	void SetRot(const D3DXVECTOR3 rot) { m_rot = rot; }
+	void SetRotDest(const D3DXVECTOR3 rotdest) { m_rotDest = rotdest; }
+
+	void SetScale(const D3DXVECTOR3 scale = INITSCALE) { m_scale = scale; }
 	void SetMove(const D3DXVECTOR3 move) { m_move = move; }
 	void SetMoveValue(const float fValue) { m_fMoveValue = fValue; }
 	void SetType(TYPE Type) { m_type = Type; }
@@ -64,6 +67,7 @@ public:
 	D3DXVECTOR3 GetOldPos(void) const { return m_posOld; }
 	D3DXVECTOR3 GetRot(void) const { return m_rot; }
 	D3DXVECTOR3 GetMove(void) const { return m_move; }
+	D3DXVECTOR3 GetRotDest(void) const { return m_rotDest; }
 
 	/// <summary>
 	/// モーションのポインタを返す

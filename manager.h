@@ -54,12 +54,11 @@ public:
 	CFade* GetFade(void) { return m_pFade.get(); }
 	CXfileManager* GetXManager(void) { return m_pXfileManager.get(); }
 
-	// シーン関連
 	CScene* GetSceneRaw(void) { return m_pScene.get(); }	// 生ポインタを返す
-	void SetScene(std::unique_ptr<CScene> pNewScene);	// unique_ptrで受け取る
+	void SetScene(std::unique_ptr<CScene> pNewScene);		// unique_ptrで受け取る
 	CScene::MODE GetScene(void);
 
-	// インスタンス取得
+	// マネージャークラスのインスタンス取得
 	static CManager* GetInstance(void)
 	{
 		static CManager pManeger;

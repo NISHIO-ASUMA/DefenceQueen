@@ -107,6 +107,6 @@ void CBlock::Draw(void)
 //=====================================
 bool CBlock::Collision(CBoxCollider* pOther, D3DXVECTOR3* OutPos)
 {
-	// ‹éŒ`‚Ì“–‚½‚è”»’è‚ð•Ô‚·
+	// ‹éŒ`“¯Žm‚Ì“–‚½‚è”»’è‚ð•Ô‚·
 	return CCollisionBox::Collision(m_pCollider, pOther, OutPos);
 }

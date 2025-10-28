@@ -23,6 +23,7 @@ public:
 	{
 		TYPE_NONE,
 		TYPE_PLAYER,
+		TYPE_ARRAY,
 		TYPE_MESH,
 		TYPE_BULLET,
 		TYPE_BOSS,

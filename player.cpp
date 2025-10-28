@@ -29,21 +29,15 @@
 #include "statemachine.h"
 #include "boxcollider.h"
 #include "collisionbox.h"
+#include "motion.h"
 
 //**********************
 // 名前空間
 //**********************
 namespace PLAYERINFO
 {
-	constexpr float MOVE = 0.015f;		 // 1フレームの移動量
-	constexpr float JUMPVALUE = 18.3f;	 // ジャンプ量
-	constexpr float GRAVITY = 1.5f;		 // 重力値
-	constexpr float HITRADIUS = 25.0f;	 // 当たり判定の半径
-	constexpr float AVOID_COOLTIME = 5.0f;	// 回避のクールタイム
-	constexpr float RADIUS = 550.0f;		// 半径
-	constexpr int   NUMBER_MAIN = 0;	 // メイン操作プレイヤー番号
-	constexpr int   NUMBER_SUB = 1;		 // 分身操作プレイヤー番号
-	constexpr int   KeyRepeatCount = 15; // キーのリピート最大カウント
+	constexpr float MOVE = 4.5f;		 // 1フレームの移動量
+	constexpr float NorRot = D3DX_PI * 2.0f; // 正規化値
 };
 
 //**********************
@@ -126,6 +120,7 @@ HRESULT CPlayer::Init(void)
 	// コライダー生成
 	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(50.0f,40.0f,50.0f));
 
+	// モーション取得
 	m_pMotion = CMoveCharactor::GetMotion();
 
 	// 結果を返す
@@ -163,14 +158,9 @@ void CPlayer::Update(void)
 	// 座標取得
 	D3DXVECTOR3 pos = GetPos();
 
-	// 現在シーン取得
-	CScene::MODE nMode = CManager::GetInstance()->GetInstance()->GetScene();
-
 	// 入力デバイスのポインタ取得
-	CInputKeyboard* pInput = nullptr;
-	CJoyPad* pJoyPad = nullptr;
-	pInput = CManager::GetInstance()->GetInputKeyboard();
-	pJoyPad = CManager::GetInstance()->GetJoyPad();
+	CInputKeyboard* pInput = CManager::GetInstance()->GetInputKeyboard();
+	CJoyPad* pJoyPad = CManager::GetInstance()->GetJoyPad();
 
 	// nullptrじゃないとき
 	if (m_pStateMachine != nullptr)
@@ -179,11 +169,15 @@ void CPlayer::Update(void)
 		m_pStateMachine->Update();
 	}
 
-	// キャラクタークラスの座標セット
-	// CMoveCharactor::SetPos();
+	// 移動処理
+	MoveKey(pInput,pJoyPad);
+	MovePad(pJoyPad);
 
 	// コライダーの位置更新
 	m_pBoxCollider->SetPos(pos);
+
+	// 座標セット
+	SetPos(pos);
 
 	// ブロックとの当たり判定
 	CollisionBlock(&pos);
@@ -198,6 +192,226 @@ void CPlayer::Draw(void)
 {
 	// キャラクターの描画処理
 	CMoveCharactor::Draw();
+}
+//=========================================
+// キー入力移動関数
+//=========================================
+void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
+{
+	// カメラ取得
+	CCamera* pCamera = CManager::GetInstance()->GetCamera();
+	if (pCamera == nullptr) return;
+
+	// 取得関係
+	D3DXVECTOR3 move = GetMove();
+	D3DXVECTOR3 rot = GetRot();
+	D3DXVECTOR3 rotDest = GetRotDest();
+
+	if (pInput->GetPress(DIK_A) || pPad->GetPress(CJoyPad::JOYKEY_LEFT))
+	{// Aキー
+		if (pInput->GetPress(DIK_W) || pPad->GetPress(CJoyPad::JOYKEY_RIGHT))
+		{// 左斜め上
+
+			move.x += sinf(pCamera->GetRot().y - D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
+			move.z += cosf(pCamera->GetRot().y - D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
+			rotDest.y = pCamera->GetRot().y + (D3DX_PI * 0.75f);
+
+			// モーション変更
+			m_pMotion->SetMotion(MOTION_MOVE);
+
+		}
+		else if (pInput->GetPress(DIK_S) || pPad->GetPress(CJoyPad::JOYKEY_DOWN))
+		{// 右斜め下
+
+			move.x -= sinf(pCamera->GetRot().y + D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
+			move.z -= cosf(pCamera->GetRot().y + D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
+			rotDest.y = pCamera->GetRot().y + (D3DX_PI * 0.25f);
+
+			// モーション変更
+			m_pMotion->SetMotion(MOTION_MOVE);
+		}
+		else
+		{// 単体
+			move.x -= sinf(pCamera->GetRot().y + (D3DX_PI * 0.5f)) * PLAYERINFO::MOVE;
+			move.z -= cosf(pCamera->GetRot().y + (D3DX_PI * 0.5f)) * PLAYERINFO::MOVE;
+			rotDest.y = pCamera->GetRot().y + (D3DX_PI * 0.5f);
+
+			// モーション変更
+			m_pMotion->SetMotion(MOTION_MOVE);
+		}
+
+		// 角度の正規化
+		if (rot.y > D3DX_PI)
+		{// D3DX_PIより大きくなったら
+			rot.y -= PLAYERINFO::NorRot;
+		}
+	}
+	else if (pInput->GetPress(DIK_D) || pPad->GetPress(CJoyPad::JOYKEY_RIGHT))
+	{// Dキーを押した
+
+		if (pInput->GetPress(DIK_W) || pPad->GetPress(CJoyPad::JOYKEY_UP))
+		{// Wキーを押した
+			move.x += sinf(pCamera->GetRot().y + D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
+			move.z += cosf(pCamera->GetRot().y + D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
+			rotDest.y = pCamera->GetRot().y - (D3DX_PI * 0.75f);
+
+			// モーション変更
+			m_pMotion->SetMotion(MOTION_MOVE);
+
+		}
+		else if (pInput->GetPress(DIK_S) || pPad->GetPress(CJoyPad::JOYKEY_DOWN))
+		{// Sキーを押した
+			move.x -= sinf(pCamera->GetRot().y - D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
+			move.z -= cosf(pCamera->GetRot().y - D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
+			rotDest.y = pCamera->GetRot().y - (D3DX_PI * 0.25f);
+
+			// モーション変更
+			m_pMotion->SetMotion(MOTION_MOVE);
+		}
+		else
+		{// Dキーのみ押した
+			move.x += sinf(pCamera->GetRot().y + (D3DX_PI * 0.5f)) * PLAYERINFO::MOVE;
+			move.z += cosf(pCamera->GetRot().y + (D3DX_PI * 0.5f)) * PLAYERINFO::MOVE;
+			rotDest.y = pCamera->GetRot().y - (D3DX_PI * 0.5f);
+
+			// モーション変更
+			m_pMotion->SetMotion(MOTION_MOVE);
+		}
+
+		// 角度の正規化
+		if (rot.y > D3DX_PI)
+		{// D3DX_PIより大きくなったら
+			rot.y -= PLAYERINFO::NorRot;
+		}
+	}
+	else if (pInput->GetPress(DIK_W) || pPad->GetPress(CJoyPad::JOYKEY_UP))
+	{// Wキーを押した
+
+		move.x += sinf(pCamera->GetRot().y) * PLAYERINFO::MOVE;
+		move.z += cosf(pCamera->GetRot().y) * PLAYERINFO::MOVE;
+		rotDest.y = pCamera->GetRot().y - D3DX_PI;
+
+		// モーション変更
+		m_pMotion->SetMotion(MOTION_MOVE);
+	
+		// 角度を正規化
+		if (rot.y < -D3DX_PI)
+		{// D3DX_PIより小さくなったら
+			rot.y += PLAYERINFO::NorRot;
+		}
+
+	}
+	else if (pInput->GetPress(DIK_S) || pPad->GetPress(CJoyPad::JOYKEY_DOWN))
+	{// Sキーを押した
+
+		move.x -= sinf(pCamera->GetRot().y) * PLAYERINFO::MOVE;
+		move.z -= cosf(pCamera->GetRot().y) * PLAYERINFO::MOVE;
+		rotDest.y = pCamera->GetRot().y;
+
+		// モーション変更
+		m_pMotion->SetMotion(MOTION_MOVE);
+
+		// 角度の正規化
+		if (rot.y > D3DX_PI)
+		{// D3DX_PIより大きくなったら
+			rot.y -= PLAYERINFO::NorRot;
+		}
+	}
+	else
+	{
+		if (m_pMotion->GetMotionType() == MOTION_MOVE)
+		{
+			//　モーション切り替え
+			m_pMotion->SetMotion(MOTION_NEUTRAL, true, 10, false);
+		}
+	}
+
+	if (rotDest.y - rot.y > D3DX_PI)
+	{// 左回転
+		// 角度
+		rot.y = rot.y + PLAYERINFO::NorRot;
+	}
+	else if (rot.y - rotDest.y > D3DX_PI)
+	{// 右回転
+		// 角度
+		rot.y = rot.y - PLAYERINFO::NorRot;
+	}
+
+	// 現在の角度
+	rot.y += (rotDest.y - rot.y) * 0.25f;
+
+	// キャラクターに適用する
+	SetRot(rot);
+	SetRotDest(rotDest);
+	SetMove(move);
+}
+//=========================================
+// ジョイパッド入力移動関数
+//=========================================
+void CPlayer::MovePad(CJoyPad* pPad)
+{
+	// パッド取得
+	XINPUT_STATE* pStick;
+	pStick = pPad->GetStickAngle();
+
+	// カメラ取得
+	CCamera* pCamera = CManager::GetInstance()->GetCamera();
+	if (pCamera == nullptr) return;
+
+	// キャラクター情報の取得
+	D3DXVECTOR3 move = GetMove();
+	D3DXVECTOR3 rotDest = GetRotDest();
+
+	// フラグ
+	bool isMoving = false;
+
+	// 取得できたら
+	if (pPad->GetLeftStick())
+	{
+		// 左スティックの角度
+		float LStickAngleY = pStick->Gamepad.sThumbLY;
+		float LStickAngleX = pStick->Gamepad.sThumbLX;
+
+		// デッドゾーンを設定
+		float DeadZone = 32767.0f * 0.25f;
+		float fMag = sqrtf((LStickAngleX * LStickAngleX) + (LStickAngleY * LStickAngleY));
+
+		if (fMag > DeadZone)
+		{
+			// 正規化
+			float normalizeX = (LStickAngleX / fMag);
+			float normalizeY = (LStickAngleY / fMag);
+
+			// 移動量
+			float MoveX = normalizeX * cosf(-pCamera->GetRot().y) - normalizeY * sinf(-pCamera->GetRot().y);
+			float MoveZ = normalizeX * sinf(-pCamera->GetRot().y) + normalizeY * cosf(-pCamera->GetRot().y);
+
+			// プレイヤーの移動量を設定
+			move.x += MoveX * PLAYERINFO::MOVE;
+			move.z += MoveZ * PLAYERINFO::MOVE;
+			rotDest.y = atan2f(-MoveX, -MoveZ);
+			isMoving = true;
+		}
+	}
+
+	if (isMoving)
+	{
+		if (m_pMotion->GetMotionType() != MOTION_MOVE)
+		{
+			m_pMotion->SetMotion(MOTION_MOVE);
+		}
+	}
+	else
+	{
+		if (m_pMotion->GetMotionType() == MOTION_MOVE)
+		{
+			m_pMotion->SetMotion(MOTION_NEUTRAL, true, 10, false);
+		}
+	}
+
+	// 適用
+	SetMove(move);
+	SetRotDest(rotDest);
 }
 
 //=========================================

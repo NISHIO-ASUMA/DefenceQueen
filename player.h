@@ -59,6 +59,10 @@ public:
 	void Uninit(void) override;
 	void Update(void) override;
 	void Draw(void) override;
+
+	void MoveKey(CInputKeyboard* pInput,CJoyPad * pPad);
+	void MovePad(CJoyPad* pPad);
+
 	void ChangeState(CPlayerStateBase* pNewState,int Id);
 	bool CollisionBlock(D3DXVECTOR3 * pos);
 

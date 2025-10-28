@@ -24,6 +24,7 @@ class CParameter;
 class CShadowS;
 class CStateMachine;
 class CMotion;
+class CSphereCollider;
 
 //********************************
 // プレイヤーの仲間クラスを定義
@@ -31,6 +32,17 @@ class CMotion;
 class CArray : public CMoveCharactor
 {
 public:
+	//************************
+	// 使用モーション数
+	//************************
+	enum MOTION
+	{
+		MOTION_NEUTRAL,
+		MOTION_MOVE,
+		MOTION_DEATH,
+		MOTION_MAX
+	};
+
 	CArray(int nPriority = static_cast<int>(CObject::PRIORITY::CHARACTOR));
 	~CArray();
 
@@ -38,9 +50,14 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+	bool Colision(CSphereCollider* other);
 
-	static CArray* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot);
+	static CArray* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,const int nLife);
 
 private:
 
+	std::unique_ptr<CParameter>m_pParameter;		// パラメータークラスポインタ
+	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
+	CMotion* m_pMotion;					// モーションポインタ
+	CSphereCollider* m_pSphereCollider;	// 球形のコライダー
 };
