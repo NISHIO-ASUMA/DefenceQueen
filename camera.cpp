@@ -12,13 +12,7 @@
 #include "manager.h"
 #include "input.h"
 #include "debugproc.h"
-#include "gamemanager.h"
 #include "template.h"
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <string>
-#include <iomanip>
 
 //**********************
 // 定数宣言
@@ -28,10 +22,6 @@ namespace CAMERAINFO
 	constexpr float MAX_VIEWUP = 3.0f;			// カメラの角度制限値
 	constexpr float MAX_VIEWDOWN = 0.1f;		// カメラの角度制限値
 	constexpr float NorRot = D3DX_PI * 2.0f;	// 正規化値
-	constexpr float CAMERABACKPOS = 450.0f;		// 後方カメラ
-	constexpr float SHAKEVALUE = 12.0f;			// 振動の値
-	constexpr float DIGITVALUE = 1.5f;		// 割る値
-	constexpr int RANDOMBASE = 2;			// ランダム基準値
 }
 
 //=================================
@@ -49,48 +39,6 @@ CCamera::CCamera()
 	m_pCamera.posRDest = VECTOR3_NULL;
 	m_pCamera.fDistance = NULL;
 	m_pCamera.nMode = MODE_NONE;
-	m_pCamera.nUseKey = NULL;
-	m_pCamera.nCntAnim = NULL;
-
-	// イベント用
-	m_event.isActive = false;
-	m_event.endFrame = NULL;
-	m_event.frame = NULL;
-	m_event.startPosR = VECTOR3_NULL;
-	m_event.startPosV = VECTOR3_NULL;
-	m_event.targetPosR = VECTOR3_NULL;
-	m_event.targetPosV = VECTOR3_NULL;
-
-	// アニメーション用
-	m_pCamera.m_AnimData.isLoop = false;
-	m_pCamera.m_AnimData.nNumKey = 20;
-
-	// キー構造体変数のクリア
-	for (int nCnt = 0; nCnt < NUMKEY; nCnt++)
-	{
-		m_pCamera.m_AnimData.KeyInfo[nCnt].fDistance = 780.0f;
-		m_pCamera.m_AnimData.KeyInfo[nCnt].fPosRX = NULL;
-		m_pCamera.m_AnimData.KeyInfo[nCnt].fPosRY = NULL;
-		m_pCamera.m_AnimData.KeyInfo[nCnt].fPosRZ = NULL;
-
-		m_pCamera.m_AnimData.KeyInfo[nCnt].fPosVX = NULL;
-		m_pCamera.m_AnimData.KeyInfo[nCnt].fPosVY = NULL;
-		m_pCamera.m_AnimData.KeyInfo[nCnt].fPosVZ = NULL;
-
-		m_pCamera.m_AnimData.KeyInfo[nCnt].fRotX = NULL;
-		m_pCamera.m_AnimData.KeyInfo[nCnt].fRotY = NULL;
-		m_pCamera.m_AnimData.KeyInfo[nCnt].fRotZ = NULL;
-		m_pCamera.m_AnimData.KeyInfo[nCnt].nAnimFrame = 40;
-	}
-
-	m_isAnimTime = false;
-	m_nAnimNowKey = NULL;
-	m_nFileIdx = NULL;
-	m_nAnimShakeFlame = NULL;
-	m_isCreate = false;
-	m_isShake = false;
-	m_nShakeTime = NULL;
-	m_isLoad = false;
 }
 //=================================
 // デストラクタ
@@ -132,14 +80,7 @@ void CCamera::Uninit(void)
 // 更新処理
 //=================================
 void CCamera::Update(void)
-{
-	// 振動有効時
-	if (m_isShake)
-	{
-		// 振動更新
-		UpdateShake();
-	}
-	
+{	
 	// 角度の正規化
 	if (m_pCamera.rot.y > D3DX_PI)
 	{// D3DX_PIより大きくなったら
@@ -277,11 +218,13 @@ void CCamera::MouseView(CInputMouse * pMouse)
 		m_pCamera.rot.x += -CAMERAINFO::NorRot;
 	}
 }
+#if 0
 //=============================
 // 振動更新関数
 //=============================
 void CCamera::UpdateShake(void)
 {
+
 	// シェイク適用
 	if (m_isShake && (!m_event.isActive))
 	{
@@ -309,3 +252,4 @@ void CCamera::UpdateShake(void)
 		}
 	}
 }
+#endif

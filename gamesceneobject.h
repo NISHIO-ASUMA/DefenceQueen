@@ -30,9 +30,8 @@ public:
 	void Uninit(void);
 	void Update(void);
 
-	static CScore* GetScore(void) { return m_pScore; } // ポインタを返す
+	static CScore* GetScore(void) { return m_pScore; } 
 
 private:
-
 	static CScore* m_pScore; // スコアクラスのポインタ
 };

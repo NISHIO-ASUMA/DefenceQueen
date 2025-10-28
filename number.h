@@ -23,11 +23,12 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-	void SetTexture(const char * pTexName);
 
-	void SetPos(D3DXVECTOR3 pos) { m_pos = pos;}
+	void SetTexture(const char * pTexName);
 	void SetSize(float fWidth, float fHeight);
 	void SetDigit(int nDigit);
+
+	void SetPos(D3DXVECTOR3 pos) { m_pos = pos;}
 	void SetCol(D3DXCOLOR col);
 	void SetFlash(const int nStartFrame, const int nEndFrame, D3DXCOLOR col);
 
@@ -38,7 +39,6 @@ private:
 	static constexpr float DIGIT_VALUE = 0.1f; // テクスチャ分割数割合
 
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファのポインタ
-
 	D3DXVECTOR3 m_pos;				// 座標情報
 	D3DXCOLOR m_col;				// 色情報
 	float m_fWidth, m_fHeight;		// 横幅,高さ

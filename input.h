@@ -115,10 +115,10 @@ private:
 	XINPUT_STATE m_joyKeyStateTrigger; // ジョイパッドのトリガー情報
 
 	int m_nPressCount;					// 入力カウント
-	int m_leftMotor; // 左モーターの強さ
-	int m_rightMotor; // 右モーターの強さ
-	DWORD m_VibrationEndTime; // 振動終了時刻
-	bool m_isVibration;   // 振動中かどうか
+	int m_leftMotor;					// 左モーターの強さ
+	int m_rightMotor;					// 右モーターの強さ
+	DWORD m_VibrationEndTime;			// 振動終了時刻
+	bool m_isVibration;					// 振動中かどうか
 };
 
 //*******************************
@@ -150,11 +150,12 @@ public:
 	bool GetTriggerUp(int button_type);
 	bool GetPress(int button_type);
 	bool GetState(DIMOUSESTATE* mouseState);
+
 	D3DXVECTOR2 GetMouseVelocity() { return D3DXVECTOR2((float)m_CurrentMouseState.lX, (float)m_CurrentMouseState.lY); }
 	D3DXVECTOR2 GetMouseOldVelocity() { return D3DXVECTOR2((float)m_PrevState.lX, (float)m_PrevState.lY); }
-	BOOL IsMouseWheelPresent(void);
+	BOOL IsMouseWheelPresent(void) { return (GetSystemMetrics(SM_MOUSEWHEELPRESENT) != 0); }
 
 private:
-	DIMOUSESTATE m_PrevState;		// マウス状態
-	DIMOUSESTATE m_CurrentMouseState; // 現在状態
+	DIMOUSESTATE m_PrevState;			// マウス状態
+	DIMOUSESTATE m_CurrentMouseState;	// 現在のマウス状態
 };

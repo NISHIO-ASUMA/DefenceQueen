@@ -11,22 +11,12 @@
 #include "tutorialui.h"
 #include "manager.h"
 
-//******************************
-// 名前空間
-//******************************
-namespace TUTORIAL_UIINFO
-{
-	constexpr float MOVEDOWNVALUE = 5.0f;		// 移動速度
-	constexpr float MAX_MOVEWIDTH = 1120.0f;	// 最大座標
-}
-
 //==============================
 // コンストラクタ
 //==============================
 CTutorialUi::CTutorialUi(int nPriority) : CObject2D(nPriority)
 {
 	// 値のクリア
-	m_nState = STATE_AWAIT;
 	m_fAlpha = 1.0f;
 }
 //==============================
@@ -34,6 +24,7 @@ CTutorialUi::CTutorialUi(int nPriority) : CObject2D(nPriority)
 //==============================
 CTutorialUi::~CTutorialUi()
 {
+	// 破棄
 	CObject2D::Uninit();
 }
 //==============================
@@ -89,57 +80,6 @@ void CTutorialUi::Uninit(void)
 //==============================
 void CTutorialUi::Update(void)
 {
-	// 現在座標を取得
-	D3DXVECTOR3 NowPos = GetPos();
-
-	//  種類分け
-	switch (m_nState)
-	{
-	case STATE_AWAIT:
-
-		// 状態変更
-		m_nState = STATE_MOVE;
-
-		break;
-
-	case STATE_MOVE:
-
-		// 移動量を加算
-		NowPos.x -= TUTORIAL_UIINFO::MOVEDOWNVALUE;
-
-		// 上限に達したら
-		if (NowPos.x <= TUTORIAL_UIINFO::MAX_MOVEWIDTH)
-		{
-			// 横幅設定
-			NowPos.x = TUTORIAL_UIINFO::MAX_MOVEWIDTH;
-
-			// 状態変更
-			m_nState = STATE_STOP;
-		}
-		break;
-
-	case STATE_STOP:
-		break;
-
-	case STATE_EXIT:
-		// α値を減少
-		m_fAlpha -= 0.03f;
-
-		if (m_fAlpha <= 0.0f)
-		{
-			m_fAlpha = 0.0f;
-		}
-
-		break;
-
-	default:
-		break;
-	}
-
-	// オブジェクトの設定
-	SetPos(NowPos);
-	SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, m_fAlpha));
-
 	// オブジェクト2Dの更新処理
 	CObject2D::Update();
 }
@@ -150,11 +90,4 @@ void CTutorialUi::Draw(void)
 {
 	// オブジェクト2Dの描画処理
 	CObject2D::Draw();
-}
-//==============================
-// カラー判定を取得
-//==============================
-bool CTutorialUi::IsFinished() const
-{
-	return (m_fAlpha <= 0.0f);
 }

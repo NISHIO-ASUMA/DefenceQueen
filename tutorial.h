@@ -14,6 +14,7 @@
 // インクルードファイル
 //**********************
 #include "scene.h"
+#include <memory>
 
 //**********************
 // 前方宣言
@@ -26,6 +27,7 @@ class CTutorialManager;
 class CTutorial : public CScene
 {
 public:
+
 	CTutorial();
 	~CTutorial();
 
@@ -34,8 +36,6 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	static CTutorial* Create(void);
-
 private:
-	CTutorialManager* m_pTutoManager; // マネージャークラスのポインタ
+	std::unique_ptr<CTutorialManager>m_pTutoManager; // マネージャークラスのポインタ
 };

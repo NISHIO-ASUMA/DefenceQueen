@@ -40,6 +40,12 @@ public:
 
 	HRESULT Load(void);
 	void UnLoad(void);
+
+	/// <summary>
+	/// Xƒtƒ@ƒCƒ‹‚Ì“o˜^‚ð‚·‚é
+	/// </summary>
+	/// <param name="pFileName">“o˜^‚·‚éƒ‚ƒfƒ‹–¼</param>
+	/// <returns></returns>
 	int Register(const char* pFileName);
 
 	/// <summary>

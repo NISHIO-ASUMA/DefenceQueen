@@ -77,15 +77,3 @@ void CLoad::SaveIntToArray(const char* savefilename, const std::vector<int>& Arr
 	// ファイルを閉じる
 	Openfile.close();
 }
-//=============================
-// ポインタ生成
-//=============================
-CLoad* CLoad::Create(void)
-{
-	// インスタンス生成
-	CLoad* pLoad = new CLoad;
-	if (pLoad == nullptr) return nullptr;
-	
-	// ポインタを返す
-	return pLoad;
-}

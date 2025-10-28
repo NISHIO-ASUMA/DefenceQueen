@@ -18,13 +18,9 @@
 //==========================
 // コンストラクタ
 //==========================
-CTutorialManager::CTutorialManager()
+CTutorialManager::CTutorialManager() : m_pTutoui(nullptr)
 {
 	// 値のクリア
-	m_pTutoui = nullptr;
-	m_isFreeDone = false;
-	m_isCreate = false;
-	m_Tasktype = TASKTYPE_MOVE;
 }
 //==========================
 // デストラクタ
@@ -38,9 +34,6 @@ CTutorialManager::~CTutorialManager()
 //==========================
 HRESULT CTutorialManager::Init(void)
 {
-	// 初期化
-	m_isCreate = false;
-
 	// ui生成
 	CUi::Create(D3DXVECTOR3(65.0f, 200.0f, 0.0f), 0, 60.0f, 30.0f, "bullet.png", false);
 
@@ -59,11 +52,5 @@ void CTutorialManager::Uninit(void)
 //==========================
 void CTutorialManager::Update(void)
 {
-	// 入力デバイス取得
-	CInputKeyboard* pKey = CManager::GetInstance()->GetInputKeyboard();
-	CJoyPad* pJoyPad = CManager::GetInstance()->GetJoyPad();
 
-	// 取得失敗時
-	if (pKey == nullptr) return;
-	if (pJoyPad == nullptr) return;
 }

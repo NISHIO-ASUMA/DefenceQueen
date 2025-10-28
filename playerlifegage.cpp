@@ -33,7 +33,7 @@ namespace PLAYERLIFEINFO
 //========================
 // コンストラクタ
 //========================
-CPlayerLifeGage::CPlayerLifeGage(int nPriority) : CGage(nPriority)
+CPlayerLifeGage::CPlayerLifeGage(int nPriority) : CGauge(nPriority)
 {
 	// 値のクリア
 	m_pPlayer = nullptr;
@@ -109,7 +109,7 @@ void CPlayerLifeGage::Update(void)
 		m_nLifeLength = pParam->GetHp();
 
 		// ゲージの長さ設定
-		SetGageLength(m_nMaxLifeLength, m_nLifeLength, PLAYERLIFEINFO::VALUELENGTH, PLAYERLIFEINFO::GAGE_HEIGHT);
+		// SetGaugeLength(m_nMaxLifeLength, m_nLifeLength, PLAYERLIFEINFO::VALUELENGTH, PLAYERLIFEINFO::GAGE_HEIGHT);
 	}
 
 	if (m_pPlayer != nullptr)

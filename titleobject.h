@@ -16,6 +16,7 @@
 class CTitleObject
 {
 public:
+
 	CTitleObject();
 	~CTitleObject();
 

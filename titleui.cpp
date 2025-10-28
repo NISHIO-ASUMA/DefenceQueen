@@ -71,16 +71,10 @@ CTitleUi* CTitleUi::Create(D3DXVECTOR3 pos, D3DXCOLOR col, float fWidth, float f
 {
 	// インスタンス生成
 	CTitleUi* pTitleui = new CTitleUi;
-
-	// nullだったら
 	if (pTitleui == nullptr) return nullptr;
 
 	// 初期化失敗時
-	if (FAILED(pTitleui->Init())) 
-	{
-		// nullを返す
-		return nullptr;
-	}
+	if (FAILED(pTitleui->Init())) return nullptr;
 
 	// 2Dオブジェクト設定
 	pTitleui->SetPos(pos);

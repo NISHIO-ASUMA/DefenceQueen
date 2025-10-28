@@ -20,7 +20,8 @@
 //=====================================
 CTitle::CTitle() : CScene(CScene::MODE_TITLE)
 {
-	//無し
+	// 値のクリア
+	m_pTitleManager = nullptr;
 }
 //=====================================
 // デストラクタ
@@ -35,9 +36,7 @@ CTitle::~CTitle()
 HRESULT CTitle::Init(void)
 {
 	// インスタンス生成
-	m_pTitleManager = new CTitleManager();
-
-	// 生成失敗時
+	m_pTitleManager = std::make_unique<CTitleManager>();
 	if (m_pTitleManager == nullptr) return E_FAIL;
 
 	// マネージャーの初期化処理
@@ -51,18 +50,8 @@ HRESULT CTitle::Init(void)
 //=====================================
 void CTitle::Uninit(void)
 {
-	// nullチェック
-	if (m_pTitleManager != nullptr)
-	{
-		// 終了処理
-		m_pTitleManager->Uninit();
-
-		// 破棄
-		delete m_pTitleManager;
-
-		// nullptrする
-		m_pTitleManager = nullptr;
-	}
+	// 破棄
+	m_pTitleManager.reset();
 }
 //=====================================
 // 更新処理

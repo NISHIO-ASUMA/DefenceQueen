@@ -21,26 +21,37 @@
 class CTexture
 {
 public:
-	// コンストラクタ・デストラクタ
+
 	CTexture();
 	~CTexture();
 
-	// メンバ関数
 	HRESULT Load(void);
 	void UnLoad(void);
+
+	/// <summary>
+	/// テクスチャを配列に登録する
+	/// </summary>
+	/// <param name="pFileName">登録名</param>
+	/// <returns></returns>
 	int Register(const char* pFileName);
+
+	/// <summary>
+	/// 指定インデックスのアドレスを取得する
+	/// </summary>
+	/// <param name="nIdx">テクスチャ登録番号</param>
+	/// <returns></returns>
 	LPDIRECT3DTEXTURE9 GetAddress(int nIdx);
 
 private:
 
-	HRESULT LoadJson(void);
+	HRESULT LoadJson(void);		// json読み込み関数
 
 	//*************************
 	// テクスチャデータ構造体
 	//*************************
 	struct TEXDATA
 	{
-		std::string TexName; // テクスチャ名
+		std::string TexName;		// テクスチャ名
 		LPDIRECT3DTEXTURE9 TexData; // テクスチャポインタ
 	};
 

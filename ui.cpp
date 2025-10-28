@@ -78,8 +78,6 @@ CUi* CUi::Create(D3DXVECTOR3 pos, int nFlashFrame,float fWidth, float fHeight, c
 {
 	// インスタンス生成
 	CUi* pUi = new CUi;
-
-	// nullなら
 	if (pUi == nullptr) return nullptr;
 
 	// 初期化失敗時

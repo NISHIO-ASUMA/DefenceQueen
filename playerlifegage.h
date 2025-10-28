@@ -13,7 +13,7 @@
 //**********************
 // インクルードファイル
 //**********************
-#include "gage.h"
+#include "gauge.h"
 
 //**********************
 // 前方宣言
@@ -24,7 +24,7 @@ class CObject;
 //*************************
 // 体力ゲージクラスを定義
 //*************************
-class CPlayerLifeGage : public CGage
+class CPlayerLifeGage : public CGauge
 {
 public:
 	//**********************

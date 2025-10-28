@@ -37,5 +37,5 @@ public:
 	void Update(void);
 
 private:
-};
 
+};

@@ -10,7 +10,7 @@
 //***********************
 #include "debugproc.h"
 #include <time.h>
-#include <stdio.h>
+#include <cstdio>
 #include "manager.h"
 #include "input.h"
 
@@ -65,13 +65,10 @@ HRESULT CDebugproc::Init(void)
 //===============================
 void CDebugproc::Uninit(void)
 {
-	// NULLチェック
+	// nullチェック
 	if (m_pFont != nullptr)
 	{
-		// 解放
 		m_pFont->Release();
-
-		// nullptrにする
 		m_pFont = nullptr;
 	}
 }

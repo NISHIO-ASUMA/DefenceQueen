@@ -14,6 +14,7 @@
 // インクルードファイル宣言
 //****************************
 #include "scene.h"
+#include <memory>
 
 //**************************
 // 前方宣言
@@ -26,6 +27,7 @@ class CTitleManager;
 class CTitle :public CScene
 {
 public:
+
 	CTitle();
 	~CTitle();
 
@@ -35,5 +37,5 @@ public:
 	void Draw(void);
 
 private:
-	CTitleManager* m_pTitleManager; // マネージャークラスポインタ
+	std::unique_ptr<CTitleManager>m_pTitleManager; // マネージャークラスポインタ
 };

@@ -48,6 +48,6 @@ public:
 private:
 	int m_nCount;			// 進行管理カウント
 	PROGRESS m_Progress;	// 進行状態の種類
-	CGame * m_pGame; // ゲームシーンポインタ
+	CGame * m_pGame;		// ゲームシーンポインタ
 };
 

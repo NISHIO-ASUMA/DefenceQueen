@@ -112,8 +112,8 @@ void CShadowS::Draw(void)
 	// デバイス取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
-	//*****************************************************
-		// ステンシルテストを有効にする
+//*****************************************************
+	// ステンシルテストを有効にする
 	pDevice->SetRenderState(D3DRS_STENCILENABLE, TRUE);
 
 	// ステンシルバッファの画面クリア

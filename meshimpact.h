@@ -21,6 +21,7 @@
 class CMeshImpact : public CObject
 {
 public:
+
 	CMeshImpact(int nPriority = static_cast<int>(CObject::PRIORITY::IMPACT));
 	~CMeshImpact();
 
@@ -31,7 +32,6 @@ public:
 	bool Collision(D3DXVECTOR3* pPos);
 
 	void SetCol(D3DXCOLOR col) { m_col = col; }
-
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
 
 	static CMeshImpact* Create(D3DXVECTOR3 pos, int nLife, float fRadius, float fInRadius,float fSpeed);

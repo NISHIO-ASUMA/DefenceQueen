@@ -119,7 +119,6 @@ void CGame::Update(void)
 
 	// 状態取得
 	auto State = m_pState->GetProgress();
-
 	if (State == m_pState->PROGRESS_END) return;
 
 	// ポーズのキー入力判定
@@ -143,6 +142,7 @@ void CGame::Update(void)
 	// 検証
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_0))
 	{
+		// 状態変更
 		m_pState->SetProgress(CGameState::PROGRESS_END);
 	}
 

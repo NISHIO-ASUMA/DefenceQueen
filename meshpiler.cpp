@@ -337,7 +337,7 @@ void CMeshPiler::Draw(void)
 }
 
 //===============================
-// 当たり判定処理 ( 距離ベース )
+// 当たり判定処理
 //===============================
 bool CMeshPiler::Collision(D3DXVECTOR3* CollisionPos)
 {
@@ -351,9 +351,7 @@ bool CMeshPiler::Collision(D3DXVECTOR3* CollisionPos)
 	D3DXVECTOR3 NowPos = GetPos();
 
 	// XZ平面での距離を求める
-	D3DXVECTOR2 diffXZ = D3DXVECTOR2(CollisionPos->x - NowPos.x,
-		CollisionPos->z - NowPos.z);
-
+	D3DXVECTOR2 diffXZ = D3DXVECTOR2(CollisionPos->x - NowPos.x,CollisionPos->z - NowPos.z);
 	float fRangeXZ = D3DXVec2Length(&diffXZ);
 
 	// 高さ範囲をチェック

@@ -141,8 +141,6 @@ void CNumber::SetTexture(const char* pTexName)
 
 	// パス設定
 	std::string TexPath = "data/TEXTURE/";
-
-	// パス連結
 	TexPath += pTexName;
 
 	// テクスチャ割り当て

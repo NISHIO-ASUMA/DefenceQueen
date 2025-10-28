@@ -21,6 +21,7 @@
 class CMeshField : public CObject
 {
 public:
+
 	CMeshField(int nPrio = static_cast<int>(CObject::PRIORITY::MESH));
 	~CMeshField();
 
@@ -49,12 +50,10 @@ private:
 	D3DXMATRIX m_mtxWorld;	// ワールドマトリックス
 	float m_fRadius;		// X方向の半径
 	float m_fRadiusZ;		// Z方向の半径
-
 	int m_nNumPrimitive;	// プリミティブ数
 	int m_nNumIdx;			// インデックス数
 	int m_nNumAllVtx;		// 全体頂点数
 	int m_nTexIdx;			// テクスチャインデックス
 	int m_nNumX;			// X頂点
 	int m_nNumZ;			// Z頂点
-
 };

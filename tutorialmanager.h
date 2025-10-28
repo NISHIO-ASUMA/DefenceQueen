@@ -21,21 +21,6 @@ class CTutorialUi;
 class CTutorialManager
 {
 public:
-	//***********************
-	// 動かすタスクの種類
-	//***********************
-	enum TASKTYPE
-	{
-		TASKTYPE_MOVE,
-		TASKTYPE_ATTACK,
-		TASKTYPE_JUMP,
-		TASKTYPE_JUMPATTACK,
-		TASKTYPE_AVOID,
-		TASKTYPE_LASER,
-		TASKTYPE_LASERACTION,
-		TASKTYPE_FREE,
-		TASKTYPE_MAX
-	};
 
 	CTutorialManager();
 	~CTutorialManager();
@@ -46,8 +31,4 @@ public:
 
 private:
 	CTutorialUi* m_pTutoui; // チュートリアルuiクラスのポインタ
-	TASKTYPE m_Tasktype;	// 種類
-
-	bool m_isFreeDone;
-	bool m_isCreate;
 };

@@ -28,7 +28,7 @@ class CFade
 public:
 
 	//**********************
-	// フェード状態列挙型
+	// 状態列挙型
 	//**********************
 	enum FADE
 	{
@@ -38,20 +38,20 @@ public:
 		FADE_MAX
 	};
 
-	// コンストラクタ・デストラクタ
 	CFade();
 	~CFade();
 
-	// メンバ関数
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-
-	// ユニークポインタで渡す
+	
+	/// <summary>
+	/// シーンを設定する
+	/// </summary>
+	/// <param name="pNewScene">フェード先のインスタンス</param>
 	void SetFade(std::unique_ptr<CScene> pNewScene);
 
-	// ゲッター
 	FADE GetFade(void) { return m_fade; }
 
 private:
@@ -62,6 +62,5 @@ private:
 	D3DXCOLOR m_col;				// ポリゴンカラー
 	FADE m_fade;					// フェードの列挙型変数
 
-	// 所有権を持つ
-	std::unique_ptr<CScene> m_pScene;
+	std::unique_ptr<CScene> m_pScene; 	// シーンクラスポインタ
 };

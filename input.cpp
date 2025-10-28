@@ -646,10 +646,3 @@ bool CInputMouse::GetState(DIMOUSESTATE* mouseState)
 	return true; // 正常に取得できた場合
 
 }
-//====================================
-// マウスホイールの値を取得
-//====================================
-BOOL CInputMouse::IsMouseWheelPresent(void)
-{
-	return (GetSystemMetrics(SM_MOUSEWHEELPRESENT) != 0);
-}

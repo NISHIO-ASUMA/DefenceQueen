@@ -24,7 +24,7 @@ namespace SHADOWINFO
 //=================================
 CShadow::CShadow(int nPriority) : CObject3D(nPriority)
 {
-
+	// 値のクリア
 }
 //=================================
 // デストラクタ

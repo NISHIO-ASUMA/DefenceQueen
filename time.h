@@ -33,24 +33,24 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-	void Save(void);
 
-	int GetAllTime(void) { return m_nAllTime; }
-	int GetcurrentTime(void) { return m_nSecond; }
+	int GetToAll(void) { return m_nAllTime; }
+	int GetToCurrent(void) { return m_nSecond; }
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
 
 	static CTime* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
 
 private:
-	void Second(void);
-	void Minute(void);
+
+	void Second(void);		// 秒計算
+	void Minute(void);		// 分計算
 
 	static constexpr int DIGIT_TIME = 2;	// 桁数
-	static constexpr int NUMTIME = 150;	// 最大タイマー
+	static constexpr int NUMTIME = 150;		// 最大タイマー
 	static constexpr int CARVETIME = 60;	// カウント上限
-	static constexpr int DIVIDE = 10;	// 桁分割の値
-	static constexpr int REDTIMEZONE = 10; // 赤く点滅させる時間
-	static inline constexpr float VALUE_WIDTH = 150.0f;
+	static constexpr int DIVIDE = 10;		// 桁分割の値
+	static constexpr int REDTIMEZONE = 10;  // 赤く点滅させる時間
+	static constexpr float VALUE_WIDTH = 150.0f;
 
 	int m_nAllTime;		// 全体の時間
 	int m_nSecond;		// 現在の時間 ( 秒 )

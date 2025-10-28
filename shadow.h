@@ -21,6 +21,7 @@
 class CShadow : public CObject3D
 {
 public:
+
 	CShadow(int nPriority = static_cast<int>(CObject::PRIORITY::SHADOW));
 	~CShadow();
 

@@ -116,7 +116,9 @@ int CXfileManager::Register(const char* pFileName)
 	if (!pDevice)
 		return -1;
 
-	HRESULT hr = D3DXLoadMeshFromX(
+	// Xファイルをロードする
+	HRESULT hr = D3DXLoadMeshFromX
+	(
 		pFileName,
 		D3DXMESH_SYSTEMMEM,
 		pDevice,
@@ -124,8 +126,10 @@ int CXfileManager::Register(const char* pFileName)
 		&newData.pBuffMat,
 		NULL,
 		&newData.dwNumMat,
-		&newData.pMesh);
+		&newData.pMesh
+	);
 
+	// 例外メッセージ
 	if (FAILED(hr))
 	{
 		std::string msg = "モデル読み込みに失敗しました: ";
@@ -178,20 +182,23 @@ int CXfileManager::Register(const char* pFileName)
 
 	if (newData.pBuffMat)
 	{
+		// マテリアルデータのポインタ
 		D3DXMATERIAL* pMat = (D3DXMATERIAL*)newData.pBuffMat->GetBufferPointer();
 
+		// テクスチャポインタ取得
 		CTexture* pTexture = CManager::GetInstance()->GetTexture();
 
 		for (int nCnt = 0; nCnt < newData.dwNumMat; nCnt++)
 		{
 			if (pMat[nCnt].pTextureFilename)
 			{
-				int texID = pTexture->Register(pMat[nCnt].pTextureFilename);
-
-				newData.pTexture[nCnt] = texID;
+				// テクスチャID登録
+				int TexID = pTexture->Register(pMat[nCnt].pTextureFilename);
+				newData.pTexture[nCnt] = TexID;
 			}
 			else
 			{
+				// 初期値をセット
 				newData.pTexture[nCnt] = -1;
 			}
 		}
@@ -211,7 +218,7 @@ HRESULT CXfileManager::LoadJson(void)
 	// ファイルオープン
 	std::ifstream openfile("data/JSON/XFile.json");
 
-	// 例外
+	// 例外処理
 	if (!openfile.is_open())
 	{
 		MessageBox(GetActiveWindow(), "XFile.json が開けません", "xfilemanager", MB_OK);
@@ -272,6 +279,7 @@ void CXfileManager::LoadModel(const char* pModelName)
 	if (!pDevice)
 		return;
 
+	// モデル読み込み
 	HRESULT hr = D3DXLoadMeshFromX(
 		pModelName,
 		D3DXMESH_SYSTEMMEM,
@@ -282,6 +290,7 @@ void CXfileManager::LoadModel(const char* pModelName)
 		&newData.dwNumMat,
 		&newData.pMesh);
 
+	// 例外設定
 	if (FAILED(hr))
 	{
 		std::string msg = "モデル読み込みに失敗しました: ";

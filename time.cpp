@@ -11,7 +11,6 @@
 #include "time.h"
 #include "number.h"
 #include "manager.h"
-#include <fstream>
 
 //===============================
 // オーバーロードコンストラクタ
@@ -202,28 +201,6 @@ void CTime::Draw(void)
 		// 秒描画
 		m_pNumberSecond[nCnt]->Draw();
 	}
-}
-//===============================
-// タイマーデータ保存処理
-//===============================
-void CTime::Save(void)
-{
-	// 開くファイルを定義
-	std::ofstream File("data\\Loader\\LastTime.txt");
-
-	// 例外処理
-	if (!File.is_open())
-	{
-		MessageBox(NULL, "保存ファイルを開けませんでした", "エラー", MB_OK);
-
-		return;
-	}
-
-	// 数値を出力する
-	File << m_nDecTime;
-
-	// ファイルを閉じる
-	File.close();
 }
 //===============================
 // 秒計算

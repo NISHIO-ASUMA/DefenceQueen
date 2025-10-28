@@ -30,17 +30,6 @@ class CGameState;
 class CGame : public CScene
 {
 public:
-	//***********************
-	// ゲーム状態列挙型
-	//***********************
-	enum GAMESTATE
-	{
-		GAMESTATE_NONE,
-		GAMESTATE_NORMAL,
-		GAMESTATE_END,
-		GAMESTATE_LOSEEND,
-		GAMESTATE_MAX
-	};
 
 	CGame();
 	~CGame();
@@ -61,5 +50,4 @@ private:
 	CGameState * m_pState;							// ゲーム進行管理クラスのポインタ
 	std::unique_ptr<CGameManager>m_pGameManager;	// ゲームマネージャークラスのポインタ
 	std::unique_ptr<CGameSceneObject>m_pGameObject;	// ゲーム中のオブジェクトクラスのポインタ
-
 };

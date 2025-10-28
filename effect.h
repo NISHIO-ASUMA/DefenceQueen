@@ -30,7 +30,6 @@ public:
 	void Draw(void);
 
 	void SetLife(int nLife) { m_nLife = nLife; }
-
 	int GetLife(void) { return m_nLife; }
 
 	static CEffect* Create(D3DXVECTOR3 pos, D3DXCOLOR col, D3DXVECTOR3 move, int nLife, float fRadius);
