@@ -61,6 +61,30 @@
     <Filter Include="ソース ファイル\Scenes\SceneObject">
       <UniqueIdentifier>{b8eb7756-26f6-4d4c-9b64-8f5d112fd7de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Management">
+      <UniqueIdentifier>{2c49f86a-67d9-4dea-930d-8ff14dfa660d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Manager">
+      <UniqueIdentifier>{b79554dc-9150-4edb-9659-2252a88e248e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\2DUI">
+      <UniqueIdentifier>{8eda9416-1573-439b-9b99-4a18e9cefa91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\XFile">
+      <UniqueIdentifier>{2b3460a0-2453-45ad-a849-b7352cc7a83b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\3D">
+      <UniqueIdentifier>{8cb632e6-9d24-409d-9ced-b78fca3a4b10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Mesh">
+      <UniqueIdentifier>{f302098c-0dbb-4f89-8c8d-a53da4bbd7f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Effect">
+      <UniqueIdentifier>{e9ad9d04-6f39-4404-9028-ca0b721b222a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Particle">
+      <UniqueIdentifier>{6d817eb8-b773-4e6d-97f2-65d7345dbbc3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp">
@@ -292,6 +316,21 @@
       <Filter>ソース ファイル\Physics\Collider</Filter>
     </ClCompile>
     <ClCompile Include="titleobject.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="block.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="blockmanager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="scenemanagement.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneobjectmanagement.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="array.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -531,6 +570,21 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="titleobject.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="block.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="blockmanager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="scenemanagement.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneobjectmanagement.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="array.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

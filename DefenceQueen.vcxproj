@@ -152,7 +152,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="array.cpp" />
     <ClCompile Include="billboard.cpp" />
+    <ClCompile Include="block.cpp" />
+    <ClCompile Include="blockmanager.cpp" />
     <ClCompile Include="boxcollider.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="charactorparam.cpp" />
@@ -212,6 +215,8 @@
     <ClCompile Include="result.cpp" />
     <ClCompile Include="resultmanager.cpp" />
     <ClCompile Include="scene.cpp" />
+    <ClCompile Include="scenemanagement.cpp" />
+    <ClCompile Include="sceneobjectmanagement.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="shadow.cpp" />
     <ClCompile Include="shadowS.cpp" />
@@ -233,7 +238,10 @@
     <ClCompile Include="xfilemanager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="array.h" />
     <ClInclude Include="billboard.h" />
+    <ClInclude Include="block.h" />
+    <ClInclude Include="blockmanager.h" />
     <ClInclude Include="boxcollider.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="charactorparam.h" />
@@ -292,6 +300,8 @@
     <ClInclude Include="result.h" />
     <ClInclude Include="resultmanager.h" />
     <ClInclude Include="scene.h" />
+    <ClInclude Include="scenemanagement.h" />
+    <ClInclude Include="sceneobjectmanagement.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="shadow.h" />
     <ClInclude Include="shadowS.h" />

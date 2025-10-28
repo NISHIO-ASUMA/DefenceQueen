@@ -31,6 +31,7 @@ public:
 
 	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
 	void SetRot(D3DXVECTOR3 rot) { m_rot = rot; }
+	void SetScale(D3DXVECTOR3 scale) { m_Scale = scale; }
 	void SetMtxWorld(D3DXMATRIX mtxworld) { m_mtxWorld = mtxworld; }
 	void SetFilePass(const char* pFilePass);
 	void SetModelIdx(const int nIdx) { m_nIdxModel = nIdx; }
@@ -46,6 +47,7 @@ public:
 private:
 	D3DXVECTOR3 m_pos;		// 座標
 	D3DXVECTOR3 m_rot;		// 角度
+	D3DXVECTOR3 m_Scale;	// 拡大率
 	D3DXMATRIX m_mtxWorld;	// ワールドマトリックス
 	int m_nIdxModel; // モデルインデックス
 };

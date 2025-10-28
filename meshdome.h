@@ -32,7 +32,6 @@ public:
 	void SetTexture(void);
 
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
-
 	static CMeshDome* Create(D3DXVECTOR3 pos, float nRadius);
 
 private:

@@ -21,6 +21,7 @@
 class CStateMachine;
 class CGameStateBase;
 class CGame;
+class CBlockManager;
 
 //*****************************
 // ゲーム進行管理クラスを定義

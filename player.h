@@ -13,9 +13,6 @@
 //**********************
 // インクルードファイル
 //**********************
-#include "object.h"
-#include "model.h"
-#include "motion.h"
 #include "movecharactor.h"
 #include <memory>
 
@@ -30,6 +27,8 @@ class CParameter;
 class CShadowS;
 class CStateMachine;
 class CPlayerStateBase;
+class CBoxCollider;
+class CMotion;
 
 //*************************
 // プレイヤークラスを定義
@@ -61,6 +60,7 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 	void ChangeState(CPlayerStateBase* pNewState,int Id);
+	bool CollisionBlock(D3DXVECTOR3 * pos);
 
 	CParameter* GetParameter(void) { return m_pParameter.get(); }
 	CStateMachine* GetStateMachine() { return m_pStateMachine.get(); }
@@ -72,8 +72,9 @@ public:
 	static bool IsDeath(void) { return m_isDeath; }
 
 private:
+	static bool m_isDeath;  // 静的
 	std::unique_ptr<CParameter>m_pParameter; // パラメータークラスポインタ
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
-	CMotion* m_pMotion;						  // モーションポインタ
-	static bool m_isDeath;  // 静的
+	CMotion* m_pMotion;				// モーションポインタ
+	CBoxCollider* m_pBoxCollider;	// 矩形のコライダー
 };

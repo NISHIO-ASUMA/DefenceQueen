@@ -66,10 +66,10 @@ public:
 	D3DXVECTOR3 GetMove(void) const { return m_move; }
 
 	/// <summary>
-	/// モーションの生ポインタを返す
+	/// モーションのポインタを返す
 	/// </summary>
 	/// <param name=""></param>
-	/// <returns></生成された生ポインタ>
+	/// <returns>
 	CMotion* GetMotion(void) { return m_pMotion.get(); }
 
 private:

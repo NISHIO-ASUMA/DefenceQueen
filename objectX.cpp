@@ -22,6 +22,7 @@ CObjectX::CObjectX(int nPriority) : CObject(nPriority)
 	m_mtxWorld = {};
 	m_pos = VECTOR3_NULL;
 	m_rot = VECTOR3_NULL;
+	m_Scale = INITSCALE;
 	m_nIdxModel = -1; 
 }
 //=============================
@@ -78,13 +79,17 @@ void CObjectX::Draw(void)
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// 計算用のマトリックスを宣言
-	D3DXMATRIX mtxRot, mtxTrans;
+	D3DXMATRIX mtxScale,mtxRot, mtxTrans;
 
 	// 現在のマテリアルを保存
 	D3DMATERIAL9 matDef;
 
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxWorld);
+
+	// 拡大率を反映
+	D3DXMatrixScaling(&mtxScale, m_Scale.x, m_Scale.y, m_Scale.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxScale);
 
 	// 向きを反映
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
@@ -103,7 +108,7 @@ void CObjectX::Draw(void)
 	// マテリアルが取得できたら
 	if (model.pBuffMat)
 	{
-		// ポインタ
+		// マテリアルデータのポインタ
 		D3DXMATERIAL* pMat = (D3DXMATERIAL*)model.pBuffMat->GetBufferPointer();
 
 		// テクスチャ取得

@@ -74,17 +74,9 @@ void CTitleManager::Update(void)
 	if (pKey == nullptr) return;
 	if (pJoyPad == nullptr) return;
 
-	// サウンド取得
-	CSound* pSound = CManager::GetInstance()->GetSound();
-	if (pSound == nullptr) return;
-
 	// フェード取得
 	CFade* pFade = CManager::GetInstance()->GetFade();
 	if (pFade == nullptr) return;
-
-	// カメラ取得
-	CCamera* pCamera = CManager::GetInstance()->GetCamera();
-	if (pCamera == nullptr) return;
 
 	// キー入力時 かつ uiが生成されていなかったら
 	if ((pKey->GetTrigger(DIK_RETURN) || pJoyPad->GetTrigger(pJoyPad->JOYKEY_START)))

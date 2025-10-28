@@ -174,7 +174,6 @@ void CNumber::SetSize(float fWidth, float fHeight)
 //===================================
 void CNumber::SetCol(D3DXCOLOR col)
 {
-	// 代入
 	m_col = col;
 
 	// 頂点情報のポインタ
@@ -198,7 +197,7 @@ void CNumber::SetCol(D3DXCOLOR col)
 void CNumber::SetFlash(const int nStartFrame, const int nEndFrame, D3DXCOLOR col)
 {
 	// 頂点情報のポインタ
-	VERTEX_2D* pVtx = NULL;
+	VERTEX_2D* pVtx = nullptr;
 
 	// 頂点バッファをロックする
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);

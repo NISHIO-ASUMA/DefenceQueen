@@ -12,6 +12,7 @@
 #include "ui.h"
 #include "player.h"
 #include "meshfield.h"
+#include "blockmanager.h"
 
 //**********************
 // 静的メンバ変数
@@ -21,7 +22,7 @@ CScore* CGameSceneObject::m_pScore = nullptr; // スコアクラス
 //===========================
 // コンストラクタ
 //===========================
-CGameSceneObject::CGameSceneObject()
+CGameSceneObject::CGameSceneObject() : m_pBlocks(nullptr)
 {
 	// 値のクリア
 }
@@ -46,6 +47,10 @@ HRESULT CGameSceneObject::Init(void)
 	// メッシュフィールド生成
 	CMeshField::Create(VECTOR3_NULL, 3000.0f,3000.0f,1,1);
 
+	// ブロックマネージャー生成
+	m_pBlocks = std::make_unique<CBlockManager>();
+	m_pBlocks->Init();
+
 	return S_OK;
 }
 //===========================
@@ -55,6 +60,9 @@ void CGameSceneObject::Uninit(void)
 {
 	// null初期化
 	m_pScore = nullptr;
+
+	// 破棄
+	m_pBlocks.reset();
 }
 //===========================
 // 更新処理

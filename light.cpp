@@ -38,7 +38,7 @@ HRESULT CLight::Init(void)
 	// デバイスポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
-	// ライトのクリア処理( ゼロメモリー関数 )
+	// ライトのゼロクリア処理
 	ZeroMemory(&m_aLight, sizeof(m_aLight));
 
 	// ライトの種類を設定
@@ -52,9 +52,9 @@ HRESULT CLight::Init(void)
 	}
 
 	// ライトの方向設定
-	m_vecDir[0] = D3DXVECTOR3(0.25f, -0.84f, -0.43f);
+	m_vecDir[0] = D3DXVECTOR3(0.25f, -0.84f, -0.23f);
 	m_vecDir[1] = D3DXVECTOR3(-0.61f, 0.10f, 0.44f);
-	m_vecDir[2] = D3DXVECTOR3(1.0f, -0.52f, 0.41f);
+	m_vecDir[2] = D3DXVECTOR3(1.0f, -0.52f, 0.21f);
 
 	// 正規化する
 	for (int nCnt1 = 0; nCnt1 < NUMLIGHT; nCnt1++)

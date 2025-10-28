@@ -16,6 +16,7 @@
 #include "game.h"
 #include "input.h"
 #include "fade.h"
+#include "blockmanager.h"
 
 //========================
 // コンストラクタ
@@ -29,7 +30,8 @@ CGameManager::CGameManager()
 //========================
 CGameManager::~CGameManager()
 {
-	// 無し
+	// 終了処理
+	Uninit();
 }
 //========================
 // 初期化処理
@@ -48,7 +50,7 @@ HRESULT CGameManager::Init(void)
 //========================
 void CGameManager::Uninit(void)
 {
-	// 破棄
+
 }
 //========================
 // 更新処理

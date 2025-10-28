@@ -27,6 +27,8 @@
 #include "effectsmoke.h"
 #include "sound.h"
 #include "statemachine.h"
+#include "boxcollider.h"
+#include "collisionbox.h"
 
 //**********************
 // 名前空間
@@ -55,7 +57,8 @@ bool CPlayer::m_isDeath = false;  // 死亡フラグ
 CPlayer::CPlayer(int nPriority) : CMoveCharactor(nPriority),
 m_pMotion(nullptr),
 m_pParameter(nullptr),
-m_pStateMachine(nullptr)
+m_pStateMachine(nullptr),
+m_pBoxCollider(nullptr)
 {
 	// 値のクリア
 }
@@ -120,6 +123,11 @@ HRESULT CPlayer::Init(void)
 	// 初期状態をセット
 	ChangeState(new CPlayerStateNeutral,CPlayerStateBase::ID_NEUTRAL); 
 
+	// コライダー生成
+	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(50.0f,40.0f,50.0f));
+
+	m_pMotion = CMoveCharactor::GetMotion();
+
 	// 結果を返す
 	return S_OK;
 }
@@ -134,6 +142,13 @@ void CPlayer::Uninit(void)
 	// ステート終了処理
 	m_pStateMachine.reset();
 
+	// コライダー破棄
+	if (m_pBoxCollider)
+	{
+		delete m_pBoxCollider;
+		m_pBoxCollider = nullptr;
+	}
+
 	// キャラクターの破棄
 	CMoveCharactor::Uninit();
 }
@@ -144,6 +159,9 @@ void CPlayer::Update(void)
 {
 	// 死んでるなら処理しない
 	if (m_isDeath) return;
+
+	// 座標取得
+	D3DXVECTOR3 pos = GetPos();
 
 	// 現在シーン取得
 	CScene::MODE nMode = CManager::GetInstance()->GetInstance()->GetScene();
@@ -161,6 +179,15 @@ void CPlayer::Update(void)
 		m_pStateMachine->Update();
 	}
 
+	// キャラクタークラスの座標セット
+	// CMoveCharactor::SetPos();
+
+	// コライダーの位置更新
+	m_pBoxCollider->SetPos(pos);
+
+	// ブロックとの当たり判定
+	CollisionBlock(&pos);
+
 	// キャラクターの更新処理
 	CMoveCharactor::Update();
 }
@@ -172,6 +199,26 @@ void CPlayer::Draw(void)
 	// キャラクターの描画処理
 	CMoveCharactor::Draw();
 }
+
+//=========================================
+// ブロックとの当たり判定
+//=========================================
+bool CPlayer::CollisionBlock(D3DXVECTOR3* pos)
+{
+	// ブロック情報を取得
+	// auto BlockInfo = GetGameManager()->GetBlockManager();
+
+	// nullチェック
+	// if (BlockInfo->Collision(m_pCollider,pos))
+	// {
+			// 当たるとき
+	//		return true;
+	// }
+	
+	// 当たらないとき
+	return false;
+}
+
 //=========================================
 // ステート変更
 //=========================================
