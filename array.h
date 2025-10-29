@@ -52,6 +52,9 @@ public:
 	void Draw(void);
 	bool Colision(CSphereCollider* other);
 
+	void SetActive(bool isFlags) { m_isActive = isFlags; }
+	bool GetActive(void) { return m_isActive; }
+
 	static CArray* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,const int nLife);
 
 private:
@@ -60,4 +63,5 @@ private:
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
 	CMotion* m_pMotion;					// モーションポインタ
 	CSphereCollider* m_pSphereCollider;	// 球形のコライダー
+	bool m_isActive;	// 使用状態かどうか
 };

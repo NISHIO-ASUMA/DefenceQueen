@@ -19,6 +19,7 @@
 // 前方宣言
 //**********************
 class CBoxCollider;
+class CShadowS;
 
 //**********************************
 // ブロックオブジェクトクラスを定義
@@ -39,5 +40,6 @@ public:
 
 private:
 	CBoxCollider* m_pCollider;	// 自分が持つ矩形のコライダー
+	CShadowS* m_pShadow;		// ステンシルシャドウクラス
 };
 

@@ -153,6 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="array.cpp" />
+    <ClCompile Include="arraymanager.cpp" />
     <ClCompile Include="billboard.cpp" />
     <ClCompile Include="block.cpp" />
     <ClCompile Include="blockmanager.cpp" />
@@ -208,6 +209,7 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="playerlifegage.cpp" />
     <ClCompile Include="playerstate.cpp" />
+    <ClCompile Include="queen.cpp" />
     <ClCompile Include="ranking.cpp" />
     <ClCompile Include="rankingmanager.cpp" />
     <ClCompile Include="rankingscore.cpp" />
@@ -240,6 +242,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="array.h" />
+    <ClInclude Include="arraymanager.h" />
     <ClInclude Include="billboard.h" />
     <ClInclude Include="block.h" />
     <ClInclude Include="blockmanager.h" />
@@ -294,6 +297,7 @@
     <ClInclude Include="player.h" />
     <ClInclude Include="playerlifegage.h" />
     <ClInclude Include="playerstate.h" />
+    <ClInclude Include="queen.h" />
     <ClInclude Include="ranking.h" />
     <ClInclude Include="rankingmanager.h" />
     <ClInclude Include="rankingscore.h" />

@@ -13,11 +13,12 @@
 #include "collisionbox.h"
 #include "xfilemanager.h"
 #include "manager.h"
+#include "shadowS.h"
 
 //=====================================
 // コンストラクタ
 //=====================================
-CBlock::CBlock(int nPriority) : CObjectX(nPriority), m_pCollider(nullptr)
+CBlock::CBlock(int nPriority) : CObjectX(nPriority), m_pCollider(nullptr),m_pShadow(nullptr)
 {
 	// 値のクリア
 }
@@ -69,6 +70,10 @@ HRESULT CBlock::Init(void)
 	// コライダー生成
 	m_pCollider = CBoxCollider::Create(GetPos(), GetPos(), Size);
 
+	// ステンシル生成
+	m_pShadow = CShadowS::Create(GetPos(), GetRot());
+	m_pShadow->SetScale(D3DXVECTOR3(1.5f, 1.0f, 1.5f));
+
 	return S_OK;
 }
 //=====================================
@@ -91,8 +96,18 @@ void CBlock::Uninit(void)
 //=====================================
 void CBlock::Update(void)
 {
+	// 現在の座標取得
+	D3DXVECTOR3 pos = GetPos();
+
 	// コライダー座標の更新
-	m_pCollider->SetPos(GetPos());
+	m_pCollider->SetPos(pos);
+
+	// 影座標更新
+	if (m_pShadow)
+	{
+		m_pShadow->SetPos(D3DXVECTOR3(pos.x,0.0f,pos.z));
+		m_pShadow->SetRot(GetRot());
+	}
 }
 //=====================================
 // 描画処理

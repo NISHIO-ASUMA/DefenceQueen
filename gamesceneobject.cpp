@@ -42,12 +42,12 @@ HRESULT CGameSceneObject::Init(void)
 	CPlayer::Create(VECTOR3_NULL, VECTOR3_NULL, 10, "data/MOTION/Player/Player100motion.txt");
 
 	// スコアクラス生成
-	m_pScore = CScore::Create(D3DXVECTOR3(600.0f, 200.0f, 0.0f), 60.0f, 40.0f);
+	// m_pScore = CScore::Create(D3DXVECTOR3(600.0f, 200.0f, 0.0f), 60.0f, 40.0f);
 
 	// メッシュフィールド生成
 	CMeshField::Create(VECTOR3_NULL, 3000.0f,3000.0f,1,1);
 
-	//// ブロックマネージャー生成
+	// ブロックマネージャー生成
 	//m_pBlocks = std::make_unique<CBlockManager>();
 	//m_pBlocks->Init();
 

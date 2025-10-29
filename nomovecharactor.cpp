@@ -87,7 +87,7 @@ void CNoMoveCharactor::Uninit(void)
 //========================================
 void CNoMoveCharactor::Update(void)
 {
-	// 影更新
+	// ステンシルシャドウ更新
 	if (m_pShadowS)
 	{
 		// オブジェクト設定

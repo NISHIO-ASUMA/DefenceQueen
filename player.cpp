@@ -119,7 +119,7 @@ HRESULT CPlayer::Init(void)
 	ChangeState(new CPlayerStateNeutral,CPlayerStateBase::ID_NEUTRAL); 
 
 	// コライダー生成
-	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(50.0f,40.0f,50.0f));
+	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(50.0f,50.0f,50.0f));
 
 	// モーション取得
 	m_pMotion = CMoveCharactor::GetMotion();
@@ -420,6 +420,7 @@ void CPlayer::MovePad(CJoyPad* pPad)
 //=========================================
 bool CPlayer::CollisionBlock(D3DXVECTOR3* pos)
 {
+	// ブロックマネージャーから取得したい...
 	auto pScene = CManager::GetInstance()->GetSceneManager()->GetManagerBase();
 
 	// 当たらないとき

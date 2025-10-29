@@ -38,10 +38,10 @@ public:
 
 	static int GetAll(void) { return static_cast<int>(m_pBlocks.size()); }
 	static CBlock* GetBlock(const int nIdx) { return m_pBlocks[nIdx]; }
-	static std::vector <CBlock*> GetInfo() { return m_pBlocks; }
 	static CBlock* CreateManager(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const char* pModelName);
 
 private:
-	static std::vector<CBlock*>m_pBlocks; // 動的配列
+
+	static std::vector<CBlock*>m_pBlocks; // 配置するブロックの動的配列
 
 };

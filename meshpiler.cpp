@@ -192,9 +192,6 @@ HRESULT CMeshPiler::Init(void)
 	//インデックスバッファのアンロック
 	m_pIdx->Unlock();
 
-	// オブジェクトの種類設定
-	SetObjType(TYPE_PILER);
-
 	// メンバ変数の初期化
 	m_nLife = 60;
 	m_nActiveDelay = 3;

@@ -41,7 +41,6 @@ public:
 	void Update(void);
 	void SetCamera(void);
 	void MouseView(CInputMouse* pMouse);
-	void UpdateShake(void);
 
 	// セッター
 	void SetMode(int nMode) { m_pCamera.nMode = nMode; }

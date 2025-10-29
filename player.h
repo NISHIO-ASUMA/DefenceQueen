@@ -19,10 +19,8 @@
 //**********************
 // ‘O•ûéŒ¾
 //**********************
-class CShadow;
 class CInputKeyboard;
 class CJoyPad;
-class CCamera;
 class CParameter;
 class CShadowS;
 class CStateMachine;

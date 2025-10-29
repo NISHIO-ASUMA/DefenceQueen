@@ -23,7 +23,8 @@ CArray::CArray(int nPriority) : CMoveCharactor(nPriority),
 m_pSphereCollider(nullptr),
 m_pMotion(nullptr),
 m_pParameter(nullptr),
-m_pStateMachine(nullptr)
+m_pStateMachine(nullptr),
+m_isActive(false)
 {
 	// 値のクリア
 }
@@ -86,7 +87,7 @@ HRESULT CArray::Init(void)
 	// m_pStateMachine = std::make_unique<CStateMachine>();
 
 	// スフィアコライダー生成
-	m_pSphereCollider = CSphereCollider::Create(GetPos(),70.0f);
+	m_pSphereCollider = CSphereCollider::Create(GetPos(),80.0f);
 
 	// モーション取得
 	m_pMotion = CMoveCharactor::GetMotion();
@@ -119,6 +120,9 @@ void CArray::Uninit(void)
 //=====================================
 void CArray::Update(void)
 {
+	// falseなら通さない
+	if (!m_isActive) return;
+
 	// キャラクターの更新
 	CMoveCharactor::Update();
 }
@@ -127,6 +131,9 @@ void CArray::Update(void)
 //=====================================
 void CArray::Draw(void)
 {
+	// falseなら通さない
+	if (!m_isActive) return;
+
 	// キャラクターの描画
 	CMoveCharactor::Draw();
 }
