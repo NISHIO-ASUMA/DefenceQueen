@@ -38,8 +38,6 @@ CEffectLaser* CEffectLaser::Create(D3DXVECTOR3 pos, D3DXVECTOR3 Endpos, D3DXCOLO
 {
 	// インスタンス生成
 	CEffectLaser* pLaser = new CEffectLaser;
-
-	// nullなら
 	if (pLaser == nullptr) return nullptr;
 
 	// 初期化失敗時

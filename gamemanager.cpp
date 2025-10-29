@@ -42,6 +42,9 @@ HRESULT CGameManager::Init(void)
 	CSound* pSound = CManager::GetInstance()->GetSound();
 	if (pSound == nullptr) return E_FAIL;
 
+	m_pBlock = new CBlockManager;
+	m_pBlock->Init();
+
 	// ‰Šú‰»Œ‹‰Ê‚ğ•Ô‚·
 	return S_OK;
 }
@@ -50,7 +53,12 @@ HRESULT CGameManager::Init(void)
 //========================
 void CGameManager::Uninit(void)
 {
-
+	// ”jŠü
+	if (m_pBlock)
+	{
+		delete m_pBlock;
+		m_pBlock = nullptr;
+	}
 }
 //========================
 // XVˆ—
@@ -67,4 +75,11 @@ void CGameManager::Update(void)
 		return;
 	}
 #endif
+}
+//========================
+// •`‰æˆ—
+//========================
+void CGameManager::Draw(void)
+{
+
 }

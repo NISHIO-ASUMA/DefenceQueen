@@ -95,8 +95,6 @@ public:
 	void Update(void);
 	void UpdateVibration(void);
 
-	void SetVibration(int leftMotor, int rightMotor, int durationMs);
-
 	bool GetPress(JOYKEY Key);
 	bool GetTrigger(JOYKEY Key);
 	bool GetRelease(JOYKEY Key);
@@ -108,6 +106,15 @@ public:
 	bool GetLeftStick(void);
 
 	XINPUT_STATE* GetStickAngle(void) { return &m_joyKeyState; }
+
+	/// <summary>
+	/// コントローラーの振動処理
+	/// </summary>
+	/// <param name="leftMotor">左側の振動の強さ</param>
+	/// <param name="rightMotor">右側の振動の強さ</param>
+	/// <param name="durationMs">振動フレーム時間</param>
+	void SetVibration(int leftMotor, int rightMotor, int durationMs);
+
 
 private:
 	XINPUT_STATE m_joyKeyState;		   // ジョイパッドのプレス情報

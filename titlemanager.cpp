@@ -85,3 +85,9 @@ void CTitleManager::Update(void)
 		return;
 	}
 }
+//=============================
+// •`‰æˆ—
+//=============================
+void CTitleManager::Draw(void)
+{
+}

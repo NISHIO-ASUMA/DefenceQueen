@@ -85,6 +85,9 @@
     <Filter Include="ソース ファイル\Particle">
       <UniqueIdentifier>{6d817eb8-b773-4e6d-97f2-65d7345dbbc3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\test">
+      <UniqueIdentifier>{0d20b76b-6356-4d06-ae4f-d001c30f2a81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp">
@@ -151,9 +154,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="manager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="meshcylinder.cpp">
@@ -324,13 +324,19 @@
     <ClCompile Include="blockmanager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="scenemanagement.cpp">
+    <ClCompile Include="array.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="manager.cpp">
+      <Filter>ソース ファイル\test</Filter>
+    </ClCompile>
+    <ClCompile Include="scenemanagement.cpp">
+      <Filter>ソース ファイル\test</Filter>
     </ClCompile>
     <ClCompile Include="sceneobjectmanagement.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\test</Filter>
     </ClCompile>
-    <ClCompile Include="array.cpp">
+    <ClCompile Include="scenemanagebase.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -585,6 +591,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="array.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="scenemanagebase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,8 +5,15 @@
 // 
 //==============================================
 
-#ifndef _RESULTMANAGER_H_ // このマクロ定義がされてなかったら
-#define _RESULTMANAGER_H_ // 2重インクルード防止のマクロ定義
+//**********************
+// インクルードガード
+//**********************
+#pragma once 
+
+//******************************
+// インクルードファイル
+//******************************
+#include "scenemanagebase.h"
 
 //**************************
 // 前方宣言
@@ -16,7 +23,7 @@ class CResultScore;
 //**************************
 // リザルト管理クラスを定義
 //**************************
-class CResultManager
+class CResultManager : public CSceneManageBase
 {
 public:
 	// コンストラクタ・デストラクタ
@@ -24,9 +31,10 @@ public:
 	~CResultManager();
 
 	// メンバ関数
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 
 	void Load(void);
 
@@ -39,6 +47,3 @@ private:
 
 	CResultScore* m_pResultScore[SCORELISTNUM];	// スコアポインタ
 };
-
-#endif
-

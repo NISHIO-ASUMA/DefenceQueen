@@ -25,6 +25,7 @@
 #include "collision.h"
 #include "fade.h"
 #include "xfilemanager.h"
+#include "scenemanagement.h"
 
 //===========================
 // コンストラクタ
@@ -132,9 +133,16 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 		return E_FAIL;
 	}
 
+	// シーン管理クラス生成
+	m_pSceneManager = std::make_unique<CSceneManagement>();
+
 #ifdef _DEBUG
 	// デバッグ用シーンセット
 	m_pFade->SetFade(std::make_unique<CGame>());
+
+	// 管理マネージャー切り替え
+	m_pSceneManager->ChangeScene(CSceneManagement::TYPE_GAME);
+
 #else
 	// シーンセット
 	m_pFade->SetFade(std::make_unique<CTitle>());
@@ -171,6 +179,9 @@ void CManager::Uninit(void)
 
 	// モデルインスタンスの破棄
 	m_pXfileManager.reset();
+
+	// シーン管理クラスの破棄
+	m_pSceneManager.reset();
 
 	// シーンの破棄
 	if (m_pScene)
@@ -216,6 +227,9 @@ void CManager::Update()
 
 	// フェードの更新
 	m_pFade->Update();
+
+	// シーン管理の更新
+	if (m_pSceneManager) m_pSceneManager->Update();
 
 	// nullチェック
 	if (m_pScene != nullptr)

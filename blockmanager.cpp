@@ -148,20 +148,3 @@ HRESULT CBlockManager::Load()
 
 	return S_OK;
 }
-//===================================
-// 当たり判定関数
-//===================================
-bool CBlockManager::Collision(CBoxCollider* pCollider, D3DXVECTOR3* OutPos)
-{
-	// 配列の全部の要素を見る
-	for (auto iter = m_pBlocks.begin(); iter != m_pBlocks.end(); iter++)
-	{
-		// nullじゃない かつ ヒットが有効
-		if ((*iter) != nullptr && (*iter)->Collision(pCollider, OutPos))
-		{
-			return true;
-		}
-	}
-
-	return false;
-}

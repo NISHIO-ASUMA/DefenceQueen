@@ -99,6 +99,21 @@ void CMoveCharactor::Update(void)
 	m_move.x += (0.0f - m_move.x) * 0.75f;
 	m_move.z += (0.0f - m_move.z) * 0.75f;
 
+	// 角度補完
+	if (m_rotDest.y - m_rot.y > D3DX_PI)
+	{// 左回転
+		// 角度
+		m_rot.y = m_rot.y + D3DX_PI * 2.0f;
+	}
+	else if (m_rot.y - m_rotDest.y > D3DX_PI)
+	{// 右回転
+		// 角度
+		m_rot.y = m_rot.y - D3DX_PI * 2.0f;
+	}
+
+	// 現在の角度
+	m_rot.y += (m_rotDest.y - m_rot.y) * 0.25f;
+
 	// ステンシルシャドウの更新
 	if (m_pShadowS)
 	{

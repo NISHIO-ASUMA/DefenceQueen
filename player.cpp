@@ -30,6 +30,7 @@
 #include "boxcollider.h"
 #include "collisionbox.h"
 #include "motion.h"
+#include "scenemanagement.h"
 
 //**********************
 // 名前空間
@@ -192,12 +193,19 @@ void CPlayer::Draw(void)
 {
 	// キャラクターの描画処理
 	CMoveCharactor::Draw();
+
+	// デバッグ表示
+	CDebugproc::Print("モーションタイプ [ %d ]", m_pMotion->GetMotionType());
+	CDebugproc::Draw(0, 100);
 }
 //=========================================
 // キー入力移動関数
 //=========================================
 void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 {
+	// パッドがあったら
+	if (pPad->GetLeftStick()) return;
+
 	// カメラ取得
 	CCamera* pCamera = CManager::GetInstance()->GetCamera();
 	if (pCamera == nullptr) return;
@@ -401,13 +409,6 @@ void CPlayer::MovePad(CJoyPad* pPad)
 			m_pMotion->SetMotion(MOTION_MOVE);
 		}
 	}
-	else
-	{
-		if (m_pMotion->GetMotionType() == MOTION_MOVE)
-		{
-			m_pMotion->SetMotion(MOTION_NEUTRAL, true, 10, false);
-		}
-	}
 
 	// 適用
 	SetMove(move);
@@ -419,16 +420,8 @@ void CPlayer::MovePad(CJoyPad* pPad)
 //=========================================
 bool CPlayer::CollisionBlock(D3DXVECTOR3* pos)
 {
-	// ブロック情報を取得
-	// auto BlockInfo = GetGameManager()->GetBlockManager();
+	auto pScene = CManager::GetInstance()->GetSceneManager()->GetManagerBase();
 
-	// nullチェック
-	// if (BlockInfo->Collision(m_pCollider,pos))
-	// {
-			// 当たるとき
-	//		return true;
-	// }
-	
 	// 当たらないとき
 	return false;
 }

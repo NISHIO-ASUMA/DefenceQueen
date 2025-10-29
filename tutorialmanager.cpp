@@ -54,3 +54,10 @@ void CTutorialManager::Update(void)
 {
 
 }
+//==========================
+// •`‰æˆ—
+//==========================
+void CTutorialManager::Draw(void)
+{
+
+}

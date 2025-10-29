@@ -11,6 +11,11 @@
 #pragma once 
 
 //***********************
+// インクルードファイル
+//***********************
+#include "scenemanagebase.h"
+
+//***********************
 // 前方宣言
 //***********************
 class CTitleUi;
@@ -19,16 +24,17 @@ class CUi;
 //**************************************
 // タイトルマネージャー管理クラスを定義
 //**************************************
-class CTitleManager
+class CTitleManager : public CSceneManageBase
 {
 public:
 
 	CTitleManager();
 	~CTitleManager();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 
 private:
 

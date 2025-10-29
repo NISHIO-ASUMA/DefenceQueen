@@ -66,7 +66,6 @@ HRESULT CCamera::Init(void)
 	// 視点から注視点までの距離
 	m_pCamera.fDistance = sqrtf((fRotx * fRotx) + (fRoty * fRoty) + (fRotz * fRotz));
 
-	// 初期化結果を返す
 	return S_OK;
 }
 //=================================
@@ -121,15 +120,13 @@ void CCamera::SetCamera(void)
 		D3DXToRadian(45.0f),
 		(float)SCREEN_WIDTH / (float)SCREEN_HEIGHT,
 		10.0f,
-		3000.0f);
+		4000.0f);
 
 	// プロジェクションマトリックスの設定
 	pDevice->SetTransform(D3DTS_PROJECTION, &m_pCamera.mtxprojection);
 
 	// フォントセット
 	CDebugproc::Print("Camera : PosV [ %.2f, %.2f, %.2f ]\n", m_pCamera.posV.x, m_pCamera.posV.y, m_pCamera.posV.z);
-
-	// 描画開始
 	CDebugproc::Draw(0, 20);
 
 	CDebugproc::Print("Camera : PosR [ %.2f, %.2f, %.2f ]\n", m_pCamera.posR.x, m_pCamera.posR.y, m_pCamera.posR.z);
@@ -218,38 +215,3 @@ void CCamera::MouseView(CInputMouse * pMouse)
 		m_pCamera.rot.x += -CAMERAINFO::NorRot;
 	}
 }
-#if 0
-//=============================
-// 振動更新関数
-//=============================
-void CCamera::UpdateShake(void)
-{
-
-	// シェイク適用
-	if (m_isShake && (!m_event.isActive))
-	{
-		if (m_nShakeTime > 0)
-		{
-			// ランダムオフセット
-			float fOffset = static_cast<float>(rand() % 80) - 40.0f;
-
-			// 視点だけを揺らす
-			m_pCamera.posR.x += fOffset;
-			m_pCamera.posR.y += fOffset;
-			m_pCamera.posR.z += fOffset;
-
-			m_nShakeTime--;
-
-			if (m_nShakeTime <= 0)
-			{
-				m_isShake = false;
-				m_nShakeTime = 0;
-			}
-		}
-		else
-		{
-			m_isShake = false;
-		}
-	}
-}
-#endif

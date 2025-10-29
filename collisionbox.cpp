@@ -88,7 +88,7 @@ bool CCollisionBox::Collision(CBoxCollider* thisCollider, CBoxCollider* OtherCol
 	//==============================
 	if (MyPosOldMin.z < OtherPosMax.z && MyPosMax.z > OtherPosMin.z)
 	{
-		if (MyPosOldMax.x < OtherPosMin.x && MyPosMax.z > OtherPosMin.z)
+		if (MyPosOldMax.x < OtherPosMin.x && MyPosMax.x > OtherPosMin.x)
 		{// ¶‚©‚ç‚ß‚è‚Ş
 
 			// ¶‘¤‚Ö‚Ì‰Ÿ‚µo‚µÀ•W‚ğŒvZ

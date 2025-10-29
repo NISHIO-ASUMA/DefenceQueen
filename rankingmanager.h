@@ -11,22 +11,23 @@
 #pragma once 
 
 //******************************
-// 前方宣言
+// インクルードファイル
 //******************************
-class CResultScore;
+#include "scenemanagebase.h"
 
 //******************************
 // ランキング管理クラスを定義
 //******************************
-class CRankingManager
+class CRankingManager : public CSceneManageBase
 {
 public:
 	CRankingManager();
 	~CRankingManager();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 
 private:
 

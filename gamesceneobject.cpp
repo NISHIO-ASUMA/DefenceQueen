@@ -47,9 +47,9 @@ HRESULT CGameSceneObject::Init(void)
 	// メッシュフィールド生成
 	CMeshField::Create(VECTOR3_NULL, 3000.0f,3000.0f,1,1);
 
-	// ブロックマネージャー生成
-	m_pBlocks = std::make_unique<CBlockManager>();
-	m_pBlocks->Init();
+	//// ブロックマネージャー生成
+	//m_pBlocks = std::make_unique<CBlockManager>();
+	//m_pBlocks->Init();
 
 	return S_OK;
 }
@@ -62,7 +62,7 @@ void CGameSceneObject::Uninit(void)
 	m_pScore = nullptr;
 
 	// 破棄
-	m_pBlocks.reset();
+	// m_pBlocks.reset();
 }
 //===========================
 // 更新処理

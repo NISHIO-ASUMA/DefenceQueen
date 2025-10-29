@@ -55,3 +55,9 @@ void CRankingManager::Update(void)
 {
 	// –³‚µ
 }
+//================================
+// •`‰æˆ—
+//================================
+void CRankingManager::Draw(void)
+{
+}

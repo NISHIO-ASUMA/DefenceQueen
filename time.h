@@ -26,6 +26,7 @@ class CNumber;
 class CTime : public CObject
 {
 public:
+
 	CTime(int nPriority = static_cast<int>(CObject::PRIORITY::UI));
 	~CTime();
 
@@ -36,7 +37,6 @@ public:
 
 	int GetToAll(void) { return m_nAllTime; }
 	int GetToCurrent(void) { return m_nSecond; }
-	D3DXVECTOR3 GetPos(void) { return m_pos; }
 
 	static CTime* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
 
