@@ -11,35 +11,41 @@
 #pragma once 
 
 //***********************
-// インクルードファイル
-//***********************
-#include "scenemanagebase.h"
-
-//***********************
 // 前方宣言
 //***********************
 class CTitleUi;
 class CUi;
 
+//***********************
+// インクルードファイル
+//***********************
+#include <memory>
+
 //**************************************
 // タイトルマネージャー管理クラスを定義
 //**************************************
-class CTitleManager : public CSceneManageBase
+class CTitleManager
 {
 public:
+
+	HRESULT Init(void);
+	void Uninit(void);
+	void Update(void);
+	void Draw(void);
+
+	// インスタンス取得
+	static CTitleManager* GetInstance(void)
+	{
+		// インスタンスを返す
+		static CTitleManager pTitleManager;
+		return &pTitleManager;
+	}
+
+private:
 
 	CTitleManager();
 	~CTitleManager();
 
-	HRESULT Init(void) override;
-	void Uninit(void) override;
-	void Update(void) override;
-	void Draw(void) override;
-
-private:
-
 	CUi* m_pUi;				// クラスポインタ
 	int m_nIdx;				// 選択番号
-	bool m_isuiCreate;		// 生成されたかどうかの判別フラグ
-	bool m_isFirstuiCreate;	// 最初のシーンで生成されたか判別フラグ
 };

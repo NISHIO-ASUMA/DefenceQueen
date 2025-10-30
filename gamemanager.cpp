@@ -21,9 +21,9 @@
 //========================
 // コンストラクタ
 //========================
-CGameManager::CGameManager()
+CGameManager::CGameManager() : m_pBlockManager(nullptr)
 {
-	// 値のクリア
+
 }
 //========================
 // デストラクタ
@@ -42,8 +42,8 @@ HRESULT CGameManager::Init(void)
 	CSound* pSound = CManager::GetInstance()->GetSound();
 	if (pSound == nullptr) return E_FAIL;
 
-	m_pBlock = new CBlockManager;
-	m_pBlock->Init();
+	m_pBlockManager = std::make_unique<CBlockManager>();
+	m_pBlockManager->Init();
 
 	// 初期化結果を返す
 	return S_OK;
@@ -54,19 +54,16 @@ HRESULT CGameManager::Init(void)
 void CGameManager::Uninit(void)
 {
 	// 破棄
-	if (m_pBlock)
-	{
-		delete m_pBlock;
-		m_pBlock = nullptr;
-	}
+	m_pBlockManager.reset();
 }
 //========================
 // 更新処理
 //========================
 void CGameManager::Update(void)
 {
+
 #ifdef _DEBUG
-	//
+	// 画面遷移
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_2))
 	{
 		// 遷移更新

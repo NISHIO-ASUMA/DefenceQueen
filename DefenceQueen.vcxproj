@@ -217,8 +217,6 @@
     <ClCompile Include="result.cpp" />
     <ClCompile Include="resultmanager.cpp" />
     <ClCompile Include="scene.cpp" />
-    <ClCompile Include="scenemanagebase.cpp" />
-    <ClCompile Include="scenemanagement.cpp" />
     <ClCompile Include="sceneobjectmanagement.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="shadow.cpp" />
@@ -305,8 +303,6 @@
     <ClInclude Include="result.h" />
     <ClInclude Include="resultmanager.h" />
     <ClInclude Include="scene.h" />
-    <ClInclude Include="scenemanagebase.h" />
-    <ClInclude Include="scenemanagement.h" />
     <ClInclude Include="sceneobjectmanagement.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="shadow.h" />

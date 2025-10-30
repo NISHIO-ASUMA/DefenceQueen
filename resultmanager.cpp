@@ -17,7 +17,6 @@
 #include "ranking.h"
 #include "fade.h"
 #include <fstream>
-#include <memory>
 
 //**************************
 // ’è”éŒ¾

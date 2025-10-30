@@ -17,15 +17,12 @@
 #include "ui.h"
 #include "sound.h"
 #include "fade.h"
-#include <memory>
-#include "scenemanagement.h"
 
 //============================
 // コンストラクタ
 //============================
 CTitleManager::CTitleManager() : 
 m_pUi(nullptr),
-m_isFirstuiCreate(false),
 m_nIdx(NULL)
 {
 	// 値のクリア
@@ -83,8 +80,6 @@ void CTitleManager::Update(void)
 	if ((pKey->GetTrigger(DIK_RETURN) || pJoyPad->GetTrigger(pJoyPad->JOYKEY_START)))
 	{
 		pFade->SetFade(std::make_unique<CGame>());	// ゲームシーンに遷移
-		// CManager::GetInstance()->GetSceneManager()->ChangeScene(CSceneManagement::TYPE_GAME);
-
 		return;
 	}
 }
@@ -93,4 +88,5 @@ void CTitleManager::Update(void)
 //=============================
 void CTitleManager::Draw(void)
 {
+
 }

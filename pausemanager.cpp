@@ -45,12 +45,6 @@ m_pPause{},
 m_nSelectIdx(NULL)
 {
 	// 値のクリア
-	m_nSelectIdx = NULL;
-
-	for (int nCnt = 0; nCnt < SELECT_MAX; nCnt++)
-	{
-		m_pPause[nCnt] = nullptr;
-	}
 }
 //==================================
 // デストラクタ
@@ -123,8 +117,6 @@ void CPauseManager::Update(void)
 
 	// サウンド取得
 	CSound* pSound = CManager::GetInstance()->GetSound();
-
-	// nullだったら
 	if (pSound == nullptr) return;
 
 	// 上キー入力

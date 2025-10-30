@@ -61,9 +61,6 @@
     <Filter Include="ソース ファイル\Scenes\SceneObject">
       <UniqueIdentifier>{b8eb7756-26f6-4d4c-9b64-8f5d112fd7de}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Management">
-      <UniqueIdentifier>{2c49f86a-67d9-4dea-930d-8ff14dfa660d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Manager">
       <UniqueIdentifier>{b79554dc-9150-4edb-9659-2252a88e248e}</UniqueIdentifier>
     </Filter>
@@ -183,9 +180,6 @@
     <ClCompile Include="ranking.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="rankingmanager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="rankingscore.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -193,9 +187,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="result.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="resultmanager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="scene.cpp">
@@ -231,16 +222,10 @@
     <ClCompile Include="title.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="titlemanager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="titleui.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="tutorial.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="tutorialmanager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="tutorialui.cpp">
@@ -297,14 +282,8 @@
     <ClCompile Include="manager.cpp">
       <Filter>ソース ファイル\test</Filter>
     </ClCompile>
-    <ClCompile Include="scenemanagement.cpp">
-      <Filter>ソース ファイル\test</Filter>
-    </ClCompile>
     <ClCompile Include="sceneobjectmanagement.cpp">
       <Filter>ソース ファイル\test</Filter>
-    </ClCompile>
-    <ClCompile Include="scenemanagebase.cpp">
-      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="array.cpp">
       <Filter>ソース ファイル\Charactor\Array</Filter>
@@ -327,9 +306,6 @@
     <ClCompile Include="blockmanager.cpp">
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="gamemanager.cpp">
-      <Filter>ソース ファイル\test</Filter>
-    </ClCompile>
     <ClCompile Include="meshcylinder.cpp">
       <Filter>ソース ファイル\Mesh</Filter>
     </ClCompile>
@@ -344,6 +320,21 @@
     </ClCompile>
     <ClCompile Include="meshpiler.cpp">
       <Filter>ソース ファイル\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="gamemanager.cpp">
+      <Filter>ソース ファイル\Scenes\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="resultmanager.cpp">
+      <Filter>ソース ファイル\Scenes\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="rankingmanager.cpp">
+      <Filter>ソース ファイル\Scenes\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="tutorialmanager.cpp">
+      <Filter>ソース ファイル\Scenes\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="titlemanager.cpp">
+      <Filter>ソース ファイル\Scenes\SceneManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -590,16 +581,10 @@
     <ClInclude Include="blockmanager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="scenemanagement.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="sceneobjectmanagement.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="array.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="scenemanagebase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="queen.h">

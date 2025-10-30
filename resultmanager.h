@@ -10,35 +10,42 @@
 //**********************
 #pragma once 
 
-//******************************
-// インクルードファイル
-//******************************
-#include "scenemanagebase.h"
-
 //**************************
 // 前方宣言
 //**************************
 class CResultScore;
 
 //**************************
+// インクルードファイル
+//**************************
+#include <memory>
+
+//**************************
 // リザルト管理クラスを定義
 //**************************
-class CResultManager : public CSceneManageBase
+class CResultManager
 {
 public:
-	// コンストラクタ・デストラクタ
+
+	HRESULT Init(void);
+	void Uninit(void);
+	void Update(void);
+	void Draw(void);
+	void Load(void);
+
+	// インスタンス取得
+	static CResultManager* GetInstance(void)
+	{
+		// インスタンスを返す
+		static CResultManager pResultManager;
+		return &pResultManager;
+	}
+
+private:
+
 	CResultManager();
 	~CResultManager();
 
-	// メンバ関数
-	HRESULT Init(void) override;
-	void Uninit(void) override;
-	void Update(void) override;
-	void Draw(void) override;
-
-	void Load(void);
-
-private:
 	static constexpr int SCORELISTNUM = 3; // 最大数
 
 	bool m_isKeyDown; // キー入力フラグ

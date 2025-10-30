@@ -30,7 +30,6 @@
 #include "boxcollider.h"
 #include "collisionbox.h"
 #include "motion.h"
-#include "scenemanagement.h"
 
 //**********************
 // 名前空間
@@ -420,9 +419,6 @@ void CPlayer::MovePad(CJoyPad* pPad)
 //=========================================
 bool CPlayer::CollisionBlock(D3DXVECTOR3* pos)
 {
-	// ブロックマネージャーから取得したい...
-	auto pScene = CManager::GetInstance()->GetSceneManager()->GetManagerBase();
-
 	// 当たらないとき
 	return false;
 }

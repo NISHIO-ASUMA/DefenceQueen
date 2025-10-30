@@ -10,34 +10,42 @@
 //**********************
 #pragma once
 
-//**********************
-// インクルードファイル
-//**********************
-#include "scenemanagebase.h"
-
 //*****************************
 // 前方宣言
 //*****************************
 class CBlockManager;
 
 //*****************************
+// インクルードファイル
+//*****************************
+#include <memory>
+
+//*****************************
 // ゲーム進行管理クラスを定義
 //*****************************
-class CGameManager : public CSceneManageBase
+class CGameManager
 {
 public:
+	
+	HRESULT Init(void);
+	void Uninit(void);
+	void Update(void);
+	void Draw(void);
 
-	CGameManager();
-	~CGameManager();
+	CBlockManager* GetBlockManager(void) { return m_pBlockManager.get(); }
 
-	HRESULT Init(void)override;
-	void Uninit(void)override;
-	void Update(void)override;
-	void Draw(void) override;
-
-	CBlockManager* GetBlockM(void) { return m_pBlock; }
+	// インスタンス取得
+	static CGameManager* GetInstance(void)
+	{
+		// インスタンスを返す
+		static CGameManager pGameManager;
+		return &pGameManager;
+	}
 
 private:
 
-	CBlockManager* m_pBlock;		// ブロックマネージャーのポインタ
+	CGameManager();
+	~CGameManager() {};
+
+	std::unique_ptr<CBlockManager>m_pBlockManager;		// ブロックマネージャーのポインタ
 };

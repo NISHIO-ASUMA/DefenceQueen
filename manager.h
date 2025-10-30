@@ -23,7 +23,6 @@ class CLight;
 class CFade;
 class CXfileManager;
 class CScene;
-class CSceneManagement;
 
 //**************************  
 // インクルードファイル
@@ -54,8 +53,6 @@ public:
 	CLight* GetLight(void) { return m_pLight.get(); }
 	CFade* GetFade(void) { return m_pFade.get(); }
 	CXfileManager* GetXManager(void) { return m_pXfileManager.get(); }
-	CSceneManagement* GetSceneManager(void) { return m_pSceneManager.get(); }
-
 
 	CScene* GetSceneRaw(void) { return m_pScene.get(); }	// 生ポインタを返す
 	void SetScene(std::unique_ptr<CScene> pNewScene);		// unique_ptrで受け取る
@@ -84,6 +81,5 @@ private:
 	std::unique_ptr<CScene>m_pScene;;				// シーン管理クラスのポインタ
 	std::unique_ptr<CFade>m_pFade;					// フェードクラスのポインタ
 	std::unique_ptr<CXfileManager>m_pXfileManager;	// Xファイルマネージャークラス
-	std::unique_ptr<CSceneManagement>m_pSceneManager;	// 各シーンマネージャー管理クラス
 
 };
