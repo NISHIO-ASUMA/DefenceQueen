@@ -16,14 +16,15 @@
 //=============================
 // コンストラクタ
 //=============================
-CObjectX::CObjectX(int nPriority) : CObject(nPriority)
+CObjectX::CObjectX(int nPriority) : CObject(nPriority),
+m_mtxWorld{},
+m_pos(VECTOR3_NULL),
+m_rot(VECTOR3_NULL),
+m_Scale(INITSCALE),
+m_isShadow(false),
+m_nIdxModel(-1)
 {
 	// 値のクリア
-	m_mtxWorld = {};
-	m_pos = VECTOR3_NULL;
-	m_rot = VECTOR3_NULL;
-	m_Scale = INITSCALE;
-	m_nIdxModel = -1; 
 }
 //=============================
 // デストラクタ
@@ -69,7 +70,7 @@ void CObjectX::Draw(void)
 
 	// 配列情報
 	auto& fileData = pXMgr->GetList();
-	if (m_nIdxModel >= fileData.size()) return;
+	if (m_nIdxModel >= static_cast<int>(fileData.size())) return;
 
 	// 配列
 	auto& model = fileData[m_nIdxModel];
@@ -132,6 +133,70 @@ void CObjectX::Draw(void)
 
 	// マテリアルを戻す
 	pDevice->SetMaterial(&matDef);
+
+	// マトリックスシャドウ描画
+	if (m_isShadow)
+	{
+		DrawShadow();
+	}
+}
+//=============================
+// マトリックスシャドウ描画
+//=============================
+void CObjectX::DrawShadow(void)
+{
+	// デバイス取得
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
+	if (!pDevice) return;
+
+	// Xファイルマネージャー取得
+	CXfileManager* pXMgr = CManager::GetInstance()->GetXManager();
+	if (!pXMgr) return;
+
+	// 配列情報の取得
+	auto& fileData = pXMgr->GetList();
+	if (m_nIdxModel < NULL || m_nIdxModel >= static_cast<int>(fileData.size())) return;
+
+	// モデル要素を取得
+	auto& model = fileData[m_nIdxModel];
+	if (!model.pMesh) return;
+
+	// ライト方向
+	D3DXVECTOR4 lightDir(0.7f, -0.7f, 0.52f, 0.0f);
+
+	// 平面投影座標を設定
+	D3DXPLANE plane;
+	D3DXVECTOR3 point = VECTOR3_NULL;
+	D3DXVECTOR3 normal = D3DXVECTOR3(0.0f,-1.5f,0.0f);
+	D3DXPlaneFromPointNormal(&plane, &point, &normal);
+
+	// 影マトリックス生成
+	D3DXMATRIX mtxShadow;
+	D3DXMatrixShadow(&mtxShadow, &lightDir, &plane);
+
+	// 影をモデルの位置に合わせる
+	D3DXMATRIX mtxWorldShadow;
+	D3DXMatrixMultiply(&mtxWorldShadow, &m_mtxWorld, &mtxShadow);
+
+	// ワールドマトリックスの設定
+	pDevice->SetTransform(D3DTS_WORLD, &mtxWorldShadow);
+
+	// 半透明に設定
+	D3DMATERIAL9 shadowMat = {};
+	shadowMat.Diffuse = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.25f);
+	shadowMat.Ambient = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.25f);
+
+	// マテリアルセット
+	pDevice->SetMaterial(&shadowMat);
+
+	// メッシュ描画
+	for (int nCnt = 0; nCnt < model.dwNumMat; nCnt++)
+	{
+		model.pMesh->DrawSubset(nCnt);
+	}
+
+	// マテリアルを戻す
+	pDevice->SetMaterial(&shadowMat);
 }
 //=============================
 // 新規モデル登録

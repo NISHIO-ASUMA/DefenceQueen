@@ -31,10 +31,21 @@ public:
 	CArrayManager();
 	~CArrayManager();
 
-	HRESULT Init(void);
+	HRESULT Init(const int nActives);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+
+	int GetUseArray(void) { return m_nActiveAll; }
+
+	/// <summary>
+	/// 仲間を出現させる関数
+	/// </summary>
+	/// <param name="pos">出現座標</param>
+	/// <param name="rot">出現時の角度</param>
+	/// <param name="nLife">体力値</param>
+	/// <returns></returns>
+	void Spawn(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, int nLife,const int nNumSpawn);
 
 	/// <summary>
 	/// 配列の要素数を取得する
@@ -59,4 +70,5 @@ public:
 
 private:
 	std::vector<CArray*>m_pArrays; // 動的配列
+	int m_nActiveAll;		// 現在の出現数
 };

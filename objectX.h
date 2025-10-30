@@ -3,6 +3,8 @@
 // Xファイル処理 [ objectX.h ]
 // Author: Asuma Nishio
 //
+// TODO : マトリックスシャドウやる
+// 
 //=====================================
 
 //**********************
@@ -28,6 +30,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void); 
+	void DrawShadow(void);
 
 	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
 	void SetRot(D3DXVECTOR3 rot) { m_rot = rot; }
@@ -35,11 +38,11 @@ public:
 	void SetMtxWorld(D3DXMATRIX mtxworld) { m_mtxWorld = mtxworld; }
 	void SetFilePass(const char* pFilePass);
 	void SetModelIdx(const int nIdx) { m_nIdxModel = nIdx; }
+	void SetShadow(bool isFlags) { m_isShadow = isFlags; }
 
 	D3DXVECTOR3 GetPos(void) { return m_pos; };
 	D3DXVECTOR3 GetRot(void) { return m_rot; };
 	D3DXMATRIX GetMtxWorld(void) { return m_mtxWorld; }
-
 	int GetModelIdx(void) const { return m_nIdxModel; }
 
 	static CObjectX* Create(int nIdx, D3DXVECTOR3 pos);
@@ -50,4 +53,5 @@ private:
 	D3DXVECTOR3 m_Scale;	// 拡大率
 	D3DXMATRIX m_mtxWorld;	// ワールドマトリックス
 	int m_nIdxModel; // モデルインデックス
+	bool m_isShadow;		// 影を出すかどうか
 };

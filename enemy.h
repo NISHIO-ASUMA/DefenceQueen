@@ -13,7 +13,6 @@
 //**********************
 // インクルードファイル
 //**********************
-#include "object.h"
 #include "model.h"
 #include "motion.h"
 #include "movecharactor.h"

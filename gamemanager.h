@@ -18,9 +18,6 @@
 //*****************************
 // 前方宣言
 //*****************************
-class CStateMachine;
-class CGameStateBase;
-class CGame;
 class CBlockManager;
 
 //*****************************
@@ -39,6 +36,8 @@ public:
 	void Draw(void) override;
 
 	CBlockManager* GetBlockM(void) { return m_pBlock; }
+
 private:
-	CBlockManager* m_pBlock;
+
+	CBlockManager* m_pBlock;		// ブロックマネージャーのポインタ
 };

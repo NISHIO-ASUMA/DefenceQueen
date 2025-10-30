@@ -15,10 +15,9 @@
 //==================================
 // オーバーロードコンストラクタ
 //==================================
-CShadowS::CShadowS(int nPriority) : CObjectX(nPriority)
+CShadowS::CShadowS(int nPriority) : CObjectX(nPriority), m_pVtx{}
 {
 	// 値のクリア
-	m_pVtx = {};
 }
 //==================================
 // デストラクタ
@@ -39,7 +38,7 @@ HRESULT CShadowS::Init()
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// 頂点バッファの作成
-	pDevice->CreateVertexBuffer(sizeof(VERTEX_2D) * 4,
+	pDevice->CreateVertexBuffer(sizeof(VERTEX_2D) * BASEVERTEX,
 		D3DUSAGE_WRITEONLY,
 		FVF_VERTEX_2D,
 		D3DPOOL_MANAGED,
@@ -95,14 +94,7 @@ void CShadowS::Uninit(void)
 //==================================
 void CShadowS::Update(void)
 {
-	// モデルマネージャー取得
-	CXfileManager* m_pManager = CManager::GetInstance()->GetXManager();
-
-	// インデックス番号を取得
-	int nModelIdx = GetModelIdx();
-
-	// モデルのサイズ取得
-	D3DXVECTOR3 Size = m_pManager->GetInfo(nModelIdx).Size;
+	// 無し
 }
 //==================================
 // 描画処理
@@ -211,17 +203,7 @@ CShadowS* CShadowS::Create(D3DXVECTOR3 pos,D3DXVECTOR3 rot)
 	pShadowS->SetRot(rot);
 
 	// 初期化失敗時
-	if (FAILED(pShadowS->Init()))
-	{
-		// ポインタの破棄
-		delete pShadowS;
-
-		// nullptr初期化
-		pShadowS = nullptr;
-
-		// 失敗結果をかえす
-		return nullptr;
-	}
+	if (FAILED(pShadowS->Init())) return nullptr;
 
 	// 生成されたポインタを返す
 	return pShadowS;

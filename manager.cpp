@@ -228,7 +228,6 @@ void CManager::Update()
 	// フェードの更新
 	m_pFade->Update();
 
-	// シーン管理の更新
 	if (m_pSceneManager) m_pSceneManager->Update();
 
 	// nullチェック

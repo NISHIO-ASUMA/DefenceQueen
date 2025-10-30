@@ -63,16 +63,13 @@ HRESULT CBlock::Init(void)
 
 	// インデックス番号を取得
 	int nModelIdx = GetModelIdx();
-
-	// モデルのサイズ取得
 	D3DXVECTOR3 Size = pXManager->GetInfo(nModelIdx).Size;
 
 	// コライダー生成
 	m_pCollider = CBoxCollider::Create(GetPos(), GetPos(), Size);
 
-	// ステンシル生成
-	m_pShadow = CShadowS::Create(GetPos(), GetRot());
-	m_pShadow->SetScale(D3DXVECTOR3(1.5f, 1.0f, 1.5f));
+	// マトリックスシャドウを有効化する
+	SetShadow(true);
 
 	return S_OK;
 }
@@ -101,13 +98,6 @@ void CBlock::Update(void)
 
 	// コライダー座標の更新
 	m_pCollider->SetPos(pos);
-
-	// 影座標更新
-	if (m_pShadow)
-	{
-		m_pShadow->SetPos(D3DXVECTOR3(pos.x,0.0f,pos.z));
-		m_pShadow->SetRot(GetRot());
-	}
 }
 //=====================================
 // 描画処理

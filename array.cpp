@@ -47,8 +47,6 @@ CArray* CArray::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,const int nL
 	// オブジェクト設定
 	pArray->SetPos(pos);
 	pArray->SetRot(rot);
-
-	// ポインタ生成
 	pArray->m_pParameter = std::make_unique<CParameter>();
 
 	// nullチェック
@@ -123,6 +121,16 @@ void CArray::Update(void)
 	// falseなら通さない
 	if (!m_isActive) return;
 
+	// 体力がない
+	if (m_pParameter && m_pParameter->GetHp() <= 0)
+	{
+		// 体力を0にする
+		m_pParameter->SetHp(NULL);
+
+		// 未使用にする
+		SetActive(false);
+	}
+
 	// キャラクターの更新
 	CMoveCharactor::Update();
 }
@@ -136,6 +144,20 @@ void CArray::Draw(void)
 
 	// キャラクターの描画
 	CMoveCharactor::Draw();
+}
+//=====================================
+// パラメータ再設定処理
+//=====================================
+void CArray::Reset(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const int nLife)
+{
+	SetPos(pos);
+	SetRot(rot);
+	SetActive(true);
+	if (m_pParameter)
+	{
+		m_pParameter->SetMaxHp(nLife);
+		m_pParameter->SetHp(nLife);
+	}
 }
 //=====================================
 // 当たり判定処理

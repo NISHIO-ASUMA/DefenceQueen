@@ -221,7 +221,7 @@ void CTime::Second(void)
 		// 分の桁数を更新する
 		if (m_pNumberMinute[nCnt] != nullptr)
 		{
-			// 十秒以下
+			// 10秒以下
 			if (m_nAllTime <= REDTIMEZONE)
 			{
 				// カラー変更

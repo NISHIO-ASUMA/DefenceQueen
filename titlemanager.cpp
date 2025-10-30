@@ -18,6 +18,7 @@
 #include "sound.h"
 #include "fade.h"
 #include <memory>
+#include "scenemanagement.h"
 
 //============================
 // コンストラクタ
@@ -82,6 +83,8 @@ void CTitleManager::Update(void)
 	if ((pKey->GetTrigger(DIK_RETURN) || pJoyPad->GetTrigger(pJoyPad->JOYKEY_START)))
 	{
 		pFade->SetFade(std::make_unique<CGame>());	// ゲームシーンに遷移
+		// CManager::GetInstance()->GetSceneManager()->ChangeScene(CSceneManagement::TYPE_GAME);
+
 		return;
 	}
 }

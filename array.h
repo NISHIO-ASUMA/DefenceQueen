@@ -50,6 +50,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+	void Reset(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const int nLife);
 	bool Colision(CSphereCollider* other);
 
 	void SetActive(bool isFlags) { m_isActive = isFlags; }

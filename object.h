@@ -16,22 +16,22 @@
 class CObject
 {
 public:
+
 	//*************************
 	// オブジェクトの種類定義
 	//*************************
 	enum TYPE
 	{
 		TYPE_NONE,
-		TYPE_PLAYER,
-		TYPE_ARRAY,
-		TYPE_ENEMY,
-		TYPE_QUEEN,
-		TYPE_MESH,
-		TYPE_BLOCK,
-		TYPE_PAUSE,
-		TYPE_BARRIER,
-		TYPE_ITEM,
-		TYPE_POINT,
+		TYPE_PLAYER,	// プレイヤー
+		TYPE_ARRAY,		// 仲間
+		TYPE_ENEMY,		// 敵
+		TYPE_QUEEN,		// 防衛対象
+		TYPE_MESH,		// メッシュオブジェクト
+		TYPE_BLOCK,		// ブロック
+		TYPE_PAUSE,		// ポーズ
+		TYPE_BARRIER,	// バリア
+		TYPE_ITEM,		// アイテム
 		TYPE_MAX
 	};
 
@@ -75,19 +75,21 @@ public:
 	CObject* GetNext(void) { return m_pNext; }
 
 protected:
+
 	void Release(void); // 解放
 
 private:
-	static int m_nNumAll;	// 総数管理
-	int m_nID;				// 自分自身のID
-	TYPE m_Type;			// オブジェクトの種類変数
-	int m_nPriority;		// 優先順位番号
 
+	static int m_nNumAll;	// オブジェクトの総数
 	static CObject* m_pTop[PRIORITY_MAX];	// 先頭オブジェクト
 	static CObject* m_pCur[PRIORITY_MAX];	// 最後尾オブジェクト
 
+	int m_nID;				// 自分自身のID
+	int m_nPriority;		// 優先順位番号
+	bool m_isDeath;			// 死亡フラグ
+
+
+	TYPE m_Type;			// オブジェクトの種類変数
 	CObject* m_pNext;		// 次のオブジェクトのポインタ
 	CObject* m_pPrev;		// 前のオブジェクトのポインタ
-
-	bool m_isDeath;			// 死亡フラグ
 };
