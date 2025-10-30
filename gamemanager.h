@@ -27,6 +27,8 @@ class CGameManager
 {
 public:
 	
+	~CGameManager();
+
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
@@ -34,18 +36,11 @@ public:
 
 	CBlockManager* GetBlockManager(void) { return m_pBlockManager.get(); }
 
-	// インスタンス取得
-	static CGameManager* GetInstance(void)
-	{
-		// インスタンスを返す
-		static CGameManager pGameManager;
-		return &pGameManager;
-	}
+	static CGameManager* GetInstance(void);
 
 private:
 
 	CGameManager();
-	~CGameManager() {};
 
 	std::unique_ptr<CBlockManager>m_pBlockManager;		// ブロックマネージャーのポインタ
 };

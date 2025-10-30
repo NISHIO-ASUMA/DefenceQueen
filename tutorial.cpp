@@ -20,7 +20,7 @@
 //===============================
 // オーバーロードコンストラクタ
 //===============================
-CTutorial::CTutorial() : CScene(CScene::MODE_TUTORIAL), m_pTutoManager(nullptr)
+CTutorial::CTutorial() : CScene(CScene::MODE_TUTORIAL)
 {
 	// 値のクリア
 }
@@ -36,10 +36,6 @@ CTutorial::~CTutorial()
 //===============================
 HRESULT CTutorial::Init(void)
 {
-	// マネージャーのインスタンス生成
-	m_pTutoManager = std::make_unique<CTutorialManager>();
-	if (m_pTutoManager != nullptr) m_pTutoManager->Init();
-
 	// サウンド取得
 	CSound* pSound = CManager::GetInstance()->GetSound();
 	if (pSound == nullptr) return E_FAIL;
@@ -55,21 +51,13 @@ HRESULT CTutorial::Init(void)
 //===============================
 void CTutorial::Uninit(void)
 {
-	// 破棄
-	m_pTutoManager.reset();
+
 }
 //===============================
 // 更新処理
 //===============================
 void CTutorial::Update(void)
 {
-	// ポインタが存在するなら
-	if (m_pTutoManager != nullptr)
-	{
-		// マネージャーの更新処理
-		m_pTutoManager->Update();
-	}
-
 	// キー入力で遷移
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN))
 	{

@@ -26,6 +26,7 @@ class CResultManager;
 class CResult : public CScene
 {
 public:
+
 	CResult();
 	~CResult();
 
@@ -37,5 +38,4 @@ public:
 	static CResult* Create(void);
 
 private:
-	CResultManager* m_pResultManager;	// マネージャークラスポインタ
 };

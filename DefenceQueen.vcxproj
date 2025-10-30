@@ -174,6 +174,8 @@
     <ClCompile Include="enemystate.cpp" />
     <ClCompile Include="enemystatebase.cpp" />
     <ClCompile Include="fade.cpp" />
+    <ClCompile Include="feed.cpp" />
+    <ClCompile Include="feedmanager.cpp" />
     <ClCompile Include="gauge.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gamemanager.cpp" />
@@ -217,7 +219,6 @@
     <ClCompile Include="result.cpp" />
     <ClCompile Include="resultmanager.cpp" />
     <ClCompile Include="scene.cpp" />
-    <ClCompile Include="sceneobjectmanagement.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="shadow.cpp" />
     <ClCompile Include="shadowS.cpp" />
@@ -226,7 +227,6 @@
     <ClCompile Include="state.cpp" />
     <ClCompile Include="statemachine.cpp" />
     <ClCompile Include="texture.cpp" />
-    <ClCompile Include="thread.cpp" />
     <ClCompile Include="time.cpp" />
     <ClCompile Include="title.cpp" />
     <ClCompile Include="titlemanager.cpp" />
@@ -261,6 +261,8 @@
     <ClInclude Include="enemystate.h" />
     <ClInclude Include="enemystatebase.h" />
     <ClInclude Include="fade.h" />
+    <ClInclude Include="feed.h" />
+    <ClInclude Include="feedmanager.h" />
     <ClInclude Include="gauge.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gamemanager.h" />
@@ -303,7 +305,6 @@
     <ClInclude Include="result.h" />
     <ClInclude Include="resultmanager.h" />
     <ClInclude Include="scene.h" />
-    <ClInclude Include="sceneobjectmanagement.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="shadow.h" />
     <ClInclude Include="shadowS.h" />
@@ -313,7 +314,6 @@
     <ClInclude Include="statemachine.h" />
     <ClInclude Include="template.h" />
     <ClInclude Include="texture.h" />
-    <ClInclude Include="thread.h" />
     <ClInclude Include="time.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="titlemanager.h" />

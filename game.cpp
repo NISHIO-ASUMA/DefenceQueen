@@ -47,12 +47,8 @@ HRESULT CGame::Init(void)
 	// ポーズマネージャー初期化処理
 	m_pPausemanager->Init();
 
-	//// ゲームマネージャー生成
-	//m_pGameManager = std::make_unique<CGameManager>();
-	//if (m_pGameManager == nullptr) 	return E_FAIL;
-
-	//// ゲームマネージャー初期化処理
-	//m_pGameManager->Init();
+	// ゲームマネージャー
+	CGameManager::GetInstance()->Init();
 
 	// ゲームオブジェクト生成
 	m_pGameObject = std::make_unique<CGameSceneObject>();
@@ -77,6 +73,8 @@ HRESULT CGame::Init(void)
 //==================================
 void CGame::Uninit(void)
 {
+	CGameManager::GetInstance()->Uninit();
+
 	// nullチェック
 	if (m_pPausemanager != nullptr)
 	{
@@ -131,7 +129,7 @@ void CGame::Update(void)
 	if (!m_pPausemanager->GetPause())
 	{
 		// ゲームマネージャー更新
-		// m_pGameManager->Update();
+		CGameManager::GetInstance()->Update();
 
 		// ゲームオブジェクト更新
 		m_pGameObject->Update();

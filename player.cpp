@@ -30,6 +30,8 @@
 #include "boxcollider.h"
 #include "collisionbox.h"
 #include "motion.h"
+#include "blockmanager.h"
+#include "collisionbox.h"
 
 //**********************
 // 名前空間
@@ -155,8 +157,9 @@ void CPlayer::Update(void)
 	// 死んでるなら処理しない
 	if (m_isDeath) return;
 
-	// 座標取得
+	// 現在の座標取得
 	D3DXVECTOR3 pos = GetPos();
+	D3DXVECTOR3 posOld = GetOldPos();
 
 	// 入力デバイスのポインタ取得
 	CInputKeyboard* pInput = CManager::GetInstance()->GetInputKeyboard();
@@ -173,16 +176,20 @@ void CPlayer::Update(void)
 	MoveKey(pInput,pJoyPad);
 	MovePad(pJoyPad);
 
+	// 座標のみの更新
+	CMoveCharactor::UpdatePosion();
+
+	// 更新された座標を取得
+	D3DXVECTOR3 UpdatePos = GetPos();
+
 	// コライダーの位置更新
-	m_pBoxCollider->SetPos(pos);
+	m_pBoxCollider->SetPos(UpdatePos);
+	m_pBoxCollider->SetPosOld(posOld);
 
-	// 座標セット
-	SetPos(pos);
+	// コリジョンチェック関数
+	CollisionAll(UpdatePos);
 
-	// ブロックとの当たり判定
-	CollisionBlock(&pos);
-
-	// キャラクターの更新処理
+	// キャラクターの全体更新処理
 	CMoveCharactor::Update();
 }
 //===============================
@@ -196,6 +203,35 @@ void CPlayer::Draw(void)
 	// デバッグ表示
 	CDebugproc::Print("モーションタイプ [ %d ]", m_pMotion->GetMotionType());
 	CDebugproc::Draw(0, 100);
+
+	CDebugproc::Print("POS [ %.2f, %.2f,%.2f ]", GetPos().x,GetPos().y,GetPos().z);
+	CDebugproc::Draw(0, 120);
+}
+//=================================
+// 全コリジョンチェック関数
+//=================================
+void CPlayer::CollisionAll(D3DXVECTOR3 pPos)
+{
+	// 配置されているブロックを取得
+	auto Block = CGameManager::GetInstance()->GetBlockManager();
+	if (Block == nullptr) return;
+
+	// ブロックオブジェクトとの当たり判定
+	for (int nBlock = 0; nBlock < Block->GetAll(); nBlock++)
+	{
+		// コライダー取得
+		CBoxCollider* pOtherCollider = Block->GetBlock(nBlock)->GetCollider();
+
+		// 実際のコリジョン
+		if (CollisionBlock(pOtherCollider, &pPos))
+		{
+			// 座標セット
+			SetPos(pPos);
+
+			// コライダー座標更新
+			m_pBoxCollider->SetPos(pPos);
+		}
+	}
 }
 //=========================================
 // キー入力移動関数
@@ -417,10 +453,9 @@ void CPlayer::MovePad(CJoyPad* pPad)
 //=========================================
 // ブロックとの当たり判定
 //=========================================
-bool CPlayer::CollisionBlock(D3DXVECTOR3* pos)
+bool CPlayer::CollisionBlock(CBoxCollider* other,D3DXVECTOR3 * pos)
 {
-	// 当たらないとき
-	return false;
+	return CCollisionBox::Collision(m_pBoxCollider, other, pos);
 }
 
 //=========================================

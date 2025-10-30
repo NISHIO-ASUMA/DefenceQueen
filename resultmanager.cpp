@@ -135,3 +135,11 @@ void CResultManager::Load(void)
 	m_nGameScore = NULL;
 	m_nLastTime = NULL;
 }
+//=================================
+// インスタンス取得
+//=================================
+CResultManager* CResultManager::GetInstance(void)
+{
+	static CResultManager pResultManager;
+	return &pResultManager;
+}

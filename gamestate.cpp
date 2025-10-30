@@ -55,11 +55,14 @@ void CGameState::OnUpdate()
 	// ポインタが無かったら
 	if (m_pGame == nullptr) return;
 
+	// 終了状態なら更新しない
+	if (m_Progress == PROGRESS_END) return;
+
 	// フェード取得
 	auto pFade = CManager::GetInstance()->GetFade();
 	if (pFade == nullptr) return;
 
-	// 使用オブジェクト取得
+	// シーンオブジェクト取得
 	auto GameSceneObject = m_pGame->GetGameObject();
 	if (GameSceneObject == nullptr) return;
 
@@ -89,12 +92,6 @@ void CGameState::OnUpdate()
 			{
 				// リザルトシーンに遷移
 				pFade->SetFade(std::make_unique<CResult>());
-
-				// スコアを書き出しする
-				// GameSceneObject->GetScore()->SaveScore();
-
-				// 処理終了
-				return;
 			}
 		}
 		break;

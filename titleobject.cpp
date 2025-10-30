@@ -45,3 +45,10 @@ void CTitleObject::Update(void)
 {
 	// ƒƒ“ƒo‚ÌXV
 }
+//=============================
+// •`‰æˆ—
+//=============================
+void CTitleObject::Draw(void)
+{
+
+}

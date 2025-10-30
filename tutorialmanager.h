@@ -22,23 +22,18 @@ class CTutorialManager
 {
 public:
 
+	~CTutorialManager();
+	
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 
-	// インスタンス取得
-	static CTutorialManager* GetInstance(void)
-	{
-		// 生成されたインスタンス
-		static CTutorialManager pTutoManager;
-		return &pTutoManager;
-	}
+	static CTutorialManager* GetInstance(void);
 
 private:
 
 	CTutorialManager();
-	~CTutorialManager();
 
 	CTutorialUi* m_pTutoui; // チュートリアルuiクラスのポインタ
 };

@@ -37,5 +37,4 @@ public:
 	void Draw(void);
 
 private:
-	std::unique_ptr<CTutorialManager>m_pTutoManager; // マネージャークラスのポインタ
 };

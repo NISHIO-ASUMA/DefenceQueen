@@ -79,11 +79,7 @@ void CCamera::Uninit(void)
 // XVˆ—
 //=================================
 void CCamera::Update(void)
-{	
-	CInputMouse* pMouse = CManager::GetInstance()->GetMouse();
-
-	MouseView(pMouse);
-
+{
 	// Šp“x‚Ì³‹K‰»
 	if (m_pCamera.rot.y > D3DX_PI)
 	{// D3DX_PI‚æ‚è‘å‚«‚­‚È‚Á‚½‚ç

@@ -19,11 +19,19 @@
 #include "blockmanager.h"
 
 //========================
+// インスタンス取得
+//========================
+CGameManager* CGameManager::GetInstance(void)
+{
+	static CGameManager pInstance;
+	return &pInstance;
+}
+//========================
 // コンストラクタ
 //========================
 CGameManager::CGameManager() : m_pBlockManager(nullptr)
 {
-
+	// 値のクリア
 }
 //========================
 // デストラクタ

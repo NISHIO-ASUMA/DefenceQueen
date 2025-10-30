@@ -26,6 +26,7 @@ class CRankingManager;
 class CRanking : public CScene
 {
 public:
+
 	CRanking();
 	~CRanking();
 
@@ -35,7 +36,5 @@ public:
 	void Draw(void);
 
 	static CRanking* Create(void);
-
 private:
-	CRankingManager* m_pRankManager;	// クラスポインタ
 };

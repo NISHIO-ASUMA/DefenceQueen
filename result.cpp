@@ -16,8 +16,6 @@
 //=================================
 CResult::CResult() : CScene(CScene::MODE_RESULT)
 {
-	// 値のクリア
-	m_pResultManager = nullptr;
 }
 //=================================
 // デストラクタ
@@ -51,16 +49,6 @@ CResult* CResult::Create(void)
 //=================================
 HRESULT CResult::Init(void)
 {
-	// マネージャーのインスタンス生成
-	m_pResultManager = new CResultManager;
-
-	// 生成に失敗したら
-	if (m_pResultManager == nullptr) return E_FAIL;
-	
-	// マネージャーの初期化処理
-	m_pResultManager->Init();
-
-
 	// 初期化結果を返す
 	return S_OK;
 }
@@ -69,30 +57,14 @@ HRESULT CResult::Init(void)
 //=================================
 void CResult::Uninit(void)
 {
-	 // nullチェック
-	 if (m_pResultManager != nullptr)
-	 {
-		// 終了処理
-		m_pResultManager->Uninit();
 
-		// ポインタの破棄
-		delete m_pResultManager;
-
-		// nullに設定
-		m_pResultManager = nullptr;
-	 }
 }
 //=================================
 // 更新処理
 //=================================
 void CResult::Update(void)
 {
-	// nullじゃなかったら
-	if (m_pResultManager != nullptr)
-	{
-		// リザルトマネージャーの更新
-		m_pResultManager->Update();
-	}
+
 }
 //=================================
 // 描画処理

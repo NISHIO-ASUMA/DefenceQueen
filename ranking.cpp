@@ -21,8 +21,7 @@
 //===================================
 CRanking::CRanking() : CScene(CScene::MODE_RANKING)
 {
-	// 値のクリア
-	m_pRankManager = nullptr;
+
 }
 //===================================
 // デストラクタ
@@ -72,18 +71,7 @@ HRESULT CRanking::Init(void)
 //===================================
 void CRanking::Uninit(void)
 {
-	// nullチェック
-	if (m_pRankManager != nullptr)
-	{
-		// 終了処理
-		m_pRankManager->Uninit();
 
-		// ポインタの破棄
-		delete m_pRankManager;
-
-		// null初期化
-		m_pRankManager = nullptr;
-	}
 }
 //===================================
 // 更新処理

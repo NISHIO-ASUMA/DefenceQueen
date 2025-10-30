@@ -13,7 +13,6 @@
 //***********************
 // 前方宣言
 //***********************
-class CTitleUi;
 class CUi;
 
 //***********************
@@ -28,23 +27,18 @@ class CTitleManager
 {
 public:
 
+	~CTitleManager();
+
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 
-	// インスタンス取得
-	static CTitleManager* GetInstance(void)
-	{
-		// インスタンスを返す
-		static CTitleManager pTitleManager;
-		return &pTitleManager;
-	}
+	static CTitleManager* GetInstance(void);
 
 private:
 
 	CTitleManager();
-	~CTitleManager();
 
 	CUi* m_pUi;				// クラスポインタ
 	int m_nIdx;				// 選択番号

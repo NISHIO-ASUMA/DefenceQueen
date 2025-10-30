@@ -50,4 +50,3 @@ private:
 	PROGRESS m_Progress;	// 進行状態の種類
 	CGame * m_pGame;		// ゲームシーンポインタ
 };
-

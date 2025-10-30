@@ -89,11 +89,11 @@ void CMoveCharactor::Uninit(void)
 //======================================
 void CMoveCharactor::Update(void)
 {
-	// 位置保存
-	m_posOld = m_pos;
+	//// 位置保存
+	//m_posOld = m_pos;
 
-	// 座標を更新する
-	m_pos += m_move;
+	//// 座標を更新する
+	//m_pos += m_move;
 
 	// 移動量の減衰
 	m_move.x += (0.0f - m_move.x) * 0.75f;
@@ -159,6 +159,15 @@ void CMoveCharactor::Draw(void)
 	{
 		model->Draw();
 	}
+}
+//======================================
+// 位置情報の更新
+//======================================
+void CMoveCharactor::UpdatePosion(void)
+{
+	// 位置の更新
+	m_posOld = m_pos;
+	m_pos += m_move;
 }
 //======================================
 // モーションロード処理

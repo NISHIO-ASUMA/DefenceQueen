@@ -16,6 +16,8 @@
 class CRankingManager
 {
 public:
+	
+	~CRankingManager();
 
 	HRESULT Init(void);
 	void Update(void);
@@ -23,15 +25,10 @@ public:
 	void Draw(void);
 
 	// インスタンス取得
-	static CRankingManager* GetInstance(void)
-	{
-		// インスタンスを返す
-		static CRankingManager pRankManager;
-		return &pRankManager;
-	}
+	static CRankingManager* GetInstance(void);
 
 private:
 
 	CRankingManager();
-	~CRankingManager();
+
 };

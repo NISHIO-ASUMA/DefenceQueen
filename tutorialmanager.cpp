@@ -61,3 +61,12 @@ void CTutorialManager::Draw(void)
 {
 
 }
+//==========================
+// インスタンス取得
+//==========================
+CTutorialManager* CTutorialManager::GetInstance(void)
+{
+	// 生成されたインスタンス
+	static CTutorialManager pTutoManager;
+	return &pTutoManager;
+}

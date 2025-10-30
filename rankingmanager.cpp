@@ -13,6 +13,14 @@
 #include "ui.h"
 
 //================================
+// インスタンス取得
+//================================
+CRankingManager* CRankingManager::GetInstance(void)
+{
+	static CRankingManager pRankManager;
+	return &pRankManager;
+}
+//================================
 // コンストラクタ
 //================================
 CRankingManager::CRankingManager()

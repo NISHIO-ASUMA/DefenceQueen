@@ -32,7 +32,7 @@ m_nIdx(NULL)
 //============================
 CTitleManager::~CTitleManager()
 {
-	// 無し
+	// 破棄
 }
 //============================
 // 初期化処理
@@ -89,4 +89,13 @@ void CTitleManager::Update(void)
 void CTitleManager::Draw(void)
 {
 
+}
+//=============================
+//インスタンス取得
+//=============================
+CTitleManager* CTitleManager::GetInstance(void)
+{
+	// インスタンスを返す
+	static CTitleManager pTitleManager;
+	return &pTitleManager;
 }

@@ -57,12 +57,13 @@ public:
 	void Uninit(void) override;
 	void Update(void) override;
 	void Draw(void) override;
+	void CollisionAll(D3DXVECTOR3 pPos);
 
 	void MoveKey(CInputKeyboard* pInput,CJoyPad * pPad);
 	void MovePad(CJoyPad* pPad);
 
 	void ChangeState(CPlayerStateBase* pNewState,int Id);
-	bool CollisionBlock(D3DXVECTOR3 * pos);
+	bool CollisionBlock(CBoxCollider* other, D3DXVECTOR3* pos);
 
 	CParameter* GetParameter(void) { return m_pParameter.get(); }
 	CStateMachine* GetStateMachine() { return m_pStateMachine.get(); }

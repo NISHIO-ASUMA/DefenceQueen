@@ -40,6 +40,7 @@ public:
 	CBlockManager* GetBlockManager(void) { return m_pBlocks.get(); }
 
 private:
+
 	std::unique_ptr<CBlockManager>m_pBlocks; // ブロックマネージャークラスのポインタ
 	static CScore* m_pScore; // スコアクラスのポインタ
 };

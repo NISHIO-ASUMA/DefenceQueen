@@ -27,24 +27,19 @@ class CResultManager
 {
 public:
 
+	~CResultManager();
+
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 	void Load(void);
 
-	// インスタンス取得
-	static CResultManager* GetInstance(void)
-	{
-		// インスタンスを返す
-		static CResultManager pResultManager;
-		return &pResultManager;
-	}
+	static CResultManager* GetInstance(void);
 
 private:
 
 	CResultManager();
-	~CResultManager();
 
 	static constexpr int SCORELISTNUM = 3; // 最大数
 

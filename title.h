@@ -16,13 +16,8 @@
 #include "scene.h"
 #include <memory>
 
-//**************************
-// 前方宣言
-//**************************
-class CTitleManager;
-
 //****************************
-// タイトルクラスを定義
+// タイトルシーンクラスを定義
 //****************************
 class CTitle :public CScene
 {
@@ -37,5 +32,5 @@ public:
 	void Draw(void);
 
 private:
-	std::unique_ptr<CTitleManager>m_pTitleManager; // マネージャークラスポインタ
+
 };
