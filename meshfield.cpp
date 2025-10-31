@@ -92,7 +92,7 @@ void CMeshField::SetTexture(void)
 	CTexture* pTexture =CManager::GetInstance()->GetInstance()->GetTexture();
 
 	// Š„‚è“–‚Ä
-	m_nTexIdx = pTexture->Register("data/TEXTURE/DomeTex.jpg");
+	m_nTexIdx = pTexture->Register("data/TEXTURE/ground.jpg");
 }
 //============================================
 // ‰Šú‰»ˆ—

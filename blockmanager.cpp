@@ -88,7 +88,7 @@ void CBlockManager::Update(void)
 HRESULT CBlockManager::Load()
 {
 	// 開くファイル
-	std::ifstream file("data/JSON/TestStage.json");
+	std::ifstream file("data/JSON/Map.json");
 
 	// 開け無かった
 	if (!file.is_open())

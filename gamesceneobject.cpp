@@ -45,7 +45,7 @@ HRESULT CGameSceneObject::Init(void)
 	// m_pScore = CScore::Create(D3DXVECTOR3(600.0f, 200.0f, 0.0f), 60.0f, 40.0f);
 
 	// メッシュフィールド生成
-	CMeshField::Create(VECTOR3_NULL, 3000.0f,3000.0f,1,1);
+	CMeshField::Create(VECTOR3_NULL, 2100.0f,1500.0f,1,1);
 
 	// ブロックマネージャー生成
 	//m_pBlocks = std::make_unique<CBlockManager>();
