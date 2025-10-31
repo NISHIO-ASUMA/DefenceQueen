@@ -14,6 +14,7 @@
 // インクルードファイル
 //**********************
 #include "object.h"
+#include "motion.h"
 #include <memory>
 #include <vector>
 
@@ -22,7 +23,6 @@
 //**********************
 class CShadowS;
 class CModel;
-class CMotion;
 
 //*********************************
 // 動くキャラクタークラスを定義

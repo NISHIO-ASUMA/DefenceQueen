@@ -161,7 +161,7 @@ void CMotion::SetMotion(int motiontype)
 //======================================
 // モーションセット情報
 //======================================
-void CMotion::SetMotion(int nMotionType, bool isBlend, int nBlendFrame,bool isBoss)
+void CMotion::SetMotion(int nMotionType, bool isBlend, int nBlendFrame)
 {
 	// ここはmotiontypeに渡された番号を取得する
 	if (m_motiontype == nMotionType)
@@ -184,12 +184,6 @@ void CMotion::SetMotion(int nMotionType, bool isBlend, int nBlendFrame,bool isBo
 		m_isBlendMotion = isBlend;			// ブレンドがあるかどうか
 		m_nFrameBlend = nBlendFrame;		// ブレンドのフレームを代入
 		m_motiontypeBlend = nMotionType;	// ブレンドするモーションのタイプを代入
-
-		if (isBoss == false)
-		{
-			m_isFinishMotion = false;		// 終了判定を無効化
-		}
-
 	}
 	// モーションブレンドがない
 	else
@@ -354,7 +348,7 @@ void CMotion::UpdateCurrentMotion(CModel** ppModel, int nModelCount)
 	const KEY_INFO& keyInfoNext = motionInfo.aKeyInfo[m_nNextKey];
 
 	// インデックス範囲チェックしオーバーしている場合
-	if (nModelCount >= keyInfoNow.aKey.size() || nModelCount >= keyInfoNext.aKey.size())
+	if (nModelCount >= static_cast<int>(keyInfoNow.aKey.size()) || nModelCount >= static_cast<int>(keyInfoNext.aKey.size()))
 	{
 		return; // 下の処理を通さない
 	}

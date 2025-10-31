@@ -128,6 +128,9 @@ void CEnemy::Update(void)
 	// 状態管理更新
 	if (m_pStateMachine != nullptr) m_pStateMachine->Update();
 
+	// 座標のみの更新
+	CMoveCharactor::UpdatePosion();
+
 	// 球の座標更新
 	if (m_pSphereCollider) m_pSphereCollider->SetPos(pos);
 

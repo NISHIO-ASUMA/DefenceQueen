@@ -46,19 +46,22 @@ HRESULT CArrayManager::Init(const int nActives)
 	// 配列初期化
 	m_pArrays.clear();
 
-	// サイズ確保
+	// メモリの確保
 	m_pArrays.reserve(ARRAYINFO::ALLARRAYS);
 
+	// 配列の要素数を格納する
+	int nSize = m_pArrays.size();
+
 	// あらかじめ最大数生成する
-	for (int nCnt = 0;nCnt < m_pArrays.size();nCnt++)
+	for (int nCnt = 0; nCnt < nSize; nCnt++)
 	{
 		// インスタンス生成
 		auto pArray = CArray::Create(VECTOR3_NULL,VECTOR3_NULL,ARRAYINFO::LIFE);
 		m_pArrays.push_back(pArray);
 	}
 
-	// サイズの範囲内チェック
-	int nUse = Clump(nActives, 0, static_cast<int>(m_pArrays.size()));
+	// サイズの範囲内にあるかどうかチェック
+	int nUse = Clump(nActives, 0, nSize);
 
 	for (int nActive = 0; nActive < nUse; nActive++)
 	{
@@ -110,16 +113,24 @@ void CArrayManager::Update(void)
 void CArrayManager::Draw(void)
 {
 	// デバッグ表示
-	CDebugproc::Print("現在のアクティブ数 : [ %d ] ", m_nActiveAll);
-	CDebugproc::Draw(0, 120);
+	CDebugproc::Print("アクティブ数 : [ %d / %d ]", m_nActiveAll, ARRAYINFO::ALLARRAYS);
+	CDebugproc::Draw(0, 140);
 }
 //===========================
 // 出現管理処理
 //============================
 void CArrayManager::Spawn(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife,const int nNumSpawn)
 {
+	// 出現数超過の時
+	if (m_nActiveAll >= ARRAYINFO::ALLARRAYS)
+	{
+		// 例外設定
+		OutputDebugStringA("出現上限に達しました\n");
+		return;
+	}
+
 	// 出現数を範囲内に制限
-	int nSpawnCount = Clump(nNumSpawn, 0, static_cast<int>(m_pArrays.size()));
+	int nSpawnCount = Clump(nNumSpawn, 0, ARRAYINFO::ALLARRAYS - m_nActiveAll);
 
 	// スポーンするカウント
 	int nSpawned = 0;
@@ -134,17 +145,14 @@ void CArrayManager::Spawn(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife,const int 
 
 			// カウント加算
 			nSpawned++;
+			m_nActiveAll++;
 
 			// 指定数出現したら終了
 			if (nSpawned >= nSpawnCount) break;
+
+			// 最大数に達したら出現させない
+			if (m_nActiveAll >= ARRAYINFO::ALLARRAYS) break;
+
 		}
 	}
-
-	// 出現できなかった場合のログ
-#ifdef _DEBUG
-	if (nSpawned < nSpawnCount)
-	{
-		OutputDebugStringA("出現できませんでした");
-	}
-#endif
 }

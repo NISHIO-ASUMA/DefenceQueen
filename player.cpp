@@ -21,7 +21,7 @@
 #include "debugproc.h"
 #include "shadowS.h"
 #include "gamemanager.h"
-#include "playerstate.h"
+#include "playerstatebase.h"
 #include "effect.h"
 #include "game.h"
 #include "effectsmoke.h"
@@ -117,7 +117,7 @@ HRESULT CPlayer::Init(void)
 	m_pStateMachine = std::make_unique<CStateMachine>();
 
 	// 初期状態をセット
-	ChangeState(new CPlayerStateNeutral,CPlayerStateBase::ID_NEUTRAL); 
+	// ChangeState(new CPlayerStateNeutral,CPlayerStateBase::ID_NEUTRAL); 
 
 	// コライダー生成
 	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(50.0f,50.0f,50.0f));
@@ -365,7 +365,7 @@ void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 		if (m_pMotion->GetMotionType() == MOTION_MOVE)
 		{
 			//　モーション切り替え
-			m_pMotion->SetMotion(MOTION_NEUTRAL, true, 10, false);
+			m_pMotion->SetMotion(MOTION_NEUTRAL, true, 10);
 		}
 	}
 

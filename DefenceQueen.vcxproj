@@ -210,7 +210,9 @@
     </ClCompile>
     <ClCompile Include="player.cpp" />
     <ClCompile Include="playerlifegage.cpp" />
-    <ClCompile Include="playerstate.cpp" />
+    <ClCompile Include="playerstatebase.cpp" />
+    <ClCompile Include="playerstatemove.cpp" />
+    <ClCompile Include="playerstateneutral.cpp" />
     <ClCompile Include="queen.cpp" />
     <ClCompile Include="ranking.cpp" />
     <ClCompile Include="rankingmanager.cpp" />
@@ -296,7 +298,9 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="playerlifegage.h" />
-    <ClInclude Include="playerstate.h" />
+    <ClInclude Include="playerstatebase.h" />
+    <ClInclude Include="playerstatemove.h" />
+    <ClInclude Include="playerstateneutral.h" />
     <ClInclude Include="queen.h" />
     <ClInclude Include="ranking.h" />
     <ClInclude Include="rankingmanager.h" />

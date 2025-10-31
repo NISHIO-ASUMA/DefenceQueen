@@ -106,6 +106,9 @@
     <Filter Include="ソース ファイル\Charactor\Param">
       <UniqueIdentifier>{a746d536-8fe7-407a-9621-7dc31edd5376}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\State\Player">
+      <UniqueIdentifier>{5d77f927-e4d1-4d8e-a8a6-b245a924ddf8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="object2D.cpp">
@@ -237,9 +240,6 @@
     <ClCompile Include="statemachine.cpp">
       <Filter>ソース ファイル\State\Base</Filter>
     </ClCompile>
-    <ClCompile Include="playerstate.cpp">
-      <Filter>ソース ファイル\State\child</Filter>
-    </ClCompile>
     <ClCompile Include="enemystate.cpp">
       <Filter>ソース ファイル\State\child</Filter>
     </ClCompile>
@@ -356,6 +356,15 @@
     </ClCompile>
     <ClCompile Include="feedmanager.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="playerstatebase.cpp">
+      <Filter>ソース ファイル\State\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="playerstatemove.cpp">
+      <Filter>ソース ファイル\State\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="playerstateneutral.cpp">
+      <Filter>ソース ファイル\State\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -512,7 +521,7 @@
     <ClInclude Include="playerlifegage.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="playerstate.h">
+    <ClInclude Include="playerstatebase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="ranking.h">
@@ -612,6 +621,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="feedmanager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="playerstateneutral.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="playerstatemove.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

@@ -9,7 +9,6 @@
 // インクルードファイル
 //************************
 #include "movecharactor.h"
-#include "motion.h"
 #include "model.h"
 #include "shadowS.h"
 #include "manager.h"
