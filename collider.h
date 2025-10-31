@@ -16,6 +16,7 @@
 class CCollider
 {
 public:
+
 	CCollider();
 	virtual ~CCollider();
 
@@ -23,5 +24,6 @@ public:
 	D3DXVECTOR3 GetPos(void) const { return m_pos; }
 
 protected:
+
 	D3DXVECTOR3 m_pos; // コライダー設定用座標( 全クラスで共有する一個の変数 )
 };

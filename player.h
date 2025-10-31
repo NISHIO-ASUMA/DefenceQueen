@@ -57,11 +57,10 @@ public:
 	void Uninit(void) override;
 	void Update(void) override;
 	void Draw(void) override;
-	void CollisionAll(D3DXVECTOR3 pPos);
 
+	void CollisionAll(D3DXVECTOR3 pPos);
 	void MoveKey(CInputKeyboard* pInput,CJoyPad * pPad);
 	void MovePad(CJoyPad* pPad);
-
 	void ChangeState(CPlayerStateBase* pNewState,int Id);
 	bool CollisionBlock(CBoxCollider* other, D3DXVECTOR3* pos);
 
@@ -72,10 +71,8 @@ public:
 	bool isMovePadButton(CJoyPad* pPad);
 
 	static CPlayer* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife,const char* pFilename);
-	static bool IsDeath(void) { return m_isDeath; }
 
 private:
-	static bool m_isDeath;  // 静的
 	std::unique_ptr<CParameter>m_pParameter; // パラメータークラスポインタ
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
 	CMotion* m_pMotion;				// モーションポインタ

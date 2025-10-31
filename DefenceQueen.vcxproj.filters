@@ -109,6 +109,9 @@
     <Filter Include="ソース ファイル\State\Player">
       <UniqueIdentifier>{5d77f927-e4d1-4d8e-a8a6-b245a924ddf8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\State\Enemy">
+      <UniqueIdentifier>{765cd623-4322-44d8-a0b2-79d4772ef6b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="object2D.cpp">
@@ -240,9 +243,6 @@
     <ClCompile Include="statemachine.cpp">
       <Filter>ソース ファイル\State\Base</Filter>
     </ClCompile>
-    <ClCompile Include="enemystate.cpp">
-      <Filter>ソース ファイル\State\child</Filter>
-    </ClCompile>
     <ClCompile Include="gamestate.cpp">
       <Filter>ソース ファイル\State\child</Filter>
     </ClCompile>
@@ -354,9 +354,6 @@
     <ClCompile Include="feed.cpp">
       <Filter>ソース ファイル\XFile</Filter>
     </ClCompile>
-    <ClCompile Include="feedmanager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="playerstatebase.cpp">
       <Filter>ソース ファイル\State\Base</Filter>
     </ClCompile>
@@ -365,6 +362,15 @@
     </ClCompile>
     <ClCompile Include="playerstateneutral.cpp">
       <Filter>ソース ファイル\State\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="enemystateneutral.cpp">
+      <Filter>ソース ファイル\State\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="feedmanager.cpp">
+      <Filter>ソース ファイル\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="enemystatemove.cpp">
+      <Filter>ソース ファイル\State\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -413,7 +419,7 @@
     <ClInclude Include="enemy.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="enemystate.h">
+    <ClInclude Include="enemystateneutral.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="enemystatebase.h">
@@ -627,6 +633,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="playerstatemove.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="enemystatemove.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

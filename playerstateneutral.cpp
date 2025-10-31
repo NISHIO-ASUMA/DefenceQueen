@@ -9,6 +9,9 @@
 // インクルードファイル
 //**********************
 #include "playerstateneutral.h"
+#include "manager.h"
+#include "input.h"
+#include "playerstatemove.h"
 
 //==============================
 // コンストラクタ
@@ -38,7 +41,17 @@ void CPlayerStateNeutral::OnStart()
 //===============================
 void CPlayerStateNeutral::OnUpdate()
 {
+	// キー入力情報を取得
+	auto pKey = CManager::GetInstance()->GetInputKeyboard();
+	auto pPad = CManager::GetInstance()->GetJoyPad();
 
+	// キー入力があったなら
+	if (m_pPlayer->isMoveInputKey(pKey) || m_pPlayer->isMovePadButton(pPad))
+	{
+		// 移動状態に変更
+		m_pPlayer->ChangeState(new CPlayerStateMove(), ID_MOVE);
+		return;
+	}
 }
 //===============================
 // 終了関数

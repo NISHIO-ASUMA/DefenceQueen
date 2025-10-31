@@ -12,10 +12,8 @@
 #include "parameter.h"
 #include "motion.h"
 #include "shadowS.h"
-#include "state.h"
 #include "manager.h"
 #include "enemystatebase.h"
-#include "enemystate.h"
 #include "statemachine.h"
 #include "spherecollider.h"
 #include "collisionsphere.h"
@@ -62,10 +60,7 @@ CEnemy* CEnemy::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife)
 	}
 
 	// ‰Šú‰»¸”s
-	if (FAILED(pEnemy->Init()))
-	{
-		return nullptr;
-	}
+	if (FAILED(pEnemy->Init())) return nullptr;
 
 	// “G‚Ìƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
 	return pEnemy;

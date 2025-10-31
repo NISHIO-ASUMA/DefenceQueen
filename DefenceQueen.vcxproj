@@ -171,7 +171,8 @@
     <ClCompile Include="effectpiler.cpp" />
     <ClCompile Include="effectsmoke.cpp" />
     <ClCompile Include="enemy.cpp" />
-    <ClCompile Include="enemystate.cpp" />
+    <ClCompile Include="enemystatemove.cpp" />
+    <ClCompile Include="enemystateneutral.cpp" />
     <ClCompile Include="enemystatebase.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="feed.cpp" />
@@ -260,7 +261,8 @@
     <ClInclude Include="effectpiler.h" />
     <ClInclude Include="effectsmoke.h" />
     <ClInclude Include="enemy.h" />
-    <ClInclude Include="enemystate.h" />
+    <ClInclude Include="enemystatemove.h" />
+    <ClInclude Include="enemystateneutral.h" />
     <ClInclude Include="enemystatebase.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="feed.h" />

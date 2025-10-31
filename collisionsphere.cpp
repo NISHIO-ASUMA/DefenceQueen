@@ -53,10 +53,7 @@ bool CCollisionSphere::Collision(CSphereCollider* thisCollider, CSphereCollider*
 	fAllRadius = fAllRadius * fAllRadius;
 	
 	// îºåaÇÃílÇÊÇËÇ‡è¨Ç≥Ç©Ç¡ÇΩÇÁ
-	if (fDistance <= fAllRadius)
-	{
-		return true;
-	}
+	if (fDistance <= fAllRadius)return true;
 
 	// ñ¢ÉqÉbÉgéû
 	return false;

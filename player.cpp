@@ -32,6 +32,7 @@
 #include "motion.h"
 #include "blockmanager.h"
 #include "collisionbox.h"
+#include "playerstateneutral.h"
 
 //**********************
 // 名前空間
@@ -41,11 +42,6 @@ namespace PLAYERINFO
 	constexpr float MOVE = 4.5f;		 // 1フレームの移動量
 	constexpr float NorRot = D3DX_PI * 2.0f; // 正規化値
 };
-
-//**********************
-// 静的メンバ変数宣言
-//**********************
-bool CPlayer::m_isDeath = false;  // 死亡フラグ
 
 //===============================
 // オーバーロードコンストラクタ
@@ -117,7 +113,7 @@ HRESULT CPlayer::Init(void)
 	m_pStateMachine = std::make_unique<CStateMachine>();
 
 	// 初期状態をセット
-	// ChangeState(new CPlayerStateNeutral,CPlayerStateBase::ID_NEUTRAL); 
+	ChangeState(new CPlayerStateNeutral(),CPlayerStateBase::ID_NEUTRAL); 
 
 	// コライダー生成
 	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(50.0f,50.0f,50.0f));
@@ -154,9 +150,6 @@ void CPlayer::Uninit(void)
 //============================================================
 void CPlayer::Update(void)
 {
-	// 死んでるなら処理しない
-	if (m_isDeath) return;
-
 	// 現在の座標取得
 	D3DXVECTOR3 pos = GetPos();
 	D3DXVECTOR3 posOld = GetOldPos();
@@ -172,8 +165,7 @@ void CPlayer::Update(void)
 		m_pStateMachine->Update();
 	}
 
-	// 移動処理
-	MoveKey(pInput,pJoyPad);
+	// スティックでの移動処理
 	MovePad(pJoyPad);
 
 	// 座標のみの更新
@@ -250,6 +242,9 @@ void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 	D3DXVECTOR3 rot = GetRot();
 	D3DXVECTOR3 rotDest = GetRotDest();
 
+	// 移動フラグ
+	bool isMove = false;
+
 	if (pInput->GetPress(DIK_A) || pPad->GetPress(CJoyPad::JOYKEY_LEFT))
 	{// Aキー
 		if (pInput->GetPress(DIK_W) || pPad->GetPress(CJoyPad::JOYKEY_RIGHT))
@@ -259,9 +254,7 @@ void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 			move.z += cosf(pCamera->GetRot().y - D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
 			rotDest.y = pCamera->GetRot().y + (D3DX_PI * 0.75f);
 
-			// モーション変更
-			m_pMotion->SetMotion(MOTION_MOVE);
-
+			isMove = true;
 		}
 		else if (pInput->GetPress(DIK_S) || pPad->GetPress(CJoyPad::JOYKEY_DOWN))
 		{// 右斜め下
@@ -269,9 +262,7 @@ void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 			move.x -= sinf(pCamera->GetRot().y + D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
 			move.z -= cosf(pCamera->GetRot().y + D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
 			rotDest.y = pCamera->GetRot().y + (D3DX_PI * 0.25f);
-
-			// モーション変更
-			m_pMotion->SetMotion(MOTION_MOVE);
+			isMove = true;
 		}
 		else
 		{// 単体
@@ -279,8 +270,7 @@ void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 			move.z -= cosf(pCamera->GetRot().y + (D3DX_PI * 0.5f)) * PLAYERINFO::MOVE;
 			rotDest.y = pCamera->GetRot().y + (D3DX_PI * 0.5f);
 
-			// モーション変更
-			m_pMotion->SetMotion(MOTION_MOVE);
+			isMove = true;
 		}
 
 		// 角度の正規化
@@ -298,9 +288,7 @@ void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 			move.z += cosf(pCamera->GetRot().y + D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
 			rotDest.y = pCamera->GetRot().y - (D3DX_PI * 0.75f);
 
-			// モーション変更
-			m_pMotion->SetMotion(MOTION_MOVE);
-
+			isMove = true;
 		}
 		else if (pInput->GetPress(DIK_S) || pPad->GetPress(CJoyPad::JOYKEY_DOWN))
 		{// Sキーを押した
@@ -308,8 +296,7 @@ void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 			move.z -= cosf(pCamera->GetRot().y - D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
 			rotDest.y = pCamera->GetRot().y - (D3DX_PI * 0.25f);
 
-			// モーション変更
-			m_pMotion->SetMotion(MOTION_MOVE);
+			isMove = true;
 		}
 		else
 		{// Dキーのみ押した
@@ -317,8 +304,7 @@ void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 			move.z += cosf(pCamera->GetRot().y + (D3DX_PI * 0.5f)) * PLAYERINFO::MOVE;
 			rotDest.y = pCamera->GetRot().y - (D3DX_PI * 0.5f);
 
-			// モーション変更
-			m_pMotion->SetMotion(MOTION_MOVE);
+			isMove = true;
 		}
 
 		// 角度の正規化
@@ -334,9 +320,8 @@ void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 		move.z += cosf(pCamera->GetRot().y) * PLAYERINFO::MOVE;
 		rotDest.y = pCamera->GetRot().y - D3DX_PI;
 
-		// モーション変更
-		m_pMotion->SetMotion(MOTION_MOVE);
-	
+		isMove = true;
+
 		// 角度を正規化
 		if (rot.y < -D3DX_PI)
 		{// D3DX_PIより小さくなったら
@@ -351,8 +336,7 @@ void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 		move.z -= cosf(pCamera->GetRot().y) * PLAYERINFO::MOVE;
 		rotDest.y = pCamera->GetRot().y;
 
-		// モーション変更
-		m_pMotion->SetMotion(MOTION_MOVE);
+		isMove = true;
 
 		// 角度の正規化
 		if (rot.y > D3DX_PI)
@@ -360,12 +344,28 @@ void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 			rot.y -= PLAYERINFO::NorRot;
 		}
 	}
+
+
+	if (isMove)
+	{
+		// MOVEじゃなかったらMOBEに切り替え
+		if (m_pMotion->GetMotionType() != MOTION_MOVE)
+		{
+			m_pMotion->SetMotion(MOTION_MOVE);
+		}
+	}
 	else
 	{
+		// NEUTRALに遷移する
 		if (m_pMotion->GetMotionType() == MOTION_MOVE)
 		{
-			//　モーション切り替え
-			m_pMotion->SetMotion(MOTION_NEUTRAL, true, 10);
+			ChangeState(new CPlayerStateNeutral(), CPlayerStateBase::ID_NEUTRAL);
+
+			// キャラクターに適用する
+			SetRot(rot);
+			SetRotDest(rotDest);
+			SetMove(move);
+			return;
 		}
 	}
 
@@ -407,6 +407,7 @@ void CPlayer::MovePad(CJoyPad* pPad)
 
 	// フラグ
 	bool isMoving = false;
+	static bool wasStick = false;
 
 	// 取得できたら
 	if (pPad->GetLeftStick())
@@ -439,11 +440,22 @@ void CPlayer::MovePad(CJoyPad* pPad)
 
 	if (isMoving)
 	{
+		// MOVEじゃなかったら
 		if (m_pMotion->GetMotionType() != MOTION_MOVE)
 		{
+			// モーション変更
 			m_pMotion->SetMotion(MOTION_MOVE);
 		}
 	}
+	else if (!isMoving && wasStick)
+	{
+		// 離した瞬間の判定
+		if (m_pMotion->GetMotionType() == MOTION_MOVE)
+			m_pMotion->SetMotion(MOTION_NEUTRAL, true, 10);
+	}
+
+	// フラグを変更する
+	wasStick = isMoving;
 
 	// 適用
 	SetMove(move);
@@ -455,6 +467,7 @@ void CPlayer::MovePad(CJoyPad* pPad)
 //=========================================
 bool CPlayer::CollisionBlock(CBoxCollider* other,D3DXVECTOR3 * pos)
 {
+	// 矩形との当たり判定を返す
 	return CCollisionBox::Collision(m_pBoxCollider, other, pos);
 }
 
@@ -475,7 +488,10 @@ void CPlayer::ChangeState(CPlayerStateBase* pNewState,int id)
 bool CPlayer::isMoveInputKey(CInputKeyboard* pKeyInput)
 {
 	// いずれかの移動キー入力
-	return (pKeyInput->GetPress(DIK_A) || pKeyInput->GetPress(DIK_D));
+	return (pKeyInput->GetPress(DIK_W) ||
+			pKeyInput->GetPress(DIK_A) ||
+			pKeyInput->GetPress(DIK_S) ||
+			pKeyInput->GetPress(DIK_D));
 }
 //===============================
 // キー押下時の入力取得
@@ -483,5 +499,8 @@ bool CPlayer::isMoveInputKey(CInputKeyboard* pKeyInput)
 bool CPlayer::isMovePadButton(CJoyPad* pPad)
 {
 	// いずれかの移動キー入力
-	return (pPad->GetPress(CJoyPad::JOYKEY_LEFT) || pPad->GetPress(CJoyPad::JOYKEY_RIGHT));
+	return (pPad->GetPress(CJoyPad::JOYKEY_UP)   ||
+			pPad->GetPress(CJoyPad::JOYKEY_DOWN) ||
+			pPad->GetPress(CJoyPad::JOYKEY_LEFT) ||
+			pPad->GetPress(CJoyPad::JOYKEY_RIGHT));
 }

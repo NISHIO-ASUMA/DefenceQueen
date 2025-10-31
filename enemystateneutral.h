@@ -1,6 +1,6 @@
 //=============================================
 //
-// “G‚ÌŠeíó‘ÔŠÇ—ˆ— [ enemystate.h ]
+// “G‚Ì‘Ò‹@ó‘ÔŠÇ—ˆ— [ enemystateneutral.h ]
 // Author: Asuma Nishio
 //
 //=============================================
@@ -21,6 +21,7 @@
 class CEnemyStateNeutral : public CEnemyStateBase
 {
 public:
+
 	CEnemyStateNeutral();
 	~CEnemyStateNeutral();
 
