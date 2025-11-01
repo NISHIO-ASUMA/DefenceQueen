@@ -26,6 +26,7 @@ class CNumber;
 class CRankingScore : public CObject
 {
 public:
+
 	CRankingScore(int nPriority = static_cast<int>(CObject::PRIORITY::UI));
 	~CRankingScore();
 
@@ -35,12 +36,11 @@ public:
 	void Draw(void);
 	void Load(void);
 
-	void SetTexture(void);
-
 	static CRankingScore* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
 	static void SetRankInScoreIdx(int nIdxScore) { m_nNewRankingScore = nIdxScore; }
 
 private:
+
 	static constexpr int RANKSCOREDIGIT = 6; // 表示桁数
 	static constexpr int RANKING_MAX = 5;	// ランキング数
 
@@ -48,9 +48,9 @@ private:
 
 	int m_nIdxTex;					// テクスチャインデックス
 	int m_aRankScore[RANKING_MAX];	// スコア配列
-	CNumber* m_apNumber[RANKING_MAX][RANKSCOREDIGIT]; // 各スコアと桁数
-
-	D3DXVECTOR3 m_pos;		// 座標
 	float m_fWidth;			// 横幅
 	float m_fHeight;		// 高さ
+
+	CNumber* m_apNumber[RANKING_MAX][RANKSCOREDIGIT]; // 各スコアと桁数
+	D3DXVECTOR3 m_pos;		// 座標
 };

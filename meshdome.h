@@ -21,6 +21,7 @@
 class CMeshDome : public CObject
 {
 public:
+
 	CMeshDome(int nPrio = static_cast<int>(CObject::PRIORITY::MESH));
 	~CMeshDome();
 
@@ -35,7 +36,7 @@ public:
 	static CMeshDome* Create(D3DXVECTOR3 pos, float nRadius);
 
 private:
-	// 定数宣言
+
 	static constexpr int MeshDome_X_BLOCK = 10;		// Xブロック数
 	static constexpr int MeshDome_Z_BLOCK = 10;		// Zブロック数
 	static constexpr int MeshDome_VERTEX_NUM = (MeshDome_X_BLOCK + 1) * (MeshDome_Z_BLOCK + 1); // 頂点数

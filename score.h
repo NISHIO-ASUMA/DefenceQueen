@@ -28,6 +28,7 @@ class CLoad;
 class CScore : public CObject
 {
 public:
+
 	CScore(int nPriority = static_cast<int>(CObject::PRIORITY::UI));
 	~CScore();
 
@@ -46,11 +47,11 @@ public:
 	static CScore* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
 
 	int GetScore(void) { return m_nScore; }
+
 private: 
+
 	static constexpr int NUM_SCORE = 8; // 桁数
 	static constexpr int NUM_DIGIT = 10; // 表示する分割桁数の値
-
-	int m_nScore;			// スコア保持用
 
 	CNumber *m_apNumber[NUM_SCORE];	// 桁数分のナンバーのポインタ
 	D3DXCOLOR m_col;				// カラー
@@ -59,6 +60,7 @@ private:
 	
 	float m_fWidth;					// 横幅
 	float m_fHeight;				// 高さ
+	int m_nScore;			// スコア保持用
 
 	std::unique_ptr< CLoad>m_pLoad; // ユニークポインタ
 };

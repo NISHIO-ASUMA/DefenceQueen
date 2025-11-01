@@ -39,7 +39,7 @@ CRankingManager::~CRankingManager()
 //================================
 HRESULT CRankingManager::Init(void)
 {
-	// Uiîwåiê∂ê¨
+	// îwåiê∂ê¨
 	CUi::Create(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, 0.0f), 0, SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, "RankBack.jpg", false);
 
 	// ÉâÉìÉLÉìÉOÉXÉRÉAê∂ê¨
@@ -67,4 +67,5 @@ void CRankingManager::Update(void)
 //================================
 void CRankingManager::Draw(void)
 {
+
 }

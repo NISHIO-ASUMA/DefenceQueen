@@ -46,7 +46,6 @@ void CPlayerStateMove::OnUpdate()
 
 	// ˆÚ“®XVŠÖ”
 	m_pPlayer->MoveKey(pKey, pPad);
-
 }
 //===============================
 // I—¹ŠÖ”

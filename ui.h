@@ -21,6 +21,7 @@
 class CUi : public CObject2D
 {
 public:
+
 	CUi(int nPriority = static_cast<int>(CObject::PRIORITY::UI));
 	~CUi();
 
@@ -32,6 +33,7 @@ public:
 	static CUi* Create(D3DXVECTOR3 pos, int nFlashFrame,float fWidth, float fHeight,const char * Filename,bool isUse);
 
 private:
+
 	int m_nFlashFrame;		// “_–ÅŠÔŠu
 	bool m_isFlash;			// “_–Å‚·‚é‚©‚Ç‚¤‚©
 };

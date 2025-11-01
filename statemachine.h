@@ -21,6 +21,7 @@ class CStateBase;
 class CStateMachine
 {
 public:
+
 	CStateMachine();
 	~CStateMachine();
 
@@ -32,5 +33,6 @@ public:
 	CStateBase* GetNowState() const { return m_pNowState; }
 
 private:
+
 	CStateBase* m_pNowState;	// 基底クラスのステートポインタ
 };

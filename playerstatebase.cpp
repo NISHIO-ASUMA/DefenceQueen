@@ -13,11 +13,9 @@
 //==================================
 // プレイヤー状態コンストラクタ
 //==================================
-CPlayerStateBase::CPlayerStateBase()
+CPlayerStateBase::CPlayerStateBase() : m_pPlayer(nullptr),m_ID(ID_NEUTRAL)
 {
 	// 値のクリア
-	m_pPlayer = nullptr;
-	m_ID = ID_NEUTRAL;
 }
 //==================================
 // プレイヤー状態デストラクタ

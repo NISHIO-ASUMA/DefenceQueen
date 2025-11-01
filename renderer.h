@@ -21,6 +21,7 @@
 class CRenderer
 {
 public:
+
 	CRenderer();
 	~CRenderer();
 
@@ -45,6 +46,7 @@ public:
 	static CDebugproc* GetDebug(void) { return m_pDebug; }
 
 private:
+
 	static inline constexpr int NUM_FEEDBACKPOLYGON = 2; // フィードバック用ポリゴン
 
 	LPDIRECT3D9 m_pD3D;					// Direct3Dオブジェクトへのポインタ
@@ -61,7 +63,6 @@ private:
 
 	LPDIRECT3DSURFACE9 m_pRenderDef; // マルチターゲットレンダリング用インターフェース保存用
 	LPDIRECT3DSURFACE9 m_pZBuffDef;	 // マルチターゲットレンダリング用Zバッファ保存用
-
 	LPDIRECT3DTEXTURE9 m_apTextureMT[NUM_FEEDBACKPOLYGON]; // レンダリングターゲット用テクスチャ
 	LPDIRECT3DSURFACE9 m_apRenderMT[NUM_FEEDBACKPOLYGON];	 // テクスチャレンダリング用インターフェース
 	LPDIRECT3DSURFACE9 m_pZBuffMT;	 // テクスチャレンダリング用Zバッファ

@@ -72,7 +72,6 @@ void CLoseResult::Update(void)
 		{
 			// ƒV[ƒ“‘JˆÚ
 			pFade->SetFade(std::make_unique<CTitle>());
-
 			return;
 		}
 	}

@@ -46,6 +46,7 @@ public:
 	int GetProgress(void) { return static_cast<int>(m_Progress); }
 
 private:
+
 	int m_nCount;			// 進行管理カウント
 	PROGRESS m_Progress;	// 進行状態の種類
 	CGame * m_pGame;		// ゲームシーンポインタ

@@ -18,7 +18,9 @@
 //=====================================
 // コンストラクタ
 //=====================================
-CBlock::CBlock(int nPriority) : CObjectX(nPriority), m_pCollider(nullptr),m_pShadow(nullptr)
+CBlock::CBlock(int nPriority) : CObjectX(nPriority), 
+m_pCollider(nullptr),
+m_pShadow(nullptr)
 {
 	// 値のクリア
 }

@@ -21,6 +21,7 @@
 class CEffectSmoke : public CBillboard
 {
 public:
+
 	CEffectSmoke(int nPriority = static_cast<int>(CObject::PRIORITY::EFFECT));
 	~CEffectSmoke();
 

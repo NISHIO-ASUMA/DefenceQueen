@@ -1,4 +1,4 @@
-//====================================
+//=====================================
 //
 // 数字処理 [ number.h ]
 // Author: Asuma Nishio
@@ -16,6 +16,7 @@
 class CNumber
 {
 public:
+
 	CNumber();
 	~CNumber();
 
@@ -36,6 +37,7 @@ public:
 	float GetHeight(void) { return m_fHeight; }
 
 private:
+
 	static constexpr float DIGIT_VALUE = 0.1f; // テクスチャ分割数割合
 
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファのポインタ

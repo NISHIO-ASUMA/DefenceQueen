@@ -27,6 +27,7 @@
 class CMotion
 {
 public:
+
 	//***************************
 	// キー構造体宣言
 	//***************************
@@ -83,7 +84,6 @@ public:
 	int GetMotionType(void) { return m_motiontype; }
 	bool GetFinishMotion(void) { return m_isFinishMotion; }
 
-	// ユニークポインタ
 	static std::unique_ptr<CMotion>Load(const char* pFilename, std::vector<CModel*>& pModel,int nDestMotions);
 
 private: 

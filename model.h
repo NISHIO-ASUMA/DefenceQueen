@@ -16,6 +16,7 @@
 class CModel
 {
 public:
+
 	//**********************
 	// パーツのタイプ列挙型
 	//**********************
@@ -62,8 +63,8 @@ private:
 	LPD3DXMESH m_pMesh;		// メッシュ情報
 	LPD3DXBUFFER m_pBuffMat; // マテリアル情報
 	DWORD m_dwNumMat;		// マテリアル数
-	int* m_pTexture;		// テクスチャポインタ
-
 	PARTTYPE m_parttype;	// モデルの種類
-	bool m_isColorChange; // 変更かどうか
+
+	int* m_pTexture;		// テクスチャポインタ
+	bool m_isColorChange;	// 変更かどうか
 };

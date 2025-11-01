@@ -62,7 +62,7 @@ void CLoad::SaveIntToArray(const char* savefilename, const std::vector<int>& Arr
 	}
 
 	// ソート用に一時保存
-	std::vector<int> SortData = ArrayData;
+	std::vector<int>SortData = ArrayData;
 
 	// 降順にソート
 	std::sort(SortData.begin(), SortData.end(), std::greater<int>());

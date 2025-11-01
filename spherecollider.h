@@ -31,6 +31,7 @@ public:
 	static CSphereCollider* Create(D3DXVECTOR3 pos, float fRadius);
 
 private:
+
 	float m_fRadius; // “–‚½‚é”¼Œa
 };
 

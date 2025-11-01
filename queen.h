@@ -31,8 +31,9 @@ class CMotion;
 class CQueen : public CNoMoveCharactor
 {
 public:
+
 	//***********************************
-	// キャラクターが行うモーション列挙型
+	// モーション列挙型
 	//***********************************
 	enum MOTION
 	{
@@ -60,6 +61,4 @@ private:
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
 	CMotion* m_pMotion;								// モーションポインタ
 	CSphereCollider* m_pSphereCollider;				// 円形ののコライダー
-
-	static constexpr int HP = 1000;
 };

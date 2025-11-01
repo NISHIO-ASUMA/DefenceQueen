@@ -43,5 +43,4 @@ public:
 private:
 
 	static std::vector<CBlock*>m_pBlocks; // 配置するブロックの動的配列
-
 };

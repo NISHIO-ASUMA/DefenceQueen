@@ -2,8 +2,6 @@
 //
 // Xファイル処理 [ objectX.h ]
 // Author: Asuma Nishio
-//
-// TODO : マトリックスシャドウやる
 // 
 //=====================================
 
@@ -48,10 +46,11 @@ public:
 	static CObjectX* Create(int nIdx, D3DXVECTOR3 pos);
 
 private:
+
 	D3DXVECTOR3 m_pos;		// 座標
 	D3DXVECTOR3 m_rot;		// 角度
 	D3DXVECTOR3 m_Scale;	// 拡大率
 	D3DXMATRIX m_mtxWorld;	// ワールドマトリックス
-	int m_nIdxModel; // モデルインデックス
+	int m_nIdxModel;		// モデルインデックス
 	bool m_isShadow;		// 影を出すかどうか
 };

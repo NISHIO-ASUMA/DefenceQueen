@@ -21,6 +21,7 @@
 class CLoseResult : public CScene
 {
 public:
+
 	CLoseResult();
 	~CLoseResult();
 

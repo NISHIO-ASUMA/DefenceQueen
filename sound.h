@@ -16,6 +16,7 @@
 class CSound
 {
 public:
+
 	//***************************
 	// サウンドの種類列挙型
 	//***************************
@@ -57,6 +58,7 @@ public:
 	HRESULT ReadChunkData(HANDLE hFile, void* pBuffer, DWORD dwBuffersize, DWORD dwBufferoffset);
 
 private:
+
 	//*****************************
 	// サウンド情報の構造体定義
 	//*****************************

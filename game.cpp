@@ -61,7 +61,7 @@ HRESULT CGame::Init(void)
 	m_pState = new CGameState;
 	if (m_pState == nullptr) return E_FAIL;
 
-	// 開始
+	// 状態管理開始
 	m_pState->SetGame(this);
 	m_pState->OnStart();
 
@@ -73,6 +73,7 @@ HRESULT CGame::Init(void)
 //==================================
 void CGame::Uninit(void)
 {
+	// 破棄
 	CGameManager::GetInstance()->Uninit();
 
 	// nullチェック
@@ -87,9 +88,6 @@ void CGame::Uninit(void)
 		// nullptrにする
 		m_pPausemanager = nullptr;
 	}
-
-	// 破棄
-	// m_pGameManager.reset();
 
 	// 破棄
 	m_pGameObject.reset();
@@ -115,7 +113,7 @@ void CGame::Update(void)
 	// ゲーム進行管理の更新処理
 	m_pState->OnUpdate();
 
-	// 状態取得
+	// 現在状態取得
 	auto State = m_pState->GetProgress();
 	if (State == m_pState->PROGRESS_END) return;
 
@@ -145,7 +143,6 @@ void CGame::Update(void)
 	}
 
 #endif // _DEBUG
-
 }
 //==================================
 // 描画処理

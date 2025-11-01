@@ -31,7 +31,6 @@ CEnemyStateNeutral::~CEnemyStateNeutral()
 void CEnemyStateNeutral::OnStart()
 {
 	// モーションセット
-
 }
 //============================
 // 更新関数

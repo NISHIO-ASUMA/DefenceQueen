@@ -126,8 +126,11 @@ void CEnemy::Update(void)
 	// 座標のみの更新
 	CMoveCharactor::UpdatePosition();
 
+	// 更新後の座標
+	D3DXVECTOR3 UpdatePos = GetPos();
+
 	// 球の座標更新
-	if (m_pSphereCollider) m_pSphereCollider->SetPos(pos);
+	if (m_pSphereCollider) m_pSphereCollider->SetPos(UpdatePos);
 
 	// キャラクターの更新処理
 	CMoveCharactor::Update();

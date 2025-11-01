@@ -16,11 +16,13 @@
 class CMainProc
 {
 public:
+
 	CMainProc();
 	~CMainProc();
 
 	void ToggleFullScreen(HWND hWnd);
 
 private:
+
 	RECT m_Windowrect;	// ウィンドウの幅
 };

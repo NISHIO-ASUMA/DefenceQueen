@@ -21,6 +21,7 @@
 class CEffectLaser : public CBillboard
 {
 public:
+
 	CEffectLaser(int nPriority = static_cast<int>(CObject::PRIORITY::EFFECT));
 	~CEffectLaser();
 

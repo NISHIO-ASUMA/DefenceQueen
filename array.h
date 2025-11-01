@@ -33,7 +33,7 @@ class CArray : public CMoveCharactor
 {
 public:
 	//************************
-	// 使用モーション数
+	// モーション列挙型
 	//************************
 	enum MOTION
 	{
@@ -60,9 +60,9 @@ public:
 
 private:
 
-	std::unique_ptr<CParameter>m_pParameter;		// パラメータークラスポインタ
-	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
+	bool m_isActive;					// 使用状態かどうか
 	CMotion* m_pMotion;					// モーションポインタ
 	CSphereCollider* m_pSphereCollider;	// 球形のコライダー
-	bool m_isActive;	// 使用状態かどうか
+	std::unique_ptr<CParameter>m_pParameter;		// パラメータークラスポインタ
+	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
 };

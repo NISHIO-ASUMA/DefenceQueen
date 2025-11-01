@@ -14,7 +14,6 @@
 // インクルードファイル
 //**********************
 #include "score.h"
-#include "object.h"
 #include <memory>
 
 //*************************
@@ -36,8 +35,8 @@ public:
 	void Uninit(void);
 	void Update(void);
 
-	static CScore* GetScore(void) { return m_pScore; } 
 	CBlockManager* GetBlockManager(void) { return m_pBlocks.get(); }
+	static CScore* GetScore(void) { return m_pScore; } 
 
 private:
 

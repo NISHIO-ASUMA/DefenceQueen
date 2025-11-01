@@ -17,6 +17,7 @@
 #include "input.h"
 #include "fade.h"
 #include "blockmanager.h"
+#include "gamesceneobject.h"
 
 //========================
 // インスタンス取得
@@ -29,7 +30,7 @@ CGameManager* CGameManager::GetInstance(void)
 //========================
 // コンストラクタ
 //========================
-CGameManager::CGameManager() : m_pBlockManager(nullptr)
+CGameManager::CGameManager() : m_pGameObj(nullptr)
 {
 	// 値のクリア
 }
@@ -50,8 +51,9 @@ HRESULT CGameManager::Init(void)
 	CSound* pSound = CManager::GetInstance()->GetSound();
 	if (pSound == nullptr) return E_FAIL;
 
-	m_pBlockManager = std::make_unique<CBlockManager>();
-	m_pBlockManager->Init();
+	// オブジェクト生成
+	m_pGameObj = std::make_unique<CGameSceneObject>();
+	m_pGameObj->Init();
 
 	// 初期化結果を返す
 	return S_OK;
@@ -62,13 +64,15 @@ HRESULT CGameManager::Init(void)
 void CGameManager::Uninit(void)
 {
 	// 破棄
-	m_pBlockManager.reset();
+	m_pGameObj.reset();
 }
 //========================
 // 更新処理
 //========================
 void CGameManager::Update(void)
 {
+	// 更新
+	m_pGameObj->Update();
 
 #ifdef _DEBUG
 	// 画面遷移

@@ -27,6 +27,7 @@ class CEffect;
 class CParticle : public CObject
 {
 public:
+
 	CParticle(int nPriority = static_cast<int>(CObject::PRIORITY::EFFECT));
 	~CParticle();
 

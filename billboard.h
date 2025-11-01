@@ -21,6 +21,7 @@
 class CBillboard : public CObject
 {
 public:
+
 	CBillboard(int nPriority = static_cast<int>(CObject::PRIORITY::BILLBOARD));
 	~CBillboard();
 
@@ -48,6 +49,7 @@ public:
 	static CBillboard* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fWidth, float fHeight, const char* pTexName);
 
 private:
+
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファ
 	D3DXVECTOR3 m_rot;	// 角度情報
 	D3DXVECTOR3 m_pos;	// 座標情報

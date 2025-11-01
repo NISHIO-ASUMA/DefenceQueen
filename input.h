@@ -1,4 +1,4 @@
-//====================================
+//=====================================
 //
 // 入力関数 [ input.h ]
 // Author: Asuma Nishio
@@ -16,6 +16,7 @@
 class CInput
 {
 public:
+
 	CInput();
 	~CInput();
 
@@ -26,6 +27,7 @@ public:
 	LPDIRECTINPUTDEVICE8 GetInputDevice(void);
 
 protected:
+
 	static LPDIRECTINPUT8 m_pInput; // 入力変数
 	LPDIRECTINPUTDEVICE8 m_pDevice; // 入力デバイス
 };
@@ -36,6 +38,7 @@ protected:
 class CInputKeyboard : public CInput
 {
 public:
+
 	CInputKeyboard();
 	~CInputKeyboard();
 
@@ -49,12 +52,12 @@ public:
 	bool GetRepeat(int nKey,int nMaxTime);
 
 private:
+
 	static inline constexpr int KEY_MAX = 256; // 最大キー数
 
-	BYTE m_aKeystate[KEY_MAX]; // キー入力状態
-	BYTE m_aOldState[KEY_MAX]; // 過去の入力内容を保存
-
-	int m_nKeyPressCount;		/// キー入力カウント
+	BYTE m_aKeystate[KEY_MAX];	// キー入力状態
+	BYTE m_aOldState[KEY_MAX];	// 過去の入力内容を保存
+	int m_nKeyPressCount;		// キー入力カウント
 };
 
 //*******************************
@@ -63,6 +66,7 @@ private:
 class CJoyPad : public CInput
 {
 public:
+
 	//*********************************
 	// ジョイパッドのキーの列挙型
 	//*********************************
@@ -115,8 +119,8 @@ public:
 	/// <param name="durationMs">振動フレーム時間</param>
 	void SetVibration(int leftMotor, int rightMotor, int durationMs);
 
-
 private:
+
 	XINPUT_STATE m_joyKeyState;		   // ジョイパッドのプレス情報
 	XINPUT_STATE m_OldKeyState;		   // 過去のジョイパッド入力情報
 	XINPUT_STATE m_joyKeyStateTrigger; // ジョイパッドのトリガー情報
@@ -134,12 +138,13 @@ private:
 class CInputMouse : public CInput
 {
 public:
+
 	//********************
 	// ボタンキー種類
 	//********************
 	enum MOUSE
 	{
-		MOUSE_LEFT = 0,
+		MOUSE_LEFT,
 		MOUSE_RIGHT,
 		MOUSE_MAX
 	};

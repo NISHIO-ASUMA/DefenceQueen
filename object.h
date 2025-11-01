@@ -27,7 +27,7 @@ public:
 		TYPE_ARRAY,		// 仲間
 		TYPE_ENEMY,		// 敵
 		TYPE_QUEEN,		// 防衛対象
-		TYPE_ORDER,		// 司令塔
+		TYPE_WORKER,	// 司令塔
 		TYPE_MESH,		// メッシュオブジェクト
 		TYPE_BLOCK,		// ブロック
 		TYPE_PAUSE,		// ポーズ
@@ -88,7 +88,6 @@ private:
 	int m_nID;				// 自分自身のID
 	int m_nPriority;		// 優先順位番号
 	bool m_isDeath;			// 死亡フラグ
-
 
 	TYPE m_Type;			// オブジェクトの種類変数
 	CObject* m_pNext;		// 次のオブジェクトのポインタ

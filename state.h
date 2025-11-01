@@ -16,6 +16,7 @@
 class CStateBase
 {
 public:
+
 	CStateBase();
 	virtual ~CStateBase();
 
@@ -25,4 +26,3 @@ public:
 
 	virtual int GetID() const = 0;
 };
-

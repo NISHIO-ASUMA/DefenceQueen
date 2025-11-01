@@ -36,6 +36,7 @@ public:
 	static CTutorialUi* Create(D3DXVECTOR3 pos, float fWidth, float fHeight,const char * pFileName,int nState);
 
 private:
+
 	int m_nState;		// UI‚Ìó‘Ô
 	float m_fAlpha;		// “§–¾“x
 };

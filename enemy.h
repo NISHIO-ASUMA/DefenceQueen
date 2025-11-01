@@ -33,6 +33,7 @@ class CSphereCollider;
 class CEnemy : public CMoveCharactor
 {
 public:
+
 	//***********************************
 	// 敵モーション列挙型
 	//***********************************
@@ -62,8 +63,8 @@ public:
 
 private:
 
+	CMotion * m_pMotion;				// モーションクラス
+	CSphereCollider* m_pSphereCollider; // 球形コライダー
 	std::unique_ptr <CParameter>m_pParameter;		 // パラメータクラス
 	std::unique_ptr<CStateMachine>m_pStateMachine;	 // ステート基底クラスのポインタ
-	CMotion * m_pMotion;			 // モーションクラス
-	CSphereCollider* m_pSphereCollider; // 球形コライダー
 };

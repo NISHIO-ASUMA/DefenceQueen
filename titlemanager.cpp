@@ -34,6 +34,15 @@ CTitleManager::~CTitleManager()
 {
 	// 破棄
 }
+//=============================
+//インスタンス取得
+//=============================
+CTitleManager* CTitleManager::GetInstance(void)
+{
+	// インスタンスを返す
+	static CTitleManager pTitleManager;
+	return &pTitleManager;
+}
 //============================
 // 初期化処理
 //============================
@@ -89,13 +98,4 @@ void CTitleManager::Update(void)
 void CTitleManager::Draw(void)
 {
 
-}
-//=============================
-//インスタンス取得
-//=============================
-CTitleManager* CTitleManager::GetInstance(void)
-{
-	// インスタンスを返す
-	static CTitleManager pTitleManager;
-	return &pTitleManager;
 }

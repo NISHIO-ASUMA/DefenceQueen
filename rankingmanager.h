@@ -24,11 +24,9 @@ public:
 	void Uninit(void);
 	void Draw(void);
 
-	// インスタンス取得
 	static CRankingManager* GetInstance(void);
 
 private:
 
 	CRankingManager();
-
 };

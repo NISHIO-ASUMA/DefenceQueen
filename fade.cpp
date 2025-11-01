@@ -14,13 +14,12 @@
 //==============================
 // コンストラクタ
 //==============================
-CFade::CFade()
+CFade::CFade() : m_pScene(nullptr),
+m_pVtx(nullptr),
+m_col(COLOR_BLACK),
+m_fade(FADE_NONE)
 {
 	// 値のクリア
-	m_pVtx = nullptr;
-	m_pScene = nullptr;
-	m_col = COLOR_BLACK;
-	m_fade = FADE_NONE;
 }
 //==============================
 // デストラクタ
@@ -39,7 +38,7 @@ HRESULT CFade::Init(void)
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// 頂点バッファの作成
-	pDevice->CreateVertexBuffer(sizeof(VERTEX_2D) * 4,
+	pDevice->CreateVertexBuffer(sizeof(VERTEX_2D) * BASEVERTEX,
 		D3DUSAGE_WRITEONLY,
 		FVF_VERTEX_2D,
 		D3DPOOL_MANAGED,
@@ -47,7 +46,7 @@ HRESULT CFade::Init(void)
 		NULL);
 
 	// 頂点情報のポインタ
-	VERTEX_2D* pVtx = NULL;
+	VERTEX_2D* pVtx = nullptr;
 
 	// 頂点バッファをロックし,頂点情報へのポインタを取得
 	m_pVtx->Lock(0, 0, (void**)&pVtx, 0);
@@ -91,7 +90,7 @@ void CFade::Uninit(void)
 	m_pScene.reset();
 
 	// nullptrチェック
-	if (m_pVtx != nullptr)
+	if (m_pVtx)
 	{
 		m_pVtx->Release();
 		m_pVtx = nullptr;
@@ -103,18 +102,15 @@ void CFade::Uninit(void)
 void CFade::Update(void)
 {
 	// 頂点情報のポインタ
-	VERTEX_2D* pVtx = NULL;
+	VERTEX_2D* pVtx = nullptr;
 
 	// 何もなかったら
-	if (m_fade == FADE_NONE)
-	{
-		return;
-	}
+	if (m_fade == FADE_NONE) return;
 
-	// IN状態
+	// FADEIN状態
 	if (m_fade == FADE_IN)
 	{
-		// フェードイン状態
+		// α値を減算
 		m_col.a -= AlphaFade;
 
 		if (m_col.a <= 0.0f)
@@ -123,10 +119,10 @@ void CFade::Update(void)
 			m_fade = FADE_NONE;		// 何もしていない状態
 		}
 	}
-	// OUT状態
+	// FADEOUT状態
 	else if (m_fade == FADE_OUT)
 	{
-		// フェードアウト状態
+		// α値を加算
 		m_col.a += AlphaFade;
 
 		if (m_col.a >= 1.0f)
@@ -137,7 +133,6 @@ void CFade::Update(void)
 			// 次のモード設定
 			CManager::GetInstance()->SetScene(std::move(m_pScene));
 
-			// ここで処理返す
 			return;
 		}
 	}
@@ -169,7 +164,7 @@ void CFade::Draw(void)
 	pDevice->SetFVF(FVF_VERTEX_2D);
 
 	// テクスチャを絶対に消す
-	pDevice->SetTexture(0, NULL);
+	pDevice->SetTexture(0, nullptr);
 
 	// ポリゴンの描画
 	pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);

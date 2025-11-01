@@ -33,6 +33,7 @@
 #include "blockmanager.h"
 #include "collisionbox.h"
 #include "playerstateneutral.h"
+#include "gamesceneobject.h"
 
 //**********************
 // 名前空間
@@ -175,8 +176,11 @@ void CPlayer::Update(void)
 	D3DXVECTOR3 UpdatePos = GetPos();
 
 	// コライダーの位置更新
-	m_pBoxCollider->SetPos(UpdatePos);
-	m_pBoxCollider->SetPosOld(posOld);
+	if (m_pBoxCollider)
+	{
+		m_pBoxCollider->SetPos(UpdatePos);
+		m_pBoxCollider->SetPosOld(posOld);
+	}
 
 	// コリジョンチェック関数
 	CollisionAll(UpdatePos);
@@ -205,7 +209,7 @@ void CPlayer::Draw(void)
 void CPlayer::CollisionAll(D3DXVECTOR3 pPos)
 {
 	// 配置されているブロックを取得
-	auto Block = CGameManager::GetInstance()->GetBlockManager();
+	auto Block = CGameManager::GetInstance()->GetGameObj()->GetBlockManager();
 	if (Block == nullptr) return;
 
 	// ブロックオブジェクトとの当たり判定

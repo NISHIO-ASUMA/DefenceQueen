@@ -84,8 +84,8 @@ void CGameState::OnUpdate()
 			// カウンターを初期化
 			m_nCount = NULL;
 
-			// 1秒経過
-			m_Progress = PROGRESS_NONE; // 何もしていない状態
+			// 60フレーム経過
+			m_Progress = PROGRESS_NONE; 
 
 			// フェードが取得できたら
 			if (pFade != nullptr)

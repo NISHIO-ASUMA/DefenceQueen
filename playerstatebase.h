@@ -48,6 +48,7 @@ public:
 	void SetOwner(CPlayer* pPlayer) { m_pPlayer = pPlayer; }
 
 protected:
+
 	CPlayer* m_pPlayer;		// プレイヤーのポインタ
 
 private:

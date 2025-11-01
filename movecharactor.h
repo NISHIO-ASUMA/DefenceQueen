@@ -62,7 +62,6 @@ public:
 	void MotionLoad(const char* pScriptName,int nDestMotions);
 	void SetCharactor(TYPE type) { m_type = type; }
 
-
 	D3DXVECTOR3 GetPos(void) const { return m_pos; }
 	D3DXVECTOR3 GetOldPos(void) const { return m_posOld; }
 	D3DXVECTOR3 GetRot(void) const { return m_rot; }

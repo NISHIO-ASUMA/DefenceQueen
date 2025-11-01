@@ -63,7 +63,7 @@ HRESULT CShadowS::Init()
 	pVtx[2].rhw = 
 	pVtx[3].rhw = 1.0f;
 	
-	// 頂点カラーの設定 ( 黒ポリゴン )
+	// 頂点カラーの設定
 	pVtx[0].col = D3DXCOLOR(0.0f,0.0f,0.0f,0.5f);
 	pVtx[1].col = D3DXCOLOR(0.0f,0.0f,0.0f,0.5f);
 	pVtx[2].col = D3DXCOLOR(0.0f,0.0f,0.0f,0.5f);
@@ -122,9 +122,9 @@ void CShadowS::Draw(void)
 	// ステンシルバッファの比較パラメーター設定
 	pDevice->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_ALWAYS);
 
-	pDevice->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_DECR); // 両方合格
-	pDevice->SetRenderState(D3DRS_STENCILZFAIL, D3DSTENCILOP_INCRSAT); // ステンシルテスト合格,Zバッファ不合格
-	pDevice->SetRenderState(D3DRS_STENCILFAIL, D3DSTENCILOP_ZERO); // ステンシルテスト不合格
+	pDevice->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_DECR);		// 両方合格
+	pDevice->SetRenderState(D3DRS_STENCILZFAIL, D3DSTENCILOP_INCRSAT);	// ステンシルテスト合格,Zバッファ不合格
+	pDevice->SetRenderState(D3DRS_STENCILFAIL, D3DSTENCILOP_ZERO);		// ステンシルテスト不合格
 
 	// 表面をカリングする(表面を描画しない)
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
@@ -205,6 +205,5 @@ CShadowS* CShadowS::Create(D3DXVECTOR3 pos,D3DXVECTOR3 rot)
 	// 初期化失敗時
 	if (FAILED(pShadowS->Init())) return nullptr;
 
-	// 生成されたポインタを返す
 	return pShadowS;
 }

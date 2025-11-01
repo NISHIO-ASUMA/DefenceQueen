@@ -30,7 +30,7 @@
 // ライブラリのリンク宣言
 //**************************
 #pragma comment(lib,"d3d9.lib")		// 描画処理に必要
-#pragma comment(lib,"d3dx9.lib")	// [d3d9.lib]の拡張ライブラリ
+#pragma comment(lib,"d3dx9.lib")	// [ d3d9.lib ]の拡張ライブラリ
 #pragma comment(lib,"dxguid.lib")	// DirectXコンポーネント(部品)使用に必要
 #pragma comment(lib,"dinput8.lib")
 #pragma comment(lib,"xinput.lib")	// ジョイパッド処理に必要

@@ -34,6 +34,7 @@ class CMotion;
 class CPlayer : public CMoveCharactor
 {
 public:
+
 	//***********************************
 	// プレイヤーが行うモーション列挙型
 	//***********************************
@@ -73,6 +74,7 @@ public:
 	static CPlayer* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife,const char* pFilename);
 
 private:
+
 	std::unique_ptr<CParameter>m_pParameter; // パラメータークラスポインタ
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
 	CBoxCollider* m_pBoxCollider;	// 矩形のコライダー

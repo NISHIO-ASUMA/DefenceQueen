@@ -14,6 +14,14 @@
 #include "parameter.h"
 #include "statemachine.h"
 
+//****************************
+// 定数宣言
+//****************************
+namespace QUEEN_INFO
+{
+	constexpr int HP = 1000;
+};
+
 //==================================
 // コンストラクタ
 //==================================
@@ -67,8 +75,8 @@ HRESULT CQueen::Init(void)
 
 	// パラメーター生成
 	m_pParameter = std::make_unique<CParameter>();
-	m_pParameter->SetMaxHp(HP);
-	m_pParameter->SetHp(HP);
+	m_pParameter->SetMaxHp(QUEEN_INFO::HP);
+	m_pParameter->SetHp(QUEEN_INFO::HP);
 
 	// ステートマシンを生成
 	m_pStateMachine = std::make_unique<CStateMachine>();

@@ -34,6 +34,4 @@ public:
 private:
 
 	CTutorialManager();
-
-	CTutorialUi* m_pTutoui; // チュートリアルuiクラスのポインタ
 };

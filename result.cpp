@@ -25,26 +25,6 @@ CResult::~CResult()
 	// 無し
 }
 //=================================
-// 生成処理
-//=================================
-CResult* CResult::Create(void)
-{
-	// インスタンス生成
-	CResult* pResult = new CResult;
-
-	// 生成に失敗したら
-	if (pResult == nullptr) return nullptr;
-
-	// 初期化失敗時
-	if (FAILED(pResult->Init()))
-	{
-		return nullptr;
-	}
-
-	// 生成されたポインタを返す
-	return pResult;
-}
-//=================================
 // 初期化処理
 //=================================
 HRESULT CResult::Init(void)

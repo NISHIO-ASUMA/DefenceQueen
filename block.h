@@ -27,6 +27,7 @@ class CShadowS;
 class CBlock : public CObjectX
 {
 public:
+
 	CBlock(int nPriority = static_cast<int>(CObject::PRIORITY::MODELOBJECT));
 	~CBlock();
 
@@ -41,7 +42,7 @@ public:
 	static CBlock* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const D3DXVECTOR3 scale, const char* pModelName);
 
 private:
-	CBoxCollider* m_pCollider;	// 自分が持つ矩形のコライダー
+	CBoxCollider* m_pCollider;	// 矩形のコライダー
 	CShadowS* m_pShadow;		// ステンシルシャドウクラス
 };
 

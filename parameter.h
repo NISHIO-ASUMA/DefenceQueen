@@ -16,6 +16,7 @@
 class CParameter
 {
 public:
+
 	CParameter();
 	~CParameter();
 
@@ -27,6 +28,7 @@ public:
 	int GetMaxHp() const { return m_nMaxHp; }
 
 private:
-	int m_nHp; // ‘Ì—Í
-	int m_nMaxHp; // Å‘å‘Ì—Í
+
+	int m_nHp;		// ‘Ì—Í
+	int m_nMaxHp;	// Å‘å‘Ì—Í
 };

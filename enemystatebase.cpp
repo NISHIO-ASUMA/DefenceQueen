@@ -13,11 +13,9 @@
 //===============================
 // オーバーロードコンストラクタ
 //===============================
-CEnemyStateBase::CEnemyStateBase()
+CEnemyStateBase::CEnemyStateBase() : m_pEnemy(nullptr),m_ID(ID_NEUTRAL)
 {
 	// 値をクリア
-	m_pEnemy = nullptr;
-	m_ID = ID_NEUTRAL;
 }
 //===============================
 // デストラクタ

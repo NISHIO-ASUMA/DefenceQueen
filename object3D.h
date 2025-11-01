@@ -21,6 +21,7 @@
 class CObject3D : public CObject
 { 
 public:
+
 	CObject3D(int nPriority = static_cast<int>(CObject::PRIORITY::BASENUMBER));
 	~CObject3D();
 
@@ -48,12 +49,12 @@ public:
 private:
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;		// 頂点バッファ
 	D3DXMATRIX m_mtxWorld;					// ワールドマトリックス
-	int m_nIdxTexture;						// テクスチャインデックス
 
 	D3DXVECTOR3 m_rot;	// 角度情報
 	D3DXVECTOR3 m_pos;	// 座標情報
 	D3DXCOLOR m_col;	// 色情報
 
+	int m_nIdxTexture;						// テクスチャインデックス
 	float m_fWidth;		// 横幅
 	float m_fHeight;	// 高さ
 };

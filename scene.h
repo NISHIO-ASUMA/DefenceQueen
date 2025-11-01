@@ -1,4 +1,4 @@
-//====================================
+//=====================================
 //
 // シーン処理 [ scene.h ]
 // Author: Asuma Nishio
@@ -26,10 +26,8 @@ public:
 		MODE_TUTORIAL,	// チュートリアル
 		MODE_GAME,		// ゲーム
 		MODE_RESULT,	// リザルト
-		MODE_LOSERESULT,// 負けリザルト
+		MODE_LOSERESULT,// 失敗リザルト
 		MODE_RANKING,	// ランキング
-		MODE_EDIT,		// 配置モード
-		MODE_CAMERAEDIT,// 配置モード
 		MODE_MAX
 	};
 
@@ -44,5 +42,6 @@ public:
 	MODE GetScene(void) const { return m_Scene; }
 
 private:
+
 	MODE m_Scene;	// シーン管理変数
 };

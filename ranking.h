@@ -36,5 +36,6 @@ public:
 	void Draw(void);
 
 	static CRanking* Create(void);
+
 private:
 };

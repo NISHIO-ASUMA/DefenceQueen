@@ -21,6 +21,7 @@
 class CObject2D : public CObject
 {
 public:
+
 	//****************************
 	// アンカーポイントタイプ
 	//****************************
@@ -43,20 +44,16 @@ public:
 		DRAWTYPE_MAX,
 	};
 
-	// コンストラクタ・デストラクタ
 	CObject2D(int nPriority = static_cast<int>(CObject::PRIORITY::UI));
 	~CObject2D();
 
-	// メンバ関数
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 
-	// 静的メンバ関数
 	static CObject2D* Create(void);
 
-	// セッター
 	void SetUV(float TexU, float TexV);
 	void SetCol(D3DXCOLOR col) { m_col = col; }
 	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
@@ -72,7 +69,6 @@ public:
 	void SetRight(void);
 	void SetTexture(const char* pRegisterName);
 
-	// ゲッター
 	D3DXVECTOR3 GetPos(void) const { return m_pos; }	// 現在の座標を取得
 	D3DXVECTOR3 GetRot(void) const { return m_rot; }	// 現在の角度を取得
 	D3DXCOLOR GetCol(void) const { return m_col; }		// 現在の色を取得
@@ -85,7 +81,6 @@ private:
 	LPDIRECT3DTEXTURE9 m_pTexture;		// テクスチャポインタ
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff; // 頂点バッファのポインタ
 
-	
 	D3DXVECTOR3 m_pos;	// 座標情報
 	D3DXVECTOR3 m_rot;	// 角度情報
 	D3DXCOLOR m_col;	// 色情報
@@ -93,7 +88,7 @@ private:
 	int m_nAnchorType;	// 基準座標設定
 	int m_nColorCount;	// 点滅カウント
 	int m_nDrawType;	// 描画タイプ
+	int m_nIdxTexture;	// テクスチャインデックス
 	float m_fWidth;		// 横幅
 	float m_fHeight;	// 高さ
-	int m_nIdxTexture; // テクスチャインデックス
 };

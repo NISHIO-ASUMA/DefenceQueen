@@ -37,4 +37,5 @@ public:
 	void Draw(void);
 
 private:
+
 };

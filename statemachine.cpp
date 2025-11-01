@@ -14,10 +14,9 @@
 //==================================
 // コンストラクタ
 //==================================
-CStateMachine::CStateMachine()
+CStateMachine::CStateMachine() : m_pNowState(nullptr)
 {
 	// 値のクリア
-	m_pNowState = nullptr;
 }
 //==================================
 // デストラクタ

@@ -27,6 +27,7 @@ class CObject;
 class CPlayerLifeGage : public CGauge
 {
 public:
+
 	//**********************
 	// ゲージの種類定義
 	//**********************
@@ -52,6 +53,7 @@ public:
 	static CPlayerLifeGage* Create(D3DXVECTOR3 pos, float fWidth, float fHeight, int gagetype,const char * pTexName);
 
 private:
+
 	int m_nLifeLength;		// バーの長さ基準値
 	int m_nMaxLifeLength;	// 最初の体力値
 	int m_gage;				// 列挙変数
@@ -59,7 +61,6 @@ private:
 	int m_nShakeTimer;		// 振動時間
 	float m_fShakeAmplitude;// 振動量
 	float m_fShakeOffset;	// オフセット
-
 	bool m_isShake;			// 振動するかどうか
 
 	CPlayer* m_pPlayer;		// プレイヤークラスポインタ

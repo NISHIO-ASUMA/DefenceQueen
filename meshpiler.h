@@ -21,6 +21,7 @@
 class CMeshPiler : public CObject
 {
 public:
+
 	CMeshPiler(int nPrio = static_cast<int>(CObject::PRIORITY::MESH));
 	~CMeshPiler();
 
@@ -37,7 +38,6 @@ public:
 	static CMeshPiler* Create(D3DXVECTOR3 pos);
 
 private:
-	int m_nTexIdx;		// テクスチャインデックス
 
 	LPDIRECT3DINDEXBUFFER9 m_pIdx; // インデックスバッファ
 	LPDIRECT3DVERTEXBUFFER9 m_pVtx;	// 頂点バッファ
@@ -46,6 +46,7 @@ private:
 	D3DXVECTOR3 m_rot;		// 角度
 	D3DXMATRIX m_mtxWorld;	// ワールドマトリックス
 
+	int m_nTexIdx;		// テクスチャインデックス
 	int m_nNumPrimitive;	// プリミティブ数
 	int m_nNumIdx;			// インデックス数
 	int m_nNumAllVtx;		// 全体頂点数
@@ -54,6 +55,6 @@ private:
 	float m_fMoveSpeed; // 移動速度
 	float m_fNowHeight;	// 現在高さ
 
-	int m_nLifeFrame;		 // 生存時間（フレーム数）
+	int m_nLifeFrame;		// 生存時間（フレーム数）
 	int m_nActiveDelay;		// 当たり判定が有効になるまでの遅延フレーム数
 };

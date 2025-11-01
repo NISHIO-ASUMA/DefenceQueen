@@ -22,6 +22,7 @@
 class CEnemyStateBase : public CStateBase
 {
 public:
+
 	//***************************
 	// 状態管理ID列挙型
 	//***************************
@@ -48,7 +49,7 @@ public:
 
 protected:
 	CEnemy* m_pEnemy;	// 敵のポインタ
+
 private:
 	ID m_ID;		// 列挙型のポインタ
 };
-

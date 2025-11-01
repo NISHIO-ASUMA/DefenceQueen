@@ -40,12 +40,8 @@ CRanking* CRanking::Create(void)
 	if (pRanking == nullptr) return nullptr;
 
 	// ‰Šú‰»¸”s
-	if (FAILED(pRanking->Init()))
-	{
-		return nullptr;
-	}
+	if (FAILED(pRanking->Init())) return nullptr;
 
-	// ¶¬‚³‚ê‚½ƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
 	return pRanking;
 }
 //===================================

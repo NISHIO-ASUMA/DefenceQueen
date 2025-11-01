@@ -26,6 +26,7 @@ class CObject;
 class CTitleUi : public CObject2D
 {
 public:
+
 	//*********************
 	// ƒƒjƒ…[¯•Ê—ñ‹“Œ^
 	//*********************

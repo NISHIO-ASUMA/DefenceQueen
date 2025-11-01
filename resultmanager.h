@@ -41,11 +41,5 @@ private:
 
 	CResultManager();
 
-	static constexpr int SCORELISTNUM = 3; // 最大数
-
-	bool m_isKeyDown; // キー入力フラグ
 	int m_nGameScore; // スコアを格納
-	int m_nLastTime; // 時間を格納
-
-	CResultScore* m_pResultScore[SCORELISTNUM];	// スコアポインタ
 };

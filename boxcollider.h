@@ -40,6 +40,6 @@ public:
 	static CBoxCollider* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 posold, const D3DXVECTOR3 size);
 
 private:
+
 	BoxColliderInfo m_BoxInfo; // \‘¢‘Ì•Ï”
 };
-

@@ -1,4 +1,4 @@
-//====================================
+//=====================================
 //
 // リザルトシーン処理 [ result.h ]
 // Author: Asuma Nishio
@@ -14,6 +14,7 @@
 // インクルードファイル宣言
 //**************************
 #include "scene.h"
+#include <memory>
 
 //**************************
 // 前方宣言
@@ -34,8 +35,6 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-
-	static CResult* Create(void);
 
 private:
 };

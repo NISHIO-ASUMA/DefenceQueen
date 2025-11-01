@@ -21,6 +21,7 @@ class CInputMouse;
 class CCamera
 {
 public:
+
 	//**********************
 	// ƒJƒƒ‰ƒ‚[ƒh—ñ‹“Œ^
 	//**********************

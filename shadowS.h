@@ -21,6 +21,7 @@
 class CShadowS :public CObjectX
 {
 public:
+
 	CShadowS(int nPriority = static_cast<int>(CObject::PRIORITY::SHADOW));
 	~CShadowS();
 
@@ -32,6 +33,7 @@ public:
 	static CShadowS* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot);
 
 private:
+
 	LPDIRECT3DVERTEXBUFFER9 m_pVtx;		// 頂点バッファ
 
 };

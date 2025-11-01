@@ -18,7 +18,7 @@
 //==========================
 // コンストラクタ
 //==========================
-CTutorialManager::CTutorialManager() : m_pTutoui(nullptr)
+CTutorialManager::CTutorialManager()
 {
 	// 値のクリア
 }
@@ -28,6 +28,15 @@ CTutorialManager::CTutorialManager() : m_pTutoui(nullptr)
 CTutorialManager::~CTutorialManager()
 {
 	// 無し
+}
+//==========================
+// インスタンス取得
+//==========================
+CTutorialManager* CTutorialManager::GetInstance(void)
+{
+	// 生成されたインスタンス
+	static CTutorialManager pTutoManager;
+	return &pTutoManager;
 }
 //==========================
 // 初期化処理
@@ -60,13 +69,4 @@ void CTutorialManager::Update(void)
 void CTutorialManager::Draw(void)
 {
 
-}
-//==========================
-// インスタンス取得
-//==========================
-CTutorialManager* CTutorialManager::GetInstance(void)
-{
-	// 生成されたインスタンス
-	static CTutorialManager pTutoManager;
-	return &pTutoManager;
 }

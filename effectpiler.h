@@ -21,6 +21,7 @@
 class CEffectPiler : public CBillboard
 {
 public:
+
 	CEffectPiler(int nPriority = static_cast<int>(CObject::PRIORITY::EFFECT));
 	~CEffectPiler();
 

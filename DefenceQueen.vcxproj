@@ -240,6 +240,7 @@
     <ClCompile Include="tutorialmanager.cpp" />
     <ClCompile Include="tutorialui.cpp" />
     <ClCompile Include="ui.cpp" />
+    <ClCompile Include="worker.cpp" />
     <ClCompile Include="xfilemanager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -331,6 +332,7 @@
     <ClInclude Include="tutorialmanager.h" />
     <ClInclude Include="tutorialui.h" />
     <ClInclude Include="ui.h" />
+    <ClInclude Include="worker.h" />
     <ClInclude Include="xfilemanager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
