@@ -162,7 +162,7 @@ void CMoveCharactor::Draw(void)
 //======================================
 // 位置情報の更新
 //======================================
-void CMoveCharactor::UpdatePosion(void)
+void CMoveCharactor::UpdatePosition(void)
 {
 	// 位置の更新
 	m_posOld = m_pos;

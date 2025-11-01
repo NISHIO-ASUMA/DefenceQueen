@@ -33,28 +33,6 @@ public:
 		MODE_MAX
 	};
 
-	CCamera();
-	~CCamera();
-
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void SetCamera(void);
-	void MouseView(CInputMouse* pMouse);
-
-	// セッター
-	void SetMode(int nMode) { m_pCamera.nMode = nMode; }
-	void SetRot(D3DXVECTOR3 rot) { m_pCamera.rot = rot; }
-
-	// ゲッター
-	D3DXVECTOR3 GetRot(void) { return m_pCamera.rot; }
-	D3DXVECTOR3 GetPos(void) { return m_pCamera.posV; }
-	D3DXVECTOR3 GetPosR(void) { return m_pCamera.posR; }
-	D3DXMATRIX GetMtxProjection(void) { return m_pCamera.mtxprojection; }
-	int GetMode(void) { return m_pCamera.nMode; }
-
-private:
-
 	//*************************
 	// カメラ構造体を定義
 	//*************************
@@ -70,5 +48,26 @@ private:
 		int nMode;					// カメラのモード
 	};
 
+	CCamera();
+	~CCamera();
+
+	HRESULT Init(void);
+	void Uninit(void);
+	void Update(void);
+	void SetCamera(void);
+	void MouseView(CInputMouse* pMouse);
+
+	void SetMode(int nMode) { m_pCamera.nMode = nMode; }
+	void SetRot(D3DXVECTOR3 rot) { m_pCamera.rot = rot; }
+
+	D3DXVECTOR3 GetRot(void) { return m_pCamera.rot; }
+	D3DXVECTOR3 GetPos(void) { return m_pCamera.posV; }
+	D3DXVECTOR3 GetPosR(void) { return m_pCamera.posR; }
+	D3DXMATRIX GetMtxProjection(void) { return m_pCamera.mtxprojection; }
+	int GetMode(void) { return m_pCamera.nMode; }
+
+private:
+
+	Camera ClearDefault(void);	// クリア用関数
 	Camera m_pCamera;		// カメラ構造体変数
 };

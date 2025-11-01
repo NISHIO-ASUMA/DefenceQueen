@@ -164,6 +164,7 @@
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="collisionbox.cpp" />
     <ClCompile Include="collisionsphere.cpp" />
+    <ClCompile Include="order.cpp" />
     <ClCompile Include="debugproc.cpp" />
     <ClCompile Include="easing.cpp" />
     <ClCompile Include="effect.cpp" />
@@ -254,6 +255,7 @@
     <ClInclude Include="collision.h" />
     <ClInclude Include="collisionbox.h" />
     <ClInclude Include="collisionsphere.h" />
+    <ClInclude Include="order.h" />
     <ClInclude Include="debugproc.h" />
     <ClInclude Include="easing.h" />
     <ClInclude Include="effect.h" />

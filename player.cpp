@@ -169,7 +169,7 @@ void CPlayer::Update(void)
 	MovePad(pJoyPad);
 
 	// 座標のみの更新
-	CMoveCharactor::UpdatePosion();
+	CMoveCharactor::UpdatePosition();
 
 	// 更新された座標を取得
 	D3DXVECTOR3 UpdatePos = GetPos();

@@ -14,14 +14,9 @@
 //=================================
 // コンストラクタ
 //=================================
-CLight::CLight()
+CLight::CLight() : m_aLight{}, m_vecDir{}
 {
 	// 値のクリア
-	for (int nCnt = 0; nCnt < NUMLIGHT; nCnt++)
-	{
-		m_aLight[nCnt] = {};
-		m_vecDir[nCnt] = {};
-	}
 }
 //=================================
 // デストラクタ
@@ -41,14 +36,10 @@ HRESULT CLight::Init(void)
 	// ライトのゼロクリア処理
 	ZeroMemory(&m_aLight, sizeof(m_aLight));
 
-	// ライトの種類を設定
-	for (int nCnt = 0; nCnt < NUMLIGHT; nCnt++)
+	for (auto &light : m_aLight)
 	{
-		// 平行光源
-		m_aLight[nCnt].Type = D3DLIGHT_DIRECTIONAL;	
-
-		// ライトの拡散光
-		m_aLight[nCnt].Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		light.Type = D3DLIGHT_DIRECTIONAL;
+		light.Diffuse = COLOR_WHITE;
 	}
 
 	// ライトの方向設定
@@ -57,18 +48,18 @@ HRESULT CLight::Init(void)
 	m_vecDir[2] = D3DXVECTOR3(1.0f, -0.52f, 0.21f);
 
 	// 正規化する
-	for (int nCnt1 = 0; nCnt1 < NUMLIGHT; nCnt1++)
+	for (int nCnt = 0; nCnt < NUMLIGHT; nCnt++)
 	{	
 		// ベクトルの大きさを1にする
-		D3DXVec3Normalize(&m_vecDir[nCnt1], &m_vecDir[nCnt1]); 
+		D3DXVec3Normalize(&m_vecDir[nCnt], &m_vecDir[nCnt]); 
 
-		m_aLight[nCnt1].Direction = m_vecDir[nCnt1];
+		m_aLight[nCnt].Direction = m_vecDir[nCnt];
 
 		// ライトの設定
-		pDevice->SetLight(nCnt1, &m_aLight[nCnt1]);
+		pDevice->SetLight(nCnt, &m_aLight[nCnt]);
 
 		// ライトを有効化
-		pDevice->LightEnable(nCnt1, TRUE);
+		pDevice->LightEnable(nCnt, TRUE);
 	}
 
 	return S_OK;

@@ -75,6 +75,6 @@ public:
 private:
 	std::unique_ptr<CParameter>m_pParameter; // パラメータークラスポインタ
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
-	CMotion* m_pMotion;				// モーションポインタ
 	CBoxCollider* m_pBoxCollider;	// 矩形のコライダー
+	CMotion* m_pMotion;				// モーションポインタ
 };

@@ -122,7 +122,7 @@ void CArray::Update(void)
 	if (!m_isActive) return;
 
 	// À•W‚Ì‚Ý‚ÌXVˆ—
-	CMoveCharactor::UpdatePosion();
+	CMoveCharactor::UpdatePosition();
 
 	// ‘Ì—Í‚ª‚È‚¢
 	if (m_pParameter && m_pParameter->GetHp() <= 0)

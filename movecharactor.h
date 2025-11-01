@@ -49,7 +49,7 @@ public:
 	virtual void Uninit(void) override;
 	virtual void Update(void) override;
 	virtual void Draw(void) override;
-	void UpdatePosion(void);
+	void UpdatePosition(void);
 
 	void SetPos(const D3DXVECTOR3 pos) { m_pos = pos; }
 	void SetOldPos(const D3DXVECTOR3 posOld) { m_posOld = posOld; }

@@ -43,20 +43,20 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	CRenderer* GetRenderer(void) { return m_pRenderer.get(); }
 	CInputKeyboard* GetInputKeyboard(void) { return m_pInputKeyboard.get(); }
-	CJoyPad* GetJoyPad(void) { return m_pJoyPad.get(); }
-	CSound* GetSound(void) { return m_pSound.get(); }
+	CXfileManager* GetXManager(void) { return m_pXfileManager.get(); }
+	CRenderer* GetRenderer(void) { return m_pRenderer.get(); }
 	CInputMouse* GetMouse(void) { return m_pInputMouse.get(); }
 	CTexture* GetTexture(void) { return m_pTexture.get(); }
+	CJoyPad* GetJoyPad(void) { return m_pJoyPad.get(); }
 	CCamera* GetCamera(void) { return m_pCamera.get(); }
+	CSound* GetSound(void) { return m_pSound.get(); }
 	CLight* GetLight(void) { return m_pLight.get(); }
 	CFade* GetFade(void) { return m_pFade.get(); }
-	CXfileManager* GetXManager(void) { return m_pXfileManager.get(); }
 
 	CScene* GetSceneRaw(void) { return m_pScene.get(); }	// 生ポインタを返す
 	void SetScene(std::unique_ptr<CScene> pNewScene);		// unique_ptrで受け取る
-	CScene::MODE GetScene(void);
+	CScene::MODE GetScene(void);							// 現在モードを返す
 
 	// マネージャークラスのインスタンス取得
 	static CManager* GetInstance(void)

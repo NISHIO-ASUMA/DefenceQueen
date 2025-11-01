@@ -27,18 +27,9 @@ namespace CAMERAINFO
 //=================================
 // コンストラクタ
 //=================================
-CCamera::CCamera()
+CCamera::CCamera() : m_pCamera(ClearDefault())
 {
 	// 値のクリア
-	m_pCamera.mtxprojection = {};
-	m_pCamera.mtxView = {};
-	m_pCamera.posR = VECTOR3_NULL;
-	m_pCamera.posV = VECTOR3_NULL;
-	m_pCamera.rot = VECTOR3_NULL;
-	m_pCamera.vecU = VECTOR3_NULL;
-	m_pCamera.posRDest = VECTOR3_NULL;
-	m_pCamera.fDistance = NULL;
-	m_pCamera.nMode = MODE_NONE;
 }
 //=================================
 // デストラクタ
@@ -214,4 +205,22 @@ void CCamera::MouseView(CInputMouse * pMouse)
 	{
 		m_pCamera.rot.x += -CAMERAINFO::NorRot;
 	}
+}
+//======================================
+// 値のクリア関数
+//======================================
+CCamera::Camera CCamera::ClearDefault(void)
+{
+	// 要素のクリア
+	m_pCamera.fDistance = NULL;
+	m_pCamera.mtxprojection = {};
+	m_pCamera.mtxView = {};
+	m_pCamera.nMode = MODE_NONE;
+	m_pCamera.posR = VECTOR3_NULL;
+	m_pCamera.posRDest = VECTOR3_NULL;
+	m_pCamera.posV = VECTOR3_NULL;
+	m_pCamera.rot = VECTOR3_NULL;
+	m_pCamera.vecU = VECTOR3_NULL;
+
+	return m_pCamera;
 }
