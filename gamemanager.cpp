@@ -51,7 +51,7 @@ HRESULT CGameManager::Init(void)
 	CSound* pSound = CManager::GetInstance()->GetSound();
 	if (pSound == nullptr) return E_FAIL;
 
-	// オブジェクト生成
+	// オブジェクト生成とロード
 	m_pGameObj = std::make_unique<CGameSceneObject>();
 	m_pGameObj->Init();
 

@@ -209,6 +209,7 @@
     <ClCompile Include="pausemanager.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="player.cpp" />
     <ClCompile Include="playerlifegage.cpp" />
@@ -250,6 +251,7 @@
     <ClInclude Include="block.h" />
     <ClInclude Include="blockmanager.h" />
     <ClInclude Include="boxcollider.h" />
+    <ClInclude Include="BS_thread_pool.hpp" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="charactorparam.h" />
     <ClInclude Include="collider.h" />
