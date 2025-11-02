@@ -14,15 +14,6 @@
 #include "meshfield.h"
 #include "blockmanager.h"
 
-#ifdef max
-#undef max
-#endif
-#ifdef min
-#undef min
-#endif
-
-#include "BS_thread_pool.hpp"
-
 //**********************
 // 静的メンバ変数
 //**********************
@@ -60,31 +51,6 @@ HRESULT CGameSceneObject::Init(void)
 	// ブロックマネージャー生成
 	m_pBlocks = std::make_unique<CBlockManager>();
 	m_pBlocks->Init();
-#else
-	// スレッドプールを3スレッドで作成
-	BS::thread_pool pool(3);
-
-	// 並列にロードする処理を投げる
-	auto future_player = pool.submit_task([] {
-		// プレイヤー生成
-		CPlayer::Create(VECTOR3_NULL, VECTOR3_NULL, 10, "data/MOTION/Player/Player100motion.txt");
-		});
-
-	auto future_field = pool.submit_task([] {
-		// メッシュフィールド生成
-		CMeshField::Create(VECTOR3_NULL, 2100.0f, 1500.0f, 1, 1);
-		});
-
-	auto future_blocks = pool.submit_task([this] {
-		// ブロックマネージャ生成
-		m_pBlocks = std::make_unique<CBlockManager>();
-		m_pBlocks->Init();
-		});
-
-	// 全タスクの完了を待つ
-	future_player.get();
-	future_field.get();
-	future_blocks.get();
 #endif
 	return S_OK;
 }
