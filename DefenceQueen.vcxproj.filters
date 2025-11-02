@@ -378,6 +378,9 @@
     <ClCompile Include="worker.cpp">
       <Filter>ソース ファイル\Charactor\Array</Filter>
     </ClCompile>
+    <ClCompile Include="selectpoint.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="billboard.h">
@@ -651,6 +654,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="BS_thread_pool.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="selectpoint.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

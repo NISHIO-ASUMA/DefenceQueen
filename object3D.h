@@ -32,7 +32,7 @@ public:
 
 	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
 	void SetRot(D3DXVECTOR3 rot) { m_rot = rot; }
-	void SetCol(D3DXCOLOR col) { m_col = col;}
+	void SetCol(D3DXCOLOR col = COLOR_WHITE) { m_col = col;}
 	void SetSize(float fWidth, float fHeight) { m_fWidth = fWidth, m_fHeight = fHeight; }
 	void SetTexture(const char * pTexName);
 
@@ -48,13 +48,12 @@ public:
 
 private:
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;		// 頂点バッファ
-	D3DXMATRIX m_mtxWorld;					// ワールドマトリックス
 
-	D3DXVECTOR3 m_rot;	// 角度情報
+	D3DXMATRIX m_mtxWorld;	// ワールドマトリックス
 	D3DXVECTOR3 m_pos;	// 座標情報
+	D3DXVECTOR3 m_rot;	// 角度情報
 	D3DXCOLOR m_col;	// 色情報
-
-	int m_nIdxTexture;						// テクスチャインデックス
+	int m_nIdxTexture;	// テクスチャインデックス
 	float m_fWidth;		// 横幅
 	float m_fHeight;	// 高さ
 };

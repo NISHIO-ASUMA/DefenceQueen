@@ -70,7 +70,8 @@ HRESULT CObject3D::Init(void)
 
 	// 頂点バッファの生成
 	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * BASEVERTEX,
-		D3DUSAGE_WRITEONLY, FVF_VERTEX_3D,
+		D3DUSAGE_WRITEONLY,
+		FVF_VERTEX_3D,
 		D3DPOOL_MANAGED,
 		&m_pVtxBuff,
 		NULL);
@@ -82,10 +83,10 @@ HRESULT CObject3D::Init(void)
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 	// 頂点座標の設定
-	pVtx[0].pos = D3DXVECTOR3(-m_fWidth, 0.0f, m_fWidth);	// 1つ目の頂点情報
-	pVtx[1].pos = D3DXVECTOR3(m_fWidth, 0.0f, m_fWidth);	// 2つ目の頂点情報
-	pVtx[2].pos = D3DXVECTOR3(-m_fWidth, 0.0f, -m_fWidth);	// 3つ目の頂点情報
-	pVtx[3].pos = D3DXVECTOR3(m_fWidth, 0.0f, -m_fWidth);	// 4つ目の頂点情報
+	pVtx[0].pos =
+	pVtx[1].pos =
+	pVtx[2].pos =
+	pVtx[3].pos = VECTOR3_NULL;
 
 	// 各頂点の法線(ベクトル)の設定
 	pVtx[0].nor = 
@@ -137,10 +138,10 @@ void CObject3D::Update(void)
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 	// 頂点座標の設定
-	pVtx[0].pos = D3DXVECTOR3(-m_fWidth, 5.0f, m_fWidth);	// 1つ目の頂点情報
-	pVtx[1].pos = D3DXVECTOR3(m_fWidth, 5.0f, m_fWidth);	// 2つ目の頂点情報
-	pVtx[2].pos = D3DXVECTOR3(-m_fWidth, 5.0f, -m_fWidth);	// 3つ目の頂点情報
-	pVtx[3].pos = D3DXVECTOR3(m_fWidth, 5.0f, -m_fWidth);	// 4つ目の頂点情報
+	pVtx[0].pos = D3DXVECTOR3(-m_fWidth, m_fHeight, m_fWidth);	// 1つ目の頂点情報
+	pVtx[1].pos = D3DXVECTOR3(m_fWidth, m_fHeight, m_fWidth);	// 2つ目の頂点情報
+	pVtx[2].pos = D3DXVECTOR3(-m_fWidth, m_fHeight, -m_fWidth);	// 3つ目の頂点情報
+	pVtx[3].pos = D3DXVECTOR3(m_fWidth, m_fHeight, -m_fWidth);	// 4つ目の頂点情報
 
 	// 各頂点の法線(ベクトル)の設定
 	pVtx[0].nor = 
@@ -152,7 +153,7 @@ void CObject3D::Update(void)
 	pVtx[0].col = 
 	pVtx[1].col = 
 	pVtx[2].col = 
-	pVtx[3].col = COLOR_WHITE;
+	pVtx[3].col = m_col;
 
 	// テクスチャ座標の設定
 	pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
@@ -195,11 +196,7 @@ void CObject3D::Draw(void)
 	pDevice->SetFVF(FVF_VERTEX_3D);
 
 	// テクスチャ割り当て
-	if (m_nIdxTexture == -1)
-	{
-		// 無し
-		pDevice->SetTexture(0, NULL);
-	}
+	if (m_nIdxTexture == -1) pDevice->SetTexture(0, nullptr);
 	else
 	{
 		// テクスチャクラス取得
@@ -213,8 +210,8 @@ void CObject3D::Draw(void)
 	// ポリゴンの描画
 	pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
 
-	// テクスチャNULLにする
-	pDevice->SetTexture(0, NULL);
+	// テクスチャを消す
+	pDevice->SetTexture(0, nullptr);
 }
 //===============================
 // テクスチャ割り当て
