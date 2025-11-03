@@ -50,13 +50,6 @@ HRESULT CGame::Init(void)
 	// ゲームマネージャー
 	CGameManager::GetInstance()->Init();
 
-	// ゲームオブジェクト生成
-	m_pGameObject = std::make_unique<CGameSceneObject>();
-	if (m_pGameObject == nullptr) return E_FAIL;
-
-	// ゲームオブジェクト初期化処理
-	m_pGameObject->Init();
-
 	// ステート生成
 	m_pState = new CGameState;
 	if (m_pState == nullptr) return E_FAIL;
@@ -88,9 +81,6 @@ void CGame::Uninit(void)
 		// nullptrにする
 		m_pPausemanager = nullptr;
 	}
-
-	// 破棄
-	m_pGameObject.reset();
 
 	// nullチェック
 	if (m_pState)
@@ -128,9 +118,6 @@ void CGame::Update(void)
 	{
 		// ゲームマネージャー更新
 		CGameManager::GetInstance()->Update();
-
-		// ゲームオブジェクト更新
-		m_pGameObject->Update();
 	}
 
 #ifdef _DEBUG

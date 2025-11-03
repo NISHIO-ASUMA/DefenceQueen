@@ -27,7 +27,7 @@ class CSelectPoint : CObject3D
 {
 public:
 
-	CSelectPoint(int nPriority = static_cast<int>(CObject::PRIORITY::MESH));
+	CSelectPoint(int nPriority = static_cast<int>(CObject::PRIORITY::CIRCLE));
 	~CSelectPoint();
 
 	HRESULT Init(void) override;

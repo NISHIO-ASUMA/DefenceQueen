@@ -12,8 +12,8 @@
 #include "gamesceneobject.h"
 #include "fade.h"
 #include "result.h"
-#include "game.h"
 #include "manager.h"
+#include "gamemanager.h"
 
 //**********************
 // 定数名前空間
@@ -63,7 +63,7 @@ void CGameState::OnUpdate()
 	if (pFade == nullptr) return;
 
 	// シーンオブジェクト取得
-	auto GameSceneObject = m_pGame->GetGameObject();
+	auto GameSceneObject = CGameManager::GetInstance()->GetGameObj();
 	if (GameSceneObject == nullptr) return;
 
 	switch (m_Progress)

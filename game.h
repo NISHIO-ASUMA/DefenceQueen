@@ -21,7 +21,6 @@
 // 前方宣言
 //****************************
 class CGameManager;
-class CGameSceneObject;
 class CGameState;
 
 //****************************
@@ -40,7 +39,6 @@ public:
 	void Draw(void);
 
 	CGameManager* GetGameManager(void) { return m_pGameManager.get(); }
-	CGameSceneObject* GetGameObject(void) { return m_pGameObject.get(); }
 	CGameState* GetState(void) { return m_pState; }
 
 	static CPauseManager* GetPause(void) { return m_pPausemanager; }
@@ -49,5 +47,4 @@ private:
 	static CPauseManager* m_pPausemanager;			// ポーズマネージャークラスポインタ
 	CGameState * m_pState;							// ゲーム進行管理クラスのポインタ
 	std::unique_ptr<CGameManager>m_pGameManager;	// ゲームマネージャークラスのポインタ
-	std::unique_ptr<CGameSceneObject>m_pGameObject;	// ゲーム中のオブジェクトクラスのポインタ
 };

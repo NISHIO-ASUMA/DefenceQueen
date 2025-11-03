@@ -11,6 +11,7 @@
 #include "selectpoint.h"
 #include "collisionsphere.h"
 #include "spherecollider.h"
+#include "debugproc.h"
 
 //============================
 // コンストラクタ
@@ -67,6 +68,12 @@ HRESULT CSelectPoint::Init(void)
 //============================
 void CSelectPoint::Uninit(void)
 {
+	if (m_pSphere)
+	{
+		delete m_pSphere;
+		m_pSphere = nullptr;
+	}
+
 	// 親クラスの終了処理
 	CObject3D::Uninit();
 }
@@ -81,6 +88,10 @@ void CSelectPoint::Update(void)
 	// コライダー座標の更新
 	m_pSphere->SetPos(pos);
 
+	// 当たり判定
+	
+	// 当たったらコライダー座標の更新
+	
 	// 親クラスの更新処理
 	CObject3D::Update();
 }
@@ -91,6 +102,10 @@ void CSelectPoint::Draw(void)
 {
 	// 親クラスの描画
 	CObject3D::Draw();
+
+	// デバッグフォント
+	CDebugproc::Print("ポインター座標 : [ %.2f,%.2f,%.2f ]", GetPos().x, GetPos().y, GetPos().z);
+	CDebugproc::Draw(0, 160);
 }
 //============================
 // 当たり判定処理

@@ -45,7 +45,7 @@ public:
 		MESH,		// メッシュ
 		BASENUMBER, // 基準番号
 		MODELOBJECT,// モデル
-		BULLET,		// 弾
+		CIRCLE,		// 円
 		SHADOW,		// 影
 		IMPACT,		// 衝撃波
 		CHARACTOR,	// プレイヤー

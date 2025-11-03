@@ -200,7 +200,7 @@ void CPlayer::Draw(void)
 	CDebugproc::Print("モーションタイプ [ %d ]", m_pMotion->GetMotionType());
 	CDebugproc::Draw(0, 100);
 
-	CDebugproc::Print("POS [ %.2f, %.2f,%.2f ]", GetPos().x,GetPos().y,GetPos().z);
+	CDebugproc::Print("Player POS [ %.2f, %.2f,%.2f ]", GetPos().x,GetPos().y,GetPos().z);
 	CDebugproc::Draw(0, 120);
 }
 //=================================
