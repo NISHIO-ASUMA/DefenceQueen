@@ -29,9 +29,20 @@
 //===========================
 // コンストラクタ
 //===========================
-CManager::CManager()
+CManager::CManager() :
+m_pCamera(nullptr),
+m_pFade(nullptr),
+m_pInputKeyboard(nullptr),
+m_pInputMouse(nullptr),
+m_pJoyPad(nullptr),
+m_pLight(nullptr),
+m_pRenderer(nullptr),
+m_pScene(nullptr),
+m_pSound(nullptr),
+m_pTexture(nullptr),
+m_pXfileManager(nullptr)
 {
-	
+	// 値のクリア
 }
 //===========================
 // デストラクタ
@@ -199,32 +210,28 @@ void CManager::Uninit(void)
 void CManager::Update()
 {
 	// キーボードの更新処理
-	m_pInputKeyboard->Update();
+	if (m_pInputKeyboard) m_pInputKeyboard->Update();
 
 	// ジョイパッドの更新処理
-	m_pJoyPad->Update();
+	if (m_pJoyPad) m_pJoyPad->Update();
 
 	// マウスの更新処理
-	m_pInputMouse->Update();
+	if (m_pInputMouse) m_pInputMouse->Update();
 
 	// ジョイパッド振動の更新処理
 	m_pJoyPad->UpdateVibration();
 
 	// カメラ更新
-	m_pCamera->Update();
+	if (m_pCamera) m_pCamera->Update();
 
 	// フェードの更新
-	m_pFade->Update();
+	if (m_pFade) m_pFade->Update();
 
-	// nullチェック
-	if (m_pScene != nullptr)
-	{
-		// シーンの更新
-		m_pScene->Update();
-	}
+	// シーンの更新
+	if (m_pScene) m_pScene->Update();
 
 	// レンダラーの更新処理
-	m_pRenderer->Update();
+	if (m_pRenderer) m_pRenderer->Update();
 }
 //===========================
 // マネージャーの描画処理
@@ -232,7 +239,7 @@ void CManager::Update()
 void CManager::Draw(void)
 {
 	// レンダラーの描画処理
-	m_pRenderer->Draw();
+	if (m_pRenderer) m_pRenderer->Draw();
 }
 //===========================
 // シーンのセット

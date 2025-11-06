@@ -125,7 +125,7 @@ void CArrayManager::Spawn(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife,const int 
 	if (m_nActiveAll >= ARRAYINFO::ALLARRAYS)
 	{
 		// 例外設定
-		OutputDebugStringA("出現上限に達しました\n");
+		OutputDebugStringA("出現上限に達しました!\n");
 		return;
 	}
 
@@ -152,7 +152,6 @@ void CArrayManager::Spawn(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife,const int 
 
 			// 最大数に達したら出現させない
 			if (m_nActiveAll >= ARRAYINFO::ALLARRAYS) break;
-
 		}
 	}
 }

@@ -15,19 +15,18 @@
 //=================================
 // コンストラクタ
 //=================================
-CModel::CModel()
+CModel::CModel() : m_dwNumMat{},
+m_pBuffMat(nullptr),
+m_pMesh(nullptr),
+m_pTexture(nullptr),
+m_pos(VECTOR3_NULL),
+m_rot(VECTOR3_NULL),
+m_offPos(VECTOR3_NULL),
+m_offRot(VECTOR3_NULL),
+m_parttype(PARTTYPE_NONE),
+m_isColorChange(false)
 {
 	// 値のクリア
-	m_dwNumMat = NULL;
-	m_pBuffMat = nullptr;
-	m_pMesh = nullptr;
-	m_pos = VECTOR3_NULL;
-	m_rot = VECTOR3_NULL;
-	m_pTexture = nullptr;
-	m_offPos = VECTOR3_NULL;
-	m_offRot = VECTOR3_NULL;
-	m_parttype = PARTTYPE_NONE;
-	m_isColorChange = false;
 }
 //=================================
 // デストラクタ
@@ -75,7 +74,7 @@ HRESULT CModel::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot,const char * pFilename)
 	for (int nCntMat = 0; nCntMat < (int)m_dwNumMat; nCntMat++)
 	{
 		// テクスチャが読み込めたら
-		if (pMat[nCntMat].pTextureFilename != NULL)
+		if (pMat[nCntMat].pTextureFilename != nullptr)
 		{
 			// テクスチャポインタ取得
 			CTexture* pTexture = CManager::GetInstance()->GetTexture();
@@ -212,7 +211,7 @@ void CModel::Draw(void)
 		else
 		{
 			// テクスチャなし
-			pDevice->SetTexture(0, NULL); 
+			pDevice->SetTexture(0, nullptr); 
 		}
 
 		// モデル(パーツ)の描画

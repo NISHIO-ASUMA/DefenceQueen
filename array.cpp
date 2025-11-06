@@ -125,7 +125,7 @@ void CArray::Update(void)
 	CMoveCharactor::UpdatePosition();
 
 	// ‘Ì—Í‚ª‚È‚¢
-	if (m_pParameter && m_pParameter->GetHp() <= 0)
+	if (m_pParameter && m_pParameter->GetHp() <= NULL)
 	{
 		// ‘Ì—Í‚ð0‚É‚·‚é
 		m_pParameter->SetHp(NULL);

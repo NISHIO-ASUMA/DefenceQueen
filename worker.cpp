@@ -71,10 +71,10 @@ HRESULT CWorker::Init(void)
 //=================================
 void CWorker::Uninit(void)
 {
-	// 破棄
+	// ポインタ破棄
 	m_pStateMachine.reset();
 
-	// 破棄
+	// ポインタ破棄
 	if (m_pSphereCollider)
 	{
 		delete m_pSphereCollider;

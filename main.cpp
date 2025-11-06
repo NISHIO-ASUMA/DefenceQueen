@@ -236,10 +236,9 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 //==========================================
 // コンストラクタ
 //==========================================
-CMainProc::CMainProc()
+CMainProc::CMainProc() : m_Windowrect{}
 {
 	// 値のクリア
-	m_Windowrect = {};
 }
 //==========================================
 // デストラクタ

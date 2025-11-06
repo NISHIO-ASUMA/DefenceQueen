@@ -18,20 +18,20 @@
 //===============================
 // オーバーロードコンストラクタ
 //===============================
-CObject2D::CObject2D(int nPriority) : CObject(nPriority)
+CObject2D::CObject2D(int nPriority) : CObject(nPriority),
+m_pTexture(nullptr),
+m_pVtxBuff(nullptr),
+m_rot(VECTOR3_NULL),
+m_pos(VECTOR3_NULL),
+m_col(COLOR_WHITE),
+m_fHeight(NULL),
+m_fWidth(NULL),
+m_nColorCount(NULL),
+m_nDrawType(NULL),
+m_nIdxTexture(-1),
+m_nAnchorType(ANCHORTYPE_NONE)
 {
 	// 値のクリア
-	m_pTexture = NULL;
-	m_pVtxBuff = NULL;
-	m_pos = VECTOR3_NULL;
-	m_fWidth = NULL;
-	m_fHeight = NULL;
-	m_rot = VECTOR3_NULL;
-	m_col = COLOR_WHITE;
-	m_nAnchorType = ANCHORTYPE_NONE;
-	m_nColorCount = NULL;
-	m_nDrawType = NULL;
-	m_nIdxTexture = -1;
 }
 //===============================
 // デストラクタ
@@ -84,7 +84,7 @@ HRESULT CObject2D::Init(void)
 	pVtx[2].pos =
 	pVtx[3].pos = VECTOR3_NULL;
 
-	// rhwの設定(1.0fで固定)
+	// rhwの設定
 	pVtx[0].rhw =
 	pVtx[1].rhw =
 	pVtx[2].rhw =
@@ -191,7 +191,7 @@ void CObject2D::Draw(void)
 		if (m_nIdxTexture == -1)
 		{
 			// テクスチャを戻す
-			pDevice->SetTexture(0, NULL);
+			pDevice->SetTexture(0, nullptr);
 		}
 		else
 		{
@@ -210,7 +210,7 @@ void CObject2D::Draw(void)
 		pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
 
 		// テクスチャを戻す
-		pDevice->SetTexture(0, NULL);
+		pDevice->SetTexture(0, nullptr);
 	}
 }
 //======================================
@@ -239,7 +239,7 @@ void CObject2D::SetUV(float TexU, float TexV)
 void CObject2D::SetFlash(const int nFirstcount, const int nEndcount, const D3DXCOLOR col)
 {
 	// 頂点情報のポインタ
-	VERTEX_2D* pVtx = NULL;
+	VERTEX_2D* pVtx = nullptr;
 
 	// 頂点バッファをロックする
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);

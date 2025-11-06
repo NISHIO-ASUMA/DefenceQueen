@@ -13,11 +13,9 @@
 //===========================
 // コンストラクタ
 //===========================
-CParameter::CParameter()
+CParameter::CParameter() : m_nHp(NULL),m_nMaxHp(NULL)
 {
 	// 値のクリア
-	m_nHp = NULL;
-	m_nMaxHp = NULL;
 }
 //===========================
 // デストラクタ

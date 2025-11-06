@@ -14,12 +14,12 @@
 //=====================================
 // オーバーロードコンストラクタ
 //=====================================
-CEffectSmoke::CEffectSmoke(int nPriority) : CBillboard(nPriority)
+CEffectSmoke::CEffectSmoke(int nPriority) : CBillboard(nPriority),
+m_fRadius(NULL),
+m_nLife(NULL),
+m_move(VECTOR3_NULL)
 {
 	// 値のクリア
-	m_fRadius = NULL;
-	m_nLife = NULL;
-	m_move = VECTOR3_NULL;
 }
 //=====================================
 // デストラクタ
@@ -40,10 +40,7 @@ CEffectSmoke* CEffectSmoke::Create(D3DXVECTOR3 pos, D3DXCOLOR col, D3DXVECTOR3 m
 	if (pEffect == nullptr) return nullptr;
 
 	// 初期化失敗時
-	if (FAILED(pEffect->Init()))
-	{
-		return nullptr;
-	}
+	if (FAILED(pEffect->Init())) return nullptr;
 
 	// オブジェクト設定
 	pEffect->SetSize(fRadius, 40.0f);
@@ -89,8 +86,6 @@ void CEffectSmoke::Update(void)
 	{
 		// 破棄
 		Uninit();
-
-		// 処理終了
 		return;
 	}
 

@@ -14,11 +14,11 @@
 //===============================
 // オーバーロードコンストラクタ
 //===============================
-CEffectPiler::CEffectPiler(int nPriority) : CBillboard(nPriority)
+CEffectPiler::CEffectPiler(int nPriority) : CBillboard(nPriority),
+m_nLife(NULL),
+m_fRadius(NULL)
 {
 	// 値のクリア
-	m_nLife = NULL;
-	m_fRadius = NULL;
 }
 //===============================
 // デストラクタ

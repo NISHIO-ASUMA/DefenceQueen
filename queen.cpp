@@ -19,7 +19,7 @@
 //****************************
 namespace QUEEN_INFO
 {
-	constexpr int HP = 1000;
+	constexpr int HP = 1000; // 体力値
 };
 
 //==================================
@@ -71,7 +71,7 @@ HRESULT CQueen::Init(void)
 	SetObjType(CObject::TYPE_QUEEN);
 
 	// モーションセット
-	MotionLoad("data/MOTION/Queen/QueenMotion.txt", MOTION_MAX);
+	MotionLoad("data/MOTION/Queen/Queen.txt", MOTION_MAX);
 
 	// パラメーター生成
 	m_pParameter = std::make_unique<CParameter>();

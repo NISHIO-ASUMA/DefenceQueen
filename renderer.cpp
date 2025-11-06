@@ -24,25 +24,20 @@ CDebugproc* CRenderer::m_pDebug = nullptr;	// デバッグプロセスへのポインタ
 //===============================
 // コンストラクタ
 //===============================
-CRenderer::CRenderer()
+CRenderer::CRenderer() : 
+m_pD3D(nullptr),
+m_pD3DDevice(nullptr),
+m_pZBuffMT(nullptr),
+m_pRenderDef(nullptr),
+m_pZBuffDef(nullptr),
+m_pVtxMT(nullptr),
+m_isbuller(false),
+m_apRenderMT{},
+m_apTextureMT{},
+m_nBullerTime(NULL),
+m_fps(NULL)
 {
 	// 値のクリア
-	m_pD3D = nullptr;
-	m_pD3DDevice = nullptr;
-	m_pZBuffMT = nullptr;
-	m_pRenderDef = nullptr;
-	m_pZBuffDef = nullptr;
-	m_isbuller = false;
-
-	for (int nCnt = 0; nCnt < NUM_FEEDBACKPOLYGON; nCnt++)
-	{
-		m_apRenderMT[nCnt] = nullptr;
-		m_apTextureMT[nCnt] = nullptr;
-	}
-
-	m_pVtxMT = nullptr;
-	m_nBullerTime = NULL;
-	m_fps = NULL;
 }
 //===============================
 // デストラクタ
@@ -187,7 +182,7 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 	m_viewportMT.MaxZ = 1.0f;
 
 	// フィードバック用ポリゴン生成
-	m_pD3DDevice->CreateVertexBuffer(sizeof(VERTEX_2D) * 4 * NUM_FEEDBACKPOLYGON,
+	m_pD3DDevice->CreateVertexBuffer(sizeof(VERTEX_2D) * BASEVERTEX * NUM_FEEDBACKPOLYGON,
 		D3DUSAGE_WRITEONLY,
 		FVF_VERTEX_2D,
 		D3DPOOL_MANAGED,
@@ -238,7 +233,7 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 		pVtx[3].tex = D3DXVECTOR2(1.0f, 1.0f);
 
 		// 頂点座標を更新
-		pVtx += 4;
+		pVtx += BASEVERTEX;
 	}
 
 	//頂点バッファをアンロック

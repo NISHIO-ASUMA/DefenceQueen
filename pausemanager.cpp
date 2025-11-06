@@ -22,8 +22,7 @@
 //***************************
 namespace PAUSEMANAGEINFO
 {
-	inline const D3DXVECTOR3 BACEPOS = { 200.0f,180.0f,0.0f }; // 基準点座標
-
+	const D3DXVECTOR3 BACEPOS = { 200.0f,180.0f,0.0f }; // 基準点座標
 	constexpr int FLASHFLAME = 60;				// 点滅間隔
 	constexpr float BACEWIDTH = 180.0f;			// 基準の横幅
 	constexpr float BACEHEIGHT = 40.0f;			// 基準の高さ

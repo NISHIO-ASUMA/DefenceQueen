@@ -16,17 +16,17 @@
 //===============================
 // コンストラクタ
 //===============================
-CObject3D::CObject3D(int nPriority) : CObject(nPriority)
+CObject3D::CObject3D(int nPriority) : CObject(nPriority),
+m_pVtxBuff(nullptr),
+m_pos(VECTOR3_NULL),
+m_rot(VECTOR3_NULL),
+m_col(COLOR_WHITE),
+m_nIdxTexture(-1),
+m_fWidth(NULL),
+m_fHeight(NULL)
 {
 	// 値のクリア
-	m_pVtxBuff = nullptr;
-	m_mtxWorld = {};
-	m_rot = VECTOR3_NULL;
-	m_pos = VECTOR3_NULL;
-	m_col = COLOR_WHITE;
-	m_nIdxTexture = -1;
-	m_fWidth = NULL;
-	m_fHeight = NULL;
+	D3DXMatrixIdentity(&m_mtxWorld);
 }
 //===============================
 // デストラクタ
@@ -48,7 +48,6 @@ CObject3D* CObject3D::Create(D3DXVECTOR3 pos)
 
 	// オブジェクト設定
 	pObj3D->SetPos(pos);
-	// pObj3D->SetTexture();
 
 	// 初期化処理失敗時
 	if (FAILED(pObj3D->Init()))

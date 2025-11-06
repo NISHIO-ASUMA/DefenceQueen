@@ -10,9 +10,7 @@
 //**********************
 #include "player.h"
 #include "manager.h"
-#include "texture.h"
 #include "particle.h"
-#include "shadow.h"
 #include "meshimpact.h"
 #include "input.h"
 #include "camera.h"
@@ -24,7 +22,6 @@
 #include "playerstatebase.h"
 #include "effect.h"
 #include "game.h"
-#include "effectsmoke.h"
 #include "sound.h"
 #include "statemachine.h"
 #include "boxcollider.h"
@@ -75,7 +72,7 @@ CPlayer* CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot,int nLife, const char*
 	pPlayer->SetPos(pos);
 	pPlayer->SetRot(rot);
 
-	// ポインタ生成
+	// パラメーターポインタ生成
 	pPlayer->m_pParameter = std::make_unique<CParameter>();
 
 	// nullチェック
@@ -87,13 +84,8 @@ CPlayer* CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot,int nLife, const char*
 	}
 	
 	// プレイヤー初期化処理
-	if (FAILED(pPlayer->Init()))
-	{
-		// nullptrを返す
-		return nullptr;
-	}
+	if (FAILED(pPlayer->Init())) return nullptr;
 
-	// プレイヤーのポインタを返す
 	return pPlayer;
 }
 //===============================

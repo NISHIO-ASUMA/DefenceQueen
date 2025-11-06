@@ -77,7 +77,7 @@ HRESULT CEnemy::Init(void)
 	SetObjType(CObject::TYPE_ENEMY);
 
 	// モーションセット
-	MotionLoad("data/MOTION/Enemy/EnemyMotion.txt", MOTION_MAX);
+	MotionLoad("data/MOTION/Enemy/Enemy.txt", MOTION_MAX);
 
 	// ステートマシンを生成
 	m_pStateMachine = std::make_unique<CStateMachine>();
