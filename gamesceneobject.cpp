@@ -23,7 +23,9 @@ CScore* CGameSceneObject::m_pScore = nullptr; // スコアクラスの静的ポインタ
 //===========================
 // コンストラクタ
 //===========================
-CGameSceneObject::CGameSceneObject() : m_pBlocks(nullptr)
+CGameSceneObject::CGameSceneObject() : 
+m_pBlocks(nullptr),
+m_pSelectPoint(nullptr)
 {
 	// 値のクリア
 }
@@ -39,7 +41,6 @@ CGameSceneObject::~CGameSceneObject()
 //===========================
 HRESULT CGameSceneObject::Init(void)
 {
-#if 1
 	// プレイヤー生成
 	CPlayer::Create(VECTOR3_NULL, VECTOR3_NULL, 10, "data/MOTION/Player/Player100motion.txt");
 
@@ -49,14 +50,13 @@ HRESULT CGameSceneObject::Init(void)
 	// メッシュフィールド生成
 	CMeshField::Create(VECTOR3_NULL, 2100.0f,1500.0f,1,1);
 
-	// 選択ポイント
-	CSelectPoint::Create(VECTOR3_NULL, VECTOR3_NULL, 30.0f, 3.0f, 30.0f);
+	// 選択ポイント生成
+	m_pSelectPoint = CSelectPoint::Create(VECTOR3_NULL, VECTOR3_NULL, 80.0f, 3.0f, 80.0f);
 
 	// ブロックマネージャー生成
 	m_pBlocks = std::make_unique<CBlockManager>();
 	m_pBlocks->Init();
 
-#endif
 	return S_OK;
 }
 //===========================

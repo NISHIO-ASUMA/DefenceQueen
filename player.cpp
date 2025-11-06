@@ -156,15 +156,10 @@ void CPlayer::Update(void)
 	D3DXVECTOR3 posOld = GetOldPos();
 
 	// 入力デバイスのポインタ取得
-	CInputKeyboard* pInput = CManager::GetInstance()->GetInputKeyboard();
 	CJoyPad* pJoyPad = CManager::GetInstance()->GetJoyPad();
 
 	// nullptrじゃないとき
-	if (m_pStateMachine != nullptr)
-	{
-		// ステート更新
-		m_pStateMachine->Update();
-	}
+	if (m_pStateMachine != nullptr) m_pStateMachine->Update();
 
 	// スティックでの移動処理
 	MovePad(pJoyPad);
@@ -249,6 +244,7 @@ void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 	// 移動フラグ
 	bool isMove = false;
 
+#if 0
 	if (pInput->GetPress(DIK_A) || pPad->GetPress(CJoyPad::JOYKEY_LEFT))
 	{// Aキー
 		if (pInput->GetPress(DIK_W) || pPad->GetPress(CJoyPad::JOYKEY_RIGHT))
@@ -352,7 +348,7 @@ void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 
 	if (isMove)
 	{
-		// MOVEじゃなかったらMOBEに切り替え
+		// MOVEじゃなかったらMOVEに切り替え
 		if (m_pMotion->GetMotionType() != MOTION_MOVE)
 		{
 			m_pMotion->SetMotion(MOTION_MOVE);
@@ -391,6 +387,7 @@ void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 	SetRot(rot);
 	SetRotDest(rotDest);
 	SetMove(move);
+#endif
 }
 //=========================================
 // ジョイパッド入力移動関数
@@ -446,10 +443,7 @@ void CPlayer::MovePad(CJoyPad* pPad)
 	{
 		// MOVEじゃなかったら
 		if (m_pMotion->GetMotionType() != MOTION_MOVE)
-		{
-			// モーション変更
 			m_pMotion->SetMotion(MOTION_MOVE);
-		}
 	}
 	else if (!isMoving && wasStick)
 	{
@@ -461,7 +455,7 @@ void CPlayer::MovePad(CJoyPad* pPad)
 	// フラグを変更する
 	wasStick = isMoving;
 
-	// 適用
+	// 適用する
 	SetMove(move);
 	SetRotDest(rotDest);
 }

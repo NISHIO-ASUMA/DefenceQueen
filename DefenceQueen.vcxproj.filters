@@ -379,7 +379,7 @@
       <Filter>ソース ファイル\Charactor\Array</Filter>
     </ClCompile>
     <ClCompile Include="selectpoint.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
