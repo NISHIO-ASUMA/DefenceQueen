@@ -61,7 +61,7 @@ void CTutorial::Update(void)
 	// ƒL[“ü—Í‚Å‘JˆÚ
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN))
 	{
-		CManager::GetInstance()->GetFade()->SetFade(std::make_unique <CGame>());
+		CManager::GetInstance()->GetFade()->SetFade(std::make_unique<CGame>());
 	}
 }
 //===============================

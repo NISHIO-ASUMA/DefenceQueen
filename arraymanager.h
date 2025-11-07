@@ -61,7 +61,7 @@ public:
 	CArray* GetArrays(const int nIdx) { return m_pArrays[nIdx]; }
 
 	/// <summary>
-	/// 全体を取得する
+	/// 動的配列全体を取得する
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>

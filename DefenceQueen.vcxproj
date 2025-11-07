@@ -164,6 +164,8 @@
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="collisionbox.cpp" />
     <ClCompile Include="collisionsphere.cpp" />
+    <ClCompile Include="gimmickmanager.cpp" />
+    <ClCompile Include="gimmicksuction.cpp" />
     <ClCompile Include="order.cpp" />
     <ClCompile Include="debugproc.cpp" />
     <ClCompile Include="easing.cpp" />
@@ -259,6 +261,8 @@
     <ClInclude Include="collision.h" />
     <ClInclude Include="collisionbox.h" />
     <ClInclude Include="collisionsphere.h" />
+    <ClInclude Include="gimmickmanager.h" />
+    <ClInclude Include="gimmicksuction.h" />
     <ClInclude Include="order.h" />
     <ClInclude Include="debugproc.h" />
     <ClInclude Include="easing.h" />

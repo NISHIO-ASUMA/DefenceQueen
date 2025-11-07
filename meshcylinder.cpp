@@ -16,28 +16,15 @@
 //===============================
 // コンストラクタ
 //===============================
-CMeshCylinder::CMeshCylinder(int nPrio) : CObject(nPrio)
+CMeshCylinder::CMeshCylinder(int nPrio) : CObject(nPrio),
+m_pIdx(nullptr),
+m_pVtx(nullptr),
+m_pos(VECTOR3_NULL),
+m_rot(VECTOR3_NULL),
+m_Cylinder{}
 {
 	// 値のクリア処理
-	m_pIdx = nullptr;
-	m_pVtx = nullptr;
-
-	m_pos = VECTOR3_NULL;
-	m_rot = VECTOR3_NULL;
-
-	for (int nCnt = 0; nCnt < DIGIT_X; nCnt++)
-	{
-		m_vtxPos[nCnt] = VECTOR3_NULL;
-	}
-
-	m_nTexIdx = NULL;
-	m_nNumIdx = NULL;
-	m_nNumPrimitive = NULL;
-	m_nNumDigitZ = NULL;
-	m_nNumDigitX = NULL;
-	m_nNumAllVtx = NULL;
-	m_mtxWorld = {};
-	m_fRadius = NULL;
+	D3DXMatrixIdentity(&m_mtxWorld);
 }
 //===============================
 // デストラクタ
@@ -53,23 +40,16 @@ CMeshCylinder* CMeshCylinder::Create(D3DXVECTOR3 pos, float fRadius)
 {
 	// インスタンス生成
 	CMeshCylinder* pMeshcylinder = new CMeshCylinder;
-
-	// nullptrだったら
 	if (pMeshcylinder == nullptr) return nullptr;
 
 	// オブジェクト設定
 	pMeshcylinder->SetTexture();
 	pMeshcylinder->m_pos = pos;
-	pMeshcylinder->m_fRadius = fRadius;
+	pMeshcylinder->m_Cylinder.fRadius = fRadius;
 
 	// 初期化失敗時
-	if (FAILED(pMeshcylinder->Init()))
-	{
-		// nullポインタを返す
-		return nullptr;
-	}
+	if (FAILED(pMeshcylinder->Init())) return nullptr;
 
-	// ポインタを返す
 	return pMeshcylinder;
 }
 //===============================
@@ -81,12 +61,12 @@ HRESULT CMeshCylinder::Init(void)
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// 頂点数,インデックス数,ポリゴン数を計算する
-	m_nNumAllVtx = (DIGIT_X + 1) * (DIGIT_Z + 1);
-	m_nNumPrimitive = ((DIGIT_X * DIGIT_Z) * 2) + (4 * (DIGIT_Z - 1));
-	m_nNumIdx = (m_nNumPrimitive + 2);
+	m_Cylinder.nNumAllVtx = (DIGIT_X + 1) * (DIGIT_Z + 1);
+	m_Cylinder.nNumPrimitive = ((DIGIT_X * DIGIT_Z) * 2) + (4 * (DIGIT_Z - 1));
+	m_Cylinder.nNumIdx = (m_Cylinder.nNumPrimitive + 2);
 
 	//頂点バッファの生成
-	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * m_nNumAllVtx,
+	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * m_Cylinder.nNumAllVtx,
 		D3DUSAGE_WRITEONLY,
 		FVF_VERTEX_3D,
 		D3DPOOL_MANAGED,
@@ -94,7 +74,7 @@ HRESULT CMeshCylinder::Init(void)
 		NULL);
 
 	//インデックスバッファの生成
-	pDevice->CreateIndexBuffer(sizeof(WORD) * m_nNumIdx,
+	pDevice->CreateIndexBuffer(sizeof(WORD) * m_Cylinder.nNumIdx,
 		D3DUSAGE_WRITEONLY,
 		D3DFMT_INDEX16,
 		D3DPOOL_MANAGED,
@@ -102,7 +82,7 @@ HRESULT CMeshCylinder::Init(void)
 		NULL);
 
 	// 頂点情報のポインタ
-	VERTEX_3D* pVtx = NULL;
+	VERTEX_3D* pVtx = nullptr;
 
 	//頂点バッファをロック
 	m_pVtx->Lock(0, 0, (void**)&pVtx, 0);
@@ -125,7 +105,7 @@ HRESULT CMeshCylinder::Init(void)
 			float fAngle = (D3DX_PI * 2.0f) / DIGIT_X * nCntX;
 
 			// 頂点座標の設定
-			pVtx[nCnt].pos = D3DXVECTOR3(sinf((fAngle)) * m_fRadius, nCntZ * 10.0f, cosf((fAngle)) * m_fRadius);
+			pVtx[nCnt].pos = D3DXVECTOR3(sinf((fAngle)) * m_Cylinder.fRadius, nCntZ * 10.0f, cosf((fAngle)) * m_Cylinder.fRadius);
 
 			// 法線ベクトルの設定
 			nor = pVtx[nCnt].pos - m_pos;	// 各頂点から原点の値を引く
@@ -171,7 +151,7 @@ HRESULT CMeshCylinder::Init(void)
 		}
 
 		// 最後の行じゃなかったら
-		if (IndxCount1 < m_nNumDigitZ - 1)
+		if (IndxCount1 < m_Cylinder.nNumDigitZ - 1)
 		{
 			pIdx[IdxCnt] = Num - 1;
 			pIdx[IdxCnt + 1] = IndxNum;
@@ -228,7 +208,7 @@ void CMeshCylinder::Draw(void)
 	CTexture* pTexture = CManager::GetInstance()->GetTexture();
 
 	// テクスチャセット
-	pDevice->SetTexture(0, pTexture->GetAddress(m_nTexIdx));
+	pDevice->SetTexture(0, pTexture->GetAddress(m_Cylinder.nTexIdx));
 
 	//ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxWorld);
@@ -254,10 +234,10 @@ void CMeshCylinder::Draw(void)
 	pDevice->SetFVF(FVF_VERTEX_3D);
 
 	//ポリゴンの描画
-	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, 0, m_nNumAllVtx, 0, m_nNumPrimitive);
+	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, 0, m_Cylinder.nNumAllVtx, 0, m_Cylinder.nNumPrimitive);
 
 	//テクスチャを戻す
-	pDevice->SetTexture(0, NULL);
+	pDevice->SetTexture(0, nullptr);
 
 	// デバッグ表示
 	CDebugproc::Print("メッシュシリンダーの座標 [ %.2f,%.2f,%.2f ]", m_pos.x, m_pos.y, m_pos.z);
@@ -272,5 +252,5 @@ void CMeshCylinder::SetTexture(void)
 	CTexture* pTexture = CManager::GetInstance()->GetTexture();
 
 	// テクスチャ割り当て
-	m_nTexIdx = pTexture->Register("data/TEXTURE/field100.jpg");
+	m_Cylinder.nTexIdx = pTexture->Register("data/TEXTURE/field100.jpg");
 }

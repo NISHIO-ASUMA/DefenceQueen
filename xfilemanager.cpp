@@ -20,17 +20,16 @@
 using json = nlohmann::json;
 
 //**********************
-// 静的変数宣言
+// 静的メンバ変数宣言
 //**********************
 int CXfileManager::m_nNumAll = NULL;
 
 //========================
 // コンストラクタ
 //========================
-CXfileManager::CXfileManager()
+CXfileManager::CXfileManager() : m_aFileData{}
 {
-	// 配列クリア
-	m_aFileData.clear();
+
 }
 //========================
 // デストラクタ
@@ -45,7 +44,7 @@ CXfileManager::~CXfileManager()
 //========================
 HRESULT CXfileManager::Load(void)
 {
-	// jsonロード
+	// jsonファイルロード
 	LoadJson();
 
 	// 初期化結果を返す
@@ -169,7 +168,7 @@ int CXfileManager::Register(const char* pFileName)
 	// アンロック
 	newData.pMesh->UnlockVertexBuffer();
 
-	// サイズ
+	// 矩形のサイズ生成
 	newData.Size.x = Vtxmax.x - Vtxmin.x;
 	newData.Size.y = Vtxmax.y - Vtxmin.y;
 	newData.Size.z = Vtxmax.z - Vtxmin.z;

@@ -52,6 +52,8 @@
 #define VECTOR3_NULL (D3DXVECTOR3(0.0f, 0.0f, 0.0f))		// À•W‰Šú‰»
 #define INITSCALE (D3DXVECTOR3(1.0f, 1.0f, 1.0f))			// ‰ŠúŠg‘å—¦
 #define CENTERPOS (D3DXVECTOR3(640.0f, 360.0f, 0.0f))		// ’†S
+#define HALFWIDTH (SCREEN_WIDTH * 0.5f)
+#define HALFHEIGHT (SCREEN_HEIGHT * 0.5f)
 
 #define COLOR_BLACK (D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f))		// •
 #define COLOR_WHITE (D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f))		// ”’

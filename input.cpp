@@ -27,10 +27,9 @@ LPDIRECTINPUT8 CInput::m_pInput = nullptr; // 入力情報
 //=======================
 // コンストラクタ
 //=======================
-CInput::CInput()
+CInput::CInput() : m_pDevice(nullptr)
 {
 	// 値のクリア
-	m_pDevice = NULL;
 	m_pInput = NULL;
 }
 //=======================

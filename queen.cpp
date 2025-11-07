@@ -1,4 +1,4 @@
-//====================================
+//=====================================
 //
 // –h‰q‘ÎÛ‚Ìˆ— [ queen.cpp ]
 // Author: Asuma Nishio
@@ -140,5 +140,6 @@ void CQueen::Draw(void)
 //==================================
 bool CQueen::Collision(CSphereCollider* pOther)
 {
+	// ‹…“¯m‚Ì“–‚½‚è”»’è‚ğ•Ô‚·
 	return CCollisionSphere::Collision(m_pSphereCollider,pOther);
 }

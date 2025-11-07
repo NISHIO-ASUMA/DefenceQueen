@@ -39,16 +39,10 @@ CParticle* CParticle::Create(D3DXVECTOR3 pos, D3DXCOLOR col, int nMaxParticle,in
 {
 	// パーティクルのポインタを宣言
 	CParticle* pParticle = new CParticle;
-
-	// nullだったら
 	if (pParticle == nullptr) return nullptr;
 
 	// 初期化失敗時
-	if (FAILED(pParticle->Init()))
-	{
-		// nullポインタを返す
-		return nullptr;
-	}
+	if (FAILED(pParticle->Init())) return nullptr;
 
 	// オブジェクト設定
 	pParticle->m_pos = pos;
@@ -58,7 +52,6 @@ CParticle* CParticle::Create(D3DXVECTOR3 pos, D3DXCOLOR col, int nMaxParticle,in
 	pParticle->m_nLife = nLife;
 	pParticle->m_nRadius = nRadius;
 
-	// ポインタを返す
 	return pParticle;
 }
 //===============================
@@ -68,9 +61,6 @@ HRESULT CParticle::Init(void)
 {
 	// 配列クリア
 	m_pEffect.clear();
-
-	//乱数の種を宣言(1つのみの宣言)
-	srand((unsigned int)time(NULL));
 
 	return S_OK;
 }

@@ -15,18 +15,16 @@
 //==================================
 // コンストラクタ
 //==================================
-CMeshDome::CMeshDome(int nPrio) : CObject(nPrio)
+CMeshDome::CMeshDome(int nPrio) : CObject(nPrio),
+m_pIdx(nullptr),
+m_pVtx(nullptr),
+m_pos(VECTOR3_NULL),
+m_rot(VECTOR3_NULL),
+m_nRadius(NULL),
+m_nTexIdx(NULL)
 {
 	// 値のクリア処理
-	m_pIdx = nullptr;
-	m_pVtx = nullptr;
-
-	m_pos = VECTOR3_NULL;
-	m_rot = VECTOR3_NULL;
-	m_mtxWorld = {};
-	m_nRadius = NULL;
-
-	m_nTexIdx = NULL;
+	D3DXMatrixIdentity(&m_mtxWorld);
 }
 //==================================
 // デストラクタ
@@ -42,8 +40,6 @@ CMeshDome* CMeshDome::Create(D3DXVECTOR3 pos, float nRadius)
 {
 	// インスタンス生成
 	CMeshDome* pMeshDome = new CMeshDome;
-
-	// nullptrだったら
 	if (pMeshDome == nullptr) return nullptr;
 
 	// オブジェクト設定
@@ -52,13 +48,8 @@ CMeshDome* CMeshDome::Create(D3DXVECTOR3 pos, float nRadius)
 	pMeshDome->SetTexture();
 
 	// 初期化失敗時
-	if (FAILED(pMeshDome->Init()))
-	{
-		// nulptrを返す
-		return nullptr;
-	}
+	if (FAILED(pMeshDome->Init())) return nullptr;
 
-	// ドームのポインタを返す
 	return pMeshDome;
 }
 //==================================
@@ -108,7 +99,7 @@ HRESULT CMeshDome::Init(void)
 				cosf(D3DXToRadian(angleH)) * m_nRadius * cosf(D3DXToRadian(angleV))  // Z座標
 			);
 
-			// 法線を計算 (頂点座標からの単位ベクトル)
+			// 法線を計算
 			D3DXVECTOR3 normal = D3DXVECTOR3(
 				pVtx[nCntV * (MeshDome_X_BLOCK + 1) + nCntH].pos.x / m_nRadius,
 				pVtx[nCntV * (MeshDome_X_BLOCK + 1) + nCntH].pos.y / m_nRadius,
@@ -136,7 +127,7 @@ HRESULT CMeshDome::Init(void)
 	m_pVtx->Unlock();
 
 	// インデックスバッファのポインタ
-	WORD* pIdx = NULL;
+	WORD* pIdx = nullptr;
 
 	// インデックスバッファをロック
 	m_pIdx->Lock(0, 0, (void**)&pIdx, 0);
@@ -242,7 +233,7 @@ void CMeshDome::Draw(void)
 	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, MeshDome_VERTEX_NUM, 0, MeshDome_INDEX_NUM);
 
 	// テクスチャNULL
-	pDevice->SetTexture(0, NULL);
+	pDevice->SetTexture(0, nullptr);
 }
 //==================================
 // テクスチャ設定

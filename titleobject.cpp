@@ -22,7 +22,7 @@ CTitleObject::CTitleObject()
 //=============================
 CTitleObject::~CTitleObject()
 {
-
+	Uninit();
 }
 //=============================
 // ‰Šú‰»ˆ—

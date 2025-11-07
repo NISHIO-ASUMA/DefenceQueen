@@ -79,7 +79,7 @@ HRESULT CPauseManager::Init(void)
 		if (nPause == CPause::MENU_BACK)
 		{
 			// 背景生成
-			m_pPause[nPause] = CPause::Create(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f,0.0f), SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, COLOR_WHITE, nPause);
+			m_pPause[nPause] = CPause::Create(CENTERPOS, SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, COLOR_WHITE, nPause);
 		}
 		else
 		{
@@ -148,14 +148,10 @@ void CPauseManager::Update(void)
 
 	// フェード取得
 	CFade* pFade = CManager::GetInstance()->GetFade();
-
-	// nullだったら
 	if (pFade == nullptr) return;
 
 	// カメラ取得
 	CCamera* pCamera = CManager::GetInstance()->GetCamera();
-
-	// nullだったら
 	if (pCamera == nullptr) return;
 
 	// 選択されているメニューのポリゴンカラーを変更
@@ -165,7 +161,7 @@ void CPauseManager::Update(void)
 		if (nCnt == CPause::MENU_BACK) continue;
 
 		// nullじゃなかったら
-		if (m_pPause[nCnt] != nullptr)
+		if (m_pPause[nCnt])
 		{
 			// カラー変更
 			if (nCnt == m_nSelectIdx)
@@ -192,25 +188,36 @@ void CPauseManager::Update(void)
 		case CPause::MENU_BACK:	// 背景
 			break;
 
-		case CPause::MENU_RETRY:	// リトライ時
-			if (pFade != nullptr) pFade->SetFade(std::make_unique<CGame>());	// ゲームシーンに遷移
-			SetEnablePause(false);	// ポーズ終了
-
+		/// <summary>
+		/// リトライ時はゲームを最初から
+		/// </summary>
+		/// <param name=""></param>
+		case CPause::MENU_RETRY:
+			if (pFade != nullptr) pFade->SetFade(std::make_unique<CGame>());
+			SetEnablePause(false);
 			break;
 
-		case CPause::MENU_CONTINUE:	// コンテニュー時
-			SetEnablePause(false);	// ポーズ終了
+		/// <summary>
+		/// コンテニュー時はそのまま継続
+		/// </summary>
+		/// <param name=""></param>
+		case CPause::MENU_CONTINUE:
+			SetEnablePause(false);	
 			break;
 
-		case CPause::MENU_QUIT:		// 退出時
-			if (pFade != nullptr) pFade->SetFade(std::make_unique <CTitle>());	// タイトルシーンに遷移
-			SetEnablePause(false);	// ポーズ終了
+		/// <summary>
+		/// クイット時はタイトルに遷移
+		/// </summary>
+		/// <param name=""></param>
+		case CPause::MENU_QUIT:
+			if (pFade != nullptr) pFade->SetFade(std::make_unique <CTitle>());
+			SetEnablePause(false);
 			break;
 		}
 	}
 }
 //===========================
-// ポーズかどうか
+// ポーズかどうか判別する
 //===========================
 void CPauseManager::SetEnablePause(void)
 {

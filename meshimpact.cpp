@@ -31,15 +31,15 @@ namespace IMPACTINFO
 //===============================
 // オーバーロードコンストラクタ
 //===============================
-CMeshImpact::CMeshImpact(int nPriority) : CObject(nPriority)
+CMeshImpact::CMeshImpact(int nPriority) : CObject(nPriority),
+m_pIdx(nullptr),
+m_pVtx(nullptr),
+m_pos(VECTOR3_NULL),
+m_rot(VECTOR3_NULL),
+m_col(D3DXCOLOR(1.0f, 1.0f, 0.0f, 0.7f))
 {
 	// 値のクリア
-	m_pos = VECTOR3_NULL;
-	m_rot = VECTOR3_NULL;
-	m_col = D3DXCOLOR(1.0f,1.0f,0.0f,0.7f);
-	m_mtxWorld = {};
-	m_pIdx = nullptr;
-	m_pVtx = nullptr;
+	D3DXMatrixIdentity(&m_mtxWorld);
 	m_fInRadius = NULL;
 	m_nLife = NULL;
 	m_fOutRadius = NULL;
@@ -335,7 +335,7 @@ void CMeshImpact::Draw(void)
 	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, 0, IMPACTINFO::VERTEX, 0, IMPACTINFO::PRIM);
 
 	// テクスチャを戻す
-	pDevice->SetTexture(0, NULL);
+	pDevice->SetTexture(0, nullptr);
 
 	// Zテストを戻す
 	pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
@@ -357,8 +357,6 @@ CMeshImpact* CMeshImpact::Create(D3DXVECTOR3 pos, int nLife,float fOutRadius,flo
 {
 	// インスタンス生成
 	CMeshImpact* pMesh = new CMeshImpact;
-
-	// インスタンスがnullptrだったら
 	if (pMesh == nullptr) return nullptr;
 
 	// 値を代入
@@ -371,19 +369,8 @@ CMeshImpact* CMeshImpact::Create(D3DXVECTOR3 pos, int nLife,float fOutRadius,flo
 	pMesh->m_DecAlpha = pMesh->m_col.a / nLife;
 	
 	// 初期化失敗
-	if (FAILED(pMesh->Init()))
-	{
-		// ポインタの破棄
-		delete pMesh;
+	if (FAILED(pMesh->Init()))	return nullptr;
 
-		// nullptr代入
-		pMesh = nullptr;
-
-		// nullポインタを返す
-		return nullptr;
-	}
-
-	// 生成されたポインタを返す
 	return pMesh;
 }
 //===============================

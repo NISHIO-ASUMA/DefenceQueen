@@ -22,6 +22,20 @@ class CMeshCylinder : public CObject
 {
 public:
 
+	//****************************
+	// 構造体定義
+	//****************************
+	struct Cylinder
+	{
+		int nTexIdx;		// テクスチャインデックス
+		int nNumPrimitive;	// プリミティブ数
+		int nNumIdx;		// インデックス数
+		int nNumAllVtx;		// 全体頂点数
+		int nNumDigitX;		// X平面分割数
+		int nNumDigitZ;		// Z平面分割数
+		float fRadius;		// 半径
+	};
+
 	CMeshCylinder(int nPrio = static_cast<int>(CObject::PRIORITY::MESH));
 	~CMeshCylinder();
 
@@ -29,30 +43,23 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-
 	void SetTexture(void);
 
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
-	float GetRadius(void) const { return m_fRadius; }
+	float GetRadius(void) const { return m_Cylinder.fRadius; }
 
 	static CMeshCylinder* Create(D3DXVECTOR3 pos, float fRadius);
 
 private:
+
 	static constexpr int DIGIT_X = 30;		// X方向の分割数
 	static constexpr int DIGIT_Z = 1;		// Z方向への分割数
 
-	int m_nTexIdx;		// テクスチャインデックス
 	LPDIRECT3DINDEXBUFFER9 m_pIdx; // インデックスバッファ
 	LPDIRECT3DVERTEXBUFFER9 m_pVtx;	// 頂点バッファ
 
 	D3DXVECTOR3 m_pos;		// 座標
 	D3DXVECTOR3 m_rot;		// 角度
 	D3DXMATRIX m_mtxWorld;	// ワールドマトリックス
-	D3DXVECTOR3 m_vtxPos[DIGIT_X]; // 判定用座標
-
-	int m_nNumPrimitive;	// プリミティブ数
-	int m_nNumIdx;			// インデックス数
-	int m_nNumAllVtx;		// 全体頂点数
-	int m_nNumDigitX, m_nNumDigitZ;		// 分割数
-	float m_fRadius;		// 半径
+	Cylinder m_Cylinder;	// 構造体変数
 };

@@ -151,6 +151,9 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	m_pFade->SetFade(std::make_unique<CTitle>());
 #endif // _DEBUG
 
+	// —”‚Ìí‚ğéŒ¾
+	srand((unsigned int)time(NULL));
+
 	return S_OK;
 }
 //===========================

@@ -26,14 +26,9 @@ int CTexture::m_nNumAll = NULL;	// 総数管理
 //===============================
 // コンストラクタ
 //===============================
-CTexture::CTexture()
+CTexture::CTexture() : m_pTextureData{}
 {
 	// 値のクリア
-	for (int nCnt = 0; nCnt < NUM_TEXTURE; nCnt++)
-	{
-		m_pTextureData[nCnt].TexName.clear();
-		m_pTextureData[nCnt].TexData = nullptr;
-	}
 }
 //===============================
 // デストラクタ
@@ -171,21 +166,18 @@ HRESULT CTexture::LoadJson(void)
 
 	// デバイス取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
-
-	// nullなら
-	if (!pDevice)
-		return E_FAIL;
+	if (!pDevice) return E_FAIL;
 
 	// 登録されたファイルを読み込む
 	for (int nCnt = 0; nCnt < m_nNumAll; nCnt++)
 	{
-		// テクスチャを実際に生成
+		// テクスチャを生成
 		HRESULT hr = D3DXCreateTextureFromFile(
 			pDevice,
 			m_pTextureData[nCnt].TexName.c_str(),
 			&m_pTextureData[nCnt].TexData);
 
-		// 作成失敗味
+		// 作成失敗
 		if (FAILED(hr))
 		{
 			// nullにする

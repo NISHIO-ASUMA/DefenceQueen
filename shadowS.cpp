@@ -57,16 +57,16 @@ HRESULT CShadowS::Init()
 	pVtx[2].pos = D3DXVECTOR3(0.0f,			SCREEN_HEIGHT, 0.0f);
 	pVtx[3].pos = D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f);
 
-	// rhwの設定(1.0fで固定)
+	// rhwの設定
 	pVtx[0].rhw = 
 	pVtx[1].rhw = 
 	pVtx[2].rhw = 
 	pVtx[3].rhw = 1.0f;
 	
 	// 頂点カラーの設定
-	pVtx[0].col = D3DXCOLOR(0.0f,0.0f,0.0f,0.5f);
-	pVtx[1].col = D3DXCOLOR(0.0f,0.0f,0.0f,0.5f);
-	pVtx[2].col = D3DXCOLOR(0.0f,0.0f,0.0f,0.5f);
+	pVtx[0].col = 
+	pVtx[1].col = 
+	pVtx[2].col = 
 	pVtx[3].col = D3DXCOLOR(0.0f,0.0f,0.0f,0.5f);
 
 	//テクスチャ座標の設定

@@ -65,8 +65,6 @@ CMeshPiler* CMeshPiler::Create(D3DXVECTOR3 pos)
 {
 	// インスタンス生成
 	CMeshPiler* pMesh = new CMeshPiler;
-
-	// nullチェック
 	if (pMesh == nullptr) return nullptr;
 
 	// オブジェクト設定
@@ -74,12 +72,8 @@ CMeshPiler* CMeshPiler::Create(D3DXVECTOR3 pos)
 	pMesh->m_pos = pos;
 
 	// 初期化失敗時
-	if (FAILED(pMesh->Init()))
-	{
-		return nullptr;
-	}
-	
-	// 生成されたポインタを返す
+	if (FAILED(pMesh->Init())) return nullptr;
+
 	return pMesh;
 }
 //===============================
@@ -330,7 +324,7 @@ void CMeshPiler::Draw(void)
 	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, 0, m_nNumAllVtx, 0, m_nNumPrimitive);
 
 	//テクスチャを戻す
-	pDevice->SetTexture(0, NULL);
+	pDevice->SetTexture(0, nullptr);
 }
 
 //===============================
@@ -374,7 +368,6 @@ void CMeshPiler::SetTexture(void)
 {
 	// テクスチャ取得
 	CTexture* pTexture = CManager::GetInstance()->GetTexture();
-	// nullチェック
 	if (pTexture == nullptr) return;
 
 	// テクスチャ割り当て
