@@ -50,7 +50,7 @@ HRESULT CLight::Init(void)
 	// ê≥ãKâªÇ∑ÇÈ
 	for (int nCnt = 0; nCnt < NUMLIGHT; nCnt++)
 	{	
-		// ÉxÉNÉgÉãÇÃëÂÇ´Ç≥Ç1Ç…Ç∑ÇÈ
+		// ê≥ãKâª
 		D3DXVec3Normalize(&m_vecDir[nCnt], &m_vecDir[nCnt]); 
 
 		m_aLight[nCnt].Direction = m_vecDir[nCnt];

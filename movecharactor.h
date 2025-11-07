@@ -76,6 +76,7 @@ public:
 	CMotion* GetMotion(void) { return m_pMotion.get(); }
 
 private:
+
 	D3DXVECTOR3 m_pos;		// ç¿ïW
 	D3DXVECTOR3 m_posOld;	// âﬂãéç¿ïW
 	D3DXVECTOR3 m_rot;		// äpìx

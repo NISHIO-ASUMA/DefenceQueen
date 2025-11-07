@@ -68,7 +68,7 @@ void CObject::ReleaseAll(void)
 		CObject* pObj = m_pTop[nPri];
 
 		// 取得できたら
-		while (pObj != nullptr)
+		while (pObj)
 		{
 			// 次のオブジェクトを保存する
 			CObject* pNext = pObj->m_pNext;
@@ -120,7 +120,7 @@ void CObject::UpdateAll(void)
 		CObject* pObject = m_pTop[nPrio];
 
 		// 取得できたら
-		while (pObject != nullptr)
+		while (pObject)
 		{
 			// 次のオブジェクト保存
 			CObject* pObjeNext = pObject->m_pNext;
@@ -135,7 +135,7 @@ void CObject::UpdateAll(void)
 			}
 
 			// ポーズオブジェクトのみを更新
-			if (CPauseManager::GetPause() == true)
+			if (CPauseManager::GetPause())
 			{
 				if (pObject->GetObjType() == TYPE_PAUSE)
 				{
@@ -161,7 +161,7 @@ void CObject::UpdateAll(void)
 		CObject* pObject = m_pTop[nCnt];
 
 		// 取得できたら
-		while (pObject != nullptr)
+		while (pObject)
 		{
 			// 次のオブジェクト保存
 			CObject* pObjeNext = pObject->m_pNext;
@@ -170,7 +170,7 @@ void CObject::UpdateAll(void)
 			if (pObject->m_isDeath)
 			{
 				// 前のオブジェクトが存在する場合は、自分の次を前のオブジェクトに接続
-				if (pObject->m_pPrev != nullptr)
+				if (pObject->m_pPrev)
 				{
 					pObject->m_pPrev->m_pNext = pObject->m_pNext;
 				}
@@ -181,7 +181,7 @@ void CObject::UpdateAll(void)
 				}
 
 				// 次のオブジェクトが存在する場合は、自分の前を次のオブジェクトに接続
-				if (pObject->m_pNext != nullptr)
+				if (pObject->m_pNext)
 				{
 					pObject->m_pNext->m_pPrev = pObject->m_pPrev;
 				}
@@ -225,7 +225,7 @@ void CObject::DrawAll(void)
 		CObject* pObject = m_pTop[nPrio];
 
 		// 取得できたら
-		while (pObject != nullptr)
+		while (pObject)
 		{
 			// 次のオブジェクト保存
 			CObject* pObjeNext = pObject->m_pNext;

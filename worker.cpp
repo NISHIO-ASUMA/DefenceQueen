@@ -36,7 +36,18 @@ CWorker::~CWorker()
 //=================================
 CWorker* CWorker::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
 {
-	return nullptr;
+	// インスタンス生成
+	CWorker* pWorker = new CWorker;
+	if (pWorker == nullptr) return nullptr;
+
+	// オブジェクト設定
+	pWorker->SetPos(pos);
+	pWorker->SetRot(rot);
+
+	// 初期化失敗時
+	if (FAILED(pWorker->Init())) return nullptr;
+
+	return pWorker;
 }
 //=================================
 // 初期化処理

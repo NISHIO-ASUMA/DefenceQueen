@@ -50,7 +50,7 @@ CArray* CArray::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,const int nL
 	pArray->m_pParameter = std::make_unique<CParameter>();
 
 	// nullチェック
-	if (pArray->m_pParameter != nullptr)
+	if (pArray->m_pParameter)
 	{
 		// 体力パラメーターを設定
 		pArray->m_pParameter->SetHp(nLife);
@@ -58,13 +58,8 @@ CArray* CArray::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,const int nL
 	}
 
 	// 初期化処理
-	if (FAILED(pArray->Init()))
-	{
-		// nullptrを返す
-		return nullptr;
-	}
+	if (FAILED(pArray->Init())) return nullptr;
 
-	// 生成ポインタを返す
 	return pArray;
 }
 //=====================================

@@ -37,10 +37,7 @@ CEffectPiler* CEffectPiler::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fRadi
 	if (pEffect == nullptr) return nullptr;
 
 	// 初期化失敗時
-	if (FAILED(pEffect->Init()))
-	{
-		return nullptr;
-	}
+	if (FAILED(pEffect->Init())) return nullptr;
 
 	// オブジェクト設定
 	pEffect->SetPos(pos);
@@ -51,7 +48,6 @@ CEffectPiler* CEffectPiler::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fRadi
 	pEffect->m_nLife = nLife;
 	pEffect->m_fRadius = fRadius;
 
-	// 生成されたポインタを返す
 	return pEffect;
 }
 //===============================
