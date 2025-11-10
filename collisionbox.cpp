@@ -95,7 +95,7 @@ bool CCollisionBox::Collision(CBoxCollider* thisCollider, CBoxCollider* OtherCol
 			ExtrusionPos->x = OtherPosMin.x - MyHalfSize.x - BOXINFO::PUSHVALUE;
 			return true;
 		}
-		else if (MyPosOldMin.x >= OtherPosMax.x && MyPosMin.x < OtherPosMax.x)
+		else if (MyPosOldMin.x >= OtherPosOldMax.x && MyPosMin.x < OtherPosMax.x)
 		{// 右からめり込む
 			
 			// 右側への押し出し座標を計算
