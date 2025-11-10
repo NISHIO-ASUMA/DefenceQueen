@@ -177,7 +177,7 @@ void CObject2D::Draw(void)
 		pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
 
 		// テクスチャを戻す
-		pDevice->SetTexture(0, NULL);
+		pDevice->SetTexture(0, nullptr);
 	}
 	else
 	{
