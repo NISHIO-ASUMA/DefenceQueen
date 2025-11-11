@@ -1,0 +1,79 @@
+\doxysection{camera.\+h}
+\hypertarget{camera_8h_source}{}\label{camera_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=====================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ カメラ処理\ [\ camera.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=====================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once\ }}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ 前方宣言}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_input_mouse}{CInputMouse}};}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ カメラクラスを定義}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }CCamera}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//\ カメラモード列挙圭string^}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{enum}\ MODE}
+\DoxyCodeLine{00029\ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ MODE\_NONE,}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ MODE\_MOUSE,}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ MODE\_SHAKE,}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ MODE\_EVENT,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ MODE\_MAX}
+\DoxyCodeLine{00035\ \ \ \ \ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//*************************}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{//\ カメラ構(\backslash\)造体を定義}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//*************************}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_c_camera_1_1_camera}{Camera}}}
+\DoxyCodeLine{00041\ \ \ \ \ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ D3DXMATRIX\ mtxprojection;\ \ \ \textcolor{comment}{//\ プロジェクションソ}トリックス}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ D3DXMATRIX\ mtxView;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ビューソ}トリックス}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ D3DXVECTOR3\ posV,\ posR;\ \ \ \ \ \textcolor{comment}{//\ 視貼_,注視貼_座標}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ D3DXVECTOR3\ rot;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 角度}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ D3DXVECTOR3\ vecU;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 法線ベクトル}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ D3DXVECTOR3\ posRDest;\ \ \ \ \ \ \ \textcolor{comment}{//\ 目的座標}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ fDistance;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ カメラの距離}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nMode;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ カメラのモード}}
+\DoxyCodeLine{00050\ \ \ \ \ \};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ CCamera();}
+\DoxyCodeLine{00053\ \ \ \ \ \string~CCamera();}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ HRESULT\ Init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ SetCamera(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ MouseView(\mbox{\hyperlink{class_c_input_mouse}{CInputMouse}}*\ pMouse);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ SetMode(\textcolor{keywordtype}{int}\ nMode)\ \{\ m\_pCamera.nMode\ =\ nMode;\ \}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRot(D3DXVECTOR3\ rot)\ \{\ m\_pCamera.rot\ =\ rot;\ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ D3DXVECTOR3\ GetRot(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_pCamera.rot;\ \}}
+\DoxyCodeLine{00065\ \ \ \ \ D3DXVECTOR3\ GetPos(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_pCamera.posV;\ \}}
+\DoxyCodeLine{00066\ \ \ \ \ D3DXVECTOR3\ GetPosR(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_pCamera.posR;\ \}}
+\DoxyCodeLine{00067\ \ \ \ \ D3DXMATRIX\ GetMtxProjection(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_pCamera.mtxprojection;\ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{int}\ GetMode(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_pCamera.nMode;\ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{struct_c_camera_1_1_camera}{Camera}}\ ClearDefault(\textcolor{keywordtype}{void});\ \ \ \ \textcolor{comment}{//\ クリア用関数}}
+\DoxyCodeLine{00073\ \ \ \ \ \mbox{\hyperlink{struct_c_camera_1_1_camera}{Camera}}\ m\_pCamera;\ \ \ \ \ \textcolor{comment}{//\ カメラ構(\backslash\)造体変数}}
+\DoxyCodeLine{00074\ \};}
+
+\end{DoxyCode}

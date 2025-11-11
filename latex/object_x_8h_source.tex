@@ -1,0 +1,61 @@
+\doxysection{object\+X.\+h}
+\hypertarget{object_x_8h_source}{}\label{object_x_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=====================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Xファイル処理\ [\ objectX.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=====================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once\ }}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}object.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//******************************}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ オブジェクトXクラスを定義}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//******************************}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }CObjectX\ :\ \textcolor{keyword}{public}\ CObject}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ CObjectX(\textcolor{keywordtype}{int}\ nPriority\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(CObject::PRIORITY::MODELOBJECT));}
+\DoxyCodeLine{00025\ \ \ \ \ \string~CObjectX();}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ HRESULT\ Init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ Draw(\textcolor{keywordtype}{void});\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawShadow(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ SetPos(D3DXVECTOR3\ pos)\ \{\ m\_pos\ =\ pos;\ \}}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRot(D3DXVECTOR3\ rot)\ \{\ m\_rot\ =\ rot;\ \}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ SetScale(D3DXVECTOR3\ scale)\ \{\ m\_Scale\ =\ scale;\ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ SetMtxWorld(D3DXMATRIX\ mtxworld)\ \{\ m\_mtxWorld\ =\ mtxworld;\ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ SetFilePass(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ pFilePass);}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ SetModelIdx(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nIdx)\ \{\ m\_nIdxModel\ =\ nIdx;\ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ SetShadow(\textcolor{keywordtype}{bool}\ isFlags)\ \{\ m\_isShadow\ =\ isFlags;\ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ D3DXVECTOR3\ GetPos(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_pos;\ \};}
+\DoxyCodeLine{00042\ \ \ \ \ D3DXVECTOR3\ GetRot(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_rot;\ \};}
+\DoxyCodeLine{00043\ \ \ \ \ D3DXMATRIX\ GetMtxWorld(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_mtxWorld;\ \}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{int}\ GetModelIdx(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_nIdxModel;\ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{static}\ CObjectX*\ Create(\textcolor{keywordtype}{int}\ nIdx,\ D3DXVECTOR3\ pos);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ D3DXVECTOR3\ m\_pos;\ \ \ \ \ \ \textcolor{comment}{//\ 座標}}
+\DoxyCodeLine{00051\ \ \ \ \ D3DXVECTOR3\ m\_rot;\ \ \ \ \ \ \textcolor{comment}{//\ 角度}}
+\DoxyCodeLine{00052\ \ \ \ \ D3DXVECTOR3\ m\_Scale;\ \ \ \ \textcolor{comment}{//\ 拡大率}}
+\DoxyCodeLine{00053\ \ \ \ \ D3DXMATRIX\ m\_mtxWorld;\ \ \textcolor{comment}{//\ ワールドソ}トリックス}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{int}\ m\_nIdxModel;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ モデルインデックス}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_isShadow;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 影を出すかどうか}}
+\DoxyCodeLine{00056\ \};}
+
+\end{DoxyCode}

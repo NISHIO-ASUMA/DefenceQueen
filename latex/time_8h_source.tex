@@ -1,0 +1,71 @@
+\doxysection{time.\+h}
+\hypertarget{time_8h_source}{}\label{time_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=====================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ ソstring^イム処理\ [\ time.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=====================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once\ }}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}object.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ 前方宣言}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_number}{CNumber}};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//**********************************}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ ソstring^イムクラスを定義}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//**********************************}}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }CTime\ :\ \textcolor{keyword}{public}\ CObject}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ CTime(\textcolor{keywordtype}{int}\ nPriority\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(CObject::PRIORITY::UI));}
+\DoxyCodeLine{00031\ \ \ \ \ \string~CTime();}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ HRESULT\ Init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ Draw(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{int}\ GetToAll(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_nAllTime;\ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{int}\ GetToCurrent(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_nSecond;\ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{static}\ CTime*\ Create(D3DXVECTOR3\ pos,\ \textcolor{keywordtype}{float}\ fWidth,\ \textcolor{keywordtype}{float}\ fHeight);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ Second(\textcolor{keywordtype}{void});\ \ \ \ \ \ \textcolor{comment}{//\ 秒計算}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ Minute(\textcolor{keywordtype}{void});\ \ \ \ \ \ \textcolor{comment}{//\ 分計算}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ DIGIT\_TIME\ =\ 2;\ \ \ \ \textcolor{comment}{//\ 桁数}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ NUMTIME\ =\ 150;\ \ \ \ \ \textcolor{comment}{//\ 最大タイソ}ー}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ CARVETIME\ =\ 60;\ \ \ \ \textcolor{comment}{//\ カウント上限}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ DIVIDE\ =\ 10;\ \ \ \ \ \ \ \textcolor{comment}{//\ 桁分割の値}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ REDTIMEZONE\ =\ 10;\ \ \textcolor{comment}{//\ 赤く貼_滅させる時間}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ VALUE\_WIDTH\ =\ 150.0f;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{int}\ m\_nAllTime;\ \ \ \ \ \textcolor{comment}{//\ 全体の時間}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{int}\ m\_nSecond;\ \ \ \ \ \ \textcolor{comment}{//\ 現在の時間 (\ 秒\ )}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{int}\ m\_nMinute;\ \ \ \ \ \ \textcolor{comment}{//\ 現在時間 (分\ )}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{int}\ m\_nDecTime;\ \ \ \ \ \textcolor{comment}{//\ 減った時間量}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{int}\ m\_nCount;\ \ \ \ \ \ \ \textcolor{comment}{//\ 時間カウンソstring^ー}}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{float}\ m\_fHeight,\ m\_fWidth;\ \ \textcolor{comment}{//\ 横幅,高さ}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{class_c_number}{CNumber}}*\ m\_pNumberMinute[DIGIT\_TIME];\ \ \ \ \textcolor{comment}{//\ 分}}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{class_c_number}{CNumber}}*\ m\_pNumberSecond[DIGIT\_TIME];\ \ \ \ \textcolor{comment}{//\ 秒}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ D3DXVECTOR3\ m\_pos;\ \ \ \ \ \ \textcolor{comment}{//\ 座標}}
+\DoxyCodeLine{00066\ \};}
+
+\end{DoxyCode}

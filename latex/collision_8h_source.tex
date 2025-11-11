@@ -1,0 +1,56 @@
+\doxysection{collision.\+h}
+\hypertarget{collision_8h_source}{}\label{collision_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=============================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ 当たり判定基底クラス処理\ [\ collision.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00006\ \textcolor{comment}{//==============================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once\ }}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//************************************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ コリジョンクラスを定義}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//************************************}}
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }CCollision}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{comment}{//***************************}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{comment}{//\ コリジョンの種類定義}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{comment}{//***************************}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{enum}\ TYPE}
+\DoxyCodeLine{00024\ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ TYPE\_NONE,\ \ \ \ \ \ \textcolor{comment}{//\ 無し}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ TYPE\_BOX,\ \ \ \ \ \ \ \textcolor{comment}{//\ 矩形}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ TYPE\_SPHERE,\ \ \ \ \textcolor{comment}{//\ 球}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ TYPE\_MAX}
+\DoxyCodeLine{00029\ \ \ \ \ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ CCollision(TYPE\ Type);}
+\DoxyCodeLine{00032\ \ \ \ \ \string~CCollision();}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ SetPos(D3DXVECTOR3\ pos)\ \{\ m\_pos\ =\ pos;\ \}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ SetType(TYPE\ Type)\ \{\ m\_Type\ =\ Type;\ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ D3DXVECTOR3\ GetPos(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_pos;\ \}}
+\DoxyCodeLine{00038\ \ \ \ \ TYPE\ GetType(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_Type;\ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{static}\ CCollision*\ Create(D3DXVECTOR3\ pos,\ TYPE\ Type);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00043\ \ \ \ \ D3DXVECTOR3\ m\_pos;\ \ \textcolor{comment}{//\ 判定する座標}}
+\DoxyCodeLine{00044\ \ \ \ \ TYPE\ m\_Type;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 種類}}
+\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ }
+
+\end{DoxyCode}

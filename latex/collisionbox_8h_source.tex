@@ -1,0 +1,41 @@
+\doxysection{collisionbox.\+h}
+\hypertarget{collisionbox_8h_source}{}\label{collisionbox_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=============================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ 矩形の当たり判定処理\ [\ collisionbox.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00006\ \textcolor{comment}{//==============================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}collision.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ 前方宣言}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_box_collider}{CBoxCollider}};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//*************************************}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ 矩形の当たり判定をするクラスを定義}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//*************************************}}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }CCollisionBox\ :\ \textcolor{keyword}{public}\ CCollision}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \ \ CCollisionBox();}
+\DoxyCodeLine{00030\ \ \ \ \ \string~CCollisionBox();}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_c_collision_box_a10a52c510ec0cdb6a8487c2c59b0304d}{Collision}}(\mbox{\hyperlink{class_c_box_collider}{CBoxCollider}}*\ thisCollider,\ \mbox{\hyperlink{class_c_box_collider}{CBoxCollider}}*\ OtherCollider,D3DXVECTOR3\ *\ ExtrusionPos);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00042\ \};}
+\DoxyCodeLine{00043\ }
+
+\end{DoxyCode}

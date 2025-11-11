@@ -1,0 +1,151 @@
+\doxysection{BS\+::multi\+\_\+future\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_b_s_1_1multi__future}{}\label{class_b_s_1_1multi__future}\index{BS::multi\_future$<$ T $>$@{BS::multi\_future$<$ T $>$}}
+
+
+A helper class to facilitate waiting for and/or getting the results of multiple futures at once.  
+
+
+
+
+{\ttfamily \#include $<$BS\+\_\+thread\+\_\+pool.\+hpp$>$}
+
+Inheritance diagram for BS\+::multi\+\_\+future\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_b_s_1_1multi__future}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::conditional\+\_\+t$<$ std\+::is\+\_\+void\+\_\+v$<$ T $>$, void, std\+::vector$<$ T $>$ $>$ \mbox{\hyperlink{class_b_s_1_1multi__future_ad2b19061c7db1d50a35858e17dcd2268}{get}} ()
+\begin{DoxyCompactList}\small\item\em Get the results from all the futures stored in this {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}}, rethrowing any stored exceptions. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \mbox{\hyperlink{class_b_s_1_1multi__future_ad00db759f47fa31f85f52e53589f16e7}{ready\+\_\+count}} () const
+\begin{DoxyCompactList}\small\item\em Check how many of the futures stored in this {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}} are ready. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_b_s_1_1multi__future_a1c282cf3dda2cbcfe039c5bb2b635290}{valid}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Check if all the futures stored in this {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}} are valid. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_s_1_1multi__future_a05073ed8d37b939c9440ac8789b69ba7}\label{class_b_s_1_1multi__future_a05073ed8d37b939c9440ac8789b69ba7} 
+void {\bfseries wait} () const
+\begin{DoxyCompactList}\small\item\em Wait for all the futures stored in this {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename R, typename P$>$ }\\bool \mbox{\hyperlink{class_b_s_1_1multi__future_a381744c63b88eee1df425b5ce7b5e904}{wait\+\_\+for}} (const std\+::chrono\+::duration$<$ R, P $>$ \&duration) const
+\begin{DoxyCompactList}\small\item\em Wait for all the futures stored in this {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}}, but stop waiting after the specified duration has passed. This function first waits for the first future for the desired duration. If that future is ready before the duration expires, this function waits for the second future for whatever remains of the duration. It continues similarly until the duration expires. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename C, typename D$>$ }\\bool \mbox{\hyperlink{class_b_s_1_1multi__future_ad7e095316d61714456281cb3d30325a1}{wait\+\_\+until}} (const std\+::chrono\+::time\+\_\+point$<$ C, D $>$ \&timeout\+\_\+time) const
+\begin{DoxyCompactList}\small\item\em Wait for all the futures stored in this {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}}, but stop waiting after the specified time point has been reached. This function first waits for the first future until the desired time point. If that future is ready before the time point is reached, this function waits for the second future until the desired time point. It continues similarly until the time point is reached. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class BS\+::multi\+\_\+future$<$ T $>$}
+A helper class to facilitate waiting for and/or getting the results of multiple futures at once. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The return type of the futures. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_b_s_1_1multi__future_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_b_s_1_1multi__future_ad2b19061c7db1d50a35858e17dcd2268}\index{BS::multi\_future$<$ T $>$@{BS::multi\_future$<$ T $>$}!get@{get}}
+\index{get@{get}!BS::multi\_future$<$ T $>$@{BS::multi\_future$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1multi__future_ad2b19061c7db1d50a35858e17dcd2268} 
+template$<$typename T$>$ \\
+std\+::conditional\+\_\+t$<$ std\+::is\+\_\+void\+\_\+v$<$ T $>$, void, std\+::vector$<$ T $>$ $>$ \mbox{\hyperlink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}}$<$ T $>$\+::get (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}}
+
+
+
+Get the results from all the futures stored in this {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}}, rethrowing any stored exceptions. 
+
+\begin{DoxyReturn}{Returns}
+If the futures return {\ttfamily void}, this function returns {\ttfamily void} as well. Otherwise, it returns a vector containing the results. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1multi__future_ad00db759f47fa31f85f52e53589f16e7}\index{BS::multi\_future$<$ T $>$@{BS::multi\_future$<$ T $>$}!ready\_count@{ready\_count}}
+\index{ready\_count@{ready\_count}!BS::multi\_future$<$ T $>$@{BS::multi\_future$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{ready\_count()}{ready\_count()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1multi__future_ad00db759f47fa31f85f52e53589f16e7} 
+template$<$typename T$>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}}$<$ T $>$\+::ready\+\_\+count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}}
+
+
+
+Check how many of the futures stored in this {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}} are ready. 
+
+\begin{DoxyReturn}{Returns}
+The number of ready futures. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1multi__future_a1c282cf3dda2cbcfe039c5bb2b635290}\index{BS::multi\_future$<$ T $>$@{BS::multi\_future$<$ T $>$}!valid@{valid}}
+\index{valid@{valid}!BS::multi\_future$<$ T $>$@{BS::multi\_future$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{valid()}{valid()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1multi__future_a1c282cf3dda2cbcfe039c5bb2b635290} 
+template$<$typename T$>$ \\
+bool \mbox{\hyperlink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}}$<$ T $>$\+::valid (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}, {\ttfamily [noexcept]}}
+
+
+
+Check if all the futures stored in this {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}} are valid. 
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if all futures are valid, {\ttfamily false} if at least one of the futures is not valid. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1multi__future_a381744c63b88eee1df425b5ce7b5e904}\index{BS::multi\_future$<$ T $>$@{BS::multi\_future$<$ T $>$}!wait\_for@{wait\_for}}
+\index{wait\_for@{wait\_for}!BS::multi\_future$<$ T $>$@{BS::multi\_future$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{wait\_for()}{wait\_for()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1multi__future_a381744c63b88eee1df425b5ce7b5e904} 
+template$<$typename T$>$ \\
+template$<$typename R, typename P$>$ \\
+bool \mbox{\hyperlink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}}$<$ T $>$\+::wait\+\_\+for (\begin{DoxyParamCaption}\item[{const std\+::chrono\+::duration$<$ R, P $>$ \&}]{duration}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Wait for all the futures stored in this {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}}, but stop waiting after the specified duration has passed. This function first waits for the first future for the desired duration. If that future is ready before the duration expires, this function waits for the second future for whatever remains of the duration. It continues similarly until the duration expires. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em R} & An arithmetic type representing the number of ticks to wait. \\
+\hline
+{\em P} & An {\ttfamily std\+::ratio} representing the length of each tick in seconds. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em duration} & The amount of time to wait. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if all futures have been waited for before the duration expired, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1multi__future_ad7e095316d61714456281cb3d30325a1}\index{BS::multi\_future$<$ T $>$@{BS::multi\_future$<$ T $>$}!wait\_until@{wait\_until}}
+\index{wait\_until@{wait\_until}!BS::multi\_future$<$ T $>$@{BS::multi\_future$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{wait\_until()}{wait\_until()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1multi__future_ad7e095316d61714456281cb3d30325a1} 
+template$<$typename T$>$ \\
+template$<$typename C, typename D$>$ \\
+bool \mbox{\hyperlink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}}$<$ T $>$\+::wait\+\_\+until (\begin{DoxyParamCaption}\item[{const std\+::chrono\+::time\+\_\+point$<$ C, D $>$ \&}]{timeout\+\_\+time}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Wait for all the futures stored in this {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}}, but stop waiting after the specified time point has been reached. This function first waits for the first future until the desired time point. If that future is ready before the time point is reached, this function waits for the second future until the desired time point. It continues similarly until the time point is reached. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em C} & The type of the clock used to measure time. \\
+\hline
+{\em D} & An {\ttfamily std\+::chrono\+::duration} type used to indicate the time point. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em timeout\+\_\+time} & The time point at which to stop waiting. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if all futures have been waited for before the time point was reached, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_b_s__thread__pool_8hpp}{BS\+\_\+thread\+\_\+pool.\+hpp}}\end{DoxyCompactItemize}

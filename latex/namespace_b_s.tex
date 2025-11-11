@@ -1,0 +1,165 @@
+\doxysection{BS Namespace Reference}
+\hypertarget{namespace_b_s}{}\label{namespace_b_s}\index{BS@{BS}}
+
+
+A namespace used by Barak Shoshany\textquotesingle{}s projects.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_b_s_1_1blocks}{blocks}}
+\begin{DoxyCompactList}\small\item\em A helper class to divide a range into blocks. Used by {\ttfamily detach\+\_\+blocks()}, {\ttfamily submit\+\_\+blocks()}, {\ttfamily detach\+\_\+loop()}, and {\ttfamily submit\+\_\+loop()}. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_b_s_1_1common__index__type}{common\+\_\+index\+\_\+type}}
+\begin{DoxyCompactList}\small\item\em A meta-\/programming template to determine the common type of two integer types. Unlike {\ttfamily std\+::common\+\_\+type}, this template maintains correct signedness. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_b_s_1_1common__index__type_3_01_t1_00_01_t2_00_01std_1_1enable__if__t_3_01std_1_1is__signfea1dac8dd4c06be52fce02e7f42cd3b}{common\+\_\+index\+\_\+type$<$ T1, T2, std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+signed\+\_\+v$<$ T1 $>$ \&\&std\+::is\+\_\+signed\+\_\+v$<$ T2 $>$ $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{struct_b_s_1_1common__index__type_3_01_t1_00_01_t2_00_01std_1_1enable__if__t_3_01std_1_1is__unsia8f80075a33e0c8b90addae503923e74}{common\+\_\+index\+\_\+type$<$ T1, T2, std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+unsigned\+\_\+v$<$ T1 $>$ \&\&std\+::is\+\_\+unsigned\+\_\+v$<$ T2 $>$ $>$ $>$}}
+\item 
+struct \mbox{\hyperlink{struct_b_s_1_1common__index__type_3_01_t1_00_01_t2_00_01std_1_1enable__if__t_3_07std_1_1is__signf1fe8104df97c1419a922a0186642392}{common\+\_\+index\+\_\+type$<$ T1, T2, std\+::enable\+\_\+if\+\_\+t$<$(std\+::is\+\_\+signed\+\_\+v$<$ T1 $>$ \&\&std\+::is\+\_\+unsigned\+\_\+v$<$ T2 $>$)\texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|}(std\+::is\+\_\+unsigned\+\_\+v$<$ T1 $>$ \&\&std\+::is\+\_\+signed\+\_\+v$<$ T2 $>$)$>$ $>$}}
+\item 
+class \mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\+\_\+semaphore}}
+\begin{DoxyCompactList}\small\item\em A polyfill for {\ttfamily std\+::counting\+\_\+semaphore}, to be used if C++20 features are not available. A {\ttfamily \doxylink{class_b_s_1_1counting__semaphore}{counting\+\_\+semaphore}} is a synchronization primitive that allows more than one concurrent access to the same resource. The number of concurrent accessors is limited by the semaphore\textquotesingle{}s counter, which is decremented when a thread acquires the semaphore and incremented when a thread releases the semaphore. If the counter is zero, a thread trying to acquire the semaphore will be blocked until another thread releases the semaphore. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_b_s_1_1multi__future}{multi\+\_\+future}}
+\begin{DoxyCompactList}\small\item\em A helper class to facilitate waiting for and/or getting the results of multiple futures at once. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_b_s_1_1pr__task}{pr\+\_\+task}}
+\begin{DoxyCompactList}\small\item\em A helper struct to store a task with an assigned priority. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_b_s_1_1synced__stream}{synced\+\_\+stream}}
+\begin{DoxyCompactList}\small\item\em A utility class to synchronize printing to an output stream by different threads. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_b_s_1_1this__thread}{this\+\_\+thread}}
+\begin{DoxyCompactList}\small\item\em A class used to obtain information about the current thread and, if native extensions are enabled, set its priority and affinity. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\+\_\+pool}}
+\begin{DoxyCompactList}\small\item\em A fast, lightweight, modern, and easy-\/to-\/use C++17/\+C++20/\+C++23 thread pool class. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_b_s_1_1version}{version}}
+\begin{DoxyCompactList}\small\item\em A struct used to store a version number, which can be checked and compared at compilation time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}\label{namespace_b_s_aacc613e815ee0fd22f6277d882b47356} 
+using {\bfseries opt\+\_\+t} = std\+::uint8\+\_\+t
+\begin{DoxyCompactList}\small\item\em The type used for the bitmask template parameter of the thread pool. \end{DoxyCompactList}\item 
+\Hypertarget{namespace_b_s_a4bcabd6b92fd5013c66b79852b400db2}\label{namespace_b_s_a4bcabd6b92fd5013c66b79852b400db2} 
+{\footnotesize template$<$typename... S$>$ }\\using {\bfseries function\+\_\+t} = std\+::function$<$S...$>$
+\begin{DoxyCompactList}\small\item\em The template to use to store functions in the task queue and other places. In C++17 we use {\ttfamily std\+::function}. \end{DoxyCompactList}\item 
+\Hypertarget{namespace_b_s_a9e1a9ca64721dc3d91b4cd169554811c}\label{namespace_b_s_a9e1a9ca64721dc3d91b4cd169554811c} 
+using {\bfseries task\+\_\+t} = \mbox{\hyperlink{namespace_b_s_a4bcabd6b92fd5013c66b79852b400db2}{function\+\_\+t}}$<$void()$>$
+\begin{DoxyCompactList}\small\item\em The type of tasks in the task queue. \end{DoxyCompactList}\item 
+\Hypertarget{namespace_b_s_ab329e1169fc4aed7732b2fedab26320e}\label{namespace_b_s_ab329e1169fc4aed7732b2fedab26320e} 
+using {\bfseries thread\+\_\+t} = std\+::thread
+\begin{DoxyCompactList}\small\item\em The type of threads to use. In C++17 we use{\ttfamily std\+::thread}. \end{DoxyCompactList}\item 
+\Hypertarget{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}\label{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e} 
+using {\bfseries priority\+\_\+t} = std\+::int8\+\_\+t
+\begin{DoxyCompactList}\small\item\em A type used to indicate the priority of a task. Defined to be a signed integer with a width of exactly 8 bits (-\/128 to +127). \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T1, typename T2$>$ }\\using \mbox{\hyperlink{namespace_b_s_aa2da0cc580df5422698fb41e1c098df5}{common\+\_\+index\+\_\+type\+\_\+t}} = typename \mbox{\hyperlink{struct_b_s_1_1common__index__type}{common\+\_\+index\+\_\+type}}$<$T1, T2$>$\+::type
+\begin{DoxyCompactList}\small\item\em A helper type alias to obtain the common type from the template {\ttfamily \doxylink{struct_b_s_1_1common__index__type}{BS\+::common\+\_\+index\+\_\+type}}. \end{DoxyCompactList}\item 
+\Hypertarget{namespace_b_s_ac4022b9bb56de77bfbf504b386e9bad1}\label{namespace_b_s_ac4022b9bb56de77bfbf504b386e9bad1} 
+using {\bfseries light\+\_\+thread\+\_\+pool} = \mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\+\_\+pool}}$<$\mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba5b2f2bd1d71de1fa047ae7846bebd786}{tp\+::none}}$>$
+\begin{DoxyCompactList}\small\item\em A fast, lightweight, modern, and easy-\/to-\/use C++17/\+C++20/\+C++23 thread pool class. This alias defines a thread pool with all optional features disabled. \end{DoxyCompactList}\item 
+\Hypertarget{namespace_b_s_ad8be06c83a2af9516a9bdea138f32341}\label{namespace_b_s_ad8be06c83a2af9516a9bdea138f32341} 
+using {\bfseries priority\+\_\+thread\+\_\+pool} = \mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\+\_\+pool}}$<$\mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{tp\+::priority}}$>$
+\begin{DoxyCompactList}\small\item\em A fast, lightweight, modern, and easy-\/to-\/use C++17/\+C++20/\+C++23 thread pool class. This alias defines a thread pool with task priority enabled. \end{DoxyCompactList}\item 
+\Hypertarget{namespace_b_s_a7c315e2142f41d71473a19e72f238200}\label{namespace_b_s_a7c315e2142f41d71473a19e72f238200} 
+using {\bfseries pause\+\_\+thread\+\_\+pool} = \mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\+\_\+pool}}$<$\mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba2573e91242c7973901b7862e47cd7af9}{tp\+::pause}}$>$
+\begin{DoxyCompactList}\small\item\em A fast, lightweight, modern, and easy-\/to-\/use C++17/\+C++20/\+C++23 thread pool class. This alias defines a thread pool with pausing enabled. \end{DoxyCompactList}\item 
+\Hypertarget{namespace_b_s_a143bcb78aa4ab2e87c7d52b2b860628a}\label{namespace_b_s_a143bcb78aa4ab2e87c7d52b2b860628a} 
+using {\bfseries wdc\+\_\+thread\+\_\+pool} = \mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\+\_\+pool}}$<$\mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba1f051a409d60424953a4b4de63c7e156}{tp\+::wait\+\_\+deadlock\+\_\+checks}}$>$
+\begin{DoxyCompactList}\small\item\em A fast, lightweight, modern, and easy-\/to-\/use C++17/\+C++20/\+C++23 thread pool class. This alias defines a thread pool with wait deadlock checks enabled. \end{DoxyCompactList}\item 
+\Hypertarget{namespace_b_s_a8ec023f4a0654dae86c06903eeea5006}\label{namespace_b_s_a8ec023f4a0654dae86c06903eeea5006} 
+using {\bfseries binary\+\_\+semaphore} = \mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\+\_\+semaphore}}$<$1$>$
+\begin{DoxyCompactList}\small\item\em A polyfill for {\ttfamily std\+::binary\+\_\+semaphore}, to be used if C++20 features are not available. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespace_b_s_ac89368bfe4f0631f4182d7b307317b0b}\label{namespace_b_s_ac89368bfe4f0631f4182d7b307317b0b} 
+enum \mbox{\hyperlink{namespace_b_s_ac89368bfe4f0631f4182d7b307317b0b}{pr}} \+: priority\+\_\+t \{ \newline
+{\bfseries lowest} = -\/128
+, {\bfseries low} = -\/64
+, {\bfseries normal} = 0
+, {\bfseries high} = +64
+, \newline
+{\bfseries highest} = +127
+ \}
+\begin{DoxyCompactList}\small\item\em An enum containing some pre-\/defined priorities for convenience. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027b}{tp}} \+: opt\+\_\+t \{ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba5b2f2bd1d71de1fa047ae7846bebd786}{none}} = 0
+, \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
+, \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba2573e91242c7973901b7862e47cd7af9}{pause}} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
+, \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba1f051a409d60424953a4b4de63c7e156}{wait\+\_\+deadlock\+\_\+checks}} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
+ \}
+\begin{DoxyCompactList}\small\item\em An enumeration of flags to be used in the bitmask template parameter of {\ttfamily \doxylink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}} to enable optional features. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespace_b_s_a85e13778681b2b0568573878be6bb9c0}\label{namespace_b_s_a85e13778681b2b0568573878be6bb9c0} 
+constexpr \mbox{\hyperlink{struct_b_s_1_1version}{version}} {\bfseries thread\+\_\+pool\+\_\+version} (BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+VERSION\+\_\+\+MAJOR, BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+VERSION\+\_\+\+MINOR, BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+VERSION\+\_\+\+PATCH)
+\begin{DoxyCompactList}\small\item\em The version of the thread pool library. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespace_b_s_abc740f614d24db948d62294c5659164e}\label{namespace_b_s_abc740f614d24db948d62294c5659164e} 
+constexpr bool {\bfseries thread\+\_\+pool\+\_\+module} = false
+\begin{DoxyCompactList}\small\item\em A flag indicating whether the thread pool library was compiled as a C++20 module. \end{DoxyCompactList}\item 
+\Hypertarget{namespace_b_s_a5cfadc3ce492f3f09b9041110ecfc60f}\label{namespace_b_s_a5cfadc3ce492f3f09b9041110ecfc60f} 
+constexpr bool {\bfseries thread\+\_\+pool\+\_\+import\+\_\+std} = false
+\begin{DoxyCompactList}\small\item\em A flag indicating whether the thread pool library imported the C++23 Standard Library module using {\ttfamily import std}. \end{DoxyCompactList}\item 
+\Hypertarget{namespace_b_s_a3722a3a72050933a66db029945b286e7}\label{namespace_b_s_a3722a3a72050933a66db029945b286e7} 
+constexpr bool {\bfseries thread\+\_\+pool\+\_\+native\+\_\+extensions} = false
+\begin{DoxyCompactList}\small\item\em A flag indicating whether the thread pool library\textquotesingle{}s native extensions are enabled. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A namespace used by Barak Shoshany\textquotesingle{}s projects. 
+
+\label{doc-typedef-members}
+\Hypertarget{namespace_b_s_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{namespace_b_s_aa2da0cc580df5422698fb41e1c098df5}\index{BS@{BS}!common\_index\_type\_t@{common\_index\_type\_t}}
+\index{common\_index\_type\_t@{common\_index\_type\_t}!BS@{BS}}
+\doxysubsubsection{\texorpdfstring{common\_index\_type\_t}{common\_index\_type\_t}}
+{\footnotesize\ttfamily \label{namespace_b_s_aa2da0cc580df5422698fb41e1c098df5} 
+template$<$typename T1, typename T2$>$ \\
+using \mbox{\hyperlink{namespace_b_s_aa2da0cc580df5422698fb41e1c098df5}{BS\+::common\+\_\+index\+\_\+type\+\_\+t}} = typename \mbox{\hyperlink{struct_b_s_1_1common__index__type}{common\+\_\+index\+\_\+type}}$<$T1, T2$>$\+::type}
+
+
+
+A helper type alias to obtain the common type from the template {\ttfamily \doxylink{struct_b_s_1_1common__index__type}{BS\+::common\+\_\+index\+\_\+type}}. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T1} & The first type. \\
+\hline
+{\em T2} & The second type. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\label{doc-enum-members}
+\Hypertarget{namespace_b_s_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{namespace_b_s_ae1a882c1a2584cb3570b567595c8027b}\index{BS@{BS}!tp@{tp}}
+\index{tp@{tp}!BS@{BS}}
+\doxysubsubsection{\texorpdfstring{tp}{tp}}
+{\footnotesize\ttfamily \label{namespace_b_s_ae1a882c1a2584cb3570b567595c8027b} 
+enum \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027b}{BS\+::tp}} \+: \mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}}}
+
+
+
+An enumeration of flags to be used in the bitmask template parameter of {\ttfamily \doxylink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}} to enable optional features. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{none@{none}!BS@{BS}}\index{BS@{BS}!none@{none}}}\Hypertarget{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba5b2f2bd1d71de1fa047ae7846bebd786}\label{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba5b2f2bd1d71de1fa047ae7846bebd786} 
+none&No optional features enabled. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{priority@{priority}!BS@{BS}}\index{BS@{BS}!priority@{priority}}}\Hypertarget{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}\label{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b} 
+priority&Enable task priority. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{pause@{pause}!BS@{BS}}\index{BS@{BS}!pause@{pause}}}\Hypertarget{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba2573e91242c7973901b7862e47cd7af9}\label{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba2573e91242c7973901b7862e47cd7af9} 
+pause&Enable pausing. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{wait\_deadlock\_checks@{wait\_deadlock\_checks}!BS@{BS}}\index{BS@{BS}!wait\_deadlock\_checks@{wait\_deadlock\_checks}}}\Hypertarget{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba1f051a409d60424953a4b4de63c7e156}\label{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba1f051a409d60424953a4b4de63c7e156} 
+wait\+\_\+deadlock\+\_\+checks&Enable wait deadlock checks. \\
+\hline
+
+\end{DoxyEnumFields}

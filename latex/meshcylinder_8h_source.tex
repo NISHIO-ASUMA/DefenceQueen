@@ -1,0 +1,70 @@
+\doxysection{meshcylinder.\+h}
+\hypertarget{meshcylinder_8h_source}{}\label{meshcylinder_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=============================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ メッシュシリンソ_ー処理\ [\ meshcylinder.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=============================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once\ }}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}object.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//**********************************}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ メッシュシリンソ_ークラスを定義}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//**********************************}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }CMeshCylinder\ :\ \textcolor{keyword}{public}\ CObject}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{comment}{//****************************}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//\ 構(\backslash\)造体定義}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//****************************}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_c_mesh_cylinder_1_1_cylinder}{Cylinder}}}
+\DoxyCodeLine{00029\ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nTexIdx;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ テクスチャインデックス}}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nNumPrimitive;\ \ \textcolor{comment}{//\ プリソstring~ティブ数}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nNumIdx;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ インデックス数}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nNumAllVtx;\ \ \ \ \ \textcolor{comment}{//\ 全体頂貼_数}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nNumDigitX;\ \ \ \ \ \textcolor{comment}{//\ X平面分割数}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nNumDigitZ;\ \ \ \ \ \textcolor{comment}{//\ Z平面分割数}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ fRadius;\ \ \ \ \ \ \textcolor{comment}{//\ 半径}}
+\DoxyCodeLine{00037\ \ \ \ \ \};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ CMeshCylinder(\textcolor{keywordtype}{int}\ nPrio\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(CObject::PRIORITY::MESH));}
+\DoxyCodeLine{00040\ \ \ \ \ \string~CMeshCylinder();}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ HRESULT\ Init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ Draw(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ SetTexture(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ D3DXVECTOR3\ GetPos(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_pos;\ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{float}\ GetRadius(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_Cylinder.fRadius;\ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{static}\ CMeshCylinder*\ Create(D3DXVECTOR3\ pos,\ \textcolor{keywordtype}{float}\ fRadius);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ DIGIT\_X\ =\ 30;\ \ \ \ \ \ \textcolor{comment}{//\ X方向の分割数}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ DIGIT\_Z\ =\ 1;\ \ \ \ \ \ \ \textcolor{comment}{//\ Z方向への分割数}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ LPDIRECT3DINDEXBUFFER9\ m\_pIdx;\ \textcolor{comment}{//\ インデックスバッファ}}
+\DoxyCodeLine{00059\ \ \ \ \ LPDIRECT3DVERTEXBUFFER9\ m\_pVtx;\ \textcolor{comment}{//\ 頂貼_バッファ}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ D3DXVECTOR3\ m\_pos;\ \ \ \ \ \ \textcolor{comment}{//\ 座標}}
+\DoxyCodeLine{00062\ \ \ \ \ D3DXVECTOR3\ m\_rot;\ \ \ \ \ \ \textcolor{comment}{//\ 角度}}
+\DoxyCodeLine{00063\ \ \ \ \ D3DXMATRIX\ m\_mtxWorld;\ \ \textcolor{comment}{//\ ワールドソ}トリックス}}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{struct_c_mesh_cylinder_1_1_cylinder}{Cylinder}}\ m\_Cylinder;\ \ \ \ \textcolor{comment}{//\ 構(\backslash\)造体変数}}
+\DoxyCodeLine{00065\ \};}
+
+\end{DoxyCode}

@@ -1,0 +1,77 @@
+\doxysection{CMotion Class Reference}
+\hypertarget{class_c_motion}{}\label{class_c_motion}\index{CMotion@{CMotion}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_c_motion_1_1_i_n_f_o}{INFO}}
+\item 
+struct \mbox{\hyperlink{struct_c_motion_1_1_k_e_y}{KEY}}
+\item 
+struct \mbox{\hyperlink{struct_c_motion_1_1_k_e_y___i_n_f_o}{KEY\+\_\+\+INFO}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_motion_ab624af96f2ee8029ea8f0fe3dc566bab}\label{class_c_motion_ab624af96f2ee8029ea8f0fe3dc566bab} 
+void {\bfseries Update} (std\+::vector$<$ \mbox{\hyperlink{class_c_model}{CModel}} \texorpdfstring{$\ast$}{*} $>$ m\+\_\+p\+Model, const int n\+Max\+Part)
+\item 
+\Hypertarget{class_c_motion_a73e715565d8b475c0771d3aceb2e225c}\label{class_c_motion_a73e715565d8b475c0771d3aceb2e225c} 
+void {\bfseries Update\+Current\+Motion} (\mbox{\hyperlink{class_c_model}{CModel}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pp\+Model, int n\+Model\+Count)
+\item 
+\Hypertarget{class_c_motion_a48146709cbdcce834addfe754455d69a}\label{class_c_motion_a48146709cbdcce834addfe754455d69a} 
+void {\bfseries Update\+Blend} (\mbox{\hyperlink{class_c_model}{CModel}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pp\+Model, int n\+Model\+Count)
+\item 
+\Hypertarget{class_c_motion_a63567446012ff962378d25b93d82f9a3}\label{class_c_motion_a63567446012ff962378d25b93d82f9a3} 
+void {\bfseries Debug} (void)
+\item 
+\Hypertarget{class_c_motion_a8b78636f1f8c57c9e4cae0bbce9b5792}\label{class_c_motion_a8b78636f1f8c57c9e4cae0bbce9b5792} 
+bool {\bfseries Check\+Frame} (int n\+Start\+Motion, int n\+End\+Motion, int n\+Motion\+Type)
+\item 
+\Hypertarget{class_c_motion_a8ac4bf2f4f2d0896ad2c79d8e04b6ad9}\label{class_c_motion_a8ac4bf2f4f2d0896ad2c79d8e04b6ad9} 
+void {\bfseries Set\+Motion} (int motiontype)
+\item 
+\Hypertarget{class_c_motion_a3619b78c38dc444df0f2903b1dec7198}\label{class_c_motion_a3619b78c38dc444df0f2903b1dec7198} 
+void {\bfseries Set\+Motion\+Num} (int n\+Motion)
+\item 
+\Hypertarget{class_c_motion_acfa4670d1ccb632c416aaf7d499c44bd}\label{class_c_motion_acfa4670d1ccb632c416aaf7d499c44bd} 
+int {\bfseries Set\+Models} (std\+::istringstream \&iss)
+\item 
+\Hypertarget{class_c_motion_ada3a9cd4d73b8946889af47fda2d7f6c}\label{class_c_motion_ada3a9cd4d73b8946889af47fda2d7f6c} 
+void {\bfseries Set\+Model\+File} (std\+::istringstream \&iss, std\+::vector$<$ \mbox{\hyperlink{class_c_model}{CModel}} \texorpdfstring{$\ast$}{*} $>$ \&p\+Model, int n\+Cnt)
+\item 
+\Hypertarget{class_c_motion_a7e8f730d0428d25544ef0c198ceadbe5}\label{class_c_motion_a7e8f730d0428d25544ef0c198ceadbe5} 
+void {\bfseries Set\+Parts} (std\+::ifstream \&file, std\+::vector$<$ \mbox{\hyperlink{class_c_model}{CModel}} \texorpdfstring{$\ast$}{*} $>$ \&p\+Model)
+\item 
+\Hypertarget{class_c_motion_adf0d9485578669c16ad0836281b8b2bb}\label{class_c_motion_adf0d9485578669c16ad0836281b8b2bb} 
+void {\bfseries Set\+Parts\+Motion} (std\+::ifstream \&file, \mbox{\hyperlink{class_c_motion}{CMotion}} \texorpdfstring{$\ast$}{*}p\+Motion, int n\+Cnt\+Motion)
+\item 
+\Hypertarget{class_c_motion_a4f30ed9460b80f1075b5ed61ae759826}\label{class_c_motion_a4f30ed9460b80f1075b5ed61ae759826} 
+void {\bfseries Set\+Key} (std\+::ifstream \&file, \mbox{\hyperlink{class_c_motion}{CMotion}} \texorpdfstring{$\ast$}{*}p\+Motion, int n\+Cnt\+Motion, int n\+Cnt\+Key)
+\item 
+\Hypertarget{class_c_motion_a0f2b2abd805f6e444c24854fb33a7eae}\label{class_c_motion_a0f2b2abd805f6e444c24854fb33a7eae} 
+void {\bfseries Set\+Key\+Date} (std\+::istringstream \&ss, const std\+::string \&param, \mbox{\hyperlink{class_c_motion}{CMotion}} \texorpdfstring{$\ast$}{*}p\+Motion, int n\+Cnt\+Motion, int n\+Cnt\+Key, int \&pos\+Key\+Index, int \&rot\+Key\+Index)
+\item 
+\Hypertarget{class_c_motion_a9507555de02822a5b6ebddf25e12b4c1}\label{class_c_motion_a9507555de02822a5b6ebddf25e12b4c1} 
+void {\bfseries Set\+Motion} (int n\+Motion\+Type, bool is\+Blend, int n\+Blend\+Frame)
+\item 
+\Hypertarget{class_c_motion_af10b03ddf6c854953c039b3223fbb42a}\label{class_c_motion_af10b03ddf6c854953c039b3223fbb42a} 
+void {\bfseries Set\+Reset\+Frame} (int n\+Frame)
+\item 
+\Hypertarget{class_c_motion_a158641750672756826d8f3a9a2073a04}\label{class_c_motion_a158641750672756826d8f3a9a2073a04} 
+int {\bfseries Get\+Motion\+Type} (void)
+\item 
+\Hypertarget{class_c_motion_ad74864ff72ed3d8e6c06d5fe18da8446}\label{class_c_motion_ad74864ff72ed3d8e6c06d5fe18da8446} 
+bool {\bfseries Get\+Finish\+Motion} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_motion_a6d72c1b4a9cdd2cb34123bac264f6633}\label{class_c_motion_a6d72c1b4a9cdd2cb34123bac264f6633} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_c_motion}{CMotion}} $>$ {\bfseries Load} (const char \texorpdfstring{$\ast$}{*}p\+Filename, std\+::vector$<$ \mbox{\hyperlink{class_c_model}{CModel}} \texorpdfstring{$\ast$}{*} $>$ \&p\+Model, int n\+Dest\+Motions)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+motion.\+h\item 
+motion.\+cpp\end{DoxyCompactItemize}

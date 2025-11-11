@@ -1,0 +1,82 @@
+\doxysection{CXfile\+Manager Class Reference}
+\hypertarget{class_c_xfile_manager}{}\label{class_c_xfile_manager}\index{CXfileManager@{CXfileManager}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_c_xfile_manager_1_1_x_f_i_l_e_d_a_t_a}{XFILEDATA}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_xfile_manager_a5cfd8051e2f0ff926a5cc0da84da343b}\label{class_c_xfile_manager_a5cfd8051e2f0ff926a5cc0da84da343b} 
+HRESULT {\bfseries Load} (void)
+\item 
+\Hypertarget{class_c_xfile_manager_a677eabe3beae546ea046dd3de0820d33}\label{class_c_xfile_manager_a677eabe3beae546ea046dd3de0820d33} 
+void {\bfseries Un\+Load} (void)
+\item 
+int \mbox{\hyperlink{class_c_xfile_manager_ae24abea18c223ab28c2db5a88420b347}{Register}} (const char \texorpdfstring{$\ast$}{*}p\+File\+Name)
+\begin{DoxyCompactList}\small\item\em Xファソ+Cルの登禄texorpdfstring{$^\wedge$}{\string^}をする. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_c_xfile_manager_1_1_x_f_i_l_e_d_a_t_a}{XFILEDATA}} \mbox{\hyperlink{class_c_xfile_manager_a5f68fedc37928bd8ad567b5abb74564c}{Get\+Info}} (const int n\+Idx)
+\begin{DoxyCompactList}\small\item\em 配列番号を指定して情報を取得 \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_c_xfile_manager_1_1_x_f_i_l_e_d_a_t_a}{XFILEDATA}} $>$ \& \mbox{\hyperlink{class_c_xfile_manager_a2e0cf561dd78e4c378856cf3d4f00b86}{Get\+List}} (void)
+\begin{DoxyCompactList}\small\item\em 動貼+I配列の取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_c_xfile_manager_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_c_xfile_manager_a5f68fedc37928bd8ad567b5abb74564c}\index{CXfileManager@{CXfileManager}!GetInfo@{GetInfo}}
+\index{GetInfo@{GetInfo}!CXfileManager@{CXfileManager}}
+\doxysubsubsection{\texorpdfstring{GetInfo()}{GetInfo()}}
+{\footnotesize\ttfamily \label{class_c_xfile_manager_a5f68fedc37928bd8ad567b5abb74564c} 
+\mbox{\hyperlink{struct_c_xfile_manager_1_1_x_f_i_l_e_d_a_t_a}{XFILEDATA}} CXfile\+Manager\+::\+Get\+Info (\begin{DoxyParamCaption}\item[{const int}]{n\+Idx}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+配列番号を指定して情報を取得 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+Idx} & 取得するソ+Iブソ+Wソ+Fソ+Nトソ+Cンデッソ+Nス\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ソ+Cンデッソ+Nソ+X番号に応じたデ―mbox{[}ソtexorpdfstring{$^\wedge$}{\string^}
+\end{DoxyReturn}
+\Hypertarget{class_c_xfile_manager_a2e0cf561dd78e4c378856cf3d4f00b86}\index{CXfileManager@{CXfileManager}!GetList@{GetList}}
+\index{GetList@{GetList}!CXfileManager@{CXfileManager}}
+\doxysubsubsection{\texorpdfstring{GetList()}{GetList()}}
+{\footnotesize\ttfamily \label{class_c_xfile_manager_a2e0cf561dd78e4c378856cf3d4f00b86} 
+std\+::vector$<$ \mbox{\hyperlink{struct_c_xfile_manager_1_1_x_f_i_l_e_d_a_t_a}{XFILEDATA}} $>$ \& CXfile\+Manager\+::\+Get\+List (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+動貼+I配列の取得 
+
+\begin{DoxyReturn}{Returns}
+配列ソtexorpdfstring{$\vert$}{|}ソ+Cンソtexorpdfstring{$^\wedge$}{\string^}
+\end{DoxyReturn}
+\Hypertarget{class_c_xfile_manager_ae24abea18c223ab28c2db5a88420b347}\index{CXfileManager@{CXfileManager}!Register@{Register}}
+\index{Register@{Register}!CXfileManager@{CXfileManager}}
+\doxysubsubsection{\texorpdfstring{Register()}{Register()}}
+{\footnotesize\ttfamily \label{class_c_xfile_manager_ae24abea18c223ab28c2db5a88420b347} 
+int CXfile\+Manager\+::\+Register (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{p\+File\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Xファソ+Cルの登禄texorpdfstring{$^\wedge$}{\string^}をする. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+File\+Name} & 登禄texorpdfstring{$^\wedge$}{\string^}するモデル名\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+xfilemanager.\+h\item 
+xfilemanager.\+cpp\end{DoxyCompactItemize}

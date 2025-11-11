@@ -1,0 +1,61 @@
+\doxysection{playerstatebase.\+h}
+\hypertarget{playerstatebase_8h_source}{}\label{playerstatebase_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=============================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ プレイヤー状態管理処理\ [\ playerstate.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=============================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once\ }}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//**************************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル宣言}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//**************************}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}state.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}player.h"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{//*********************************}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ プレイヤーのベース状態管理}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//*********************************}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }CPlayerStateBase\ :\ \textcolor{keyword}{public}\ CStateBase}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//***************************}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ 状態管理ID列挙圭string^}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{//***************************}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{enum}\ ID}
+\DoxyCodeLine{00030\ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ ID\_NEUTRAL,\ \textcolor{comment}{//\ 待機}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ ID\_MOVE,\ \textcolor{comment}{//\ 移動}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ ID\_ACTION,\ \textcolor{comment}{//\ 攻撃}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ ID\_DAMAGE,\textcolor{comment}{//\ ソ_メージ}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ ID\_MAX}
+\DoxyCodeLine{00036\ \ \ \ \ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ CPlayerStateBase();}
+\DoxyCodeLine{00039\ \ \ \ \ \string~CPlayerStateBase();}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ OnStart()\ \{\}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ OnUpdate()\ \{\}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ OnExit()\ \{\}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{int}\ GetID()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ m\_ID;\ \}}
+\DoxyCodeLine{00046\ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ SetID(ID\ \textcolor{keywordtype}{id})\ \{\ m\_ID\ =\ id;\ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ SetOwner(\mbox{\hyperlink{class_c_player}{CPlayer}}*\ pPlayer)\ \{\ m\_pPlayer\ =\ pPlayer;\ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{class_c_player}{CPlayer}}*\ m\_pPlayer;\ \ \ \ \ \ \textcolor{comment}{//\ プレイヤーのポインソstring^}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00055\ \ \ \ \ ID\ m\_ID;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 列挙圭string^のポインソstring^}}
+\DoxyCodeLine{00056\ \};}
+
+\end{DoxyCode}

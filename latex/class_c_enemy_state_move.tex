@@ -1,0 +1,86 @@
+\doxysection{CEnemy\+State\+Move Class Reference}
+\hypertarget{class_c_enemy_state_move}{}\label{class_c_enemy_state_move}\index{CEnemyStateMove@{CEnemyStateMove}}
+Inheritance diagram for CEnemy\+State\+Move\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_c_enemy_state_move}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_c_enemy_state_move_a61fa543ea46d27d691cb28f2dfb8e3ea}{On\+Start}} (void) override
+\item 
+void \mbox{\hyperlink{class_c_enemy_state_move_a81fbffd65197d9b751688124a473db0a}{On\+Update}} (void) override
+\item 
+void \mbox{\hyperlink{class_c_enemy_state_move_aa45d700008a7214144965b4d2078a6cb}{On\+Exit}} (void) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_enemy_state_base}{CEnemy\+State\+Base}}}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_c_enemy_state_base_a4140c1452837d9a47299e25ec2a120de}{Get\+ID}} () const override
+\item 
+void {\bfseries Set\+ID} (ID id)
+\item 
+void {\bfseries Set\+Owner} (\mbox{\hyperlink{class_c_enemy}{CEnemy}} \texorpdfstring{$\ast$}{*}p\+Enemy)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_enemy_state_base}{CEnemy\+State\+Base}}}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_enemy_state_base_abbbff2f61b076a4ec347d5424a9bb595}\label{class_c_enemy_state_base_abbbff2f61b076a4ec347d5424a9bb595} 
+enum {\bfseries ID} \{ \newline
+{\bfseries ID\+\_\+\+NEUTRAL}
+, {\bfseries ID\+\_\+\+MOVE}
+, {\bfseries ID\+\_\+\+ACTION}
+, {\bfseries ID\+\_\+\+DAMAGE}
+, \newline
+{\bfseries ID\+\_\+\+MAX}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_c_enemy_state_base}{CEnemy\+State\+Base}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_enemy}{CEnemy}} \texorpdfstring{$\ast$}{*} {\bfseries m\+\_\+p\+Enemy}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_c_enemy_state_move_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_c_enemy_state_move_aa45d700008a7214144965b4d2078a6cb}\index{CEnemyStateMove@{CEnemyStateMove}!OnExit@{OnExit}}
+\index{OnExit@{OnExit}!CEnemyStateMove@{CEnemyStateMove}}
+\doxysubsubsection{\texorpdfstring{OnExit()}{OnExit()}}
+{\footnotesize\ttfamily \label{class_c_enemy_state_move_aa45d700008a7214144965b4d2078a6cb} 
+void CEnemy\+State\+Move\+::\+On\+Exit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_c_enemy_state_base}{CEnemy\+State\+Base}}.
+
+\Hypertarget{class_c_enemy_state_move_a61fa543ea46d27d691cb28f2dfb8e3ea}\index{CEnemyStateMove@{CEnemyStateMove}!OnStart@{OnStart}}
+\index{OnStart@{OnStart}!CEnemyStateMove@{CEnemyStateMove}}
+\doxysubsubsection{\texorpdfstring{OnStart()}{OnStart()}}
+{\footnotesize\ttfamily \label{class_c_enemy_state_move_a61fa543ea46d27d691cb28f2dfb8e3ea} 
+void CEnemy\+State\+Move\+::\+On\+Start (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_c_enemy_state_base}{CEnemy\+State\+Base}}.
+
+\Hypertarget{class_c_enemy_state_move_a81fbffd65197d9b751688124a473db0a}\index{CEnemyStateMove@{CEnemyStateMove}!OnUpdate@{OnUpdate}}
+\index{OnUpdate@{OnUpdate}!CEnemyStateMove@{CEnemyStateMove}}
+\doxysubsubsection{\texorpdfstring{OnUpdate()}{OnUpdate()}}
+{\footnotesize\ttfamily \label{class_c_enemy_state_move_a81fbffd65197d9b751688124a473db0a} 
+void CEnemy\+State\+Move\+::\+On\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_c_enemy_state_base}{CEnemy\+State\+Base}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+enemystatemove.\+h\item 
+enemystatemove.\+cpp\end{DoxyCompactItemize}

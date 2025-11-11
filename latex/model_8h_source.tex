@@ -1,0 +1,75 @@
+\doxysection{model.\+h}
+\hypertarget{model_8h_source}{}\label{model_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//====================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ モデル処理\ [\ model.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=====================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once\ }}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ モデルクラスの定義}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }CModel}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{comment}{//\ パーツのソstring^イプ列挙圭string^}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{enum}\ PARTTYPE}
+\DoxyCodeLine{00024\ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ PARTTYPE\_NONE,\ \textcolor{comment}{//\ 何も種類を設定しない時}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ PARTTYPE\_HEAD,\ \textcolor{comment}{//\ 頭}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ PARTTYPE\_CHEST,\ \textcolor{comment}{//\ 体}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ PARTTYPE\_LEFT\_HAND,\ \textcolor{comment}{//\ 左腕}}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ PARTTYPE\_RIGHT\_HAND,\textcolor{comment}{//\ 右腕}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ PARTTYPE\_LEFT\_LEG,\ \textcolor{comment}{//左足}}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ PARTTYPE\_RIGHT\_LEG,\textcolor{comment}{//\ 右足}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ PARTTYPE\_WEAPON,\textcolor{comment}{//\ 武器}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ PARTTYPE\_MAX}
+\DoxyCodeLine{00034\ \ \ \ \ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ CModel();}
+\DoxyCodeLine{00037\ \ \ \ \ \string~CModel();}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ HRESULT\ Init(D3DXVECTOR3\ pos,\ D3DXVECTOR3\ rot,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ pFilename);}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ Draw(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ SetParent(CModel*\ pModel);}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ SetPos(D3DXVECTOR3\ pos)\ \{\ m\_pos\ =\ pos;\ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRot(D3DXVECTOR3\ rot)\ \{\ m\_rot\ =\ rot;\ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ OffSetPos(D3DXVECTOR3\ offpos)\ \{\ m\_offPos\ =\ offpos;\ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ OffSetRot(D3DXVECTOR3\ offrot)\ \{\ m\_offRot\ =\ offrot;\ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ SetPartType(PARTTYPE\ nDestPartType)\ \{\ m\_parttype\ =\ nDestPartType;\ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ SetColorChange(\textcolor{keywordtype}{bool}\ isFlags)\ \{\ m\_isColorChange\ =\ isFlags;\ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ D3DXMATRIX\ GetMtxWorld(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_mtxworld;\ \}}
+\DoxyCodeLine{00053\ \ \ \ \ PARTTYPE\ GetPartType(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_parttype;\ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{static}\ CModel*\ Create(D3DXVECTOR3\ pos,\ D3DXVECTOR3\ rot,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ pFilename);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ D3DXVECTOR3\ m\_pos,\ m\_rot,m\_offPos,m\_offRot;\ \textcolor{comment}{//\ 座標,角度}}
+\DoxyCodeLine{00060\ \ \ \ \ D3DXMATRIX\ m\_mtxworld;\ \ \ \ \textcolor{comment}{//\ ワールドソ}トリックス}}
+\DoxyCodeLine{00061\ \ \ \ \ CModel*\ m\_pParent;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 親モデル}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ LPD3DXMESH\ m\_pMesh;\ \ \ \ \ \textcolor{comment}{//\ メッシュ情報}}
+\DoxyCodeLine{00064\ \ \ \ \ LPD3DXBUFFER\ m\_pBuffMat;\ \textcolor{comment}{//\ ソ}テリアル情報}}
+\DoxyCodeLine{00065\ \ \ \ \ DWORD\ m\_dwNumMat;\ \ \ \ \ \ \ \textcolor{comment}{//\ ソ}テリアル数}}
+\DoxyCodeLine{00066\ \ \ \ \ PARTTYPE\ m\_parttype;\ \ \ \ \textcolor{comment}{//\ モデルの種類}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{int}*\ m\_pTexture;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ テクスチャポインソstring^}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_isColorChange;\ \ \ \textcolor{comment}{//\ 変更かどうか}}
+\DoxyCodeLine{00070\ \};}
+
+\end{DoxyCode}

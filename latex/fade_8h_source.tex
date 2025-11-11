@@ -1,0 +1,67 @@
+\doxysection{fade.\+h}
+\hypertarget{fade_8h_source}{}\label{fade_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=====================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ フェード処理\ [\ fade.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=====================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ 前方宣言}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_scene}{CScene}};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ フェードクラスを定義}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }CFade}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{//\ 状態列挙圭string^}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{enum}\ FADE}
+\DoxyCodeLine{00034\ \ \ \ \ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ FADE\_NONE,\ \ \textcolor{comment}{//\ 何もない}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ FADE\_IN,\ \ \ \ \textcolor{comment}{//\ フェードイン}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ FADE\_OUT,\ \ \ \textcolor{comment}{//\ フェードアウト}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ FADE\_MAX}
+\DoxyCodeLine{00039\ \ \ \ \ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ CFade();}
+\DoxyCodeLine{00042\ \ \ \ \ \string~CFade();}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ HRESULT\ Init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ Draw(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00048\ \ \ \ \ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_c_fade_a532cccc0a54df02ed73e88f1b28701d6}{SetFade}}(std::unique\_ptr<CScene>\ pNewScene);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ FADE\ GetFade(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_fade;\ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ AlphaFade\ =\ 0.025f;\ \textcolor{comment}{//\ フェードで加算する値}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ LPDIRECT3DVERTEXBUFFER9\ m\_pVtx;\ \textcolor{comment}{//\ 頂貼_バッファ}}
+\DoxyCodeLine{00062\ \ \ \ \ D3DXCOLOR\ m\_col;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ポリゴンカラー}}
+\DoxyCodeLine{00063\ \ \ \ \ FADE\ m\_fade;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ フェードの列挙圭string^変数}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ std::unique\_ptr<CScene>\ m\_pScene;\ \ \ \textcolor{comment}{//\ シーンクラスポインソstring^}}
+\DoxyCodeLine{00066\ \};}
+
+\end{DoxyCode}

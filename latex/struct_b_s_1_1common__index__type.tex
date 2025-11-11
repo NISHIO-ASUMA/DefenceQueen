@@ -1,0 +1,38 @@
+\doxysection{BS\+::common\+\_\+index\+\_\+type\texorpdfstring{$<$}{<} T1, T2, Enable \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{struct_b_s_1_1common__index__type}{}\label{struct_b_s_1_1common__index__type}\index{BS::common\_index\_type$<$ T1, T2, Enable $>$@{BS::common\_index\_type$<$ T1, T2, Enable $>$}}
+
+
+A meta-\/programming template to determine the common type of two integer types. Unlike {\ttfamily std\+::common\+\_\+type}, this template maintains correct signedness.  
+
+
+
+
+{\ttfamily \#include $<$BS\+\_\+thread\+\_\+pool.\+hpp$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_b_s_1_1common__index__type_a86f983970db02966904a80dfa4964cd8}\label{struct_b_s_1_1common__index__type_a86f983970db02966904a80dfa4964cd8} 
+using {\bfseries type} = std\+::common\+\_\+type\+\_\+t$<$T1, T2$>$
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T1, typename T2, typename Enable = void$>$\newline
+struct BS\+::common\+\_\+index\+\_\+type$<$ T1, T2, Enable $>$}
+A meta-\/programming template to determine the common type of two integer types. Unlike {\ttfamily std\+::common\+\_\+type}, this template maintains correct signedness. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T1} & The first type. \\
+\hline
+{\em T2} & The second type. \\
+\hline
+{\em Enable} & A dummy parameter to enable SFINAE in specializations. \\
+\hline
+\end{DoxyTemplParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_b_s__thread__pool_8hpp}{BS\+\_\+thread\+\_\+pool.\+hpp}}\end{DoxyCompactItemize}

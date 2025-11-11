@@ -1,0 +1,85 @@
+\doxysection{BS\+::pr\+\_\+task Struct Reference}
+\hypertarget{struct_b_s_1_1pr__task}{}\label{struct_b_s_1_1pr__task}\index{BS::pr\_task@{BS::pr\_task}}
+
+
+A helper struct to store a task with an assigned priority.  
+
+
+
+
+{\ttfamily \#include $<$BS\+\_\+thread\+\_\+pool.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_b_s_1_1pr__task_a97bab2df6a6aca0777ab74dad63fad7d}{pr\+\_\+task}} (\mbox{\hyperlink{namespace_b_s_a9e1a9ca64721dc3d91b4cd169554811c}{task\+\_\+t}} \&\&task\+\_\+, const \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}} priority\+\_\+=0) noexcept(std\+::is\+\_\+nothrow\+\_\+move\+\_\+constructible\+\_\+v$<$ \mbox{\hyperlink{namespace_b_s_a9e1a9ca64721dc3d91b4cd169554811c}{task\+\_\+t}} $>$)
+\begin{DoxyCompactList}\small\item\em Construct a new task with an assigned priority. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_b_s_1_1pr__task_a38984e92c447e9885513c5ddcf10f187}\label{struct_b_s_1_1pr__task_a38984e92c447e9885513c5ddcf10f187} 
+\mbox{\hyperlink{namespace_b_s_a9e1a9ca64721dc3d91b4cd169554811c}{task\+\_\+t}} {\bfseries task}
+\begin{DoxyCompactList}\small\item\em The task. \end{DoxyCompactList}\item 
+\Hypertarget{struct_b_s_1_1pr__task_ae0e3f71256d26c988de3fa12c8a5858d}\label{struct_b_s_1_1pr__task_ae0e3f71256d26c988de3fa12c8a5858d} 
+\mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}} {\bfseries priority} = 0
+\begin{DoxyCompactList}\small\item\em The priority of the task. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{struct_b_s_1_1pr__task_a6048a69f954e28dc2ba825da76206353}{operator$<$}} (const \mbox{\hyperlink{struct_b_s_1_1pr__task}{pr\+\_\+task}} \&lhs, const \mbox{\hyperlink{struct_b_s_1_1pr__task}{pr\+\_\+task}} \&rhs) noexcept
+\begin{DoxyCompactList}\small\item\em Compare the priority of two tasks. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A helper struct to store a task with an assigned priority. 
+
+\label{doc-constructors}
+\Hypertarget{struct_b_s_1_1pr__task_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_b_s_1_1pr__task_a97bab2df6a6aca0777ab74dad63fad7d}\index{BS::pr\_task@{BS::pr\_task}!pr\_task@{pr\_task}}
+\index{pr\_task@{pr\_task}!BS::pr\_task@{BS::pr\_task}}
+\doxysubsubsection{\texorpdfstring{pr\_task()}{pr\_task()}}
+{\footnotesize\ttfamily \label{struct_b_s_1_1pr__task_a97bab2df6a6aca0777ab74dad63fad7d} 
+BS\+::pr\+\_\+task\+::pr\+\_\+task (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_b_s_a9e1a9ca64721dc3d91b4cd169554811c}{task\+\_\+t}} \&\&}]{task\+\_\+}{, }\item[{const \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}}}]{priority\+\_\+}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}, {\ttfamily [noexcept]}}
+
+
+
+Construct a new task with an assigned priority. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em task\+\_\+} & The task. \\
+\hline
+{\em priority\+\_\+} & The desired priority. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-related-members}
+\Hypertarget{struct_b_s_1_1pr__task_doc-related-members}
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{struct_b_s_1_1pr__task_a6048a69f954e28dc2ba825da76206353}\index{BS::pr\_task@{BS::pr\_task}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!BS::pr\_task@{BS::pr\_task}}
+\doxysubsubsection{\texorpdfstring{operator$<$}{operator<}}
+{\footnotesize\ttfamily \label{struct_b_s_1_1pr__task_a6048a69f954e28dc2ba825da76206353} 
+bool operator$<$ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_b_s_1_1pr__task}{pr\+\_\+task}} \&}]{lhs}{, }\item[{const \mbox{\hyperlink{struct_b_s_1_1pr__task}{pr\+\_\+task}} \&}]{rhs}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Compare the priority of two tasks. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lhs} & The first task. \\
+\hline
+{\em rhs} & The second task. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the first task has a lower priority than the second task, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_b_s__thread__pool_8hpp}{BS\+\_\+thread\+\_\+pool.\+hpp}}\end{DoxyCompactItemize}

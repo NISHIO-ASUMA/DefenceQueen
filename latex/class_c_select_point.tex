@@ -1,0 +1,97 @@
+\doxysection{CSelect\+Point Class Reference}
+\hypertarget{class_c_select_point}{}\label{class_c_select_point}\index{CSelectPoint@{CSelectPoint}}
+Inheritance diagram for CSelect\+Point\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_c_select_point}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_select_point_a5894bbc6229426e55f6d358fc51782e2}\label{class_c_select_point_a5894bbc6229426e55f6d358fc51782e2} 
+{\bfseries CSelect\+Point} (int n\+Priority=static\+\_\+cast$<$ int $>$(CObject\+::\+PRIORITY\+::\+MOVE3D))
+\item 
+HRESULT \mbox{\hyperlink{class_c_select_point_a706153a56d4eb14d34cad79e0a91f8bc}{Init}} (void) override
+\item 
+void \mbox{\hyperlink{class_c_select_point_ae0ad89bc7550724223bc572f5ea44176}{Uninit}} (void) override
+\item 
+void \mbox{\hyperlink{class_c_select_point_ab0bac6821c42eb9e2eaf1eacd10958f9}{Update}} (void) override
+\item 
+void \mbox{\hyperlink{class_c_select_point_ac6e2b64d526814a2e3a96dac7ffc0ed6}{Draw}} (void) override
+\item 
+\Hypertarget{class_c_select_point_a9e5674da0fad405c695e241a033fcb59}\label{class_c_select_point_a9e5674da0fad405c695e241a033fcb59} 
+void {\bfseries Moving} (void)
+\item 
+\Hypertarget{class_c_select_point_a0bbf3870fee78752c5f17de86923241d}\label{class_c_select_point_a0bbf3870fee78752c5f17de86923241d} 
+void {\bfseries Move\+Pad} (void)
+\item 
+\Hypertarget{class_c_select_point_ababa3c06ab98d7258ea0c69f490e2a14}\label{class_c_select_point_ababa3c06ab98d7258ea0c69f490e2a14} 
+void {\bfseries Setf\+Range} (float f\+Range)
+\item 
+\Hypertarget{class_c_select_point_aa5f43e3f4fdf8a14e066d195d8470364}\label{class_c_select_point_aa5f43e3f4fdf8a14e066d195d8470364} 
+bool {\bfseries Collision} (\mbox{\hyperlink{class_c_sphere_collider}{CSphere\+Collider}} \texorpdfstring{$\ast$}{*}other)
+\item 
+\Hypertarget{class_c_select_point_af0f01d97323d043682003aa899212ace}\label{class_c_select_point_af0f01d97323d043682003aa899212ace} 
+bool {\bfseries Collision\+Box} (\mbox{\hyperlink{class_c_box_collider}{CBox\+Collider}} \texorpdfstring{$\ast$}{*}pothere, D3\+DXVECTOR3 \texorpdfstring{$\ast$}{*}p\+Out\+Pos)
+\item 
+\Hypertarget{class_c_select_point_ab1ca6d233646e9056004a043c8c46c05}\label{class_c_select_point_ab1ca6d233646e9056004a043c8c46c05} 
+float {\bfseries Getf\+Range} (void) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_select_point_af5c056326fd151aa1ea1a69a7fea1992}\label{class_c_select_point_af5c056326fd151aa1ea1a69a7fea1992} 
+static \mbox{\hyperlink{class_c_select_point}{CSelect\+Point}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (const D3\+DXVECTOR3 pos, const D3\+DXVECTOR3 rot, const float f\+Width, const float f\+Height, const float f\+Radius)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_c_select_point_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_c_select_point_ac6e2b64d526814a2e3a96dac7ffc0ed6}\index{CSelectPoint@{CSelectPoint}!Draw@{Draw}}
+\index{Draw@{Draw}!CSelectPoint@{CSelectPoint}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily \label{class_c_select_point_ac6e2b64d526814a2e3a96dac7ffc0ed6} 
+void CSelect\+Point\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_c_move3_d_object}{CMove3\+DObject}}.
+
+\Hypertarget{class_c_select_point_a706153a56d4eb14d34cad79e0a91f8bc}\index{CSelectPoint@{CSelectPoint}!Init@{Init}}
+\index{Init@{Init}!CSelectPoint@{CSelectPoint}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily \label{class_c_select_point_a706153a56d4eb14d34cad79e0a91f8bc} 
+HRESULT CSelect\+Point\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_c_move3_d_object}{CMove3\+DObject}}.
+
+\Hypertarget{class_c_select_point_ae0ad89bc7550724223bc572f5ea44176}\index{CSelectPoint@{CSelectPoint}!Uninit@{Uninit}}
+\index{Uninit@{Uninit}!CSelectPoint@{CSelectPoint}}
+\doxysubsubsection{\texorpdfstring{Uninit()}{Uninit()}}
+{\footnotesize\ttfamily \label{class_c_select_point_ae0ad89bc7550724223bc572f5ea44176} 
+void CSelect\+Point\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_c_move3_d_object}{CMove3\+DObject}}.
+
+\Hypertarget{class_c_select_point_ab0bac6821c42eb9e2eaf1eacd10958f9}\index{CSelectPoint@{CSelectPoint}!Update@{Update}}
+\index{Update@{Update}!CSelectPoint@{CSelectPoint}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_c_select_point_ab0bac6821c42eb9e2eaf1eacd10958f9} 
+void CSelect\+Point\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_c_move3_d_object}{CMove3\+DObject}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+selectpoint.\+h\item 
+selectpoint.\+cpp\end{DoxyCompactItemize}

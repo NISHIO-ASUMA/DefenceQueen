@@ -1,0 +1,105 @@
+\doxysection{CArray\+Manager Class Reference}
+\hypertarget{class_c_array_manager}{}\label{class_c_array_manager}\index{CArrayManager@{CArrayManager}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_array_manager_a4ad674a28fd0d60125a1e752b8ae7413}\label{class_c_array_manager_a4ad674a28fd0d60125a1e752b8ae7413} 
+HRESULT {\bfseries Init} (const int n\+Actives)
+\item 
+\Hypertarget{class_c_array_manager_a32104441fec3c97ba867d102a9b9a9bd}\label{class_c_array_manager_a32104441fec3c97ba867d102a9b9a9bd} 
+void {\bfseries Uninit} (void)
+\item 
+\Hypertarget{class_c_array_manager_a75a68c50294594c63e450e8b4596ff8f}\label{class_c_array_manager_a75a68c50294594c63e450e8b4596ff8f} 
+void {\bfseries Update} (void)
+\item 
+\Hypertarget{class_c_array_manager_accacaced10e28680ad71cc903b1ffbf9}\label{class_c_array_manager_accacaced10e28680ad71cc903b1ffbf9} 
+void {\bfseries Draw} (void)
+\item 
+\Hypertarget{class_c_array_manager_a7f31b749aafb3cc5d43aa4d95d15f627}\label{class_c_array_manager_a7f31b749aafb3cc5d43aa4d95d15f627} 
+int {\bfseries Get\+Use\+Array} (void)
+\item 
+void \mbox{\hyperlink{class_c_array_manager_a43983be9daa73cd207425e0af9b66a48}{Spawn}} (const D3\+DXVECTOR3 pos, const D3\+DXVECTOR3 rot, int n\+Life, const int n\+Num\+Spawn)
+\begin{DoxyCompactList}\small\item\em 仲間を出現させる関数 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_c_array_manager_a4ac97fba44cb2c69c85432bf734d06a1}{Get\+All}} (void)
+\begin{DoxyCompactList}\small\item\em 配列の要素数を取得する \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_c_array}{CArray}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_c_array_manager_af3b3214dcfb66680160be9a4f423011b}{Get\+Arrays}} (const int n\+Idx)
+\begin{DoxyCompactList}\small\item\em 配列の要素番号から取得 \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_c_array}{CArray}} \texorpdfstring{$\ast$}{*} $>$ \& \mbox{\hyperlink{class_c_array_manager_a9c16005b94ce4be76373f9db05878768}{Get\+Array}} (void)
+\begin{DoxyCompactList}\small\item\em 動貼+I配列曾+S体を取得する \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_c_array_manager_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_c_array_manager_a4ac97fba44cb2c69c85432bf734d06a1}\index{CArrayManager@{CArrayManager}!GetAll@{GetAll}}
+\index{GetAll@{GetAll}!CArrayManager@{CArrayManager}}
+\doxysubsubsection{\texorpdfstring{GetAll()}{GetAll()}}
+{\footnotesize\ttfamily \label{class_c_array_manager_a4ac97fba44cb2c69c85432bf734d06a1} 
+int CArray\+Manager\+::\+Get\+All (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+配列の要素数を取得する 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\Hypertarget{class_c_array_manager_a9c16005b94ce4be76373f9db05878768}\index{CArrayManager@{CArrayManager}!GetArray@{GetArray}}
+\index{GetArray@{GetArray}!CArrayManager@{CArrayManager}}
+\doxysubsubsection{\texorpdfstring{GetArray()}{GetArray()}}
+{\footnotesize\ttfamily \label{class_c_array_manager_a9c16005b94ce4be76373f9db05878768} 
+std\+::vector$<$ \mbox{\hyperlink{class_c_array}{CArray}} \texorpdfstring{$\ast$}{*} $>$ \& CArray\+Manager\+::\+Get\+Array (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+動貼+I配列曾+S体を取得する 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\Hypertarget{class_c_array_manager_af3b3214dcfb66680160be9a4f423011b}\index{CArrayManager@{CArrayManager}!GetArrays@{GetArrays}}
+\index{GetArrays@{GetArrays}!CArrayManager@{CArrayManager}}
+\doxysubsubsection{\texorpdfstring{GetArrays()}{GetArrays()}}
+{\footnotesize\ttfamily \label{class_c_array_manager_af3b3214dcfb66680160be9a4f423011b} 
+\mbox{\hyperlink{class_c_array}{CArray}} \texorpdfstring{$\ast$}{*} CArray\+Manager\+::\+Get\+Arrays (\begin{DoxyParamCaption}\item[{const int}]{n\+Idx}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+配列の要素番号から取得 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+Idx} & 取得したい番号\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\Hypertarget{class_c_array_manager_a43983be9daa73cd207425e0af9b66a48}\index{CArrayManager@{CArrayManager}!Spawn@{Spawn}}
+\index{Spawn@{Spawn}!CArrayManager@{CArrayManager}}
+\doxysubsubsection{\texorpdfstring{Spawn()}{Spawn()}}
+{\footnotesize\ttfamily \label{class_c_array_manager_a43983be9daa73cd207425e0af9b66a48} 
+void CArray\+Manager\+::\+Spawn (\begin{DoxyParamCaption}\item[{const D3\+DXVECTOR3}]{pos}{, }\item[{const D3\+DXVECTOR3}]{rot}{, }\item[{int}]{n\+Life}{, }\item[{const int}]{n\+Num\+Spawn}{}\end{DoxyParamCaption})}
+
+
+
+仲間を出現させる関数 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & 出現座標\\
+\hline
+{\em rot} & 出現時の角度\\
+\hline
+{\em n\+Life} & 体力値\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+arraymanager.\+h\item 
+arraymanager.\+cpp\end{DoxyCompactItemize}

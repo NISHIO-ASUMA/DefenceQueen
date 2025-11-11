@@ -1,0 +1,121 @@
+\doxysection{BS\+::blocks\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_b_s_1_1blocks}{}\label{class_b_s_1_1blocks}\index{BS::blocks$<$ T $>$@{BS::blocks$<$ T $>$}}
+
+
+A helper class to divide a range into blocks. Used by {\ttfamily detach\+\_\+blocks()}, {\ttfamily submit\+\_\+blocks()}, {\ttfamily detach\+\_\+loop()}, and {\ttfamily submit\+\_\+loop()}.  
+
+
+
+
+{\ttfamily \#include $<$BS\+\_\+thread\+\_\+pool.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_b_s_1_1blocks_af924f6a66d201d658a1827174d12f65a}{blocks}} (const T first\+\_\+index\+\_\+, const T index\+\_\+after\+\_\+last\+\_\+, const std\+::size\+\_\+t num\+\_\+blocks\+\_\+) noexcept
+\begin{DoxyCompactList}\small\item\em Construct a {\ttfamily blocks} object with the given specifications. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{class_b_s_1_1blocks_a6cdeada652e9ed38b65ac267627aa2c6}{end}} (const std\+::size\+\_\+t block) const noexcept
+\begin{DoxyCompactList}\small\item\em Get the index after the last index of a block. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \mbox{\hyperlink{class_b_s_1_1blocks_a6de6cf97678baf5a24be4a568d402bfe}{get\+\_\+num\+\_\+blocks}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the number of blocks. Note that this may be different than the desired number of blocks that was passed to the constructor. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{class_b_s_1_1blocks_a0f268e61097b86a9092fc1a4e573f395}{start}} (const std\+::size\+\_\+t block) const noexcept
+\begin{DoxyCompactList}\small\item\em Get the first index of a block. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class BS\+::blocks$<$ T $>$}
+A helper class to divide a range into blocks. Used by {\ttfamily detach\+\_\+blocks()}, {\ttfamily submit\+\_\+blocks()}, {\ttfamily detach\+\_\+loop()}, and {\ttfamily submit\+\_\+loop()}. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type of the indices. Should be a signed or unsigned integer. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\label{doc-constructors}
+\Hypertarget{class_b_s_1_1blocks_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_b_s_1_1blocks_af924f6a66d201d658a1827174d12f65a}\index{BS::blocks$<$ T $>$@{BS::blocks$<$ T $>$}!blocks@{blocks}}
+\index{blocks@{blocks}!BS::blocks$<$ T $>$@{BS::blocks$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{blocks()}{blocks()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1blocks_af924f6a66d201d658a1827174d12f65a} 
+template$<$typename T$>$ \\
+\mbox{\hyperlink{class_b_s_1_1blocks}{BS\+::blocks}}$<$ T $>$\+::blocks (\begin{DoxyParamCaption}\item[{const T}]{first\+\_\+index\+\_\+}{, }\item[{const T}]{index\+\_\+after\+\_\+last\+\_\+}{, }\item[{const std\+::size\+\_\+t}]{num\+\_\+blocks\+\_\+}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Construct a {\ttfamily blocks} object with the given specifications. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em first\+\_\+index\+\_\+} & The first index in the range. \\
+\hline
+{\em index\+\_\+after\+\_\+last\+\_\+} & The index after the last index in the range. \\
+\hline
+{\em num\+\_\+blocks\+\_\+} & The desired number of blocks to divide the range into. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_b_s_1_1blocks_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_b_s_1_1blocks_a6cdeada652e9ed38b65ac267627aa2c6}\index{BS::blocks$<$ T $>$@{BS::blocks$<$ T $>$}!end@{end}}
+\index{end@{end}!BS::blocks$<$ T $>$@{BS::blocks$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1blocks_a6cdeada652e9ed38b65ac267627aa2c6} 
+template$<$typename T$>$ \\
+T \mbox{\hyperlink{class_b_s_1_1blocks}{BS\+::blocks}}$<$ T $>$\+::end (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t}]{block}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}, {\ttfamily [noexcept]}}
+
+
+
+Get the index after the last index of a block. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em block} & The block number. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index after the last index. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1blocks_a6de6cf97678baf5a24be4a568d402bfe}\index{BS::blocks$<$ T $>$@{BS::blocks$<$ T $>$}!get\_num\_blocks@{get\_num\_blocks}}
+\index{get\_num\_blocks@{get\_num\_blocks}!BS::blocks$<$ T $>$@{BS::blocks$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_num\_blocks()}{get\_num\_blocks()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1blocks_a6de6cf97678baf5a24be4a568d402bfe} 
+template$<$typename T$>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{class_b_s_1_1blocks}{BS\+::blocks}}$<$ T $>$\+::get\+\_\+num\+\_\+blocks (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}, {\ttfamily [noexcept]}}
+
+
+
+Get the number of blocks. Note that this may be different than the desired number of blocks that was passed to the constructor. 
+
+\begin{DoxyReturn}{Returns}
+The number of blocks. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1blocks_a0f268e61097b86a9092fc1a4e573f395}\index{BS::blocks$<$ T $>$@{BS::blocks$<$ T $>$}!start@{start}}
+\index{start@{start}!BS::blocks$<$ T $>$@{BS::blocks$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1blocks_a0f268e61097b86a9092fc1a4e573f395} 
+template$<$typename T$>$ \\
+T \mbox{\hyperlink{class_b_s_1_1blocks}{BS\+::blocks}}$<$ T $>$\+::start (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t}]{block}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}, {\ttfamily [noexcept]}}
+
+
+
+Get the first index of a block. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em block} & The block number. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The first index. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_b_s__thread__pool_8hpp}{BS\+\_\+thread\+\_\+pool.\+hpp}}\end{DoxyCompactItemize}

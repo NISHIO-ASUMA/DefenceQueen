@@ -1,0 +1,1693 @@
+\doxysection{BS\+\_\+thread\+\_\+pool.\+hpp}
+\hypertarget{_b_s__thread__pool_8hpp_source}{}\label{_b_s__thread__pool_8hpp_source}\mbox{\hyperlink{_b_s__thread__pool_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifndef\ BS\_THREAD\_POOL\_HPP}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ BS\_THREAD\_POOL\_HPP}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ We\ need\ to\ include\ <version>\ since\ if\ we're\ using\ \`{}import\ std`\ it\ will\ not\ define\ any\ feature-\/test\ macros,\ including\ \`{}\_\_cpp\_lib\_modules`,\ which\ we\ need\ to\ check\ if\ \`{}import\ std`\ is\ supported\ in\ the\ first\ place.}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#ifdef\ \_\_has\_include}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\ \ \ \ \#if\ \_\_has\_include(<version>)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <version>}\ \textcolor{comment}{//\ NOLINT(misc-\/include-\/cleaner)}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ If\ the\ macro\ \`{}BS\_THREAD\_POOL\_IMPORT\_STD`\ is\ defined,\ import\ the\ C++\ Standard\ Library\ as\ a\ module.\ Otherwise,\ include\ the\ relevant\ Standard\ Library\ header\ files.\ This\ is\ currently\ only\ officially\ supported\ by\ MSVC\ with\ Microsoft\ STL\ and\ LLVM\ Clang\ (NOT\ Apple\ Clang)\ with\ LLVM\ libc++.\ It\ is\ not\ supported\ by\ GCC\ with\ any\ standard\ library,\ or\ any\ compiler\ with\ GNU\ libstdc++.\ We\ also\ check\ that\ the\ feature\ is\ enabled\ by\ checking\ \`{}\_\_cpp\_lib\_modules`.\ However,\ MSVC\ defines\ this\ macro\ even\ in\ C++20\ mode,\ which\ is\ not\ standards-\/compliant,\ so\ we\ check\ that\ we\ are\ in\ C++23\ mode;\ MSVC\ currently\ reports\ \`{}\_\_cplusplus`\ as\ \`{}202004L`\ for\ C++23\ mode,\ so\ we\ use\ that\ value.}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#if\ defined(BS\_THREAD\_POOL\_IMPORT\_STD)\ \&\&\ defined(\_\_cpp\_lib\_modules)\ \&\&\ (\_\_cplusplus\ >=\ 202004L)\ \&\&\ (defined(\_MSC\_VER)\ ||\ (defined(\_\_clang\_\_)\ \&\&\ defined(\_LIBCPP\_VERSION)\ \&\&\ !defined(\_\_apple\_build\_version\_\_)))}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{//\ Only\ allow\ importing\ the\ \`{}std`\ module\ if\ the\ library\ itself\ is\ imported\ as\ a\ module.\ If\ the\ library\ is\ included\ as\ a\ header\ file,\ this\ will\ force\ the\ program\ that\ included\ the\ header\ file\ to\ also\ import\ \`{}std`,\ which\ is\ not\ desirable\ and\ can\ lead\ to\ compilation\ errors\ if\ the\ program\ \`{}\#include`s\ any\ Standard\ Library\ header\ files.}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ BS\_THREAD\_POOL\_MODULE}}
+\DoxyCodeLine{00031\ \textcolor{keyword}{import}\ std;}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#error\ "{}The\ thread\ pool\ library\ cannot\ import\ the\ C++\ Standard\ Library\ as\ a\ module\ using\ \`{}import\ std`\ if\ the\ library\ itself\ is\ not\ imported\ as\ a\ module.\ Either\ use\ \`{}import\ BS.thread\_pool`\ to\ import\ the\ libary,\ or\ remove\ the\ \`{}BS\_THREAD\_POOL\_IMPORT\_STD`\ macro.\ Aborting\ compilation."{}}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\ \ \ \ \#undef\ BS\_THREAD\_POOL\_IMPORT\_STD}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\ \ \ \ \#include\ <algorithm>}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\ \ \ \ \#include\ <chrono>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\ \ \ \ \#include\ <condition\_variable>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\ \ \ \ \#include\ <cstddef>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\ \ \ \ \#include\ <cstdint>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\ \ \ \ \#include\ <functional>}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ \ \ \#include\ <future>}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\ \ \ \ \#include\ <iostream>}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\ \ \ \ \#include\ <limits>}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\ \ \ \ \#include\ <memory>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\ \ \ \ \#include\ <mutex>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\ \ \ \ \#include\ <optional>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\ \ \ \ \#include\ <queue>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\ \ \ \ \#include\ <string>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\ \ \ \ \#include\ <thread>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\ \ \ \ \#include\ <tuple>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\ \ \ \ \#include\ <type\_traits>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\ \ \ \ \#include\ <utility>}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ \ \ \#include\ <variant>}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\ \ \ \ \#include\ <vector>}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_\_cpp\_concepts}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <concepts>}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_\_cpp\_exceptions}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <exception>}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <stdexcept>}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_\_cpp\_impl\_three\_way\_comparison}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <compare>}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_\_cpp\_lib\_int\_pow2}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <bit>}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_\_cpp\_lib\_semaphore}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <semaphore>}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_\_cpp\_lib\_jthread}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <stop\_token>}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#ifdef\ BS\_THREAD\_POOL\_NATIVE\_EXTENSIONS}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(\_WIN32)}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <windows.h>}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#undef\ min}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#undef\ max}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_linux\_\_)\ ||\ defined(\_\_APPLE\_\_)}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <pthread.h>}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <sched.h>}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <sys/resource.h>}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <unistd.h>}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#if\ defined(\_\_linux\_\_)}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#include\ <sys/syscall.h>}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#include\ <sys/sysinfo.h>}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#undef\ BS\_THREAD\_POOL\_NATIVE\_EXTENSIONS}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#if\ defined(\_\_linux\_\_)}}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{comment}{//\ On\ Linux,\ <sys/sysmacros.h>\ defines\ macros\ called\ \`{}major`\ and\ \`{}minor`.\ We\ undefine\ them\ here\ so\ the\ \`{}version`\ struct\ can\ work.}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ major}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#undef\ major}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ minor}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#undef\ minor}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00112\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_b_s}{BS}}\ \{}
+\DoxyCodeLine{00113\ \textcolor{comment}{//\ Macros\ indicating\ the\ version\ of\ the\ thread\ pool\ library.}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ BS\_THREAD\_POOL\_VERSION\_MAJOR\ 5}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ BS\_THREAD\_POOL\_VERSION\_MINOR\ 0}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ BS\_THREAD\_POOL\_VERSION\_PATCH\ 0}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00121\ \textcolor{keyword}{struct\ }version}
+\DoxyCodeLine{00122\ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{constexpr}\ version(\textcolor{keyword}{const}\ std::uint64\_t\ major\_,\ \textcolor{keyword}{const}\ std::uint64\_t\ minor\_,\ \textcolor{keyword}{const}\ std::uint64\_t\ patch\_)\ noexcept\ :\ major(major\_),\ minor(minor\_),\ patch(patch\_)\ \{\}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{comment}{//\ In\ C++20\ and\ later\ we\ can\ use\ the\ spaceship\ operator\ \`{}<=>`\ to\ automatically\ generate\ comparison\ operators.\ In\ C++17\ we\ have\ to\ define\ them\ manually.}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#ifdef\ \_\_cpp\_impl\_three\_way\_comparison}}
+\DoxyCodeLine{00127\ \ \ \ \ std::strong\_ordering\ operator<=>(\textcolor{keyword}{const}\ version\&)\ \textcolor{keyword}{const}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00129\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ version\&\ lhs,\ \textcolor{keyword}{const}\ version\&\ rhs)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00130\ \ \ \ \ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::tuple(lhs.major,\ lhs.minor,\ lhs.patch)\ ==\ std::tuple(rhs.major,\ rhs.minor,\ rhs.patch);}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ version\&\ lhs,\ \textcolor{keyword}{const}\ version\&\ rhs)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00135\ \ \ \ \ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !(lhs\ ==\ rhs);}
+\DoxyCodeLine{00137\ \ \ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ operator<(\textcolor{keyword}{const}\ version\&\ lhs,\ \textcolor{keyword}{const}\ version\&\ rhs)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00140\ \ \ \ \ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::tuple(lhs.major,\ lhs.minor,\ lhs.patch)\ <\ std::tuple(rhs.major,\ rhs.minor,\ rhs.patch);}
+\DoxyCodeLine{00142\ \ \ \ \ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ operator>=(\textcolor{keyword}{const}\ version\&\ lhs,\ \textcolor{keyword}{const}\ version\&\ rhs)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00145\ \ \ \ \ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !(lhs\ <\ rhs);}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ operator>(\textcolor{keyword}{const}\ version\&\ lhs,\ \textcolor{keyword}{const}\ version\&\ rhs)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00150\ \ \ \ \ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::tuple(lhs.major,\ lhs.minor,\ lhs.patch)\ >\ std::tuple(rhs.major,\ rhs.minor,\ rhs.patch);}
+\DoxyCodeLine{00152\ \ \ \ \ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ operator<=(\textcolor{keyword}{const}\ version\&\ lhs,\ \textcolor{keyword}{const}\ version\&\ rhs)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00155\ \ \ \ \ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !(lhs\ >\ rhs);}
+\DoxyCodeLine{00157\ \ \ \ \ \}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ [[nodiscard]]\ std::string\ to\_string()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00161\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::to\_string(major)\ +\ \textcolor{charliteral}{'.'}\ +\ std::to\_string(minor)\ +\ \textcolor{charliteral}{'.'}\ +\ std::to\_string(patch);}
+\DoxyCodeLine{00163\ \ \ \ \ \}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keyword}{friend}\ std::ostream\&\ operator<<(std::ostream\&\ stream,\ \textcolor{keyword}{const}\ version\&\ ver)}
+\DoxyCodeLine{00166\ \ \ \ \ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ stream\ <<\ ver.to\_string();}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ stream;}
+\DoxyCodeLine{00169\ \ \ \ \ \}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \ \ std::uint64\_t\ major;}
+\DoxyCodeLine{00172\ \ \ \ \ std::uint64\_t\ minor;}
+\DoxyCodeLine{00173\ \ \ \ \ std::uint64\_t\ patch;}
+\DoxyCodeLine{00174\ \};\ \textcolor{comment}{//\ struct\ version}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00179\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{struct_b_s_1_1version}{version}}\ \mbox{\hyperlink{namespace_b_s_a85e13778681b2b0568573878be6bb9c0}{thread\_pool\_version}}(BS\_THREAD\_POOL\_VERSION\_MAJOR,\ BS\_THREAD\_POOL\_VERSION\_MINOR,\ BS\_THREAD\_POOL\_VERSION\_PATCH);}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#ifdef\ BS\_THREAD\_POOL\_MODULE}}
+\DoxyCodeLine{00182\ \textcolor{comment}{//\ If\ the\ library\ is\ being\ compiled\ as\ a\ module,\ ensure\ that\ the\ version\ of\ the\ module\ file\ matches\ the\ version\ of\ the\ header\ file.}}
+\DoxyCodeLine{00183\ \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{namespace_b_s_a85e13778681b2b0568573878be6bb9c0}{thread\_pool\_version}}\ ==\ \mbox{\hyperlink{struct_b_s_1_1version}{version}}(BS\_THREAD\_POOL\_MODULE),\ \textcolor{stringliteral}{"{}The\ versions\ of\ BS.thread\_pool.cppm\ and\ BS\_thread\_pool.hpp\ do\ not\ match.\ Aborting\ compilation."{}});}
+\DoxyCodeLine{00187\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespace_b_s_abc740f614d24db948d62294c5659164e}{thread\_pool\_module}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#else}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00192\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespace_b_s_abc740f614d24db948d62294c5659164e}{thread\_pool\_module}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#ifdef\ BS\_THREAD\_POOL\_IMPORT\_STD}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00199\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespace_b_s_a5cfadc3ce492f3f09b9041110ecfc60f}{thread\_pool\_import\_std}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#else}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00204\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespace_b_s_a5cfadc3ce492f3f09b9041110ecfc60f}{thread\_pool\_import\_std}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#ifdef\ BS\_THREAD\_POOL\_NATIVE\_EXTENSIONS}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00211\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespace_b_s_a3722a3a72050933a66db029945b286e7}{thread\_pool\_native\_extensions}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#else}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00216\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespace_b_s_a3722a3a72050933a66db029945b286e7}{thread\_pool\_native\_extensions}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00222\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\_t}}\ =\ std::uint8\_t;}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \textcolor{keyword}{template}\ <opt\_t>}
+\DoxyCodeLine{00225\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\_pool}};}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#ifdef\ \_\_cpp\_lib\_move\_only\_function}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00231\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ S>}
+\DoxyCodeLine{00232\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_b_s_a4bcabd6b92fd5013c66b79852b400db2}{function\_t}}\ =\ std::move\_only\_function<S...>;}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#else}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00237\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ S>}
+\DoxyCodeLine{00238\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_b_s_a4bcabd6b92fd5013c66b79852b400db2}{function\_t}}\ =\ std::function<S...>;}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00244\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_b_s_a9e1a9ca64721dc3d91b4cd169554811c}{task\_t}}\ =\ \mbox{\hyperlink{namespace_b_s_a4bcabd6b92fd5013c66b79852b400db2}{function\_t}}<void()>;}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#ifdef\ \_\_cpp\_lib\_jthread}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00250\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_b_s_ab329e1169fc4aed7732b2fedab26320e}{thread\_t}}\ =\ std::jthread;}
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{comment}{//\ The\ following\ macros\ are\ used\ to\ determine\ how\ to\ stop\ the\ workers.\ In\ C++20\ and\ later\ we\ can\ use\ \`{}std::stop\_token`.}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\ \ \ \ \#define\ BS\_THREAD\_POOL\_WORKER\_TOKEN\ const\ std::stop\_token\ \&stop\_token,}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\ \ \ \ \#define\ BS\_THREAD\_POOL\_WAIT\_TOKEN\ ,\ stop\_token}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\ \ \ \ \#define\ BS\_THREAD\_POOL\_STOP\_CONDITION\ stop\_token.stop\_requested()}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\ \ \ \ \#define\ BS\_THREAD\_POOL\_OR\_STOP\_CONDITION}}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\#else}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00260\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_b_s_ab329e1169fc4aed7732b2fedab26320e}{thread\_t}}\ =\ std::thread;}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{comment}{//\ The\ following\ macros\ are\ used\ to\ determine\ how\ to\ stop\ the\ workers.\ In\ C++17\ we\ use\ a\ manual\ flag\ \`{}workers\_running`.}}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\ \ \ \ \#define\ BS\_THREAD\_POOL\_WORKER\_TOKEN}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\ \ \ \ \#define\ BS\_THREAD\_POOL\_WAIT\_TOKEN}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\ \ \ \ \#define\ BS\_THREAD\_POOL\_STOP\_CONDITION\ !workers\_running}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\ \ \ \ \#define\ BS\_THREAD\_POOL\_OR\_STOP\_CONDITION\ ||\ !workers\_running}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00271\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\_t}}\ =\ std::int8\_t;}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00276\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{namespace_b_s_ac89368bfe4f0631f4182d7b307317b0b}{pr}}\ :\ \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\_t}}}
+\DoxyCodeLine{00277\ \{}
+\DoxyCodeLine{00278\ \ \ \ \ lowest\ =\ -\/128,}
+\DoxyCodeLine{00279\ \ \ \ \ low\ =\ -\/64,}
+\DoxyCodeLine{00280\ \ \ \ \ normal\ =\ 0,}
+\DoxyCodeLine{00281\ \ \ \ \ high\ =\ +64,}
+\DoxyCodeLine{00282\ \ \ \ \ highest\ =\ +127}
+\DoxyCodeLine{00283\ \};}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00288\ \textcolor{keyword}{struct\ }[[nodiscard]]\ \mbox{\hyperlink{struct_b_s_1_1pr__task_a97bab2df6a6aca0777ab74dad63fad7d}{pr\_task}}}
+\DoxyCodeLine{00289\ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{struct_b_s_1_1pr__task_a97bab2df6a6aca0777ab74dad63fad7d}{pr\_task}}(\mbox{\hyperlink{namespace_b_s_a9e1a9ca64721dc3d91b4cd169554811c}{task\_t}}\&\&\ task\_,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\_t}}\ priority\_\ =\ 0)\ noexcept(std::is\_nothrow\_move\_constructible\_v<\mbox{\hyperlink{namespace_b_s_a9e1a9ca64721dc3d91b4cd169554811c}{task\_t}}>)\ :\ \mbox{\hyperlink{struct_b_s_1_1pr__task_a38984e92c447e9885513c5ddcf10f187}{task}}(std::move(task\_)),\ \mbox{\hyperlink{struct_b_s_1_1pr__task_ae0e3f71256d26c988de3fa12c8a5858d}{priority}}(priority\_)\ \{\}}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00305\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_b_s_1_1pr__task_a6048a69f954e28dc2ba825da76206353}{operator<}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_b_s_1_1pr__task_a97bab2df6a6aca0777ab74dad63fad7d}{pr\_task}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_b_s_1_1pr__task_a97bab2df6a6aca0777ab74dad63fad7d}{pr\_task}}\&\ rhs)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00306\ \ \ \ \ \{}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ lhs.priority\ <\ rhs.priority;}
+\DoxyCodeLine{00308\ \ \ \ \ \}}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00313\ \ \ \ \ \mbox{\hyperlink{namespace_b_s_a9e1a9ca64721dc3d91b4cd169554811c}{task\_t}}\ \mbox{\hyperlink{struct_b_s_1_1pr__task_a38984e92c447e9885513c5ddcf10f187}{task}};}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00318\ \ \ \ \ \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\_t}}\ \mbox{\hyperlink{struct_b_s_1_1pr__task_ae0e3f71256d26c988de3fa12c8a5858d}{priority}}\ =\ 0;}
+\DoxyCodeLine{00319\ \};\ \textcolor{comment}{//\ struct\ pr\_task}}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \textcolor{comment}{//\ In\ C++20\ and\ later\ we\ can\ use\ concepts.\ In\ C++17\ we\ instead\ use\ SFINAE\ ("{}Substitution\ Failure\ Is\ Not\ An\ Error"{})\ with\ \`{}std::enable\_if\_t`.}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#ifdef\ \_\_cpp\_concepts}}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\ \ \ \ \#define\ BS\_THREAD\_POOL\_IF\_PAUSE\_ENABLED\ template\ <bool\ P\ =\ pause\_enabled>\ requires(P)}}
+\DoxyCodeLine{00324\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{00325\ \textcolor{keyword}{concept\ }init\_func\_c\ =\ std::invocable<F>\ ||\ std::invocable<F,\ std::size\_t>;}
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\ \ \ \ \#define\ BS\_THREAD\_POOL\_INIT\_FUNC\_CONCEPT(F)\ init\_func\_c\ F}}
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\ \ \ \ \#define\ BS\_THREAD\_POOL\_IF\_PAUSE\_ENABLED\ template\ <bool\ P\ =\ pause\_enabled,\ typename\ =\ std::enable\_if\_t<P>>}}
+\DoxyCodeLine{00329\ \textcolor{preprocessor}{\ \ \ \ \#define\ BS\_THREAD\_POOL\_INIT\_FUNC\_CONCEPT(F)\ typename\ F,\ typename\ =\ std::enable\_if\_t<std::is\_invocable\_v<F>\ ||\ std::is\_invocable\_v<F,\ std::size\_t>>\ }\textcolor{comment}{//\ NOLINT(bugprone-\/macro-\/parentheses)}}
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00337\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00338\ \textcolor{keyword}{class\ }[[nodiscard]]\ \mbox{\hyperlink{class_b_s_1_1multi__future}{multi\_future}}\ :\ \textcolor{keyword}{public}\ std::vector<std::future<T>>}
+\DoxyCodeLine{00339\ \{}
+\DoxyCodeLine{00340\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00341\ \ \ \ \ \textcolor{comment}{//\ Inherit\ all\ constructors\ from\ the\ base\ class\ \`{}std::vector`.}}
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{keyword}{using\ }std::vector<std::future<T>>::vector;}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00349\ \ \ \ \ [[nodiscard]]\ std::conditional\_t<std::is\_void\_v<T>,\ void,\ std::vector<T>>\ \mbox{\hyperlink{class_b_s_1_1multi__future_ad2b19061c7db1d50a35858e17dcd2268}{get}}()}
+\DoxyCodeLine{00350\ \ \ \ \ \{}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_void\_v<T>)}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::future<T>\&\ future\ :\ *\textcolor{keyword}{this})}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ future.get();}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<T>\ results;}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ results.reserve(this-\/>size());}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::future<T>\&\ future\ :\ *\textcolor{keyword}{this})}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ results.push\_back(future.get());}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ results;}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00365\ \ \ \ \ \}}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00372\ \ \ \ \ [[nodiscard]]\ std::size\_t\ \mbox{\hyperlink{class_b_s_1_1multi__future_ad00db759f47fa31f85f52e53589f16e7}{ready\_count}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00373\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ std::size\_t\ count\ =\ 0;}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ std::future<T>\&\ future\ :\ *\textcolor{keyword}{this})}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (future.wait\_for(std::chrono::duration<double>::zero())\ ==\ std::future\_status::ready)}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++count;}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ count;}
+\DoxyCodeLine{00381\ \ \ \ \ \}}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00388\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_b_s_1_1multi__future_a1c282cf3dda2cbcfe039c5bb2b635290}{valid}}()\ const\ noexcept}
+\DoxyCodeLine{00389\ \ \ \ \ \{}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_valid\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ std::future<T>\&\ future\ :\ *\textcolor{keyword}{this})}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ is\_valid\ =\ is\_valid\ \&\&\ future.valid();}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ is\_valid;}
+\DoxyCodeLine{00394\ \ \ \ \ \}}
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00399\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1multi__future_a05073ed8d37b939c9440ac8789b69ba7}{wait}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00400\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ std::future<T>\&\ future\ :\ *\textcolor{keyword}{this})}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ future.wait();}
+\DoxyCodeLine{00403\ \ \ \ \ \}}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00413\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ R,\ \textcolor{keyword}{typename}\ P>}
+\DoxyCodeLine{00414\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_b_s_1_1multi__future_a381744c63b88eee1df425b5ce7b5e904}{wait\_for}}(\textcolor{keyword}{const}\ std::chrono::duration<R,\ P>\&\ duration)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00415\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::chrono::time\_point<std::chrono::steady\_clock>\ start\_time\ =\ std::chrono::steady\_clock::now();}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ std::future<T>\&\ future\ :\ *\textcolor{keyword}{this})}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ future.wait\_for(duration\ -\/\ (std::chrono::steady\_clock::now()\ -\/\ start\_time));}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (duration\ <\ std::chrono::steady\_clock::now()\ -\/\ start\_time)}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00424\ \ \ \ \ \}}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00434\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ C,\ \textcolor{keyword}{typename}\ D>}
+\DoxyCodeLine{00435\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_b_s_1_1multi__future_ad7e095316d61714456281cb3d30325a1}{wait\_until}}(\textcolor{keyword}{const}\ std::chrono::time\_point<C,\ D>\&\ timeout\_time)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00436\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ std::future<T>\&\ future\ :\ *\textcolor{keyword}{this})}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \ \ future.wait\_until(timeout\_time);}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (timeout\_time\ <\ std::chrono::steady\_clock::now())}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00444\ \ \ \ \ \}}
+\DoxyCodeLine{00445\ \};\ \textcolor{comment}{//\ class\ multi\_future}}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00452\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00453\ \textcolor{keyword}{class\ }[[nodiscard]]\ \mbox{\hyperlink{class_b_s_1_1blocks_af924f6a66d201d658a1827174d12f65a}{blocks}}}
+\DoxyCodeLine{00454\ \{}
+\DoxyCodeLine{00455\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00463\ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1blocks_af924f6a66d201d658a1827174d12f65a}{blocks}}(\textcolor{keyword}{const}\ T\ first\_index\_,\ \textcolor{keyword}{const}\ T\ index\_after\_last\_,\ \textcolor{keyword}{const}\ std::size\_t\ num\_blocks\_)\ noexcept\ :\ first\_index(first\_index\_),\ index\_after\_last(index\_after\_last\_),\ num\_blocks(num\_blocks\_)}
+\DoxyCodeLine{00464\ \ \ \ \ \{}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\_after\_last\ >\ first\_index)}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::size\_t\ total\_size\ =\ \textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(index\_after\_last\ -\/\ first\_index);}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \ \ \ \ num\_blocks\ =\ std::min(num\_blocks,\ total\_size);}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \ \ \ \ block\_size\ =\ total\_size\ /\ num\_blocks;}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \ \ \ \ remainder\ =\ total\_size\ \%\ num\_blocks;}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (block\_size\ ==\ 0)}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ block\_size\ =\ 1;}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_blocks\ =\ (total\_size\ >\ 1)\ ?\ total\_size\ :\ 1;}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \ \ \ \ num\_blocks\ =\ 0;}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00481\ \ \ \ \ \}}
+\DoxyCodeLine{00482\ }
+\DoxyCodeLine{00489\ \ \ \ \ [[nodiscard]]\ T\ \mbox{\hyperlink{class_b_s_1_1blocks_a6cdeada652e9ed38b65ac267627aa2c6}{end}}(\textcolor{keyword}{const}\ std::size\_t\ block)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00490\ \ \ \ \ \{}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (block\ ==\ num\_blocks\ -\/\ 1)\ ?\ index\_after\_last\ :\ \mbox{\hyperlink{class_b_s_1_1blocks_a0f268e61097b86a9092fc1a4e573f395}{start}}(block\ +\ 1);}
+\DoxyCodeLine{00492\ \ \ \ \ \}}
+\DoxyCodeLine{00493\ }
+\DoxyCodeLine{00499\ \ \ \ \ [[nodiscard]]\ std::size\_t\ \mbox{\hyperlink{class_b_s_1_1blocks_a6de6cf97678baf5a24be4a568d402bfe}{get\_num\_blocks}}()\ const\ noexcept}
+\DoxyCodeLine{00500\ \ \ \ \ \{}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ num\_blocks;}
+\DoxyCodeLine{00502\ \ \ \ \ \}}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00510\ \ \ \ \ [[nodiscard]]\ T\ \mbox{\hyperlink{class_b_s_1_1blocks_a0f268e61097b86a9092fc1a4e573f395}{start}}(\textcolor{keyword}{const}\ std::size\_t\ block)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00511\ \ \ \ \ \{}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ first\_index\ +\ \textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(block\ *\ block\_size)\ +\ \textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(block\ <\ remainder\ ?\ block\ :\ remainder);}
+\DoxyCodeLine{00513\ \ \ \ \ \}}
+\DoxyCodeLine{00514\ }
+\DoxyCodeLine{00515\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00519\ \ \ \ \ std::size\_t\ block\_size\ =\ 0;}
+\DoxyCodeLine{00520\ }
+\DoxyCodeLine{00524\ \ \ \ \ T\ first\_index\ =\ 0;}
+\DoxyCodeLine{00525\ }
+\DoxyCodeLine{00529\ \ \ \ \ T\ index\_after\_last\ =\ 0;}
+\DoxyCodeLine{00530\ }
+\DoxyCodeLine{00534\ \ \ \ \ std::size\_t\ num\_blocks\ =\ 0;}
+\DoxyCodeLine{00535\ }
+\DoxyCodeLine{00539\ \ \ \ \ std::size\_t\ remainder\ =\ 0;}
+\DoxyCodeLine{00540\ \};\ \textcolor{comment}{//\ class\ blocks}}
+\DoxyCodeLine{00541\ }
+\DoxyCodeLine{00542\ \textcolor{preprocessor}{\#ifdef\ \_\_cpp\_exceptions}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00546\ \textcolor{keyword}{struct\ }wait\_deadlock\ :\ \textcolor{keyword}{public}\ std::runtime\_error}
+\DoxyCodeLine{00547\ \{}
+\DoxyCodeLine{00548\ \ \ \ \ wait\_deadlock()\ :\ std::runtime\_error(\textcolor{stringliteral}{"{}BS::wait\_deadlock"{}})\ \{\};}
+\DoxyCodeLine{00549\ \};}
+\DoxyCodeLine{00550\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00551\ }
+\DoxyCodeLine{00552\ \textcolor{preprocessor}{\#ifdef\ BS\_THREAD\_POOL\_NATIVE\_EXTENSIONS}}
+\DoxyCodeLine{00553\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(\_WIN32)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00557\ \textcolor{keyword}{enum\ class}\ os\_process\_priority}
+\DoxyCodeLine{00558\ \{}
+\DoxyCodeLine{00559\ \ \ \ \ idle\ =\ IDLE\_PRIORITY\_CLASS,}
+\DoxyCodeLine{00560\ \ \ \ \ below\_normal\ =\ BELOW\_NORMAL\_PRIORITY\_CLASS,}
+\DoxyCodeLine{00561\ \ \ \ \ normal\ =\ NORMAL\_PRIORITY\_CLASS,}
+\DoxyCodeLine{00562\ \ \ \ \ above\_normal\ =\ ABOVE\_NORMAL\_PRIORITY\_CLASS,}
+\DoxyCodeLine{00563\ \ \ \ \ high\ =\ HIGH\_PRIORITY\_CLASS,}
+\DoxyCodeLine{00564\ \ \ \ \ realtime\ =\ REALTIME\_PRIORITY\_CLASS}
+\DoxyCodeLine{00565\ \};}
+\DoxyCodeLine{00566\ }
+\DoxyCodeLine{00570\ \textcolor{keyword}{enum\ class}\ os\_thread\_priority}
+\DoxyCodeLine{00571\ \{}
+\DoxyCodeLine{00572\ \ \ \ \ idle\ =\ THREAD\_PRIORITY\_IDLE,}
+\DoxyCodeLine{00573\ \ \ \ \ lowest\ =\ THREAD\_PRIORITY\_LOWEST,}
+\DoxyCodeLine{00574\ \ \ \ \ below\_normal\ =\ THREAD\_PRIORITY\_BELOW\_NORMAL,}
+\DoxyCodeLine{00575\ \ \ \ \ normal\ =\ THREAD\_PRIORITY\_NORMAL,}
+\DoxyCodeLine{00576\ \ \ \ \ above\_normal\ =\ THREAD\_PRIORITY\_ABOVE\_NORMAL,}
+\DoxyCodeLine{00577\ \ \ \ \ highest\ =\ THREAD\_PRIORITY\_HIGHEST,}
+\DoxyCodeLine{00578\ \ \ \ \ realtime\ =\ THREAD\_PRIORITY\_TIME\_CRITICAL}
+\DoxyCodeLine{00579\ \};}
+\DoxyCodeLine{00580\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_linux\_\_)\ ||\ defined(\_\_APPLE\_\_)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00584\ \textcolor{keyword}{enum\ class}\ os\_process\_priority}
+\DoxyCodeLine{00585\ \{}
+\DoxyCodeLine{00586\ \ \ \ \ idle\ =\ PRIO\_MAX\ -\/\ 2,}
+\DoxyCodeLine{00587\ \ \ \ \ below\_normal\ =\ PRIO\_MAX\ /\ 2,}
+\DoxyCodeLine{00588\ \ \ \ \ normal\ =\ 0,}
+\DoxyCodeLine{00589\ \ \ \ \ above\_normal\ =\ PRIO\_MIN\ /\ 3,}
+\DoxyCodeLine{00590\ \ \ \ \ high\ =\ PRIO\_MIN\ *\ 2\ /\ 3,}
+\DoxyCodeLine{00591\ \ \ \ \ realtime\ =\ PRIO\_MIN}
+\DoxyCodeLine{00592\ \};}
+\DoxyCodeLine{00593\ }
+\DoxyCodeLine{00597\ \textcolor{keyword}{enum\ class}\ os\_thread\_priority}
+\DoxyCodeLine{00598\ \{}
+\DoxyCodeLine{00599\ \ \ \ \ idle,}
+\DoxyCodeLine{00600\ \ \ \ \ lowest,}
+\DoxyCodeLine{00601\ \ \ \ \ below\_normal,}
+\DoxyCodeLine{00602\ \ \ \ \ normal,}
+\DoxyCodeLine{00603\ \ \ \ \ above\_normal,}
+\DoxyCodeLine{00604\ \ \ \ \ highest,}
+\DoxyCodeLine{00605\ \ \ \ \ realtime}
+\DoxyCodeLine{00606\ \};}
+\DoxyCodeLine{00607\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00608\ }
+\DoxyCodeLine{00614\ [[nodiscard]]\ \textcolor{keyword}{inline}\ std::optional<std::vector<bool>>\ get\_os\_process\_affinity()}
+\DoxyCodeLine{00615\ \{}
+\DoxyCodeLine{00616\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(\_WIN32)}}
+\DoxyCodeLine{00617\ \ \ \ \ DWORD\_PTR\ process\_mask\ =\ 0;}
+\DoxyCodeLine{00618\ \ \ \ \ DWORD\_PTR\ system\_mask\ =\ 0;}
+\DoxyCodeLine{00619\ \ \ \ \ \textcolor{keywordflow}{if}\ (GetProcessAffinityMask(GetCurrentProcess(),\ \&process\_mask,\ \&system\_mask)\ ==\ 0)}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00621\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_cpp\_lib\_int\_pow2}}
+\DoxyCodeLine{00622\ \ \ \ \ \textcolor{keyword}{const}\ std::size\_t\ num\_cpus\ =\ \textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(std::bit\_width(system\_mask));}
+\DoxyCodeLine{00623\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00624\ \ \ \ \ std::size\_t\ num\_cpus\ =\ 0;}
+\DoxyCodeLine{00625\ \ \ \ \ \textcolor{keywordflow}{if}\ (system\_mask\ !=\ 0)}
+\DoxyCodeLine{00626\ \ \ \ \ \{}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ num\_cpus\ =\ 1;}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ ((system\_mask\ >>=\ 1U)\ !=\ 0U)}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \ \ \ \ ++num\_cpus;}
+\DoxyCodeLine{00630\ \ \ \ \ \}}
+\DoxyCodeLine{00631\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00632\ \ \ \ \ std::vector<bool>\ affinity(num\_cpus);}
+\DoxyCodeLine{00633\ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 0;\ i\ <\ num\_cpus;\ ++i)}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ affinity[i]\ =\ ((process\_mask\ \&\ (1ULL\ <<\ i))\ !=\ 0ULL);}
+\DoxyCodeLine{00635\ \ \ \ \ \textcolor{keywordflow}{return}\ affinity;}
+\DoxyCodeLine{00636\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_linux\_\_)}}
+\DoxyCodeLine{00637\ \ \ \ \ cpu\_set\_t\ cpu\_set;}
+\DoxyCodeLine{00638\ \ \ \ \ CPU\_ZERO(\&cpu\_set);}
+\DoxyCodeLine{00639\ \ \ \ \ \textcolor{keywordflow}{if}\ (sched\_getaffinity(getpid(),\ \textcolor{keyword}{sizeof}(cpu\_set\_t),\ \&cpu\_set)\ !=\ 0)}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00641\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ num\_cpus\ =\ get\_nprocs();}
+\DoxyCodeLine{00642\ \ \ \ \ \textcolor{keywordflow}{if}\ (num\_cpus\ <\ 1)}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00644\ \ \ \ \ std::vector<bool>\ affinity(\textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(num\_cpus));}
+\DoxyCodeLine{00645\ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 0;\ i\ <\ affinity.size();\ ++i)}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ affinity[i]\ =\ CPU\_ISSET(i,\ \&cpu\_set);}
+\DoxyCodeLine{00647\ \ \ \ \ \textcolor{keywordflow}{return}\ affinity;}
+\DoxyCodeLine{00648\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_APPLE\_\_)}}
+\DoxyCodeLine{00649\ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00650\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00651\ \}}
+\DoxyCodeLine{00652\ }
+\DoxyCodeLine{00659\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ set\_os\_process\_affinity(\textcolor{keyword}{const}\ std::vector<bool>\&\ affinity)}
+\DoxyCodeLine{00660\ \{}
+\DoxyCodeLine{00661\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(\_WIN32)}}
+\DoxyCodeLine{00662\ \ \ \ \ DWORD\_PTR\ process\_mask\ =\ 0;}
+\DoxyCodeLine{00663\ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 0;\ i\ <\ std::min<std::size\_t>(affinity.size(),\ \textcolor{keyword}{sizeof}(DWORD\_PTR)\ *\ 8);\ ++i)}
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \ \ process\_mask\ |=\ (affinity[i]\ ?\ (1ULL\ <<\ i)\ :\ 0ULL);}
+\DoxyCodeLine{00665\ \ \ \ \ \textcolor{keywordflow}{return}\ SetProcessAffinityMask(GetCurrentProcess(),\ process\_mask)\ !=\ 0;}
+\DoxyCodeLine{00666\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_linux\_\_)}}
+\DoxyCodeLine{00667\ \ \ \ \ cpu\_set\_t\ cpu\_set;}
+\DoxyCodeLine{00668\ \ \ \ \ CPU\_ZERO(\&cpu\_set);}
+\DoxyCodeLine{00669\ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 0;\ i\ <\ std::min<std::size\_t>(affinity.size(),\ CPU\_SETSIZE);\ ++i)}
+\DoxyCodeLine{00670\ \ \ \ \ \{}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (affinity[i])}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ \ \ \ \ CPU\_SET(i,\ \&cpu\_set);}
+\DoxyCodeLine{00673\ \ \ \ \ \}}
+\DoxyCodeLine{00674\ \ \ \ \ \textcolor{keywordflow}{return}\ sched\_setaffinity(getpid(),\ \textcolor{keyword}{sizeof}(cpu\_set\_t),\ \&cpu\_set)\ ==\ 0;}
+\DoxyCodeLine{00675\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_APPLE\_\_)}}
+\DoxyCodeLine{00676\ \ \ \ \ \textcolor{keywordflow}{return}\ affinity[0]\ \&\&\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ NOLINT(readability-\/simplify-\/boolean-\/expr)\ //\ Using\ \`{}affinity`\ to\ suppress\ unused\ parameter\ warning.}}
+\DoxyCodeLine{00677\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00678\ \}}
+\DoxyCodeLine{00679\ }
+\DoxyCodeLine{00685\ [[nodiscard]]\ \textcolor{keyword}{inline}\ std::optional<os\_process\_priority>\ get\_os\_process\_priority()}
+\DoxyCodeLine{00686\ \{}
+\DoxyCodeLine{00687\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(\_WIN32)}}
+\DoxyCodeLine{00688\ \ \ \ \ \textcolor{comment}{//\ On\ Windows,\ this\ is\ straightforward.}}
+\DoxyCodeLine{00689\ \ \ \ \ \textcolor{keyword}{const}\ DWORD\ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}\ =\ GetPriorityClass(GetCurrentProcess());}
+\DoxyCodeLine{00690\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}\ ==\ 0)}
+\DoxyCodeLine{00691\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00692\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}os\_process\_priority\textcolor{keyword}{>}(\mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}});}
+\DoxyCodeLine{00693\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_linux\_\_)\ ||\ defined(\_\_APPLE\_\_)}}
+\DoxyCodeLine{00694\ \ \ \ \ \textcolor{comment}{//\ On\ Linux/macOS\ there\ is\ no\ direct\ analogue\ of\ \`{}GetPriorityClass()`\ on\ Windows,\ so\ instead\ we\ get\ the\ "{}nice"{}\ value.\ The\ usual\ range\ is\ -\/20\ to\ 19\ or\ 20,\ with\ higher\ values\ corresponding\ to\ lower\ priorities.\ However,\ we\ are\ only\ using\ 6\ pre-\/defined\ values\ for\ portability,\ so\ if\ the\ value\ was\ set\ via\ any\ means\ other\ than\ \`{}BS::set\_os\_process\_priority()`,\ it\ may\ not\ match\ one\ of\ our\ pre-\/defined\ values.\ Note\ that\ \`{}getpriority()`\ returns\ -\/1\ on\ error,\ but\ since\ this\ does\ not\ correspond\ to\ any\ of\ our\ pre-\/defined\ values,\ this\ function\ will\ return\ \`{}std::nullopt`\ anyway.}}
+\DoxyCodeLine{00695\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nice\_val\ =\ getpriority(PRIO\_PROCESS,\ \textcolor{keyword}{static\_cast<}id\_t\textcolor{keyword}{>}(getpid()));}
+\DoxyCodeLine{00696\ \ \ \ \ \textcolor{keywordflow}{switch}\ (nice\_val)}
+\DoxyCodeLine{00697\ \ \ \ \ \{}
+\DoxyCodeLine{00698\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(os\_process\_priority::idle):}
+\DoxyCodeLine{00699\ \ \ \ \ \ \ \ \ return\ os\_process\_priority::idle;}
+\DoxyCodeLine{00700\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(os\_process\_priority::below\_normal):}
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \ \ return\ os\_process\_priority::below\_normal;}
+\DoxyCodeLine{00702\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(os\_process\_priority::normal):}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ return\ os\_process\_priority::normal;}
+\DoxyCodeLine{00704\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(os\_process\_priority::above\_normal):}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ return\ os\_process\_priority::above\_normal;}
+\DoxyCodeLine{00706\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(os\_process\_priority::high):}
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ return\ os\_process\_priority::high;}
+\DoxyCodeLine{00708\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(os\_process\_priority::realtime):}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ \ \ return\ os\_process\_priority::realtime;}
+\DoxyCodeLine{00710\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00711\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00712\ \ \ \ \ \}}
+\DoxyCodeLine{00713\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00714\ \}}
+\DoxyCodeLine{00715\ }
+\DoxyCodeLine{00722\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ set\_os\_process\_priority(\textcolor{keyword}{const}\ os\_process\_priority\ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}})}
+\DoxyCodeLine{00723\ \{}
+\DoxyCodeLine{00724\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(\_WIN32)}}
+\DoxyCodeLine{00725\ \ \ \ \ \textcolor{comment}{//\ On\ Windows,\ this\ is\ straightforward.}}
+\DoxyCodeLine{00726\ \ \ \ \ \textcolor{keywordflow}{return}\ SetPriorityClass(GetCurrentProcess(),\ \textcolor{keyword}{static\_cast<}DWORD\textcolor{keyword}{>}(\mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}))\ !=\ 0;}
+\DoxyCodeLine{00727\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_linux\_\_)\ ||\ defined(\_\_APPLE\_\_)}}
+\DoxyCodeLine{00728\ \ \ \ \ \textcolor{comment}{//\ On\ Linux/macOS\ there\ is\ no\ direct\ analogue\ of\ \`{}SetPriorityClass()`\ on\ Windows,\ so\ instead\ we\ set\ the\ "{}nice"{}\ value.\ The\ usual\ range\ is\ -\/20\ to\ 19\ or\ 20,\ with\ higher\ values\ corresponding\ to\ lower\ priorities.\ However,\ we\ are\ only\ using\ 6\ pre-\/defined\ values\ for\ portability.\ Note\ that\ the\ "{}nice"{}\ values\ are\ only\ relevant\ for\ the\ \`{}SCHED\_OTHER`\ policy,\ but\ we\ do\ not\ set\ that\ policy\ here,\ as\ it\ is\ per-\/thread\ rather\ than\ per-\/process.}}
+\DoxyCodeLine{00729\ \ \ \ \ \textcolor{comment}{//\ Also,\ it's\ important\ to\ note\ that\ a\ non-\/root\ user\ cannot\ decrease\ the\ nice\ value\ (i.e.\ increase\ the\ process\ priority),\ only\ increase\ it.\ This\ can\ cause\ confusing\ behavior.\ For\ example,\ if\ the\ current\ priority\ is\ \`{}BS::os\_process\_priority::normal`\ and\ the\ user\ sets\ it\ to\ \`{}BS::os\_process\_priority::idle`,\ they\ cannot\ change\ it\ back\ \`{}BS::os\_process\_priority::normal`.}}
+\DoxyCodeLine{00730\ \ \ \ \ \textcolor{keywordflow}{return}\ setpriority(PRIO\_PROCESS,\ \textcolor{keyword}{static\_cast<}id\_t\textcolor{keyword}{>}(getpid()),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}))\ ==\ 0;}
+\DoxyCodeLine{00731\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00732\ \}}
+\DoxyCodeLine{00733\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00734\ }
+\DoxyCodeLine{00738\ \textcolor{keyword}{class\ }[[nodiscard]]\ \mbox{\hyperlink{class_b_s_1_1this__thread}{this\_thread}}}
+\DoxyCodeLine{00739\ \{}
+\DoxyCodeLine{00740\ \ \ \ \ \textcolor{keyword}{template}\ <opt\_t>}
+\DoxyCodeLine{00741\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }thread\_pool;}
+\DoxyCodeLine{00742\ }
+\DoxyCodeLine{00743\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00749\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{static}\ std::optional<std::size\_t>\ \mbox{\hyperlink{class_b_s_1_1this__thread_adcd22aa3e1c590ee90bcfcf868c553cc}{get\_index}}()\ noexcept}
+\DoxyCodeLine{00750\ \ \ \ \ \{}
+\DoxyCodeLine{00751\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ my\_index;}
+\DoxyCodeLine{00752\ \ \ \ \ \}}
+\DoxyCodeLine{00753\ }
+\DoxyCodeLine{00759\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{static}\ std::optional<void*>\ \mbox{\hyperlink{class_b_s_1_1this__thread_a362545c2bf1031a2d5ffb02a8565ccc1}{get\_pool}}()\ noexcept}
+\DoxyCodeLine{00760\ \ \ \ \ \{}
+\DoxyCodeLine{00761\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ my\_pool;}
+\DoxyCodeLine{00762\ \ \ \ \ \}}
+\DoxyCodeLine{00763\ }
+\DoxyCodeLine{00764\ \textcolor{preprocessor}{\#ifdef\ BS\_THREAD\_POOL\_NATIVE\_EXTENSIONS}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00770\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{static}\ std::optional<std::vector<bool>>\ get\_os\_thread\_affinity()}
+\DoxyCodeLine{00771\ \ \ \ \ \{}
+\DoxyCodeLine{00772\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(\_WIN32)}}
+\DoxyCodeLine{00773\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Windows\ does\ not\ have\ a\ \`{}GetThreadAffinityMask()`\ function,\ but\ \`{}SetThreadAffinityMask()`\ returns\ the\ previous\ affinity\ mask,\ so\ we\ can\ use\ that\ to\ get\ the\ current\ affinity\ and\ then\ restore\ it.\ It's\ a\ bit\ of\ a\ hack,\ but\ it\ works.\ Since\ the\ thread\ affinity\ must\ be\ a\ subset\ of\ the\ process\ affinity,\ we\ use\ the\ process\ affinity\ as\ the\ temporary\ value.}}
+\DoxyCodeLine{00774\ \ \ \ \ \ \ \ \ DWORD\_PTR\ process\_mask\ =\ 0;}
+\DoxyCodeLine{00775\ \ \ \ \ \ \ \ \ DWORD\_PTR\ system\_mask\ =\ 0;}
+\DoxyCodeLine{00776\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (GetProcessAffinityMask(GetCurrentProcess(),\ \&process\_mask,\ \&system\_mask)\ ==\ 0)}
+\DoxyCodeLine{00777\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00778\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ DWORD\_PTR\ previous\_mask\ =\ SetThreadAffinityMask(GetCurrentThread(),\ process\_mask);}
+\DoxyCodeLine{00779\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (previous\_mask\ ==\ 0)}
+\DoxyCodeLine{00780\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00781\ \ \ \ \ \ \ \ \ SetThreadAffinityMask(GetCurrentThread(),\ previous\_mask);}
+\DoxyCodeLine{00782\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_cpp\_lib\_int\_pow2}}
+\DoxyCodeLine{00783\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::size\_t\ num\_cpus\ =\ \textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(std::bit\_width(system\_mask));}
+\DoxyCodeLine{00784\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00785\ \ \ \ \ \ \ \ \ std::size\_t\ num\_cpus\ =\ 0;}
+\DoxyCodeLine{00786\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (system\_mask\ !=\ 0)}
+\DoxyCodeLine{00787\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00788\ \ \ \ \ \ \ \ \ \ \ \ \ num\_cpus\ =\ 1;}
+\DoxyCodeLine{00789\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ ((system\_mask\ >>=\ 1U)\ !=\ 0U)}
+\DoxyCodeLine{00790\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++num\_cpus;}
+\DoxyCodeLine{00791\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00792\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00793\ \ \ \ \ \ \ \ \ std::vector<bool>\ affinity(num\_cpus);}
+\DoxyCodeLine{00794\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 0;\ i\ <\ num\_cpus;\ ++i)}
+\DoxyCodeLine{00795\ \ \ \ \ \ \ \ \ \ \ \ \ affinity[i]\ =\ ((previous\_mask\ \&\ (1ULL\ <<\ i))\ !=\ 0ULL);}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ affinity;}
+\DoxyCodeLine{00797\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_linux\_\_)}}
+\DoxyCodeLine{00798\ \ \ \ \ \ \ \ \ cpu\_set\_t\ cpu\_set;}
+\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ CPU\_ZERO(\&cpu\_set);}
+\DoxyCodeLine{00800\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pthread\_getaffinity\_np(pthread\_self(),\ \textcolor{keyword}{sizeof}(cpu\_set\_t),\ \&cpu\_set)\ !=\ 0)}
+\DoxyCodeLine{00801\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00802\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ num\_cpus\ =\ get\_nprocs();}
+\DoxyCodeLine{00803\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (num\_cpus\ <\ 1)}
+\DoxyCodeLine{00804\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00805\ \ \ \ \ \ \ \ \ std::vector<bool>\ affinity(\textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(num\_cpus));}
+\DoxyCodeLine{00806\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 0;\ i\ <\ affinity.size();\ ++i)}
+\DoxyCodeLine{00807\ \ \ \ \ \ \ \ \ \ \ \ \ affinity[i]\ =\ CPU\_ISSET(i,\ \&cpu\_set);}
+\DoxyCodeLine{00808\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ affinity;}
+\DoxyCodeLine{00809\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_APPLE\_\_)}}
+\DoxyCodeLine{00810\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00811\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00812\ \ \ \ \ \}}
+\DoxyCodeLine{00813\ }
+\DoxyCodeLine{00820\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ set\_os\_thread\_affinity(\textcolor{keyword}{const}\ std::vector<bool>\&\ affinity)}
+\DoxyCodeLine{00821\ \ \ \ \ \{}
+\DoxyCodeLine{00822\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(\_WIN32)}}
+\DoxyCodeLine{00823\ \ \ \ \ \ \ \ \ DWORD\_PTR\ thread\_mask\ =\ 0;}
+\DoxyCodeLine{00824\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 0;\ i\ <\ std::min<std::size\_t>(affinity.size(),\ \textcolor{keyword}{sizeof}(DWORD\_PTR)\ *\ 8);\ ++i)}
+\DoxyCodeLine{00825\ \ \ \ \ \ \ \ \ \ \ \ \ thread\_mask\ |=\ (affinity[i]\ ?\ (1ULL\ <<\ i)\ :\ 0ULL);}
+\DoxyCodeLine{00826\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ SetThreadAffinityMask(GetCurrentThread(),\ thread\_mask)\ !=\ 0;}
+\DoxyCodeLine{00827\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_linux\_\_)}}
+\DoxyCodeLine{00828\ \ \ \ \ \ \ \ \ cpu\_set\_t\ cpu\_set;}
+\DoxyCodeLine{00829\ \ \ \ \ \ \ \ \ CPU\_ZERO(\&cpu\_set);}
+\DoxyCodeLine{00830\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 0;\ i\ <\ std::min<std::size\_t>(affinity.size(),\ CPU\_SETSIZE);\ ++i)}
+\DoxyCodeLine{00831\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00832\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (affinity[i])}
+\DoxyCodeLine{00833\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CPU\_SET(i,\ \&cpu\_set);}
+\DoxyCodeLine{00834\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pthread\_setaffinity\_np(pthread\_self(),\ \textcolor{keyword}{sizeof}(cpu\_set\_t),\ \&cpu\_set)\ ==\ 0;}
+\DoxyCodeLine{00836\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_APPLE\_\_)}}
+\DoxyCodeLine{00837\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ affinity[0]\ \&\&\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ NOLINT(readability-\/simplify-\/boolean-\/expr)\ //\ Using\ \`{}affinity`\ to\ suppress\ unused\ parameter\ warning.}}
+\DoxyCodeLine{00838\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00839\ \ \ \ \ \}}
+\DoxyCodeLine{00840\ }
+\DoxyCodeLine{00846\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{static}\ std::optional<std::string>\ get\_os\_thread\_name()}
+\DoxyCodeLine{00847\ \ \ \ \ \{}
+\DoxyCodeLine{00848\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(\_WIN32)}}
+\DoxyCodeLine{00849\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ On\ Windows\ thread\ names\ are\ wide\ strings,\ so\ we\ need\ to\ convert\ them\ to\ normal\ strings.}}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \ \ PWSTR\ data\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00851\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ HRESULT\ hr\ =\ GetThreadDescription(GetCurrentThread(),\ \&data);}
+\DoxyCodeLine{00852\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (FAILED(hr))}
+\DoxyCodeLine{00853\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00854\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (data\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00855\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00856\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ size\ =\ WideCharToMultiByte(CP\_UTF8,\ 0,\ data,\ -\/1,\ \textcolor{keyword}{nullptr},\ 0,\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00857\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ ==\ 0)}
+\DoxyCodeLine{00858\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00859\ \ \ \ \ \ \ \ \ \ \ \ \ LocalFree(data);}
+\DoxyCodeLine{00860\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00861\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00862\ \ \ \ \ \ \ \ \ std::string\ name(\textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(size)\ -\/\ 1,\ 0);}
+\DoxyCodeLine{00863\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ result\ =\ WideCharToMultiByte(CP\_UTF8,\ 0,\ data,\ -\/1,\ name.data(),\ size,\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \ \ LocalFree(data);}
+\DoxyCodeLine{00865\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (result\ ==\ 0)}
+\DoxyCodeLine{00866\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00867\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ name;}
+\DoxyCodeLine{00868\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_linux\_\_)\ ||\ defined(\_\_APPLE\_\_)}}
+\DoxyCodeLine{00869\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_linux\_\_}}
+\DoxyCodeLine{00870\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ On\ Linux\ thread\ names\ are\ limited\ to\ 16\ characters,\ including\ the\ null\ terminator.}}
+\DoxyCodeLine{00871\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ std::size\_t\ buffer\_size\ =\ 16;}
+\DoxyCodeLine{00872\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00873\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ On\ macOS\ thread\ names\ are\ limited\ to\ 64\ characters,\ including\ the\ null\ terminator.}}
+\DoxyCodeLine{00874\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ std::size\_t\ buffer\_size\ =\ 64;}
+\DoxyCodeLine{00875\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00876\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ name[buffer\_size]\ =\ \{\};}
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pthread\_getname\_np(pthread\_self(),\ name,\ buffer\_size)\ !=\ 0)}
+\DoxyCodeLine{00878\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00879\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::string(name);}
+\DoxyCodeLine{00880\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00881\ \ \ \ \ \}}
+\DoxyCodeLine{00882\ }
+\DoxyCodeLine{00889\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ set\_os\_thread\_name(\textcolor{keyword}{const}\ std::string\&\ name)}
+\DoxyCodeLine{00890\ \ \ \ \ \{}
+\DoxyCodeLine{00891\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(\_WIN32)}}
+\DoxyCodeLine{00892\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ On\ Windows\ thread\ names\ are\ wide\ strings,\ so\ we\ need\ to\ convert\ them\ from\ normal\ strings.}}
+\DoxyCodeLine{00893\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ size\ =\ MultiByteToWideChar(CP\_UTF8,\ 0,\ name.data(),\ -\/1,\ \textcolor{keyword}{nullptr},\ 0);}
+\DoxyCodeLine{00894\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ ==\ 0)}
+\DoxyCodeLine{00895\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00896\ \ \ \ \ \ \ \ \ std::wstring\ wide(\textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(size),\ 0);}
+\DoxyCodeLine{00897\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (MultiByteToWideChar(CP\_UTF8,\ 0,\ name.data(),\ -\/1,\ wide.data(),\ size)\ ==\ 0)}
+\DoxyCodeLine{00898\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00899\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ HRESULT\ hr\ =\ SetThreadDescription(GetCurrentThread(),\ wide.data());}
+\DoxyCodeLine{00900\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ SUCCEEDED(hr);}
+\DoxyCodeLine{00901\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_linux\_\_)}}
+\DoxyCodeLine{00902\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ On\ Linux\ this\ is\ straightforward.}}
+\DoxyCodeLine{00903\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pthread\_setname\_np(pthread\_self(),\ name.data())\ ==\ 0;}
+\DoxyCodeLine{00904\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_APPLE\_\_)}}
+\DoxyCodeLine{00905\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ On\ macOS,\ unlike\ Linux,\ a\ thread\ can\ only\ set\ a\ name\ for\ itself,\ so\ the\ signature\ is\ different.}}
+\DoxyCodeLine{00906\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pthread\_setname\_np(name.data())\ ==\ 0;}
+\DoxyCodeLine{00907\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00908\ \ \ \ \ \}}
+\DoxyCodeLine{00909\ }
+\DoxyCodeLine{00915\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{static}\ std::optional<os\_thread\_priority>\ get\_os\_thread\_priority()}
+\DoxyCodeLine{00916\ \ \ \ \ \{}
+\DoxyCodeLine{00917\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(\_WIN32)}}
+\DoxyCodeLine{00918\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ On\ Windows,\ this\ is\ straightforward.}}
+\DoxyCodeLine{00919\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}\ =\ GetThreadPriority(GetCurrentThread());}
+\DoxyCodeLine{00920\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (priority\ ==\ THREAD\_PRIORITY\_ERROR\_RETURN)}
+\DoxyCodeLine{00921\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00922\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}os\_thread\_priority\textcolor{keyword}{>}(\mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}});}
+\DoxyCodeLine{00923\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_linux\_\_)}}
+\DoxyCodeLine{00924\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ On\ Linux,\ we\ distill\ the\ choices\ of\ scheduling\ policy,\ priority,\ and\ "{}nice"{}\ value\ into\ 7\ pre-\/defined\ levels,\ for\ simplicity\ and\ portability.\ The\ total\ number\ of\ possible\ combinations\ of\ policies\ and\ priorities\ is\ much\ larger,\ so\ if\ the\ value\ was\ set\ via\ any\ means\ other\ than\ \`{}BS::this\_thread::set\_os\_thread\_priority()`,\ it\ may\ not\ match\ one\ of\ our\ pre-\/defined\ values.}}
+\DoxyCodeLine{00925\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ policy\ =\ 0;}
+\DoxyCodeLine{00926\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }sched\_param\ param\ =\ \{\};}
+\DoxyCodeLine{00927\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pthread\_getschedparam(pthread\_self(),\ \&policy,\ \&param)\ !=\ 0)}
+\DoxyCodeLine{00928\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00929\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (policy\ ==\ SCHED\_FIFO\ \&\&\ param.sched\_priority\ ==\ sched\_get\_priority\_max(SCHED\_FIFO))}
+\DoxyCodeLine{00930\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00931\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ only\ pre-\/defined\ priority\ that\ uses\ SCHED\_FIFO\ and\ the\ maximum\ available\ priority\ value\ is\ the\ "{}realtime"{}\ priority.}}
+\DoxyCodeLine{00932\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os\_thread\_priority::realtime;}
+\DoxyCodeLine{00933\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00934\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (policy\ ==\ SCHED\_RR\ \&\&\ param.sched\_priority\ ==\ sched\_get\_priority\_min(SCHED\_RR)\ +\ (sched\_get\_priority\_max(SCHED\_RR)\ -\/\ sched\_get\_priority\_min(SCHED\_RR))\ /\ 2)}
+\DoxyCodeLine{00935\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00936\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ only\ pre-\/defined\ priority\ that\ uses\ SCHED\_RR\ and\ a\ priority\ in\ the\ middle\ of\ the\ available\ range\ is\ the\ "{}highest"{}\ priority.}}
+\DoxyCodeLine{00937\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os\_thread\_priority::highest;}
+\DoxyCodeLine{00938\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00939\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_linux\_\_}}
+\DoxyCodeLine{00940\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (policy\ ==\ SCHED\_IDLE)}
+\DoxyCodeLine{00941\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00942\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ only\ pre-\/defined\ priority\ that\ uses\ SCHED\_IDLE\ is\ the\ "{}idle"{}\ priority.\ Note\ that\ this\ scheduling\ policy\ is\ not\ available\ on\ macOS.}}
+\DoxyCodeLine{00943\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os\_thread\_priority::idle;}
+\DoxyCodeLine{00944\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00945\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00946\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (policy\ ==\ SCHED\_OTHER)}
+\DoxyCodeLine{00947\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00948\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ SCHED\_OTHER,\ the\ result\ depends\ on\ the\ "{}nice"{}\ value.\ The\ usual\ range\ is\ -\/20\ to\ 19\ or\ 20,\ with\ higher\ values\ corresponding\ to\ lower\ priorities.\ Note\ that\ \`{}getpriority()`\ returns\ -\/1\ on\ error,\ but\ since\ this\ does\ not\ correspond\ to\ any\ of\ our\ pre-\/defined\ values,\ this\ function\ will\ return\ \`{}std::nullopt`\ anyway.}}
+\DoxyCodeLine{00949\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nice\_val\ =\ getpriority(PRIO\_PROCESS,\ \textcolor{keyword}{static\_cast<}id\_t\textcolor{keyword}{>}(syscall(SYS\_gettid)));}
+\DoxyCodeLine{00950\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (nice\_val)}
+\DoxyCodeLine{00951\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00952\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PRIO\_MIN\ +\ 2:}
+\DoxyCodeLine{00953\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os\_thread\_priority::above\_normal;}
+\DoxyCodeLine{00954\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{00955\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os\_thread\_priority::normal;}
+\DoxyCodeLine{00956\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ (PRIO\_MAX\ /\ 2)\ +\ (PRIO\_MAX\ \%\ 2):}
+\DoxyCodeLine{00957\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ os\_thread\_priority::below\_normal;}
+\DoxyCodeLine{00958\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PRIO\_MAX\ -\/\ 3:}
+\DoxyCodeLine{00959\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os\_thread\_priority::lowest;}
+\DoxyCodeLine{00960\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_APPLE\_\_}}
+\DoxyCodeLine{00961\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \`{}SCHED\_IDLE`\ doesn't\ exist\ on\ macOS,\ so\ we\ use\ the\ policy\ \`{}SCHED\_OTHER`\ with\ a\ "{}nice"{}\ value\ of\ \`{}PRIO\_MAX\ -\/\ 2`.}}
+\DoxyCodeLine{00962\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ PRIO\_MAX\ -\/\ 2:}
+\DoxyCodeLine{00963\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os\_thread\_priority::idle;}
+\DoxyCodeLine{00964\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00965\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00966\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00967\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00968\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00969\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00970\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_APPLE\_\_)}}
+\DoxyCodeLine{00971\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ On\ macOS,\ we\ distill\ the\ choices\ of\ scheduling\ policy\ and\ priority\ into\ 7\ pre-\/defined\ levels,\ for\ simplicity\ and\ portability.\ The\ total\ number\ of\ possible\ combinations\ of\ policies\ and\ priorities\ is\ much\ larger,\ so\ if\ the\ value\ was\ set\ via\ any\ means\ other\ than\ \`{}BS::this\_thread::set\_os\_thread\_priority()`,\ it\ may\ not\ match\ one\ of\ our\ pre-\/defined\ values.}}
+\DoxyCodeLine{00972\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ policy\ =\ 0;}
+\DoxyCodeLine{00973\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }sched\_param\ param\ =\ \{\};}
+\DoxyCodeLine{00974\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pthread\_getschedparam(pthread\_self(),\ \&policy,\ \&param)\ !=\ 0)}
+\DoxyCodeLine{00975\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00976\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (policy\ ==\ SCHED\_FIFO\ \&\&\ param.sched\_priority\ ==\ sched\_get\_priority\_max(SCHED\_FIFO))}
+\DoxyCodeLine{00977\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00978\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ only\ pre-\/defined\ priority\ that\ uses\ SCHED\_FIFO\ and\ the\ maximum\ available\ priority\ value\ is\ the\ "{}realtime"{}\ priority.}}
+\DoxyCodeLine{00979\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os\_thread\_priority::realtime;}
+\DoxyCodeLine{00980\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00981\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (policy\ ==\ SCHED\_RR\ \&\&\ param.sched\_priority\ ==\ sched\_get\_priority\_min(SCHED\_RR)\ +\ (sched\_get\_priority\_max(SCHED\_RR)\ -\/\ sched\_get\_priority\_min(SCHED\_RR))\ /\ 2)}
+\DoxyCodeLine{00982\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00983\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ only\ pre-\/defined\ priority\ that\ uses\ SCHED\_RR\ and\ a\ priority\ in\ the\ middle\ of\ the\ available\ range\ is\ the\ "{}highest"{}\ priority.}}
+\DoxyCodeLine{00984\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os\_thread\_priority::highest;}
+\DoxyCodeLine{00985\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00986\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (policy\ ==\ SCHED\_OTHER)}
+\DoxyCodeLine{00987\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00988\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ SCHED\_OTHER,\ the\ result\ depends\ on\ the\ specific\ value\ of\ the\ priority.}}
+\DoxyCodeLine{00989\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (param.sched\_priority\ ==\ sched\_get\_priority\_max(SCHED\_OTHER))}
+\DoxyCodeLine{00990\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os\_thread\_priority::above\_normal;}
+\DoxyCodeLine{00991\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (param.sched\_priority\ ==\ sched\_get\_priority\_min(SCHED\_OTHER)\ +\ (sched\_get\_priority\_max(SCHED\_OTHER)\ -\/\ sched\_get\_priority\_min(SCHED\_OTHER))\ /\ 2)}
+\DoxyCodeLine{00992\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os\_thread\_priority::normal;}
+\DoxyCodeLine{00993\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (param.sched\_priority\ ==\ sched\_get\_priority\_min(SCHED\_OTHER)\ +\ (sched\_get\_priority\_max(SCHED\_OTHER)\ -\/\ sched\_get\_priority\_min(SCHED\_OTHER))\ *\ 2\ /\ 3)}
+\DoxyCodeLine{00994\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os\_thread\_priority::below\_normal;}
+\DoxyCodeLine{00995\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (param.sched\_priority\ ==\ sched\_get\_priority\_min(SCHED\_OTHER)\ +\ (sched\_get\_priority\_max(SCHED\_OTHER)\ -\/\ sched\_get\_priority\_min(SCHED\_OTHER))\ /\ 3)}
+\DoxyCodeLine{00996\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os\_thread\_priority::lowest;}
+\DoxyCodeLine{00997\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (param.sched\_priority\ ==\ sched\_get\_priority\_min(SCHED\_OTHER))}
+\DoxyCodeLine{00998\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os\_thread\_priority::idle;}
+\DoxyCodeLine{00999\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{01000\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01001\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{01002\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{01003\ \ \ \ \ \}}
+\DoxyCodeLine{01004\ }
+\DoxyCodeLine{01011\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ set\_os\_thread\_priority(\textcolor{keyword}{const}\ os\_thread\_priority\ priority)}
+\DoxyCodeLine{01012\ \ \ \ \ \{}
+\DoxyCodeLine{01013\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(\_WIN32)}}
+\DoxyCodeLine{01014\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ On\ Windows,\ this\ is\ straightforward.}}
+\DoxyCodeLine{01015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ SetThreadPriority(GetCurrentThread(),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(priority))\ !=\ 0;}
+\DoxyCodeLine{01016\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_linux\_\_)}}
+\DoxyCodeLine{01017\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ On\ Linux,\ we\ distill\ the\ choices\ of\ scheduling\ policy,\ priority,\ and\ "{}nice"{}\ value\ into\ 7\ pre-\/defined\ levels,\ for\ simplicity\ and\ portability.\ The\ total\ number\ of\ possible\ combinations\ of\ policies\ and\ priorities\ is\ much\ larger,\ but\ allowing\ more\ fine-\/grained\ control\ would\ not\ be\ portable.}}
+\DoxyCodeLine{01018\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ policy\ =\ 0;}
+\DoxyCodeLine{01019\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }sched\_param\ param\ =\ \{\};}
+\DoxyCodeLine{01020\ \ \ \ \ \ \ \ \ std::optional<int>\ nice\_val\ =\ std::nullopt;}
+\DoxyCodeLine{01021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (priority)}
+\DoxyCodeLine{01022\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ os\_thread\_priority::realtime:}
+\DoxyCodeLine{01024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}Realtime"{}\ pre-\/defined\ priority:\ We\ use\ the\ policy\ \`{}SCHED\_FIFO`\ with\ the\ highest\ possible\ priority.}}
+\DoxyCodeLine{01025\ \ \ \ \ \ \ \ \ \ \ \ \ policy\ =\ SCHED\_FIFO;}
+\DoxyCodeLine{01026\ \ \ \ \ \ \ \ \ \ \ \ \ param.sched\_priority\ =\ sched\_get\_priority\_max(SCHED\_FIFO);}
+\DoxyCodeLine{01027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ os\_thread\_priority::highest:}
+\DoxyCodeLine{01029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}Highest"{}\ pre-\/defined\ priority:\ We\ use\ the\ policy\ \`{}SCHED\_RR`\ ("{}round-\/robin"{})\ with\ a\ priority\ in\ the\ middle\ of\ the\ available\ range.}}
+\DoxyCodeLine{01030\ \ \ \ \ \ \ \ \ \ \ \ \ policy\ =\ SCHED\_RR;}
+\DoxyCodeLine{01031\ \ \ \ \ \ \ \ \ \ \ \ \ param.sched\_priority\ =\ sched\_get\_priority\_min(SCHED\_RR)\ +\ (sched\_get\_priority\_max(SCHED\_RR)\ -\/\ sched\_get\_priority\_min(SCHED\_RR))\ /\ 2;}
+\DoxyCodeLine{01032\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ os\_thread\_priority::above\_normal:}
+\DoxyCodeLine{01034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}Above\ normal"{}\ pre-\/defined\ priority:\ We\ use\ the\ policy\ \`{}SCHED\_OTHER`\ (the\ default).\ This\ policy\ does\ not\ accept\ a\ priority\ value,\ so\ priority\ must\ be\ 0.\ However,\ we\ set\ the\ "{}nice"{}\ value\ to\ the\ minimum\ value\ as\ given\ by\ \`{}PRIO\_MIN`,\ plus\ 2\ (which\ should\ evaluate\ to\ -\/18).\ The\ usual\ range\ is\ -\/20\ to\ 19\ or\ 20,\ with\ higher\ values\ corresponding\ to\ lower\ priorities.}}
+\DoxyCodeLine{01035\ \ \ \ \ \ \ \ \ \ \ \ \ policy\ =\ SCHED\_OTHER;}
+\DoxyCodeLine{01036\ \ \ \ \ \ \ \ \ \ \ \ \ param.sched\_priority\ =\ 0;}
+\DoxyCodeLine{01037\ \ \ \ \ \ \ \ \ \ \ \ \ nice\_val\ =\ PRIO\_MIN\ +\ 2;}
+\DoxyCodeLine{01038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ os\_thread\_priority::normal:}
+\DoxyCodeLine{01040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}Normal"{}\ pre-\/defined\ priority:\ We\ use\ the\ policy\ \`{}SCHED\_OTHER`,\ priority\ must\ be\ 0,\ and\ we\ set\ the\ "{}nice"{}\ value\ to\ 0\ (the\ default).}}
+\DoxyCodeLine{01041\ \ \ \ \ \ \ \ \ \ \ \ \ policy\ =\ SCHED\_OTHER;}
+\DoxyCodeLine{01042\ \ \ \ \ \ \ \ \ \ \ \ \ param.sched\_priority\ =\ 0;}
+\DoxyCodeLine{01043\ \ \ \ \ \ \ \ \ \ \ \ \ nice\_val\ =\ 0;}
+\DoxyCodeLine{01044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ os\_thread\_priority::below\_normal:}
+\DoxyCodeLine{01046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}Below\ normal"{}\ pre-\/defined\ priority:\ We\ use\ the\ policy\ \`{}SCHED\_OTHER`,\ priority\ must\ be\ 0,\ and\ we\ set\ the\ "{}nice"{}\ value\ to\ half\ the\ maximum\ value\ as\ given\ by\ \`{}PRIO\_MAX`,\ rounded\ up\ (which\ should\ evaluate\ to\ 10).}}
+\DoxyCodeLine{01047\ \ \ \ \ \ \ \ \ \ \ \ \ policy\ =\ SCHED\_OTHER;}
+\DoxyCodeLine{01048\ \ \ \ \ \ \ \ \ \ \ \ \ param.sched\_priority\ =\ 0;}
+\DoxyCodeLine{01049\ \ \ \ \ \ \ \ \ \ \ \ \ nice\_val\ =\ (PRIO\_MAX\ /\ 2)\ +\ (PRIO\_MAX\ \%\ 2);}
+\DoxyCodeLine{01050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ os\_thread\_priority::lowest:}
+\DoxyCodeLine{01052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}Lowest"{}\ pre-\/defined\ priority:\ We\ use\ the\ policy\ \`{}SCHED\_OTHER`,\ priority\ must\ be\ 0,\ and\ we\ set\ the\ "{}nice"{}\ value\ to\ the\ maximum\ value\ as\ given\ by\ \`{}PRIO\_MAX`,\ minus\ 3\ (which\ should\ evaluate\ to\ 17).}}
+\DoxyCodeLine{01053\ \ \ \ \ \ \ \ \ \ \ \ \ policy\ =\ SCHED\_OTHER;}
+\DoxyCodeLine{01054\ \ \ \ \ \ \ \ \ \ \ \ \ param.sched\_priority\ =\ 0;}
+\DoxyCodeLine{01055\ \ \ \ \ \ \ \ \ \ \ \ \ nice\_val\ =\ PRIO\_MAX\ -\/\ 3;}
+\DoxyCodeLine{01056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ os\_thread\_priority::idle:}
+\DoxyCodeLine{01058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}Idle"{}\ pre-\/defined\ priority\ on\ Linux:\ We\ use\ the\ policy\ \`{}SCHED\_IDLE`,\ priority\ must\ be\ 0,\ and\ we\ don't\ touch\ the\ "{}nice"{}\ value.}}
+\DoxyCodeLine{01059\ \ \ \ \ \ \ \ \ \ \ \ \ policy\ =\ SCHED\_IDLE;}
+\DoxyCodeLine{01060\ \ \ \ \ \ \ \ \ \ \ \ \ param.sched\_priority\ =\ 0;}
+\DoxyCodeLine{01061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{01063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ success\ =\ (pthread\_setschedparam(pthread\_self(),\ policy,\ \&param)\ ==\ 0);}
+\DoxyCodeLine{01066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nice\_val.has\_value())}
+\DoxyCodeLine{01067\ \ \ \ \ \ \ \ \ \ \ \ \ success\ =\ success\ \&\&\ (setpriority(PRIO\_PROCESS,\ \textcolor{keyword}{static\_cast<}id\_t\textcolor{keyword}{>}(syscall(SYS\_gettid)),\ nice\_val.value())\ ==\ 0);}
+\DoxyCodeLine{01068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ success;}
+\DoxyCodeLine{01069\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_APPLE\_\_)}}
+\DoxyCodeLine{01070\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ On\ macOS,\ unlike\ Linux,\ the\ "{}nice"{}\ value\ is\ per-\/process,\ not\ per-\/thread\ (in\ compliance\ with\ the\ POSIX\ standard).\ However,\ unlike\ Linux,\ \`{}SCHED\_OTHER`\ on\ macOS\ does\ have\ a\ range\ of\ priorities.\ So\ for\ \`{}realtime`\ and\ \`{}highest`\ priorities\ we\ use\ \`{}SCHED\_FIFO`\ and\ \`{}SCHED\_RR`\ respectively\ as\ for\ Linux,\ but\ for\ the\ other\ priorities\ we\ use\ \`{}SCHED\_OTHER`\ with\ a\ priority\ in\ the\ range\ given\ by\ \`{}sched\_get\_priority\_min(SCHED\_OTHER)`\ to\ \`{}sched\_get\_priority\_max(SCHED\_OTHER)`.}}
+\DoxyCodeLine{01071\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ policy\ =\ 0;}
+\DoxyCodeLine{01072\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }sched\_param\ param\ =\ \{\};}
+\DoxyCodeLine{01073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (priority)}
+\DoxyCodeLine{01074\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ os\_thread\_priority::realtime:}
+\DoxyCodeLine{01076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}Realtime"{}\ pre-\/defined\ priority:\ We\ use\ the\ policy\ \`{}SCHED\_FIFO`\ with\ the\ highest\ possible\ priority.}}
+\DoxyCodeLine{01077\ \ \ \ \ \ \ \ \ \ \ \ \ policy\ =\ SCHED\_FIFO;}
+\DoxyCodeLine{01078\ \ \ \ \ \ \ \ \ \ \ \ \ param.sched\_priority\ =\ sched\_get\_priority\_max(SCHED\_FIFO);}
+\DoxyCodeLine{01079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ os\_thread\_priority::highest:}
+\DoxyCodeLine{01081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}Highest"{}\ pre-\/defined\ priority:\ We\ use\ the\ policy\ \`{}SCHED\_RR`\ ("{}round-\/robin"{})\ with\ a\ priority\ in\ the\ middle\ of\ the\ available\ range.}}
+\DoxyCodeLine{01082\ \ \ \ \ \ \ \ \ \ \ \ \ policy\ =\ SCHED\_RR;}
+\DoxyCodeLine{01083\ \ \ \ \ \ \ \ \ \ \ \ \ param.sched\_priority\ =\ sched\_get\_priority\_min(SCHED\_RR)\ +\ (sched\_get\_priority\_max(SCHED\_RR)\ -\/\ sched\_get\_priority\_min(SCHED\_RR))\ /\ 2;}
+\DoxyCodeLine{01084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ os\_thread\_priority::above\_normal:}
+\DoxyCodeLine{01086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}Above\ normal"{}\ pre-\/defined\ priority:\ We\ use\ the\ policy\ \`{}SCHED\_OTHER`\ (the\ default)\ with\ the\ highest\ possible\ priority.}}
+\DoxyCodeLine{01087\ \ \ \ \ \ \ \ \ \ \ \ \ policy\ =\ SCHED\_OTHER;}
+\DoxyCodeLine{01088\ \ \ \ \ \ \ \ \ \ \ \ \ param.sched\_priority\ =\ sched\_get\_priority\_max(SCHED\_OTHER);}
+\DoxyCodeLine{01089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ os\_thread\_priority::normal:}
+\DoxyCodeLine{01091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}Normal"{}\ pre-\/defined\ priority:\ We\ use\ the\ policy\ \`{}SCHED\_OTHER`\ (the\ default)\ with\ a\ priority\ in\ the\ middle\ of\ the\ available\ range\ (which\ appears\ to\ be\ the\ default?).}}
+\DoxyCodeLine{01092\ \ \ \ \ \ \ \ \ \ \ \ \ policy\ =\ SCHED\_OTHER;}
+\DoxyCodeLine{01093\ \ \ \ \ \ \ \ \ \ \ \ \ param.sched\_priority\ =\ sched\_get\_priority\_min(SCHED\_OTHER)\ +\ (sched\_get\_priority\_max(SCHED\_OTHER)\ -\/\ sched\_get\_priority\_min(SCHED\_OTHER))\ /\ 2;}
+\DoxyCodeLine{01094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ os\_thread\_priority::below\_normal:}
+\DoxyCodeLine{01096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}Below\ normal"{}\ pre-\/defined\ priority:\ We\ use\ the\ policy\ \`{}SCHED\_OTHER`\ (the\ default)\ with\ a\ priority\ equal\ to\ 2/3rds\ of\ the\ normal\ value.}}
+\DoxyCodeLine{01097\ \ \ \ \ \ \ \ \ \ \ \ \ policy\ =\ SCHED\_OTHER;}
+\DoxyCodeLine{01098\ \ \ \ \ \ \ \ \ \ \ \ \ param.sched\_priority\ =\ sched\_get\_priority\_min(SCHED\_OTHER)\ +\ (sched\_get\_priority\_max(SCHED\_OTHER)\ -\/\ sched\_get\_priority\_min(SCHED\_OTHER))\ *\ 2\ /\ 3;}
+\DoxyCodeLine{01099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ os\_thread\_priority::lowest:}
+\DoxyCodeLine{01101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}Lowest"{}\ pre-\/defined\ priority:\ We\ use\ the\ policy\ \`{}SCHED\_OTHER`\ (the\ default)\ with\ a\ priority\ equal\ to\ 1/3rd\ of\ the\ normal\ value.}}
+\DoxyCodeLine{01102\ \ \ \ \ \ \ \ \ \ \ \ \ policy\ =\ SCHED\_OTHER;}
+\DoxyCodeLine{01103\ \ \ \ \ \ \ \ \ \ \ \ \ param.sched\_priority\ =\ sched\_get\_priority\_min(SCHED\_OTHER)\ +\ (sched\_get\_priority\_max(SCHED\_OTHER)\ -\/\ sched\_get\_priority\_min(SCHED\_OTHER))\ /\ 3;}
+\DoxyCodeLine{01104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ os\_thread\_priority::idle:}
+\DoxyCodeLine{01106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}Idle"{}\ pre-\/defined\ priority\ on\ macOS:\ We\ use\ the\ policy\ \`{}SCHED\_OTHER`\ (the\ default)\ with\ the\ lowest\ possible\ priority.}}
+\DoxyCodeLine{01107\ \ \ \ \ \ \ \ \ \ \ \ \ policy\ =\ SCHED\_OTHER;}
+\DoxyCodeLine{01108\ \ \ \ \ \ \ \ \ \ \ \ \ param.sched\_priority\ =\ sched\_get\_priority\_min(SCHED\_OTHER);}
+\DoxyCodeLine{01109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{01111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01112\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pthread\_setschedparam(pthread\_self(),\ policy,\ \&param)\ ==\ 0;}
+\DoxyCodeLine{01114\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{01115\ \ \ \ \ \}}
+\DoxyCodeLine{01116\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01117\ }
+\DoxyCodeLine{01118\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{01119\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ \textcolor{keyword}{thread\_local}\ std::optional<std::size\_t>\ my\_index\ =\ std::nullopt;}
+\DoxyCodeLine{01120\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ \textcolor{keyword}{thread\_local}\ std::optional<void*>\ my\_pool\ =\ std::nullopt;}
+\DoxyCodeLine{01121\ \};\ \textcolor{comment}{//\ class\ this\_thread}}
+\DoxyCodeLine{01122\ }
+\DoxyCodeLine{01130\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ Enable\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{01131\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_b_s_1_1common__index__type}{common\_index\_type}}}
+\DoxyCodeLine{01132\ \{}
+\DoxyCodeLine{01133\ \ \ \ \ \textcolor{comment}{//\ Fallback\ to\ \`{}std::common\_type\_t`\ if\ no\ specialization\ matches.}}
+\DoxyCodeLine{01134\ \ \ \ \ \textcolor{keyword}{using\ }type\ =\ std::common\_type\_t<T1,\ T2>;}
+\DoxyCodeLine{01135\ \};}
+\DoxyCodeLine{01136\ }
+\DoxyCodeLine{01137\ \textcolor{comment}{//\ The\ common\ type\ of\ two\ signed\ integers\ is\ the\ larger\ of\ the\ integers,\ with\ the\ same\ signedness.}}
+\DoxyCodeLine{01138\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2>}
+\DoxyCodeLine{01139\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_b_s_1_1common__index__type}{common\_index\_type}}<T1,\ T2,\ std::enable\_if\_t<std::is\_signed\_v<T1>\ \&\&\ std::is\_signed\_v<T2>>>}
+\DoxyCodeLine{01140\ \{}
+\DoxyCodeLine{01141\ \ \ \ \ \textcolor{keyword}{using\ }type\ =\ std::conditional\_t<(\textcolor{keyword}{sizeof}(T1)\ >=\ \textcolor{keyword}{sizeof}(T2)),\ T1,\ T2>;}
+\DoxyCodeLine{01142\ \};}
+\DoxyCodeLine{01143\ }
+\DoxyCodeLine{01144\ \textcolor{comment}{//\ The\ common\ type\ of\ two\ unsigned\ integers\ is\ the\ larger\ of\ the\ integers,\ with\ the\ same\ signedness.}}
+\DoxyCodeLine{01145\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2>}
+\DoxyCodeLine{01146\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_b_s_1_1common__index__type}{common\_index\_type}}<T1,\ T2,\ std::enable\_if\_t<std::is\_unsigned\_v<T1>\ \&\&\ std::is\_unsigned\_v<T2>>>}
+\DoxyCodeLine{01147\ \{}
+\DoxyCodeLine{01148\ \ \ \ \ \textcolor{keyword}{using\ }type\ =\ std::conditional\_t<(\textcolor{keyword}{sizeof}(T1)\ >=\ \textcolor{keyword}{sizeof}(T2)),\ T1,\ T2>;}
+\DoxyCodeLine{01149\ \};}
+\DoxyCodeLine{01150\ }
+\DoxyCodeLine{01151\ \textcolor{comment}{//\ The\ common\ type\ of\ a\ signed\ and\ an\ unsigned\ integer\ is\ a\ signed\ integer\ that\ can\ hold\ the\ full\ ranges\ of\ both\ integers.}}
+\DoxyCodeLine{01152\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2>}
+\DoxyCodeLine{01153\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_b_s_1_1common__index__type}{common\_index\_type}}<T1,\ T2,\ std::enable\_if\_t<(std::is\_signed\_v<T1>\ \&\&\ std::is\_unsigned\_v<T2>)\ ||\ (std::is\_unsigned\_v<T1>\ \&\&\ std::is\_signed\_v<T2>)>>}
+\DoxyCodeLine{01154\ \{}
+\DoxyCodeLine{01155\ \ \ \ \ \textcolor{keyword}{using\ }S\ =\ std::conditional\_t<std::is\_signed\_v<T1>,\ T1,\ T2>;}
+\DoxyCodeLine{01156\ \ \ \ \ \textcolor{keyword}{using\ }U\ =\ std::conditional\_t<std::is\_unsigned\_v<T1>,\ T1,\ T2>;}
+\DoxyCodeLine{01157\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ std::size\_t\ larger\_size\ =\ (\textcolor{keyword}{sizeof}(S)\ >\ \textcolor{keyword}{sizeof}(U))\ ?\ \textcolor{keyword}{sizeof}(S)\ :\ \textcolor{keyword}{sizeof}(U);}
+\DoxyCodeLine{01158\ \ \ \ \ \textcolor{keyword}{using\ }type\ =\ std::conditional\_t<larger\_size\ <=\ 4,}
+\DoxyCodeLine{01159\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ both\ integers\ are\ 32\ bits\ or\ less,\ the\ common\ type\ should\ be\ a\ signed\ type\ that\ can\ hold\ both\ of\ them.\ If\ both\ are\ 8\ bits,\ or\ the\ signed\ type\ is\ 16\ bits\ and\ the\ unsigned\ type\ is\ 8\ bits,\ the\ common\ type\ is\ \`{}std::int16\_t`.\ Otherwise,\ if\ both\ are\ 16\ bits,\ or\ the\ signed\ type\ is\ 32\ bits\ and\ the\ unsigned\ type\ is\ smaller,\ the\ common\ type\ is\ \`{}std::int32\_t`.\ Otherwise,\ if\ both\ are\ 32\ bits\ or\ less,\ the\ common\ type\ is\ \`{}std::int64\_t`.}}
+\DoxyCodeLine{01160\ \ \ \ \ \ \ \ \ std::conditional\_t<larger\_size\ ==\ 1\ ||\ (\textcolor{keyword}{sizeof}(S)\ ==\ 2\ \&\&\ \textcolor{keyword}{sizeof}(U)\ ==\ 1),\ std::int16\_t,\ std::conditional\_t<larger\_size\ ==\ 2\ ||\ (\textcolor{keyword}{sizeof}(S)\ ==\ 4\ \&\&\ \textcolor{keyword}{sizeof}(U)\ <\ 4),\ std::int32\_t,\ std::int64\_t>>,}
+\DoxyCodeLine{01161\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ the\ unsigned\ integer\ is\ 64\ bits,\ the\ common\ type\ should\ also\ be\ an\ unsigned\ 64-\/bit\ integer,\ that\ is,\ \`{}std::uint64\_t`.\ The\ reason\ is\ that\ the\ most\ common\ scenario\ where\ this\ might\ happen\ is\ where\ the\ indices\ go\ from\ 0\ to\ \`{}x`\ where\ \`{}x`\ has\ been\ previously\ defined\ as\ \`{}std::size\_t`,\ e.g.\ the\ size\ of\ a\ vector.\ Note\ that\ this\ will\ fail\ if\ the\ first\ index\ is\ negative;\ in\ that\ case,\ the\ user\ must\ cast\ the\ indices\ explicitly\ to\ the\ desired\ common\ type.\ If\ the\ unsigned\ integer\ is\ not\ 64\ bits,\ then\ the\ signed\ integer\ must\ be\ 64\ bits,\ hence\ the\ common\ type\ is\ \`{}std::int64\_t`.}}
+\DoxyCodeLine{01162\ \ \ \ \ \ \ \ \ std::conditional\_t<\textcolor{keyword}{sizeof}(U)\ ==\ 8,\ std::uint64\_t,\ std::int64\_t>>;}
+\DoxyCodeLine{01163\ \};}
+\DoxyCodeLine{01164\ }
+\DoxyCodeLine{01171\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2>}
+\DoxyCodeLine{01172\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_b_s_aa2da0cc580df5422698fb41e1c098df5}{common\_index\_type\_t}}\ =\ \textcolor{keyword}{typename}\ common\_index\_type<T1,\ T2>::type;}
+\DoxyCodeLine{01173\ }
+\DoxyCodeLine{01177\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027b}{tp}}\ :\ \mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\_t}}}
+\DoxyCodeLine{01178\ \{}
+\DoxyCodeLine{01182\ \ \ \ \ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba5b2f2bd1d71de1fa047ae7846bebd786}{none}}\ =\ 0,}
+\DoxyCodeLine{01183\ }
+\DoxyCodeLine{01187\ \ \ \ \ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}\ =\ 1\ <<\ 0,}
+\DoxyCodeLine{01188\ }
+\DoxyCodeLine{01192\ \ \ \ \ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba2573e91242c7973901b7862e47cd7af9}{pause}}\ =\ 1\ <<\ 2,}
+\DoxyCodeLine{01193\ }
+\DoxyCodeLine{01197\ \ \ \ \ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba1f051a409d60424953a4b4de63c7e156}{wait\_deadlock\_checks}}\ =\ 1\ <<\ 3}
+\DoxyCodeLine{01198\ \};}
+\DoxyCodeLine{01199\ }
+\DoxyCodeLine{01203\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_b_s_ac4022b9bb56de77bfbf504b386e9bad1}{light\_thread\_pool}}\ =\ \mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\_pool<tp::none>}};}
+\DoxyCodeLine{01204\ }
+\DoxyCodeLine{01208\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_b_s_ad8be06c83a2af9516a9bdea138f32341}{priority\_thread\_pool}}\ =\ \mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\_pool<tp::priority>}};}
+\DoxyCodeLine{01209\ }
+\DoxyCodeLine{01213\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_b_s_a7c315e2142f41d71473a19e72f238200}{pause\_thread\_pool}}\ =\ \mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\_pool<tp::pause>}};}
+\DoxyCodeLine{01214\ }
+\DoxyCodeLine{01218\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_b_s_a143bcb78aa4ab2e87c7d52b2b860628a}{wdc\_thread\_pool}}\ =\ \mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\_pool<tp::wait\_deadlock\_checks>}};}
+\DoxyCodeLine{01219\ }
+\DoxyCodeLine{01225\ \textcolor{keyword}{template}\ <opt\_t\ OptFlags\ =\ tp::none>}
+\DoxyCodeLine{01226\ \textcolor{keyword}{class\ }[[nodiscard]]\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a3b6e01d23a9935412747bd4c9d83fc6c}{thread\_pool}}}
+\DoxyCodeLine{01227\ \{}
+\DoxyCodeLine{01228\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{01232\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a309bd24967f1e4ba0ea9c2023d996528}{priority\_enabled}}\ =\ (OptFlags\ \&\ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{tp::priority}})\ !=\ 0;}
+\DoxyCodeLine{01233\ }
+\DoxyCodeLine{01237\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a82be32990782f7758d78564f5edd5f9c}{pause\_enabled}}\ =\ (OptFlags\ \&\ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba2573e91242c7973901b7862e47cd7af9}{tp::pause}})\ !=\ 0;}
+\DoxyCodeLine{01238\ }
+\DoxyCodeLine{01242\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_af152196df62efee67e774cf4b191e174}{wait\_deadlock\_checks\_enabled}}\ =\ (OptFlags\ \&\ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba1f051a409d60424953a4b4de63c7e156}{tp::wait\_deadlock\_checks}})\ !=\ 0;}
+\DoxyCodeLine{01243\ }
+\DoxyCodeLine{01244\ \textcolor{preprocessor}{\#ifndef\ \_\_cpp\_exceptions}}
+\DoxyCodeLine{01245\ \ \ \ \ \textcolor{keyword}{static\_assert}(!\mbox{\hyperlink{class_b_s_1_1thread__pool_af152196df62efee67e774cf4b191e174}{wait\_deadlock\_checks\_enabled}},\ \textcolor{stringliteral}{"{}Wait\ deadlock\ checks\ cannot\ be\ enabled\ if\ exception\ handling\ is\ disabled."{}});}
+\DoxyCodeLine{01246\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01247\ }
+\DoxyCodeLine{01248\ \ \ \ \ \textcolor{comment}{//\ ============================}}
+\DoxyCodeLine{01249\ \ \ \ \ \textcolor{comment}{//\ Constructors\ and\ destructors}}
+\DoxyCodeLine{01250\ \ \ \ \ \textcolor{comment}{//\ ============================}}
+\DoxyCodeLine{01251\ }
+\DoxyCodeLine{01255\ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1thread__pool_a3b6e01d23a9935412747bd4c9d83fc6c}{thread\_pool}}()\ :\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a3b6e01d23a9935412747bd4c9d83fc6c}{thread\_pool}}(0,\ []\ \{\})\ \{\}}
+\DoxyCodeLine{01256\ }
+\DoxyCodeLine{01262\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a0e0296afdd18d144fd96d27945426529}{thread\_pool}}(\textcolor{keyword}{const}\ std::size\_t\ num\_threads)\ :\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a3b6e01d23a9935412747bd4c9d83fc6c}{thread\_pool}}(num\_threads,\ []\ \{\})\ \{\}}
+\DoxyCodeLine{01263\ }
+\DoxyCodeLine{01269\ \ \ \ \ \textcolor{keyword}{template}\ <BS\_THREAD\_POOL\_INIT\_FUNC\_CONCEPT(F)>}
+\DoxyCodeLine{01270\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a0c2bfc615db57530a97ae789987ae6d0}{thread\_pool}}(F\&\&\ init)\ :\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a3b6e01d23a9935412747bd4c9d83fc6c}{thread\_pool}}(0,\ std::forward<F>(init))}
+\DoxyCodeLine{01271\ \ \ \ \ \{}
+\DoxyCodeLine{01272\ \ \ \ \ \}}
+\DoxyCodeLine{01273\ }
+\DoxyCodeLine{01280\ \ \ \ \ \textcolor{keyword}{template}\ <BS\_THREAD\_POOL\_INIT\_FUNC\_CONCEPT(F)>}
+\DoxyCodeLine{01281\ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1thread__pool_a60e6550ac7332ead9af50936ae5c5a3d}{thread\_pool}}(\textcolor{keyword}{const}\ std::size\_t\ num\_threads,\ F\&\&\ init)}
+\DoxyCodeLine{01282\ \ \ \ \ \{}
+\DoxyCodeLine{01283\ \ \ \ \ \ \ \ \ create\_threads(num\_threads,\ std::forward<F>(init));}
+\DoxyCodeLine{01284\ \ \ \ \ \}}
+\DoxyCodeLine{01285\ }
+\DoxyCodeLine{01286\ \ \ \ \ \textcolor{comment}{//\ The\ copy\ and\ move\ constructors\ and\ assignment\ operators\ are\ deleted.\ The\ thread\ pool\ cannot\ be\ copied\ or\ moved.}}
+\DoxyCodeLine{01287\ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\_pool}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\_pool}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{01288\ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\_pool}}(\mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\_pool}}\&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{01289\ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\_pool}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\_pool}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{01290\ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\_pool}}\&\ operator=(\mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\_pool}}\&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{01291\ }
+\DoxyCodeLine{01295\ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1thread__pool_af914f56422495eb7a5e8ccd93e442e73}{\string~thread\_pool}}()\ noexcept}
+\DoxyCodeLine{01296\ \ \ \ \ \{}
+\DoxyCodeLine{01297\ \textcolor{preprocessor}{\#ifdef\ \_\_cpp\_exceptions}}
+\DoxyCodeLine{01298\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{01299\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01300\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01301\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1thread__pool_ae4fdcde4657ca01e3f6d0af108284809}{wait}}();}
+\DoxyCodeLine{01302\ \textcolor{preprocessor}{\#ifndef\ \_\_cpp\_lib\_jthread}}
+\DoxyCodeLine{01303\ \ \ \ \ \ \ \ \ \ \ \ \ destroy\_threads();}
+\DoxyCodeLine{01304\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01305\ \textcolor{preprocessor}{\#ifdef\ \_\_cpp\_exceptions}}
+\DoxyCodeLine{01306\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01307\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
+\DoxyCodeLine{01308\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01309\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01310\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01311\ \ \ \ \ \}}
+\DoxyCodeLine{01312\ }
+\DoxyCodeLine{01313\ \ \ \ \ \textcolor{comment}{//\ =======================}}
+\DoxyCodeLine{01314\ \ \ \ \ \textcolor{comment}{//\ Public\ member\ functions}}
+\DoxyCodeLine{01315\ \ \ \ \ \textcolor{comment}{//\ =======================}}
+\DoxyCodeLine{01316\ }
+\DoxyCodeLine{01329\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T\ =\ common\_index\_type\_t<T1,\ T2>,\ \textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{01330\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a2227c23c57235a364397aff24dbe35c9}{detach\_blocks}}(\textcolor{keyword}{const}\ T1\ first\_index,\ \textcolor{keyword}{const}\ T2\ index\_after\_last,\ F\&\&\ block,\ \textcolor{keyword}{const}\ std::size\_t\ num\_blocks\ =\ 0,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\_t}}\ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}\ =\ 0)}
+\DoxyCodeLine{01331\ \ \ \ \ \{}
+\DoxyCodeLine{01332\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(index\_after\_last)\ >\ \textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(first\_index))}
+\DoxyCodeLine{01333\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01334\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::shared\_ptr<std::decay\_t<F>>\ block\_ptr\ =\ std::make\_shared<std::decay\_t<F>>(std::forward<F>(block));}
+\DoxyCodeLine{01335\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_b_s_1_1blocks}{blocks}}\ blks(\textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(first\_index),\ \textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(index\_after\_last),\ num\_blocks\ ?\ num\_blocks\ :\ thread\_count);}
+\DoxyCodeLine{01336\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ blk\ =\ 0;\ blk\ <\ blks.get\_num\_blocks();\ ++blk)}
+\DoxyCodeLine{01337\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1thread__pool_ac5effe10fd4156ea28c7a5c61997c6e7}{detach\_task}}(}
+\DoxyCodeLine{01339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [block\_ptr,\ start\ =\ blks.start(blk),\ end\ =\ blks.end(blk)]}
+\DoxyCodeLine{01340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*block\_ptr)(start,\ end);}
+\DoxyCodeLine{01342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{01343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}});}
+\DoxyCodeLine{01344\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01345\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01346\ \ \ \ \ \}}
+\DoxyCodeLine{01347\ }
+\DoxyCodeLine{01360\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T\ =\ common\_index\_type\_t<T1,\ T2>,\ \textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{01361\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a24a2a5d7219f89fff6aa7b33bc8a7994}{detach\_loop}}(\textcolor{keyword}{const}\ T1\ first\_index,\ \textcolor{keyword}{const}\ T2\ index\_after\_last,\ F\&\&\ loop,\ \textcolor{keyword}{const}\ std::size\_t\ num\_blocks\ =\ 0,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\_t}}\ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}\ =\ 0)}
+\DoxyCodeLine{01362\ \ \ \ \ \{}
+\DoxyCodeLine{01363\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(index\_after\_last)\ >\ \textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(first\_index))}
+\DoxyCodeLine{01364\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01365\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::shared\_ptr<std::decay\_t<F>>\ loop\_ptr\ =\ std::make\_shared<std::decay\_t<F>>(std::forward<F>(loop));}
+\DoxyCodeLine{01366\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_b_s_1_1blocks}{blocks}}\ blks(\textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(first\_index),\ \textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(index\_after\_last),\ num\_blocks\ ?\ num\_blocks\ :\ thread\_count);}
+\DoxyCodeLine{01367\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ blk\ =\ 0;\ blk\ <\ blks.get\_num\_blocks();\ ++blk)}
+\DoxyCodeLine{01368\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1thread__pool_ac5effe10fd4156ea28c7a5c61997c6e7}{detach\_task}}(}
+\DoxyCodeLine{01370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [loop\_ptr,\ start\ =\ blks.start(blk),\ end\ =\ blks.end(blk)]}
+\DoxyCodeLine{01371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01372\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ for\ (T\ i\ =\ start;\ i\ <\ end;\ ++i)}
+\DoxyCodeLine{01373\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*loop\_ptr)(i);}
+\DoxyCodeLine{01374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{01375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}});}
+\DoxyCodeLine{01376\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01377\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01378\ \ \ \ \ \}}
+\DoxyCodeLine{01379\ }
+\DoxyCodeLine{01391\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T\ =\ common\_index\_type\_t<T1,\ T2>,\ \textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{01392\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_affb462961cfe82a65097a4999f22ce8a}{detach\_sequence}}(\textcolor{keyword}{const}\ T1\ first\_index,\ \textcolor{keyword}{const}\ T2\ index\_after\_last,\ F\&\&\ sequence,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\_t}}\ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}\ =\ 0)}
+\DoxyCodeLine{01393\ \ \ \ \ \{}
+\DoxyCodeLine{01394\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(index\_after\_last)\ >\ \textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(first\_index))}
+\DoxyCodeLine{01395\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01396\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::shared\_ptr<std::decay\_t<F>>\ sequence\_ptr\ =\ std::make\_shared<std::decay\_t<F>>(std::forward<F>(sequence));}
+\DoxyCodeLine{01397\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (T\ i\ =\ \textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(first\_index);\ i\ <\ static\_cast<T>(index\_after\_last);\ ++i)}
+\DoxyCodeLine{01398\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1thread__pool_ac5effe10fd4156ea28c7a5c61997c6e7}{detach\_task}}(}
+\DoxyCodeLine{01400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [sequence\_ptr,\ i]}
+\DoxyCodeLine{01401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*sequence\_ptr)(i);}
+\DoxyCodeLine{01403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{01404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}});}
+\DoxyCodeLine{01405\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01406\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01407\ \ \ \ \ \}}
+\DoxyCodeLine{01408\ }
+\DoxyCodeLine{01416\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{01417\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_ac5effe10fd4156ea28c7a5c61997c6e7}{detach\_task}}(F\&\&\ task,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\_t}}\ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}\ =\ 0)}
+\DoxyCodeLine{01418\ \ \ \ \ \{}
+\DoxyCodeLine{01419\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01420\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::scoped\_lock\ tasks\_lock(tasks\_mutex);}
+\DoxyCodeLine{01421\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{class_b_s_1_1thread__pool_a309bd24967f1e4ba0ea9c2023d996528}{priority\_enabled}})}
+\DoxyCodeLine{01422\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tasks.emplace(std::forward<F>(task),\ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}});}
+\DoxyCodeLine{01423\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01424\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tasks.emplace(std::forward<F>(task));}
+\DoxyCodeLine{01425\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01426\ \ \ \ \ \ \ \ \ task\_available\_cv.notify\_one();}
+\DoxyCodeLine{01427\ \ \ \ \ \}}
+\DoxyCodeLine{01428\ }
+\DoxyCodeLine{01429\ \textcolor{preprocessor}{\#ifdef\ BS\_THREAD\_POOL\_NATIVE\_EXTENSIONS}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01435\ \ \ \ \ [[nodiscard]]\ std::vector<thread\_t::native\_handle\_type>\ get\_native\_handles()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01436\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01437\ \ \ \ \ \ \ \ \ std::vector<thread\_t::native\_handle\_type>\ native\_handles(thread\_count);}
+\DoxyCodeLine{01438\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 0;\ i\ <\ thread\_count;\ ++i)}
+\DoxyCodeLine{01439\ \ \ \ \ \ \ \ \ \ \ \ \ native\_handles[i]\ =\ threads[i].native\_handle();}
+\DoxyCodeLine{01440\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ native\_handles;}
+\DoxyCodeLine{01441\ \ \ \ \ \}}
+\DoxyCodeLine{01442\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01443\ }
+\DoxyCodeLine{01449\ \ \ \ \ [[nodiscard]]\ std::size\_t\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a70a96809451e3b894b4914f73943b8b8}{get\_tasks\_queued}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01450\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01451\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::scoped\_lock\ tasks\_lock(tasks\_mutex);}
+\DoxyCodeLine{01452\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tasks.size();}
+\DoxyCodeLine{01453\ \ \ \ \ \}}
+\DoxyCodeLine{01454\ }
+\DoxyCodeLine{01460\ \ \ \ \ [[nodiscard]]\ std::size\_t\ \mbox{\hyperlink{class_b_s_1_1thread__pool_af797cf1b1c5290330beef12fc44a213f}{get\_tasks\_running}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01461\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01462\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::scoped\_lock\ tasks\_lock(tasks\_mutex);}
+\DoxyCodeLine{01463\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tasks\_running;}
+\DoxyCodeLine{01464\ \ \ \ \ \}}
+\DoxyCodeLine{01465\ }
+\DoxyCodeLine{01471\ \ \ \ \ [[nodiscard]]\ std::size\_t\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a8d29b6cfcb1a688a1bd0ec2cfd827b24}{get\_tasks\_total}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01472\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01473\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::scoped\_lock\ tasks\_lock(tasks\_mutex);}
+\DoxyCodeLine{01474\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tasks\_running\ +\ tasks.size();}
+\DoxyCodeLine{01475\ \ \ \ \ \}}
+\DoxyCodeLine{01476\ }
+\DoxyCodeLine{01482\ \ \ \ \ [[nodiscard]]\ std::size\_t\ \mbox{\hyperlink{class_b_s_1_1thread__pool_ab8ff9b7b79739ae9240833a9b939de65}{get\_thread\_count}}()\ const\ noexcept}
+\DoxyCodeLine{01483\ \ \ \ \ \{}
+\DoxyCodeLine{01484\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ thread\_count;}
+\DoxyCodeLine{01485\ \ \ \ \ \}}
+\DoxyCodeLine{01486\ }
+\DoxyCodeLine{01492\ \ \ \ \ [[nodiscard]]\ std::vector<thread\_t::id>\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a8292a17d2c183df3f02c89804b70f4ec}{get\_thread\_ids}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01493\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01494\ \ \ \ \ \ \ \ \ std::vector<thread\_t::id>\ thread\_ids(thread\_count);}
+\DoxyCodeLine{01495\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 0;\ i\ <\ thread\_count;\ ++i)}
+\DoxyCodeLine{01496\ \ \ \ \ \ \ \ \ \ \ \ \ thread\_ids[i]\ =\ threads[i].get\_id();}
+\DoxyCodeLine{01497\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ thread\_ids;}
+\DoxyCodeLine{01498\ \ \ \ \ \}}
+\DoxyCodeLine{01499\ }
+\DoxyCodeLine{01505\ \ \ \ \ BS\_THREAD\_POOL\_IF\_PAUSE\_ENABLED}
+\DoxyCodeLine{01506\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a0e45f81e64dc34df12705c95132620b3}{is\_paused}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01507\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01508\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::scoped\_lock\ tasks\_lock(tasks\_mutex);}
+\DoxyCodeLine{01509\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ paused;}
+\DoxyCodeLine{01510\ \ \ \ \ \}}
+\DoxyCodeLine{01511\ }
+\DoxyCodeLine{01515\ \ \ \ \ BS\_THREAD\_POOL\_IF\_PAUSE\_ENABLED}
+\DoxyCodeLine{01516\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a4b8a5bc00788adecc1d0be3fc18eae6c}{pause}}()}
+\DoxyCodeLine{01517\ \ \ \ \ \{}
+\DoxyCodeLine{01518\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::scoped\_lock\ tasks\_lock(tasks\_mutex);}
+\DoxyCodeLine{01519\ \ \ \ \ \ \ \ \ paused\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01520\ \ \ \ \ \}}
+\DoxyCodeLine{01521\ }
+\DoxyCodeLine{01525\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a5ae51d78ab371bbedaafdf5cb15fd786}{purge}}()}
+\DoxyCodeLine{01526\ \ \ \ \ \{}
+\DoxyCodeLine{01527\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::scoped\_lock\ tasks\_lock(tasks\_mutex);}
+\DoxyCodeLine{01528\ \ \ \ \ \ \ \ \ tasks\ =\ \{\};}
+\DoxyCodeLine{01529\ \ \ \ \ \}}
+\DoxyCodeLine{01530\ }
+\DoxyCodeLine{01534\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_ad857e7bcb0740e7452b8b3f7f2b1f50c}{reset}}()}
+\DoxyCodeLine{01535\ \ \ \ \ \{}
+\DoxyCodeLine{01536\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1thread__pool_ad857e7bcb0740e7452b8b3f7f2b1f50c}{reset}}(0,\ [](std::size\_t)\ \{\});}
+\DoxyCodeLine{01537\ \ \ \ \ \}}
+\DoxyCodeLine{01538\ }
+\DoxyCodeLine{01544\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a4a473029de41c6467945a9930fce7991}{reset}}(\textcolor{keyword}{const}\ std::size\_t\ num\_threads)}
+\DoxyCodeLine{01545\ \ \ \ \ \{}
+\DoxyCodeLine{01546\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1thread__pool_ad857e7bcb0740e7452b8b3f7f2b1f50c}{reset}}(num\_threads,\ [](std::size\_t)\ \{\});}
+\DoxyCodeLine{01547\ \ \ \ \ \}}
+\DoxyCodeLine{01548\ }
+\DoxyCodeLine{01554\ \ \ \ \ \textcolor{keyword}{template}\ <BS\_THREAD\_POOL\_INIT\_FUNC\_CONCEPT(F)>}
+\DoxyCodeLine{01555\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a9f123ac3f05c1925b5941c1bed0f5a6d}{reset}}(F\&\&\ init)}
+\DoxyCodeLine{01556\ \ \ \ \ \{}
+\DoxyCodeLine{01557\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1thread__pool_ad857e7bcb0740e7452b8b3f7f2b1f50c}{reset}}(0,\ std::forward<F>(init));}
+\DoxyCodeLine{01558\ \ \ \ \ \}}
+\DoxyCodeLine{01559\ }
+\DoxyCodeLine{01566\ \ \ \ \ \textcolor{keyword}{template}\ <BS\_THREAD\_POOL\_INIT\_FUNC\_CONCEPT(F)>}
+\DoxyCodeLine{01567\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a59eee365de519f55dd421b524ee6b663}{reset}}(\textcolor{keyword}{const}\ std::size\_t\ num\_threads,\ F\&\&\ init)}
+\DoxyCodeLine{01568\ \ \ \ \ \{}
+\DoxyCodeLine{01569\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{class_b_s_1_1thread__pool_a82be32990782f7758d78564f5edd5f9c}{pause\_enabled}})}
+\DoxyCodeLine{01570\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01571\ \ \ \ \ \ \ \ \ \ \ \ \ std::unique\_lock\ tasks\_lock(tasks\_mutex);}
+\DoxyCodeLine{01572\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ was\_paused\ =\ paused;}
+\DoxyCodeLine{01573\ \ \ \ \ \ \ \ \ \ \ \ \ paused\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01574\ \ \ \ \ \ \ \ \ \ \ \ \ tasks\_lock.unlock();}
+\DoxyCodeLine{01575\ \ \ \ \ \ \ \ \ \ \ \ \ reset\_pool(num\_threads,\ std::forward<F>(init));}
+\DoxyCodeLine{01576\ \ \ \ \ \ \ \ \ \ \ \ \ tasks\_lock.lock();}
+\DoxyCodeLine{01577\ \ \ \ \ \ \ \ \ \ \ \ \ paused\ =\ was\_paused;}
+\DoxyCodeLine{01578\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01579\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01580\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01581\ \ \ \ \ \ \ \ \ \ \ \ \ reset\_pool(num\_threads,\ std::forward<F>(init));}
+\DoxyCodeLine{01582\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01583\ \ \ \ \ \}}
+\DoxyCodeLine{01584\ }
+\DoxyCodeLine{01590\ \ \ \ \ \textcolor{keyword}{template}\ <BS\_THREAD\_POOL\_INIT\_FUNC\_CONCEPT(F)>}
+\DoxyCodeLine{01591\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a847135c2217e88c590b9ca4be39b6c7a}{set\_cleanup\_func}}(F\&\&\ cleanup)}
+\DoxyCodeLine{01592\ \ \ \ \ \{}
+\DoxyCodeLine{01593\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_invocable\_v<F,\ std::size\_t>)}
+\DoxyCodeLine{01594\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01595\ \ \ \ \ \ \ \ \ \ \ \ \ cleanup\_func\ =\ std::forward<F>(cleanup);}
+\DoxyCodeLine{01596\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01597\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01598\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01599\ \ \ \ \ \ \ \ \ \ \ \ \ cleanup\_func\ =\ [cleanup\ =\ std::forward<F>(cleanup)](std::size\_t)}
+\DoxyCodeLine{01600\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01601\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cleanup();}
+\DoxyCodeLine{01602\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{01603\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01604\ \ \ \ \ \}}
+\DoxyCodeLine{01605\ }
+\DoxyCodeLine{01620\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T\ =\ common\_index\_type\_t<T1,\ T2>,\ \textcolor{keyword}{typename}\ F,\ \textcolor{keyword}{typename}\ R\ =\ std::invoke\_result\_t<std::decay\_t<F>,\ T,\ T>>}
+\DoxyCodeLine{01621\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{class_b_s_1_1multi__future}{multi\_future<R>}}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a76f963d585dd582c78bbaf554185d5d4}{submit\_blocks}}(\textcolor{keyword}{const}\ T1\ first\_index,\ \textcolor{keyword}{const}\ T2\ index\_after\_last,\ F\&\&\ block,\ \textcolor{keyword}{const}\ std::size\_t\ num\_blocks\ =\ 0,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\_t}}\ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}\ =\ 0)}
+\DoxyCodeLine{01622\ \ \ \ \ \{}
+\DoxyCodeLine{01623\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(index\_after\_last)\ >\ \textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(first\_index))}
+\DoxyCodeLine{01624\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01625\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::shared\_ptr<std::decay\_t<F>>\ block\_ptr\ =\ std::make\_shared<std::decay\_t<F>>(std::forward<F>(block));}
+\DoxyCodeLine{01626\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_b_s_1_1blocks}{blocks}}\ blks(\textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(first\_index),\ \textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(index\_after\_last),\ num\_blocks\ ?\ num\_blocks\ :\ thread\_count);}
+\DoxyCodeLine{01627\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1multi__future}{multi\_future<R>}}\ future;}
+\DoxyCodeLine{01628\ \ \ \ \ \ \ \ \ \ \ \ \ future.reserve(blks.get\_num\_blocks());}
+\DoxyCodeLine{01629\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ blk\ =\ 0;\ blk\ <\ blks.get\_num\_blocks();\ ++blk)}
+\DoxyCodeLine{01630\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01631\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ future.push\_back(\mbox{\hyperlink{class_b_s_1_1thread__pool_a2cc53c258968877b3d54b5abb9cf4b4d}{submit\_task}}(}
+\DoxyCodeLine{01632\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [block\_ptr,\ start\ =\ blks.start(blk),\ end\ =\ blks.end(blk)]}
+\DoxyCodeLine{01633\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01634\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ (*block\_ptr)(start,\ end);}
+\DoxyCodeLine{01635\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{01636\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}));}
+\DoxyCodeLine{01637\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01638\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ future;}
+\DoxyCodeLine{01639\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01640\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\};}
+\DoxyCodeLine{01641\ \ \ \ \ \}}
+\DoxyCodeLine{01642\ }
+\DoxyCodeLine{01656\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T\ =\ common\_index\_type\_t<T1,\ T2>,\ \textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{01657\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{class_b_s_1_1multi__future}{multi\_future<void>}}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a51c236089dc40e33b2181ed66d6368fb}{submit\_loop}}(\textcolor{keyword}{const}\ T1\ first\_index,\ \textcolor{keyword}{const}\ T2\ index\_after\_last,\ F\&\&\ loop,\ \textcolor{keyword}{const}\ std::size\_t\ num\_blocks\ =\ 0,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\_t}}\ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}\ =\ 0)}
+\DoxyCodeLine{01658\ \ \ \ \ \{}
+\DoxyCodeLine{01659\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(index\_after\_last)\ >\ \textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(first\_index))}
+\DoxyCodeLine{01660\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01661\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::shared\_ptr<std::decay\_t<F>>\ loop\_ptr\ =\ std::make\_shared<std::decay\_t<F>>(std::forward<F>(loop));}
+\DoxyCodeLine{01662\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_b_s_1_1blocks}{blocks}}\ blks(\textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(first\_index),\ \textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(index\_after\_last),\ num\_blocks\ ?\ num\_blocks\ :\ thread\_count);}
+\DoxyCodeLine{01663\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1multi__future}{multi\_future<void>}}\ future;}
+\DoxyCodeLine{01664\ \ \ \ \ \ \ \ \ \ \ \ \ future.reserve(blks.get\_num\_blocks());}
+\DoxyCodeLine{01665\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ blk\ =\ 0;\ blk\ <\ blks.get\_num\_blocks();\ ++blk)}
+\DoxyCodeLine{01666\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01667\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ future.push\_back(\mbox{\hyperlink{class_b_s_1_1thread__pool_a2cc53c258968877b3d54b5abb9cf4b4d}{submit\_task}}(}
+\DoxyCodeLine{01668\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [loop\_ptr,\ start\ =\ blks.start(blk),\ end\ =\ blks.end(blk)]}
+\DoxyCodeLine{01669\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01670\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ for\ (T\ i\ =\ start;\ i\ <\ end;\ ++i)}
+\DoxyCodeLine{01671\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*loop\_ptr)(i);}
+\DoxyCodeLine{01672\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{01673\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}));}
+\DoxyCodeLine{01674\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01675\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ future;}
+\DoxyCodeLine{01676\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01677\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\};}
+\DoxyCodeLine{01678\ \ \ \ \ \}}
+\DoxyCodeLine{01679\ }
+\DoxyCodeLine{01693\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T\ =\ common\_index\_type\_t<T1,\ T2>,\ \textcolor{keyword}{typename}\ F,\ \textcolor{keyword}{typename}\ R\ =\ std::invoke\_result\_t<std::decay\_t<F>,\ T>>}
+\DoxyCodeLine{01694\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{class_b_s_1_1multi__future}{multi\_future<R>}}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_ac915668ff39e7e45013b94dd5905ed1b}{submit\_sequence}}(\textcolor{keyword}{const}\ T1\ first\_index,\ \textcolor{keyword}{const}\ T2\ index\_after\_last,\ F\&\&\ sequence,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\_t}}\ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}\ =\ 0)}
+\DoxyCodeLine{01695\ \ \ \ \ \{}
+\DoxyCodeLine{01696\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(index\_after\_last)\ >\ \textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(first\_index))}
+\DoxyCodeLine{01697\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01698\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::shared\_ptr<std::decay\_t<F>>\ sequence\_ptr\ =\ std::make\_shared<std::decay\_t<F>>(std::forward<F>(sequence));}
+\DoxyCodeLine{01699\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1multi__future}{multi\_future<R>}}\ future;}
+\DoxyCodeLine{01700\ \ \ \ \ \ \ \ \ \ \ \ \ future.reserve(\textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(\textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(index\_after\_last)\ >\ \textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(first\_index)));}
+\DoxyCodeLine{01701\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (T\ i\ =\ \textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(first\_index);\ i\ <\ static\_cast<T>(index\_after\_last);\ ++i)}
+\DoxyCodeLine{01702\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01703\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ future.push\_back(\mbox{\hyperlink{class_b_s_1_1thread__pool_a2cc53c258968877b3d54b5abb9cf4b4d}{submit\_task}}(}
+\DoxyCodeLine{01704\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [sequence\_ptr,\ i]}
+\DoxyCodeLine{01705\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01706\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*sequence\_ptr)(i);}
+\DoxyCodeLine{01707\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{01708\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}));}
+\DoxyCodeLine{01709\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01710\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ future;}
+\DoxyCodeLine{01711\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01712\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\};}
+\DoxyCodeLine{01713\ \ \ \ \ \}}
+\DoxyCodeLine{01714\ }
+\DoxyCodeLine{01724\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F,\ \textcolor{keyword}{typename}\ R\ =\ std::invoke\_result\_t<std::decay\_t<F>>>}
+\DoxyCodeLine{01725\ \ \ \ \ [[nodiscard]]\ std::future<R>\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a2cc53c258968877b3d54b5abb9cf4b4d}{submit\_task}}(F\&\&\ task,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\_t}}\ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}\ =\ 0)}
+\DoxyCodeLine{01726\ \ \ \ \ \{}
+\DoxyCodeLine{01727\ \textcolor{preprocessor}{\#ifdef\ \_\_cpp\_lib\_move\_only\_function}}
+\DoxyCodeLine{01728\ \ \ \ \ \ \ \ \ std::promise<R>\ promise;}
+\DoxyCodeLine{01729\ \textcolor{preprocessor}{\ \ \ \ \#define\ BS\_THREAD\_POOL\_PROMISE\_MEMBER\_ACCESS\ promise.}}
+\DoxyCodeLine{01730\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{01731\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::shared\_ptr<std::promise<R>>\ promise\ =\ std::make\_shared<std::promise<R>>();}
+\DoxyCodeLine{01732\ \textcolor{preprocessor}{\ \ \ \ \#define\ BS\_THREAD\_POOL\_PROMISE\_MEMBER\_ACCESS\ promise-\/>}}
+\DoxyCodeLine{01733\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01734\ \ \ \ \ \ \ \ \ std::future<R>\ future\ =\ BS\_THREAD\_POOL\_PROMISE\_MEMBER\_ACCESS\ get\_future();}
+\DoxyCodeLine{01735\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1thread__pool_ac5effe10fd4156ea28c7a5c61997c6e7}{detach\_task}}(}
+\DoxyCodeLine{01736\ \ \ \ \ \ \ \ \ \ \ \ \ [task\ =\ std::forward<F>(task),\ promise\ =\ std::move(promise)]()\ \textcolor{keyword}{mutable}}
+\DoxyCodeLine{01737\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01738\ \textcolor{preprocessor}{\#ifdef\ \_\_cpp\_exceptions}}
+\DoxyCodeLine{01739\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{01740\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01741\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01742\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_void\_v<R>)}
+\DoxyCodeLine{01743\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01744\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ task();}
+\DoxyCodeLine{01745\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BS\_THREAD\_POOL\_PROMISE\_MEMBER\_ACCESS\ set\_value();}
+\DoxyCodeLine{01746\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01747\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01748\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01749\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BS\_THREAD\_POOL\_PROMISE\_MEMBER\_ACCESS\ set\_value(task());}
+\DoxyCodeLine{01750\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01751\ \textcolor{preprocessor}{\#ifdef\ \_\_cpp\_exceptions}}
+\DoxyCodeLine{01752\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01753\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
+\DoxyCodeLine{01754\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01755\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{01756\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01757\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BS\_THREAD\_POOL\_PROMISE\_MEMBER\_ACCESS\ set\_exception(std::current\_exception());}
+\DoxyCodeLine{01758\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01759\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
+\DoxyCodeLine{01760\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01761\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01762\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01763\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01764\ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{01765\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}});}
+\DoxyCodeLine{01766\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ future;}
+\DoxyCodeLine{01767\ \ \ \ \ \}}
+\DoxyCodeLine{01768\ }
+\DoxyCodeLine{01772\ \ \ \ \ BS\_THREAD\_POOL\_IF\_PAUSE\_ENABLED}
+\DoxyCodeLine{01773\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_abdd07a7dc1b479c69703e52b202915df}{unpause}}()}
+\DoxyCodeLine{01774\ \ \ \ \ \{}
+\DoxyCodeLine{01775\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01776\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::scoped\_lock\ tasks\_lock(tasks\_mutex);}
+\DoxyCodeLine{01777\ \ \ \ \ \ \ \ \ \ \ \ \ paused\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01778\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01779\ \ \ \ \ \ \ \ \ task\_available\_cv.notify\_all();}
+\DoxyCodeLine{01780\ \ \ \ \ \}}
+\DoxyCodeLine{01781\ }
+\DoxyCodeLine{01787\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_ae4fdcde4657ca01e3f6d0af108284809}{wait}}()}
+\DoxyCodeLine{01788\ \ \ \ \ \{}
+\DoxyCodeLine{01789\ \textcolor{preprocessor}{\#ifdef\ \_\_cpp\_exceptions}}
+\DoxyCodeLine{01790\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{class_b_s_1_1thread__pool_af152196df62efee67e774cf4b191e174}{wait\_deadlock\_checks\_enabled}})}
+\DoxyCodeLine{01791\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01792\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_b_s_1_1this__thread_a362545c2bf1031a2d5ffb02a8565ccc1}{this\_thread::get\_pool}}()\ ==\ \textcolor{keyword}{this})}
+\DoxyCodeLine{01793\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ wait\_deadlock();}
+\DoxyCodeLine{01794\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01795\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01796\ \ \ \ \ \ \ \ \ std::unique\_lock\ tasks\_lock(tasks\_mutex);}
+\DoxyCodeLine{01797\ \ \ \ \ \ \ \ \ waiting\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01798\ \ \ \ \ \ \ \ \ tasks\_done\_cv.wait(tasks\_lock,}
+\DoxyCodeLine{01799\ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this}]}
+\DoxyCodeLine{01800\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01801\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{class_b_s_1_1thread__pool_a82be32990782f7758d78564f5edd5f9c}{pause\_enabled}})}
+\DoxyCodeLine{01802\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (tasks\_running\ ==\ 0)\ \&\&\ (paused\ ||\ tasks.empty());}
+\DoxyCodeLine{01803\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01804\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (tasks\_running\ ==\ 0)\ \&\&\ tasks.empty();}
+\DoxyCodeLine{01805\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{01806\ \ \ \ \ \ \ \ \ waiting\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01807\ \ \ \ \ \}}
+\DoxyCodeLine{01808\ }
+\DoxyCodeLine{01818\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ R,\ \textcolor{keyword}{typename}\ P>}
+\DoxyCodeLine{01819\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_a96220f6f2002518d7ab590ed1bd4224d}{wait\_for}}(\textcolor{keyword}{const}\ std::chrono::duration<R,\ P>\&\ duration)}
+\DoxyCodeLine{01820\ \ \ \ \ \{}
+\DoxyCodeLine{01821\ \textcolor{preprocessor}{\#ifdef\ \_\_cpp\_exceptions}}
+\DoxyCodeLine{01822\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{class_b_s_1_1thread__pool_af152196df62efee67e774cf4b191e174}{wait\_deadlock\_checks\_enabled}})}
+\DoxyCodeLine{01823\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01824\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_b_s_1_1this__thread_a362545c2bf1031a2d5ffb02a8565ccc1}{this\_thread::get\_pool}}()\ ==\ \textcolor{keyword}{this})}
+\DoxyCodeLine{01825\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ wait\_deadlock();}
+\DoxyCodeLine{01826\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01827\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01828\ \ \ \ \ \ \ \ \ std::unique\_lock\ tasks\_lock(tasks\_mutex);}
+\DoxyCodeLine{01829\ \ \ \ \ \ \ \ \ waiting\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01830\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ status\ =\ tasks\_done\_cv.wait\_for(tasks\_lock,\ duration,}
+\DoxyCodeLine{01831\ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this}]}
+\DoxyCodeLine{01832\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01833\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{class_b_s_1_1thread__pool_a82be32990782f7758d78564f5edd5f9c}{pause\_enabled}})}
+\DoxyCodeLine{01834\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (tasks\_running\ ==\ 0)\ \&\&\ (paused\ ||\ tasks.empty());}
+\DoxyCodeLine{01835\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01836\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (tasks\_running\ ==\ 0)\ \&\&\ tasks.empty();}
+\DoxyCodeLine{01837\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{01838\ \ \ \ \ \ \ \ \ waiting\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01839\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{01840\ \ \ \ \ \}}
+\DoxyCodeLine{01841\ }
+\DoxyCodeLine{01851\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ C,\ \textcolor{keyword}{typename}\ D>}
+\DoxyCodeLine{01852\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_b_s_1_1thread__pool_adc4d2f2e851c96e6b9caf7b26384e7d3}{wait\_until}}(\textcolor{keyword}{const}\ std::chrono::time\_point<C,\ D>\&\ timeout\_time)}
+\DoxyCodeLine{01853\ \ \ \ \ \{}
+\DoxyCodeLine{01854\ \textcolor{preprocessor}{\#ifdef\ \_\_cpp\_exceptions}}
+\DoxyCodeLine{01855\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{class_b_s_1_1thread__pool_af152196df62efee67e774cf4b191e174}{wait\_deadlock\_checks\_enabled}})}
+\DoxyCodeLine{01856\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01857\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_b_s_1_1this__thread_a362545c2bf1031a2d5ffb02a8565ccc1}{this\_thread::get\_pool}}()\ ==\ \textcolor{keyword}{this})}
+\DoxyCodeLine{01858\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ wait\_deadlock();}
+\DoxyCodeLine{01859\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01860\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01861\ \ \ \ \ \ \ \ \ std::unique\_lock\ tasks\_lock(tasks\_mutex);}
+\DoxyCodeLine{01862\ \ \ \ \ \ \ \ \ waiting\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01863\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ status\ =\ tasks\_done\_cv.wait\_until(tasks\_lock,\ timeout\_time,}
+\DoxyCodeLine{01864\ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this}]}
+\DoxyCodeLine{01865\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01866\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{class_b_s_1_1thread__pool_a82be32990782f7758d78564f5edd5f9c}{pause\_enabled}})}
+\DoxyCodeLine{01867\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (tasks\_running\ ==\ 0)\ \&\&\ (paused\ ||\ tasks.empty());}
+\DoxyCodeLine{01868\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01869\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (tasks\_running\ ==\ 0)\ \&\&\ tasks.empty();}
+\DoxyCodeLine{01870\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{01871\ \ \ \ \ \ \ \ \ waiting\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01872\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{01873\ \ \ \ \ \}}
+\DoxyCodeLine{01874\ }
+\DoxyCodeLine{01875\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{01876\ \ \ \ \ \textcolor{comment}{//\ ========================}}
+\DoxyCodeLine{01877\ \ \ \ \ \textcolor{comment}{//\ Private\ member\ functions}}
+\DoxyCodeLine{01878\ \ \ \ \ \textcolor{comment}{//\ ========================}}
+\DoxyCodeLine{01879\ }
+\DoxyCodeLine{01886\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{01887\ \ \ \ \ \textcolor{keywordtype}{void}\ create\_threads(\textcolor{keyword}{const}\ std::size\_t\ num\_threads,\ F\&\&\ init)}
+\DoxyCodeLine{01888\ \ \ \ \ \{}
+\DoxyCodeLine{01889\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_invocable\_v<F,\ std::size\_t>)}
+\DoxyCodeLine{01890\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01891\ \ \ \ \ \ \ \ \ \ \ \ \ init\_func\ =\ std::forward<F>(init);}
+\DoxyCodeLine{01892\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01893\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01894\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01895\ \ \ \ \ \ \ \ \ \ \ \ \ init\_func\ =\ [init\ =\ std::forward<F>(init)](std::size\_t)}
+\DoxyCodeLine{01896\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01897\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ init();}
+\DoxyCodeLine{01898\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{01899\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01900\ \ \ \ \ \ \ \ \ thread\_count\ =\ determine\_thread\_count(num\_threads);}
+\DoxyCodeLine{01901\ \ \ \ \ \ \ \ \ threads\ =\ std::make\_unique<thread\_t[]>(thread\_count);}
+\DoxyCodeLine{01902\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01903\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::scoped\_lock\ tasks\_lock(tasks\_mutex);}
+\DoxyCodeLine{01904\ \ \ \ \ \ \ \ \ \ \ \ \ tasks\_running\ =\ thread\_count;}
+\DoxyCodeLine{01905\ \textcolor{preprocessor}{\#ifndef\ \_\_cpp\_lib\_jthread}}
+\DoxyCodeLine{01906\ \ \ \ \ \ \ \ \ \ \ \ \ workers\_running\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01907\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01908\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01909\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 0;\ i\ <\ thread\_count;\ ++i)}
+\DoxyCodeLine{01910\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01911\ \ \ \ \ \ \ \ \ \ \ \ \ threads[i]\ =\ \mbox{\hyperlink{namespace_b_s_ab329e1169fc4aed7732b2fedab26320e}{thread\_t}}(}
+\DoxyCodeLine{01912\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this},\ i]}
+\DoxyCodeLine{01913\ \#ifdef\ \_\_cpp\_lib\_jthread}
+\DoxyCodeLine{01914\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keyword}{const}\ std::stop\_token\&\ stop\_token)}
+\DoxyCodeLine{01915\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01916\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ worker(stop\_token,\ i);}
+\DoxyCodeLine{01917\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01918\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{01919\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01920\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ worker(i);}
+\DoxyCodeLine{01921\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01922\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01923\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01924\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01925\ \ \ \ \ \}}
+\DoxyCodeLine{01926\ }
+\DoxyCodeLine{01927\ \textcolor{preprocessor}{\#ifndef\ \_\_cpp\_lib\_jthread}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01931\ \ \ \ \ \textcolor{keywordtype}{void}\ destroy\_threads()}
+\DoxyCodeLine{01932\ \ \ \ \ \{}
+\DoxyCodeLine{01933\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01934\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::scoped\_lock\ tasks\_lock(tasks\_mutex);}
+\DoxyCodeLine{01935\ \ \ \ \ \ \ \ \ \ \ \ \ workers\_running\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01936\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01937\ \ \ \ \ \ \ \ \ task\_available\_cv.notify\_all();}
+\DoxyCodeLine{01938\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 0;\ i\ <\ thread\_count;\ ++i)}
+\DoxyCodeLine{01939\ \ \ \ \ \ \ \ \ \ \ \ \ threads[i].join();}
+\DoxyCodeLine{01940\ \ \ \ \ \}}
+\DoxyCodeLine{01941\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01942\ }
+\DoxyCodeLine{01949\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{static}\ std::size\_t\ determine\_thread\_count(\textcolor{keyword}{const}\ std::size\_t\ num\_threads)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{01950\ \ \ \ \ \{}
+\DoxyCodeLine{01951\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (num\_threads\ >\ 0)}
+\DoxyCodeLine{01952\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ num\_threads;}
+\DoxyCodeLine{01953\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (thread\_t::hardware\_concurrency()\ >\ 0)}
+\DoxyCodeLine{01954\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ thread\_t::hardware\_concurrency();}
+\DoxyCodeLine{01955\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{01956\ \ \ \ \ \}}
+\DoxyCodeLine{01957\ }
+\DoxyCodeLine{01963\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{namespace_b_s_a9e1a9ca64721dc3d91b4cd169554811c}{task\_t}}\ pop\_task()}
+\DoxyCodeLine{01964\ \ \ \ \ \{}
+\DoxyCodeLine{01965\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_b_s_a9e1a9ca64721dc3d91b4cd169554811c}{task\_t}}\ task;}
+\DoxyCodeLine{01966\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (priority\_enabled)}
+\DoxyCodeLine{01967\ \ \ \ \ \ \ \ \ \ \ \ \ task\ =\ std::move(\textcolor{keyword}{const\_cast<}pr\_task\&\textcolor{keyword}{>}(tasks.top()).task);}
+\DoxyCodeLine{01968\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01969\ \ \ \ \ \ \ \ \ \ \ \ \ task\ =\ std::move(tasks.front());}
+\DoxyCodeLine{01970\ \ \ \ \ \ \ \ \ tasks.pop();}
+\DoxyCodeLine{01971\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ task;}
+\DoxyCodeLine{01972\ \ \ \ \ \}}
+\DoxyCodeLine{01973\ }
+\DoxyCodeLine{01980\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ F>}
+\DoxyCodeLine{01981\ \ \ \ \ \textcolor{keywordtype}{void}\ reset\_pool(\textcolor{keyword}{const}\ std::size\_t\ num\_threads,\ F\&\&\ init)}
+\DoxyCodeLine{01982\ \ \ \ \ \{}
+\DoxyCodeLine{01983\ \ \ \ \ \ \ \ \ wait();}
+\DoxyCodeLine{01984\ \textcolor{preprocessor}{\#ifndef\ \_\_cpp\_lib\_jthread}}
+\DoxyCodeLine{01985\ \ \ \ \ \ \ \ \ destroy\_threads();}
+\DoxyCodeLine{01986\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01987\ \ \ \ \ \ \ \ \ create\_threads(num\_threads,\ std::forward<F>(init));}
+\DoxyCodeLine{01988\ \ \ \ \ \}}
+\DoxyCodeLine{01989\ }
+\DoxyCodeLine{01995\ \ \ \ \ \textcolor{keywordtype}{void}\ worker(BS\_THREAD\_POOL\_WORKER\_TOKEN\ \textcolor{keyword}{const}\ std::size\_t\ idx)}
+\DoxyCodeLine{01996\ \ \ \ \ \{}
+\DoxyCodeLine{01997\ \ \ \ \ \ \ \ \ this\_thread::my\_pool\ =\ \textcolor{keyword}{this};}
+\DoxyCodeLine{01998\ \ \ \ \ \ \ \ \ this\_thread::my\_index\ =\ idx;}
+\DoxyCodeLine{01999\ \ \ \ \ \ \ \ \ init\_func(idx);}
+\DoxyCodeLine{02000\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})}
+\DoxyCodeLine{02001\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02002\ \ \ \ \ \ \ \ \ \ \ \ \ std::unique\_lock\ tasks\_lock(tasks\_mutex);}
+\DoxyCodeLine{02003\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/tasks\_running;}
+\DoxyCodeLine{02004\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (pause\_enabled)}
+\DoxyCodeLine{02005\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02006\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (waiting\ \&\&\ (tasks\_running\ ==\ 0)\ \&\&\ (paused\ ||\ tasks.empty()))}
+\DoxyCodeLine{02007\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tasks\_done\_cv.notify\_all();}
+\DoxyCodeLine{02008\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02009\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{02010\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02011\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (waiting\ \&\&\ (tasks\_running\ ==\ 0)\ \&\&\ tasks.empty())}
+\DoxyCodeLine{02012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tasks\_done\_cv.notify\_all();}
+\DoxyCodeLine{02013\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02014\ \ \ \ \ \ \ \ \ \ \ \ \ task\_available\_cv.wait(tasks\_lock\ BS\_THREAD\_POOL\_WAIT\_TOKEN,}
+\DoxyCodeLine{02015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this}]}
+\DoxyCodeLine{02016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (pause\_enabled)}
+\DoxyCodeLine{02018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !(paused\ ||\ tasks.empty())\ BS\_THREAD\_POOL\_OR\_STOP\_CONDITION;}
+\DoxyCodeLine{02019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{02020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !tasks.empty()\ BS\_THREAD\_POOL\_OR\_STOP\_CONDITION;}
+\DoxyCodeLine{02021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{02022\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (BS\_THREAD\_POOL\_STOP\_CONDITION)}
+\DoxyCodeLine{02023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{02024\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_b_s_a9e1a9ca64721dc3d91b4cd169554811c}{task\_t}}\ task\ =\ pop\_task();\ \textcolor{comment}{//\ NOLINT(misc-\/const-\/correctness)\ In\ C++23\ this\ cannot\ be\ const\ since\ \`{}std::move\_only\_function::operator()`\ is\ not\ a\ const\ member\ function.}}
+\DoxyCodeLine{02026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++tasks\_running;}
+\DoxyCodeLine{02027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tasks\_lock.unlock();}
+\DoxyCodeLine{02028\ \textcolor{preprocessor}{\#ifdef\ \_\_cpp\_exceptions}}
+\DoxyCodeLine{02029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{02030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02031\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ task();}
+\DoxyCodeLine{02033\ \textcolor{preprocessor}{\#ifdef\ \_\_cpp\_exceptions}}
+\DoxyCodeLine{02034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
+\DoxyCodeLine{02036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02038\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02039\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02040\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02041\ \ \ \ \ \ \ \ \ cleanup\_func(idx);}
+\DoxyCodeLine{02042\ \ \ \ \ \ \ \ \ this\_thread::my\_index\ =\ std::nullopt;}
+\DoxyCodeLine{02043\ \ \ \ \ \ \ \ \ this\_thread::my\_pool\ =\ std::nullopt;}
+\DoxyCodeLine{02044\ \ \ \ \ \}}
+\DoxyCodeLine{02045\ }
+\DoxyCodeLine{02046\ \ \ \ \ \textcolor{comment}{//\ ============}}
+\DoxyCodeLine{02047\ \ \ \ \ \textcolor{comment}{//\ Private\ data}}
+\DoxyCodeLine{02048\ \ \ \ \ \textcolor{comment}{//\ ============}}
+\DoxyCodeLine{02049\ }
+\DoxyCodeLine{02053\ \ \ \ \ \mbox{\hyperlink{namespace_b_s_a4bcabd6b92fd5013c66b79852b400db2}{function\_t}}<void(std::size\_t)>\ cleanup\_func\ =\ [](std::size\_t)\ \{\};}
+\DoxyCodeLine{02054\ }
+\DoxyCodeLine{02058\ \ \ \ \ \mbox{\hyperlink{namespace_b_s_a4bcabd6b92fd5013c66b79852b400db2}{function\_t}}<void(std::size\_t)>\ init\_func\ =\ [](std::size\_t)\ \{\};}
+\DoxyCodeLine{02059\ }
+\DoxyCodeLine{02063\ \ \ \ \ std::conditional\_t<pause\_enabled,\ bool,\ std::monostate>\ paused\ =\ \{\};}
+\DoxyCodeLine{02064\ }
+\DoxyCodeLine{02068\ \textcolor{preprocessor}{\#ifdef\ \_\_cpp\_lib\_jthread}}
+\DoxyCodeLine{02069\ \ \ \ \ std::condition\_variable\_any}
+\DoxyCodeLine{02070\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{02071\ \ \ \ \ std::condition\_variable}
+\DoxyCodeLine{02072\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02073\ \ \ \ \ \ \ \ \ task\_available\_cv;}
+\DoxyCodeLine{02074\ }
+\DoxyCodeLine{02078\ \ \ \ \ std::condition\_variable\ tasks\_done\_cv;}
+\DoxyCodeLine{02079\ }
+\DoxyCodeLine{02083\ \ \ \ \ std::conditional\_t<priority\_enabled,\ std::priority\_queue<pr\_task>,\ std::queue<task\_t>>\ tasks;}
+\DoxyCodeLine{02084\ }
+\DoxyCodeLine{02088\ \ \ \ \ \textcolor{keyword}{mutable}\ std::mutex\ tasks\_mutex;}
+\DoxyCodeLine{02089\ }
+\DoxyCodeLine{02093\ \ \ \ \ std::size\_t\ tasks\_running\ =\ 0;}
+\DoxyCodeLine{02094\ }
+\DoxyCodeLine{02098\ \ \ \ \ std::size\_t\ thread\_count\ =\ 0;}
+\DoxyCodeLine{02099\ }
+\DoxyCodeLine{02103\ \ \ \ \ std::unique\_ptr<thread\_t[]>\ threads\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{02104\ }
+\DoxyCodeLine{02108\ \ \ \ \ \textcolor{keywordtype}{bool}\ waiting\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02109\ }
+\DoxyCodeLine{02110\ \textcolor{preprocessor}{\#ifndef\ \_\_cpp\_lib\_jthread}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02114\ \ \ \ \ \textcolor{keywordtype}{bool}\ workers\_running\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02115\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02116\ \};\ \textcolor{comment}{//\ class\ thread\_pool}}
+\DoxyCodeLine{02117\ }
+\DoxyCodeLine{02121\ \textcolor{keyword}{class\ }[[nodiscard]]\ \mbox{\hyperlink{class_b_s_1_1synced__stream_a45d12194063d45e9017a2a0ad8cd4fbd}{synced\_stream}}}
+\DoxyCodeLine{02122\ \{}
+\DoxyCodeLine{02123\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{02127\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_b_s_1_1synced__stream_a45d12194063d45e9017a2a0ad8cd4fbd}{synced\_stream}}()}
+\DoxyCodeLine{02128\ \ \ \ \ \{}
+\DoxyCodeLine{02129\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1synced__stream_a5f37672d35a210ca385284229b16b9cf}{add\_stream}}(std::cout);}
+\DoxyCodeLine{02130\ \ \ \ \ \}}
+\DoxyCodeLine{02131\ }
+\DoxyCodeLine{02138\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ T>}
+\DoxyCodeLine{02139\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_b_s_1_1synced__stream_afe61d1f9eab6bb4b872e90c89a37eb2b}{synced\_stream}}(T\&...\ streams)}
+\DoxyCodeLine{02140\ \ \ \ \ \{}
+\DoxyCodeLine{02141\ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{class_b_s_1_1synced__stream_a5f37672d35a210ca385284229b16b9cf}{add\_stream}}(streams),\ ...);}
+\DoxyCodeLine{02142\ \ \ \ \ \}}
+\DoxyCodeLine{02143\ }
+\DoxyCodeLine{02149\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1synced__stream_a5f37672d35a210ca385284229b16b9cf}{add\_stream}}(std::ostream\&\ stream)}
+\DoxyCodeLine{02150\ \ \ \ \ \{}
+\DoxyCodeLine{02151\ \ \ \ \ \ \ \ \ out\_streams.push\_back(\&stream);}
+\DoxyCodeLine{02152\ \ \ \ \ \}}
+\DoxyCodeLine{02153\ }
+\DoxyCodeLine{02159\ \ \ \ \ std::vector<std::ostream*>\&\ \mbox{\hyperlink{class_b_s_1_1synced__stream_ad7392b8c1f97ad1d538936cc01aef50f}{get\_streams}}()\ noexcept}
+\DoxyCodeLine{02160\ \ \ \ \ \{}
+\DoxyCodeLine{02161\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ out\_streams;}
+\DoxyCodeLine{02162\ \ \ \ \ \}}
+\DoxyCodeLine{02163\ }
+\DoxyCodeLine{02170\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ T>}
+\DoxyCodeLine{02171\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1synced__stream_acd2bc4fad5676fa068d249da7fdf0356}{print}}(\textcolor{keyword}{const}\ T\&...\ items)}
+\DoxyCodeLine{02172\ \ \ \ \ \{}
+\DoxyCodeLine{02173\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::scoped\_lock\ stream\_lock(stream\_mutex);}
+\DoxyCodeLine{02174\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::ostream*\ \textcolor{keyword}{const}\ stream\ :\ out\_streams)}
+\DoxyCodeLine{02175\ \ \ \ \ \ \ \ \ \ \ \ \ (*stream\ <<\ ...\ <<\ items);}
+\DoxyCodeLine{02176\ \ \ \ \ \}}
+\DoxyCodeLine{02177\ }
+\DoxyCodeLine{02184\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ T>}
+\DoxyCodeLine{02185\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1synced__stream_a5fc273e58ed3cad6d939dc0eceddb8a4}{println}}(T\&\&...\ items)}
+\DoxyCodeLine{02186\ \ \ \ \ \{}
+\DoxyCodeLine{02187\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1synced__stream_acd2bc4fad5676fa068d249da7fdf0356}{print}}(std::forward<T>(items)...,\ \textcolor{charliteral}{'\(\backslash\)n'});}
+\DoxyCodeLine{02188\ \ \ \ \ \}}
+\DoxyCodeLine{02189\ }
+\DoxyCodeLine{02195\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1synced__stream_ac40f639c002249e991d99b747f479855}{remove\_stream}}(std::ostream\&\ stream)}
+\DoxyCodeLine{02196\ \ \ \ \ \{}
+\DoxyCodeLine{02197\ \ \ \ \ \ \ \ \ out\_streams.erase(std::remove(out\_streams.begin(),\ out\_streams.end(),\ \&stream),\ out\_streams.end());}
+\DoxyCodeLine{02198\ \ \ \ \ \}}
+\DoxyCodeLine{02199\ }
+\DoxyCodeLine{02203\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ std::ostream\&\ (\&\mbox{\hyperlink{class_b_s_1_1synced__stream_aa3b7edcbcc053069820ab20a1bdcc14e}{endl}})(std::ostream\&)\ =\ \textcolor{keyword}{static\_cast<}std::ostream\&\ (\&)(std::ostream\&)\textcolor{keyword}{>}(std::endl);}
+\DoxyCodeLine{02204\ }
+\DoxyCodeLine{02208\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ std::ostream\&\ (\&\mbox{\hyperlink{class_b_s_1_1synced__stream_ad7da49ecfcee803ef813b66555424842}{flush}})(std::ostream\&)\ =\ \textcolor{keyword}{static\_cast<}std::ostream\&\ (\&)(std::ostream\&)\textcolor{keyword}{>}(std::flush);}
+\DoxyCodeLine{02209\ }
+\DoxyCodeLine{02210\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{02214\ \ \ \ \ std::vector<std::ostream*>\ out\_streams;}
+\DoxyCodeLine{02215\ }
+\DoxyCodeLine{02219\ \ \ \ \ \textcolor{keyword}{mutable}\ std::mutex\ stream\_mutex;}
+\DoxyCodeLine{02220\ \};\ \textcolor{comment}{//\ class\ synced\_stream}}
+\DoxyCodeLine{02221\ }
+\DoxyCodeLine{02222\ \textcolor{preprocessor}{\#ifdef\ \_\_cpp\_lib\_semaphore}}
+\DoxyCodeLine{02223\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_b_s_a8ec023f4a0654dae86c06903eeea5006}{binary\_semaphore}}\ =\ std::binary\_semaphore;}
+\DoxyCodeLine{02224\ template\ <std::ptrdiff\_t\ LeastMaxValue\ =\ std::counting\_semaphore<>::max()>}
+\DoxyCodeLine{02225\ \textcolor{keyword}{using\ }\mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\_semaphore}}\ =\ std::counting\_semaphore<LeastMaxValue>;}
+\DoxyCodeLine{02226\ \textcolor{preprocessor}{\#else}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02232\ template\ <std::ptrdiff\_t\ LeastMaxValue\ =\ std::numeric\_limits<std::ptrdiff\_t>::max()>}
+\DoxyCodeLine{02233\ \textcolor{keyword}{class\ }[[nodiscard]]\ \mbox{\hyperlink{class_b_s_1_1counting__semaphore_adf9bbd4393c3bc5b6d43800a7a638ffc}{counting\_semaphore}}}
+\DoxyCodeLine{02234\ \{}
+\DoxyCodeLine{02235\ \ \ \ \ \textcolor{keyword}{static\_assert}(LeastMaxValue\ >=\ 0,\ \textcolor{stringliteral}{"{}The\ least\ maximum\ value\ for\ a\ counting\ semaphore\ must\ not\ be\ negative."{}});}
+\DoxyCodeLine{02236\ }
+\DoxyCodeLine{02237\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{02243\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_b_s_1_1counting__semaphore_adf9bbd4393c3bc5b6d43800a7a638ffc}{counting\_semaphore}}(\textcolor{keyword}{const}\ std::ptrdiff\_t\ desired)\ :\ counter(desired)\ \{\}}
+\DoxyCodeLine{02244\ }
+\DoxyCodeLine{02245\ \ \ \ \ \textcolor{comment}{//\ The\ copy\ and\ move\ constructors\ and\ assignment\ operators\ are\ deleted.\ The\ semaphore\ cannot\ be\ copied\ or\ moved.}}
+\DoxyCodeLine{02246\ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\_semaphore}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\_semaphore}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{02247\ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\_semaphore}}(\mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\_semaphore}}\&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{02248\ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\_semaphore}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\_semaphore}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{02249\ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\_semaphore}}\&\ operator=(\mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\_semaphore}}\&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{02250\ \ \ \ \ \mbox{\hyperlink{class_b_s_1_1counting__semaphore}{\string~counting\_semaphore}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{02251\ }
+\DoxyCodeLine{02257\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ std::ptrdiff\_t\ \mbox{\hyperlink{class_b_s_1_1counting__semaphore_a186cc3f44f272d2edcaa6b8cfa7b90cb}{max}}()\ noexcept}
+\DoxyCodeLine{02258\ \ \ \ \ \{}
+\DoxyCodeLine{02259\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ LeastMaxValue;}
+\DoxyCodeLine{02260\ \ \ \ \ \}}
+\DoxyCodeLine{02261\ }
+\DoxyCodeLine{02265\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1counting__semaphore_a7997f25d764ed383b4582b7f3aa57997}{acquire}}()}
+\DoxyCodeLine{02266\ \ \ \ \ \{}
+\DoxyCodeLine{02267\ \ \ \ \ \ \ \ \ std::unique\_lock\ lock(mutex);}
+\DoxyCodeLine{02268\ \ \ \ \ \ \ \ \ cv.wait(lock,}
+\DoxyCodeLine{02269\ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this}]}
+\DoxyCodeLine{02270\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ counter\ >\ 0;}
+\DoxyCodeLine{02272\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{02273\ \ \ \ \ \ \ \ \ -\/-\/counter;}
+\DoxyCodeLine{02274\ \ \ \ \ \}}
+\DoxyCodeLine{02275\ }
+\DoxyCodeLine{02281\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_b_s_1_1counting__semaphore_aa54e30cac70d2772f4276f0291ec1d30}{release}}(\textcolor{keyword}{const}\ std::ptrdiff\_t\ update\ =\ 1)}
+\DoxyCodeLine{02282\ \ \ \ \ \{}
+\DoxyCodeLine{02283\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02284\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::scoped\_lock\ lock(mutex);}
+\DoxyCodeLine{02285\ \ \ \ \ \ \ \ \ \ \ \ \ counter\ +=\ update;}
+\DoxyCodeLine{02286\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02287\ \ \ \ \ \ \ \ \ cv.notify\_all();}
+\DoxyCodeLine{02288\ \ \ \ \ \}}
+\DoxyCodeLine{02289\ }
+\DoxyCodeLine{02295\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_b_s_1_1counting__semaphore_acd5b6d3e8aa9ea299958949e39fa759f}{try\_acquire}}()}
+\DoxyCodeLine{02296\ \ \ \ \ \{}
+\DoxyCodeLine{02297\ \ \ \ \ \ \ \ \ std::scoped\_lock\ lock(mutex);}
+\DoxyCodeLine{02298\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (counter\ >\ 0)}
+\DoxyCodeLine{02299\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02300\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/counter;}
+\DoxyCodeLine{02301\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{02302\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02303\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02304\ \ \ \ \ \}}
+\DoxyCodeLine{02305\ }
+\DoxyCodeLine{02314\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ Rep,\ \textcolor{keyword}{class}\ Period>}
+\DoxyCodeLine{02315\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_b_s_1_1counting__semaphore_a52b9a3b042c5a6634d4fb81d6cdfaf98}{try\_acquire\_for}}(\textcolor{keyword}{const}\ std::chrono::duration<Rep,\ Period>\&\ rel\_time)}
+\DoxyCodeLine{02316\ \ \ \ \ \{}
+\DoxyCodeLine{02317\ \ \ \ \ \ \ \ \ std::unique\_lock\ lock(mutex);}
+\DoxyCodeLine{02318\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!cv.wait\_for(lock,\ rel\_time,}
+\DoxyCodeLine{02319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this}]}
+\DoxyCodeLine{02320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ counter\ >\ 0;}
+\DoxyCodeLine{02322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}))}
+\DoxyCodeLine{02323\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02324\ \ \ \ \ \ \ \ \ -\/-\/counter;}
+\DoxyCodeLine{02325\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{02326\ \ \ \ \ \}}
+\DoxyCodeLine{02327\ }
+\DoxyCodeLine{02336\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ Clock,\ \textcolor{keyword}{class}\ Duration>}
+\DoxyCodeLine{02337\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_b_s_1_1counting__semaphore_ad745b87177d96bfd358c2f7257f7a2e9}{try\_acquire\_until}}(\textcolor{keyword}{const}\ std::chrono::time\_point<Clock,\ Duration>\&\ abs\_time)}
+\DoxyCodeLine{02338\ \ \ \ \ \{}
+\DoxyCodeLine{02339\ \ \ \ \ \ \ \ \ std::unique\_lock\ lock(mutex);}
+\DoxyCodeLine{02340\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!cv.wait\_until(lock,\ abs\_time,}
+\DoxyCodeLine{02341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this}]}
+\DoxyCodeLine{02342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ counter\ >\ 0;}
+\DoxyCodeLine{02344\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}))}
+\DoxyCodeLine{02345\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02346\ \ \ \ \ \ \ \ \ -\/-\/counter;}
+\DoxyCodeLine{02347\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{02348\ \ \ \ \ \}}
+\DoxyCodeLine{02349\ }
+\DoxyCodeLine{02350\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{02354\ \ \ \ \ std::ptrdiff\_t\ counter;}
+\DoxyCodeLine{02355\ }
+\DoxyCodeLine{02359\ \ \ \ \ std::condition\_variable\ cv;}
+\DoxyCodeLine{02360\ }
+\DoxyCodeLine{02364\ \ \ \ \ \textcolor{keyword}{mutable}\ std::mutex\ mutex;}
+\DoxyCodeLine{02365\ \};}
+\DoxyCodeLine{02366\ }
+\DoxyCodeLine{02370\ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_b_s_a8ec023f4a0654dae86c06903eeea5006}{binary\_semaphore}}\ =\ \mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\_semaphore<1>}};}
+\DoxyCodeLine{02371\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02372\ \}\ \textcolor{comment}{//\ namespace\ BS}}
+\DoxyCodeLine{02373\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ BS\_THREAD\_POOL\_HPP}}
+
+\end{DoxyCode}

@@ -1,0 +1,61 @@
+\doxysection{CCollision\+Box Class Reference}
+\hypertarget{class_c_collision_box}{}\label{class_c_collision_box}\index{CCollisionBox@{CCollisionBox}}
+Inheritance diagram for CCollision\+Box\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_c_collision_box}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_collision_box_a10a52c510ec0cdb6a8487c2c59b0304d}\label{class_c_collision_box_a10a52c510ec0cdb6a8487c2c59b0304d} 
+static bool {\bfseries Collision} (\mbox{\hyperlink{class_c_box_collider}{CBox\+Collider}} \texorpdfstring{$\ast$}{*}this\+Collider, \mbox{\hyperlink{class_c_box_collider}{CBox\+Collider}} \texorpdfstring{$\ast$}{*}Other\+Collider, D3\+DXVECTOR3 \texorpdfstring{$\ast$}{*}Extrusion\+Pos)
+\begin{DoxyCompactList}\small\item\em 矩鶏\ttfamily 同士の当たり判定を実行する / \texorpdfstring{$<$}{<}/summary\texorpdfstring{$>$}{>} / \texorpdfstring{$<$}{<}param name="{}this\+Collider"{}\texorpdfstring{$>$}{>}自分が持ってる矩迎ソ+Rラソ+Cソ+\_\+―mbox{[}
+
+
+\begin{DoxyParams}{Parameters}
+{\em Other\+Collider} & 判定先の矩圭`{}ソ+Rラソ+Cソ+\_\+―mbox{[}\\
+\hline
+{\em Extrusion\+Pos} & ヒット時の押し出し座標\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_collision}{CCollision}}}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_c_collision}{CCollision}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (D3\+DXVECTOR3 pos, TYPE Type)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_collision}{CCollision}}}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_collision_a6ae898afb7321e4cfb0c3705ac07ccac}\label{class_c_collision_a6ae898afb7321e4cfb0c3705ac07ccac} 
+enum {\bfseries TYPE} \{ {\bfseries TYPE\+\_\+\+NONE}
+, {\bfseries TYPE\+\_\+\+BOX}
+, {\bfseries TYPE\+\_\+\+SPHERE}
+, {\bfseries TYPE\+\_\+\+MAX}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_collision}{CCollision}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries CCollision} (TYPE Type)
+\item 
+void {\bfseries Set\+Pos} (D3\+DXVECTOR3 pos)
+\item 
+void {\bfseries Set\+Type} (TYPE Type)
+\item 
+D3\+DXVECTOR3 {\bfseries Get\+Pos} (void) const
+\item 
+TYPE {\bfseries Get\+Type} (void) const
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+collisionbox.\+h\item 
+collisionbox.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,682 @@
+\doxysection{BS\+::thread\+\_\+pool\texorpdfstring{$<$}{<} Opt\+Flags \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_b_s_1_1thread__pool}{}\label{class_b_s_1_1thread__pool}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+
+
+A fast, lightweight, modern, and easy-\/to-\/use C++17/\+C++20/\+C++23 thread pool class.  
+
+
+
+
+{\ttfamily \#include $<$BS\+\_\+thread\+\_\+pool.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_b_s_1_1thread__pool_a3b6e01d23a9935412747bd4c9d83fc6c}\label{class_b_s_1_1thread__pool_a3b6e01d23a9935412747bd4c9d83fc6c} 
+{\bfseries thread\+\_\+pool} ()
+\begin{DoxyCompactList}\small\item\em Construct a new thread pool. The number of threads will be the total number of hardware threads available, as reported by the implementation. This is usually determined by the number of cores in the CPU. If a core is hyperthreaded, it will count as two threads. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_b_s_1_1thread__pool_a0e0296afdd18d144fd96d27945426529}{thread\+\_\+pool}} (const std\+::size\+\_\+t num\+\_\+threads)
+\begin{DoxyCompactList}\small\item\em Construct a new thread pool with the specified number of threads. \end{DoxyCompactList}\item 
+{\footnotesize template$<$BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+INIT\+\_\+\+FUNC\+\_\+\+CONCEPT(F)$>$ }\\\mbox{\hyperlink{class_b_s_1_1thread__pool_a0c2bfc615db57530a97ae789987ae6d0}{thread\+\_\+pool}} (F \&\&init)
+\begin{DoxyCompactList}\small\item\em Construct a new thread pool with the specified initialization function. \end{DoxyCompactList}\item 
+{\footnotesize template$<$BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+INIT\+\_\+\+FUNC\+\_\+\+CONCEPT(F)$>$ }\\\mbox{\hyperlink{class_b_s_1_1thread__pool_a60e6550ac7332ead9af50936ae5c5a3d}{thread\+\_\+pool}} (const std\+::size\+\_\+t num\+\_\+threads, F \&\&init)
+\begin{DoxyCompactList}\small\item\em Construct a new thread pool with the specified number of threads and initialization function. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_s_1_1thread__pool_af59f658c7180d7fcf460224b7181e7ff}\label{class_b_s_1_1thread__pool_af59f658c7180d7fcf460224b7181e7ff} 
+{\bfseries thread\+\_\+pool} (const \mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\+\_\+pool}} \&)=delete
+\item 
+\Hypertarget{class_b_s_1_1thread__pool_a14da326f5fcd49f1bc4756ff0a351162}\label{class_b_s_1_1thread__pool_a14da326f5fcd49f1bc4756ff0a351162} 
+{\bfseries thread\+\_\+pool} (\mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\+\_\+pool}} \&\&)=delete
+\item 
+\Hypertarget{class_b_s_1_1thread__pool_af3f8616681b52f7fdf09acf179d108bf}\label{class_b_s_1_1thread__pool_af3f8616681b52f7fdf09acf179d108bf} 
+\mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\+\_\+pool}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\+\_\+pool}} \&)=delete
+\item 
+\Hypertarget{class_b_s_1_1thread__pool_ab2b38b8eca1683416aaa563f2c17b47a}\label{class_b_s_1_1thread__pool_ab2b38b8eca1683416aaa563f2c17b47a} 
+\mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\+\_\+pool}} \& {\bfseries operator=} (\mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\+\_\+pool}} \&\&)=delete
+\item 
+\Hypertarget{class_b_s_1_1thread__pool_af914f56422495eb7a5e8ccd93e442e73}\label{class_b_s_1_1thread__pool_af914f56422495eb7a5e8ccd93e442e73} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}thread\+\_\+pool} () noexcept
+\begin{DoxyCompactList}\small\item\em Destruct the thread pool. Waits for all tasks to complete, then destroys all threads. If a cleanup function was set, it will run in each thread right before it is destroyed. Note that if the pool is paused, then any tasks still in the queue will never be executed. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T1, typename T2, typename T = common\+\_\+index\+\_\+type\+\_\+t$<$\+T1, T2$>$, typename F$>$ }\\void \mbox{\hyperlink{class_b_s_1_1thread__pool_a2227c23c57235a364397aff24dbe35c9}{detach\+\_\+blocks}} (const T1 first\+\_\+index, const T2 index\+\_\+after\+\_\+last, F \&\&block, const std\+::size\+\_\+t num\+\_\+blocks=0, const \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}} \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}=0)
+\begin{DoxyCompactList}\small\item\em Parallelize a loop by automatically splitting it into blocks and submitting each block separately to the queue, with the specified priority. The block function takes two arguments, the start and end of the block, so that it is only called once per block, but it is up to the user make sure the block function correctly deals with all the indices in each block. Does not return a {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}}, so the user must use {\ttfamily \doxylink{class_b_s_1_1thread__pool_ae4fdcde4657ca01e3f6d0af108284809}{wait()}} or some other method to ensure that the loop finishes executing, otherwise bad things will happen. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T1, typename T2, typename T = common\+\_\+index\+\_\+type\+\_\+t$<$\+T1, T2$>$, typename F$>$ }\\void \mbox{\hyperlink{class_b_s_1_1thread__pool_a24a2a5d7219f89fff6aa7b33bc8a7994}{detach\+\_\+loop}} (const T1 first\+\_\+index, const T2 index\+\_\+after\+\_\+last, F \&\&loop, const std\+::size\+\_\+t num\+\_\+blocks=0, const \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}} \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}=0)
+\begin{DoxyCompactList}\small\item\em Parallelize a loop by automatically splitting it into blocks and submitting each block separately to the queue, with the specified priority. The loop function takes one argument, the loop index, so that it is called many times per block. Does not return a {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}}, so the user must use {\ttfamily \doxylink{class_b_s_1_1thread__pool_ae4fdcde4657ca01e3f6d0af108284809}{wait()}} or some other method to ensure that the loop finishes executing, otherwise bad things will happen. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T1, typename T2, typename T = common\+\_\+index\+\_\+type\+\_\+t$<$\+T1, T2$>$, typename F$>$ }\\void \mbox{\hyperlink{class_b_s_1_1thread__pool_affb462961cfe82a65097a4999f22ce8a}{detach\+\_\+sequence}} (const T1 first\+\_\+index, const T2 index\+\_\+after\+\_\+last, F \&\&sequence, const \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}} \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}=0)
+\begin{DoxyCompactList}\small\item\em Submit a sequence of tasks enumerated by indices to the queue, with the specified priority. The sequence function takes one argument, the task index, and will be called once per index. Does not return a {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}}, so the user must use {\ttfamily \doxylink{class_b_s_1_1thread__pool_ae4fdcde4657ca01e3f6d0af108284809}{wait()}} or some other method to ensure that the sequence finishes executing, otherwise bad things will happen. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename F$>$ }\\void \mbox{\hyperlink{class_b_s_1_1thread__pool_ac5effe10fd4156ea28c7a5c61997c6e7}{detach\+\_\+task}} (F \&\&task, const \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}} \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}=0)
+\begin{DoxyCompactList}\small\item\em Submit a function with no arguments and no return value into the task queue, with the specified priority. To submit a function with arguments, enclose it in a lambda expression. Does not return a future, so the user must use {\ttfamily \doxylink{class_b_s_1_1thread__pool_ae4fdcde4657ca01e3f6d0af108284809}{wait()}} or some other method to ensure that the task finishes executing, otherwise bad things will happen. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \mbox{\hyperlink{class_b_s_1_1thread__pool_a70a96809451e3b894b4914f73943b8b8}{get\+\_\+tasks\+\_\+queued}} () const
+\begin{DoxyCompactList}\small\item\em Get the number of tasks currently waiting in the queue to be executed by the threads. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \mbox{\hyperlink{class_b_s_1_1thread__pool_af797cf1b1c5290330beef12fc44a213f}{get\+\_\+tasks\+\_\+running}} () const
+\begin{DoxyCompactList}\small\item\em Get the number of tasks currently being executed by the threads. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \mbox{\hyperlink{class_b_s_1_1thread__pool_a8d29b6cfcb1a688a1bd0ec2cfd827b24}{get\+\_\+tasks\+\_\+total}} () const
+\begin{DoxyCompactList}\small\item\em Get the total number of unfinished tasks\+: either still waiting in the queue, or running in a thread. Note that {\ttfamily \doxylink{class_b_s_1_1thread__pool_a8d29b6cfcb1a688a1bd0ec2cfd827b24}{get\+\_\+tasks\+\_\+total()} == \doxylink{class_b_s_1_1thread__pool_a70a96809451e3b894b4914f73943b8b8}{get\+\_\+tasks\+\_\+queued()} + \doxylink{class_b_s_1_1thread__pool_af797cf1b1c5290330beef12fc44a213f}{get\+\_\+tasks\+\_\+running()}}. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \mbox{\hyperlink{class_b_s_1_1thread__pool_ab8ff9b7b79739ae9240833a9b939de65}{get\+\_\+thread\+\_\+count}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the number of threads in the pool. \end{DoxyCompactList}\item 
+std\+::vector$<$ thread\+\_\+t\+::id $>$ \mbox{\hyperlink{class_b_s_1_1thread__pool_a8292a17d2c183df3f02c89804b70f4ec}{get\+\_\+thread\+\_\+ids}} () const
+\begin{DoxyCompactList}\small\item\em Get a vector containing the unique identifiers for each of the pool\textquotesingle{}s threads, as obtained by {\ttfamily std\+::thread\+::get\+\_\+id()} (or {\ttfamily std\+::jthread\+::get\+\_\+id()} in C++20 and later). \end{DoxyCompactList}\item 
+BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+IF\+\_\+\+PAUSE\+\_\+\+ENABLED bool \mbox{\hyperlink{class_b_s_1_1thread__pool_a0e45f81e64dc34df12705c95132620b3}{is\+\_\+paused}} () const
+\begin{DoxyCompactList}\small\item\em Check whether the pool is currently paused. Only enabled if the flag {\ttfamily BS\+:tp\+:\+:pause} is enabled in the template parameter. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_s_1_1thread__pool_a4b8a5bc00788adecc1d0be3fc18eae6c}\label{class_b_s_1_1thread__pool_a4b8a5bc00788adecc1d0be3fc18eae6c} 
+BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+IF\+\_\+\+PAUSE\+\_\+\+ENABLED void {\bfseries pause} ()
+\begin{DoxyCompactList}\small\item\em Pause the pool. The workers will temporarily stop retrieving new tasks out of the queue, although any tasks already executed will keep running until they are finished. Only enabled if the flag {\ttfamily BS\+:tp\+:\+:pause} is enabled in the template parameter. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_s_1_1thread__pool_a5ae51d78ab371bbedaafdf5cb15fd786}\label{class_b_s_1_1thread__pool_a5ae51d78ab371bbedaafdf5cb15fd786} 
+void {\bfseries purge} ()
+\begin{DoxyCompactList}\small\item\em Purge all the tasks waiting in the queue. Tasks that are currently running will not be affected, but any tasks still waiting in the queue will be discarded, and will never be executed by the threads. Please note that there is no way to restore the purged tasks. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_s_1_1thread__pool_ad857e7bcb0740e7452b8b3f7f2b1f50c}\label{class_b_s_1_1thread__pool_ad857e7bcb0740e7452b8b3f7f2b1f50c} 
+void {\bfseries reset} ()
+\begin{DoxyCompactList}\small\item\em Reset the pool with the total number of hardware threads available, as reported by the implementation. Waits for all currently running tasks to be completed, then destroys all threads in the pool and creates a new thread pool with the new number of threads. Any tasks that were waiting in the queue before the pool was reset will then be executed by the new threads. If the pool was paused before resetting it, the new pool will be paused as well. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_b_s_1_1thread__pool_a4a473029de41c6467945a9930fce7991}{reset}} (const std\+::size\+\_\+t num\+\_\+threads)
+\begin{DoxyCompactList}\small\item\em Reset the pool with a new number of threads. Waits for all currently running tasks to be completed, then destroys all threads in the pool and creates a new thread pool with the new number of threads. Any tasks that were waiting in the queue before the pool was reset will then be executed by the new threads. If the pool was paused before resetting it, the new pool will be paused as well. \end{DoxyCompactList}\item 
+{\footnotesize template$<$BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+INIT\+\_\+\+FUNC\+\_\+\+CONCEPT(F)$>$ }\\void \mbox{\hyperlink{class_b_s_1_1thread__pool_a9f123ac3f05c1925b5941c1bed0f5a6d}{reset}} (F \&\&init)
+\begin{DoxyCompactList}\small\item\em Reset the pool with the total number of hardware threads available, as reported by the implementation, and a new initialization function. Waits for all currently running tasks to be completed, then destroys all threads in the pool and creates a new thread pool with the new number of threads and initialization function. Any tasks that were waiting in the queue before the pool was reset will then be executed by the new threads. If the pool was paused before resetting it, the new pool will be paused as well. \end{DoxyCompactList}\item 
+{\footnotesize template$<$BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+INIT\+\_\+\+FUNC\+\_\+\+CONCEPT(F)$>$ }\\void \mbox{\hyperlink{class_b_s_1_1thread__pool_a59eee365de519f55dd421b524ee6b663}{reset}} (const std\+::size\+\_\+t num\+\_\+threads, F \&\&init)
+\begin{DoxyCompactList}\small\item\em Reset the pool with a new number of threads and a new initialization function. Waits for all currently running tasks to be completed, then destroys all threads in the pool and creates a new thread pool with the new number of threads and initialization function. Any tasks that were waiting in the queue before the pool was reset will then be executed by the new threads. If the pool was paused before resetting it, the new pool will be paused as well. \end{DoxyCompactList}\item 
+{\footnotesize template$<$BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+INIT\+\_\+\+FUNC\+\_\+\+CONCEPT(F)$>$ }\\void \mbox{\hyperlink{class_b_s_1_1thread__pool_a847135c2217e88c590b9ca4be39b6c7a}{set\+\_\+cleanup\+\_\+func}} (F \&\&cleanup)
+\begin{DoxyCompactList}\small\item\em Set the thread pool\textquotesingle{}s cleanup function. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T1, typename T2, typename T = common\+\_\+index\+\_\+type\+\_\+t$<$\+T1, T2$>$, typename F, typename R = std\+::invoke\+\_\+result\+\_\+t$<$std\+::decay\+\_\+t$<$\+F$>$, T, T$>$$>$ }\\\mbox{\hyperlink{class_b_s_1_1multi__future}{multi\+\_\+future}}$<$ R $>$ \mbox{\hyperlink{class_b_s_1_1thread__pool_a76f963d585dd582c78bbaf554185d5d4}{submit\+\_\+blocks}} (const T1 first\+\_\+index, const T2 index\+\_\+after\+\_\+last, F \&\&block, const std\+::size\+\_\+t num\+\_\+blocks=0, const \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}} \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}=0)
+\begin{DoxyCompactList}\small\item\em Parallelize a loop by automatically splitting it into blocks and submitting each block separately to the queue, with the specified priority. The block function takes two arguments, the start and end of the block, so that it is only called once per block, but it is up to the user make sure the block function correctly deals with all the indices in each block. Returns a {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}} that contains the futures for all of the blocks. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T1, typename T2, typename T = common\+\_\+index\+\_\+type\+\_\+t$<$\+T1, T2$>$, typename F$>$ }\\\mbox{\hyperlink{class_b_s_1_1multi__future}{multi\+\_\+future}}$<$ void $>$ \mbox{\hyperlink{class_b_s_1_1thread__pool_a51c236089dc40e33b2181ed66d6368fb}{submit\+\_\+loop}} (const T1 first\+\_\+index, const T2 index\+\_\+after\+\_\+last, F \&\&loop, const std\+::size\+\_\+t num\+\_\+blocks=0, const \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}} \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}=0)
+\begin{DoxyCompactList}\small\item\em Parallelize a loop by automatically splitting it into blocks and submitting each block separately to the queue, with the specified priority. The loop function takes one argument, the loop index, so that it is called many times per block. It must have no return value. Returns a {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}} that contains the futures for all of the blocks. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T1, typename T2, typename T = common\+\_\+index\+\_\+type\+\_\+t$<$\+T1, T2$>$, typename F, typename R = std\+::invoke\+\_\+result\+\_\+t$<$std\+::decay\+\_\+t$<$\+F$>$, T$>$$>$ }\\\mbox{\hyperlink{class_b_s_1_1multi__future}{multi\+\_\+future}}$<$ R $>$ \mbox{\hyperlink{class_b_s_1_1thread__pool_ac915668ff39e7e45013b94dd5905ed1b}{submit\+\_\+sequence}} (const T1 first\+\_\+index, const T2 index\+\_\+after\+\_\+last, F \&\&sequence, const \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}} \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}=0)
+\begin{DoxyCompactList}\small\item\em Submit a sequence of tasks enumerated by indices to the queue, with the specified priority. The sequence function takes one argument, the task index, and will be called once per index. Returns a {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}} that contains the futures for all of the tasks. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename F, typename R = std\+::invoke\+\_\+result\+\_\+t$<$std\+::decay\+\_\+t$<$\+F$>$$>$$>$ }\\std\+::future$<$ R $>$ \mbox{\hyperlink{class_b_s_1_1thread__pool_a2cc53c258968877b3d54b5abb9cf4b4d}{submit\+\_\+task}} (F \&\&task, const \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}} \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{priority}}=0)
+\begin{DoxyCompactList}\small\item\em Submit a function with no arguments into the task queue, with the specified priority. To submit a function with arguments, enclose it in a lambda expression. If the function has a return value, get a future for the eventual returned value. If the function has no return value, get an {\ttfamily std\+::future\texorpdfstring{$<$}{<}void\texorpdfstring{$>$}{>}} which can be used to wait until the task finishes. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_s_1_1thread__pool_abdd07a7dc1b479c69703e52b202915df}\label{class_b_s_1_1thread__pool_abdd07a7dc1b479c69703e52b202915df} 
+BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+IF\+\_\+\+PAUSE\+\_\+\+ENABLED void {\bfseries unpause} ()
+\begin{DoxyCompactList}\small\item\em Unpause the pool. The workers will resume retrieving new tasks out of the queue. Only enabled if the flag {\ttfamily BS\+:tp\+:\+:pause} is enabled in the template parameter. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_b_s_1_1thread__pool_ae4fdcde4657ca01e3f6d0af108284809}{wait}} ()
+\begin{DoxyCompactList}\small\item\em Wait for tasks to be completed. Normally, this function waits for all tasks, both those that are currently running in the threads and those that are still waiting in the queue. However, if the pool is paused, this function only waits for the currently running tasks (otherwise it would wait forever). Note\+: To wait for just one specific task, use {\ttfamily \doxylink{class_b_s_1_1thread__pool_a2cc53c258968877b3d54b5abb9cf4b4d}{submit\+\_\+task()}} instead, and call the {\ttfamily \doxylink{class_b_s_1_1thread__pool_ae4fdcde4657ca01e3f6d0af108284809}{wait()}} member function of the generated future. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename R, typename P$>$ }\\bool \mbox{\hyperlink{class_b_s_1_1thread__pool_a96220f6f2002518d7ab590ed1bd4224d}{wait\+\_\+for}} (const std\+::chrono\+::duration$<$ R, P $>$ \&duration)
+\begin{DoxyCompactList}\small\item\em Wait for tasks to be completed, but stop waiting after the specified duration has passed. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename C, typename D$>$ }\\bool \mbox{\hyperlink{class_b_s_1_1thread__pool_adc4d2f2e851c96e6b9caf7b26384e7d3}{wait\+\_\+until}} (const std\+::chrono\+::time\+\_\+point$<$ C, D $>$ \&timeout\+\_\+time)
+\begin{DoxyCompactList}\small\item\em Wait for tasks to be completed, but stop waiting after the specified time point has been reached. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_b_s_1_1thread__pool_a309bd24967f1e4ba0ea9c2023d996528}\label{class_b_s_1_1thread__pool_a309bd24967f1e4ba0ea9c2023d996528} 
+static constexpr bool {\bfseries priority\+\_\+enabled} = (Opt\+Flags \& \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{tp\+::priority}}) != 0
+\begin{DoxyCompactList}\small\item\em A flag indicating whether task priority is enabled. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_s_1_1thread__pool_a82be32990782f7758d78564f5edd5f9c}\label{class_b_s_1_1thread__pool_a82be32990782f7758d78564f5edd5f9c} 
+static constexpr bool {\bfseries pause\+\_\+enabled} = (Opt\+Flags \& \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba2573e91242c7973901b7862e47cd7af9}{tp\+::pause}}) != 0
+\begin{DoxyCompactList}\small\item\em A flag indicating whether pausing is enabled. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_s_1_1thread__pool_af152196df62efee67e774cf4b191e174}\label{class_b_s_1_1thread__pool_af152196df62efee67e774cf4b191e174} 
+static constexpr bool {\bfseries wait\+\_\+deadlock\+\_\+checks\+\_\+enabled} = (Opt\+Flags \& \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba1f051a409d60424953a4b4de63c7e156}{tp\+::wait\+\_\+deadlock\+\_\+checks}}) != 0
+\begin{DoxyCompactList}\small\item\em A flag indicating whether wait deadlock checks are enabled. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$\newline
+class BS\+::thread\+\_\+pool$<$ Opt\+Flags $>$}
+A fast, lightweight, modern, and easy-\/to-\/use C++17/\+C++20/\+C++23 thread pool class. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Opt\+Flags} & A bitmask of flags which can be used to enable optional features. The flags are members of the {\ttfamily \doxylink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027b}{BS\+::tp}} enumeration\+: {\ttfamily \doxylink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{BS\+::tp\+::priority}}, {\ttfamily \doxylink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba2573e91242c7973901b7862e47cd7af9}{BS\+::tp\+::pause}}, and {\ttfamily \doxylink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba1f051a409d60424953a4b4de63c7e156}{BS\+::tp\+::wait\+\_\+deadlock\+\_\+checks}}. The default is {\ttfamily \doxylink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba5b2f2bd1d71de1fa047ae7846bebd786}{BS\+::tp\+::none}}, which disables all optional features. To enable multiple features, use the bitwise OR operator {\ttfamily \texorpdfstring{$\vert$}{|}}, e.\+g. {\ttfamily \doxylink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba20e966bd58a0ecab6eecb8d1cbdd022b}{BS\+::tp\+::priority} \texorpdfstring{$\vert$}{|} \doxylink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba2573e91242c7973901b7862e47cd7af9}{BS\+::tp\+::pause}}. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\label{doc-constructors}
+\Hypertarget{class_b_s_1_1thread__pool_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_b_s_1_1thread__pool_a0e0296afdd18d144fd96d27945426529}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!thread\_pool@{thread\_pool}}
+\index{thread\_pool@{thread\_pool}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{thread\_pool()}{thread\_pool()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_a0e0296afdd18d144fd96d27945426529} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+\mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::thread\+\_\+pool (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t}]{num\+\_\+threads}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Construct a new thread pool with the specified number of threads. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\+\_\+threads} & The number of threads to use. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_b_s_1_1thread__pool_a0c2bfc615db57530a97ae789987ae6d0}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!thread\_pool@{thread\_pool}}
+\index{thread\_pool@{thread\_pool}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{thread\_pool()}{thread\_pool()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_a0c2bfc615db57530a97ae789987ae6d0} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+template$<$BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+INIT\+\_\+\+FUNC\+\_\+\+CONCEPT(F)$>$ \\
+\mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::thread\+\_\+pool (\begin{DoxyParamCaption}\item[{F \&\&}]{init}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Construct a new thread pool with the specified initialization function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em init} & An initialization function to run in each thread before it starts executing any submitted tasks. The function must have no return value, and can either take one argument, the thread index of type {\ttfamily std\+::size\+\_\+t}, or zero arguments. It will be executed exactly once per thread, when the thread is first constructed. The initialization function must not throw any exceptions, as that will result in program termination. Any exceptions must be handled explicitly within the function. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_b_s_1_1thread__pool_a60e6550ac7332ead9af50936ae5c5a3d}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!thread\_pool@{thread\_pool}}
+\index{thread\_pool@{thread\_pool}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{thread\_pool()}{thread\_pool()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_a60e6550ac7332ead9af50936ae5c5a3d} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+template$<$BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+INIT\+\_\+\+FUNC\+\_\+\+CONCEPT(F)$>$ \\
+\mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::thread\+\_\+pool (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t}]{num\+\_\+threads}{, }\item[{F \&\&}]{init}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new thread pool with the specified number of threads and initialization function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\+\_\+threads} & The number of threads to use. \\
+\hline
+{\em init} & An initialization function to run in each thread before it starts executing any submitted tasks. The function must have no return value, and can either take one argument, the thread index of type {\ttfamily std\+::size\+\_\+t}, or zero arguments. It will be executed exactly once per thread, when the thread is first constructed. The initialization function must not throw any exceptions, as that will result in program termination. Any exceptions must be handled explicitly within the function. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_b_s_1_1thread__pool_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_b_s_1_1thread__pool_a2227c23c57235a364397aff24dbe35c9}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!detach\_blocks@{detach\_blocks}}
+\index{detach\_blocks@{detach\_blocks}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{detach\_blocks()}{detach\_blocks()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_a2227c23c57235a364397aff24dbe35c9} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+template$<$typename T1, typename T2, typename T = common\+\_\+index\+\_\+type\+\_\+t$<$\+T1, T2$>$, typename F$>$ \\
+void \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::detach\+\_\+blocks (\begin{DoxyParamCaption}\item[{const T1}]{first\+\_\+index}{, }\item[{const T2}]{index\+\_\+after\+\_\+last}{, }\item[{F \&\&}]{block}{, }\item[{const std\+::size\+\_\+t}]{num\+\_\+blocks}{ = {\ttfamily 0}, }\item[{const \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}}}]{priority}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Parallelize a loop by automatically splitting it into blocks and submitting each block separately to the queue, with the specified priority. The block function takes two arguments, the start and end of the block, so that it is only called once per block, but it is up to the user make sure the block function correctly deals with all the indices in each block. Does not return a {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}}, so the user must use {\ttfamily \doxylink{class_b_s_1_1thread__pool_ae4fdcde4657ca01e3f6d0af108284809}{wait()}} or some other method to ensure that the loop finishes executing, otherwise bad things will happen. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T1} & The type of the first index. Should be a signed or unsigned integer. \\
+\hline
+{\em T2} & The type of the index after the last index. Should be a signed or unsigned integer. \\
+\hline
+{\em F} & The type of the function to loop through. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em first\+\_\+index} & The first index in the loop. \\
+\hline
+{\em index\+\_\+after\+\_\+last} & The index after the last index in the loop. The loop will iterate from {\ttfamily first\+\_\+index} to {\ttfamily (index\+\_\+after\+\_\+last -\/ 1)} inclusive. In other words, it will be equivalent to {\ttfamily for (T i = first\+\_\+index; i \texorpdfstring{$<$}{<} index\+\_\+after\+\_\+last; ++i)}. Note that if {\ttfamily index\+\_\+after\+\_\+last \texorpdfstring{$<$}{<}= first\+\_\+index}, no blocks will be submitted. \\
+\hline
+{\em block} & A function that will be called once per block. Should take exactly two arguments\+: the first index in the block and the index after the last index in the block. {\ttfamily block(start, end)} should typically involve a loop of the form {\ttfamily for (T i = start; i \texorpdfstring{$<$}{<} end; ++i)}. \\
+\hline
+{\em num\+\_\+blocks} & The maximum number of blocks to split the loop into. The default is 0, which means the number of blocks will be equal to the number of threads in the pool. \\
+\hline
+{\em priority} & The priority of the tasks. Should be between -\/128 and +127 (a signed 8-\/bit integer). The default is 0. Only taken into account if the flag {\ttfamily BS\+:tp\+:\+:priority} is enabled in the template parameter, otherwise has no effect. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_b_s_1_1thread__pool_a24a2a5d7219f89fff6aa7b33bc8a7994}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!detach\_loop@{detach\_loop}}
+\index{detach\_loop@{detach\_loop}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{detach\_loop()}{detach\_loop()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_a24a2a5d7219f89fff6aa7b33bc8a7994} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+template$<$typename T1, typename T2, typename T = common\+\_\+index\+\_\+type\+\_\+t$<$\+T1, T2$>$, typename F$>$ \\
+void \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::detach\+\_\+loop (\begin{DoxyParamCaption}\item[{const T1}]{first\+\_\+index}{, }\item[{const T2}]{index\+\_\+after\+\_\+last}{, }\item[{F \&\&}]{loop}{, }\item[{const std\+::size\+\_\+t}]{num\+\_\+blocks}{ = {\ttfamily 0}, }\item[{const \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}}}]{priority}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Parallelize a loop by automatically splitting it into blocks and submitting each block separately to the queue, with the specified priority. The loop function takes one argument, the loop index, so that it is called many times per block. Does not return a {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}}, so the user must use {\ttfamily \doxylink{class_b_s_1_1thread__pool_ae4fdcde4657ca01e3f6d0af108284809}{wait()}} or some other method to ensure that the loop finishes executing, otherwise bad things will happen. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T1} & The type of the first index. Should be a signed or unsigned integer. \\
+\hline
+{\em T2} & The type of the index after the last index. Should be a signed or unsigned integer. \\
+\hline
+{\em F} & The type of the function to loop through. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em first\+\_\+index} & The first index in the loop. \\
+\hline
+{\em index\+\_\+after\+\_\+last} & The index after the last index in the loop. The loop will iterate from {\ttfamily first\+\_\+index} to {\ttfamily (index\+\_\+after\+\_\+last -\/ 1)} inclusive. In other words, it will be equivalent to {\ttfamily for (T i = first\+\_\+index; i \texorpdfstring{$<$}{<} index\+\_\+after\+\_\+last; ++i)}. Note that if {\ttfamily index\+\_\+after\+\_\+last \texorpdfstring{$<$}{<}= first\+\_\+index}, no blocks will be submitted. \\
+\hline
+{\em loop} & The function to loop through. Will be called once per index, many times per block. Should take exactly one argument\+: the loop index. \\
+\hline
+{\em num\+\_\+blocks} & The maximum number of blocks to split the loop into. The default is 0, which means the number of blocks will be equal to the number of threads in the pool. \\
+\hline
+{\em priority} & The priority of the tasks. Should be between -\/128 and +127 (a signed 8-\/bit integer). The default is 0. Only taken into account if the flag {\ttfamily BS\+:tp\+:\+:priority} is enabled in the template parameter, otherwise has no effect. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_b_s_1_1thread__pool_affb462961cfe82a65097a4999f22ce8a}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!detach\_sequence@{detach\_sequence}}
+\index{detach\_sequence@{detach\_sequence}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{detach\_sequence()}{detach\_sequence()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_affb462961cfe82a65097a4999f22ce8a} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+template$<$typename T1, typename T2, typename T = common\+\_\+index\+\_\+type\+\_\+t$<$\+T1, T2$>$, typename F$>$ \\
+void \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::detach\+\_\+sequence (\begin{DoxyParamCaption}\item[{const T1}]{first\+\_\+index}{, }\item[{const T2}]{index\+\_\+after\+\_\+last}{, }\item[{F \&\&}]{sequence}{, }\item[{const \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}}}]{priority}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Submit a sequence of tasks enumerated by indices to the queue, with the specified priority. The sequence function takes one argument, the task index, and will be called once per index. Does not return a {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}}, so the user must use {\ttfamily \doxylink{class_b_s_1_1thread__pool_ae4fdcde4657ca01e3f6d0af108284809}{wait()}} or some other method to ensure that the sequence finishes executing, otherwise bad things will happen. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T1} & The type of the first index. Should be a signed or unsigned integer. \\
+\hline
+{\em T2} & The type of the index after the last index. Should be a signed or unsigned integer. \\
+\hline
+{\em F} & The type of the function used to define the sequence. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em first\+\_\+index} & The first index in the sequence. \\
+\hline
+{\em index\+\_\+after\+\_\+last} & The index after the last index in the sequence. The sequence will iterate from {\ttfamily first\+\_\+index} to {\ttfamily (index\+\_\+after\+\_\+last -\/ 1)} inclusive. In other words, it will be equivalent to {\ttfamily for (T i = first\+\_\+index; i \texorpdfstring{$<$}{<} index\+\_\+after\+\_\+last; ++i)}. Note that if {\ttfamily index\+\_\+after\+\_\+last \texorpdfstring{$<$}{<}= first\+\_\+index}, no tasks will be submitted. \\
+\hline
+{\em sequence} & The function used to define the sequence. Will be called once per index. Should take exactly one argument, the index. \\
+\hline
+{\em priority} & The priority of the tasks. Should be between -\/128 and +127 (a signed 8-\/bit integer). The default is 0. Only taken into account if the flag {\ttfamily BS\+:tp\+:\+:priority} is enabled in the template parameter, otherwise has no effect. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_b_s_1_1thread__pool_ac5effe10fd4156ea28c7a5c61997c6e7}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!detach\_task@{detach\_task}}
+\index{detach\_task@{detach\_task}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{detach\_task()}{detach\_task()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_ac5effe10fd4156ea28c7a5c61997c6e7} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+template$<$typename F$>$ \\
+void \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::detach\+\_\+task (\begin{DoxyParamCaption}\item[{F \&\&}]{task}{, }\item[{const \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}}}]{priority}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Submit a function with no arguments and no return value into the task queue, with the specified priority. To submit a function with arguments, enclose it in a lambda expression. Does not return a future, so the user must use {\ttfamily \doxylink{class_b_s_1_1thread__pool_ae4fdcde4657ca01e3f6d0af108284809}{wait()}} or some other method to ensure that the task finishes executing, otherwise bad things will happen. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em F} & The type of the function. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em task} & The function to submit. \\
+\hline
+{\em priority} & The priority of the task. Should be between -\/128 and +127 (a signed 8-\/bit integer). The default is 0. Only taken into account if the flag {\ttfamily BS\+:tp\+:\+:priority} is enabled in the template parameter, otherwise has no effect. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_b_s_1_1thread__pool_a70a96809451e3b894b4914f73943b8b8}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!get\_tasks\_queued@{get\_tasks\_queued}}
+\index{get\_tasks\_queued@{get\_tasks\_queued}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{get\_tasks\_queued()}{get\_tasks\_queued()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_a70a96809451e3b894b4914f73943b8b8} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::get\+\_\+tasks\+\_\+queued (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}}
+
+
+
+Get the number of tasks currently waiting in the queue to be executed by the threads. 
+
+\begin{DoxyReturn}{Returns}
+The number of queued tasks. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1thread__pool_af797cf1b1c5290330beef12fc44a213f}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!get\_tasks\_running@{get\_tasks\_running}}
+\index{get\_tasks\_running@{get\_tasks\_running}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{get\_tasks\_running()}{get\_tasks\_running()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_af797cf1b1c5290330beef12fc44a213f} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::get\+\_\+tasks\+\_\+running (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}}
+
+
+
+Get the number of tasks currently being executed by the threads. 
+
+\begin{DoxyReturn}{Returns}
+The number of running tasks. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1thread__pool_a8d29b6cfcb1a688a1bd0ec2cfd827b24}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!get\_tasks\_total@{get\_tasks\_total}}
+\index{get\_tasks\_total@{get\_tasks\_total}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{get\_tasks\_total()}{get\_tasks\_total()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_a8d29b6cfcb1a688a1bd0ec2cfd827b24} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::get\+\_\+tasks\+\_\+total (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}}
+
+
+
+Get the total number of unfinished tasks\+: either still waiting in the queue, or running in a thread. Note that {\ttfamily \doxylink{class_b_s_1_1thread__pool_a8d29b6cfcb1a688a1bd0ec2cfd827b24}{get\+\_\+tasks\+\_\+total()} == \doxylink{class_b_s_1_1thread__pool_a70a96809451e3b894b4914f73943b8b8}{get\+\_\+tasks\+\_\+queued()} + \doxylink{class_b_s_1_1thread__pool_af797cf1b1c5290330beef12fc44a213f}{get\+\_\+tasks\+\_\+running()}}. 
+
+\begin{DoxyReturn}{Returns}
+The total number of tasks. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1thread__pool_ab8ff9b7b79739ae9240833a9b939de65}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!get\_thread\_count@{get\_thread\_count}}
+\index{get\_thread\_count@{get\_thread\_count}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{get\_thread\_count()}{get\_thread\_count()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_ab8ff9b7b79739ae9240833a9b939de65} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::get\+\_\+thread\+\_\+count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}, {\ttfamily [noexcept]}}
+
+
+
+Get the number of threads in the pool. 
+
+\begin{DoxyReturn}{Returns}
+The number of threads. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1thread__pool_a8292a17d2c183df3f02c89804b70f4ec}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!get\_thread\_ids@{get\_thread\_ids}}
+\index{get\_thread\_ids@{get\_thread\_ids}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{get\_thread\_ids()}{get\_thread\_ids()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_a8292a17d2c183df3f02c89804b70f4ec} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+std\+::vector$<$ thread\+\_\+t\+::id $>$ \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::get\+\_\+thread\+\_\+ids (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}}
+
+
+
+Get a vector containing the unique identifiers for each of the pool\textquotesingle{}s threads, as obtained by {\ttfamily std\+::thread\+::get\+\_\+id()} (or {\ttfamily std\+::jthread\+::get\+\_\+id()} in C++20 and later). 
+
+\begin{DoxyReturn}{Returns}
+The unique thread identifiers. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1thread__pool_a0e45f81e64dc34df12705c95132620b3}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!is\_paused@{is\_paused}}
+\index{is\_paused@{is\_paused}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{is\_paused()}{is\_paused()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_a0e45f81e64dc34df12705c95132620b3} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+IF\+\_\+\+PAUSE\+\_\+\+ENABLED bool \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::is\+\_\+paused (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}}
+
+
+
+Check whether the pool is currently paused. Only enabled if the flag {\ttfamily BS\+:tp\+:\+:pause} is enabled in the template parameter. 
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the pool is paused, {\ttfamily false} if it is not paused. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1thread__pool_a4a473029de41c6467945a9930fce7991}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!reset@{reset}}
+\index{reset@{reset}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_a4a473029de41c6467945a9930fce7991} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+void \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::reset (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t}]{num\+\_\+threads}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Reset the pool with a new number of threads. Waits for all currently running tasks to be completed, then destroys all threads in the pool and creates a new thread pool with the new number of threads. Any tasks that were waiting in the queue before the pool was reset will then be executed by the new threads. If the pool was paused before resetting it, the new pool will be paused as well. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\+\_\+threads} & The number of threads to use. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_b_s_1_1thread__pool_a59eee365de519f55dd421b524ee6b663}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!reset@{reset}}
+\index{reset@{reset}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_a59eee365de519f55dd421b524ee6b663} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+template$<$BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+INIT\+\_\+\+FUNC\+\_\+\+CONCEPT(F)$>$ \\
+void \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::reset (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t}]{num\+\_\+threads}{, }\item[{F \&\&}]{init}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Reset the pool with a new number of threads and a new initialization function. Waits for all currently running tasks to be completed, then destroys all threads in the pool and creates a new thread pool with the new number of threads and initialization function. Any tasks that were waiting in the queue before the pool was reset will then be executed by the new threads. If the pool was paused before resetting it, the new pool will be paused as well. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\+\_\+threads} & The number of threads to use. \\
+\hline
+{\em init} & An initialization function to run in each thread before it starts executing any submitted tasks. The function must have no return value, and can either take one argument, the thread index of type {\ttfamily std\+::size\+\_\+t}, or zero arguments. It will be executed exactly once per thread, when the thread is first constructed. The initialization function must not throw any exceptions, as that will result in program termination. Any exceptions must be handled explicitly within the function. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_b_s_1_1thread__pool_a9f123ac3f05c1925b5941c1bed0f5a6d}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!reset@{reset}}
+\index{reset@{reset}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_a9f123ac3f05c1925b5941c1bed0f5a6d} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+template$<$BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+INIT\+\_\+\+FUNC\+\_\+\+CONCEPT(F)$>$ \\
+void \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::reset (\begin{DoxyParamCaption}\item[{F \&\&}]{init}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Reset the pool with the total number of hardware threads available, as reported by the implementation, and a new initialization function. Waits for all currently running tasks to be completed, then destroys all threads in the pool and creates a new thread pool with the new number of threads and initialization function. Any tasks that were waiting in the queue before the pool was reset will then be executed by the new threads. If the pool was paused before resetting it, the new pool will be paused as well. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em init} & An initialization function to run in each thread before it starts executing any submitted tasks. The function must have no return value, and can either take one argument, the thread index of type {\ttfamily std\+::size\+\_\+t}, or zero arguments. It will be executed exactly once per thread, when the thread is first constructed. The initialization function must not throw any exceptions, as that will result in program termination. Any exceptions must be handled explicitly within the function. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_b_s_1_1thread__pool_a847135c2217e88c590b9ca4be39b6c7a}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!set\_cleanup\_func@{set\_cleanup\_func}}
+\index{set\_cleanup\_func@{set\_cleanup\_func}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{set\_cleanup\_func()}{set\_cleanup\_func()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_a847135c2217e88c590b9ca4be39b6c7a} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+template$<$BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+INIT\+\_\+\+FUNC\+\_\+\+CONCEPT(F)$>$ \\
+void \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::set\+\_\+cleanup\+\_\+func (\begin{DoxyParamCaption}\item[{F \&\&}]{cleanup}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the thread pool\textquotesingle{}s cleanup function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cleanup} & A cleanup function to run in each thread right before it is destroyed, which will happen when the pool is destructed or reset. The function must have no return value, and can either take one argument, the thread index of type {\ttfamily std\+::size\+\_\+t}, or zero arguments. The cleanup function must not throw any exceptions, as that will result in program termination. Any exceptions must be handled explicitly within the function. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_b_s_1_1thread__pool_a76f963d585dd582c78bbaf554185d5d4}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!submit\_blocks@{submit\_blocks}}
+\index{submit\_blocks@{submit\_blocks}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{submit\_blocks()}{submit\_blocks()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_a76f963d585dd582c78bbaf554185d5d4} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+template$<$typename T1, typename T2, typename T = common\+\_\+index\+\_\+type\+\_\+t$<$\+T1, T2$>$, typename F, typename R = std\+::invoke\+\_\+result\+\_\+t$<$std\+::decay\+\_\+t$<$\+F$>$, T, T$>$$>$ \\
+\mbox{\hyperlink{class_b_s_1_1multi__future}{multi\+\_\+future}}$<$ R $>$ \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::submit\+\_\+blocks (\begin{DoxyParamCaption}\item[{const T1}]{first\+\_\+index}{, }\item[{const T2}]{index\+\_\+after\+\_\+last}{, }\item[{F \&\&}]{block}{, }\item[{const std\+::size\+\_\+t}]{num\+\_\+blocks}{ = {\ttfamily 0}, }\item[{const \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}}}]{priority}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}}
+
+
+
+Parallelize a loop by automatically splitting it into blocks and submitting each block separately to the queue, with the specified priority. The block function takes two arguments, the start and end of the block, so that it is only called once per block, but it is up to the user make sure the block function correctly deals with all the indices in each block. Returns a {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}} that contains the futures for all of the blocks. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T1} & The type of the first index. Should be a signed or unsigned integer. \\
+\hline
+{\em T2} & The type of the index after the last index. Should be a signed or unsigned integer. \\
+\hline
+{\em F} & The type of the function to loop through. \\
+\hline
+{\em R} & The return type of the function to loop through (can be {\ttfamily void}). \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em first\+\_\+index} & The first index in the loop. \\
+\hline
+{\em index\+\_\+after\+\_\+last} & The index after the last index in the loop. The loop will iterate from {\ttfamily first\+\_\+index} to {\ttfamily (index\+\_\+after\+\_\+last -\/ 1)} inclusive. In other words, it will be equivalent to {\ttfamily for (T i = first\+\_\+index; i \texorpdfstring{$<$}{<} index\+\_\+after\+\_\+last; ++i)}. Note that if {\ttfamily index\+\_\+after\+\_\+last \texorpdfstring{$<$}{<}= first\+\_\+index}, no blocks will be submitted, and an empty {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}} will be returned. \\
+\hline
+{\em block} & A function that will be called once per block. Should take exactly two arguments\+: the first index in the block and the index after the last index in the block. {\ttfamily block(start, end)} should typically involve a loop of the form {\ttfamily for (T i = start; i \texorpdfstring{$<$}{<} end; ++i)}. \\
+\hline
+{\em num\+\_\+blocks} & The maximum number of blocks to split the loop into. The default is 0, which means the number of blocks will be equal to the number of threads in the pool. \\
+\hline
+{\em priority} & The priority of the tasks. Should be between -\/128 and +127 (a signed 8-\/bit integer). The default is 0. Only taken into account if the flag {\ttfamily BS\+:tp\+:\+:priority} is enabled in the template parameter, otherwise has no effect. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}} that can be used to wait for all the blocks to finish. If the block function returns a value, the {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}} can also be used to obtain the values returned by each block. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1thread__pool_a51c236089dc40e33b2181ed66d6368fb}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!submit\_loop@{submit\_loop}}
+\index{submit\_loop@{submit\_loop}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{submit\_loop()}{submit\_loop()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_a51c236089dc40e33b2181ed66d6368fb} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+template$<$typename T1, typename T2, typename T = common\+\_\+index\+\_\+type\+\_\+t$<$\+T1, T2$>$, typename F$>$ \\
+\mbox{\hyperlink{class_b_s_1_1multi__future}{multi\+\_\+future}}$<$ void $>$ \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::submit\+\_\+loop (\begin{DoxyParamCaption}\item[{const T1}]{first\+\_\+index}{, }\item[{const T2}]{index\+\_\+after\+\_\+last}{, }\item[{F \&\&}]{loop}{, }\item[{const std\+::size\+\_\+t}]{num\+\_\+blocks}{ = {\ttfamily 0}, }\item[{const \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}}}]{priority}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}}
+
+
+
+Parallelize a loop by automatically splitting it into blocks and submitting each block separately to the queue, with the specified priority. The loop function takes one argument, the loop index, so that it is called many times per block. It must have no return value. Returns a {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}} that contains the futures for all of the blocks. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T1} & The type of the first index. Should be a signed or unsigned integer. \\
+\hline
+{\em T2} & The type of the index after the last index. Should be a signed or unsigned integer. \\
+\hline
+{\em F} & The type of the function to loop through. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em first\+\_\+index} & The first index in the loop. \\
+\hline
+{\em index\+\_\+after\+\_\+last} & The index after the last index in the loop. The loop will iterate from {\ttfamily first\+\_\+index} to {\ttfamily (index\+\_\+after\+\_\+last -\/ 1)} inclusive. In other words, it will be equivalent to {\ttfamily for (T i = first\+\_\+index; i \texorpdfstring{$<$}{<} index\+\_\+after\+\_\+last; ++i)}. Note that if {\ttfamily index\+\_\+after\+\_\+last \texorpdfstring{$<$}{<}= first\+\_\+index}, no tasks will be submitted, and an empty {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}} will be returned. \\
+\hline
+{\em loop} & The function to loop through. Will be called once per index, many times per block. Should take exactly one argument\+: the loop index. It cannot have a return value. \\
+\hline
+{\em num\+\_\+blocks} & The maximum number of blocks to split the loop into. The default is 0, which means the number of blocks will be equal to the number of threads in the pool. \\
+\hline
+{\em priority} & The priority of the tasks. Should be between -\/128 and +127 (a signed 8-\/bit integer). The default is 0. Only taken into account if the flag {\ttfamily BS\+:tp\+:\+:priority} is enabled in the template parameter, otherwise has no effect. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}} that can be used to wait for all the blocks to finish. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1thread__pool_ac915668ff39e7e45013b94dd5905ed1b}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!submit\_sequence@{submit\_sequence}}
+\index{submit\_sequence@{submit\_sequence}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{submit\_sequence()}{submit\_sequence()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_ac915668ff39e7e45013b94dd5905ed1b} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+template$<$typename T1, typename T2, typename T = common\+\_\+index\+\_\+type\+\_\+t$<$\+T1, T2$>$, typename F, typename R = std\+::invoke\+\_\+result\+\_\+t$<$std\+::decay\+\_\+t$<$\+F$>$, T$>$$>$ \\
+\mbox{\hyperlink{class_b_s_1_1multi__future}{multi\+\_\+future}}$<$ R $>$ \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::submit\+\_\+sequence (\begin{DoxyParamCaption}\item[{const T1}]{first\+\_\+index}{, }\item[{const T2}]{index\+\_\+after\+\_\+last}{, }\item[{F \&\&}]{sequence}{, }\item[{const \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}}}]{priority}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}}
+
+
+
+Submit a sequence of tasks enumerated by indices to the queue, with the specified priority. The sequence function takes one argument, the task index, and will be called once per index. Returns a {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}} that contains the futures for all of the tasks. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T1} & The type of the first index. Should be a signed or unsigned integer. \\
+\hline
+{\em T2} & The type of the index after the last index. Should be a signed or unsigned integer. \\
+\hline
+{\em F} & The type of the function used to define the sequence. \\
+\hline
+{\em R} & The return type of the function used to define the sequence (can be {\ttfamily void}). \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em first\+\_\+index} & The first index in the sequence. \\
+\hline
+{\em index\+\_\+after\+\_\+last} & The index after the last index in the sequence. The sequence will iterate from {\ttfamily first\+\_\+index} to {\ttfamily (index\+\_\+after\+\_\+last -\/ 1)} inclusive. In other words, it will be equivalent to {\ttfamily for (T i = first\+\_\+index; i \texorpdfstring{$<$}{<} index\+\_\+after\+\_\+last; ++i)}. Note that if {\ttfamily index\+\_\+after\+\_\+last \texorpdfstring{$<$}{<}= first\+\_\+index}, no tasks will be submitted, and an empty {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}} will be returned. \\
+\hline
+{\em sequence} & The function used to define the sequence. Will be called once per index. Should take exactly one argument, the index. \\
+\hline
+{\em priority} & The priority of the tasks. Should be between -\/128 and +127 (a signed 8-\/bit integer). The default is 0. Only taken into account if the flag {\ttfamily BS\+:tp\+:\+:priority} is enabled in the template parameter, otherwise has no effect. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}} that can be used to wait for all the tasks to finish. If the sequence function returns a value, the {\ttfamily \doxylink{class_b_s_1_1multi__future}{BS\+::multi\+\_\+future}} can also be used to obtain the values returned by each task. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1thread__pool_a2cc53c258968877b3d54b5abb9cf4b4d}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!submit\_task@{submit\_task}}
+\index{submit\_task@{submit\_task}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{submit\_task()}{submit\_task()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_a2cc53c258968877b3d54b5abb9cf4b4d} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+template$<$typename F, typename R = std\+::invoke\+\_\+result\+\_\+t$<$std\+::decay\+\_\+t$<$\+F$>$$>$$>$ \\
+std\+::future$<$ R $>$ \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::submit\+\_\+task (\begin{DoxyParamCaption}\item[{F \&\&}]{task}{, }\item[{const \mbox{\hyperlink{namespace_b_s_a76f70ed782c6c8c95fbb1e7d3cb4656e}{priority\+\_\+t}}}]{priority}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [nodiscard]}}
+
+
+
+Submit a function with no arguments into the task queue, with the specified priority. To submit a function with arguments, enclose it in a lambda expression. If the function has a return value, get a future for the eventual returned value. If the function has no return value, get an {\ttfamily std\+::future\texorpdfstring{$<$}{<}void\texorpdfstring{$>$}{>}} which can be used to wait until the task finishes. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em F} & The type of the function. \\
+\hline
+{\em R} & The return type of the function (can be {\ttfamily void}). \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em task} & The function to submit. \\
+\hline
+{\em priority} & The priority of the task. Should be between -\/128 and +127 (a signed 8-\/bit integer). The default is 0. Only taken into account if the flag {\ttfamily BS\+:tp\+:\+:priority} is enabled in the template parameter, otherwise has no effect. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A future to be used later to wait for the function to finish executing and/or obtain its returned value if it has one. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1thread__pool_ae4fdcde4657ca01e3f6d0af108284809}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!wait@{wait}}
+\index{wait@{wait}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{wait()}{wait()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_ae4fdcde4657ca01e3f6d0af108284809} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+void \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::wait (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Wait for tasks to be completed. Normally, this function waits for all tasks, both those that are currently running in the threads and those that are still waiting in the queue. However, if the pool is paused, this function only waits for the currently running tasks (otherwise it would wait forever). Note\+: To wait for just one specific task, use {\ttfamily \doxylink{class_b_s_1_1thread__pool_a2cc53c258968877b3d54b5abb9cf4b4d}{submit\+\_\+task()}} instead, and call the {\ttfamily \doxylink{class_b_s_1_1thread__pool_ae4fdcde4657ca01e3f6d0af108284809}{wait()}} member function of the generated future. 
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \`{}wait\+\_\+deadlock\`{}} & if called from within a thread of the same pool, which would result in a deadlock. Only enabled if the flag {\ttfamily BS\+:tp\+:\+:wait\+\_\+deadlock\+\_\+checks} is enabled in the template parameter. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_b_s_1_1thread__pool_a96220f6f2002518d7ab590ed1bd4224d}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!wait\_for@{wait\_for}}
+\index{wait\_for@{wait\_for}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{wait\_for()}{wait\_for()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_a96220f6f2002518d7ab590ed1bd4224d} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+template$<$typename R, typename P$>$ \\
+bool \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::wait\+\_\+for (\begin{DoxyParamCaption}\item[{const std\+::chrono\+::duration$<$ R, P $>$ \&}]{duration}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Wait for tasks to be completed, but stop waiting after the specified duration has passed. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em R} & An arithmetic type representing the number of ticks to wait. \\
+\hline
+{\em P} & An {\ttfamily std\+::ratio} representing the length of each tick in seconds. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em duration} & The amount of time to wait. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if all tasks finished running, {\ttfamily false} if the duration expired but some tasks are still running. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \`{}wait\+\_\+deadlock\`{}} & if called from within a thread of the same pool, which would result in a deadlock. Only enabled if the flag {\ttfamily BS\+:tp\+:\+:wait\+\_\+deadlock\+\_\+checks} is enabled in the template parameter. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_b_s_1_1thread__pool_adc4d2f2e851c96e6b9caf7b26384e7d3}\index{BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}!wait\_until@{wait\_until}}
+\index{wait\_until@{wait\_until}!BS::thread\_pool$<$ OptFlags $>$@{BS::thread\_pool$<$ OptFlags $>$}}
+\doxysubsubsection{\texorpdfstring{wait\_until()}{wait\_until()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1thread__pool_adc4d2f2e851c96e6b9caf7b26384e7d3} 
+template$<$\mbox{\hyperlink{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}{opt\+\_\+t}} Opt\+Flags = tp\+::none$>$ \\
+template$<$typename C, typename D$>$ \\
+bool \mbox{\hyperlink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}}$<$ Opt\+Flags $>$\+::wait\+\_\+until (\begin{DoxyParamCaption}\item[{const std\+::chrono\+::time\+\_\+point$<$ C, D $>$ \&}]{timeout\+\_\+time}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Wait for tasks to be completed, but stop waiting after the specified time point has been reached. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em C} & The type of the clock used to measure time. \\
+\hline
+{\em D} & An {\ttfamily std\+::chrono\+::duration} type used to indicate the time point. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em timeout\+\_\+time} & The time point at which to stop waiting. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if all tasks finished running, {\ttfamily false} if the time point was reached but some tasks are still running. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \`{}wait\+\_\+deadlock\`{}} & if called from within a thread of the same pool, which would result in a deadlock. Only enabled if the flag {\ttfamily BS\+:tp\+:\+:wait\+\_\+deadlock\+\_\+checks} is enabled in the template parameter. \\
+\hline
+\end{DoxyExceptions}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_b_s__thread__pool_8hpp}{BS\+\_\+thread\+\_\+pool.\+hpp}}\end{DoxyCompactItemize}

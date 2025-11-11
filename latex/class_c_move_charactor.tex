@@ -1,0 +1,220 @@
+\doxysection{CMove\+Charactor Class Reference}
+\hypertarget{class_c_move_charactor}{}\label{class_c_move_charactor}\index{CMoveCharactor@{CMoveCharactor}}
+Inheritance diagram for CMove\+Charactor\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_c_move_charactor}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_move_charactor_a4af52925f03e0c12dc0b41dd70b7568e}\label{class_c_move_charactor_a4af52925f03e0c12dc0b41dd70b7568e} 
+enum {\bfseries TYPE} \{ \newline
+{\bfseries TYPE\+\_\+\+NONE}
+, {\bfseries TYPE\+\_\+\+PLAYER}
+, {\bfseries TYPE\+\_\+\+BUDDY}
+, {\bfseries TYPE\+\_\+\+ENEMY}
+, \newline
+{\bfseries TYPE\+\_\+\+MAX}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
+enum {\bfseries TYPE} \{ \newline
+{\bfseries TYPE\+\_\+\+NONE}
+, {\bfseries TYPE\+\_\+\+PLAYER}
+, {\bfseries TYPE\+\_\+\+ARRAY}
+, {\bfseries TYPE\+\_\+\+ENEMY}
+, \newline
+{\bfseries TYPE\+\_\+\+QUEEN}
+, {\bfseries TYPE\+\_\+\+WORKER}
+, {\bfseries TYPE\+\_\+\+MESH}
+, {\bfseries TYPE\+\_\+\+BLOCK}
+, \newline
+{\bfseries TYPE\+\_\+\+PAUSE}
+, {\bfseries TYPE\+\_\+\+BARRIER}
+, {\bfseries TYPE\+\_\+\+ITEM}
+, {\bfseries TYPE\+\_\+\+MAX}
+ \}
+\item 
+\Hypertarget{class_c_object_a0924032649f7068d08cc5da588adc8d0}\label{class_c_object_a0924032649f7068d08cc5da588adc8d0} 
+enum {\bfseries PRIORITY} \{ \newline
+{\bfseries NONE}
+, {\bfseries MESH}
+, {\bfseries BASENUMBER}
+, {\bfseries MODELOBJECT}
+, \newline
+{\bfseries MOVE3D}
+, {\bfseries SHADOW}
+, {\bfseries IMPACT}
+, {\bfseries CHARACTOR}
+, \newline
+{\bfseries BILLBOARD}
+, {\bfseries EFFECT}
+, {\bfseries UI}
+, {\bfseries PAUSE}
+, \newline
+{\bfseries PRIORITY\+\_\+\+MAX}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_move_charactor_a59e4a727e70e552bdf5688a16fe16cfb}\label{class_c_move_charactor_a59e4a727e70e552bdf5688a16fe16cfb} 
+{\bfseries CMove\+Charactor} (int n\+Priority=static\+\_\+cast$<$ int $>$(CObject\+::\+PRIORITY\+::\+CHARACTOR))
+\item 
+virtual HRESULT \mbox{\hyperlink{class_c_move_charactor_aaa759acf797707dfdcbc8bc4b6e55be3}{Init}} (void) override
+\item 
+virtual void \mbox{\hyperlink{class_c_move_charactor_ac64253be764df7391afaa40c6bb644c4}{Uninit}} (void) override
+\item 
+virtual void \mbox{\hyperlink{class_c_move_charactor_a9767a5c0bb967a09bf4c237c51f3c0b9}{Update}} (void) override
+\item 
+virtual void \mbox{\hyperlink{class_c_move_charactor_a8064fef1ddc24bb44104866475a56cf0}{Draw}} (void) override
+\item 
+\Hypertarget{class_c_move_charactor_a3b1f1a5aa4feb9fb834c0048b77964a9}\label{class_c_move_charactor_a3b1f1a5aa4feb9fb834c0048b77964a9} 
+void {\bfseries Update\+Position} (void)
+\item 
+\Hypertarget{class_c_move_charactor_aeefbed5b9f38bd54078d1e41e3f8e538}\label{class_c_move_charactor_aeefbed5b9f38bd54078d1e41e3f8e538} 
+void {\bfseries Set\+Pos} (const D3\+DXVECTOR3 pos)
+\item 
+\Hypertarget{class_c_move_charactor_a0615e2f18a2d522846f3d1bd2002b143}\label{class_c_move_charactor_a0615e2f18a2d522846f3d1bd2002b143} 
+void {\bfseries Set\+Old\+Pos} (const D3\+DXVECTOR3 pos\+Old)
+\item 
+\Hypertarget{class_c_move_charactor_acd7ec4fe7c92852dad330e67f2b7b093}\label{class_c_move_charactor_acd7ec4fe7c92852dad330e67f2b7b093} 
+void {\bfseries Set\+Rot} (const D3\+DXVECTOR3 rot)
+\item 
+\Hypertarget{class_c_move_charactor_ad9049513927f313ebc9217da377c9763}\label{class_c_move_charactor_ad9049513927f313ebc9217da377c9763} 
+void {\bfseries Set\+Rot\+Dest} (const D3\+DXVECTOR3 rotdest)
+\item 
+\Hypertarget{class_c_move_charactor_a89bcd86af33d404933b6bab2112487d7}\label{class_c_move_charactor_a89bcd86af33d404933b6bab2112487d7} 
+void {\bfseries Set\+Scale} (const D3\+DXVECTOR3 scale=INITSCALE)
+\item 
+\Hypertarget{class_c_move_charactor_a309fd2316c42576089d124b404b759f1}\label{class_c_move_charactor_a309fd2316c42576089d124b404b759f1} 
+void {\bfseries Set\+Move} (const D3\+DXVECTOR3 move)
+\item 
+\Hypertarget{class_c_move_charactor_a0570e6b3e3c7656508753fe976c72746}\label{class_c_move_charactor_a0570e6b3e3c7656508753fe976c72746} 
+void {\bfseries Set\+Move\+Value} (const float f\+Value)
+\item 
+\Hypertarget{class_c_move_charactor_ad06fcda30bb4f2fa1d84fa1b369b7a54}\label{class_c_move_charactor_ad06fcda30bb4f2fa1d84fa1b369b7a54} 
+void {\bfseries Set\+Type} (TYPE Type)
+\item 
+\Hypertarget{class_c_move_charactor_ac2260d57acb372d00b35e81268c547c7}\label{class_c_move_charactor_ac2260d57acb372d00b35e81268c547c7} 
+void {\bfseries Motion\+Load} (const char \texorpdfstring{$\ast$}{*}p\+Script\+Name, int n\+Dest\+Motions)
+\item 
+\Hypertarget{class_c_move_charactor_a3c992fa63a928209d8dc19a98a27ef44}\label{class_c_move_charactor_a3c992fa63a928209d8dc19a98a27ef44} 
+void {\bfseries Set\+Charactor} (TYPE type)
+\item 
+\Hypertarget{class_c_move_charactor_a87d2a39c0d1fdf39f771ad345240f5db}\label{class_c_move_charactor_a87d2a39c0d1fdf39f771ad345240f5db} 
+D3\+DXVECTOR3 {\bfseries Get\+Pos} (void) const
+\item 
+\Hypertarget{class_c_move_charactor_accf9537918439127bd401515c2b20934}\label{class_c_move_charactor_accf9537918439127bd401515c2b20934} 
+D3\+DXVECTOR3 {\bfseries Get\+Old\+Pos} (void) const
+\item 
+\Hypertarget{class_c_move_charactor_a6f0af02ae606967045e9628d52e21186}\label{class_c_move_charactor_a6f0af02ae606967045e9628d52e21186} 
+D3\+DXVECTOR3 {\bfseries Get\+Rot} (void) const
+\item 
+\Hypertarget{class_c_move_charactor_a76374ad1c2ce29f588f77b66dfd37a3a}\label{class_c_move_charactor_a76374ad1c2ce29f588f77b66dfd37a3a} 
+D3\+DXVECTOR3 {\bfseries Get\+Move} (void) const
+\item 
+\Hypertarget{class_c_move_charactor_a7290264d6365f896d1c2d7bb39c389a1}\label{class_c_move_charactor_a7290264d6365f896d1c2d7bb39c389a1} 
+D3\+DXVECTOR3 {\bfseries Get\+Rot\+Dest} (void) const
+\item 
+\mbox{\hyperlink{class_c_motion}{CMotion}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_c_move_charactor_a8755a475a19a7aadc021369cae951c72}{Get\+Motion}} (void)
+\begin{DoxyCompactList}\small\item\em モ―mbox{[}ソ+Vョンのソtexorpdfstring{$\vert$}{|}ソ+Cンソtexorpdfstring{$^\wedge$}{\string^}を返す \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries CObject} (int n\+Priority=NONE)
+\item 
+void {\bfseries Set\+Obj\+Type} (TYPE type)
+\item 
+TYPE {\bfseries Get\+Obj\+Type} (void)
+\item 
+\mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bfseries Release\+All} (void)
+\item 
+static void {\bfseries Update\+All} (void)
+\item 
+static void {\bfseries Draw\+All} (void)
+\item 
+static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Top} (int n\+Priority)
+\item 
+static int {\bfseries Get\+Num\+All} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries Release} (void)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_c_move_charactor_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_c_move_charactor_a8064fef1ddc24bb44104866475a56cf0}\index{CMoveCharactor@{CMoveCharactor}!Draw@{Draw}}
+\index{Draw@{Draw}!CMoveCharactor@{CMoveCharactor}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily \label{class_c_move_charactor_a8064fef1ddc24bb44104866475a56cf0} 
+void CMove\+Charactor\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+
+\Hypertarget{class_c_move_charactor_a8755a475a19a7aadc021369cae951c72}\index{CMoveCharactor@{CMoveCharactor}!GetMotion@{GetMotion}}
+\index{GetMotion@{GetMotion}!CMoveCharactor@{CMoveCharactor}}
+\doxysubsubsection{\texorpdfstring{GetMotion()}{GetMotion()}}
+{\footnotesize\ttfamily \label{class_c_move_charactor_a8755a475a19a7aadc021369cae951c72} 
+\mbox{\hyperlink{class_c_motion}{CMotion}} \texorpdfstring{$\ast$}{*} CMove\+Charactor\+::\+Get\+Motion (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+モ―mbox{[}ソ+Vョンのソtexorpdfstring{$\vert$}{|}ソ+Cンソtexorpdfstring{$^\wedge$}{\string^}を返す 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\Hypertarget{class_c_move_charactor_aaa759acf797707dfdcbc8bc4b6e55be3}\index{CMoveCharactor@{CMoveCharactor}!Init@{Init}}
+\index{Init@{Init}!CMoveCharactor@{CMoveCharactor}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily \label{class_c_move_charactor_aaa759acf797707dfdcbc8bc4b6e55be3} 
+HRESULT CMove\+Charactor\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+
+\Hypertarget{class_c_move_charactor_ac64253be764df7391afaa40c6bb644c4}\index{CMoveCharactor@{CMoveCharactor}!Uninit@{Uninit}}
+\index{Uninit@{Uninit}!CMoveCharactor@{CMoveCharactor}}
+\doxysubsubsection{\texorpdfstring{Uninit()}{Uninit()}}
+{\footnotesize\ttfamily \label{class_c_move_charactor_ac64253be764df7391afaa40c6bb644c4} 
+void CMove\+Charactor\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+
+\Hypertarget{class_c_move_charactor_a9767a5c0bb967a09bf4c237c51f3c0b9}\index{CMoveCharactor@{CMoveCharactor}!Update@{Update}}
+\index{Update@{Update}!CMoveCharactor@{CMoveCharactor}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_c_move_charactor_a9767a5c0bb967a09bf4c237c51f3c0b9} 
+void CMove\+Charactor\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+movecharactor.\+h\item 
+movecharactor.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,44 @@
+\doxysection{ui.\+h}
+\hypertarget{ui_8h_source}{}\label{ui_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//====================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ UI処理\ [\ ui.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=====================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once\ }}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//****************************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル宣言}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//****************************}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}object2D.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//****************************}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ UIクラスを定義}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//****************************}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }CUi\ :\ \textcolor{keyword}{public}\ CObject2D}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ CUi(\textcolor{keywordtype}{int}\ nPriority\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(CObject::PRIORITY::UI));}
+\DoxyCodeLine{00026\ \ \ \ \ \string~CUi();}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ HRESULT\ Init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ Draw(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{static}\ CUi*\ Create(D3DXVECTOR3\ pos,\ \textcolor{keywordtype}{int}\ nFlashFrame,\textcolor{keywordtype}{float}\ fWidth,\ \textcolor{keywordtype}{float}\ fHeight,\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ Filename,\textcolor{keywordtype}{bool}\ isUse);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{int}\ m\_nFlashFrame;\ \ \ \ \ \ \textcolor{comment}{//\ 貼_滅間隔}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_isFlash;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 貼_滅するかどうか}}
+\DoxyCodeLine{00039\ \};}
+
+\end{DoxyCode}

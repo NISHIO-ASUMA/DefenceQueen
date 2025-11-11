@@ -1,0 +1,51 @@
+\doxysection{blockmanager.\+h}
+\hypertarget{blockmanager_8h_source}{}\label{blockmanager_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=======================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ ブロック管理処理\ [\ blockmanager.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=======================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}block.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ 前方宣言}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_box_collider}{CBoxCollider}};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{comment}{//**********************************}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ ブロック一括管理クラスを定義}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//**********************************}}
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }CBlockManager}
+\DoxyCodeLine{00028\ \{}
+\DoxyCodeLine{00029\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ CBlockManager();}
+\DoxyCodeLine{00032\ \ \ \ \ \string~CBlockManager();}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ HRESULT\ Init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00037\ \ \ \ \ HRESULT\ Load();}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetAll(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(m\_pBlocks.size());\ \}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_c_block}{CBlock}}*\ GetBlock(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nIdx)\ \{\ \textcolor{keywordflow}{return}\ m\_pBlocks[nIdx];\ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_c_block}{CBlock}}*\ CreateManager(D3DXVECTOR3\ pos,\ D3DXVECTOR3\ rot,\ D3DXVECTOR3\ scale,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ pModelName);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<CBlock*>m\_pBlocks;\ \textcolor{comment}{//\ 配置するブロックの動的配列}}
+\DoxyCodeLine{00046\ \};}
+
+\end{DoxyCode}

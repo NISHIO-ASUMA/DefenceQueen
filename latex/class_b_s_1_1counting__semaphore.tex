@@ -1,0 +1,185 @@
+\doxysection{BS\+::counting\+\_\+semaphore\texorpdfstring{$<$}{<} Least\+Max\+Value \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_b_s_1_1counting__semaphore}{}\label{class_b_s_1_1counting__semaphore}\index{BS::counting\_semaphore$<$ LeastMaxValue $>$@{BS::counting\_semaphore$<$ LeastMaxValue $>$}}
+
+
+A polyfill for {\ttfamily std\+::counting\+\_\+semaphore}, to be used if C++20 features are not available. A {\ttfamily \doxylink{class_b_s_1_1counting__semaphore}{counting\+\_\+semaphore}} is a synchronization primitive that allows more than one concurrent access to the same resource. The number of concurrent accessors is limited by the semaphore\textquotesingle{}s counter, which is decremented when a thread acquires the semaphore and incremented when a thread releases the semaphore. If the counter is zero, a thread trying to acquire the semaphore will be blocked until another thread releases the semaphore.  
+
+
+
+
+{\ttfamily \#include $<$BS\+\_\+thread\+\_\+pool.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+constexpr \mbox{\hyperlink{class_b_s_1_1counting__semaphore_adf9bbd4393c3bc5b6d43800a7a638ffc}{counting\+\_\+semaphore}} (const std\+::ptrdiff\+\_\+t desired)
+\begin{DoxyCompactList}\small\item\em Construct a new counting semaphore with the given initial counter value. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_s_1_1counting__semaphore_a9d90d021fafe231716957115f759e524}\label{class_b_s_1_1counting__semaphore_a9d90d021fafe231716957115f759e524} 
+{\bfseries counting\+\_\+semaphore} (const \mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\+\_\+semaphore}} \&)=delete
+\item 
+\Hypertarget{class_b_s_1_1counting__semaphore_a5160620d68035cd4adc008fec1404383}\label{class_b_s_1_1counting__semaphore_a5160620d68035cd4adc008fec1404383} 
+{\bfseries counting\+\_\+semaphore} (\mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\+\_\+semaphore}} \&\&)=delete
+\item 
+\Hypertarget{class_b_s_1_1counting__semaphore_aa3f893be7ba27ba78c5f11e624b44855}\label{class_b_s_1_1counting__semaphore_aa3f893be7ba27ba78c5f11e624b44855} 
+\mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\+\_\+semaphore}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\+\_\+semaphore}} \&)=delete
+\item 
+\Hypertarget{class_b_s_1_1counting__semaphore_acedc198983f9d17b2d1bf4f17ee56fcc}\label{class_b_s_1_1counting__semaphore_acedc198983f9d17b2d1bf4f17ee56fcc} 
+\mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\+\_\+semaphore}} \& {\bfseries operator=} (\mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\+\_\+semaphore}} \&\&)=delete
+\item 
+\Hypertarget{class_b_s_1_1counting__semaphore_a7997f25d764ed383b4582b7f3aa57997}\label{class_b_s_1_1counting__semaphore_a7997f25d764ed383b4582b7f3aa57997} 
+void {\bfseries acquire} ()
+\begin{DoxyCompactList}\small\item\em Atomically decrements the internal counter by 1 if it is greater than 0; otherwise blocks until it is greater than 0 and can successfully decrement the internal counter. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_b_s_1_1counting__semaphore_aa54e30cac70d2772f4276f0291ec1d30}{release}} (const std\+::ptrdiff\+\_\+t update=1)
+\begin{DoxyCompactList}\small\item\em Atomically increments the internal counter. Any thread(s) waiting for the counter to be greater than 0, such as due to being blocked in {\ttfamily \doxylink{class_b_s_1_1counting__semaphore_a7997f25d764ed383b4582b7f3aa57997}{acquire()}}, will subsequently be unblocked. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_b_s_1_1counting__semaphore_acd5b6d3e8aa9ea299958949e39fa759f}{try\+\_\+acquire}} ()
+\begin{DoxyCompactList}\small\item\em Tries to atomically decrement the internal counter by 1 if it is greater than 0; no blocking occurs regardless. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Rep, class Period$>$ }\\bool \mbox{\hyperlink{class_b_s_1_1counting__semaphore_a52b9a3b042c5a6634d4fb81d6cdfaf98}{try\+\_\+acquire\+\_\+for}} (const std\+::chrono\+::duration$<$ Rep, Period $>$ \&rel\+\_\+time)
+\begin{DoxyCompactList}\small\item\em Tries to atomically decrement the internal counter by 1 if it is greater than 0; otherwise blocks until it is greater than 0 and can successfully decrement the internal counter, or the {\ttfamily rel\+\_\+time} duration has been exceeded. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Clock, class Duration$>$ }\\bool \mbox{\hyperlink{class_b_s_1_1counting__semaphore_ad745b87177d96bfd358c2f7257f7a2e9}{try\+\_\+acquire\+\_\+until}} (const std\+::chrono\+::time\+\_\+point$<$ Clock, Duration $>$ \&abs\+\_\+time)
+\begin{DoxyCompactList}\small\item\em Tries to atomically decrement the internal counter by 1 if it is greater than 0; otherwise blocks until it is greater than 0 and can successfully decrement the internal counter, or the {\ttfamily abs\+\_\+time} time point has been passed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr std\+::ptrdiff\+\_\+t \mbox{\hyperlink{class_b_s_1_1counting__semaphore_a186cc3f44f272d2edcaa6b8cfa7b90cb}{max}} () noexcept
+\begin{DoxyCompactList}\small\item\em Returns the internal counter\textquotesingle{}s maximum possible value, which in this implementation is equal to {\ttfamily Least\+Max\+Value}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$std\+::ptrdiff\+\_\+t Least\+Max\+Value = std\+::numeric\+\_\+limits$<$std\+::ptrdiff\+\_\+t$>$\+::max()$>$\newline
+class BS\+::counting\+\_\+semaphore$<$ Least\+Max\+Value $>$}
+A polyfill for {\ttfamily std\+::counting\+\_\+semaphore}, to be used if C++20 features are not available. A {\ttfamily \doxylink{class_b_s_1_1counting__semaphore}{counting\+\_\+semaphore}} is a synchronization primitive that allows more than one concurrent access to the same resource. The number of concurrent accessors is limited by the semaphore\textquotesingle{}s counter, which is decremented when a thread acquires the semaphore and incremented when a thread releases the semaphore. If the counter is zero, a thread trying to acquire the semaphore will be blocked until another thread releases the semaphore. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Least\+Max\+Value} & The least maximum value of the counter. (In this implementation, it is also the actual maximum value.) \\
+\hline
+\end{DoxyTemplParams}
+
+
+\label{doc-constructors}
+\Hypertarget{class_b_s_1_1counting__semaphore_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_b_s_1_1counting__semaphore_adf9bbd4393c3bc5b6d43800a7a638ffc}\index{BS::counting\_semaphore$<$ LeastMaxValue $>$@{BS::counting\_semaphore$<$ LeastMaxValue $>$}!counting\_semaphore@{counting\_semaphore}}
+\index{counting\_semaphore@{counting\_semaphore}!BS::counting\_semaphore$<$ LeastMaxValue $>$@{BS::counting\_semaphore$<$ LeastMaxValue $>$}}
+\doxysubsubsection{\texorpdfstring{counting\_semaphore()}{counting\_semaphore()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1counting__semaphore_adf9bbd4393c3bc5b6d43800a7a638ffc} 
+template$<$std\+::ptrdiff\+\_\+t Least\+Max\+Value = std\+::numeric\+\_\+limits$<$std\+::ptrdiff\+\_\+t$>$\+::max()$>$ \\
+\mbox{\hyperlink{class_b_s_1_1counting__semaphore}{BS\+::counting\+\_\+semaphore}}$<$ Least\+Max\+Value $>$\+::counting\+\_\+semaphore (\begin{DoxyParamCaption}\item[{const std\+::ptrdiff\+\_\+t}]{desired}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}, {\ttfamily [constexpr]}}
+
+
+
+Construct a new counting semaphore with the given initial counter value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em desired} & The initial counter value. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_b_s_1_1counting__semaphore_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_b_s_1_1counting__semaphore_a186cc3f44f272d2edcaa6b8cfa7b90cb}\index{BS::counting\_semaphore$<$ LeastMaxValue $>$@{BS::counting\_semaphore$<$ LeastMaxValue $>$}!max@{max}}
+\index{max@{max}!BS::counting\_semaphore$<$ LeastMaxValue $>$@{BS::counting\_semaphore$<$ LeastMaxValue $>$}}
+\doxysubsubsection{\texorpdfstring{max()}{max()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1counting__semaphore_a186cc3f44f272d2edcaa6b8cfa7b90cb} 
+template$<$std\+::ptrdiff\+\_\+t Least\+Max\+Value = std\+::numeric\+\_\+limits$<$std\+::ptrdiff\+\_\+t$>$\+::max()$>$ \\
+constexpr std\+::ptrdiff\+\_\+t \mbox{\hyperlink{class_b_s_1_1counting__semaphore}{BS\+::counting\+\_\+semaphore}}$<$ Least\+Max\+Value $>$\+::max (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [nodiscard]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+Returns the internal counter\textquotesingle{}s maximum possible value, which in this implementation is equal to {\ttfamily Least\+Max\+Value}. 
+
+\begin{DoxyReturn}{Returns}
+The internal counter\textquotesingle{}s maximum possible value. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1counting__semaphore_aa54e30cac70d2772f4276f0291ec1d30}\index{BS::counting\_semaphore$<$ LeastMaxValue $>$@{BS::counting\_semaphore$<$ LeastMaxValue $>$}!release@{release}}
+\index{release@{release}!BS::counting\_semaphore$<$ LeastMaxValue $>$@{BS::counting\_semaphore$<$ LeastMaxValue $>$}}
+\doxysubsubsection{\texorpdfstring{release()}{release()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1counting__semaphore_aa54e30cac70d2772f4276f0291ec1d30} 
+template$<$std\+::ptrdiff\+\_\+t Least\+Max\+Value = std\+::numeric\+\_\+limits$<$std\+::ptrdiff\+\_\+t$>$\+::max()$>$ \\
+void \mbox{\hyperlink{class_b_s_1_1counting__semaphore}{BS\+::counting\+\_\+semaphore}}$<$ Least\+Max\+Value $>$\+::release (\begin{DoxyParamCaption}\item[{const std\+::ptrdiff\+\_\+t}]{update}{ = {\ttfamily 1}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Atomically increments the internal counter. Any thread(s) waiting for the counter to be greater than 0, such as due to being blocked in {\ttfamily \doxylink{class_b_s_1_1counting__semaphore_a7997f25d764ed383b4582b7f3aa57997}{acquire()}}, will subsequently be unblocked. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em update} & The amount to increment the internal counter by. Defaults to 1. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_b_s_1_1counting__semaphore_acd5b6d3e8aa9ea299958949e39fa759f}\index{BS::counting\_semaphore$<$ LeastMaxValue $>$@{BS::counting\_semaphore$<$ LeastMaxValue $>$}!try\_acquire@{try\_acquire}}
+\index{try\_acquire@{try\_acquire}!BS::counting\_semaphore$<$ LeastMaxValue $>$@{BS::counting\_semaphore$<$ LeastMaxValue $>$}}
+\doxysubsubsection{\texorpdfstring{try\_acquire()}{try\_acquire()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1counting__semaphore_acd5b6d3e8aa9ea299958949e39fa759f} 
+template$<$std\+::ptrdiff\+\_\+t Least\+Max\+Value = std\+::numeric\+\_\+limits$<$std\+::ptrdiff\+\_\+t$>$\+::max()$>$ \\
+bool \mbox{\hyperlink{class_b_s_1_1counting__semaphore}{BS\+::counting\+\_\+semaphore}}$<$ Least\+Max\+Value $>$\+::try\+\_\+acquire (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Tries to atomically decrement the internal counter by 1 if it is greater than 0; no blocking occurs regardless. 
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if decremented the internal counter, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1counting__semaphore_a52b9a3b042c5a6634d4fb81d6cdfaf98}\index{BS::counting\_semaphore$<$ LeastMaxValue $>$@{BS::counting\_semaphore$<$ LeastMaxValue $>$}!try\_acquire\_for@{try\_acquire\_for}}
+\index{try\_acquire\_for@{try\_acquire\_for}!BS::counting\_semaphore$<$ LeastMaxValue $>$@{BS::counting\_semaphore$<$ LeastMaxValue $>$}}
+\doxysubsubsection{\texorpdfstring{try\_acquire\_for()}{try\_acquire\_for()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1counting__semaphore_a52b9a3b042c5a6634d4fb81d6cdfaf98} 
+template$<$std\+::ptrdiff\+\_\+t Least\+Max\+Value = std\+::numeric\+\_\+limits$<$std\+::ptrdiff\+\_\+t$>$\+::max()$>$ \\
+template$<$class Rep, class Period$>$ \\
+bool \mbox{\hyperlink{class_b_s_1_1counting__semaphore}{BS\+::counting\+\_\+semaphore}}$<$ Least\+Max\+Value $>$\+::try\+\_\+acquire\+\_\+for (\begin{DoxyParamCaption}\item[{const std\+::chrono\+::duration$<$ Rep, Period $>$ \&}]{rel\+\_\+time}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Tries to atomically decrement the internal counter by 1 if it is greater than 0; otherwise blocks until it is greater than 0 and can successfully decrement the internal counter, or the {\ttfamily rel\+\_\+time} duration has been exceeded. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Rep} & An arithmetic type representing the number of ticks to wait. \\
+\hline
+{\em Period} & An {\ttfamily std\+::ratio} representing the length of each tick in seconds. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em rel\+\_\+time} & The duration the function must wait. Note that the function may wait for longer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if decremented the internal counter, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_b_s_1_1counting__semaphore_ad745b87177d96bfd358c2f7257f7a2e9}\index{BS::counting\_semaphore$<$ LeastMaxValue $>$@{BS::counting\_semaphore$<$ LeastMaxValue $>$}!try\_acquire\_until@{try\_acquire\_until}}
+\index{try\_acquire\_until@{try\_acquire\_until}!BS::counting\_semaphore$<$ LeastMaxValue $>$@{BS::counting\_semaphore$<$ LeastMaxValue $>$}}
+\doxysubsubsection{\texorpdfstring{try\_acquire\_until()}{try\_acquire\_until()}}
+{\footnotesize\ttfamily \label{class_b_s_1_1counting__semaphore_ad745b87177d96bfd358c2f7257f7a2e9} 
+template$<$std\+::ptrdiff\+\_\+t Least\+Max\+Value = std\+::numeric\+\_\+limits$<$std\+::ptrdiff\+\_\+t$>$\+::max()$>$ \\
+template$<$class Clock, class Duration$>$ \\
+bool \mbox{\hyperlink{class_b_s_1_1counting__semaphore}{BS\+::counting\+\_\+semaphore}}$<$ Least\+Max\+Value $>$\+::try\+\_\+acquire\+\_\+until (\begin{DoxyParamCaption}\item[{const std\+::chrono\+::time\+\_\+point$<$ Clock, Duration $>$ \&}]{abs\+\_\+time}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Tries to atomically decrement the internal counter by 1 if it is greater than 0; otherwise blocks until it is greater than 0 and can successfully decrement the internal counter, or the {\ttfamily abs\+\_\+time} time point has been passed. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Clock} & The type of the clock used to measure time. \\
+\hline
+{\em Duration} & An {\ttfamily std\+::chrono\+::duration} type used to indicate the time point. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em abs\+\_\+time} & The earliest time the function must wait until. Note that the function may wait for longer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if decremented the internal counter, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_b_s__thread__pool_8hpp}{BS\+\_\+thread\+\_\+pool.\+hpp}}\end{DoxyCompactItemize}

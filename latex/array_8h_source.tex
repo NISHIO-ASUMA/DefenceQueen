@@ -1,0 +1,73 @@
+\doxysection{array.\+h}
+\hypertarget{array_8h_source}{}\label{array_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//===================================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ プレイヤーの仲間処理\ [\ array.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//===================================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}movecharactor.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ 前方宣言}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_camera}{CCamera}};}
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_parameter}{CParameter}};}
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_shadow_s}{CShadowS}};}
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_state_machine}{CStateMachine}};}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_motion}{CMotion}};}
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{//********************************}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ プレイヤーの仲間クラスを定義}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//********************************}}
+\DoxyCodeLine{00032\ \textcolor{keyword}{class\ }CArray\ :\ \textcolor{keyword}{public}\ CMoveCharactor}
+\DoxyCodeLine{00033\ \{}
+\DoxyCodeLine{00034\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{comment}{//************************}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{//\ モーション列挙圭string^}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//************************}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{enum}\ MOTION}
+\DoxyCodeLine{00039\ \ \ \ \ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ MOTION\_NEUTRAL,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ MOTION\_MOVE,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ MOTION\_DEATH,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ MOTION\_MAX}
+\DoxyCodeLine{00044\ \ \ \ \ \};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ CArray(\textcolor{keywordtype}{int}\ nPriority\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(CObject::PRIORITY::CHARACTOR));}
+\DoxyCodeLine{00047\ \ \ \ \ \string~CArray();}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ HRESULT\ Init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ Draw(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ Reset(\textcolor{keyword}{const}\ D3DXVECTOR3\ pos,\ \textcolor{keyword}{const}\ D3DXVECTOR3\ rot,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nLife);}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{bool}\ Colision(\mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}}*\ other);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ SetActive(\textcolor{keywordtype}{bool}\ isFlags)\ \{\ m\_isActive\ =\ isFlags;\ \}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{bool}\ GetActive(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_isActive;\ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{static}\ CArray*\ Create(\textcolor{keyword}{const}\ D3DXVECTOR3\ pos,\ \textcolor{keyword}{const}\ D3DXVECTOR3\ rot,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nLife);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_isActive;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 使用状態かどうか}}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{class_c_motion}{CMotion}}*\ m\_pMotion;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ モーションポインソstring^}}
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}}*\ m\_pSphereCollider;\ \ \textcolor{comment}{//\ 球形のコライソ_ー}}
+\DoxyCodeLine{00066\ \ \ \ \ std::unique\_ptr<CParameter>m\_pParameter;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ パラメーソstring^ークラスポインソstring^}}
+\DoxyCodeLine{00067\ \ \ \ \ std::unique\_ptr<CStateMachine>m\_pStateMachine;\ \ \textcolor{comment}{//\ ステート基底クラスのポインソstring^}}
+\DoxyCodeLine{00068\ \};}
+
+\end{DoxyCode}
