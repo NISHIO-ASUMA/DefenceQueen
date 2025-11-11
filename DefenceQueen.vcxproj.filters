@@ -388,6 +388,9 @@
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
     <ClCompile Include="move3dobject.cpp">
+      <Filter>ソース ファイル\BaseClass\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="grass.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -675,6 +678,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="move3dobject.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="grass.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

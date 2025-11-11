@@ -162,7 +162,7 @@ void CObjectX::DrawShadow(void)
 	if (!model.pMesh) return;
 
 	// ライト方向
-	D3DXVECTOR4 lightDir(-0.37f, -0.7f, 0.1f, 0.0f);
+	D3DXVECTOR4 lightDir(0.05f, -0.5f, 0.0f, 0.0f);
 
 	// 平面投影座標を設定
 	D3DXPLANE plane;
@@ -229,17 +229,7 @@ CObjectX* CObjectX::Create(int nIdx,D3DXVECTOR3 pos)
 	pObjX->m_nIdxModel = nIdx;
 
 	// 初期化処理
-	if (FAILED(pObjX->Init()))
-	{
-		// 破棄
-		delete pObjX;
-
-		// nullptr代入
-		pObjX = nullptr;
-
-		// nullptrを返す
-		return nullptr;
-	}
+	if (FAILED(pObjX->Init())) return nullptr;
 
 	// ポインタを返す
 	return pObjX;
