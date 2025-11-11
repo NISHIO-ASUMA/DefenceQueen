@@ -47,6 +47,7 @@ public:
 	static CObject3D* Create(D3DXVECTOR3 pos);
 
 private:
+
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;		// 頂点バッファ
 
 	D3DXMATRIX m_mtxWorld;	// ワールドマトリックス

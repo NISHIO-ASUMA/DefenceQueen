@@ -65,9 +65,13 @@ HRESULT CBlock::Init(void)
 	int nModelIdx = GetModelIdx();
 	D3DXVECTOR3 Size = pXManager->GetInfo(nModelIdx).Size;
 
-	// コライダー生成
-	m_pCollider = CBoxCollider::Create(GetPos(), GetPos(), Size);
+	std::string str = pXManager->GetInfo(nModelIdx).FilePath;
 
+	// 葉っぱは当たらない
+	if (str == "data/MODEL/STAGEOBJ/Reef.x") m_pCollider = nullptr;
+	else
+		m_pCollider = CBoxCollider::Create(GetPos(), GetPos(), Size);
+	
 	// マトリックスシャドウを有効化する
 	SetShadow(true);
 
@@ -96,8 +100,8 @@ void CBlock::Update(void)
 	// 現在の座標取得
 	D3DXVECTOR3 pos = GetPos();
 
-	// コライダー座標の更新
-	m_pCollider->SetPos(pos);
+	// 座標の更新
+	if (m_pCollider) m_pCollider->SetPos(pos);
 }
 //=====================================
 // 描画処理

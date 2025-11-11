@@ -45,7 +45,7 @@ public:
 		MESH,		// メッシュ
 		BASENUMBER, // 基準番号
 		MODELOBJECT,// モデル
-		CIRCLE,		// 円
+		MOVE3D,		// 動く3Dオブジェクト
 		SHADOW,		// 影
 		IMPACT,		// 衝撃波
 		CHARACTOR,	// プレイヤー

@@ -15,6 +15,11 @@
 #include "manager.h"
 #include "input.h"
 #include "camera.h"
+#include "boxcollider.h"
+#include "collisionbox.h"
+#include "gamemanager.h"
+#include "gamesceneobject.h"
+#include "blockmanager.h"
 
 //**********************
 // 定数宣言
@@ -27,9 +32,10 @@ namespace SELECTOR
 //============================
 // コンストラクタ
 //============================
-CSelectPoint::CSelectPoint(int nPriority) : CObject3D(nPriority),
+CSelectPoint::CSelectPoint(int nPriority) : CMove3DObject(nPriority),
 m_fHitRange(NULL),
-m_pSphere(nullptr)
+m_pSphere(nullptr),
+m_pBox(nullptr)
 {
 
 }
@@ -59,6 +65,10 @@ CSelectPoint* CSelectPoint::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,
 	pSelect->SetTexture("Circle.png");
 	pSelect->SetfRange(fRadius);
 
+	// コライダー生成
+	pSelect->m_pSphere = CSphereCollider::Create(pos, fRadius);
+	pSelect->m_pBox = CBoxCollider::Create(pos, pos, D3DXVECTOR3(fRadius, fRadius, fRadius));
+
 	return pSelect;
 }
 //============================
@@ -67,10 +77,7 @@ CSelectPoint* CSelectPoint::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,
 HRESULT CSelectPoint::Init(void)
 {
 	// 親クラスの初期化
-	CObject3D::Init();
-
-	// コライダー生成
-	m_pSphere = CSphereCollider::Create(GetPos(), m_fHitRange);
+	CMove3DObject::Init();
 
 	return S_OK;
 }
@@ -86,30 +93,70 @@ void CSelectPoint::Uninit(void)
 		m_pSphere = nullptr;
 	}
 
+	if (m_pBox)
+	{
+		delete m_pBox;
+		m_pBox = nullptr;
+	}
+
 	// 親クラスの終了処理
-	CObject3D::Uninit();
+	CMove3DObject::Uninit();
 }
 //============================
 // 更新処理
 //============================
 void CSelectPoint::Update(void)
 {
-	// 現在の座標を取得
-	D3DXVECTOR3 pos = GetPos();
+	// 座標を取得
+	D3DXVECTOR3 oldPos = GetOldPos();
 
-	// 移動関数
-	Moving(pos);
-	MovePad(pos);
+	// キー入力での移動関数
+	Moving();
+	MovePad();
 
-	// コライダー座標の更新
-	m_pSphere->SetPos(pos);
+	// オブジェクトの座標更新
+	CMove3DObject::UpdatePosition();
 
-	// 当たり判定を対象オブジェクトから取得
+	// 更新された座標を取得
+	D3DXVECTOR3 UpdatePos = GetPos();
 
-	// 当たったらコライダー座標の更新
-	
+	// 球形コライダー座標の更新
+	m_pSphere->SetPos(UpdatePos);
+
+	// 矩形コライダーの位置更新
+	if (m_pBox)
+	{
+		m_pBox->SetPos(UpdatePos);
+		m_pBox->SetPosOld(oldPos);
+	}
+
+	// 配置されているブロックを取得
+	auto Block = CGameManager::GetInstance()->GetGameObj()->GetBlockManager();
+	if (Block == nullptr) return;
+
+	// ブロックオブジェクトとの当たり判定
+	for (int nBlock = 0; nBlock < Block->GetAll(); nBlock++)
+	{
+		// コライダー取得
+		CBoxCollider* pOtherCollider = Block->GetBlock(nBlock)->GetCollider();
+		if (pOtherCollider == nullptr) continue;
+
+		// 矩形で当たる
+		if (CollisionBox(pOtherCollider, &UpdatePos))
+		{
+			// 当たった点の座標セット
+			SetPos(UpdatePos);
+
+			// 矩形コライダー座標更新
+			m_pBox->SetPos(UpdatePos);
+		}
+	}
+
+	// 移動量の減衰
+	CMove3DObject::DecayMove(0.75f);
+
 	// 親クラスの更新処理
-	CObject3D::Update();
+	CMove3DObject::Update();
 }
 //============================
 // 描画処理
@@ -117,7 +164,7 @@ void CSelectPoint::Update(void)
 void CSelectPoint::Draw(void)
 {
 	// 親クラスの描画
-	CObject3D::Draw();
+	CMove3DObject::Draw();
 
 	// デバッグフォント
 	CDebugproc::Print("ポインター座標 : [ %.2f,%.2f,%.2f ]", GetPos().x, GetPos().y, GetPos().z);
@@ -126,8 +173,11 @@ void CSelectPoint::Draw(void)
 //============================
 // ポインター移動処理
 //============================
-void CSelectPoint::Moving(D3DXVECTOR3 pos)
+void CSelectPoint::Moving(void)
 {
+	// 移動量を取得
+	D3DXVECTOR3 move = GetMove();
+
 	// 入力デバイス取得
 	CJoyPad* pPad = CManager::GetInstance()->GetJoyPad();
 	CInputKeyboard* pKey = CManager::GetInstance()->GetInputKeyboard();
@@ -139,28 +189,25 @@ void CSelectPoint::Moving(D3DXVECTOR3 pos)
 	CCamera* pCamera = CManager::GetInstance()->GetCamera();
 	if (pCamera == nullptr) return;
 
-	// 取得関係
-	D3DXVECTOR3 rot = GetRot();
-
 	if (pKey->GetPress(DIK_A) || pPad->GetPress(CJoyPad::JOYKEY_LEFT))
 	{// Aキー
 
 		if (pKey->GetPress(DIK_W) || pPad->GetPress(CJoyPad::JOYKEY_RIGHT))
 		{// 左斜め上
 
-			pos.x += sinf(pCamera->GetRot().y - D3DX_PI * 0.25f) * SELECTOR::SPEED;
-			pos.z += cosf(pCamera->GetRot().y - D3DX_PI * 0.25f) * SELECTOR::SPEED;
+			move.x += sinf(pCamera->GetRot().y - D3DX_PI * 0.25f) * SELECTOR::SPEED;
+			move.z += cosf(pCamera->GetRot().y - D3DX_PI * 0.25f) * SELECTOR::SPEED;
 		}
 		else if (pKey->GetPress(DIK_S) || pPad->GetPress(CJoyPad::JOYKEY_DOWN))
 		{// 右斜め下
 
-			pos.x -= sinf(pCamera->GetRot().y + D3DX_PI * 0.25f) * SELECTOR::SPEED;
-			pos.z -= cosf(pCamera->GetRot().y + D3DX_PI * 0.25f) * SELECTOR::SPEED;
+			move.x -= sinf(pCamera->GetRot().y + D3DX_PI * 0.25f) * SELECTOR::SPEED;
+			move.z -= cosf(pCamera->GetRot().y + D3DX_PI * 0.25f) * SELECTOR::SPEED;
 		}
 		else
 		{// 単体
-			pos.x -= sinf(pCamera->GetRot().y + (D3DX_PI * 0.5f)) * SELECTOR::SPEED;
-			pos.z -= cosf(pCamera->GetRot().y + (D3DX_PI * 0.5f)) * SELECTOR::SPEED;
+			move.x -= sinf(pCamera->GetRot().y + (D3DX_PI * 0.5f)) * SELECTOR::SPEED;
+			move.z -= cosf(pCamera->GetRot().y + (D3DX_PI * 0.5f)) * SELECTOR::SPEED;
 		}
 	}
 	else if (pKey->GetPress(DIK_D) || pPad->GetPress(CJoyPad::JOYKEY_RIGHT))
@@ -168,42 +215,44 @@ void CSelectPoint::Moving(D3DXVECTOR3 pos)
 
 		if (pKey->GetPress(DIK_W) || pPad->GetPress(CJoyPad::JOYKEY_UP))
 		{// Wキーを押した
-			pos.x += sinf(pCamera->GetRot().y + D3DX_PI * 0.25f) * SELECTOR::SPEED;
-			pos.z += cosf(pCamera->GetRot().y + D3DX_PI * 0.25f) * SELECTOR::SPEED;
+			move.x += sinf(pCamera->GetRot().y + D3DX_PI * 0.25f) * SELECTOR::SPEED;
+			move.z += cosf(pCamera->GetRot().y + D3DX_PI * 0.25f) * SELECTOR::SPEED;
 		}
 		else if (pKey->GetPress(DIK_S) || pPad->GetPress(CJoyPad::JOYKEY_DOWN))
 		{// Sキーを押した
-			pos.x -= sinf(pCamera->GetRot().y - D3DX_PI * 0.25f) * SELECTOR::SPEED;
-			pos.z -= cosf(pCamera->GetRot().y - D3DX_PI * 0.25f) * SELECTOR::SPEED;
+			move.x -= sinf(pCamera->GetRot().y - D3DX_PI * 0.25f) * SELECTOR::SPEED;
+			move.z -= cosf(pCamera->GetRot().y - D3DX_PI * 0.25f) * SELECTOR::SPEED;
 		}
 		else
 		{// Dキーのみ押した
-			pos.x += sinf(pCamera->GetRot().y + (D3DX_PI * 0.5f)) * SELECTOR::SPEED;
-			pos.z += cosf(pCamera->GetRot().y + (D3DX_PI * 0.5f)) * SELECTOR::SPEED;
+			move.x += sinf(pCamera->GetRot().y + (D3DX_PI * 0.5f)) * SELECTOR::SPEED;
+			move.z += cosf(pCamera->GetRot().y + (D3DX_PI * 0.5f)) * SELECTOR::SPEED;
 		}
 	}
 	else if (pKey->GetPress(DIK_W) || pPad->GetPress(CJoyPad::JOYKEY_UP))
 	{// Wキーを押した
 
-		pos.x += sinf(pCamera->GetRot().y) * SELECTOR::SPEED;
-		pos.z += cosf(pCamera->GetRot().y) * SELECTOR::SPEED;
-
+		move.x += sinf(pCamera->GetRot().y) * SELECTOR::SPEED;
+		move.z += cosf(pCamera->GetRot().y) * SELECTOR::SPEED;
 	}
 	else if (pKey->GetPress(DIK_S) || pPad->GetPress(CJoyPad::JOYKEY_DOWN))
 	{// Sキーを押した
 
-		pos.x -= sinf(pCamera->GetRot().y) * SELECTOR::SPEED;
-		pos.z -= cosf(pCamera->GetRot().y) * SELECTOR::SPEED;
+		move.x -= sinf(pCamera->GetRot().y) * SELECTOR::SPEED;
+		move.z -= cosf(pCamera->GetRot().y) * SELECTOR::SPEED;
 	}
 
-	// 座標適用
-	SetPos(pos);
+	// 適用
+	SetMove(move);
 }
 //============================
 // ポインター移動処理
 //============================
-void CSelectPoint::MovePad(D3DXVECTOR3 pos)
+void CSelectPoint::MovePad(void)
 {
+	// 移動量を取得
+	D3DXVECTOR3 move = GetMove();
+
 	// 入力デバイス取得
 	CJoyPad* pPad = CManager::GetInstance()->GetJoyPad();
 	XINPUT_STATE* pStick = pPad->GetStickAngle();
@@ -237,13 +286,13 @@ void CSelectPoint::MovePad(D3DXVECTOR3 pos)
 			float MoveZ = normalizeX * sinf(-pCamera->GetRot().y) + normalizeY * cosf(-pCamera->GetRot().y);
 
 			// 移動量を設定
-			pos.x += MoveX * SELECTOR::SPEED;
-			pos.z += MoveZ * SELECTOR::SPEED;
+			move.x += MoveX * SELECTOR::SPEED;
+			move.z += MoveZ * SELECTOR::SPEED;
 		}
 	}
 
-	// 適用する
-	SetPos(pos);
+	// 適用
+	SetMove(move);
 }
 
 //============================
@@ -253,4 +302,11 @@ bool CSelectPoint::Collision(CSphereCollider* other)
 {
 	// 球同士の当たり判定
 	return CCollisionSphere::Collision(m_pSphere,other);
+}
+//============================
+// 当たり判定処理
+//============================
+bool CSelectPoint::CollisionBox(CBoxCollider* pothere, D3DXVECTOR3* pOutPos)
+{
+	return CCollisionBox::Collision(m_pBox,pothere,pOutPos);
 }

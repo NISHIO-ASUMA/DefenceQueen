@@ -144,7 +144,6 @@ void CPlayer::Uninit(void)
 void CPlayer::Update(void)
 {
 	// 現在の座標取得
-	D3DXVECTOR3 pos = GetPos();
 	D3DXVECTOR3 posOld = GetOldPos();
 
 	// 入力デバイスのポインタ取得
@@ -204,6 +203,7 @@ void CPlayer::CollisionAll(D3DXVECTOR3 pPos)
 	{
 		// コライダー取得
 		CBoxCollider* pOtherCollider = Block->GetBlock(nBlock)->GetCollider();
+		if (pOtherCollider == nullptr) continue;
 
 		// 実際のコリジョン
 		if (CollisionBlock(pOtherCollider, &pPos))

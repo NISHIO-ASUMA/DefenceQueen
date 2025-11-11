@@ -14,32 +14,36 @@
 // インクルードファイル
 //**********************
 #include "object3d.h"
+#include "move3dobject.h"
 
 //**********************
 // 前方宣言
 //**********************
 class CSphereCollider;
+class CBoxCollider;
 
 //****************************
 // 円選択の範囲描画クラス定義
 //****************************
-class CSelectPoint : CObject3D
+class CSelectPoint : CMove3DObject
 {
 public:
 
-	CSelectPoint(int nPriority = static_cast<int>(CObject::PRIORITY::CIRCLE));
+	CSelectPoint(int nPriority = static_cast<int>(CObject::PRIORITY::MOVE3D));
 	~CSelectPoint();
 
 	HRESULT Init(void) override;
 	void Uninit(void) override;
 	void Update(void) override;
 	void Draw(void) override;
+	void Moving(void);
+	void MovePad(void);
 
 	void SetfRange(float fRange) { m_fHitRange = fRange; }
-	void Moving(D3DXVECTOR3 pos);
-	void MovePad(D3DXVECTOR3 pos);
 
 	bool Collision(CSphereCollider* other);
+	bool CollisionBox(CBoxCollider* pothere, D3DXVECTOR3* pOutPos);
+
 	float GetfRange(void) const { return m_fHitRange; }
 
 	static CSelectPoint* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const float fWidth, const float fHeight, const float fRadius);
@@ -47,5 +51,6 @@ public:
 private:
 
 	CSphereCollider* m_pSphere; // 球形コライダー
+	CBoxCollider* m_pBox;		// 矩形コライダー
 	float m_fHitRange;			// 半径
 };
