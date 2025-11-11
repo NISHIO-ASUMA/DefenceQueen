@@ -342,5 +342,5 @@ void CMeshField::SetTexture(void)
 	CTexture* pTexture = CManager::GetInstance()->GetInstance()->GetTexture();
 
 	// Š„‚è“–‚Ä
-	m_MeshFiled.nTexIdx = pTexture->Register("data/TEXTURE/ground.jpg");
+	m_MeshFiled.nTexIdx = pTexture->Register("data/TEXTURE/wallTexture.jpg");
 }

@@ -1,8 +1,11 @@
 //=====================================
 //
-// 草のビルボード処理 [ grass.h ]
+// 草の処理 [ grass.h ]
 // Author: Asuma Nishio
 //
+// TODO : 自前で座標とかを持つ
+// NOTE : これは草一個に関する処理をまとめたクラス
+// 
 //=====================================
 
 //**********************
@@ -13,7 +16,7 @@
 //**********************
 // インクルードファイル
 //**********************
-#include "object3D.h"
+#include "object.h"
 #include <vector>
 
 //**********************
@@ -24,7 +27,7 @@ class CSphereCollider;
 //********************************
 // 草クラスを定義
 //********************************
-class CGrass : public CObject3D
+class CGrass : public CObject
 {
 public:
 
@@ -35,13 +38,29 @@ public:
 	void Uninit(void) override;
 	void Update(void) override;
 	void Draw(void) override;
-	void SetRadius(const float fRadius) { m_fRadius = fRadius; }
+	bool Collision(D3DXVECTOR3 * pPos);
 
-	static CGrass* Create(const D3DXVECTOR3 pos, int numgrass,float fradius);
+	void SetTexture(const char* pTexName);
+	void SetRadius(const float fRadius) { m_fRadius = fRadius; }
+	void SetPos(const D3DXVECTOR3 pos) { m_pos = pos; }
+	void SetRot(const D3DXVECTOR3 rot) { m_rot = rot; }
+	void SetCol(const D3DXCOLOR col) { m_col = col; }
+	void SetSize(const float fWidth, const float fHeight) { m_fWidth = fWidth, m_fHeight = fHeight; }
+
+	static CGrass* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const float fWidth, const float fHeight);
 
 private:
 
-	CSphereCollider* m_pSphere; // 球形コライダー
-	int m_nNumAll;	 // 総数
-	float m_fRadius; // 半径
+	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;		// 頂点バッファ
+
+	D3DXMATRIX m_mtxWorld;	// ワールドマトリックス
+	D3DXVECTOR3 m_pos;	// 座標情報
+	D3DXVECTOR3 m_rot;	// 角度情報
+	D3DXCOLOR m_col;	// 色情報
+	D3DXVECTOR3 m_PushAngle;
+
+	int m_nIdxTexture;	// テクスチャインデックス
+	float m_fWidth;		// 横幅
+	float m_fHeight;	// 高さ
+	float m_fRadius;	// 半径
 };

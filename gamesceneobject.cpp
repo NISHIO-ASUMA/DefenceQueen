@@ -14,6 +14,7 @@
 #include "meshfield.h"
 #include "blockmanager.h"
 #include "selectpoint.h"
+#include "grass.h"
 
 //**********************
 // 静的メンバ変数
@@ -56,6 +57,12 @@ HRESULT CGameSceneObject::Init(void)
 	// ブロックマネージャー生成
 	m_pBlocks = std::make_unique<CBlockManager>();
 	m_pBlocks->Init();
+
+
+	CGrass::Create(D3DXVECTOR3(200.0f,0.0f,80.0f),VECTOR3_NULL,1,60.0f);
+	CGrass::Create(D3DXVECTOR3(210.0f, 0.0f, 80.0f), VECTOR3_NULL, 1, 60.0f);
+	CGrass::Create(D3DXVECTOR3(215.0f, 0.0f, 80.0f), VECTOR3_NULL, 1, 60.0f);
+	CGrass::Create(D3DXVECTOR3(205.0f, 0.0f, 80.0f), VECTOR3_NULL, 1, 60.0f);
 
 	return S_OK;
 }

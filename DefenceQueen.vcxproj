@@ -167,6 +167,7 @@
     <ClCompile Include="gimmickmanager.cpp" />
     <ClCompile Include="gimmicksuction.cpp" />
     <ClCompile Include="grass.cpp" />
+    <ClCompile Include="grassmanager.cpp" />
     <ClCompile Include="move3dobject.cpp" />
     <ClCompile Include="order.cpp" />
     <ClCompile Include="debugproc.cpp" />
@@ -266,6 +267,7 @@
     <ClInclude Include="gimmickmanager.h" />
     <ClInclude Include="gimmicksuction.h" />
     <ClInclude Include="grass.h" />
+    <ClInclude Include="grassmanager.h" />
     <ClInclude Include="move3dobject.h" />
     <ClInclude Include="order.h" />
     <ClInclude Include="debugproc.h" />

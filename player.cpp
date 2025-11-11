@@ -236,7 +236,7 @@ void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 	// 移動フラグ
 	bool isMove = false;
 
-#if 0
+#if 1
 	if (pInput->GetPress(DIK_A) || pPad->GetPress(CJoyPad::JOYKEY_LEFT))
 	{// Aキー
 		if (pInput->GetPress(DIK_W) || pPad->GetPress(CJoyPad::JOYKEY_RIGHT))

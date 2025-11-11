@@ -41,6 +41,5 @@ public:
 	static CBlock* CreateManager(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const char* pModelName);
 
 private:
-
 	static std::vector<CBlock*>m_pBlocks; // 配置するブロックの動的配列
 };
