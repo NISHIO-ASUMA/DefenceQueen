@@ -46,6 +46,8 @@ private:
 
 	HRESULT LoadJson(void);		// json読み込み関数
 
+	static constexpr int NUM_TEXTURE = 128;	// 最大テクスチャ数
+	
 	//*************************
 	// テクスチャデータ構造体
 	//*************************
@@ -55,7 +57,6 @@ private:
 		LPDIRECT3DTEXTURE9 TexData; // テクスチャポインタ
 	};
 
-	static constexpr int NUM_TEXTURE = 128;	// 最大テクスチャ数
 
 	TEXDATA m_pTextureData[NUM_TEXTURE]; // テクスチャ管理配列
 	static int m_nNumAll;				 // テクスチャカウント変数

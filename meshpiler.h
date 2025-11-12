@@ -22,6 +22,23 @@ class CMeshPiler : public CObject
 {
 public:
 
+	//**************************
+	// 構造体宣言
+	//**************************
+	struct MeshPiler
+	{
+		int nTexIdx;		// テクスチャインデックス
+		int nNumPrimitive;	// プリミティブ数
+		int nNumIdx;		// インデックス数
+		int nNumAllVtx;		// 全体頂点数
+		int nNumDigitX;		// 分割数
+		int nNumDigitZ;		// 分割数
+		int nLife;			// 寿命
+		int nLifeFrame;		// 生存時間（フレーム数）
+		float fMoveSpeed;	// 移動速度
+		float fNowHeight;	// 現在の高さ
+	};
+
 	CMeshPiler(int nPrio = static_cast<int>(CObject::PRIORITY::MESH));
 	~CMeshPiler();
 
@@ -29,9 +46,8 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-	bool Collision(D3DXVECTOR3* CollisionPos);
-
 	void SetTexture(void);
+	bool Collision(D3DXVECTOR3* CollisionPos);
 
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
 
@@ -45,16 +61,5 @@ private:
 	D3DXVECTOR3 m_pos;		// 座標
 	D3DXVECTOR3 m_rot;		// 角度
 	D3DXMATRIX m_mtxWorld;	// ワールドマトリックス
-
-	int m_nTexIdx;		// テクスチャインデックス
-	int m_nNumPrimitive;	// プリミティブ数
-	int m_nNumIdx;			// インデックス数
-	int m_nNumAllVtx;		// 全体頂点数
-	int m_nNumDigitX, m_nNumDigitZ;		// 分割数
-	int m_nLife;		// 寿命
-	float m_fMoveSpeed; // 移動速度
-	float m_fNowHeight;	// 現在高さ
-
-	int m_nLifeFrame;		// 生存時間（フレーム数）
-	int m_nActiveDelay;		// 当たり判定が有効になるまでの遅延フレーム数
+	MeshPiler m_MeshPiler;	// 構造体変数
 };

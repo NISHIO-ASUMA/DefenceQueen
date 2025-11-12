@@ -65,7 +65,7 @@ HRESULT CMeshCylinder::Init(void)
 	m_Cylinder.nNumPrimitive = ((DIGIT_X * DIGIT_Z) * 2) + (4 * (DIGIT_Z - 1));
 	m_Cylinder.nNumIdx = (m_Cylinder.nNumPrimitive + 2);
 
-	//頂点バッファの生成
+	// 頂点バッファの生成
 	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * m_Cylinder.nNumAllVtx,
 		D3DUSAGE_WRITEONLY,
 		FVF_VERTEX_3D,
@@ -73,7 +73,7 @@ HRESULT CMeshCylinder::Init(void)
 		&m_pVtx,
 		NULL);
 
-	//インデックスバッファの生成
+	// インデックスバッファの生成
 	pDevice->CreateIndexBuffer(sizeof(WORD) * m_Cylinder.nNumIdx,
 		D3DUSAGE_WRITEONLY,
 		D3DFMT_INDEX16,
@@ -84,7 +84,7 @@ HRESULT CMeshCylinder::Init(void)
 	// 頂点情報のポインタ
 	VERTEX_3D* pVtx = nullptr;
 
-	//頂点バッファをロック
+	// 頂点バッファをロック
 	m_pVtx->Lock(0, 0, (void**)&pVtx, 0);
 
 	// テクスチャ座標
@@ -159,7 +159,7 @@ HRESULT CMeshCylinder::Init(void)
 		}
 	}
 
-	//インデックスバッファのアンロック
+	// インデックスバッファのアンロック
 	m_pIdx->Unlock();
 
 	return S_OK;
@@ -169,14 +169,14 @@ HRESULT CMeshCylinder::Init(void)
 //===============================
 void CMeshCylinder::Uninit(void)
 {
-	//頂点バッファの解放
+	// 頂点バッファの解放
 	if (m_pVtx != nullptr)
 	{
 		m_pVtx->Release();
 		m_pVtx = nullptr;
 	}
 
-	//インデックスバッファの解放
+	// インデックスバッファの解放
 	if (m_pIdx != nullptr)
 	{
 		m_pIdx->Release();
@@ -201,7 +201,7 @@ void CMeshCylinder::Draw(void)
 	// デバイスのポインタ
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
-	//計算用のマトリックスを宣言
+	// 計算用のマトリックスを宣言
 	D3DXMATRIX mtxRot, mtxTrans;
 
 	// テクスチャ読み込み
@@ -210,38 +210,38 @@ void CMeshCylinder::Draw(void)
 	// テクスチャセット
 	pDevice->SetTexture(0, pTexture->GetAddress(m_Cylinder.nTexIdx));
 
-	//ゼットテスト
+	// ゼットテスト
 	pDevice->SetRenderState(D3DRS_CULLMODE, TRUE);
 	pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
 
-	//ワールドマトリックスの初期化
+	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxWorld);
 
-	//向きを反映
+	// 向きを反映
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
 	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 
-	//位置を反映
+	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
 	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
 
-	//ワールドマトリックスの設定
+	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
 
-	//頂点バッファをデバイスのデータストリームに設定
+	// 頂点バッファをデバイスのデータストリームに設定
 	pDevice->SetStreamSource(0, m_pVtx, 0, sizeof(VERTEX_3D));
 
-	//インデックスバッファをデータストリームに設定
+	// インデックスバッファをデータストリームに設定
 	pDevice->SetIndices(m_pIdx);
 
-	//テクスチャフォーマットの設定
+	// テクスチャフォーマットの設定
 	pDevice->SetFVF(FVF_VERTEX_3D);
 
-	//ポリゴンの描画
+	// ポリゴンの描画
 	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, 0, m_Cylinder.nNumAllVtx, 0, m_Cylinder.nNumPrimitive);
 
-	//テクスチャを戻す
+	// テクスチャを戻す
 	pDevice->SetTexture(0, nullptr);
 
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);

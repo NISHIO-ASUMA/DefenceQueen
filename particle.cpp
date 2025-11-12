@@ -15,15 +15,15 @@
 //===============================
 // オーバーロードコンストラクタ
 //===============================
-CParticle::CParticle(int nPriority) : CObject(nPriority)
+CParticle::CParticle(int nPriority) : CObject(nPriority),
+m_pos(VECTOR3_NULL),
+m_col(COLOR_WHITE),
+m_nLength(NULL),
+m_nMaxParticle(NULL),
+m_nLife(NULL),
+m_nRadius(NULL)
 {
 	// 値のクリア
-	m_pos = VECTOR3_NULL;
-	m_col = COLOR_WHITE;
-	m_nMaxParticle = NULL;
-	m_nLife = NULL;
-	m_nLength = NULL;
-	m_nRadius = NULL;
 }
 //===============================
 // デストラクタ
@@ -90,11 +90,11 @@ void CParticle::Update(void)
 	for (int nCntApper = 0; nCntApper < m_nMaxParticle; nCntApper++)
 	{
 		// 移動量の設定
-		float fAngelX = (float)(rand() % 629 - 314) / 100.0f;
-		float fAngelY = (float)(rand() % 629 - 314) / 100.0f;
+		float fAngelX = static_cast<float>(rand() % 629 - 314) / 100.0f;
+		float fAngelY = static_cast<float>(rand() % 629 - 314) / 100.0f;
 
 		// 長さ設定
-		float fLength = ((float)(rand() % m_nLength) / 10.0f);
+		float fLength = (static_cast<float>(rand() % m_nLength) / 10.0f);
 
 		// 移動量変数
 		D3DXVECTOR3 Move = VECTOR3_NULL;
@@ -105,7 +105,7 @@ void CParticle::Update(void)
 		Move.z = sinf(fAngelX) * cosf(fAngelY) * fLength;
 
 		//半径の設定
-		float fRadius = ((float)(rand() % m_nRadius) / 10.0f + 0.7f);
+		float fRadius = (static_cast<float>(rand() % m_nRadius) / 10.0f + 0.7f);
 
 		// 寿命の設定
 		int nLife = (static_cast<float>(rand() % m_nLife) / 10);
@@ -113,15 +113,10 @@ void CParticle::Update(void)
 		// エフェクト生成
 		CEffect* pEffect = CEffect::Create(pos, col, Move, nLife, fRadius);
 
-		if (pEffect)
-		{
-			// 配列に追加
+		if (pEffect) 
 			m_pEffect.push_back(pEffect);
-		}
 		else
-		{
 			break;
-		}
 	}
 
 	// 破棄

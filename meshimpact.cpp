@@ -36,15 +36,11 @@ m_pIdx(nullptr),
 m_pVtx(nullptr),
 m_pos(VECTOR3_NULL),
 m_rot(VECTOR3_NULL),
-m_col(D3DXCOLOR(1.0f, 1.0f, 0.0f, 0.7f))
+m_col(D3DXCOLOR(1.0f, 1.0f, 0.0f, 0.7f)),
+m_MeshImpact{}
 {
 	// 値のクリア
 	D3DXMatrixIdentity(&m_mtxWorld);
-	m_fInRadius = NULL;
-	m_nLife = NULL;
-	m_fOutRadius = NULL;
-	m_fSpeed = NULL;
-	m_DecAlpha = NULL;
 }
 //===============================
 // デストラクタ
@@ -88,7 +84,7 @@ HRESULT CMeshImpact::Init(void)
 	D3DXVECTOR3 pos = m_pos;
 
 	// 外側の半径
-	float OutRadius = m_fOutRadius;
+	float OutRadius = m_MeshImpact.fOutRadius;
 
 	// 外径の計算
 	for (int nCntOut = 0; nCntOut <= IMPACTINFO::NUM_X; nCntOut++)
@@ -113,7 +109,7 @@ HRESULT CMeshImpact::Init(void)
 	}
 
 	// 内側の半径
-	float InRadius = m_fInRadius;
+	float InRadius = m_MeshImpact.fInRadius;
 
 	// 内径の計算
 	for (int nCntIn = 0; nCntIn <= IMPACTINFO::NUM_X; nCntIn++)
@@ -224,8 +220,8 @@ void CMeshImpact::Update(void)
 	int nCntVertex = NULL;
 
 	// 速度を加算,だんだん広げる
-	m_fOutRadius += m_fSpeed;
-	m_fInRadius += m_fSpeed;
+	m_MeshImpact.fOutRadius += m_MeshImpact.fSpeed;
+	m_MeshImpact.fInRadius += m_MeshImpact.fSpeed;
 
 	//頂点バッファをロック
 	m_pVtx->Lock(0, 0, (void**)&pVtx, 0);
@@ -241,9 +237,9 @@ void CMeshImpact::Update(void)
 
 		// 頂点座標の設定
 		pVtx[nCntVertex].pos = D3DXVECTOR3(
-			sinf(fAngel) * m_fOutRadius,
+			sinf(fAngel) * m_MeshImpact.fOutRadius,
 			3.0f,
-			cosf(fAngel) * m_fOutRadius);
+			cosf(fAngel) * m_MeshImpact.fOutRadius);
 
 		// カラーの設定
 		pVtx[nCntVertex].col = m_col;
@@ -260,9 +256,9 @@ void CMeshImpact::Update(void)
 
 		// 頂点座標の設定
 		pVtx[nCntVertex].pos = D3DXVECTOR3(
-			sinf(fAngel) * m_fInRadius,
+			sinf(fAngel) * m_MeshImpact.fInRadius,
 			3.0f,
-			cosf(fAngel) * m_fInRadius);
+			cosf(fAngel) * m_MeshImpact.fInRadius);
 
 		// 頂点カラーの設定
 		pVtx[nCntVertex].col = m_col;
@@ -275,11 +271,11 @@ void CMeshImpact::Update(void)
 	m_pVtx->Unlock();
 
 	// 寿命を減らす
-	m_nLife--;
-	m_col.a -= m_DecAlpha;
+	m_MeshImpact.nLife--;
+	m_col.a -= m_MeshImpact.DecAlpha;
 
 	// 寿命が尽きた
-	if (m_nLife <= 0)
+	if (m_MeshImpact.nLife <= 0)
 	{
 		// 未使用にする
 		Release();
@@ -361,12 +357,12 @@ CMeshImpact* CMeshImpact::Create(D3DXVECTOR3 pos, int nLife,float fOutRadius,flo
 
 	// 値を代入
 	pMesh->m_pos = pos;				// 座標
-	pMesh->m_fInRadius = fInRadius; // 内径
-	pMesh->m_fOutRadius = fOutRadius; // 外径
-	pMesh->m_nLife = nLife;			// 継続時間
-	pMesh->m_fSpeed = fSpeed;		// 拡散速度
+	pMesh->m_MeshImpact.fInRadius = fInRadius; // 内径
+	pMesh->m_MeshImpact.fOutRadius = fOutRadius; // 外径
+	pMesh->m_MeshImpact.nLife = nLife;			// 継続時間
+	pMesh->m_MeshImpact.fSpeed = fSpeed;		// 拡散速度
+	pMesh->m_MeshImpact.DecAlpha = pMesh->m_col.a / nLife; // αの減少値
 	pMesh->SetObjType(TYPE_MESH);   // オブジェクトのタイプを設定
-	pMesh->m_DecAlpha = pMesh->m_col.a / nLife;
 	
 	// 初期化失敗
 	if (FAILED(pMesh->Init()))	return nullptr;
@@ -396,7 +392,7 @@ bool CMeshImpact::Collision(D3DXVECTOR3* pPos)
 		float dz = pPos->z - (m_pos.z + pVtx[nCnt].pos.z);
 
 		// 半径の差分をとる
-		float fDisSize = (m_fOutRadius - m_fInRadius);
+		float fDisSize = (m_MeshImpact.fOutRadius - m_MeshImpact.fInRadius);
 
 		// Y方向で外れてるなら当たらない
 		if (dy > IMPACTINFO::HEIGHTSIZE)

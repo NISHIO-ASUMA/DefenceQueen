@@ -20,6 +20,7 @@ namespace PILERINFO
 {
 	constexpr int NUMX = 30;	// 頂点分割数 ( X )
 	constexpr int NUMZ = 1;		// 頂点分割数 ( Z )
+	constexpr int LIFE = 60;	// 寿命規定値
 	constexpr float VALUEHEIGHT = 800.0f;	// 高さの最大加算量
 	constexpr float COLLISIONRADIUS = 60.0f;// コリジョンする半径
 	constexpr float MOVESPEED = 15.0f;	// 横幅
@@ -28,28 +29,15 @@ namespace PILERINFO
 //===============================
 // オーバーロードコンストラクタ
 //===============================
-CMeshPiler::CMeshPiler(int nPrio) : CObject(nPrio)
+CMeshPiler::CMeshPiler(int nPrio) : CObject(nPrio),
+m_pIdx(nullptr),
+m_pVtx(nullptr),
+m_pos(VECTOR3_NULL),
+m_rot(VECTOR3_NULL),
+m_MeshPiler{}
 {
 	// 値のクリア処理
-	m_pIdx = nullptr;
-	m_pVtx = nullptr;
-
-	m_pos = VECTOR3_NULL;
-	m_rot = VECTOR3_NULL;
-
-	m_nTexIdx = NULL;
-	m_nNumIdx = NULL;
-	m_nNumPrimitive = NULL;
-	m_nNumDigitZ = NULL;
-	m_nNumDigitX = NULL;
-	m_nNumAllVtx = NULL;
-	m_mtxWorld = {};
-	m_fMoveSpeed = NULL;
-	m_fNowHeight = NULL;
-	m_nLife = NULL;
-
-	m_nLifeFrame = NULL;
-	m_nActiveDelay = NULL;
+	D3DXMatrixIdentity(&m_mtxWorld);
 }
 //===============================
 // デストラクタ
@@ -85,12 +73,12 @@ HRESULT CMeshPiler::Init(void)
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// 頂点数,インデックス数,ポリゴン数を計算する
-	m_nNumAllVtx = (PILERINFO::NUMX + 1) * (PILERINFO::NUMZ + 1);
-	m_nNumPrimitive = ((PILERINFO::NUMX * PILERINFO::NUMZ) * 2) + (4 * (PILERINFO::NUMZ - 1));
-	m_nNumIdx = (m_nNumPrimitive + 2);
+	m_MeshPiler.nNumAllVtx = (PILERINFO::NUMX + 1) * (PILERINFO::NUMZ + 1);
+	m_MeshPiler.nNumPrimitive = ((PILERINFO::NUMX * PILERINFO::NUMZ) * 2) + (4 * (PILERINFO::NUMZ - 1));
+	m_MeshPiler.nNumIdx = (m_MeshPiler.nNumPrimitive + 2);
 
 	//頂点バッファの生成
-	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * m_nNumAllVtx,
+	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * m_MeshPiler.nNumAllVtx,
 		D3DUSAGE_WRITEONLY,
 		FVF_VERTEX_3D,
 		D3DPOOL_MANAGED,
@@ -98,7 +86,7 @@ HRESULT CMeshPiler::Init(void)
 		NULL);
 
 	//インデックスバッファの生成
-	pDevice->CreateIndexBuffer(sizeof(WORD) * m_nNumIdx,
+	pDevice->CreateIndexBuffer(sizeof(WORD) * m_MeshPiler.nNumIdx,
 		D3DUSAGE_WRITEONLY,
 		D3DFMT_INDEX16,
 		D3DPOOL_MANAGED,
@@ -175,7 +163,7 @@ HRESULT CMeshPiler::Init(void)
 		}
 
 		// 最後の行じゃなかったら
-		if (IndxCount1 < m_nNumDigitZ - 1)
+		if (IndxCount1 < m_MeshPiler.nNumDigitZ - 1)
 		{
 			pIdx[IdxCnt] = Num - 1;
 			pIdx[IdxCnt + 1] = IndxNum;
@@ -187,8 +175,7 @@ HRESULT CMeshPiler::Init(void)
 	m_pIdx->Unlock();
 
 	// メンバ変数の初期化
-	m_nLife = 60;
-	m_nActiveDelay = 3;
+	m_MeshPiler.nLife = PILERINFO::LIFE;
 
 	// 初期化結果を返す
 	return S_OK;
@@ -221,10 +208,10 @@ void CMeshPiler::Uninit(void)
 void CMeshPiler::Update(void)
 {
 	// 経過時間をカウント
-	m_nLifeFrame++;
+	m_MeshPiler.nLifeFrame++;
 
 	// 減算
-	m_nLife--;
+	m_MeshPiler.nLife--;
 
 	// 角度回転
 	 m_rot.y += 0.45f;
@@ -233,14 +220,14 @@ void CMeshPiler::Update(void)
 	 m_rot.y = NormalAngle(m_rot.y);
 
 	// 高さを増加させる
-	m_fNowHeight += PILERINFO::MOVESPEED;
+	 m_MeshPiler.fNowHeight += PILERINFO::MOVESPEED;
 
 	// 最大値で止める
-	if (m_fNowHeight > PILERINFO::VALUEHEIGHT)
-		m_fNowHeight = PILERINFO::VALUEHEIGHT;
+	if (m_MeshPiler.fNowHeight > PILERINFO::VALUEHEIGHT)
+		m_MeshPiler.fNowHeight = PILERINFO::VALUEHEIGHT;
 
 	// 寿命が0以下になったら
-	if (m_nLife <= 0)
+	if (m_MeshPiler.nLife <= NULL)
 	{
 		// 終了処理
 		Uninit();
@@ -264,7 +251,7 @@ void CMeshPiler::Update(void)
 				float fAngle = (D3DX_PI * 2.0f) / PILERINFO::NUMX * nCntX;
 
 				// 高さをm_fNowHeightに置く
-				float fHeight = (float)nCntZ * m_fNowHeight;
+				float fHeight = (float)nCntZ * m_MeshPiler.fNowHeight;
 
 				pVtx[nCnt].pos = D3DXVECTOR3(
 					sinf(fAngle) * PILERINFO::COLLISIONRADIUS,
@@ -295,7 +282,7 @@ void CMeshPiler::Draw(void)
 	CTexture* pTexture = CManager::GetInstance()->GetTexture();
 
 	// テクスチャセット
-	pDevice->SetTexture(0, pTexture->GetAddress(m_nTexIdx));
+	pDevice->SetTexture(0, pTexture->GetAddress(m_MeshPiler.nTexIdx));
 
 	//ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxWorld);
@@ -321,7 +308,7 @@ void CMeshPiler::Draw(void)
 	pDevice->SetFVF(FVF_VERTEX_3D);
 
 	//ポリゴンの描画
-	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, 0, m_nNumAllVtx, 0, m_nNumPrimitive);
+	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, 0, m_MeshPiler.nNumAllVtx, 0, m_MeshPiler.nNumPrimitive);
 
 	//テクスチャを戻す
 	pDevice->SetTexture(0, nullptr);
@@ -332,12 +319,6 @@ void CMeshPiler::Draw(void)
 //===============================
 bool CMeshPiler::Collision(D3DXVECTOR3* CollisionPos)
 {
-	// まだ有効化時間に達していない場合は判定しない
-	if (m_nLifeFrame < m_nActiveDelay)
-	{
-		return false;
-	}
-
 	// 現在座標の取得
 	D3DXVECTOR3 NowPos = GetPos();
 
@@ -371,5 +352,5 @@ void CMeshPiler::SetTexture(void)
 	if (pTexture == nullptr) return;
 
 	// テクスチャ割り当て
-	m_nTexIdx = pTexture->Register("data/TEXTURE/MeshPiler.jpg");
+	m_MeshPiler.nTexIdx = pTexture->Register("data/TEXTURE/MeshPiler.jpg");
 }

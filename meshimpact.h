@@ -22,6 +22,18 @@ class CMeshImpact : public CObject
 {
 public:
 
+	//**************************
+	// 構造体宣言
+	//**************************
+	struct MeshImpact
+	{
+		float fInRadius;	// 内径
+		float fOutRadius;	// 外径
+		int nLife;			// 寿命
+		float DecAlpha;		// α値減少
+		float fSpeed;		// 拡大速度
+	};
+
 	CMeshImpact(int nPriority = static_cast<int>(CObject::PRIORITY::IMPACT));
 	~CMeshImpact();
 
@@ -37,6 +49,7 @@ public:
 	static CMeshImpact* Create(D3DXVECTOR3 pos, int nLife, float fRadius, float fInRadius,float fSpeed);
 
 private:
+
 	D3DXVECTOR3 m_pos;	// 座標
 	D3DXVECTOR3 m_rot;  // 角度
 	D3DXCOLOR m_col;	// 色
@@ -44,9 +57,5 @@ private:
 	LPDIRECT3DINDEXBUFFER9 m_pIdx;	// インデックスバッファ
 	LPDIRECT3DVERTEXBUFFER9 m_pVtx; // 頂点バッファ
 
-	float m_fInRadius;		// 内径
-	float m_fOutRadius;		// 外径
-	int m_nLife;			// 寿命
-	float m_DecAlpha;		// α値減少
-	float m_fSpeed;			// 拡大速度
+	MeshImpact m_MeshImpact;	// 構造体変数
 };
