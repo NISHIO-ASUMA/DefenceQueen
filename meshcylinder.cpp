@@ -105,7 +105,7 @@ HRESULT CMeshCylinder::Init(void)
 			float fAngle = (D3DX_PI * 2.0f) / DIGIT_X * nCntX;
 
 			// 頂点座標の設定
-			pVtx[nCnt].pos = D3DXVECTOR3(sinf((fAngle)) * m_Cylinder.fRadius, nCntZ * 10.0f, cosf((fAngle)) * m_Cylinder.fRadius);
+			pVtx[nCnt].pos = D3DXVECTOR3(sinf((fAngle)) * m_Cylinder.fRadius, nCntZ * 400.0f, cosf((fAngle)) * m_Cylinder.fRadius);
 
 			// 法線ベクトルの設定
 			nor = pVtx[nCnt].pos - m_pos;	// 各頂点から原点の値を引く
@@ -115,7 +115,7 @@ HRESULT CMeshCylinder::Init(void)
 			pVtx[nCnt].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 
 			// 頂点カラーの設定
-			pVtx[nCnt].col = COLOR_NULL;
+			pVtx[nCnt].col = D3DCOLOR_RGBA(101, 187, 233, 100);
 
 			// テクスチャ座標の設定
 			pVtx[nCnt].tex = D3DXVECTOR2(fTexX * nCntX, nCntZ * fTexY);
@@ -210,6 +210,11 @@ void CMeshCylinder::Draw(void)
 	// テクスチャセット
 	pDevice->SetTexture(0, pTexture->GetAddress(m_Cylinder.nTexIdx));
 
+	//ゼットテスト
+	pDevice->SetRenderState(D3DRS_CULLMODE, TRUE);
+	pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
+	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+
 	//ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxWorld);
 
@@ -239,9 +244,9 @@ void CMeshCylinder::Draw(void)
 	//テクスチャを戻す
 	pDevice->SetTexture(0, nullptr);
 
-	// デバッグ表示
-	CDebugproc::Print("メッシュシリンダーの座標 [ %.2f,%.2f,%.2f ]", m_pos.x, m_pos.y, m_pos.z);
-	CDebugproc::Draw(0, 80);
+	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+	pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
 }
 //===============================
 // テクスチャ割り当て

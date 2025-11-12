@@ -10,7 +10,11 @@
 //**********************
 #include "feed.h"
 #include "spherecollider.h"
+#include "collisionsphere.h"
 #include "parameter.h"
+#include "gamemanager.h"
+#include "selectpoint.h"
+#include "gamesceneobject.h"
 
 //**********************
 // 定数宣言
@@ -25,7 +29,8 @@ namespace FEEDINFO
 //============================
 CFeed::CFeed(int nPriority) : CObjectX(nPriority),
 m_pSphere(nullptr),
-m_pParam(nullptr)
+m_pParam(nullptr),
+m_fRadius(NULL)
 {
 	// 値のクリア
 }
@@ -39,7 +44,7 @@ CFeed::~CFeed()
 //============================
 // 生成処理
 //============================
-CFeed* CFeed::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const char* pModelName)
+CFeed* CFeed::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const char* pModelName, const float fRadius)
 {
 	// インスタンス生成
 	CFeed* pFeed = new CFeed;
@@ -50,7 +55,7 @@ CFeed* CFeed::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const 
 	pFeed->SetRot(rot);
 	pFeed->SetScale(scale);
 	pFeed->SetFilePass(pModelName);
-	pFeed->SetShadow(true);
+	pFeed->SetRadius(fRadius);
 
 	// 初期化失敗時
 	if (FAILED(pFeed->Init())) 	return nullptr;
@@ -66,11 +71,14 @@ HRESULT CFeed::Init(void)
 	CObjectX::Init();
 
 	// 球形コライダー生成
-	m_pSphere = CSphereCollider::Create(GetPos(), 70.0f);
+	m_pSphere = CSphereCollider::Create(GetPos(), m_fRadius);
 
 	// パラメーター設定
 	m_pParam = std::make_unique<CParameter>();
 	m_pParam->SetHp(FEEDINFO::LIFE);
+
+	// 影をoffにする
+	SetShadow(false);
 
 	return S_OK;
 }
@@ -115,7 +123,7 @@ void CFeed::Draw(void)
 }
 //============================
 // パラメーター減算処理
-//===========================
+//============================
 void CFeed::DecLife(const int nDecValue)
 {
 	// 引数の分減少
@@ -134,4 +142,11 @@ void CFeed::DecLife(const int nDecValue)
 		m_pParam->SetHp(nHp);
 		return;
 	}
+}
+//============================
+// 当たり判定処理
+//===========================
+bool CFeed::Collision(CSphereCollider* other)
+{
+	return CCollisionSphere::Collision(m_pSphere,other);
 }

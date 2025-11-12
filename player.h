@@ -59,7 +59,7 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 
-	void CollisionAll(D3DXVECTOR3 pPos);
+	void CollisionAll(D3DXVECTOR3 pPos,CInputKeyboard* pInput, CJoyPad* pPad);
 	void MoveKey(CInputKeyboard* pInput,CJoyPad * pPad);
 	void MovePad(CJoyPad* pPad);
 	void ChangeState(CPlayerStateBase* pNewState,int Id);
@@ -68,7 +68,7 @@ public:
 	CParameter* GetParameter(void) { return m_pParameter.get(); }
 	CStateMachine* GetStateMachine() { return m_pStateMachine.get(); }
 
-	bool isMoveInputKey(CInputKeyboard* pKeyInput);
+	bool isMoveInputKey(CInputKeyboard* pKeyInput) ;
 	bool isMovePadButton(CJoyPad* pPad);
 
 	static CPlayer* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife,const char* pFilename);

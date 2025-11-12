@@ -46,22 +46,21 @@ HRESULT CArrayManager::Init(const int nActives)
 	// 配列初期化
 	m_pArrays.clear();
 
-	// メモリの確保
+	// メモリの箱だけ先に確保
 	m_pArrays.reserve(ARRAYINFO::ALLARRAYS);
 
-	// 配列の要素数を格納する
-	int nSize = m_pArrays.size();
-
-	// あらかじめ最大数生成する
-	for (int nCnt = 0; nCnt < nSize; nCnt++)
+	// 実際のポインタのセット
+	for (int nCnt = 0; nCnt < ARRAYINFO::ALLARRAYS; nCnt++)
 	{
 		// インスタンス生成
 		auto pArray = CArray::Create(VECTOR3_NULL,VECTOR3_NULL,ARRAYINFO::LIFE);
+
+		// 配列に追加
 		m_pArrays.push_back(pArray);
 	}
 
 	// サイズの範囲内にあるかどうかチェック
-	int nUse = Clump(nActives, 0, nSize);
+	int nUse = Clump(nActives, 0, ARRAYINFO::ALLARRAYS);
 
 	for (int nActive = 0; nActive < nUse; nActive++)
 	{

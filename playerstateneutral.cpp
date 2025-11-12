@@ -49,7 +49,7 @@ void CPlayerStateNeutral::OnUpdate()
 	if (m_pPlayer->isMoveInputKey(pKey) || m_pPlayer->isMovePadButton(pPad))
 	{
 		// ˆÚ“®ó‘Ô‚É•ÏX
-		m_pPlayer->ChangeState(new CPlayerStateMove(), ID_MOVE);
+		// m_pPlayer->ChangeState(new CPlayerStateMove(), ID_MOVE);
 		return;
 	}
 }

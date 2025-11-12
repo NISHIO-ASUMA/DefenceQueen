@@ -9,11 +9,12 @@
 // インクルードファイル
 //**********************
 #include "grassmanager.h"
+#include "grass.h"
 
 //================================
 // コンストラクタ
 //================================
-CGrassManager::CGrassManager()
+CGrassManager::CGrassManager() : m_pGrass{}
 {
 
 }
@@ -27,9 +28,15 @@ CGrassManager::~CGrassManager()
 //================================
 // 生成処理
 //================================
-CGrass* CGrassManager::CreateManager(const D3DXVECTOR3 pos)
+CGrass* CGrassManager::CreateManager(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,const float fWidth, const float fHeight)
 {
-	return nullptr;
+	// インスタンス生成
+	CGrass* pNewGrass = CGrass::Create(pos, rot, fWidth, fHeight);
+
+	// 配列追加
+	if (pNewGrass) PushBack(pNewGrass);
+
+	return pNewGrass;
 }
 //================================
 // 読み込み処理
@@ -43,6 +50,9 @@ void CGrassManager::Load(void)
 //================================
 HRESULT CGrassManager::Init(void)
 {
+	// 読み込み
+	Load();
+
 	return S_OK;
 }
 //================================
@@ -64,4 +74,5 @@ void CGrassManager::Update(void)
 //================================
 void CGrassManager::Draw(void)
 {
+
 }

@@ -10,11 +10,12 @@
 //**********************
 #include "feedmanager.h"
 #include "feed.h"
+#include "meshcylinder.h"
 
 //===========================
 // コンストラクタ
 //===========================
-CFeedManager::CFeedManager()
+CFeedManager::CFeedManager() :m_pFeed{}
 {
 
 }
@@ -30,6 +31,22 @@ CFeedManager::~CFeedManager()
 //===========================
 HRESULT CFeedManager::Init(void)
 {
+	// クリア
+	m_pFeed.clear();
+
+	// サイズセット
+	m_pFeed.resize(2);
+
+	// あらかじめ最大数生成する
+	for (int nCnt = 0; nCnt < m_pFeed.size(); nCnt++)
+	{
+		// インスタンス生成
+		m_pFeed[nCnt] = CFeed::Create(D3DXVECTOR3(300.0f * nCnt, 60.0f, nCnt * 200.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x",85.0f);
+
+		// 円柱生成
+		CMeshCylinder::Create(D3DXVECTOR3(300.0f * nCnt, 0.0f, nCnt * 200.0f), m_pFeed[nCnt]->GetRadius());
+	}
+
 	return S_OK;
 }
 //===========================
@@ -37,7 +54,7 @@ HRESULT CFeedManager::Init(void)
 //===========================
 void CFeedManager::Uninit(void)
 {
-
+	m_pFeed.clear();
 }
 //===========================
 // 更新処理

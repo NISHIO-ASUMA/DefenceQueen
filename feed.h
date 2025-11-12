@@ -37,14 +37,17 @@ public:
 	void Update(void);
 	void Draw(void);
 	void DecLife(const int nDecValue);
+	void SetRadius(const float fRadius) { m_fRadius = fRadius; }
+	bool Collision(CSphereCollider* other);
 
+	float GetRadius(void) const { return m_fRadius; }
 	CSphereCollider* GetCollider(void) const { return m_pSphere; }
 
-	static CFeed* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const char* pModelName);
+	static CFeed* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const char* pModelName,const float fRadius);
 
 private:
 
 	CSphereCollider* m_pSphere; // 球形コライダー
 	std::unique_ptr<CParameter>m_pParam; // パラメーター
-
+	float m_fRadius;			// 半径
 };

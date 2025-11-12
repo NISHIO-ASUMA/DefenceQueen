@@ -20,6 +20,8 @@
 #include "gamemanager.h"
 #include "gamesceneobject.h"
 #include "blockmanager.h"
+#include "feedmanager.h"
+#include "feed.h"
 
 //**********************
 // 定数宣言
@@ -35,7 +37,8 @@ namespace SELECTOR
 CSelectPoint::CSelectPoint(int nPriority) : CMove3DObject(nPriority),
 m_fHitRange(NULL),
 m_pSphere(nullptr),
-m_pBox(nullptr)
+m_pBox(nullptr),
+m_isHit(false)
 {
 
 }
@@ -152,6 +155,24 @@ void CSelectPoint::Update(void)
 		}
 	}
 
+	// ポインタ取得
+	CFeedManager* pManager = CGameManager::GetInstance()->GetGameObj()->GetFeedManager();
+
+	for (int nCnt = 0; nCnt < pManager->GetSize(); nCnt++)
+	{
+		if (Collision(pManager->GetFeed(nCnt)->GetCollider()))
+		{
+			SetIsHit(true);
+			SetCol(COLOR_RED);
+			break;
+		}
+		else
+		{
+			SetIsHit(false);
+			SetCol(COLOR_WHITE);
+		}
+	}
+
 	// 移動量の減衰
 	CMove3DObject::DecayMove(0.75f);
 
@@ -167,7 +188,7 @@ void CSelectPoint::Draw(void)
 	CMove3DObject::Draw();
 
 	// デバッグフォント
-	CDebugproc::Print("ポインター座標 : [ %.2f,%.2f,%.2f ]", GetPos().x, GetPos().y, GetPos().z);
+	CDebugproc::Print("選択ポインター座標 : [ %.2f,%.2f,%.2f ] \n当たったかどうか [ %d ]", GetPos().x, GetPos().y, GetPos().z,GetIsHit());
 	CDebugproc::Draw(0, 160);
 }
 //============================
@@ -182,7 +203,7 @@ void CSelectPoint::Moving(void)
 	CJoyPad* pPad = CManager::GetInstance()->GetJoyPad();
 	CInputKeyboard* pKey = CManager::GetInstance()->GetInputKeyboard();
 
-	// パッドがあったら
+	// パッドのスティック入力があったら
 	if (pPad->GetLeftStick()) return;
 
 	// カメラ取得

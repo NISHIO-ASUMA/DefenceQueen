@@ -47,9 +47,9 @@ CGrass* CGrass::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const float
 
 	// オブジェクト設定
 	pGrass->SetPos(pos);
+	pGrass->SetRot(D3DXVECTOR3(rot.x,rot.y,rot.z ));
 	pGrass->SetTexture("grass000.png");
 	pGrass->SetSize(fWidth, fHeight);
-	pGrass->SetRot(D3DXVECTOR3(rot.x,rot.y * (D3DX_PI * 0.5f),rot.z ));
 	
 	// 初期化失敗時
 	if (FAILED(pGrass->Init())) return nullptr;
@@ -61,6 +61,17 @@ CGrass* CGrass::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const float
 //=================================
 HRESULT CGrass::Init(void)
 {
+	// デバイスポインタを宣言
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
+
+	// 頂点バッファの生成
+	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * BASEVERTEX,
+		D3DUSAGE_WRITEONLY,
+		FVF_VERTEX_3D,
+		D3DPOOL_MANAGED,
+		&m_pVtxBuff,
+		NULL);
+
 	// 頂点情報のポインタ
 	VERTEX_3D* pVtx = nullptr;
 
@@ -116,7 +127,6 @@ void CGrass::Uninit(void)
 //=================================
 void CGrass::Update(void)
 {
-	
 }
 //=================================
 // 描画処理
@@ -132,10 +142,10 @@ void CGrass::Draw(void)
 	// ライトをオフ
 	pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-	// αテストの設定
-	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	pDevice->SetRenderState(D3DRS_ALPHAREF, 0);
-	pDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+	//// αテストの設定
+	//pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+	//pDevice->SetRenderState(D3DRS_ALPHAREF, 0);
+	//pDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 
 	// 計算用のマトリックスを宣言
 	D3DXMATRIX mtxRot, mtxTrans;
@@ -175,13 +185,10 @@ void CGrass::Draw(void)
 	// ポリゴンの描画
 	pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
 
-	// テクスチャを消す
-	pDevice->SetTexture(0, nullptr);
-
 	// 設定を元に戻す
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 	pDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
-	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+	//pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 }
 //=================================
 // 当たり判定の処理

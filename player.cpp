@@ -31,13 +31,14 @@
 #include "collisionbox.h"
 #include "playerstateneutral.h"
 #include "gamesceneobject.h"
+#include "selectpoint.h"
 
 //**********************
 // 名前空間
 //**********************
 namespace PLAYERINFO
 {
-	constexpr float MOVE = 4.5f;		 // 1フレームの移動量
+	constexpr float MOVE = 4.5f;	// 1フレームの移動量
 	constexpr float NorRot = D3DX_PI * 2.0f; // 正規化値
 };
 
@@ -147,13 +148,14 @@ void CPlayer::Update(void)
 	D3DXVECTOR3 posOld = GetOldPos();
 
 	// 入力デバイスのポインタ取得
+	CInputKeyboard* pKeyboard = CManager::GetInstance()->GetInputKeyboard();
 	CJoyPad* pJoyPad = CManager::GetInstance()->GetJoyPad();
 
 	// nullptrじゃないとき
 	if (m_pStateMachine != nullptr) m_pStateMachine->Update();
 
-	// スティックでの移動処理
-	MovePad(pJoyPad);
+	//// スティックでの移動処理
+	//MovePad(pJoyPad);
 
 	// 座標のみの更新
 	CMoveCharactor::UpdatePosition();
@@ -168,8 +170,8 @@ void CPlayer::Update(void)
 		m_pBoxCollider->SetPosOld(posOld);
 	}
 
-	// コリジョンチェック関数
-	CollisionAll(UpdatePos);
+	// 当たり判定の管理関数
+	CollisionAll(UpdatePos,pKeyboard,pJoyPad);
 
 	// キャラクターの全体更新処理
 	CMoveCharactor::Update();
@@ -192,7 +194,7 @@ void CPlayer::Draw(void)
 //=================================
 // 全コリジョンチェック関数
 //=================================
-void CPlayer::CollisionAll(D3DXVECTOR3 pPos)
+void CPlayer::CollisionAll(D3DXVECTOR3 pPos, CInputKeyboard* pInput, CJoyPad* pPad)
 {
 	// 配置されているブロックを取得
 	auto Block = CGameManager::GetInstance()->GetGameObj()->GetBlockManager();
@@ -215,13 +217,26 @@ void CPlayer::CollisionAll(D3DXVECTOR3 pPos)
 			m_pBoxCollider->SetPos(pPos);
 		}
 	}
+
+	// ポインターが当たっていたら
+	auto pPoint = CGameManager::GetInstance()->GetGameObj()->GetPoint();
+	if (pPoint == nullptr) return;
+
+	if (pPoint->GetIsHit())
+	{
+		if (pPad->GetTrigger(CJoyPad::JOYKEY_A))
+		{
+			// TODO : これを司令塔アリの指示に変える
+			CBlock::Create(GetPos(), VECTOR3_NULL, INITSCALE, "STAGEOBJ/Reef.x");
+		}
+	}
 }
 //=========================================
 // キー入力移動関数
 //=========================================
 void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 {
-	// パッドがあったら
+	// パッド入力があったら
 	if (pPad->GetLeftStick()) return;
 
 	// カメラ取得
@@ -236,7 +251,7 @@ void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 	// 移動フラグ
 	bool isMove = false;
 
-#if 1
+#if 0
 	if (pInput->GetPress(DIK_A) || pPad->GetPress(CJoyPad::JOYKEY_LEFT))
 	{// Aキー
 		if (pInput->GetPress(DIK_W) || pPad->GetPress(CJoyPad::JOYKEY_RIGHT))

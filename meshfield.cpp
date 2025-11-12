@@ -298,12 +298,6 @@ void CMeshField::Draw(void)
 	// 計算用のマトリックスを宣言
 	D3DXMATRIX mtxRot, mtxTrans;
 
-	// テクスチャポインタ取得
-	CTexture* pTexture = CManager::GetInstance()->GetTexture();
-
-	// セット
-	pDevice->SetTexture(0, pTexture->GetAddress(m_MeshFiled.nTexIdx));
-
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxWorld);
 
@@ -327,6 +321,10 @@ void CMeshField::Draw(void)
 	// テクスチャフォーマットの設定
 	pDevice->SetFVF(FVF_VERTEX_3D);
 
+	// テクスチャ割り当て
+	CTexture* pTexture = CManager::GetInstance()->GetTexture();
+	pDevice->SetTexture(0, pTexture->GetAddress(m_MeshFiled.nTexIdx));
+
 	// ポリゴンの描画
 	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, 0, m_MeshFiled.nNumAllVtx, 0, m_MeshFiled.nNumPrimitive);
 
@@ -342,5 +340,5 @@ void CMeshField::SetTexture(void)
 	CTexture* pTexture = CManager::GetInstance()->GetInstance()->GetTexture();
 
 	// 割り当て
-	m_MeshFiled.nTexIdx = pTexture->Register("data/TEXTURE/wallTexture.jpg");
+	m_MeshFiled.nTexIdx = pTexture->Register("data/TEXTURE/field.jpg");
 }

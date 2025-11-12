@@ -36,7 +36,7 @@ public:
 		float fRadius;		// ”¼Œa
 	};
 
-	CMeshCylinder(int nPrio = static_cast<int>(CObject::PRIORITY::MESH));
+	CMeshCylinder(int nPrio = static_cast<int>(CObject::PRIORITY::MODELOBJECT));
 	~CMeshCylinder();
 
 	HRESULT Init(void);
