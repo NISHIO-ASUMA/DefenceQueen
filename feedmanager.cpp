@@ -35,7 +35,7 @@ HRESULT CFeedManager::Init(void)
 	m_pFeed.clear();
 
 	// サイズセット
-	m_pFeed.resize(2);
+	m_pFeed.resize(3);
 
 	// あらかじめ最大数生成する
 	for (int nCnt = 0; nCnt < m_pFeed.size(); nCnt++)

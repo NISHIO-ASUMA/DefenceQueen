@@ -30,7 +30,6 @@ class CGameSceneObject
 {
 public:
 
-	CGameSceneObject();
 	~CGameSceneObject();
 
 	HRESULT Init(void);
@@ -41,12 +40,17 @@ public:
 	CSelectPoint* GetPoint(void) { return m_pSelectPoint; }
 	CFeedManager* GetFeedManager(void) { return m_pFeed; }
 
-	static CScore* GetScore(void) { return m_pScore; } 
+	static CScore* GetScore(void) { return m_pScore; }
+	static CGameSceneObject* GetInstance(void);
 
 private:
 
 	static CScore* m_pScore; // スコアクラスのポインタ
+	static CGameSceneObject* m_pInstance;	// インスタンス
+
 	std::unique_ptr<CBlockManager>m_pBlocks; // ブロックマネージャークラスのポインタ
 	CSelectPoint* m_pSelectPoint;	// 選択ポイントのクラス
 	CFeedManager* m_pFeed;			// 餌クラス
+	
+	CGameSceneObject();
 };

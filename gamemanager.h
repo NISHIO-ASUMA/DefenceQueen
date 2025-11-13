@@ -11,11 +11,6 @@
 #pragma once
 
 //*****************************
-// 前方宣言
-//*****************************
-class CGameSceneObject;
-
-//*****************************
 // インクルードファイル
 //*****************************
 #include <memory>
@@ -36,11 +31,7 @@ public:
 
 	static CGameManager* GetInstance(void);
 
-	CGameSceneObject* GetGameObj(void) { return m_pGameObj.get(); }
-
 private:
 
 	CGameManager();
-
-	std::unique_ptr<CGameSceneObject>m_pGameObj;		// ゲームオブジェクト管理クラス
 };

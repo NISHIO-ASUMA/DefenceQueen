@@ -134,7 +134,7 @@ void CSelectPoint::Update(void)
 	}
 
 	// 配置されているブロックを取得
-	auto Block = CGameManager::GetInstance()->GetGameObj()->GetBlockManager();
+	auto Block = CGameSceneObject::GetInstance()->GetBlockManager();
 	if (Block == nullptr) return;
 
 	// ブロックオブジェクトとの当たり判定
@@ -156,18 +156,20 @@ void CSelectPoint::Update(void)
 	}
 
 	// ポインタ取得
-	CFeedManager* pManager = CGameManager::GetInstance()->GetGameObj()->GetFeedManager();
+	CFeedManager* pManager = CGameSceneObject::GetInstance()->GetFeedManager();
 
 	for (int nCnt = 0; nCnt < pManager->GetSize(); nCnt++)
 	{
 		if (Collision(pManager->GetFeed(nCnt)->GetCollider()))
 		{
+			// ヒット時の処理
 			SetIsHit(true);
 			SetCol(COLOR_RED);
 			break;
 		}
 		else
 		{
+			// 未ヒット時の処理
 			SetIsHit(false);
 			SetCol(COLOR_WHITE);
 		}

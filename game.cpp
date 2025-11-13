@@ -50,6 +50,9 @@ HRESULT CGame::Init(void)
 	// ゲームマネージャー
 	CGameManager::GetInstance()->Init();
 
+	// ゲームオブジェクト
+	CGameSceneObject::GetInstance()->Init();
+
 	// ステート生成
 	m_pState = new CGameState;
 	if (m_pState == nullptr) return E_FAIL;
@@ -68,6 +71,9 @@ void CGame::Uninit(void)
 {
 	// 破棄
 	CGameManager::GetInstance()->Uninit();
+
+	// ゲームオブジェクト
+	CGameSceneObject::GetInstance()->Uninit();
 
 	// nullチェック
 	if (m_pPausemanager != nullptr)
@@ -118,6 +124,9 @@ void CGame::Update(void)
 	{
 		// ゲームマネージャー更新
 		CGameManager::GetInstance()->Update();
+
+		// ゲームオブジェクト更新
+		CGameSceneObject::GetInstance()->Update();
 	}
 
 #ifdef _DEBUG

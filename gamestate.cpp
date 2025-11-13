@@ -63,7 +63,7 @@ void CGameState::OnUpdate()
 	if (pFade == nullptr) return;
 
 	// シーンオブジェクト取得
-	auto GameSceneObject = CGameManager::GetInstance()->GetGameObj();
+	auto GameSceneObject = CGameSceneObject::GetInstance();
 	if (GameSceneObject == nullptr) return;
 
 	switch (m_Progress)

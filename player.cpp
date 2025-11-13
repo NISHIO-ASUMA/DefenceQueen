@@ -197,7 +197,7 @@ void CPlayer::Draw(void)
 void CPlayer::CollisionAll(D3DXVECTOR3 pPos, CInputKeyboard* pInput, CJoyPad* pPad)
 {
 	// 配置されているブロックを取得
-	auto Block = CGameManager::GetInstance()->GetGameObj()->GetBlockManager();
+	auto Block = CGameSceneObject::GetInstance()->GetBlockManager();
 	if (Block == nullptr) return;
 
 	// ブロックオブジェクトとの当たり判定
@@ -219,7 +219,7 @@ void CPlayer::CollisionAll(D3DXVECTOR3 pPos, CInputKeyboard* pInput, CJoyPad* pP
 	}
 
 	// 選択ポインターが当たっていたら
-	auto pPoint = CGameManager::GetInstance()->GetGameObj()->GetPoint();
+	auto pPoint = CGameSceneObject::GetInstance()->GetPoint();
 	if (pPoint == nullptr) return;
 
 	if (pPoint->GetIsHit())

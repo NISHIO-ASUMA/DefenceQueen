@@ -22,6 +22,7 @@
 // 静的メンバ変数
 //**********************
 CScore* CGameSceneObject::m_pScore = nullptr; // スコアクラスの静的ポインタ
+CGameSceneObject* CGameSceneObject::m_pInstance = nullptr; // インスタンス
 
 //===========================
 // コンストラクタ
@@ -37,8 +38,7 @@ m_pSelectPoint(nullptr)
 //===========================
 CGameSceneObject::~CGameSceneObject()
 {
-	// 終了関数
-	Uninit();
+
 }
 //===========================
 // 初期化処理
@@ -84,6 +84,12 @@ void CGameSceneObject::Uninit(void)
 
 	// 破棄
 	m_pBlocks.reset();
+
+	if (m_pInstance)
+	{
+		delete m_pInstance;
+		m_pInstance = nullptr;
+	}
 }
 //===========================
 // 更新処理
@@ -91,4 +97,16 @@ void CGameSceneObject::Uninit(void)
 void CGameSceneObject::Update(void)
 {
 	// 無し
+}
+//===========================
+// インスタンス取得処理
+//===========================
+CGameSceneObject* CGameSceneObject::GetInstance(void)
+{
+	if (m_pInstance == nullptr)
+	{
+		m_pInstance = new CGameSceneObject;
+	}
+
+	return m_pInstance;
 }
