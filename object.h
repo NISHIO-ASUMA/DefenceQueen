@@ -86,7 +86,6 @@ private:
 	static CObject* m_pCur[PRIORITY_MAX];	// 最後尾オブジェクト
 
 	int m_nID;				// 自分自身のID
-	int m_nPriority;		// 優先順位番号
 	bool m_isDeath;			// 死亡フラグ
 
 	TYPE m_Type;			// オブジェクトの種類変数

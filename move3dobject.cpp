@@ -220,7 +220,6 @@ void CMove3DObject::UpdatePosition(void)
 //================================
 void CMove3DObject::DecayMove(const float fValue)
 {
-	// à⁄ìÆó ÇÃå∏êä
 	m_move.x += (0.0f - m_move.x) * fValue;
 	m_move.z += (0.0f - m_move.z) * fValue;
 }

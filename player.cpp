@@ -45,7 +45,7 @@ namespace PLAYERINFO
 //===============================
 // オーバーロードコンストラクタ
 //===============================
-CPlayer::CPlayer(int nPriority) : CMoveCharactor(nPriority),
+CPlayer::CPlayer(int nPriority) : CNoMoveCharactor(nPriority),
 m_pMotion(nullptr),
 m_pParameter(nullptr),
 m_pStateMachine(nullptr),
@@ -95,7 +95,7 @@ CPlayer* CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot,int nLife, const char*
 HRESULT CPlayer::Init(void)
 {
 	// キャラクタ―の初期化
-	CMoveCharactor::Init();
+	CNoMoveCharactor::Init();
 
 	// オブジェクトの種類をセット
 	SetObjType(CObject::TYPE_PLAYER);
@@ -113,7 +113,7 @@ HRESULT CPlayer::Init(void)
 	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(50.0f,50.0f,50.0f));
 
 	// モーション取得
-	m_pMotion = CMoveCharactor::GetMotion();
+	m_pMotion = CNoMoveCharactor::GetMotion();
 
 	// 結果を返す
 	return S_OK;
@@ -137,7 +137,7 @@ void CPlayer::Uninit(void)
 	}
 
 	// キャラクターの破棄
-	CMoveCharactor::Uninit();
+	CNoMoveCharactor::Uninit();
 }
 //============================================================
 // プレイヤー更新処理
@@ -157,8 +157,8 @@ void CPlayer::Update(void)
 	//// スティックでの移動処理
 	//MovePad(pJoyPad);
 
-	// 座標のみの更新
-	CMoveCharactor::UpdatePosition();
+	//// 座標のみの更新
+	//CNoMoveCharactor::UpdatePosition();
 
 	// 更新された座標を取得
 	D3DXVECTOR3 UpdatePos = GetPos();
@@ -174,7 +174,7 @@ void CPlayer::Update(void)
 	CollisionAll(UpdatePos,pKeyboard,pJoyPad);
 
 	// キャラクターの全体更新処理
-	CMoveCharactor::Update();
+	CNoMoveCharactor::Update();
 }
 //===============================
 // プレイヤー描画処理
@@ -182,7 +182,7 @@ void CPlayer::Update(void)
 void CPlayer::Draw(void)
 {
 	// キャラクターの描画処理
-	CMoveCharactor::Draw();
+	CNoMoveCharactor::Draw();
 
 	// デバッグ表示
 	CDebugproc::Print("モーションタイプ [ %d ]", m_pMotion->GetMotionType());
@@ -218,15 +218,16 @@ void CPlayer::CollisionAll(D3DXVECTOR3 pPos, CInputKeyboard* pInput, CJoyPad* pP
 		}
 	}
 
-	// ポインターが当たっていたら
+	// 選択ポインターが当たっていたら
 	auto pPoint = CGameManager::GetInstance()->GetGameObj()->GetPoint();
 	if (pPoint == nullptr) return;
 
 	if (pPoint->GetIsHit())
 	{
-		if (pPad->GetTrigger(CJoyPad::JOYKEY_A))
+		if (pPad->GetTrigger(CJoyPad::JOYKEY_A) || pInput->GetTrigger(DIK_RETURN))
 		{
 			// TODO : これを司令塔アリの指示に変える
+
 			CBlock::Create(GetPos(), VECTOR3_NULL, INITSCALE, "STAGEOBJ/Reef.x");
 		}
 	}
@@ -236,6 +237,7 @@ void CPlayer::CollisionAll(D3DXVECTOR3 pPos, CInputKeyboard* pInput, CJoyPad* pP
 //=========================================
 void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 {
+#if 0
 	// パッド入力があったら
 	if (pPad->GetLeftStick()) return;
 
@@ -251,7 +253,7 @@ void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 	// 移動フラグ
 	bool isMove = false;
 
-#if 0
+
 	if (pInput->GetPress(DIK_A) || pPad->GetPress(CJoyPad::JOYKEY_LEFT))
 	{// Aキー
 		if (pInput->GetPress(DIK_W) || pPad->GetPress(CJoyPad::JOYKEY_RIGHT))
@@ -401,6 +403,7 @@ void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
 //=========================================
 void CPlayer::MovePad(CJoyPad* pPad)
 {
+#if 0
 	// パッド取得
 	XINPUT_STATE* pStick;
 	pStick = pPad->GetStickAngle();
@@ -465,6 +468,7 @@ void CPlayer::MovePad(CJoyPad* pPad)
 	// 適用する
 	SetMove(move);
 	SetRotDest(rotDest);
+#endif
 }
 
 //=========================================

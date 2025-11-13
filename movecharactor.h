@@ -30,6 +30,7 @@ class CModel;
 class CMoveCharactor : public CObject
 {
 public:
+
 	//****************************
 	// キャラクターの種類定義
 	//****************************
@@ -59,7 +60,7 @@ public:
 	void SetMove(const D3DXVECTOR3 move) { m_move = move; }
 	void SetMoveValue(const float fValue) { m_fMoveValue = fValue; }
 	void SetType(TYPE Type) { m_type = Type; }
-	void MotionLoad(const char* pScriptName,int nDestMotions);
+	void MotionLoad(const char* pScriptName, int nDestMotions);
 	void SetCharactor(TYPE type) { m_type = type; }
 
 	D3DXVECTOR3 GetPos(void) const { return m_pos; }

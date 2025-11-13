@@ -158,7 +158,6 @@ void CMoveCharactor::Draw(void)
 //======================================
 void CMoveCharactor::UpdatePosition(void)
 {
-	// 位置の更新
 	m_posOld = m_pos;
 	m_pos += m_move;
 }
@@ -167,6 +166,5 @@ void CMoveCharactor::UpdatePosition(void)
 //======================================
 void CMoveCharactor::MotionLoad(const char* pScriptName, int nDestMotions)
 {
-	// ポインタ生成
 	m_pMotion = CMotion::Load(pScriptName, m_pModel, nDestMotions);
 }

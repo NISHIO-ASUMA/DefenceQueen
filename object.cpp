@@ -1,4 +1,4 @@
-//====================================
+//=====================================
 //
 // オブジェクト処理 [ object.cpp ]
 // Author: Asuma Nishio
@@ -27,7 +27,6 @@ CObject* CObject::m_pCur[PRIORITY_MAX] = {};	// 最後尾アドレス
 CObject::CObject(int nPriority)
 {
 	m_Type = TYPE_NONE;					// オブジェクト種類を初期化
-	m_nPriority = nPriority;			// 優先度を記録
 	m_isDeath = false;					// 死亡フラグを無効化
 
 	m_pNext = nullptr;					// 次のポインタをnullptrに初期化

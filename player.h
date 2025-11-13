@@ -14,6 +14,7 @@
 // インクルードファイル
 //**********************
 #include "movecharactor.h"
+#include "nomovecharactor.h"
 #include <memory>
 
 //**********************
@@ -31,7 +32,7 @@ class CMotion;
 //*************************
 // プレイヤークラスを定義
 //*************************
-class CPlayer : public CMoveCharactor
+class CPlayer : public CNoMoveCharactor
 {
 public:
 

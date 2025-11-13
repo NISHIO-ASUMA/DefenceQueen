@@ -1,4 +1,4 @@
-//====================================
+//=====================================
 //
 // Xファイル処理 [ objectX.cpp ]
 // Author: Asuma Nishio
@@ -162,12 +162,12 @@ void CObjectX::DrawShadow(void)
 	if (!model.pMesh) return;
 
 	// ライト方向
-	D3DXVECTOR4 lightDir(0.05f, -0.5f, 0.0f, 0.0f);
+	D3DXVECTOR4 lightDir(0.2f, -0.63f, -0.02f, 0.0f);
 
 	// 平面投影座標を設定
 	D3DXPLANE plane;
-	D3DXVECTOR3 point = VECTOR3_NULL;
-	D3DXVECTOR3 normal = D3DXVECTOR3(0.0f,-1.5f,0.0f);
+	D3DXVECTOR3 point = D3DXVECTOR3(0.0f,0.5f,0.0f);
+	D3DXVECTOR3 normal = D3DXVECTOR3(0.0f,-0.5f,0.0f);
 	D3DXPlaneFromPointNormal(&plane, &point, &normal);
 
 	// 影マトリックス生成
@@ -183,8 +183,8 @@ void CObjectX::DrawShadow(void)
 
 	// 半透明に設定
 	D3DMATERIAL9 shadowMat = {};
-	shadowMat.Diffuse = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.25f);
-	shadowMat.Ambient = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.25f);
+	shadowMat.Diffuse = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.35f);
+	shadowMat.Ambient = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.35f);
 
 	// マテリアルセット
 	pDevice->SetMaterial(&shadowMat);
