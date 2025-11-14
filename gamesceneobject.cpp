@@ -17,11 +17,11 @@
 #include "selectpoint.h"
 #include "grass.h"
 #include "feed.h"
+#include "time.h"
 
 //**********************
 // 静的メンバ変数
 //**********************
-CScore* CGameSceneObject::m_pScore = nullptr; // スコアクラスの静的ポインタ
 CGameSceneObject* CGameSceneObject::m_pInstance = nullptr; // インスタンス
 
 //===========================
@@ -29,7 +29,9 @@ CGameSceneObject* CGameSceneObject::m_pInstance = nullptr; // インスタンス
 //===========================
 CGameSceneObject::CGameSceneObject() : 
 m_pBlocks(nullptr),
-m_pSelectPoint(nullptr)
+m_pSelectPoint(nullptr),
+m_pTimer(nullptr),
+m_pScore(nullptr)
 {
 	// 値のクリア
 }
@@ -48,8 +50,8 @@ HRESULT CGameSceneObject::Init(void)
 	// プレイヤー生成
 	CPlayer::Create(D3DXVECTOR3(600.0f, 0.0f, 0.0f), VECTOR3_NULL, 10, "data/MOTION/Player/Player100motion.txt");
 
-	// スコア生成
-	// m_pScore = CScore::Create(D3DXVECTOR3(600.0f, 200.0f, 0.0f), 60.0f, 40.0f);
+	// タイマー生成
+	m_pTimer = CTime::Create(D3DXVECTOR3(HALFWIDTH - 80.0f,40.0f,0.0f),60.0f,40.0f);
 
 	// メッシュフィールド生成
 	CMeshField::Create(VECTOR3_NULL,3200.0f,2000.0f,1,1);
@@ -62,7 +64,7 @@ HRESULT CGameSceneObject::Init(void)
 	m_pBlocks->Init();
 
 	// 餌を配置
-	m_pFeed = new CFeedManager;
+	m_pFeed = std::make_unique<CFeedManager>();
 	m_pFeed->Init();
 
 	return S_OK;
@@ -72,17 +74,10 @@ HRESULT CGameSceneObject::Init(void)
 //===========================
 void CGameSceneObject::Uninit(void)
 {
-	// null初期化
-	m_pScore = nullptr;
+	// 餌管理クラスの破棄
+	m_pFeed.reset();
 
-	if (m_pFeed)
-	{
-		m_pFeed->Uninit();
-		delete m_pFeed;
-		m_pFeed = nullptr;
-	}
-
-	// 破棄
+	// 配置オブジェクトクラスの破棄
 	m_pBlocks.reset();
 
 	if (m_pInstance)

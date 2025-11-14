@@ -354,11 +354,11 @@ void CXfileManager::LoadModel(const char* pModelName)
 			// nullチェック
 			if (pMat[nCnt].pTextureFilename)
 			{
-				// テクスチャIDセット
-				int texID = pTexture->Register(pMat[nCnt].pTextureFilename);
+				// テクスチャインデックスセット
+				int nTexIdx = pTexture->Register(pMat[nCnt].pTextureFilename);
 
 				// 配列に登録
-				newData.pTexture[nCnt] = texID;
+				newData.pTexture[nCnt] = nTexIdx;
 			}
 			else
 			{

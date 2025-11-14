@@ -11,6 +11,7 @@
 #include "feedmanager.h"
 #include "feed.h"
 #include "meshcylinder.h"
+#include "gamesceneobject.h"
 
 //===========================
 // コンストラクタ
@@ -24,7 +25,7 @@ CFeedManager::CFeedManager() :m_pFeed{}
 //===========================
 CFeedManager::~CFeedManager()
 {
-
+	Uninit();
 }
 //===========================
 // 初期化処理
@@ -61,6 +62,10 @@ void CFeedManager::Uninit(void)
 //===========================
 void CFeedManager::Update(void)
 {
+	// 経過時間によって出現する
+	auto GameSceneObject = CGameSceneObject::GetInstance();
+	auto time = GameSceneObject->GetTime();
+
 
 }
 //===========================

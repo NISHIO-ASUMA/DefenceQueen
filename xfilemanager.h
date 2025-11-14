@@ -43,7 +43,7 @@ public:
 	void UnLoad(void);
 
 	/// <summary>
-	/// Xƒtƒ@ƒCƒ‹‚Ì“o˜^‚ð‚·‚é
+	/// Xƒtƒ@ƒCƒ‹‚Ìƒ‚ƒfƒ‹‚Ì“o˜^‚ð‚·‚é
 	/// </summary>
 	/// <param name="pFileName">“o˜^‚·‚éƒ‚ƒfƒ‹–¼</param>
 	/// <returns></returns>

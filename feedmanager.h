@@ -52,4 +52,10 @@ public:
 private:
 
 	std::vector<CFeed*>m_pFeed; // 動的配列
+
+	// 出現座標
+	const D3DXVECTOR3 ActivePos[1] =
+	{
+		{200.0f,0.0f,30.0f}
+	};
 };
