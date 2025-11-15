@@ -49,7 +49,7 @@ CTitleManager* CTitleManager::GetInstance(void)
 HRESULT CTitleManager::Init(void)
 {	
 	// ‰ŠúUI¶¬
-	m_pUi = CUi::Create(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, 650.0f, 0.0f),30, 250.0f, 60.0f, "Enterkey.png", true);
+	m_pUi = CUi::Create(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, 650.0f, 0.0f),30, 250.0f, 60.0f, "exit.png", false);
 
 	// ƒTƒEƒ“ƒhæ“¾
 	CSound* pSound = CManager::GetInstance()->GetSound();
