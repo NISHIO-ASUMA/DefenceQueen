@@ -1,6 +1,6 @@
 //===============================================
 //
-// 出現する餌の処理 [ feed.cpp ]
+// 出現する餌一個に関する処理 [ feed.cpp ]
 // Author: Asuma Nishio
 //
 //===============================================
@@ -15,6 +15,8 @@
 #include "gamemanager.h"
 #include "selectpoint.h"
 #include "gamesceneobject.h"
+#include "manager.h"
+#include "xfilemanager.h"
 
 //**********************
 // 定数宣言
@@ -94,6 +96,7 @@ void CFeed::Uninit(void)
 		m_pSphere = nullptr;
 	}
 
+	// 破棄
 	m_pParam.reset();
 
 	// 親クラスの終了
