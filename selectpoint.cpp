@@ -189,7 +189,7 @@ void CSelectPoint::Draw(void)
 	// 親クラスの描画
 	CMove3DObject::Draw();
 
-	// デバッグフォント
+	// デバッグ情報
 	CDebugproc::Print("選択ポインター座標 : [ %.2f,%.2f,%.2f ] \n当たったかどうか [ %d ]", GetPos().x, GetPos().y, GetPos().z,GetIsHit());
 	CDebugproc::Draw(0, 160);
 }
@@ -268,9 +268,9 @@ void CSelectPoint::Moving(void)
 	// 適用
 	SetMove(move);
 }
-//============================
-// ポインター移動処理
-//============================
+//==================================
+// パッド入力のポインター移動処理
+//==================================
 void CSelectPoint::MovePad(void)
 {
 	// 移動量を取得
@@ -319,7 +319,7 @@ void CSelectPoint::MovePad(void)
 }
 
 //============================
-// 当たり判定処理
+// 球の当たり判定処理
 //============================
 bool CSelectPoint::Collision(CSphereCollider* other)
 {
@@ -327,7 +327,7 @@ bool CSelectPoint::Collision(CSphereCollider* other)
 	return CCollisionSphere::Collision(m_pSphere,other);
 }
 //============================
-// 当たり判定処理
+// 矩形の当たり判定処理
 //============================
 bool CSelectPoint::CollisionBox(CBoxCollider* pothere, D3DXVECTOR3* pOutPos)
 {

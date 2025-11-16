@@ -151,6 +151,7 @@ void CArray::Reset(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const int nLife
 	SetPos(pos);
 	SetRot(rot);
 	SetActive(true);
+
 	if (m_pParameter)
 	{
 		m_pParameter->SetMaxHp(nLife);
@@ -158,7 +159,7 @@ void CArray::Reset(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const int nLife
 	}
 }
 //=====================================
-// “–‚½‚è”»’èˆ—
+// ‹…‚Ì“–‚½‚è”»’èˆ—
 //=====================================
 bool CArray::Colision(CSphereCollider* other)
 {

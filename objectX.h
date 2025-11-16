@@ -43,7 +43,7 @@ public:
 	D3DXMATRIX GetMtxWorld(void) { return m_mtxWorld; }
 	int GetModelIdx(void) const { return m_nIdxModel; }
 
-	static CObjectX* Create(int nIdx, D3DXVECTOR3 pos);
+	static CObjectX* Create(const char* pModelName, D3DXVECTOR3 pos);
 
 private:
 

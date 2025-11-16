@@ -124,7 +124,7 @@ void CWorker::Draw(void)
 	CMoveCharactor::Draw();
 }
 //=================================
-// “–‚½‚è”»’èˆ—
+// ‹…‚Ì“–‚½‚è”»’èˆ—
 //=================================
 bool CWorker::Collision(CSphereCollider* other)
 {

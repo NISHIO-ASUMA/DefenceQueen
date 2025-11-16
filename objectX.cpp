@@ -219,14 +219,14 @@ void CObjectX::SetFilePass(const char* pFilePass)
 //=============================
 // 生成処理
 //=============================
-CObjectX* CObjectX::Create(int nIdx,D3DXVECTOR3 pos)
+CObjectX* CObjectX::Create(const char * pModelName,D3DXVECTOR3 pos)
 {
 	// インスタンス生成
 	CObjectX* pObjX = new CObjectX;
 	if (pObjX == nullptr) return nullptr;
 
-	pObjX->m_pos = pos;
-	pObjX->m_nIdxModel = nIdx;
+	pObjX->SetPos(pos);
+	pObjX->SetFilePass(pModelName);
 
 	// 初期化処理
 	if (FAILED(pObjX->Init())) return nullptr;

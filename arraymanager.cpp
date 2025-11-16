@@ -49,7 +49,7 @@ HRESULT CArrayManager::Init(const int nActives)
 	// メモリの箱だけ先に確保
 	m_pArrays.reserve(ARRAYINFO::ALLARRAYS);
 
-	// 実際のポインタのセット
+	// ポインタのセット
 	for (int nCnt = 0; nCnt < ARRAYINFO::ALLARRAYS; nCnt++)
 	{
 		// インスタンス生成
@@ -81,7 +81,7 @@ HRESULT CArrayManager::Init(const int nActives)
 //============================
 void CArrayManager::Uninit(void)
 {
-	// 破棄
+	// 動的配列の破棄
 	m_pArrays.clear();
 }
 //===========================
@@ -91,7 +91,7 @@ void CArrayManager::Update(void)
 {
 #ifdef _DEBUG
 
-	// キー取得
+	// キー入力情報取得
 	auto* pInputKey = CManager::GetInstance()->GetInputKeyboard();
 
 	// キー入力で増減確認
