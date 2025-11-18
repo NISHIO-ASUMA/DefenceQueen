@@ -26,6 +26,8 @@ class CShadowS;
 class CStateMachine;
 class CEnemyStateBase;
 class CSphereCollider;
+class CBlackBoard;
+class CNode;
 
 //**********************
 // 敵クラスを定義
@@ -41,8 +43,6 @@ public:
 	{
 		MOTION_NEUTRAL,	// ニュートラル
 		MOTION_MOVE,	// 移動
-		MOTION_ACTION,	// アクション
-		MOTION_DAMAGE,	// ダメージ
 		MOTION_MAX
 	};
 
@@ -65,6 +65,8 @@ private:
 
 	CMotion * m_pMotion;				// モーションクラス
 	CSphereCollider* m_pSphereCollider; // 球形コライダー
+	CBlackBoard* m_pBlackBoard;			// ノード登録用ブラックボードのポインタ
+	CNode* m_pBehaviorTree;				// ノードのビヘイビアツリーポインタ
 	std::unique_ptr <CParameter>m_pParameter;		 // パラメータクラス
 	std::unique_ptr<CStateMachine>m_pStateMachine;	 // ステート基底クラスのポインタ
 };

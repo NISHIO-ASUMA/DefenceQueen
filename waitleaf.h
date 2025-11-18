@@ -2,8 +2,6 @@
 //
 // 待機状態の末端ノード処理 [ waitleaf.h ]
 // Author: Asuma Nishio
-// 
-// TODO : ここに待機時間を設定するかどうかは後々決める
 //
 //=======================================================
 
@@ -30,14 +28,26 @@ class CWaitLeaf : public CLeafNodeBase
 
 public:
 
-	CWaitLeaf(CBlackBoard* blackboard) : CLeafNodeBase(blackboard) {};
+	CWaitLeaf(CBlackBoard* blackboard) : CLeafNodeBase(blackboard) 
+	{
+		m_fWaitTime = 60.0f;
+		m_fWaitCount = 120.0f;
+	}
+
 	~CWaitLeaf() = default;
 
 	void Update() override
 	{
 		// 時間が0以下なら
+		if (m_fWaitCount <= 0.0f)
+		{
+			// 成功結果に変更
+			m_NodeResult = NodeInfo::NodeResult::Re_SUCCESS;
+			return;
+		}
 
-		return;
+		// カウントを減算
+		m_fWaitCount = -1.0f;
 	}
 
 	void Exit() override
@@ -46,8 +56,10 @@ public:
 		CNodeBase::Exit();
 
 		// 時間のカウントをもとに戻す
+		m_fWaitCount = m_fWaitTime;
 	}
 
 private:
-
+	float m_fWaitTime = 0.0f;
+	float m_fWaitCount = 0.0f;
 };

@@ -26,6 +26,13 @@ using namespace NodeInfo;
 //*****************************
 class CNodeBase : public CNode
 {
+public:
+
+	void set_node_id(const int id) override { mNodeId = id; }
+
+private:
+	int mNodeId = -1;
+
 protected:
 
 	CNodeBase(CBlackBoard* blackboard)
@@ -40,6 +47,8 @@ protected:
 	virtual void Exit() override {};
 
 	virtual NodeInfo::NodeResult get_node_result() const { return m_NodeResult; }
+
+	virtual int get_running_node_id() const override { return mNodeId; }
 
 	CBlackBoard* m_pBlackBoard = nullptr;								// ブラックボードの変数
 	NodeInfo::NodeResult m_NodeResult = NodeInfo::NodeResult::Re_IDLE;	// ノードの状態

@@ -22,6 +22,9 @@
 #include "blockmanager.h"
 #include "feedmanager.h"
 #include "feed.h"
+#include "blackboard.h"
+#include "behaviortree.h"
+#include "node.h"
 
 //**********************
 // 定数宣言
@@ -38,6 +41,8 @@ CSelectPoint::CSelectPoint(int nPriority) : CMove3DObject(nPriority),
 m_fHitRange(NULL),
 m_pSphere(nullptr),
 m_pBox(nullptr),
+m_pBlackBoard(nullptr),
+m_pBehaviorTree(nullptr),
 m_isHit(false)
 {
 
@@ -82,6 +87,19 @@ HRESULT CSelectPoint::Init(void)
 	// 親クラスの初期化
 	CMove3DObject::Init();
 
+	//// ブラックボードの生成
+	//m_pBlackBoard = new CBlackBoard;
+
+	//// 渡す情報をノードに登録する
+	//auto pos = GetPos();
+	//m_pBlackBoard->SetValue<D3DXVECTOR3>("SelectorPos", pos);
+
+	//// ビヘイビアツリーの生成
+	//// m_pBehaviorTree = CBehaviortree::GetAttackTree(m_pBlackBoard)
+	//// 
+	//// ビヘイビアツリーの初期化
+	//// m_pBehaviorTree->Init();
+
 	return S_OK;
 }
 //============================
@@ -89,17 +107,33 @@ HRESULT CSelectPoint::Init(void)
 //============================
 void CSelectPoint::Uninit(void)
 {
-	// コライダーの破棄
+	// スフィアコライダーの破棄
 	if (m_pSphere)
 	{
 		delete m_pSphere;
 		m_pSphere = nullptr;
 	}
 
+	// ボックスコライダーの破棄
 	if (m_pBox)
 	{
 		delete m_pBox;
 		m_pBox = nullptr;
+	}
+
+	// ブラックボードポインタの破棄
+	if (m_pBlackBoard)
+	{
+		delete m_pBlackBoard;
+		m_pBlackBoard = nullptr;
+	}
+
+	// ノードツリーの破棄
+	if (m_pBehaviorTree)
+	{
+		m_pBehaviorTree->Exit();
+		delete m_pBehaviorTree;
+		m_pBehaviorTree = nullptr;
 	}
 
 	// 親クラスの終了処理

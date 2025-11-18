@@ -148,6 +148,18 @@
     <Filter Include="ヘッダー ファイル\AI_System\LeafNode\State_Node">
       <UniqueIdentifier>{6f3f2930-d70f-40c0-83d3-c54e02c7abfa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\AI_System\LeafNode\Move_Node">
+      <UniqueIdentifier>{734ae186-2441-4328-a38d-3e280fd24ea7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\AI_System\Branch\Check_Node">
+      <UniqueIdentifier>{6a4b0afb-f8b4-48af-92fd-4d745a57493f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\AI_System\Branch\Base">
+      <UniqueIdentifier>{65b918f8-1991-437b-a63a-c7f96f2feafa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\AI_System\Base_Tree">
+      <UniqueIdentifier>{50870cdd-64fe-4a8c-88db-e53271f40e2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="object2D.cpp">
@@ -433,6 +445,15 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="branchnodebase.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="chasedestination.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="checkneardestination.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="behaviortree.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -746,9 +767,6 @@
     <ClInclude Include="selector.h">
       <Filter>ヘッダー ファイル\AI_System\Selector</Filter>
     </ClInclude>
-    <ClInclude Include="branchnodebase.h">
-      <Filter>ヘッダー ファイル\AI_System\Branch</Filter>
-    </ClInclude>
     <ClInclude Include="inverter.h">
       <Filter>ヘッダー ファイル\AI_System\Inverter</Filter>
     </ClInclude>
@@ -763,6 +781,21 @@
     </ClInclude>
     <ClInclude Include="alwayssuccess.h">
       <Filter>ヘッダー ファイル\AI_System\LeafNode\State_Node</Filter>
+    </ClInclude>
+    <ClInclude Include="chasedestination.h">
+      <Filter>ヘッダー ファイル\AI_System\LeafNode\Move_Node</Filter>
+    </ClInclude>
+    <ClInclude Include="branchnodebase.h">
+      <Filter>ヘッダー ファイル\AI_System\Branch\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="checkneardestination.h">
+      <Filter>ヘッダー ファイル\AI_System\Branch\Check_Node</Filter>
+    </ClInclude>
+    <ClInclude Include="alwaysfail.h">
+      <Filter>ヘッダー ファイル\AI_System\LeafNode\State_Node</Filter>
+    </ClInclude>
+    <ClInclude Include="behaviortree.h">
+      <Filter>ヘッダー ファイル\AI_System\Base_Tree</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

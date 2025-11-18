@@ -18,6 +18,7 @@
 #include "grass.h"
 #include "feed.h"
 #include "time.h"
+#include "enemy.h"
 
 //**********************
 // 静的メンバ変数
@@ -48,13 +49,16 @@ CGameSceneObject::~CGameSceneObject()
 HRESULT CGameSceneObject::Init(void)
 {
 	// プレイヤー生成
-	CPlayer::Create(D3DXVECTOR3(600.0f, 0.0f, 0.0f), VECTOR3_NULL, 10, "data/MOTION/Player/Player100motion.txt");
+	// CPlayer::Create(D3DXVECTOR3(600.0f, 0.0f, 0.0f), VECTOR3_NULL, 10, "data/MOTION/Player/Player100motion.txt");
 
 	// タイマー生成
 	m_pTimer = CTime::Create(D3DXVECTOR3(HALFWIDTH - 80.0f,40.0f,0.0f),60.0f,40.0f);
 
 	// メッシュフィールド生成
 	CMeshField::Create(VECTOR3_NULL,3200.0f,2000.0f,1,1);
+
+	// 敵生成
+	m_pEnemy = CEnemy::Create(D3DXVECTOR3(720.0f, 0.0f, 300.0f), VECTOR3_NULL, 10);
 
 	// 選択ポイント生成
 	m_pSelectPoint = CSelectPoint::Create(VECTOR3_NULL, VECTOR3_NULL, 80.0f, 3.0f, 80.0f);

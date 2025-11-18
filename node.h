@@ -45,4 +45,10 @@ public:
 
 	// 取得関数
 	virtual NodeInfo::NodeResult get_node_result() const = 0;
+
+	// ノードのIDを保存
+	virtual void set_node_id(const int id) = 0;
+
+	// 現在動作中のノードのIDを取得
+	virtual int get_running_node_id() const = 0;
 };

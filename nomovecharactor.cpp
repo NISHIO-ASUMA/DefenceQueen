@@ -13,6 +13,7 @@
 #include "model.h"
 #include "shadowS.h"
 #include "manager.h"
+#include "blackboard.h"
 
 //========================================
 // コンストラクタ

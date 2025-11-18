@@ -154,6 +154,7 @@
   <ItemGroup>
     <ClCompile Include="array.cpp" />
     <ClCompile Include="arraymanager.cpp" />
+    <ClCompile Include="behaviortree.cpp" />
     <ClCompile Include="billboard.cpp" />
     <ClCompile Include="block.cpp" />
     <ClCompile Include="blockmanager.cpp" />
@@ -161,6 +162,8 @@
     <ClCompile Include="branchnodebase.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="charactorparam.cpp" />
+    <ClCompile Include="chasedestination.cpp" />
+    <ClCompile Include="checkneardestination.cpp" />
     <ClCompile Include="collider.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="collisionbox.cpp" />
@@ -252,9 +255,11 @@
     <ClCompile Include="xfilemanager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="alwaysfail.h" />
     <ClInclude Include="alwayssuccess.h" />
     <ClInclude Include="array.h" />
     <ClInclude Include="arraymanager.h" />
+    <ClInclude Include="behaviortree.h" />
     <ClInclude Include="billboard.h" />
     <ClInclude Include="blackboard.h" />
     <ClInclude Include="block.h" />
@@ -264,6 +269,8 @@
     <ClInclude Include="BS_thread_pool.hpp" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="charactorparam.h" />
+    <ClInclude Include="chasedestination.h" />
+    <ClInclude Include="checkneardestination.h" />
     <ClInclude Include="collider.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="collisionbox.h" />

@@ -64,9 +64,23 @@ public:
 		}
 	}
 
-	virtual void Exit() override;
+	virtual void Exit() override
+	{
+		// 親クラスの破棄
+		CNodeBase::Exit();
+
+		// 最初のノードを初期化する
+		m_RanningIndex = 0;
+		m_ChildeNode[m_RanningIndex]->Init();
+	}
 
 	void AddNode(CNode* node) { m_ChildeNode.push_back(node); }
+
+	int get_running_node_id() const override
+	{
+		// 現在動いているノードのIDを返す
+		return m_ChildeNode[m_RanningIndex]->get_running_node_id();
+	}
 
 protected:
 

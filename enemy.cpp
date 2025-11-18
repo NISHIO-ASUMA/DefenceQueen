@@ -17,6 +17,8 @@
 #include "statemachine.h"
 #include "spherecollider.h"
 #include "collisionsphere.h"
+#include "blackboard.h"
+#include "node.h"
 
 //===============================
 // コンストラクタ
@@ -25,7 +27,9 @@ CEnemy::CEnemy(int nPriority) : CMoveCharactor(nPriority),
 m_pMotion(nullptr),
 m_pParameter(nullptr),
 m_pStateMachine(nullptr),
-m_pSphereCollider(nullptr)
+m_pSphereCollider(nullptr),
+m_pBehaviorTree(nullptr),
+m_pBlackBoard(nullptr)
 {
 	// 値のクリア
 }
@@ -77,7 +81,7 @@ HRESULT CEnemy::Init(void)
 	SetObjType(CObject::TYPE_ENEMY);
 
 	// モーションセット
-	MotionLoad("data/MOTION/Enemy/Enemy.txt", MOTION_MAX);
+	MotionLoad("data/MOTION/Enemy/EnemyMotion.txt", MOTION_MAX);
 
 	// ステートマシンを生成
 	m_pStateMachine = std::make_unique<CStateMachine>();
@@ -88,6 +92,15 @@ HRESULT CEnemy::Init(void)
 	// コライダー生成
 	m_pSphereCollider = CSphereCollider::Create(GetPos(), 60.0f);
 
+	//// ブラックボード生成
+	//m_pBlackBoard = new CBlackBoard;
+
+	//// ブラックボードに情報をセットする
+	//auto pos = GetPos();
+	//m_pBlackBoard->SetValue<D3DXVECTOR3>("EnemyPos", pos);
+
+	// 欲しい情報をツリーノードにセットする
+	
 	// 初期化結果を返す
 	return S_OK;
 }
@@ -109,6 +122,20 @@ void CEnemy::Uninit(void)
 		m_pSphereCollider = nullptr;
 	}
 
+	// ブラックボードポインタの破棄
+	if (m_pBlackBoard)
+	{
+		delete m_pBlackBoard;
+		m_pBlackBoard = nullptr;
+	}
+
+	// ノードクラスツリーの破棄
+	if (m_pBehaviorTree)
+	{
+		m_pBehaviorTree->Exit();
+		delete m_pBehaviorTree;
+		m_pBehaviorTree = nullptr;
+	}
 	// キャラクターの破棄
 	CMoveCharactor::Uninit();
 }
@@ -119,9 +146,6 @@ void CEnemy::Update(void)
 {
 	// 座標取得
 	D3DXVECTOR3 pos = GetPos();
-
-	// 状態管理更新
-	if (m_pStateMachine != nullptr) m_pStateMachine->Update();
 
 	// 座標のみの更新
 	CMoveCharactor::UpdatePosition();

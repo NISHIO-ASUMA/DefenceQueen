@@ -23,6 +23,7 @@ class CBlockManager;
 class CSelectPoint;
 class CFeedManager;
 class CTime;
+class CEnemy;
 
 //************************************************
 // ゲームシーンで使うオブジェクト管理クラスを定義
@@ -41,6 +42,7 @@ public:
 	CTime* GetTime(void) { return m_pTimer; }
 	CFeedManager* GetFeedManager(void) { return m_pFeed.get(); }
 	CSelectPoint* GetPoint(void) { return m_pSelectPoint; }
+	CEnemy* GetEnemy(void) { return m_pEnemy; }
 	CBlockManager* GetBlockManager(void) { return m_pBlocks.get(); }
 
 	static CGameSceneObject* GetInstance(void);
@@ -54,6 +56,7 @@ private:
 	CScore* m_pScore;	// スコアクラスのポインタ
 	CTime* m_pTimer;	// タイマークラスのポインタ
 	CSelectPoint* m_pSelectPoint;	// 選択ポイントのクラス
+	CEnemy* m_pEnemy;
 	std::unique_ptr<CFeedManager>m_pFeed;			// 餌管理クラスのポインタ
 	std::unique_ptr<CBlockManager>m_pBlocks; // ブロックマネージャークラスのポインタ
 	
