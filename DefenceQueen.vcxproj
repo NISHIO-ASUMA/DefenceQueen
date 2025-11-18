@@ -158,6 +158,7 @@
     <ClCompile Include="block.cpp" />
     <ClCompile Include="blockmanager.cpp" />
     <ClCompile Include="boxcollider.cpp" />
+    <ClCompile Include="branchnodebase.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="charactorparam.cpp" />
     <ClCompile Include="collider.cpp" />
@@ -251,12 +252,15 @@
     <ClCompile Include="xfilemanager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="alwayssuccess.h" />
     <ClInclude Include="array.h" />
     <ClInclude Include="arraymanager.h" />
     <ClInclude Include="billboard.h" />
+    <ClInclude Include="blackboard.h" />
     <ClInclude Include="block.h" />
     <ClInclude Include="blockmanager.h" />
     <ClInclude Include="boxcollider.h" />
+    <ClInclude Include="branchnodebase.h" />
     <ClInclude Include="BS_thread_pool.hpp" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="charactorparam.h" />
@@ -264,11 +268,17 @@
     <ClInclude Include="collision.h" />
     <ClInclude Include="collisionbox.h" />
     <ClInclude Include="collisionsphere.h" />
+    <ClInclude Include="compositenodebase.h" />
+    <ClInclude Include="decorator.h" />
     <ClInclude Include="gimmickmanager.h" />
     <ClInclude Include="gimmicksuction.h" />
     <ClInclude Include="grass.h" />
     <ClInclude Include="grassmanager.h" />
+    <ClInclude Include="inverter.h" />
+    <ClInclude Include="leafnodebase.h" />
     <ClInclude Include="move3dobject.h" />
+    <ClInclude Include="node.h" />
+    <ClInclude Include="nodebase.h" />
     <ClInclude Include="order.h" />
     <ClInclude Include="debugproc.h" />
     <ClInclude Include="easing.h" />
@@ -328,7 +338,9 @@
     <ClInclude Include="resultmanager.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="score.h" />
+    <ClInclude Include="selector.h" />
     <ClInclude Include="selectpoint.h" />
+    <ClInclude Include="sepuence.h" />
     <ClInclude Include="shadow.h" />
     <ClInclude Include="shadowS.h" />
     <ClInclude Include="sound.h" />
@@ -346,6 +358,7 @@
     <ClInclude Include="tutorialmanager.h" />
     <ClInclude Include="tutorialui.h" />
     <ClInclude Include="ui.h" />
+    <ClInclude Include="waitleaf.h" />
     <ClInclude Include="worker.h" />
     <ClInclude Include="xfilemanager.h" />
   </ItemGroup>
