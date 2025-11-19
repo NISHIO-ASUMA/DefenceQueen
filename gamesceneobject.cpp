@@ -51,6 +51,9 @@ HRESULT CGameSceneObject::Init(void)
 	// プレイヤー生成
 	// CPlayer::Create(D3DXVECTOR3(600.0f, 0.0f, 0.0f), VECTOR3_NULL, 10, "data/MOTION/Player/Player100motion.txt");
 
+	// 選択ポイント生成
+	m_pSelectPoint = CSelectPoint::Create(VECTOR3_NULL, VECTOR3_NULL, 80.0f, 3.0f, 80.0f);
+
 	// タイマー生成
 	m_pTimer = CTime::Create(D3DXVECTOR3(HALFWIDTH - 80.0f,40.0f,0.0f),60.0f,40.0f);
 
@@ -59,9 +62,6 @@ HRESULT CGameSceneObject::Init(void)
 
 	// 敵生成
 	m_pEnemy = CEnemy::Create(D3DXVECTOR3(720.0f, 0.0f, 300.0f), VECTOR3_NULL, 10);
-
-	// 選択ポイント生成
-	m_pSelectPoint = CSelectPoint::Create(VECTOR3_NULL, VECTOR3_NULL, 80.0f, 3.0f, 80.0f);
 
 	// ブロックマネージャー生成
 	m_pBlocks = std::make_unique<CBlockManager>();

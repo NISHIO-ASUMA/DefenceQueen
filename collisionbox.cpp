@@ -16,8 +16,8 @@
 //***********************
 namespace BOXINFO
 {
-	constexpr float HALF = 0.5f;		/// 半分の倍率値
-	constexpr float PUSHVALUE = 0.1f; // 押し出し加算値
+	constexpr float HALF = 0.5f;		// 半分の倍率値
+	constexpr float PUSHVALUE = 0.1f;   // 押し出し加算値
 };
 
 //============================
@@ -109,14 +109,14 @@ bool CCollisionBox::Collision(CBoxCollider* thisCollider, CBoxCollider* OtherCol
 	//==============================
 	if (MyPosOldMin.x < OtherPosMax.x && MyPosMax.x > OtherPosMin.x)
 	{
-		if (MyPosOldMax.z < OtherPosMin.z && MyPosMax.z > OtherPosMin.z)
+		if (MyPosOldMax.z <= OtherPosMin.z && MyPosMax.z > OtherPosMin.z)
 		{// 手前からめり込む
 
 			// 手前への押しだし座標を計算
 			ExtrusionPos->z = OtherPosMin.z - MyHalfSize.z - BOXINFO::PUSHVALUE;
 			return true;
 		}
-		else if (MyPosOldMin.z > OtherPosMax.z && MyPosMin.z < OtherPosMax.z)
+		else if (MyPosOldMin.z >= OtherPosMax.z && MyPosMin.z < OtherPosMax.z)
 		{// 奥から手前にめり込む
 
 			// 奥側に押し出す座標を計算する

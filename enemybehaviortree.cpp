@@ -1,6 +1,6 @@
 //=======================================================
 //
-// ビヘイビアツリー基底の処理 [ behaviortree.h ]
+// 敵のAIツリーを管理するクラス [ enemybehaviortree.cpp ]
 // Author: Asuma Nishio
 //
 //=======================================================
@@ -8,7 +8,8 @@
 //***********************************
 // インクルードファイル
 //***********************************
-#include "behaviortree.h"
+#include "enemybehaviortree.h"
+#include "node.h"
 #include "inverter.h"
 #include "chasedestination.h"
 #include "sepuence.h"
@@ -17,23 +18,9 @@
 #include "waitleaf.h"
 
 //===================================
-// コンストラクタ
+// 実際のツリーを生成する
 //===================================
-CBehaviorTree::CBehaviorTree()
-{
-
-}
-//===================================
-// デストラクタ
-//===================================
-CBehaviorTree::~CBehaviorTree()
-{
-
-}
-//===================================
-// 更新関数
-//===================================
-CNode* CBehaviorTree::GetAttackTree(CBlackBoard* blackboard)
+CNode* EnemyTree::CEnemyBehaviorTree::SetEnemyTreeNode(CBlackBoard* blackboard)
 {
 	// Inverterノードを作成する
 	auto chase_inverter = new CInverter(blackboard, new CChaseDestinationLeaf(blackboard));

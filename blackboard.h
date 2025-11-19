@@ -46,8 +46,10 @@ public:
 	/// <returns></returns>
 	template<class T> T GetValue(const std::string& KeyData) const
 	{
+
 		// î•ñ‚ğŒ©‚Â‚¯‚é
 		auto iter = m_Data.find(KeyData);
+		int n = 0;
 
 		// î•ñ‚ª‚ ‚Á‚½‚ç
 		if (iter != m_Data.end())

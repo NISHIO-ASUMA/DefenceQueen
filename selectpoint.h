@@ -57,8 +57,6 @@ private:
 
 	CSphereCollider* m_pSphere; // 球形コライダー
 	CBoxCollider* m_pBox;		// 矩形コライダー
-	CBlackBoard* m_pBlackBoard; // ブラックボードのポインタ
-	CNode* m_pBehaviorTree;		// ビヘイビアツリークラスのポインタ
 
 	float m_fHitRange;			// 半径
 	bool m_isHit;				// 当たっているかどうか

@@ -28,6 +28,7 @@ class CEnemyStateBase;
 class CSphereCollider;
 class CBlackBoard;
 class CNode;
+class CSelectPoint;
 
 //**********************
 // 敵クラスを定義
@@ -65,6 +66,7 @@ private:
 
 	CMotion * m_pMotion;				// モーションクラス
 	CSphereCollider* m_pSphereCollider; // 球形コライダー
+	CSelectPoint* m_pSelect;			// 判定の受け皿ポインタ
 	CBlackBoard* m_pBlackBoard;			// ノード登録用ブラックボードのポインタ
 	CNode* m_pBehaviorTree;				// ノードのビヘイビアツリーポインタ
 	std::unique_ptr <CParameter>m_pParameter;		 // パラメータクラス

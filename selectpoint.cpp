@@ -41,8 +41,6 @@ CSelectPoint::CSelectPoint(int nPriority) : CMove3DObject(nPriority),
 m_fHitRange(NULL),
 m_pSphere(nullptr),
 m_pBox(nullptr),
-m_pBlackBoard(nullptr),
-m_pBehaviorTree(nullptr),
 m_isHit(false)
 {
 
@@ -87,19 +85,6 @@ HRESULT CSelectPoint::Init(void)
 	// 親クラスの初期化
 	CMove3DObject::Init();
 
-	//// ブラックボードの生成
-	//m_pBlackBoard = new CBlackBoard;
-
-	//// 渡す情報をノードに登録する
-	//auto pos = GetPos();
-	//m_pBlackBoard->SetValue<D3DXVECTOR3>("SelectorPos", pos);
-
-	//// ビヘイビアツリーの生成
-	//// m_pBehaviorTree = CBehaviortree::GetAttackTree(m_pBlackBoard)
-	//// 
-	//// ビヘイビアツリーの初期化
-	//// m_pBehaviorTree->Init();
-
 	return S_OK;
 }
 //============================
@@ -119,21 +104,6 @@ void CSelectPoint::Uninit(void)
 	{
 		delete m_pBox;
 		m_pBox = nullptr;
-	}
-
-	// ブラックボードポインタの破棄
-	if (m_pBlackBoard)
-	{
-		delete m_pBlackBoard;
-		m_pBlackBoard = nullptr;
-	}
-
-	// ノードツリーの破棄
-	if (m_pBehaviorTree)
-	{
-		m_pBehaviorTree->Exit();
-		delete m_pBehaviorTree;
-		m_pBehaviorTree = nullptr;
 	}
 
 	// 親クラスの終了処理

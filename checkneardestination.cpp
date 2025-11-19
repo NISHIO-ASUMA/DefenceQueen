@@ -28,10 +28,10 @@ const bool CCheckNearDestination::IsCondition()
 	auto DestPos = m_pBlackBoard->GetValue<D3DXVECTOR3>("SelectorPos");
 
 	// ’Ç]‚·‚éŽ©•ª‚ðŽæ“¾‚·‚é ( ¡‰ñ‚Í“G )
-	auto* DestObject = m_pBlackBoard->GetValue<CEnemy*>("Enemy");
+	auto AgentPos = m_pBlackBoard->GetValue<D3DXVECTOR3>("EnemyPos");
 
 	// ’Ç]‚·‚é‚½‚ß‚ÌƒxƒNƒgƒ‹‚ðˆø‚­
-	auto VecToDestObj = DestPos - DestObject->GetPos();
+	auto VecToDestObj = DestPos - AgentPos;
 
 	// ’·‚³‚É•ÏŠ·
 	float fDistance = D3DXVec3Length(&VecToDestObj);

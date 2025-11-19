@@ -151,14 +151,26 @@
     <Filter Include="ヘッダー ファイル\AI_System\LeafNode\Move_Node">
       <UniqueIdentifier>{734ae186-2441-4328-a38d-3e280fd24ea7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\AI_System\Branch\Check_Node">
-      <UniqueIdentifier>{6a4b0afb-f8b4-48af-92fd-4d745a57493f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\AI_System\Branch\Base">
       <UniqueIdentifier>{65b918f8-1991-437b-a63a-c7f96f2feafa}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\AI_System\Base_Tree">
       <UniqueIdentifier>{50870cdd-64fe-4a8c-88db-e53271f40e2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\AI_System\LeafNode\Samples">
+      <UniqueIdentifier>{77874f6c-146d-4f5a-9097-f9f3ae5eff9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\AI_System\Branch\CheckBranch">
+      <UniqueIdentifier>{6a4b0afb-f8b4-48af-92fd-4d745a57493f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\AI_System">
+      <UniqueIdentifier>{efd565b5-8c37-4df0-a2c6-c3b420a5a3cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Charactor">
+      <UniqueIdentifier>{98f77a20-e00d-4cf1-853e-a7e22aef39bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\AI_System\Enemy_Node">
+      <UniqueIdentifier>{fe750835-3860-4ae8-8aec-3b14a5ced12a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -438,12 +450,6 @@
     <ClCompile Include="move3dobject.cpp">
       <Filter>ソース ファイル\BaseClass\Object</Filter>
     </ClCompile>
-    <ClCompile Include="grass.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="grassmanager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="branchnodebase.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -454,6 +460,15 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="behaviortree.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="grass.cpp">
+      <Filter>ソース ファイル\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="grassmanager.cpp">
+      <Filter>ソース ファイル\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="enemybehaviortree.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -773,29 +788,32 @@
     <ClInclude Include="decorator.h">
       <Filter>ヘッダー ファイル\AI_System\Decorator</Filter>
     </ClInclude>
-    <ClInclude Include="waitleaf.h">
-      <Filter>ヘッダー ファイル\AI_System\LeafNode\State_Node</Filter>
-    </ClInclude>
     <ClInclude Include="leafnodebase.h">
       <Filter>ヘッダー ファイル\AI_System\LeafNode\Base</Filter>
     </ClInclude>
     <ClInclude Include="alwayssuccess.h">
       <Filter>ヘッダー ファイル\AI_System\LeafNode\State_Node</Filter>
     </ClInclude>
-    <ClInclude Include="chasedestination.h">
-      <Filter>ヘッダー ファイル\AI_System\LeafNode\Move_Node</Filter>
-    </ClInclude>
     <ClInclude Include="branchnodebase.h">
       <Filter>ヘッダー ファイル\AI_System\Branch\Base</Filter>
     </ClInclude>
     <ClInclude Include="checkneardestination.h">
-      <Filter>ヘッダー ファイル\AI_System\Branch\Check_Node</Filter>
+      <Filter>ヘッダー ファイル\AI_System\Branch\CheckBranch</Filter>
     </ClInclude>
     <ClInclude Include="alwaysfail.h">
       <Filter>ヘッダー ファイル\AI_System\LeafNode\State_Node</Filter>
     </ClInclude>
     <ClInclude Include="behaviortree.h">
       <Filter>ヘッダー ファイル\AI_System\Base_Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="waitleaf.h">
+      <Filter>ヘッダー ファイル\AI_System\LeafNode\Samples</Filter>
+    </ClInclude>
+    <ClInclude Include="chasedestination.h">
+      <Filter>ヘッダー ファイル\AI_System\LeafNode\Samples</Filter>
+    </ClInclude>
+    <ClInclude Include="enemybehaviortree.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

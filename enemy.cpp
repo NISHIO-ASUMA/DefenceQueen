@@ -19,6 +19,10 @@
 #include "collisionsphere.h"
 #include "blackboard.h"
 #include "node.h"
+#include "behaviortree.h"
+#include "gamesceneobject.h"
+#include "selectpoint.h"
+#include "enemybehaviortree.h"
 
 //===============================
 // コンストラクタ
@@ -29,6 +33,7 @@ m_pParameter(nullptr),
 m_pStateMachine(nullptr),
 m_pSphereCollider(nullptr),
 m_pBehaviorTree(nullptr),
+m_pSelect(nullptr),
 m_pBlackBoard(nullptr)
 {
 	// 値のクリア
@@ -74,6 +79,9 @@ CEnemy* CEnemy::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife)
 //===============================
 HRESULT CEnemy::Init(void)
 {
+	// 名前空間宣言
+	using namespace EnemyTree;
+
 	// キャラクタ―の初期化
 	CMoveCharactor::Init();
 
@@ -86,21 +94,28 @@ HRESULT CEnemy::Init(void)
 	// ステートマシンを生成
 	m_pStateMachine = std::make_unique<CStateMachine>();
 
-	// 初期状態をセット
-	// ChangeState(new CEnemyStateNeutral, CEnemyStateBase::ID_NEUTRAL);
-
 	// コライダー生成
 	m_pSphereCollider = CSphereCollider::Create(GetPos(), 60.0f);
 
-	//// ブラックボード生成
-	//m_pBlackBoard = new CBlackBoard;
+	// ブラックボード生成
+	m_pBlackBoard = new CBlackBoard;
 
-	//// ブラックボードに情報をセットする
-	//auto pos = GetPos();
-	//m_pBlackBoard->SetValue<D3DXVECTOR3>("EnemyPos", pos);
+	// ブラックボードに情報をセットする
+	auto pos = GetPos();
+	m_pBlackBoard->SetValue<D3DXVECTOR3>("EnemyPos", pos);
+	m_pBlackBoard->SetValue<CEnemy*>("Enemy", this);
 
-	// 欲しい情報をツリーノードにセットする
-	
+	// 対象座標を取得
+	m_pSelect = CGameSceneObject::GetInstance()->GetPoint();
+	m_pBlackBoard->SetValue<CSelectPoint*>("Selector", m_pSelect);
+
+	auto Select = CGameSceneObject::GetInstance()->GetPoint();
+	m_pBlackBoard->SetValue("SelectorPos", Select->GetPos());
+
+	// ツリーノードにセットする
+	m_pBehaviorTree = CEnemyBehaviorTree::SetEnemyTreeNode(m_pBlackBoard);
+	m_pBehaviorTree->Init();
+
 	// 初期化結果を返す
 	return S_OK;
 }
@@ -122,13 +137,6 @@ void CEnemy::Uninit(void)
 		m_pSphereCollider = nullptr;
 	}
 
-	// ブラックボードポインタの破棄
-	if (m_pBlackBoard)
-	{
-		delete m_pBlackBoard;
-		m_pBlackBoard = nullptr;
-	}
-
 	// ノードクラスツリーの破棄
 	if (m_pBehaviorTree)
 	{
@@ -136,6 +144,14 @@ void CEnemy::Uninit(void)
 		delete m_pBehaviorTree;
 		m_pBehaviorTree = nullptr;
 	}
+
+	// ブラックボードポインタの破棄
+	if (m_pBlackBoard)
+	{
+		delete m_pBlackBoard;
+		m_pBlackBoard = nullptr;
+	}
+
 	// キャラクターの破棄
 	CMoveCharactor::Uninit();
 }
@@ -146,6 +162,13 @@ void CEnemy::Update(void)
 {
 	// 座標取得
 	D3DXVECTOR3 pos = GetPos();
+
+	// 更新されている座標を取得
+	auto Select = CGameSceneObject::GetInstance()->GetPoint();
+	m_pBlackBoard->SetValue("SelectorPos", Select->GetPos());
+
+	// ツリーの更新
+	m_pBehaviorTree->Update();
 
 	// 座標のみの更新
 	CMoveCharactor::UpdatePosition();
@@ -166,6 +189,10 @@ void CEnemy::Draw(void)
 {
 	// キャラクターの描画処理
 	CMoveCharactor::Draw();
+
+	// デバッグフォント
+	CDebugproc::Print("座標 : %.2f,%.2f,%.2f", GetPos().x, GetPos().y, GetPos().z);
+	CDebugproc::Draw(0, 140);
 }
 //================================
 // 状態変更処理

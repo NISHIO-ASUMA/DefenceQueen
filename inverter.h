@@ -33,7 +33,7 @@ public:
 		SetNode(pChildnode);
 	}
 
-	~CInverter() {};
+	~CInverter() { delete m_ChildNode; m_ChildNode = nullptr; }
 
 	void Update() override
 	{

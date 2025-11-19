@@ -31,7 +31,7 @@ public:
 	CWaitLeaf(CBlackBoard* blackboard) : CLeafNodeBase(blackboard) 
 	{
 		m_fWaitTime = 60.0f;
-		m_fWaitCount = 120.0f;
+		m_fWaitCount = 60.0f;
 	}
 
 	~CWaitLeaf() = default;

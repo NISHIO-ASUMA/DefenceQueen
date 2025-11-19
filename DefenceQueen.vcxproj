@@ -168,6 +168,7 @@
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="collisionbox.cpp" />
     <ClCompile Include="collisionsphere.cpp" />
+    <ClCompile Include="enemybehaviortree.cpp" />
     <ClCompile Include="gimmickmanager.cpp" />
     <ClCompile Include="gimmicksuction.cpp" />
     <ClCompile Include="grass.cpp" />
@@ -277,6 +278,7 @@
     <ClInclude Include="collisionsphere.h" />
     <ClInclude Include="compositenodebase.h" />
     <ClInclude Include="decorator.h" />
+    <ClInclude Include="enemybehaviortree.h" />
     <ClInclude Include="gimmickmanager.h" />
     <ClInclude Include="gimmicksuction.h" />
     <ClInclude Include="grass.h" />
