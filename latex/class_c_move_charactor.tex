@@ -1,12 +1,12 @@
-\doxysection{CMove\+Charactor Class Reference}
+\doxysection{CMove\+Charactor クラス}
 \hypertarget{class_c_move_charactor}{}\label{class_c_move_charactor}\index{CMoveCharactor@{CMoveCharactor}}
-Inheritance diagram for CMove\+Charactor\+:\begin{figure}[H]
+CMove\+Charactor の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=3.000000cm]{class_c_move_charactor}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Types}
+\doxysubsubsection*{公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_move_charactor_a4af52925f03e0c12dc0b41dd70b7568e}\label{class_c_move_charactor_a4af52925f03e0c12dc0b41dd70b7568e} 
@@ -19,7 +19,7 @@ enum {\bfseries TYPE} \{ \newline
 {\bfseries TYPE\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
@@ -60,7 +60,7 @@ enum {\bfseries PRIORITY} \{ \newline
 {\bfseries PRIORITY\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_move_charactor_a59e4a727e70e552bdf5688a16fe16cfb}\label{class_c_move_charactor_a59e4a727e70e552bdf5688a16fe16cfb} 
@@ -124,7 +124,7 @@ D3\+DXVECTOR3 {\bfseries Get\+Rot\+Dest} (void) const
 \item 
 \mbox{\hyperlink{class_c_motion}{CMotion}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_c_move_charactor_a8755a475a19a7aadc021369cae951c72}{Get\+Motion}} (void)
 \begin{DoxyCompactList}\small\item\em ���\mbox{[}�\+V�����̃\texorpdfstring{$\vert$}{|}�\+C���\texorpdfstring{$^\wedge$}{\string^}��Ԃ� \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject} (int n\+Priority=NONE)
@@ -135,8 +135,17 @@ TYPE {\bfseries Get\+Obj\+Type} (void)
 \item 
 \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsubsection*{限定公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_move_charactor_a73482a6c03dd8c7253c9626603db8c67}\label{class_c_move_charactor_a73482a6c03dd8c7253c9626603db8c67} 
+\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*} {\bfseries m\+\_\+p\+Black\+Board} = nullptr
+\item 
+\Hypertarget{class_c_move_charactor_a0ddde945ab2be1d28bbb2b4476ddd31c}\label{class_c_move_charactor_a0ddde945ab2be1d28bbb2b4476ddd31c} 
+\mbox{\hyperlink{class_c_node}{CNode}} \texorpdfstring{$\ast$}{*} {\bfseries m\+\_\+p\+Behavior\+Tree} = nullptr
+\end{DoxyCompactItemize}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static void {\bfseries Release\+All} (void)
@@ -149,7 +158,7 @@ static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\b
 \item 
 static int {\bfseries Get\+Num\+All} (void)
 \end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 void {\bfseries Release} (void)
@@ -158,7 +167,7 @@ void {\bfseries Release} (void)
 
 \label{doc-func-members}
 \Hypertarget{class_c_move_charactor_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_move_charactor_a8064fef1ddc24bb44104866475a56cf0}\index{CMoveCharactor@{CMoveCharactor}!Draw@{Draw}}
 \index{Draw@{Draw}!CMoveCharactor@{CMoveCharactor}}
 \doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
@@ -167,7 +176,7 @@ void CMove\+Charactor\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{D
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_move_charactor_a8755a475a19a7aadc021369cae951c72}\index{CMoveCharactor@{CMoveCharactor}!GetMotion@{GetMotion}}
 \index{GetMotion@{GetMotion}!CMoveCharactor@{CMoveCharactor}}
@@ -179,7 +188,7 @@ Implements \mbox{\hyperlink{class_c_object}{CObject}}.
 
 ���\mbox{[}�\+V�����̃\texorpdfstring{$\vert$}{|}�\+C���\texorpdfstring{$^\wedge$}{\string^}��Ԃ� 
 
-\begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{戻り値}
 
 \end{DoxyReturn}
 \Hypertarget{class_c_move_charactor_aaa759acf797707dfdcbc8bc4b6e55be3}\index{CMoveCharactor@{CMoveCharactor}!Init@{Init}}
@@ -190,7 +199,7 @@ HRESULT CMove\+Charactor\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\en
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_move_charactor_ac64253be764df7391afaa40c6bb644c4}\index{CMoveCharactor@{CMoveCharactor}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CMoveCharactor@{CMoveCharactor}}
@@ -200,7 +209,7 @@ void CMove\+Charactor\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_move_charactor_a9767a5c0bb967a09bf4c237c51f3c0b9}\index{CMoveCharactor@{CMoveCharactor}!Update@{Update}}
 \index{Update@{Update}!CMoveCharactor@{CMoveCharactor}}
@@ -210,11 +219,11 @@ void CMove\+Charactor\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 movecharactor.\+h\item 
 movecharactor.\+cpp\end{DoxyCompactItemize}

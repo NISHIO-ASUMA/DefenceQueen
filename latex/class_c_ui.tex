@@ -1,12 +1,12 @@
-\doxysection{CUi Class Reference}
+\doxysection{CUi クラス}
 \hypertarget{class_c_ui}{}\label{class_c_ui}\index{CUi@{CUi}}
-Inheritance diagram for CUi\+:\begin{figure}[H]
+CUi の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=3.000000cm]{class_c_ui}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_ui_a3206eca6c8f9154902f36b9e00b12235}\label{class_c_ui_a3206eca6c8f9154902f36b9e00b12235} 
@@ -20,7 +20,7 @@ void \mbox{\hyperlink{class_c_ui_a2ae05fef5bf59e08f48d6e9031e477d1}{Update}} (vo
 \item 
 void \mbox{\hyperlink{class_c_ui_af6fb3001c36684a606a17123207a1b13}{Draw}} (void)
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object2_d}{CObject2D}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject2D} (int n\+Priority=static\+\_\+cast$<$ int $>$(CObject\+::\+PRIORITY\+::\+UI))
@@ -65,7 +65,7 @@ float {\bfseries Get\+Height} (void) const
 \item 
 int {\bfseries Get\+Draw\+Type} (void) const
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject} (int n\+Priority=NONE)
@@ -76,18 +76,18 @@ TYPE {\bfseries Get\+Obj\+Type} (void)
 \item 
 \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_ui_aaea518138013f0b2d76071aa48c4bab2}\label{class_c_ui_aaea518138013f0b2d76071aa48c4bab2} 
 static \mbox{\hyperlink{class_c_ui}{CUi}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (D3\+DXVECTOR3 pos, int n\+Flash\+Frame, float f\+Width, float f\+Height, const char \texorpdfstring{$\ast$}{*}Filename, bool is\+Use)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object2_d}{CObject2D}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static \mbox{\hyperlink{class_c_object2_d}{CObject2D}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (void)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static void {\bfseries Release\+All} (void)
@@ -100,8 +100,8 @@ static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\b
 \item 
 static int {\bfseries Get\+Num\+All} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object2_d}{CObject2D}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object2_d_a483a21d4e8003ebe21db4c85942c9403}\label{class_c_object2_d_a483a21d4e8003ebe21db4c85942c9403} 
@@ -120,7 +120,7 @@ enum {\bfseries DRAWTYPE} \{ {\bfseries DRAWTYPE\+\_\+\+NONE}
 , {\bfseries DRAWTYPE\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
@@ -161,7 +161,7 @@ enum {\bfseries PRIORITY} \{ \newline
 {\bfseries PRIORITY\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 void {\bfseries Release} (void)
@@ -170,7 +170,7 @@ void {\bfseries Release} (void)
 
 \label{doc-func-members}
 \Hypertarget{class_c_ui_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_ui_af6fb3001c36684a606a17123207a1b13}\index{CUi@{CUi}!Draw@{Draw}}
 \index{Draw@{Draw}!CUi@{CUi}}
 \doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
@@ -179,7 +179,7 @@ void CUi\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCapti
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}.
+\mbox{\hyperlink{class_c_object2_d}{CObject2D}}を再実装しています。
 
 \Hypertarget{class_c_ui_a3b5a964fbc7752fbf8f737d4962cd372}\index{CUi@{CUi}!Init@{Init}}
 \index{Init@{Init}!CUi@{CUi}}
@@ -189,7 +189,7 @@ HRESULT CUi\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCa
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}.
+\mbox{\hyperlink{class_c_object2_d}{CObject2D}}を再実装しています。
 
 \Hypertarget{class_c_ui_aaf37eb383911b1864e6a947bd43c8e42}\index{CUi@{CUi}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CUi@{CUi}}
@@ -199,7 +199,7 @@ void CUi\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCap
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}.
+\mbox{\hyperlink{class_c_object2_d}{CObject2D}}を再実装しています。
 
 \Hypertarget{class_c_ui_a2ae05fef5bf59e08f48d6e9031e477d1}\index{CUi@{CUi}!Update@{Update}}
 \index{Update@{Update}!CUi@{CUi}}
@@ -209,11 +209,11 @@ void CUi\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCap
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}.
+\mbox{\hyperlink{class_c_object2_d}{CObject2D}}を再実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 ui.\+h\item 
 ui.\+cpp\end{DoxyCompactItemize}

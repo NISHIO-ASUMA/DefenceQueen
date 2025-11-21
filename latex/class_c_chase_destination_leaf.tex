@@ -1,0 +1,78 @@
+\doxysection{CChase\+Destination\+Leaf クラス}
+\hypertarget{class_c_chase_destination_leaf}{}\label{class_c_chase_destination_leaf}\index{CChaseDestinationLeaf@{CChaseDestinationLeaf}}
+CChase\+Destination\+Leaf の継承関係図\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_c_chase_destination_leaf}
+\end{center}
+\end{figure}
+\doxysubsubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_chase_destination_leaf_ae396cd5b0bbbff97abd9cbf666d272ec}\label{class_c_chase_destination_leaf_ae396cd5b0bbbff97abd9cbf666d272ec} 
+{\bfseries CChase\+Destination\+Leaf} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard)
+\item 
+void \mbox{\hyperlink{class_c_chase_destination_leaf_a8d09eda621a571fdf2436712cd47c554}{Update}} () override
+\item 
+Node\+Info\+::\+Node\+Result \mbox{\hyperlink{class_c_chase_destination_leaf_a6b4c5d5c086c2b2577f61c959b385472}{get\+\_\+node\+\_\+result}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_c_node_base_a4323bee7fbdad9032c1c0e10b20a17ec}{set\+\_\+node\+\_\+id}} (const int id) override
+\end{DoxyCompactItemize}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_leaf_node_base}{CLeaf\+Node\+Base}} に属する継承限定公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries CLeaf\+Node\+Base} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard)
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承限定公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries CNode\+Base} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard)
+\item 
+virtual void \mbox{\hyperlink{class_c_node_base_aa5f2560825a7ffd75edc5aafe0c8177b}{Init}} () override
+\item 
+virtual void \mbox{\hyperlink{class_c_node_base_a379cbc1659cc963004d1097ebdaaeb33}{Exit}} () override
+\item 
+virtual int \mbox{\hyperlink{class_c_node_base_a244860c6b3acdc60d69fbef61e522b79}{get\+\_\+running\+\_\+node\+\_\+id}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承限定公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*} {\bfseries m\+\_\+p\+Black\+Board} = nullptr
+\item 
+Node\+Info\+::\+Node\+Result {\bfseries m\+\_\+\+Node\+Result} = Node\+Info\+::\+Node\+Result\+::\+Re\+\_\+\+IDLE
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_c_chase_destination_leaf_doc-func-members}
+\doxysubsection{関数詳解}
+\Hypertarget{class_c_chase_destination_leaf_a6b4c5d5c086c2b2577f61c959b385472}\index{CChaseDestinationLeaf@{CChaseDestinationLeaf}!get\_node\_result@{get\_node\_result}}
+\index{get\_node\_result@{get\_node\_result}!CChaseDestinationLeaf@{CChaseDestinationLeaf}}
+\doxysubsubsection{\texorpdfstring{get\_node\_result()}{get\_node\_result()}}
+{\footnotesize\ttfamily \label{class_c_chase_destination_leaf_a6b4c5d5c086c2b2577f61c959b385472} 
+Node\+Info\+::\+Node\+Result CChase\+Destination\+Leaf\+::get\+\_\+node\+\_\+result (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_c_node_base}{CNode\+Base}}を再実装しています。
+
+\Hypertarget{class_c_chase_destination_leaf_a8d09eda621a571fdf2436712cd47c554}\index{CChaseDestinationLeaf@{CChaseDestinationLeaf}!Update@{Update}}
+\index{Update@{Update}!CChaseDestinationLeaf@{CChaseDestinationLeaf}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_c_chase_destination_leaf_a8d09eda621a571fdf2436712cd47c554} 
+void CChase\+Destination\+Leaf\+::\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_c_node_base}{CNode\+Base}}を再実装しています。
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+chasedestination.\+h\item 
+chasedestination.\+cpp\end{DoxyCompactItemize}

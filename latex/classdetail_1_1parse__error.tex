@@ -1,4 +1,4 @@
-\doxysection{detail\+::parse\+\_\+error Class Reference}
+\doxysection{detail\+::parse\+\_\+error クラス}
 \hypertarget{classdetail_1_1parse__error}{}\label{classdetail_1_1parse__error}\index{detail::parse\_error@{detail::parse\_error}}
 
 
@@ -9,13 +9,13 @@ exception indicating a parse error
 
 {\ttfamily \#include $<$json.\+hpp$>$}
 
-Inheritance diagram for detail\+::parse\+\_\+error\+:\begin{figure}[H]
+detail\+::parse\+\_\+error の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=3.000000cm]{classdetail_1_1parse__error}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$typename Basic\+Json\+Context, enable\+\_\+if\+\_\+t$<$ \mbox{\hyperlink{structdetail_1_1is__basic__json__context}{is\+\_\+basic\+\_\+json\+\_\+context}}$<$ Basic\+Json\+Context $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}}, int $>$ = 0$>$ }\\static \mbox{\hyperlink{classdetail_1_1parse__error}{parse\+\_\+error}} \mbox{\hyperlink{classdetail_1_1parse__error_a07046ea9f33d28f120af188ed674d6df}{create}} (int id\+\_\+, const \mbox{\hyperlink{structdetail_1_1position__t}{position\+\_\+t}} \&pos, const std\+::string \&what\+\_\+arg, Basic\+Json\+Context context)
@@ -23,28 +23,28 @@ Inheritance diagram for detail\+::parse\+\_\+error\+:\begin{figure}[H]
 \Hypertarget{classdetail_1_1parse__error_a55b7ac869c65efd530fbf3dee18c5e9c}\label{classdetail_1_1parse__error_a55b7ac869c65efd530fbf3dee18c5e9c} 
 {\footnotesize template$<$typename Basic\+Json\+Context, enable\+\_\+if\+\_\+t$<$ \mbox{\hyperlink{structdetail_1_1is__basic__json__context}{is\+\_\+basic\+\_\+json\+\_\+context}}$<$ Basic\+Json\+Context $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}}, int $>$ = 0$>$ }\\static \mbox{\hyperlink{classdetail_1_1parse__error}{parse\+\_\+error}} {\bfseries create} (int id\+\_\+, std\+::size\+\_\+t byte\+\_\+, const std\+::string \&what\+\_\+arg, Basic\+Json\+Context context)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Attributes}
+\doxysubsubsection*{公開変数類}
 \begin{DoxyCompactItemize}
 \item 
 const std\+::size\+\_\+t \mbox{\hyperlink{classdetail_1_1parse__error_a5bce7d135aa3a38d1d3f4ed7bf8615e1}{byte}}
 \begin{DoxyCompactList}\small\item\em byte index of the parse error \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classdetail_1_1exception}{detail\+::exception}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{classdetail_1_1exception}{detail\+::exception}} に属する継承公開変数類}
 \begin{DoxyCompactItemize}
 \item 
 const int {\bfseries id}
 \begin{DoxyCompactList}\small\item\em the id of the exception \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classdetail_1_1exception}{detail\+::exception}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{classdetail_1_1exception}{detail\+::exception}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 const char \texorpdfstring{$\ast$}{*} {\bfseries what} () const noexcept override
 \begin{DoxyCompactList}\small\item\em returns the explanatory string \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classdetail_1_1exception}{detail\+::exception}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{classdetail_1_1exception}{detail\+::exception}} に属する継承限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries exception} (int id\+\_\+, const char \texorpdfstring{$\ast$}{*}what\+\_\+arg)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classdetail_1_1exception}{detail\+::exception}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{classdetail_1_1exception}{detail\+::exception}} に属する継承静的限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static std\+::string {\bfseries name} (const std\+::string \&ename, int id\+\_\+)
@@ -55,17 +55,17 @@ static std\+::string {\bfseries diagnostics} (std\+::nullptr\+\_\+t)
 \end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsection{詳解}
 exception indicating a parse error 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/parse_error/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/parse\+\_\+error/}} 
 \end{DoxySeeAlso}
 
 
 \label{doc-func-members}
 \Hypertarget{classdetail_1_1parse__error_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{classdetail_1_1parse__error_a07046ea9f33d28f120af188ed674d6df}\index{detail::parse\_error@{detail::parse\_error}!create@{create}}
 \index{create@{create}!detail::parse\_error@{detail::parse\_error}}
 \doxysubsubsection{\texorpdfstring{create()}{create()}}
@@ -78,7 +78,7 @@ template$<$typename Basic\+Json\+Context, enable\+\_\+if\+\_\+t$<$ \mbox{\hyperl
 create a parse error exception 
 
 
-\begin{DoxyParams}[1]{Parameters}
+\begin{DoxyParams}[1]{引数}
 \mbox{\texttt{in}}  & {\em id\+\_\+} & the id of the exception \\
 \hline
 \mbox{\texttt{in}}  & {\em pos} & the position where the error occurred (or with chars\+\_\+read\+\_\+total=0 if the position cannot be determined) \\
@@ -86,14 +86,14 @@ create a parse error exception
 \mbox{\texttt{in}}  & {\em what\+\_\+arg} & the explanatory string \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{戻り値}
 \doxylink{classdetail_1_1parse__error}{parse\+\_\+error} object 
 \end{DoxyReturn}
 
 
 \label{doc-variable-members}
 \Hypertarget{classdetail_1_1parse__error_doc-variable-members}
-\doxysubsection{Member Data Documentation}
+\doxysubsection{メンバ詳解}
 \Hypertarget{classdetail_1_1parse__error_a5bce7d135aa3a38d1d3f4ed7bf8615e1}\index{detail::parse\_error@{detail::parse\_error}!byte@{byte}}
 \index{byte@{byte}!detail::parse\_error@{detail::parse\_error}}
 \doxysubsubsection{\texorpdfstring{byte}{byte}}
@@ -106,11 +106,11 @@ byte index of the parse error
 
 The byte index of the last read character in the input file.
 
-\begin{DoxyNote}{Note}
+\begin{DoxyNote}{覚え書き}
 For an input with n bytes, 1 is the index of the first character and n+1 is the index of the terminating null byte or the end of file. This also holds true when reading a byte vector (CBOR or Message\+Pack). 
 \end{DoxyNote}
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 json.\+hpp\end{DoxyCompactItemize}

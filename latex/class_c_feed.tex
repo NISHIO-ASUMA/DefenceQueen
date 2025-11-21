@@ -1,12 +1,12 @@
-\doxysection{CFeed Class Reference}
+\doxysection{CFeed クラス}
 \hypertarget{class_c_feed}{}\label{class_c_feed}\index{CFeed@{CFeed}}
-Inheritance diagram for CFeed\+:\begin{figure}[H]
+CFeed の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=3.000000cm]{class_c_feed}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_feed_abe8faea806e28d01e7fe7057abcbf646}\label{class_c_feed_abe8faea806e28d01e7fe7057abcbf646} 
@@ -23,10 +23,19 @@ void \mbox{\hyperlink{class_c_feed_a466d340c670901a8ea073c7e89c717df}{Draw}} (vo
 \Hypertarget{class_c_feed_adce23afae2dc0788a5c2283f74cb9769}\label{class_c_feed_adce23afae2dc0788a5c2283f74cb9769} 
 void {\bfseries Dec\+Life} (const int n\+Dec\+Value)
 \item 
+\Hypertarget{class_c_feed_a98f060234eb8b01e940b0d41df5f96bf}\label{class_c_feed_a98f060234eb8b01e940b0d41df5f96bf} 
+void {\bfseries Set\+Radius} (const float f\+Radius)
+\item 
+\Hypertarget{class_c_feed_a0c62c80c56d248c537016025fdb461b2}\label{class_c_feed_a0c62c80c56d248c537016025fdb461b2} 
+bool {\bfseries Collision} (\mbox{\hyperlink{class_c_sphere_collider}{CSphere\+Collider}} \texorpdfstring{$\ast$}{*}other)
+\item 
+\Hypertarget{class_c_feed_ab1d15ef5e5e134b148f40130c2472fbf}\label{class_c_feed_ab1d15ef5e5e134b148f40130c2472fbf} 
+float {\bfseries Get\+Radius} (void) const
+\item 
 \Hypertarget{class_c_feed_aa692579e0a4e41b55cf5c3b8af7106aa}\label{class_c_feed_aa692579e0a4e41b55cf5c3b8af7106aa} 
 \mbox{\hyperlink{class_c_sphere_collider}{CSphere\+Collider}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Collider} (void) const
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object_x}{CObjectX}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object_x}{CObjectX}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObjectX} (int n\+Priority=static\+\_\+cast$<$ int $>$(CObject\+::\+PRIORITY\+::\+MODELOBJECT))
@@ -63,7 +72,7 @@ D3\+DXMATRIX {\bfseries Get\+Mtx\+World} (void)
 \item 
 int {\bfseries Get\+Model\+Idx} (void) const
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject} (int n\+Priority=NONE)
@@ -74,18 +83,18 @@ TYPE {\bfseries Get\+Obj\+Type} (void)
 \item 
 \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{class_c_feed_a94e48bb92a2143c9a12c116e4cd3dc54}\label{class_c_feed_a94e48bb92a2143c9a12c116e4cd3dc54} 
-static \mbox{\hyperlink{class_c_feed}{CFeed}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (D3\+DXVECTOR3 pos, D3\+DXVECTOR3 rot, D3\+DXVECTOR3 scale, const char \texorpdfstring{$\ast$}{*}p\+Model\+Name)
+\Hypertarget{class_c_feed_a1aea98ca8a02fc9c20db3271b99452c7}\label{class_c_feed_a1aea98ca8a02fc9c20db3271b99452c7} 
+static \mbox{\hyperlink{class_c_feed}{CFeed}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (D3\+DXVECTOR3 pos, D3\+DXVECTOR3 rot, D3\+DXVECTOR3 scale, const char \texorpdfstring{$\ast$}{*}p\+Model\+Name, const float f\+Radius)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object_x}{CObjectX}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object_x}{CObjectX}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{class_c_object_x}{CObjectX}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (int n\+Idx, D3\+DXVECTOR3 pos)
+static \mbox{\hyperlink{class_c_object_x}{CObjectX}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (const char \texorpdfstring{$\ast$}{*}p\+Model\+Name, D3\+DXVECTOR3 pos)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static void {\bfseries Release\+All} (void)
@@ -98,8 +107,8 @@ static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\b
 \item 
 static int {\bfseries Get\+Num\+All} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
@@ -140,7 +149,7 @@ enum {\bfseries PRIORITY} \{ \newline
 {\bfseries PRIORITY\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 void {\bfseries Release} (void)
@@ -149,7 +158,7 @@ void {\bfseries Release} (void)
 
 \label{doc-func-members}
 \Hypertarget{class_c_feed_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_feed_a466d340c670901a8ea073c7e89c717df}\index{CFeed@{CFeed}!Draw@{Draw}}
 \index{Draw@{Draw}!CFeed@{CFeed}}
 \doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
@@ -158,7 +167,7 @@ void CFeed\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCap
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_feed_a92168e15f2a9ca64794d485c2c697d11}\index{CFeed@{CFeed}!Init@{Init}}
 \index{Init@{Init}!CFeed@{CFeed}}
@@ -168,7 +177,7 @@ HRESULT CFeed\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParam
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_feed_afd184bb5f437f7081380bfa97db69629}\index{CFeed@{CFeed}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CFeed@{CFeed}}
@@ -178,7 +187,7 @@ void CFeed\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamC
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_feed_a7deed6fdded6a3339dd74c2c1fac72eb}\index{CFeed@{CFeed}!Update@{Update}}
 \index{Update@{Update}!CFeed@{CFeed}}
@@ -188,11 +197,11 @@ void CFeed\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamC
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 feed.\+h\item 
 feed.\+cpp\end{DoxyCompactItemize}

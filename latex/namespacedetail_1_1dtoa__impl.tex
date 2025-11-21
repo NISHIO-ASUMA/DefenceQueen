@@ -1,11 +1,11 @@
-\doxysection{detail\+::dtoa\+\_\+impl Namespace Reference}
+\doxysection{detail\+::dtoa\+\_\+impl 名前空間}
 \hypertarget{namespacedetail_1_1dtoa__impl}{}\label{namespacedetail_1_1dtoa__impl}\index{detail::dtoa\_impl@{detail::dtoa\_impl}}
 
 
 implements the Grisu2 algorithm for binary to decimal floating-\/point conversion.  
 
 
-\doxysubsubsection*{Classes}
+\doxysubsubsection*{クラス}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1boundaries}{boundaries}}
@@ -14,7 +14,7 @@ struct \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1cached__power}{cached\+\_\
 \item 
 struct \mbox{\hyperlink{structdetail_1_1dtoa__impl_1_1diyfp}{diyfp}}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Functions}
+\doxysubsubsection*{関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{namespacedetail_1_1dtoa__impl_a3c879bf97b806cacbcbb2da07a5ff5c8}\label{namespacedetail_1_1dtoa__impl_a3c879bf97b806cacbcbb2da07a5ff5c8} 
@@ -39,7 +39,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+RETURNS\+\_\+\+NON\+\_\+\+NULL char \texorpdfstring{$\
 \begin{DoxyCompactList}\small\item\em appends a decimal representation of e to buf \end{DoxyCompactList}\item 
 JSON\+\_\+\+HEDLEY\+\_\+\+RETURNS\+\_\+\+NON\+\_\+\+NULL char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacedetail_1_1dtoa__impl_afab91abfdd1cdf43cc2fcd5b9c4a7456}{format\+\_\+buffer}} (char \texorpdfstring{$\ast$}{*}buf, int len, int decimal\+\_\+exponent, int min\+\_\+exp, int max\+\_\+exp)
 \begin{DoxyCompactList}\small\item\em prettify v = buf \texorpdfstring{$\ast$}{*} 10\texorpdfstring{$^\wedge$}{\string^}decimal\+\_\+exponent \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Variables}
+\doxysubsubsection*{変数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{namespacedetail_1_1dtoa__impl_a95c569b7627a9372686f1f77d73e8660}\label{namespacedetail_1_1dtoa__impl_a95c569b7627a9372686f1f77d73e8660} 
@@ -50,7 +50,7 @@ constexpr int {\bfseries k\+Gamma} = -\/32
 \end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsection{詳解}
 implements the Grisu2 algorithm for binary to decimal floating-\/point conversion. 
 
 This implementation is a slightly modified version of the reference implementation which may be obtained from \href{http://florian.loitsch.com/publications}{\texttt{http\+://florian.\+loitsch.\+com/publications}} (bench.\+tar.\+gz).
@@ -63,7 +63,7 @@ For a detailed description of the algorithm see\+:
 
 \label{doc-func-members}
 \Hypertarget{namespacedetail_1_1dtoa__impl_doc-func-members}
-\doxysubsection{Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{namespacedetail_1_1dtoa__impl_aec9f6655c3b629aeb0e8c887aea5da87}\index{detail::dtoa\_impl@{detail::dtoa\_impl}!append\_exponent@{append\_exponent}}
 \index{append\_exponent@{append\_exponent}!detail::dtoa\_impl@{detail::dtoa\_impl}}
 \doxysubsubsection{\texorpdfstring{append\_exponent()}{append\_exponent()}}
@@ -74,10 +74,10 @@ JSON\+\_\+\+HEDLEY\+\_\+\+RETURNS\+\_\+\+NON\+\_\+\+NULL char \texorpdfstring{$\
 
 appends a decimal representation of e to buf 
 
-\begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{戻り値}
 a pointer to the element following the exponent. 
 \end{DoxyReturn}
-\begin{DoxyPrecond}{Precondition}
+\begin{DoxyPrecond}{事前条件}
 -\/1000 \texorpdfstring{$<$}{<} e \texorpdfstring{$<$}{<} 1000 
 \end{DoxyPrecond}
 \Hypertarget{namespacedetail_1_1dtoa__impl_a6a5ccf11847aab7a0f42f587b33935df}\index{detail::dtoa\_impl@{detail::dtoa\_impl}!compute\_boundaries@{compute\_boundaries}}
@@ -89,7 +89,7 @@ template$<$typename Float\+Type$>$ \\
 
 Compute the (normalized) diyfp representing the input number \textquotesingle{}value\textquotesingle{} and its boundaries.
 
-\begin{DoxyPrecond}{Precondition}
+\begin{DoxyPrecond}{事前条件}
 value must be finite and positive 
 \end{DoxyPrecond}
 \Hypertarget{namespacedetail_1_1dtoa__impl_a04eb234a28617519974fc962cd4da666}\index{detail::dtoa\_impl@{detail::dtoa\_impl}!find\_largest\_pow10@{find\_largest\_pow10}}
@@ -110,7 +110,7 @@ prettify v = buf \texorpdfstring{$\ast$}{*} 10\texorpdfstring{$^\wedge$}{\string
 
 If v is in the range \mbox{[}10\texorpdfstring{$^\wedge$}{\string^}min\+\_\+exp, 10\texorpdfstring{$^\wedge$}{\string^}max\+\_\+exp) it will be printed in fixed-\/point notation. Otherwise it will be printed in exponential notation.
 
-\begin{DoxyPrecond}{Precondition}
+\begin{DoxyPrecond}{事前条件}
 min\+\_\+exp \texorpdfstring{$<$}{<} 0 
 
 max\+\_\+exp \texorpdfstring{$>$}{>} 0 

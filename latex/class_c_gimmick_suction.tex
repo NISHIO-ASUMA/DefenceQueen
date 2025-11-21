@@ -1,12 +1,12 @@
-\doxysection{CGimmick\+Suction Class Reference}
+\doxysection{CGimmick\+Suction クラス}
 \hypertarget{class_c_gimmick_suction}{}\label{class_c_gimmick_suction}\index{CGimmickSuction@{CGimmickSuction}}
-Inheritance diagram for CGimmick\+Suction\+:\begin{figure}[H]
+CGimmick\+Suction の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=3.000000cm]{class_c_gimmick_suction}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_gimmick_suction_ac328ca81c1efe0598b29e215e2c2c9a6}\label{class_c_gimmick_suction_ac328ca81c1efe0598b29e215e2c2c9a6} 
@@ -32,7 +32,7 @@ int {\bfseries Get\+Ative\+Time} (void) const
 \Hypertarget{class_c_gimmick_suction_ac2da6d00cdf14a38074d58258f6062f0}\label{class_c_gimmick_suction_ac2da6d00cdf14a38074d58258f6062f0} 
 float {\bfseries Get\+Radius} (void) const
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object_x}{CObjectX}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object_x}{CObjectX}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObjectX} (int n\+Priority=static\+\_\+cast$<$ int $>$(CObject\+::\+PRIORITY\+::\+MODELOBJECT))
@@ -69,7 +69,7 @@ D3\+DXMATRIX {\bfseries Get\+Mtx\+World} (void)
 \item 
 int {\bfseries Get\+Model\+Idx} (void) const
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject} (int n\+Priority=NONE)
@@ -80,18 +80,18 @@ TYPE {\bfseries Get\+Obj\+Type} (void)
 \item 
 \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_gimmick_suction_a9d3e00c79b536eb194afcf7e625f48dd}\label{class_c_gimmick_suction_a9d3e00c79b536eb194afcf7e625f48dd} 
 static \mbox{\hyperlink{class_c_gimmick_suction}{CGimmick\+Suction}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (const D3\+DXVECTOR3 pos, const D3\+DXVECTOR3 rot, const char \texorpdfstring{$\ast$}{*}p\+Model\+Name, const int n\+Active\+Time, const float f\+Radius)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object_x}{CObjectX}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object_x}{CObjectX}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{class_c_object_x}{CObjectX}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (int n\+Idx, D3\+DXVECTOR3 pos)
+static \mbox{\hyperlink{class_c_object_x}{CObjectX}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (const char \texorpdfstring{$\ast$}{*}p\+Model\+Name, D3\+DXVECTOR3 pos)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static void {\bfseries Release\+All} (void)
@@ -104,8 +104,8 @@ static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\b
 \item 
 static int {\bfseries Get\+Num\+All} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
@@ -146,7 +146,7 @@ enum {\bfseries PRIORITY} \{ \newline
 {\bfseries PRIORITY\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 void {\bfseries Release} (void)
@@ -155,7 +155,7 @@ void {\bfseries Release} (void)
 
 \label{doc-func-members}
 \Hypertarget{class_c_gimmick_suction_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_gimmick_suction_a744eeca41ae0095666c4c83a535d989c}\index{CGimmickSuction@{CGimmickSuction}!Draw@{Draw}}
 \index{Draw@{Draw}!CGimmickSuction@{CGimmickSuction}}
 \doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
@@ -164,7 +164,7 @@ void CGimmick\+Suction\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_gimmick_suction_a7e4a8c83d9aa4ea27d6448152b7a65f8}\index{CGimmickSuction@{CGimmickSuction}!Init@{Init}}
 \index{Init@{Init}!CGimmickSuction@{CGimmickSuction}}
@@ -174,7 +174,7 @@ HRESULT CGimmick\+Suction\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\e
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_gimmick_suction_a7af603ddefdfdeb3ff63535d7c9813f1}\index{CGimmickSuction@{CGimmickSuction}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CGimmickSuction@{CGimmickSuction}}
@@ -184,7 +184,7 @@ void CGimmick\+Suction\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\en
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_gimmick_suction_a8b35440e3a2595a212bfb0fc90a01c75}\index{CGimmickSuction@{CGimmickSuction}!Update@{Update}}
 \index{Update@{Update}!CGimmickSuction@{CGimmickSuction}}
@@ -194,11 +194,11 @@ void CGimmick\+Suction\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\en
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 gimmicksuction.\+h\item 
 gimmicksuction.\+cpp\end{DoxyCompactItemize}

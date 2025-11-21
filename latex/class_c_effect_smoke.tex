@@ -1,12 +1,12 @@
-\doxysection{CEffect\+Smoke Class Reference}
+\doxysection{CEffect\+Smoke クラス}
 \hypertarget{class_c_effect_smoke}{}\label{class_c_effect_smoke}\index{CEffectSmoke@{CEffectSmoke}}
-Inheritance diagram for CEffect\+Smoke\+:\begin{figure}[H]
+CEffect\+Smoke の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=3.000000cm]{class_c_effect_smoke}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_effect_smoke_a499d865911118a8a9b478e8e1ff20344}\label{class_c_effect_smoke_a499d865911118a8a9b478e8e1ff20344} 
@@ -20,7 +20,7 @@ void \mbox{\hyperlink{class_c_effect_smoke_a4b36ce735caf4062a3b5dce3579d7df5}{Up
 \item 
 void \mbox{\hyperlink{class_c_effect_smoke_abb9dbbd995c81a292d38dff33899cff2}{Draw}} (void)
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_billboard}{CBillboard}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_billboard}{CBillboard}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CBillboard} (int n\+Priority=static\+\_\+cast$<$ int $>$(CObject\+::\+PRIORITY\+::\+BILLBOARD))
@@ -53,7 +53,7 @@ float {\bfseries Get\+Width} (void)
 \item 
 float {\bfseries Get\+Height} (void)
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject} (int n\+Priority=NONE)
@@ -64,18 +64,18 @@ TYPE {\bfseries Get\+Obj\+Type} (void)
 \item 
 \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_effect_smoke_a8be601d8fa5595bde200f483fccc29c7}\label{class_c_effect_smoke_a8be601d8fa5595bde200f483fccc29c7} 
 static \mbox{\hyperlink{class_c_effect_smoke}{CEffect\+Smoke}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (D3\+DXVECTOR3 pos, D3\+DXCOLOR col, D3\+DXVECTOR3 move, int n\+Life, float f\+Radius)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_billboard}{CBillboard}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_billboard}{CBillboard}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static \mbox{\hyperlink{class_c_billboard}{CBillboard}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (D3\+DXVECTOR3 pos, D3\+DXVECTOR3 rot, float f\+Width, float f\+Height, const char \texorpdfstring{$\ast$}{*}p\+Tex\+Name)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static void {\bfseries Release\+All} (void)
@@ -88,8 +88,8 @@ static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\b
 \item 
 static int {\bfseries Get\+Num\+All} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
@@ -130,7 +130,7 @@ enum {\bfseries PRIORITY} \{ \newline
 {\bfseries PRIORITY\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 void {\bfseries Release} (void)
@@ -139,7 +139,7 @@ void {\bfseries Release} (void)
 
 \label{doc-func-members}
 \Hypertarget{class_c_effect_smoke_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_effect_smoke_abb9dbbd995c81a292d38dff33899cff2}\index{CEffectSmoke@{CEffectSmoke}!Draw@{Draw}}
 \index{Draw@{Draw}!CEffectSmoke@{CEffectSmoke}}
 \doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
@@ -148,7 +148,7 @@ void CEffect\+Smoke\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Dox
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_billboard}{CBillboard}}.
+\mbox{\hyperlink{class_c_billboard}{CBillboard}}を再実装しています。
 
 \Hypertarget{class_c_effect_smoke_ad3104c5b452c7062d8b29f4e6b8fa23b}\index{CEffectSmoke@{CEffectSmoke}!Init@{Init}}
 \index{Init@{Init}!CEffectSmoke@{CEffectSmoke}}
@@ -158,7 +158,7 @@ HRESULT CEffect\+Smoke\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_billboard}{CBillboard}}.
+\mbox{\hyperlink{class_c_billboard}{CBillboard}}を再実装しています。
 
 \Hypertarget{class_c_effect_smoke_ae6e8b06516ed7e67dee80c2b4a59392d}\index{CEffectSmoke@{CEffectSmoke}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CEffectSmoke@{CEffectSmoke}}
@@ -168,7 +168,7 @@ void CEffect\+Smoke\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{D
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_billboard}{CBillboard}}.
+\mbox{\hyperlink{class_c_billboard}{CBillboard}}を再実装しています。
 
 \Hypertarget{class_c_effect_smoke_a4b36ce735caf4062a3b5dce3579d7df5}\index{CEffectSmoke@{CEffectSmoke}!Update@{Update}}
 \index{Update@{Update}!CEffectSmoke@{CEffectSmoke}}
@@ -178,11 +178,11 @@ void CEffect\+Smoke\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{D
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_billboard}{CBillboard}}.
+\mbox{\hyperlink{class_c_billboard}{CBillboard}}を再実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 effectsmoke.\+h\item 
 effectsmoke.\+cpp\end{DoxyCompactItemize}

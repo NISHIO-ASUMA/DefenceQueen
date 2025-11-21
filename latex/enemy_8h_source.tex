@@ -1,66 +1,66 @@
 \doxysection{enemy.\+h}
 \hypertarget{enemy_8h_source}{}\label{enemy_8h_source}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{comment}{//=====================================}}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=========================================================}}
 \DoxyCodeLine{00002\ \textcolor{comment}{//}}
 \DoxyCodeLine{00003\ \textcolor{comment}{//\ 敵の処理\ [\ enemy.h\ ]}}
 \DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
 \DoxyCodeLine{00005\ \textcolor{comment}{//}}
-\DoxyCodeLine{00006\ \textcolor{comment}{//=====================================}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=========================================================}}
 \DoxyCodeLine{00007\ }
-\DoxyCodeLine{00008\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
-\DoxyCodeLine{00010\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル}}
-\DoxyCodeLine{00015\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}model.h"{}}}
 \DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}motion.h"{}}}
 \DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}movecharactor.h"{}}}
 \DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <memory>}}
 \DoxyCodeLine{00020\ }
-\DoxyCodeLine{00021\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00022\ \textcolor{comment}{//\ 前方宣言}}
-\DoxyCodeLine{00023\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_parameter}{CParameter}};}
 \DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_shadow_s}{CShadowS}};}
 \DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_state_machine}{CStateMachine}};}
 \DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_enemy_state_base}{CEnemyStateBase}};}
 \DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}};}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \textcolor{comment}{//**********************}}
-\DoxyCodeLine{00031\ \textcolor{comment}{//\ 敵クラスを定義}}
-\DoxyCodeLine{00032\ \textcolor{comment}{//**********************}}
-\DoxyCodeLine{00033\ \textcolor{keyword}{class\ }CEnemy\ :\ \textcolor{keyword}{public}\ CMoveCharactor}
-\DoxyCodeLine{00034\ \{}
-\DoxyCodeLine{00035\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//***********************************}}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{//\ 敵モーション列挙圭string^}}
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//***********************************}}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{enum}\ MOTION}
-\DoxyCodeLine{00041\ \ \ \ \ \{}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ MOTION\_NEUTRAL,\ \textcolor{comment}{//\ ニュートラル}}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ MOTION\_MOVE,\ \ \ \ \textcolor{comment}{//\ 移動}}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ MOTION\_ACTION,\ \ \textcolor{comment}{//\ アクション}}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ MOTION\_DAMAGE,\ \ \textcolor{comment}{//\ ソ_メージ}}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ MOTION\_MAX}
-\DoxyCodeLine{00047\ \ \ \ \ \};}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ CEnemy(\textcolor{keywordtype}{int}\ nPriority\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(CObject::PRIORITY::CHARACTOR));}
-\DoxyCodeLine{00050\ \ \ \ \ \string~CEnemy();}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00052\ \ \ \ \ HRESULT\ Init(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ Draw(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ ChangeState(\mbox{\hyperlink{class_c_enemy_state_base}{CEnemyStateBase}}*\ pNewState,\ \textcolor{keywordtype}{int}\ Id);}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{bool}\ Collision(\mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}}*\ pOther);}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{class_c_parameter}{CParameter}}*\ GetParameter(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_pParameter.get();\ \}}
-\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{class_c_state_machine}{CStateMachine}}*\ GetStateMachine()\ \{\ \textcolor{keywordflow}{return}\ m\_pStateMachine.get();\ \}}
+\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_select_point}{CSelectPoint}};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ 敵クラスを定義}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00034\ \textcolor{keyword}{class\ }CEnemy\ :\ \textcolor{keyword}{public}\ CMoveCharactor}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00036\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{//***********************************}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//\ 敵モーション列挙圭string^}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//***********************************}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{enum}\ MOTION}
+\DoxyCodeLine{00042\ \ \ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ MOTION\_NEUTRAL,\ \textcolor{comment}{//\ ニュートラル}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ MOTION\_MOVE,\ \ \ \ \textcolor{comment}{//\ 移動}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ MOTION\_MAX}
+\DoxyCodeLine{00046\ \ \ \ \ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ CEnemy(\textcolor{keywordtype}{int}\ nPriority\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(CObject::PRIORITY::CHARACTOR));}
+\DoxyCodeLine{00049\ \ \ \ \ \string~CEnemy();}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ HRESULT\ Init(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ Draw(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ ChangeState(\mbox{\hyperlink{class_c_enemy_state_base}{CEnemyStateBase}}*\ pNewState,\ \textcolor{keywordtype}{int}\ Id);}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{bool}\ Collision(\mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}}*\ pOther);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{class_c_parameter}{CParameter}}*\ GetParameter(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_pParameter.get();\ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{class_c_state_machine}{CStateMachine}}*\ GetStateMachine()\ \{\ \textcolor{keywordflow}{return}\ m\_pStateMachine.get();\ \}}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ NodeSetting(\textcolor{keywordtype}{void});}
 \DoxyCodeLine{00061\ }
 \DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{static}\ CEnemy*\ Create(D3DXVECTOR3\ pos,\ D3DXVECTOR3\ rot,\textcolor{keywordtype}{int}\ nLife);}
 \DoxyCodeLine{00063\ }
@@ -68,8 +68,9 @@
 \DoxyCodeLine{00065\ }
 \DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{class_c_motion}{CMotion}}\ *\ m\_pMotion;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ モーションクラス}}
 \DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}}*\ m\_pSphereCollider;\ \textcolor{comment}{//\ 球形コライソ_ー}}
-\DoxyCodeLine{00068\ \ \ \ \ std::unique\_ptr\ <CParameter>m\_pParameter;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ パラメーソstring^クラス}}
-\DoxyCodeLine{00069\ \ \ \ \ std::unique\_ptr<CStateMachine>m\_pStateMachine;\ \ \ \textcolor{comment}{//\ ステート基底クラスのポインソstring^}}
-\DoxyCodeLine{00070\ \};}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{class_c_select_point}{CSelectPoint}}*\ m\_pSelect;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 判定の受け皿ポインソstring^}}
+\DoxyCodeLine{00069\ \ \ \ \ std::unique\_ptr\ <CParameter>m\_pParameter;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ パラメーソstring^クラス}}
+\DoxyCodeLine{00070\ \ \ \ \ std::unique\_ptr<CStateMachine>m\_pStateMachine;\ \ \ \textcolor{comment}{//\ ステート基底クラスのポインソstring^}}
+\DoxyCodeLine{00071\ \};}
 
 \end{DoxyCode}

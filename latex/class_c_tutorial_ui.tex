@@ -1,12 +1,12 @@
-\doxysection{CTutorial\+Ui Class Reference}
+\doxysection{CTutorial\+Ui クラス}
 \hypertarget{class_c_tutorial_ui}{}\label{class_c_tutorial_ui}\index{CTutorialUi@{CTutorialUi}}
-Inheritance diagram for CTutorial\+Ui\+:\begin{figure}[H]
+CTutorial\+Ui の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=3.000000cm]{class_c_tutorial_ui}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_tutorial_ui_a6758a403dc426975b22bdd8d51c60a4a}\label{class_c_tutorial_ui_a6758a403dc426975b22bdd8d51c60a4a} 
@@ -26,7 +26,7 @@ void {\bfseries Set\+State} (int n\+State)
 \Hypertarget{class_c_tutorial_ui_a6bc0d587c24918aa9b7aa4d6c625ca7f}\label{class_c_tutorial_ui_a6bc0d587c24918aa9b7aa4d6c625ca7f} 
 bool {\bfseries Is\+Finished} () const
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object2_d}{CObject2D}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject2D} (int n\+Priority=static\+\_\+cast$<$ int $>$(CObject\+::\+PRIORITY\+::\+UI))
@@ -71,7 +71,7 @@ float {\bfseries Get\+Height} (void) const
 \item 
 int {\bfseries Get\+Draw\+Type} (void) const
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject} (int n\+Priority=NONE)
@@ -82,18 +82,18 @@ TYPE {\bfseries Get\+Obj\+Type} (void)
 \item 
 \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_tutorial_ui_ac3bdfb62fd14cbd1e27ce8edf5a1212f}\label{class_c_tutorial_ui_ac3bdfb62fd14cbd1e27ce8edf5a1212f} 
 static \mbox{\hyperlink{class_c_tutorial_ui}{CTutorial\+Ui}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (D3\+DXVECTOR3 pos, float f\+Width, float f\+Height, const char \texorpdfstring{$\ast$}{*}p\+File\+Name, int n\+State)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object2_d}{CObject2D}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static \mbox{\hyperlink{class_c_object2_d}{CObject2D}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (void)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static void {\bfseries Release\+All} (void)
@@ -106,8 +106,8 @@ static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\b
 \item 
 static int {\bfseries Get\+Num\+All} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object2_d}{CObject2D}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object2_d_a483a21d4e8003ebe21db4c85942c9403}\label{class_c_object2_d_a483a21d4e8003ebe21db4c85942c9403} 
@@ -126,7 +126,7 @@ enum {\bfseries DRAWTYPE} \{ {\bfseries DRAWTYPE\+\_\+\+NONE}
 , {\bfseries DRAWTYPE\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
@@ -167,7 +167,7 @@ enum {\bfseries PRIORITY} \{ \newline
 {\bfseries PRIORITY\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 void {\bfseries Release} (void)
@@ -176,7 +176,7 @@ void {\bfseries Release} (void)
 
 \label{doc-func-members}
 \Hypertarget{class_c_tutorial_ui_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_tutorial_ui_a84f59e3d113fca1ab6ebb8bd75446146}\index{CTutorialUi@{CTutorialUi}!Draw@{Draw}}
 \index{Draw@{Draw}!CTutorialUi@{CTutorialUi}}
 \doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
@@ -185,7 +185,7 @@ void CTutorial\+Ui\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Doxy
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}.
+\mbox{\hyperlink{class_c_object2_d}{CObject2D}}を再実装しています。
 
 \Hypertarget{class_c_tutorial_ui_a677e99fd0341c6b575d19f795c136fca}\index{CTutorialUi@{CTutorialUi}!Init@{Init}}
 \index{Init@{Init}!CTutorialUi@{CTutorialUi}}
@@ -195,7 +195,7 @@ HRESULT CTutorial\+Ui\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{D
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}.
+\mbox{\hyperlink{class_c_object2_d}{CObject2D}}を再実装しています。
 
 \Hypertarget{class_c_tutorial_ui_ad2ccc96e0e1341d78928b9b5d676583b}\index{CTutorialUi@{CTutorialUi}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CTutorialUi@{CTutorialUi}}
@@ -205,7 +205,7 @@ void CTutorial\+Ui\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Do
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}.
+\mbox{\hyperlink{class_c_object2_d}{CObject2D}}を再実装しています。
 
 \Hypertarget{class_c_tutorial_ui_a771682446d63df4b1af9236bf3a97722}\index{CTutorialUi@{CTutorialUi}!Update@{Update}}
 \index{Update@{Update}!CTutorialUi@{CTutorialUi}}
@@ -215,11 +215,11 @@ void CTutorial\+Ui\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Do
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}.
+\mbox{\hyperlink{class_c_object2_d}{CObject2D}}を再実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 tutorialui.\+h\item 
 tutorialui.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,42 @@
+\doxysection{checkneardestination.\+h}
+\hypertarget{checkneardestination_8h_source}{}\label{checkneardestination_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//======================================================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ 追跡対象が近くにいるかを判別するノード処理\ [\ checkneardestination.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//======================================================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//**********************************************************************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//**********************************************************************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//**********************************************************************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//**********************************************************************}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}branchnodebase.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//**********************************************************************}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ 前方宣言}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//**********************************************************************}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_black_board}{CBlackBoard}};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//**********************************************************************}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ 対象オブジェクトが近くにあるか判定をするクラスを定義}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//**********************************************************************}}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }CCheckNearDestination\ :\ \textcolor{keyword}{public}\ CBranchNodeBase}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ CCheckNearDestination(\mbox{\hyperlink{class_c_black_board}{CBlackBoard}}\ *\ blackboard,CNode\ *\ TrueNode,CNode\ *\ FalseNode,\textcolor{keywordtype}{float}\ fDistance);}
+\DoxyCodeLine{00031\ \ \ \ \ \string~CCheckNearDestination()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ IsCondition()\ \textcolor{keyword}{override};\ \textcolor{comment}{//\ 判別関数}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{float}\ m\_fDistance\ =\ NULL;\ \textcolor{comment}{//\ 距離判別用}}
+\DoxyCodeLine{00037\ \};}
+
+\end{DoxyCode}

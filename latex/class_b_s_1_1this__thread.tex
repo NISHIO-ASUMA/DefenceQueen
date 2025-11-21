@@ -1,4 +1,4 @@
-\doxysection{BS\+::this\+\_\+thread Class Reference}
+\doxysection{BS\+::this\+\_\+thread クラス}
 \hypertarget{class_b_s_1_1this__thread}{}\label{class_b_s_1_1this__thread}\index{BS::this\_thread@{BS::this\_thread}}
 
 
@@ -9,14 +9,14 @@ A class used to obtain information about the current thread and, if native exten
 
 {\ttfamily \#include $<$BS\+\_\+thread\+\_\+pool.\+hpp$>$}
 
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static std\+::optional$<$ std\+::size\+\_\+t $>$ \mbox{\hyperlink{class_b_s_1_1this__thread_adcd22aa3e1c590ee90bcfcf868c553cc}{get\+\_\+index}} () noexcept
 \begin{DoxyCompactList}\small\item\em Get the index of the current thread. If this thread belongs to a {\ttfamily \doxylink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}} object, the return value will be an index in the range {\ttfamily \mbox{[}0, N)} where {\ttfamily N == \doxylink{class_b_s_1_1thread__pool_ab8ff9b7b79739ae9240833a9b939de65}{BS\+::thread\+\_\+pool\+::get\+\_\+thread\+\_\+count()}}. Otherwise, for example if this thread is the main thread or an independent thread not in any pools, {\ttfamily std\+::nullopt} will be returned. \end{DoxyCompactList}\item 
 static std\+::optional$<$ void \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_b_s_1_1this__thread_a362545c2bf1031a2d5ffb02a8565ccc1}{get\+\_\+pool}} () noexcept
 \begin{DoxyCompactList}\small\item\em Get a pointer to the thread pool that owns the current thread. If this thread belongs to a {\ttfamily \doxylink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}} object, the return value will be a {\ttfamily void} pointer to that object. Otherwise, for example if this thread is the main thread or an independent thread not in any pools, {\ttfamily std\+::nullopt} will be returned. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Friends}
+\doxysubsubsection*{フレンド}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_b_s_1_1this__thread_a97a3405cc4c6035271b3d09d01b5cb17}\label{class_b_s_1_1this__thread_a97a3405cc4c6035271b3d09d01b5cb17} 
@@ -24,12 +24,12 @@ static std\+::optional$<$ void \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{c
 \end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsection{詳解}
 A class used to obtain information about the current thread and, if native extensions are enabled, set its priority and affinity. 
 
 \label{doc-func-members}
 \Hypertarget{class_b_s_1_1this__thread_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_b_s_1_1this__thread_adcd22aa3e1c590ee90bcfcf868c553cc}\index{BS::this\_thread@{BS::this\_thread}!get\_index@{get\_index}}
 \index{get\_index@{get\_index}!BS::this\_thread@{BS::this\_thread}}
 \doxysubsubsection{\texorpdfstring{get\_index()}{get\_index()}}
@@ -40,7 +40,7 @@ std\+::optional$<$ std\+::size\+\_\+t $>$ BS\+::this\+\_\+thread\+::get\+\_\+ind
 
 Get the index of the current thread. If this thread belongs to a {\ttfamily \doxylink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}} object, the return value will be an index in the range {\ttfamily \mbox{[}0, N)} where {\ttfamily N == \doxylink{class_b_s_1_1thread__pool_ab8ff9b7b79739ae9240833a9b939de65}{BS\+::thread\+\_\+pool\+::get\+\_\+thread\+\_\+count()}}. Otherwise, for example if this thread is the main thread or an independent thread not in any pools, {\ttfamily std\+::nullopt} will be returned. 
 
-\begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{戻り値}
 An {\ttfamily std\+::optional} object, optionally containing a thread index. 
 \end{DoxyReturn}
 \Hypertarget{class_b_s_1_1this__thread_a362545c2bf1031a2d5ffb02a8565ccc1}\index{BS::this\_thread@{BS::this\_thread}!get\_pool@{get\_pool}}
@@ -53,11 +53,11 @@ std\+::optional$<$ void \texorpdfstring{$\ast$}{*} $>$ BS\+::this\+\_\+thread\+:
 
 Get a pointer to the thread pool that owns the current thread. If this thread belongs to a {\ttfamily \doxylink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}} object, the return value will be a {\ttfamily void} pointer to that object. Otherwise, for example if this thread is the main thread or an independent thread not in any pools, {\ttfamily std\+::nullopt} will be returned. 
 
-\begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{戻り値}
 An {\ttfamily std\+::optional} object, optionally containing a pointer to a thread pool. Note that this will be a {\ttfamily void} pointer, so it must be cast to the desired instantiation of the {\ttfamily \doxylink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}} template in order to use any member functions. 
 \end{DoxyReturn}
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{_b_s__thread__pool_8hpp}{BS\+\_\+thread\+\_\+pool.\+hpp}}\end{DoxyCompactItemize}

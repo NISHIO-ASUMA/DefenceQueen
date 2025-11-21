@@ -1,15 +1,15 @@
-\doxysection{detail\+::json\+\_\+sax\+\_\+dom\+\_\+parser\texorpdfstring{$<$}{<} Basic\+Json\+Type, Input\+Adapter\+Type \texorpdfstring{$>$}{>} Class Template Reference}
+\doxysection{detail\+::json\+\_\+sax\+\_\+dom\+\_\+parser\texorpdfstring{$<$}{<} Basic\+Json\+Type, Input\+Adapter\+Type \texorpdfstring{$>$}{>} クラステンプレート}
 \hypertarget{classdetail_1_1json__sax__dom__parser}{}\label{classdetail_1_1json__sax__dom__parser}\index{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$@{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$}}
 
 
-SAX implementation to create a JSON value from SAX events.  
+SAX implementation to create a JSON value from SAX events  
 
 
 
 
 {\ttfamily \#include $<$json.\+hpp$>$}
 
-\doxysubsubsection*{Public Types}
+\doxysubsubsection*{公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classdetail_1_1json__sax__dom__parser_a67fb98ac139bc25c42a2d34d1a3931a8}\label{classdetail_1_1json__sax__dom__parser_a67fb98ac139bc25c42a2d34d1a3931a8} 
@@ -30,7 +30,7 @@ using {\bfseries binary\+\_\+t} = typename Basic\+Json\+Type\+::binary\+\_\+t
 \Hypertarget{classdetail_1_1json__sax__dom__parser_aaa3f9f2e99ee783e5790c069e4138c02}\label{classdetail_1_1json__sax__dom__parser_aaa3f9f2e99ee783e5790c069e4138c02} 
 using {\bfseries lexer\+\_\+t} = \mbox{\hyperlink{classdetail_1_1lexer}{lexer}}$<$Basic\+Json\+Type, Input\+Adapter\+Type$>$
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classdetail_1_1json__sax__dom__parser_a633810d42d3c5de215598f0e3009ba5c}{json\+\_\+sax\+\_\+dom\+\_\+parser}} (Basic\+Json\+Type \&r, const bool allow\+\_\+exceptions\+\_\+=true, \mbox{\hyperlink{classdetail_1_1lexer}{lexer\+\_\+t}} \texorpdfstring{$\ast$}{*}lexer\+\_\+=nullptr)
@@ -91,17 +91,17 @@ constexpr bool {\bfseries is\+\_\+errored} () const
 \end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsection{詳解}
 \subsubsection*{template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$\newline
 class detail\+::json\+\_\+sax\+\_\+dom\+\_\+parser$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$}
-SAX implementation to create a JSON value from SAX events. 
+SAX implementation to create a JSON value from SAX events 
 
 This class implements the \doxylink{structjson__sax}{json\+\_\+sax} interface and processes the SAX events to create a JSON value which makes it basically a DOM parser. The structure or hierarchy of the JSON value is managed by the stack {\ttfamily ref\+\_\+stack} which contains a pointer to the respective array or object for each recursion depth.
 
 After successful parsing, the value that is passed by reference to the constructor contains the parsed value.
 
 
-\begin{DoxyTemplParams}{Template Parameters}
+\begin{DoxyTemplParams}{テンプレート引数}
 {\em Basic\+Json\+Type} & the JSON type \\
 \hline
 \end{DoxyTemplParams}
@@ -109,7 +109,7 @@ After successful parsing, the value that is passed by reference to the construct
 
 \label{doc-constructors}
 \Hypertarget{classdetail_1_1json__sax__dom__parser_doc-constructors}
-\doxysubsection{Constructor \& Destructor Documentation}
+\doxysubsection{構築子と解体子}
 \Hypertarget{classdetail_1_1json__sax__dom__parser_a633810d42d3c5de215598f0e3009ba5c}\index{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$@{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$}!json\_sax\_dom\_parser@{json\_sax\_dom\_parser}}
 \index{json\_sax\_dom\_parser@{json\_sax\_dom\_parser}!detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$@{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$}}
 \doxysubsubsection{\texorpdfstring{json\_sax\_dom\_parser()}{json\_sax\_dom\_parser()}}
@@ -118,7 +118,7 @@ template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$ \\
 \mbox{\hyperlink{classdetail_1_1json__sax__dom__parser}{detail\+::json\+\_\+sax\+\_\+dom\+\_\+parser}}$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$\+::json\+\_\+sax\+\_\+dom\+\_\+parser (\begin{DoxyParamCaption}\item[{Basic\+Json\+Type \&}]{r}{, }\item[{const bool}]{allow\+\_\+exceptions\+\_\+}{ = {\ttfamily true}, }\item[{\mbox{\hyperlink{classdetail_1_1lexer}{lexer\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lexer\+\_\+}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
 
-\begin{DoxyParams}[1]{Parameters}
+\begin{DoxyParams}[1]{引数}
 \mbox{\texttt{in,out}}  & {\em r} & reference to a JSON value that is manipulated while parsing \\
 \hline
 \mbox{\texttt{in}}  & {\em allow\+\_\+exceptions\+\_\+} & whether parse errors yield exceptions \\
@@ -126,6 +126,6 @@ template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$ \\
 \end{DoxyParams}
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 json.\+hpp\end{DoxyCompactItemize}

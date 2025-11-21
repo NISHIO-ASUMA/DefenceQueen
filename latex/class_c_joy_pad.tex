@@ -1,12 +1,12 @@
-\doxysection{CJoy\+Pad Class Reference}
+\doxysection{CJoy\+Pad クラス}
 \hypertarget{class_c_joy_pad}{}\label{class_c_joy_pad}\index{CJoyPad@{CJoyPad}}
-Inheritance diagram for CJoy\+Pad\+:\begin{figure}[H]
+CJoy\+Pad の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{class_c_joy_pad}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Types}
+\doxysubsubsection*{公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_joy_pad_a27a815685ef3d17f239a293d0b90b95f}\label{class_c_joy_pad_a27a815685ef3d17f239a293d0b90b95f} 
@@ -34,7 +34,7 @@ enum {\bfseries JOYKEY} \{ \newline
 {\bfseries JOYKEY\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 HRESULT \mbox{\hyperlink{class_c_joy_pad_ace05834dcf77eeae6b9dc144b6eecb94}{Init}} (HINSTANCE h\+Instance, HWND h\+Wnd)
@@ -78,18 +78,18 @@ XINPUT\+\_\+\+STATE \texorpdfstring{$\ast$}{*} {\bfseries Get\+Stick\+Angle} (vo
 \item 
 void \mbox{\hyperlink{class_c_joy_pad_a1397ee9c72b7da27dd9230f2713a5242}{Set\+Vibration}} (int left\+Motor, int right\+Motor, int duration\+Ms)
 \begin{DoxyCompactList}\small\item\em �\+R���g���\mbox{[}���\mbox{[}�̐\+U������ \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_input}{CInput}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_input}{CInput}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 LPDIRECTINPUTDEVICE8 {\bfseries Get\+Input\+Device} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_c_input}{CInput}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_input}{CInput}} に属する継承限定公開変数類}
 \begin{DoxyCompactItemize}
 \item 
 LPDIRECTINPUTDEVICE8 {\bfseries m\+\_\+p\+Device}
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Protected Attributes inherited from \mbox{\hyperlink{class_c_input}{CInput}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_input}{CInput}} に属する継承静的限定公開変数類}
 \begin{DoxyCompactItemize}
 \item 
 static LPDIRECTINPUT8 {\bfseries m\+\_\+p\+Input} = nullptr
@@ -98,7 +98,7 @@ static LPDIRECTINPUT8 {\bfseries m\+\_\+p\+Input} = nullptr
 
 \label{doc-func-members}
 \Hypertarget{class_c_joy_pad_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_joy_pad_ace05834dcf77eeae6b9dc144b6eecb94}\index{CJoyPad@{CJoyPad}!Init@{Init}}
 \index{Init@{Init}!CJoyPad@{CJoyPad}}
 \doxysubsubsection{\texorpdfstring{Init()}{Init()}}
@@ -107,7 +107,7 @@ HRESULT CJoy\+Pad\+::\+Init (\begin{DoxyParamCaption}\item[{HINSTANCE}]{h\+Insta
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_input}{CInput}}.
+\mbox{\hyperlink{class_c_input}{CInput}}を再実装しています。
 
 \Hypertarget{class_c_joy_pad_a1397ee9c72b7da27dd9230f2713a5242}\index{CJoyPad@{CJoyPad}!SetVibration@{SetVibration}}
 \index{SetVibration@{SetVibration}!CJoyPad@{CJoyPad}}
@@ -120,7 +120,7 @@ void CJoy\+Pad\+::\+Set\+Vibration (\begin{DoxyParamCaption}\item[{int}]{left\+M
 �\+R���g���\mbox{[}���\mbox{[}�̐\+U������ 
 
 
-\begin{DoxyParams}{Parameters}
+\begin{DoxyParams}{引数}
 {\em left\+Motor} & �����̐\+U���̋���\\
 \hline
 {\em right\+Motor} & �\+E���̐\+U���̋���\\
@@ -136,7 +136,7 @@ void CJoy\+Pad\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyPa
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_input}{CInput}}.
+\mbox{\hyperlink{class_c_input}{CInput}}を再実装しています。
 
 \Hypertarget{class_c_joy_pad_a41a1491fe3fab904ebef8d84e9b93802}\index{CJoyPad@{CJoyPad}!Update@{Update}}
 \index{Update@{Update}!CJoyPad@{CJoyPad}}
@@ -146,11 +146,11 @@ void CJoy\+Pad\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyPa
 
 
 
-Implements \mbox{\hyperlink{class_c_input}{CInput}}.
+\mbox{\hyperlink{class_c_input}{CInput}}を実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 input.\+h\item 
 input.\+cpp\end{DoxyCompactItemize}

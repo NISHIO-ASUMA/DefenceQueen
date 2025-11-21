@@ -26,33 +26,33 @@ var NAVTREE =
 [
   [ "My Project", "index.html", [
     [ "DefenceQueen", "md__r_e_a_d_m_e.html", null ],
-    [ "Deprecated List", "deprecated.html", null ],
-    [ "Namespaces", "namespaces.html", [
-      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
-      [ "Namespace Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ],
-        [ "Variables", "namespacemembers_vars.html", null ],
-        [ "Typedefs", "namespacemembers_type.html", null ],
-        [ "Enumerations", "namespacemembers_enum.html", null ],
-        [ "Enumerator", "namespacemembers_eval.html", null ]
+    [ "非推奨一覧", "deprecated.html", null ],
+    [ "名前空間", "namespaces.html", [
+      [ "名前空間一覧", "namespaces.html", "namespaces_dup" ],
+      [ "名前空間メンバ", "namespacemembers.html", [
+        [ "全て", "namespacemembers.html", null ],
+        [ "関数", "namespacemembers_func.html", null ],
+        [ "変数", "namespacemembers_vars.html", null ],
+        [ "型定義", "namespacemembers_type.html", null ],
+        [ "列挙型", "namespacemembers_enum.html", null ],
+        [ "列挙値", "namespacemembers_eval.html", null ]
       ] ]
     ] ],
-    [ "Classes", "annotated.html", [
-      [ "Class List", "annotated.html", "annotated_dup" ],
-      [ "Class Index", "classes.html", null ],
-      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
-      [ "Class Members", "functions.html", [
-        [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", "functions_func" ],
-        [ "Variables", "functions_vars.html", null ],
-        [ "Typedefs", "functions_type.html", null ],
-        [ "Enumerations", "functions_enum.html", null ],
-        [ "Related Symbols", "functions_rela.html", null ]
+    [ "クラス", "annotated.html", [
+      [ "クラス一覧", "annotated.html", "annotated_dup" ],
+      [ "クラス索引", "classes.html", null ],
+      [ "クラス階層", "hierarchy.html", "hierarchy" ],
+      [ "クラスメンバ", "functions.html", [
+        [ "全て", "functions.html", "functions_dup" ],
+        [ "関数", "functions_func.html", "functions_func" ],
+        [ "変数", "functions_vars.html", null ],
+        [ "型定義", "functions_type.html", null ],
+        [ "列挙型", "functions_enum.html", null ],
+        [ "関連関数", "functions_rela.html", null ]
       ] ]
     ] ],
-    [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ]
+    [ "ファイル", "files.html", [
+      [ "ファイル一覧", "files.html", "files_dup" ]
     ] ]
   ] ]
 ];
@@ -60,13 +60,13 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_b_s__thread__pool_8hpp.html",
-"classbasic__json.html#a145a004c0a2fa5be84b260ecc98ab5d9",
-"classdetail_1_1iter__impl.html#ae52db5f16f00edc13c848fe99e4c521b",
-"functions_func_e.html",
-"structdetail_1_1external__constructor_3_01value__t_1_1boolean_01_4.html",
-"titleobject_8h_source.html"
+"class_c_ranking_manager.html",
+"classdetail_1_1iter__impl.html#a343806ffb02d7ce5266492128dfd5f9b",
+"classjson__pointer.html#a8bb8e43c6e01a6370cd49ba130171219",
+"struct_b_s_1_1common__index__type_3_01_t1_00_01_t2_00_01std_1_1enable__if__t_3_01std_1_1is__signfea1dac8dd4c06be52fce02e7f42cd3b.html",
+"structdetail_1_1position__t.html#a6548d584bd03d1d47bfcd7cf8b1fb0c6"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronization';
-var SYNCOFFMSG = 'click to enable panel synchronization';
-var LISTOFALLMEMBERS = 'List of all members';
+var SYNCONMSG = 'クリックで同期表示が無効になります';
+var SYNCOFFMSG = 'クリックで同期表示が有効になります';
+var LISTOFALLMEMBERS = '全メンバ一覧';

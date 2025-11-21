@@ -1,87 +1,88 @@
 \doxysection{player.\+h}
 \hypertarget{player_8h_source}{}\label{player_8h_source}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{comment}{//=====================================}}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=========================================================}}
 \DoxyCodeLine{00002\ \textcolor{comment}{//}}
 \DoxyCodeLine{00003\ \textcolor{comment}{//\ プレイヤー処理\ [\ player.h\ ]}}
 \DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
 \DoxyCodeLine{00005\ \textcolor{comment}{//}}
-\DoxyCodeLine{00006\ \textcolor{comment}{//=====================================}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=========================================================}}
 \DoxyCodeLine{00007\ }
-\DoxyCodeLine{00008\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
-\DoxyCodeLine{00010\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once\ }}
 \DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル}}
-\DoxyCodeLine{00015\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}movecharactor.h"{}}}
-\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <memory>}}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{comment}{//**********************}}
-\DoxyCodeLine{00020\ \textcolor{comment}{//\ 前方宣言}}
-\DoxyCodeLine{00021\ \textcolor{comment}{//**********************}}
-\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_input_keyboard}{CInputKeyboard}};}
-\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_joy_pad}{CJoyPad}};}
-\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_parameter}{CParameter}};}
-\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_shadow_s}{CShadowS}};}
-\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_state_machine}{CStateMachine}};}
-\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_player_state_base}{CPlayerStateBase}};}
-\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_box_collider}{CBoxCollider}};}
-\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_motion}{CMotion}};}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{comment}{//*************************}}
-\DoxyCodeLine{00032\ \textcolor{comment}{//\ プレイヤークラスを定義}}
-\DoxyCodeLine{00033\ \textcolor{comment}{//*************************}}
-\DoxyCodeLine{00034\ \textcolor{keyword}{class\ }CPlayer\ :\ \textcolor{keyword}{public}\ CMoveCharactor}
-\DoxyCodeLine{00035\ \{}
-\DoxyCodeLine{00036\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{//***********************************}}
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//\ プレイヤーが行うモーション列挙圭string^}}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//***********************************}}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{enum}\ MOTION}
-\DoxyCodeLine{00042\ \ \ \ \ \{}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ MOTION\_NEUTRAL,\ \ \ \ \ \textcolor{comment}{//\ ニュートラル}}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ MOTION\_MOVE,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 移動}}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ MOTION\_ACTION,\ \ \ \ \ \ \textcolor{comment}{//\ アクション}}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ MOTION\_JUMP,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ ジャンプ}}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ MOTION\_LANDING,\ \ \ \ \ \textcolor{comment}{//\ 着地}}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ MOTION\_JUMPATTACK,\ \ \textcolor{comment}{//\ ジャンプ攻撃}}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ MOTION\_DAMAGE,\ \ \ \ \ \ \textcolor{comment}{//\ ソ_メージ}}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ MOTION\_AVOID,\ \ \ \ \ \ \ \textcolor{comment}{//\ 回避}}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ MOTION\_MAX}
-\DoxyCodeLine{00052\ \ \ \ \ \};}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \ \ \ \ CPlayer(\textcolor{keywordtype}{int}\ nPriority\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(CObject::PRIORITY::CHARACTOR));}
-\DoxyCodeLine{00055\ \ \ \ \ \string~CPlayer();}
-\DoxyCodeLine{00056\ }
-\DoxyCodeLine{00057\ \ \ \ \ HRESULT\ Init(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ Draw(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ CollisionAll(D3DXVECTOR3\ pPos);}
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ MoveKey(\mbox{\hyperlink{class_c_input_keyboard}{CInputKeyboard}}*\ pInput,\mbox{\hyperlink{class_c_joy_pad}{CJoyPad}}\ *\ pPad);}
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ MovePad(\mbox{\hyperlink{class_c_joy_pad}{CJoyPad}}*\ pPad);}
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ ChangeState(\mbox{\hyperlink{class_c_player_state_base}{CPlayerStateBase}}*\ pNewState,\textcolor{keywordtype}{int}\ Id);}
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{bool}\ CollisionBlock(\mbox{\hyperlink{class_c_box_collider}{CBoxCollider}}*\ other,\ D3DXVECTOR3*\ pos);}
-\DoxyCodeLine{00067\ }
-\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{class_c_parameter}{CParameter}}*\ GetParameter(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_pParameter.get();\ \}}
-\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{class_c_state_machine}{CStateMachine}}*\ GetStateMachine()\ \{\ \textcolor{keywordflow}{return}\ m\_pStateMachine.get();\ \}}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{bool}\ isMoveInputKey(\mbox{\hyperlink{class_c_input_keyboard}{CInputKeyboard}}*\ pKeyInput);}
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{bool}\ isMovePadButton(\mbox{\hyperlink{class_c_joy_pad}{CJoyPad}}*\ pPad);}
-\DoxyCodeLine{00073\ }
-\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{static}\ CPlayer*\ Create(D3DXVECTOR3\ pos,\ D3DXVECTOR3\ rot,\ \textcolor{keywordtype}{int}\ nLife,\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ pFilename);}
-\DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00077\ }
-\DoxyCodeLine{00078\ \ \ \ \ std::unique\_ptr<CParameter>m\_pParameter;\ \textcolor{comment}{//\ パラメーソstring^ークラスポインソstring^}}
-\DoxyCodeLine{00079\ \ \ \ \ std::unique\_ptr<CStateMachine>m\_pStateMachine;\ \ \textcolor{comment}{//\ ステート基底クラスのポインソstring^}}
-\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{class_c_box_collider}{CBoxCollider}}*\ m\_pBoxCollider;\ \ \ \textcolor{comment}{//\ 矩形のコライソ_ー}}
-\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{class_c_motion}{CMotion}}*\ m\_pMotion;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ モーションポインソstring^}}
-\DoxyCodeLine{00082\ \};}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}nomovecharactor.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ 前方宣言}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_input_keyboard}{CInputKeyboard}};}
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_joy_pad}{CJoyPad}};}
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_parameter}{CParameter}};}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_shadow_s}{CShadowS}};}
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_state_machine}{CStateMachine}};}
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_player_state_base}{CPlayerStateBase}};}
+\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_box_collider}{CBoxCollider}};}
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_motion}{CMotion}};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ プレイヤークラスを定義}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }CPlayer\ :\ \textcolor{keyword}{public}\ CNoMoveCharactor}
+\DoxyCodeLine{00036\ \{}
+\DoxyCodeLine{00037\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//***********************************}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ プレイヤーが行うモーション列挙圭string^}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{//***********************************}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{enum}\ MOTION}
+\DoxyCodeLine{00043\ \ \ \ \ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ MOTION\_NEUTRAL,\ \ \ \ \ \textcolor{comment}{//\ ニュートラル}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ MOTION\_MOVE,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 移動}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ MOTION\_ACTION,\ \ \ \ \ \ \textcolor{comment}{//\ アクション}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ MOTION\_JUMP,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ ジャンプ}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ MOTION\_LANDING,\ \ \ \ \ \textcolor{comment}{//\ 着地}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ MOTION\_JUMPATTACK,\ \ \textcolor{comment}{//\ ジャンプ攻撃}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ MOTION\_DAMAGE,\ \ \ \ \ \ \textcolor{comment}{//\ ソ_メージ}}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ MOTION\_AVOID,\ \ \ \ \ \ \ \textcolor{comment}{//\ 回避}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ MOTION\_MAX}
+\DoxyCodeLine{00053\ \ \ \ \ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ CPlayer(\textcolor{keywordtype}{int}\ nPriority\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(CObject::PRIORITY::CHARACTOR));}
+\DoxyCodeLine{00056\ \ \ \ \ \string~CPlayer();}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ HRESULT\ Init(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ Draw(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ CollisionAll(D3DXVECTOR3\ pPos,\mbox{\hyperlink{class_c_input_keyboard}{CInputKeyboard}}*\ pInput,\ \mbox{\hyperlink{class_c_joy_pad}{CJoyPad}}*\ pPad);}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ MoveKey(\mbox{\hyperlink{class_c_input_keyboard}{CInputKeyboard}}*\ pInput,\mbox{\hyperlink{class_c_joy_pad}{CJoyPad}}\ *\ pPad);}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ MovePad(\mbox{\hyperlink{class_c_joy_pad}{CJoyPad}}*\ pPad);}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ ChangeState(\mbox{\hyperlink{class_c_player_state_base}{CPlayerStateBase}}*\ pNewState,\textcolor{keywordtype}{int}\ Id);}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{bool}\ CollisionBlock(\mbox{\hyperlink{class_c_box_collider}{CBoxCollider}}*\ other,\ D3DXVECTOR3*\ pos);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{class_c_parameter}{CParameter}}*\ GetParameter(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_pParameter.get();\ \}}
+\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{class_c_state_machine}{CStateMachine}}*\ GetStateMachine()\ \{\ \textcolor{keywordflow}{return}\ m\_pStateMachine.get();\ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{bool}\ isMoveInputKey(\mbox{\hyperlink{class_c_input_keyboard}{CInputKeyboard}}*\ pKeyInput)\ ;}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{bool}\ isMovePadButton(\mbox{\hyperlink{class_c_joy_pad}{CJoyPad}}*\ pPad);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{static}\ CPlayer*\ Create(D3DXVECTOR3\ pos,\ D3DXVECTOR3\ rot,\ \textcolor{keywordtype}{int}\ nLife,\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ pFilename);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ std::unique\_ptr<CParameter>m\_pParameter;\ \textcolor{comment}{//\ パラメーソstring^ークラスポインソstring^}}
+\DoxyCodeLine{00080\ \ \ \ \ std::unique\_ptr<CStateMachine>m\_pStateMachine;\ \ \textcolor{comment}{//\ ステート基底クラスのポインソstring^}}
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{class_c_box_collider}{CBoxCollider}}*\ m\_pBoxCollider;\ \ \ \textcolor{comment}{//\ 矩形のコライソ_ー}}
+\DoxyCodeLine{00082\ \ \ \ \ \mbox{\hyperlink{class_c_motion}{CMotion}}*\ m\_pMotion;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ モーションポインソstring^}}
+\DoxyCodeLine{00083\ \};}
 
 \end{DoxyCode}

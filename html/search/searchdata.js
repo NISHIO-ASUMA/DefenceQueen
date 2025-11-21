@@ -1,6 +1,6 @@
 var indexSectionsWithContent =
 {
-  0: "abcdefghijklmnoprstuvwx~",
+  0: "abcdefghijklmnoprstuvwx~非",
   1: "abcdefghijklmnopstvwx",
   2: "bd",
   3: "b",
@@ -10,7 +10,7 @@ var indexSectionsWithContent =
   7: "bceiptv",
   8: "abdeiklnoprsuvw",
   9: "os",
-  10: "dl"
+  10: "d非"
 };
 
 var indexSectionNames =
@@ -30,16 +30,16 @@ var indexSectionNames =
 
 var indexSectionLabels =
 {
-  0: "All",
-  1: "Classes",
-  2: "Namespaces",
-  3: "Files",
-  4: "Functions",
-  5: "Variables",
-  6: "Typedefs",
-  7: "Enumerations",
-  8: "Enumerator",
-  9: "Friends",
-  10: "Pages"
+  0: "全て",
+  1: "クラス",
+  2: "名前空間",
+  3: "ファイル",
+  4: "関数",
+  5: "変数",
+  6: "型定義",
+  7: "列挙型",
+  8: "列挙値",
+  9: "フレンド",
+  10: "ページ"
 };
 

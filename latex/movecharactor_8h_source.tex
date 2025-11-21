@@ -26,69 +26,77 @@
 \DoxyCodeLine{00023\ \textcolor{comment}{//**********************}}
 \DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_shadow_s}{CShadowS}};}
 \DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_model}{CModel}};}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \textcolor{comment}{//*********************************}}
-\DoxyCodeLine{00028\ \textcolor{comment}{//\ 動くキャラクソstring^ークラスを定義}}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_black_board}{CBlackBoard}};}
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_node}{CNode}};}
+\DoxyCodeLine{00028\ }
 \DoxyCodeLine{00029\ \textcolor{comment}{//*********************************}}
-\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }CMoveCharactor\ :\ \textcolor{keyword}{public}\ CObject}
-\DoxyCodeLine{00031\ \{}
-\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{//****************************}}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{comment}{//\ キャラクソstring^ーの種類定義}}
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{comment}{//****************************}}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{enum}\ TYPE}
-\DoxyCodeLine{00037\ \ \ \ \ \{}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ TYPE\_NONE,}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ TYPE\_PLAYER,}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ TYPE\_BUDDY,}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ TYPE\_ENEMY,}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ TYPE\_MAX}
-\DoxyCodeLine{00043\ \ \ \ \ \};}
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \ \ \ \ CMoveCharactor(\textcolor{keywordtype}{int}\ nPriority\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(CObject::PRIORITY::CHARACTOR));}
-\DoxyCodeLine{00046\ \ \ \ \ \string~CMoveCharactor();}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ 動くキャラクソstring^ークラスを定義}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//*********************************}}
+\DoxyCodeLine{00032\ \textcolor{keyword}{class\ }CMoveCharactor\ :\ \textcolor{keyword}{public}\ CObject}
+\DoxyCodeLine{00033\ \{}
+\DoxyCodeLine{00034\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{//****************************}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ キャラクソstring^ーの種類定義}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{//****************************}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{enum}\ TYPE}
+\DoxyCodeLine{00040\ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ TYPE\_NONE,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ TYPE\_PLAYER,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ TYPE\_BUDDY,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ TYPE\_ENEMY,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ TYPE\_MAX}
+\DoxyCodeLine{00046\ \ \ \ \ \};}
 \DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{virtual}\ HRESULT\ Init(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Draw(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ UpdatePosition(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ SetPos(\textcolor{keyword}{const}\ D3DXVECTOR3\ pos)\ \{\ m\_pos\ =\ pos;\ \}}
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ SetOldPos(\textcolor{keyword}{const}\ D3DXVECTOR3\ posOld)\ \{\ m\_posOld\ =\ posOld;\ \}}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRot(\textcolor{keyword}{const}\ D3DXVECTOR3\ rot)\ \{\ m\_rot\ =\ rot;\ \}}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRotDest(\textcolor{keyword}{const}\ D3DXVECTOR3\ rotdest)\ \{\ m\_rotDest\ =\ rotdest;\ \}}
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ SetScale(\textcolor{keyword}{const}\ D3DXVECTOR3\ scale\ =\ INITSCALE)\ \{\ m\_scale\ =\ scale;\ \}}
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ SetMove(\textcolor{keyword}{const}\ D3DXVECTOR3\ move)\ \{\ m\_move\ =\ move;\ \}}
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ SetMoveValue(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fValue)\ \{\ m\_fMoveValue\ =\ fValue;\ \}}
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ SetType(TYPE\ Type)\ \{\ m\_type\ =\ Type;\ \}}
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ MotionLoad(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ pScriptName,\textcolor{keywordtype}{int}\ nDestMotions);}
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ SetCharactor(TYPE\ type)\ \{\ m\_type\ =\ type;\ \}}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \ \ \ \ D3DXVECTOR3\ GetPos(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_pos;\ \}}
-\DoxyCodeLine{00066\ \ \ \ \ D3DXVECTOR3\ GetOldPos(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_posOld;\ \}}
-\DoxyCodeLine{00067\ \ \ \ \ D3DXVECTOR3\ GetRot(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_rot;\ \}}
-\DoxyCodeLine{00068\ \ \ \ \ D3DXVECTOR3\ GetMove(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_move;\ \}}
-\DoxyCodeLine{00069\ \ \ \ \ D3DXVECTOR3\ GetRotDest(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_rotDest;\ \}}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00076\ \ \ \ \ \mbox{\hyperlink{class_c_motion}{CMotion}}*\ \mbox{\hyperlink{class_c_move_charactor_a8755a475a19a7aadc021369cae951c72}{GetMotion}}(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_pMotion.get();\ \}}
-\DoxyCodeLine{00077\ }
-\DoxyCodeLine{00078\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \ \ \ \ D3DXVECTOR3\ m\_pos;\ \ \ \ \ \ \textcolor{comment}{//\ 座標}}
-\DoxyCodeLine{00081\ \ \ \ \ D3DXVECTOR3\ m\_posOld;\ \ \ \textcolor{comment}{//\ 過去座標}}
-\DoxyCodeLine{00082\ \ \ \ \ D3DXVECTOR3\ m\_rot;\ \ \ \ \ \ \textcolor{comment}{//\ 角度}}
-\DoxyCodeLine{00083\ \ \ \ \ D3DXVECTOR3\ m\_rotDest;\ \ \textcolor{comment}{//\ 目的角}}
-\DoxyCodeLine{00084\ \ \ \ \ D3DXVECTOR3\ m\_move;\ \ \ \ \ \textcolor{comment}{//\ 移動量}}
-\DoxyCodeLine{00085\ \ \ \ \ D3DXVECTOR3\ m\_scale;\ \ \ \ \textcolor{comment}{//\ 拡大率}}
-\DoxyCodeLine{00086\ \ \ \ \ D3DXMATRIX\ m\_mtxworld;\ \ \textcolor{comment}{//\ ワールドソ}トリックス}}
-\DoxyCodeLine{00087\ \ \ \ \ TYPE\ m\_type;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 種類}}
-\DoxyCodeLine{00088\ }
-\DoxyCodeLine{00089\ \ \ \ \ std::unique\_ptr<CMotion>m\_pMotion;\ \ \textcolor{comment}{//\ モーションクラスのユニークポインソstring^}}
-\DoxyCodeLine{00090\ \ \ \ \ std::vector<CModel*>m\_pModel;\ \ \ \ \ \ \ \textcolor{comment}{//\ モデルクラスの動的配列}}
-\DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{class_c_shadow_s}{CShadowS}}*\ m\_pShadowS;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ステンシルシャドウクラスのポインソstring^}}
-\DoxyCodeLine{00092\ }
-\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{float}\ m\_fMoveValue;\ \ \ \ \ \textcolor{comment}{//\ 移動加算値}}
-\DoxyCodeLine{00094\ \};}
+\DoxyCodeLine{00048\ \ \ \ \ CMoveCharactor(\textcolor{keywordtype}{int}\ nPriority\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(CObject::PRIORITY::CHARACTOR));}
+\DoxyCodeLine{00049\ \ \ \ \ \string~CMoveCharactor();}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{virtual}\ HRESULT\ Init(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Draw(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ UpdatePosition(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ SetPos(\textcolor{keyword}{const}\ D3DXVECTOR3\ pos)\ \{\ m\_pos\ =\ pos;\ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ SetOldPos(\textcolor{keyword}{const}\ D3DXVECTOR3\ posOld)\ \{\ m\_posOld\ =\ posOld;\ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRot(\textcolor{keyword}{const}\ D3DXVECTOR3\ rot)\ \{\ m\_rot\ =\ rot;\ \}}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRotDest(\textcolor{keyword}{const}\ D3DXVECTOR3\ rotdest)\ \{\ m\_rotDest\ =\ rotdest;\ \}}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ SetScale(\textcolor{keyword}{const}\ D3DXVECTOR3\ scale\ =\ INITSCALE)\ \{\ m\_scale\ =\ scale;\ \}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ SetMove(\textcolor{keyword}{const}\ D3DXVECTOR3\ move)\ \{\ m\_move\ =\ move;\ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ SetMoveValue(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fValue)\ \{\ m\_fMoveValue\ =\ fValue;\ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ SetType(TYPE\ Type)\ \{\ m\_type\ =\ Type;\ \}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ MotionLoad(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ pScriptName,\ \textcolor{keywordtype}{int}\ nDestMotions);}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ SetCharactor(TYPE\ type)\ \{\ m\_type\ =\ type;\ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ D3DXVECTOR3\ GetPos(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_pos;\ \}}
+\DoxyCodeLine{00069\ \ \ \ \ D3DXVECTOR3\ GetOldPos(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_posOld;\ \}}
+\DoxyCodeLine{00070\ \ \ \ \ D3DXVECTOR3\ GetRot(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_rot;\ \}}
+\DoxyCodeLine{00071\ \ \ \ \ D3DXVECTOR3\ GetMove(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_move;\ \}}
+\DoxyCodeLine{00072\ \ \ \ \ D3DXVECTOR3\ GetRotDest(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_rotDest;\ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{class_c_motion}{CMotion}}*\ \mbox{\hyperlink{class_c_move_charactor_a8755a475a19a7aadc021369cae951c72}{GetMotion}}(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_pMotion.get();\ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{class_c_black_board}{CBlackBoard}}*\ m\_pBlackBoard\ =\ \textcolor{keyword}{nullptr};\ \textcolor{comment}{//\ 共通ブラックソ{ード}}
+\DoxyCodeLine{00084\ \ \ \ \ \mbox{\hyperlink{class_c_node}{CNode}}*\ m\_pBehaviorTree\ =\ \textcolor{keyword}{nullptr};\ \ \ \ \ \ \textcolor{comment}{//\ ツリーノード}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ D3DXVECTOR3\ m\_pos;\ \ \ \ \ \ \textcolor{comment}{//\ 座標}}
+\DoxyCodeLine{00089\ \ \ \ \ D3DXVECTOR3\ m\_posOld;\ \ \ \textcolor{comment}{//\ 過去座標}}
+\DoxyCodeLine{00090\ \ \ \ \ D3DXVECTOR3\ m\_rot;\ \ \ \ \ \ \textcolor{comment}{//\ 角度}}
+\DoxyCodeLine{00091\ \ \ \ \ D3DXVECTOR3\ m\_rotDest;\ \ \textcolor{comment}{//\ 目的角}}
+\DoxyCodeLine{00092\ \ \ \ \ D3DXVECTOR3\ m\_move;\ \ \ \ \ \textcolor{comment}{//\ 移動量}}
+\DoxyCodeLine{00093\ \ \ \ \ D3DXVECTOR3\ m\_scale;\ \ \ \ \textcolor{comment}{//\ 拡大率}}
+\DoxyCodeLine{00094\ \ \ \ \ D3DXMATRIX\ m\_mtxworld;\ \ \textcolor{comment}{//\ ワールドソ}トリックス}}
+\DoxyCodeLine{00095\ \ \ \ \ TYPE\ m\_type;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 種類}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ std::unique\_ptr<CMotion>m\_pMotion;\ \ \textcolor{comment}{//\ モーションクラスのユニークポインソstring^}}
+\DoxyCodeLine{00098\ \ \ \ \ std::vector<CModel*>m\_pModel;\ \ \ \ \ \ \ \textcolor{comment}{//\ モデルクラスの動的配列}}
+\DoxyCodeLine{00099\ \ \ \ \ \mbox{\hyperlink{class_c_shadow_s}{CShadowS}}*\ m\_pShadowS;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ステンシルシャドウクラスのポインソstring^}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{float}\ m\_fMoveValue;\ \ \ \ \ \textcolor{comment}{//\ 移動加算値}}
+\DoxyCodeLine{00102\ \};}
 
 \end{DoxyCode}

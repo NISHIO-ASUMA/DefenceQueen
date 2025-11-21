@@ -1,4 +1,4 @@
-\doxysection{basic\+\_\+json\texorpdfstring{$<$}{<} Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, JSONSerializer, Binary\+Type, Custom\+Base\+Class \texorpdfstring{$>$}{>} Class Template Reference}
+\doxysection{basic\+\_\+json\texorpdfstring{$<$}{<} Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, JSONSerializer, Binary\+Type, Custom\+Base\+Class \texorpdfstring{$>$}{>} クラステンプレート}
 \hypertarget{classbasic__json}{}\label{classbasic__json}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}}
 
 
@@ -9,13 +9,13 @@ namespace for Niels Lohmann
 
 {\ttfamily \#include $<$json.\+hpp$>$}
 
-Inheritance diagram for basic\+\_\+json\texorpdfstring{$<$}{<} Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, JSONSerializer, Binary\+Type, Custom\+Base\+Class \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+basic\+\_\+json\texorpdfstring{$<$}{<} Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, JSONSerializer, Binary\+Type, Custom\+Base\+Class \texorpdfstring{$>$}{>} の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=0.998218cm]{classbasic__json}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Types}
+\doxysubsubsection*{公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classbasic__json_a966e900415e66f3ab60f7b5ef52fd63b}\label{classbasic__json_a966e900415e66f3ab60f7b5ef52fd63b} 
@@ -23,7 +23,7 @@ using {\bfseries value\+\_\+t} = \mbox{\hyperlink{namespacedetail_a917c3efabea8a
 \item 
 \Hypertarget{classbasic__json_afe66720a34c11920f359394a4430a16e}\label{classbasic__json_afe66720a34c11920f359394a4430a16e} 
 using {\bfseries json\+\_\+pointer} = \+::nlohmann\+::json\+\_\+pointer$<$String\+Type$>$
-\begin{DoxyCompactList}\small\item\em JSON Pointer, see nlohmann\+::json\+\_\+pointer. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em JSON Pointer, see nlohmann\+::json\+\_\+pointer \end{DoxyCompactList}\item 
 \Hypertarget{classbasic__json_ab75fd791f0b8fca724e5ed70b4956414}\label{classbasic__json_ab75fd791f0b8fca724e5ed70b4956414} 
 {\footnotesize template$<$typename T, typename SFINAE$>$ }\\using {\bfseries json\+\_\+serializer} = JSONSerializer$<$T, SFINAE$>$
 \item 
@@ -44,12 +44,12 @@ using {\bfseries input\+\_\+format\+\_\+t} = \mbox{\hyperlink{namespacedetail_a0
 \item 
 \Hypertarget{classbasic__json_acefb05e1022be791038db86c9963cec7}\label{classbasic__json_acefb05e1022be791038db86c9963cec7} 
 using {\bfseries json\+\_\+sax\+\_\+t} = \mbox{\hyperlink{structjson__sax}{json\+\_\+sax}}$<$\mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$>$
-\begin{DoxyCompactList}\small\item\em SAX interface type, see nlohmann\+::json\+\_\+sax. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em SAX interface type, see nlohmann\+::json\+\_\+sax \end{DoxyCompactList}\item 
 using \mbox{\hyperlink{classbasic__json_a53b6bf8ee18c48f4609c8bdd4bb95107}{parse\+\_\+event\+\_\+t}} = \mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312ef}{detail\+::parse\+\_\+event\+\_\+t}}
 \begin{DoxyCompactList}\small\item\em parser event types \end{DoxyCompactList}\item 
 using \mbox{\hyperlink{classbasic__json_a50644d655c9283aaf0e2a0f3a5428867}{parser\+\_\+callback\+\_\+t}} = detail\+::parser\+\_\+callback\+\_\+t$<$\mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$>$
 \begin{DoxyCompactList}\small\item\em per-\/element parser callback type \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 JSON\+\_\+\+HEDLEY\+\_\+\+RETURNS\+\_\+\+NON\+\_\+\+NULL const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classbasic__json_a15b177614647598e238e15ab1cc889c7}{type\+\_\+name}} () const noexcept
@@ -75,7 +75,7 @@ data \& {\bfseries operator=} (data \&\&) noexcept=delete
 \Hypertarget{classbasic__json_a4961a9b6e8be5c581766516572989b2e}\label{classbasic__json_a4961a9b6e8be5c581766516572989b2e} 
 data \& {\bfseries operator=} (const data \&) noexcept=delete
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static \mbox{\hyperlink{classbasic__json_a83f845db2d54cedad97279bad70aea52}{allocator\+\_\+type}} \mbox{\hyperlink{classbasic__json_a4bceecf563151eb58af179416d8e6299}{get\+\_\+allocator}} ()
@@ -89,7 +89,7 @@ JSON\+\_\+\+PRIVATE\+\_\+\+UNLESS\+\_\+\+TESTED \mbox{\hyperlink{classbasic__jso
 \begin{DoxyCompactList}\small\item\em generate SAX events \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename SAX$>$ }\\static bool \mbox{\hyperlink{classbasic__json_a33c35a7d1d038a2a943c817fb3740c97}{sax\+\_\+parse}} (\mbox{\hyperlink{classdetail_1_1span__input__adapter}{detail\+::span\+\_\+input\+\_\+adapter}} \&\&i, SAX \texorpdfstring{$\ast$}{*}sax, \mbox{\hyperlink{namespacedetail_a0ab3b338d0eadc6890b72cccef0ea04f}{input\+\_\+format\+\_\+t}} format=input\+\_\+format\+\_\+t\+::json, const bool strict=true, const bool ignore\+\_\+comments=false, const bool ignore\+\_\+trailing\+\_\+commas=false)
 \begin{DoxyCompactList}\small\item\em generate SAX events \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Public Attributes}
+\doxysubsubsection*{公開変数類}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classbasic__json_a27054edf6738852b42e0218fe4337e1c}\label{classbasic__json_a27054edf6738852b42e0218fe4337e1c} 
@@ -101,7 +101,7 @@ json\+\_\+value {\bfseries m\+\_\+value} = \{\}
 \Hypertarget{classbasic__json_a4f7fd3c3afd2abb77797652506ab6bc0}\label{classbasic__json_a4f7fd3c3afd2abb77797652506ab6bc0} 
 data {\bfseries m\+\_\+data} = \{\}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Friends}
+\doxysubsubsection*{フレンド}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classbasic__json_a6275ed57bae6866cdf5db5370a7ad47c}\label{classbasic__json_a6275ed57bae6866cdf5db5370a7ad47c} 
@@ -648,29 +648,29 @@ void \mbox{\hyperlink{classbasic__json_a8676ac2433fe299b8d420f00a0741395}{merge\
 \begin{DoxyCompactList}\small\item\em applies a JSON Merge Patch \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsection{詳解}
 \subsubsection*{template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type = std\+::string, class Boolean\+Type = bool, class Number\+Integer\+Type = std\+::int64\+\_\+t, class Number\+Unsigned\+Type = std\+::uint64\+\_\+t, class Number\+Float\+Type = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator, template$<$ typename T, typename SFINAE=void $>$ class JSONSerializer = adl\+\_\+serializer, class Binary\+Type = std\+::vector$<$std\+::uint8\+\_\+t$>$, class Custom\+Base\+Class = void$>$\newline
 class basic\+\_\+json$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, JSONSerializer, Binary\+Type, Custom\+Base\+Class $>$}
 namespace for Niels Lohmann 
 
-a class to store JSON values \begin{DoxySeeAlso}{See also}
+a class to store JSON values \begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/}}
 
 \href{https://github.com/nlohmann}{\texttt{https\+://github.\+com/nlohmann}} 
 \end{DoxySeeAlso}
-\begin{DoxySince}{Since}
+\begin{DoxySince}{から}
 version 1.\+0.\+0
 \end{DoxySince}
 a class to store JSON values
 
-\begin{DoxySince}{Since}
+\begin{DoxySince}{から}
 version 1.\+0.\+0 
 \end{DoxySince}
 
 
 \label{doc-typedef-members}
 \Hypertarget{classbasic__json_doc-typedef-members}
-\doxysubsection{Member Typedef Documentation}
+\doxysubsection{型定義メンバ詳解}
 \Hypertarget{classbasic__json_a60644b7dccc409e6b367361d37841333}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!array\_t@{array\_t}}
 \index{array\_t@{array\_t}!basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}}
 \doxysubsubsection{\texorpdfstring{array\_t}{array\_t}}
@@ -682,7 +682,7 @@ using \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Arra
 
 a type for an array 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/array_t/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/array\+\_\+t/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a4c1b5ea434b48cf31097617bb1c1ca1e}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!binary\_t@{binary\_t}}
@@ -696,7 +696,7 @@ using \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Arra
 
 a type for a packed binary type 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/binary_t/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/binary\+\_\+t/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a9301890c48e9b957edc07f9eb767bd10}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!boolean\_t@{boolean\_t}}
@@ -710,7 +710,7 @@ using \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Arra
 
 a type for a boolean 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/boolean_t/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/boolean\+\_\+t/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a991d005e7f648cbf37bb36daf85183ca}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!default\_object\_comparator\_t@{default\_object\_comparator\_t}}
@@ -724,7 +724,7 @@ using \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Arra
 
 default object key comparator type The actual object key comparator type (\doxylink{classbasic__json_af12040e0663db54840d73d363979643a}{object\+\_\+comparator\+\_\+t}) may be different. 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/default_object_comparator_t/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/default\+\_\+object\+\_\+comparator\+\_\+t/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a80a229dbc84c1334171ce9c49c873c56}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!number\_float\_t@{number\_float\_t}}
@@ -738,7 +738,7 @@ using \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Arra
 
 a type for a number (floating-\/point) 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/number_float_t/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/number\+\_\+float\+\_\+t/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_aba48b0bdee31228a4e19b7c040b6d2a5}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!number\_integer\_t@{number\_integer\_t}}
@@ -752,7 +752,7 @@ using \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Arra
 
 a type for a number (integer) 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/number_integer_t/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/number\+\_\+integer\+\_\+t/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ae8505b599e706768a1e0bd6718cc7117}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!number\_unsigned\_t@{number\_unsigned\_t}}
@@ -766,7 +766,7 @@ using \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Arra
 
 a type for a number (unsigned) 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/number_unsigned_t/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/number\+\_\+unsigned\+\_\+t/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_af12040e0663db54840d73d363979643a}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!object\_comparator\_t@{object\_comparator\_t}}
@@ -780,7 +780,7 @@ using \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Arra
 
 object key comparator type 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/object_comparator_t/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/object\+\_\+comparator\+\_\+t/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a67bb0d6dfaf1709d918b7107f5b94a3d}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!object\_t@{object\_t}}
@@ -790,7 +790,7 @@ object key comparator type
 template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type = std\+::string, class Boolean\+Type = bool, class Number\+Integer\+Type = std\+::int64\+\_\+t, class Number\+Unsigned\+Type = std\+::uint64\+\_\+t, class Number\+Float\+Type = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator, template$<$ typename T, typename SFINAE=void $>$ class JSONSerializer = adl\+\_\+serializer, class Binary\+Type = std\+::vector$<$std\+::uint8\+\_\+t$>$, class Custom\+Base\+Class = void$>$ \\
 using \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, JSONSerializer, Binary\+Type, Custom\+Base\+Class $>$\+::object\+\_\+t}
 
-{\bfseries Initial value\+:}
+{\bfseries 初期値\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\ ObjectType<StringType,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classbasic__json_ae2d5bc42270881ed3e219e8b1456fec5}{basic\_json}},}
@@ -803,7 +803,7 @@ using \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Arra
 
 a type for an object 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/object_t/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/object\+\_\+t/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a53b6bf8ee18c48f4609c8bdd4bb95107}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!parse\_event\_t@{parse\_event\_t}}
@@ -817,7 +817,7 @@ using \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Arra
 
 parser event types 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/parse_event_t/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/parse\+\_\+event\+\_\+t/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a50644d655c9283aaf0e2a0f3a5428867}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!parser\_callback\_t@{parser\_callback\_t}}
@@ -831,7 +831,7 @@ using \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Arra
 
 per-\/element parser callback type 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/parser_callback_t/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/parser\+\_\+callback\+\_\+t/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ac8c9cde32146e6c343e1960aefc11fba}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!string\_t@{string\_t}}
@@ -845,14 +845,14 @@ using \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Arra
 
 a type for a string 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/string_t/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/string\+\_\+t/}} 
 \end{DoxySeeAlso}
 
 
 \label{doc-constructors}
 \Hypertarget{classbasic__json_doc-constructors}
-\doxysubsection{Constructor \& Destructor Documentation}
+\doxysubsection{構築子と解体子}
 \Hypertarget{classbasic__json_ae2d5bc42270881ed3e219e8b1456fec5}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!basic\_json@{basic\_json}}
 \index{basic\_json@{basic\_json}!basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}}
 \doxysubsubsection{\texorpdfstring{basic\_json()}{basic\_json()}\hspace{0.1cm}{\footnotesize\ttfamily [1/9]}}
@@ -864,7 +864,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 create an empty value with a given type 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/basic_json/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/basic\+\_\+json/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a5b1fab9ded0a2a182837bd66c0e5189e}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!basic\_json@{basic\_json}}
@@ -878,7 +878,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 create a null object 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/basic_json/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/basic\+\_\+json/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a0f24e66b152203259eaf05c33ebaeed4}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!basic\_json@{basic\_json}}
@@ -893,7 +893,7 @@ template$<$typename Compatible\+Type, typename U = detail\+::uncvref\+\_\+t$<$\+
 
 create a JSON value from compatible types 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/basic_json/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/basic\+\_\+json/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_aeaf10402e79a1acce9a74f5a9654d403}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!basic\_json@{basic\_json}}
@@ -908,7 +908,7 @@ template$<$typename Basic\+Json\+Type, detail\+::enable\+\_\+if\+\_\+t$<$ \mbox{
 
 create a JSON value from an existing one 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/basic_json/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/basic\+\_\+json/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_aa911d47d3c99184a301bf4fd304199b2}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!basic\_json@{basic\_json}}
@@ -922,7 +922,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 create a container (array or object) from an initializer list 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/basic_json/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/basic\+\_\+json/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a7b6f0605b09a002567fd18a289cef31b}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!basic\_json@{basic\_json}}
@@ -936,7 +936,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 construct an array with count copies of given value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/basic_json/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/basic\+\_\+json/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_af97b4fcd01509076c8a7b32ec1a10aec}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!basic\_json@{basic\_json}}
@@ -951,7 +951,7 @@ template$<$class Input\+IT, typename std\+::enable\+\_\+if$<$ std\+::is\+\_\+sam
 
 construct a JSON container given an iterator range 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/basic_json/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/basic\+\_\+json/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_af15244e1249b6e7282127d460b5b2e3e}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!basic\_json@{basic\_json}}
@@ -965,7 +965,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 copy constructor 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/basic_json/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/basic\+\_\+json/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ae18629aae4bd76e6f7920cf4e7b4dd60}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!basic\_json@{basic\_json}}
@@ -979,7 +979,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 move constructor 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/basic_json/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/basic\+\_\+json/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a9f3bcb6dc54f447ad95085715104494e}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!````~basic\_json@{\texorpdfstring{$\sim$}{\string~}basic\_json}}
@@ -993,14 +993,14 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 destructor 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/~basic_json/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/\texorpdfstring{$\sim$}{\string~}basic\+\_\+json/}} 
 \end{DoxySeeAlso}
 
 
 \label{doc-func-members}
 \Hypertarget{classbasic__json_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{classbasic__json_ac736994a792cb8460a30a3f4dd86fd78}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!array@{array}}
 \index{array@{array}!basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}}
 \doxysubsubsection{\texorpdfstring{array()}{array()}}
@@ -1012,7 +1012,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT \mbox{\hyperlink{clas
 
 explicitly create an array from an initializer list 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/array/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/array/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a91d1ad7e10a1c3aae885ddd992385612}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!at@{at}}
@@ -1026,7 +1026,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 access specified element via JSON Pointer 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/at/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/at/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a5a3a35d456e3250640a90c6f7a7fd555}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!at@{at}}
@@ -1040,7 +1040,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 access specified element via JSON Pointer 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/at/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/at/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_accafaaf23f60bb245ddb1fa0972b33a3}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!at@{at}}
@@ -1054,7 +1054,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 access specified object element with bounds checking 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/at/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/at/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_aba9a21714e81e98fc5786a2339ea1665}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!at@{at}}
@@ -1068,7 +1068,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 access specified object element with bounds checking 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/at/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/at/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a4cd9ba2f2164d9cee83b07f76d40843f}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!at@{at}}
@@ -1083,7 +1083,7 @@ template$<$class Key\+Type, detail\+::enable\+\_\+if\+\_\+t$<$ detail\+::is\+\_\
 
 access specified object element with bounds checking 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/at/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/at/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a7ae6267ca4bd85e25f61dc5ba30204da}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!at@{at}}
@@ -1098,7 +1098,7 @@ template$<$class Key\+Type, detail\+::enable\+\_\+if\+\_\+t$<$ detail\+::is\+\_\
 
 access specified object element with bounds checking 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/at/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/at/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a899e4623fe377af5c9ad14c40c64280c}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!at@{at}}
@@ -1112,7 +1112,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 access specified array element with bounds checking 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/at/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/at/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_af076d8a80f4263cf821da2033d5773b6}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!at@{at}}
@@ -1126,7 +1126,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 access specified array element with bounds checking 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/at/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/at/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a0d93dc1dbdf67a6ee3a5cf1d2439ca77}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!back@{back}}
@@ -1140,7 +1140,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 access the last element 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/back/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/back/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a41eee3066cd1ebfea746f9f07fd03f6f}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!back@{back}}
@@ -1154,7 +1154,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 access the last element 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/back/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/back/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_aac84462424ea7a14f9abb4ddb8e6dd7f}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!begin@{begin}}
@@ -1168,7 +1168,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 returns an iterator to the first element 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/begin/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/begin/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a5251a08382864af52c854fca1bdba61c}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!begin@{begin}}
@@ -1182,7 +1182,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 returns an iterator to the first element 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/begin/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/begin/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a743ac3bcbc4b0f7897244d4cea387eee}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!binary@{binary}}
@@ -1196,7 +1196,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT \mbox{\hyperlink{clas
 
 explicitly create a binary array (without subtype) 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/binary/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/binary/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a45e65e73d9ecf780537d632372fa2c51}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!binary@{binary}}
@@ -1210,7 +1210,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT \mbox{\hyperlink{clas
 
 explicitly create a binary array (with subtype) 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/binary/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/binary/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a5af2196a9acde33f742ef054e7c2109c}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!binary@{binary}}
@@ -1224,7 +1224,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT \mbox{\hyperlink{clas
 
 explicitly create a binary array 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/binary/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/binary/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ac00a2a38929ce21eae65f9dd09b03ce3}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!binary@{binary}}
@@ -1238,7 +1238,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT \mbox{\hyperlink{clas
 
 explicitly create a binary array (with subtype) 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/binary/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/binary/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a9ab2ece6530b3b2be5b876f80c68dc78}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!cbegin@{cbegin}}
@@ -1252,7 +1252,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 returns a const iterator to the first element 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/cbegin/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/cbegin/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a57c63700f006c54624eb2433ec6526b0}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!cend@{cend}}
@@ -1266,7 +1266,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 returns an iterator to one past the last element 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/cend/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/cend/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ad8cb21b66e4a4de652828345d51a8fc1}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!clear@{clear}}
@@ -1280,7 +1280,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 clears the contents 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/clear/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/clear/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ac4c37affef3aa8c79cab9f3bfa2cb5e1}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!contains@{contains}}
@@ -1294,7 +1294,7 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 check the existence of an element in a JSON object given a JSON pointer 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/contains/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/contains/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_afd5ea67fe1a4778be5189423e2545d7a}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!contains@{contains}}
@@ -1308,7 +1308,7 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 check the existence of an element in a JSON object 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/contains/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/contains/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a7053bdd8e9ee2fcb0ca9c54ec85f1297}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!contains@{contains}}
@@ -1323,7 +1323,7 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 check the existence of an element in a JSON object 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/contains/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/contains/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ad1e1eff03a320299e6a8639a7579ca46}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!count@{count}}
@@ -1337,7 +1337,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 returns the number of occurrences of a key in a JSON object 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/count/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/count/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a1ba1cd73d36a2cd58a9da7021b0f7317}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!count@{count}}
@@ -1352,7 +1352,7 @@ template$<$class Key\+Type, detail\+::enable\+\_\+if\+\_\+t$<$ detail\+::is\+\_\
 
 returns the number of occurrences of a key in a JSON object 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/count/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/count/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_acdde2a6628e43b3e3f7f27c6af6998f8}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!crbegin@{crbegin}}
@@ -1366,7 +1366,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 returns a const reverse iterator to the last element 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/crbegin/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/crbegin/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_aa52cc6cc0de1e81d9cc21f9c48feb588}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!crend@{crend}}
@@ -1380,7 +1380,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 returns a const reverse iterator to one before the first 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/crend/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/crend/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a940e724a2e8d5400ab772eb22af0387c}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!diff@{diff}}
@@ -1394,7 +1394,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT \mbox{\hyperlink{clas
 
 creates a diff as a JSON patch 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/diff/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/diff/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a85df48caed9e341bb14d98ab88891d1e}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!dump@{dump}}
@@ -1408,7 +1408,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 serialization 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/dump/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/dump/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_af298488e59ff260d2ca950070cf19196}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!emplace@{emplace}}
@@ -1423,7 +1423,7 @@ std\+::pair$<$ \mbox{\hyperlink{classbasic__json_ae206a491161d043f8efaa1330f1ccf
 
 add an object to an object if key does not exist 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/emplace/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/emplace/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ac5f0a15957842b188826aea98a9cfd3d}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!emplace\_back@{emplace\_back}}
@@ -1438,7 +1438,7 @@ template$<$class... Args$>$ \\
 
 add an object to an array 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/emplace_back/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/emplace\+\_\+back/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ac1e01c92bcf41fb7d857f72e5de7ca11}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!empty@{empty}}
@@ -1452,7 +1452,7 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 checks whether the container is empty. 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/empty/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/empty/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a0c10232619bee4e73749dae621c01376}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!end@{end}}
@@ -1466,7 +1466,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 returns an iterator to one past the last element 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/end/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/end/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a4dbc83213b31a171aa8ba65ff00fa954}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!end@{end}}
@@ -1480,7 +1480,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 returns an iterator to one past the last element 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/end/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/end/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ac2c58b5f34c2ff56e27630214f5a9df4}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!erase@{erase}}
@@ -1494,7 +1494,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 remove element from a JSON array given an index 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/erase/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/erase/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a05da3b93f2d4a7164589abffaa9acb33}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!erase@{erase}}
@@ -1508,7 +1508,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 remove element from a JSON object given a key 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/erase/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/erase/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a437b81c6e968a4192a22bc0de6c4df80}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!erase@{erase}}
@@ -1523,7 +1523,7 @@ Iterator\+Type \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+T
 
 remove elements given an iterator range 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/erase/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/erase/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a7d0fef086b1b72372113db6ce7446189}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!erase@{erase}}
@@ -1538,7 +1538,7 @@ Iterator\+Type \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+T
 
 remove element given an iterator 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/erase/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/erase/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a5f763336e84232f38e2d80e142f9820e}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!erase@{erase}}
@@ -1553,7 +1553,7 @@ template$<$class Key\+Type, detail\+::enable\+\_\+if\+\_\+t$<$ detail\+::is\+\_\
 
 remove element from a JSON object given a key 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/erase/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/erase/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a727e3cfb5a874314d8deb12cb53a8105}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!find@{find}}
@@ -1567,7 +1567,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 find an element in a JSON object 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/find/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/find/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a7bf93ae61eb63a9e543cafb3f723900c}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!find@{find}}
@@ -1581,7 +1581,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 find an element in a JSON object 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/find/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/find/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a89dd769ce700326266883ba96a98a8f2}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!find@{find}}
@@ -1596,7 +1596,7 @@ template$<$class Key\+Type, detail\+::enable\+\_\+if\+\_\+t$<$ detail\+::is\+\_\
 
 find an element in a JSON object 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/find/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/find/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_afe1bb257797042aef7142c91f35390d8}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!find@{find}}
@@ -1611,7 +1611,7 @@ template$<$class Key\+Type, detail\+::enable\+\_\+if\+\_\+t$<$ detail\+::is\+\_\
 
 find an element in a JSON object 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/find/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/find/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a5cd6c211f030b109f7ef361250366bb0}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!flatten@{flatten}}
@@ -1625,7 +1625,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 return flattened JSON value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/flatten/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/flatten/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a59327f708c0555e2928487bcddf71293}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!from\_bjdata@{from\_bjdata}}
@@ -1640,7 +1640,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT \mbox{\hyperlink{clas
 
 create a JSON value from an input in BJData format 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/from_bjdata/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/from\+\_\+bjdata/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_accf7ae6f9b2fee171484c5ef54f08d1e}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!from\_bjdata@{from\_bjdata}}
@@ -1655,7 +1655,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT \mbox{\hyperlink{clas
 
 create a JSON value from an input in BJData format 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/from_bjdata/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/from\+\_\+bjdata/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a4b0dfca88b11ea59a2568707767622d8}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!from\_bson@{from\_bson}}
@@ -1670,7 +1670,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT \mbox{\hyperlink{clas
 
 create a JSON value from an input in BSON format 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/from_bson/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/from\+\_\+bson/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a2513159e8df9a81bf03ed34e1147b42e}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!from\_bson@{from\_bson}}
@@ -1685,7 +1685,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT \mbox{\hyperlink{clas
 
 create a JSON value from an input in BSON format 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/from_bson/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/from\+\_\+bson/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a5bc3c67eaf6e9b22c8b446f9695249e9}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!from\_cbor@{from\_cbor}}
@@ -1700,7 +1700,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT \mbox{\hyperlink{clas
 
 create a JSON value from an input in CBOR format 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/from_cbor/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/from\+\_\+cbor/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a08ab03513b96f5a864bf623aeb70f122}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!from\_cbor@{from\_cbor}}
@@ -1715,7 +1715,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT \mbox{\hyperlink{clas
 
 create a JSON value from an input in CBOR format 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/from_cbor/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/from\+\_\+cbor/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ab0c025488572f913ca5529a2ef62d066}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!from\_msgpack@{from\_msgpack}}
@@ -1730,7 +1730,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT \mbox{\hyperlink{clas
 
 create a JSON value from an input in Message\+Pack format 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/from_msgpack/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/from\+\_\+msgpack/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_af7d84b161b2d93f9b2b3ac8d68afeb96}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!from\_msgpack@{from\_msgpack}}
@@ -1745,7 +1745,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT \mbox{\hyperlink{clas
 
 create a JSON value from an input in Message\+Pack format 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/from_msgpack/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/from\+\_\+msgpack/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a4588941095d03624ada4f0023d93944a}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!from\_ubjson@{from\_ubjson}}
@@ -1760,7 +1760,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT \mbox{\hyperlink{clas
 
 create a JSON value from an input in UBJSON format 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/from_ubjson/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/from\+\_\+ubjson/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a5dd7470a3be83b27cf162c0261e6b63d}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!from\_ubjson@{from\_ubjson}}
@@ -1775,7 +1775,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT \mbox{\hyperlink{clas
 
 create a JSON value from an input in UBJSON format 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/from_ubjson/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/from\+\_\+ubjson/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ad4dd162b4990cfb69925193797415f7e}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!front@{front}}
@@ -1789,7 +1789,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 access the first element 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/front/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/front/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a162089e94f24182ba3e4484be63c0c1a}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!front@{front}}
@@ -1803,7 +1803,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 access the first element 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/front/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/front/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a0ab31c7fdbab38898070bca01637f886}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!get@{get}}
@@ -1828,26 +1828,26 @@ Performs explicit type conversion between the JSON value and a compatible value 
 \end{DoxyItemize}
 
 
-\begin{DoxyTemplParams}{Template Parameters}
+\begin{DoxyTemplParams}{テンプレート引数}
 {\em Value\+Type\+CV} & the provided value type \\
 \hline
 {\em Value\+Type} & the returned value type\\
 \hline
 \end{DoxyTemplParams}
-\begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{戻り値}
 copy of the JSON value, converted to 
 \end{DoxyReturn}
 
-\begin{DoxyTemplParams}{Template Parameters}
+\begin{DoxyTemplParams}{テンプレート引数}
 {\em Value\+Type} & if necessary\\
 \hline
 \end{DoxyTemplParams}
 
-\begin{DoxyExceptions}{Exceptions}
+\begin{DoxyExceptions}{例外}
 {\em what} & json\+\_\+serializer$<$\+Value\+Type$>$ {\ttfamily from\+\_\+json()} method throws if conversion is required\\
 \hline
 \end{DoxyExceptions}
-\begin{DoxySince}{Since}
+\begin{DoxySince}{から}
 version 2.\+1.\+0 
 \end{DoxySince}
 \Hypertarget{classbasic__json_ab11f66d4edc50a209fab3f8c48664a53}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!get@{get}}
@@ -1864,25 +1864,25 @@ get a pointer value (explicit)
 
 Explicit pointer access to the internally stored JSON value. No copies are made.
 
-\begin{DoxyWarning}{Warning}
+\begin{DoxyWarning}{警告}
 The pointer becomes invalid if the underlying JSON object changes.
 \end{DoxyWarning}
 
-\begin{DoxyTemplParams}{Template Parameters}
+\begin{DoxyTemplParams}{テンプレート引数}
 {\em Pointer\+Type} & pointer type; must be a pointer to \doxylink{classbasic__json_a60644b7dccc409e6b367361d37841333}{array\+\_\+t}, \doxylink{classbasic__json_a67bb0d6dfaf1709d918b7107f5b94a3d}{object\+\_\+t}, \doxylink{classbasic__json_ac8c9cde32146e6c343e1960aefc11fba}{string\+\_\+t}, \doxylink{classbasic__json_a9301890c48e9b957edc07f9eb767bd10}{boolean\+\_\+t}, \doxylink{classbasic__json_aba48b0bdee31228a4e19b7c040b6d2a5}{number\+\_\+integer\+\_\+t}, \doxylink{classbasic__json_ae8505b599e706768a1e0bd6718cc7117}{number\+\_\+unsigned\+\_\+t}, or \doxylink{classbasic__json_a80a229dbc84c1334171ce9c49c873c56}{number\+\_\+float\+\_\+t}.\\
 \hline
 \end{DoxyTemplParams}
-\begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{戻り値}
 pointer to the internally stored JSON value if the requested pointer type {\itshape Pointer\+Type} fits to the JSON value; {\ttfamily nullptr} otherwise
 \end{DoxyReturn}
 @complexity Constant.
 
 @liveexample\{The example below shows how pointers to internal values of a JSON value can be requested. Note that no type conversions are made and a {\ttfamily nullptr} is returned if the value and the requested pointer type does not match.,get\+\_\+\+\_\+\+Pointer\+Type\}
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 see \doxylink{classbasic__json_aba60354728e2f7f64e3e5c6b02c5b820}{get\+\_\+ptr()} for explicit pointer-\/member access
 \end{DoxySeeAlso}
-\begin{DoxySince}{Since}
+\begin{DoxySince}{から}
 version 1.\+0.\+0 
 \end{DoxySince}
 \Hypertarget{classbasic__json_a4bceecf563151eb58af179416d8e6299}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!get\_allocator@{get\_allocator}}
@@ -1896,7 +1896,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 returns the allocator associated with the container 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/get_allocator/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/get\+\_\+allocator/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_aaa2432a7c01833b02c6330709211ede7}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!get\_binary@{get\_binary}}
@@ -1910,7 +1910,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 get a binary value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/get_binary/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/get\+\_\+binary/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a67d6da9fb8325a87d9513f960d88512a}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!get\_binary@{get\_binary}}
@@ -1924,7 +1924,7 @@ const \mbox{\hyperlink{classbasic__json_a4c1b5ea434b48cf31097617bb1c1ca1e}{binar
 
 get a binary value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/get_binary/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/get\+\_\+binary/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a9db8d5e59277a70a736f899c4aec0af0}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!get\_ptr@{get\_ptr}}
@@ -1939,7 +1939,7 @@ auto \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 get a pointer value (implicit) 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/get_ptr/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/get\+\_\+ptr/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_aba60354728e2f7f64e3e5c6b02c5b820}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!get\_ptr@{get\_ptr}}
@@ -1954,7 +1954,7 @@ auto \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 get a pointer value (implicit) 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/get_ptr/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/get\+\_\+ptr/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a3697078e748abc4a99c23e36e321b439}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!get\_ref@{get\_ref}}
@@ -1969,7 +1969,7 @@ Reference\+Type \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+
 
 get a reference value (implicit) 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/get_ref/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/get\+\_\+ref/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a39c5dbafcc6eef79143c251096827549}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!get\_ref@{get\_ref}}
@@ -1984,7 +1984,7 @@ Reference\+Type \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+
 
 get a reference value (implicit) 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/get_ref/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/get\+\_\+ref/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a8773ee34154b4f492549f5496c640ce5}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!get\_to@{get\_to}}
@@ -1999,7 +1999,7 @@ Value\+Type \& \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+T
 
 get a value (explicit) 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/get_to/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/get\+\_\+to/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_aaf55c485c75ddd7bd5f9791e59d3aec7}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!insert@{insert}}
@@ -2013,7 +2013,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 inserts range of elements into object 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/insert/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/insert/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ae5da62116a40a0f86e87f11fdd54e9f0}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!insert@{insert}}
@@ -2027,7 +2027,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 inserts element into array 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/insert/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/insert/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a7f3817060c2bec896a99cb2c236b9c27}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!insert@{insert}}
@@ -2041,7 +2041,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 inserts element into array 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/insert/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/insert/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a68e1707248a00a2608a304da5ae5c911}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!insert@{insert}}
@@ -2055,7 +2055,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 inserts range of elements into array 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/insert/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/insert/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_abdfee6a3db80431a24c68bfaf038c47d}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!insert@{insert}}
@@ -2069,7 +2069,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 inserts elements from initializer list into array 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/insert/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/insert/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a47b623200562da188886a385c716d101}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!insert@{insert}}
@@ -2083,7 +2083,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 inserts copies of element into array 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/insert/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/insert/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_af8c5ca19d22a32054452470669c43bb9}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!insert\_iterator@{insert\_iterator}}
@@ -2094,7 +2094,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 template$<$typename... Args$>$ \\
 \mbox{\hyperlink{classbasic__json_ae206a491161d043f8efaa1330f1ccf97}{iterator}} \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, JSONSerializer, Binary\+Type, Custom\+Base\+Class $>$\+::insert\+\_\+iterator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classbasic__json_a1f5af3d9d06d43b91fefe1767794b1e8}{const\+\_\+iterator}}}]{pos}{, }\item[{Args \&\&...}]{args}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-Helper for insertion of an iterator \begin{DoxyNote}{Note}
+Helper for insertion of an iterator \begin{DoxyNote}{覚え書き}
 \+: This uses std\+::distance to support GCC 4.\+8, see \href{https://github.com/nlohmann/json/pull/1257}{\texttt{https\+://github.\+com/nlohmann/json/pull/1257}} 
 \end{DoxyNote}
 \Hypertarget{classbasic__json_a184ba4a6b47e6da3703af19349bd776f}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!is\_array@{is\_array}}
@@ -2108,7 +2108,7 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 return whether value is an array 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/is_array/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/is\+\_\+array/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_abbdd993df08641faa3e24b5d2151e8f8}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!is\_binary@{is\_binary}}
@@ -2122,7 +2122,7 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 return whether value is a binary array 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/is_binary/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/is\+\_\+binary/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_acfe2e3c359b545f8edbb72f6bd78718c}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!is\_boolean@{is\_boolean}}
@@ -2136,7 +2136,7 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 return whether value is a boolean 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/is_boolean/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/is\+\_\+boolean/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a39e4946a414cc978b88939ed1b343d46}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!is\_discarded@{is\_discarded}}
@@ -2150,7 +2150,7 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 return whether value is discarded 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/is_discarded/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/is\+\_\+discarded/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ad8789d0a365d5afaab61e7492908d8b2}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!is\_null@{is\_null}}
@@ -2164,7 +2164,7 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 return whether value is null 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/is_null/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/is\+\_\+null/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_aacf244be5088fb183f4ba21a66af9631}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!is\_number@{is\_number}}
@@ -2178,7 +2178,7 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 return whether value is a number 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/is_number/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/is\+\_\+number/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a8d5bb82dfc8cceae1753b52a588eef92}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!is\_number\_float@{is\_number\_float}}
@@ -2192,7 +2192,7 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 return whether value is a floating-\/point number 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/is_number_float/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/is\+\_\+number\+\_\+float/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a2330e35cda16540058fef090abc709bf}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!is\_number\_integer@{is\_number\_integer}}
@@ -2206,7 +2206,7 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 return whether value is an integer number 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/is_number_integer/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/is\+\_\+number\+\_\+integer/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a4de72635745144ee519157d23fe7189a}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!is\_number\_unsigned@{is\_number\_unsigned}}
@@ -2220,7 +2220,7 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 return whether value is an unsigned integer number 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/is_number_unsigned/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/is\+\_\+number\+\_\+unsigned/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_af355a2b131068acf3d623eb6d80a711c}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!is\_object@{is\_object}}
@@ -2234,7 +2234,7 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 return whether value is an object 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/is_object/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/is\+\_\+object/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ad650dd5a7e019b970abce3d8864b5654}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!is\_primitive@{is\_primitive}}
@@ -2248,7 +2248,7 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 return whether type is primitive 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/is_primitive/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/is\+\_\+primitive/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a007ecebde9a7d40714e300ce0ff52908}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!is\_string@{is\_string}}
@@ -2262,7 +2262,7 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 return whether value is a string 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/is_string/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/is\+\_\+string/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a2d3a5f8761bc6f163f4119bddaf7b092}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!is\_structured@{is\_structured}}
@@ -2276,7 +2276,7 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 return whether type is structured 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/is_structured/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/is\+\_\+structured/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a3f2fdaf6048ea339c901b5208b93a64d}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!items@{items}}
@@ -2290,7 +2290,7 @@ iteration\+\_\+proxy$<$ \mbox{\hyperlink{classbasic__json_a1f5af3d9d06d43b91fefe
 
 helper to access iterator member functions in range-\/based for 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/items/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/items/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ac12884e86980aa85b6a9ffbb8b84de6a}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!items@{items}}
@@ -2304,7 +2304,7 @@ iteration\+\_\+proxy$<$ \mbox{\hyperlink{classbasic__json_ae206a491161d043f8efaa
 
 helper to access iterator member functions in range-\/based for 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/items/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/items/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a7c0314258e5347eade0c6851017bf5a5}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!iterator\_wrapper@{iterator\_wrapper}}
@@ -2318,11 +2318,11 @@ iteration\+\_\+proxy$<$ \mbox{\hyperlink{classbasic__json_a1f5af3d9d06d43b91fefe
 
 wrapper to access iterator member functions in range-\/based for 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/items/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/items/}} 
 \end{DoxySeeAlso}
-\begin{DoxyRefDesc}{Deprecated}
-\item[\mbox{\hyperlink{deprecated__deprecated000002}{Deprecated}}]This function is deprecated since 3.\+1.\+0 and will be removed in version 4.\+0.\+0 of the library. Please use \doxylink{classbasic__json_ac12884e86980aa85b6a9ffbb8b84de6a}{items()} instead; that is, replace {\ttfamily json\+::iterator\+\_\+wrapper(j)} with {\ttfamily j.\+items()}. \end{DoxyRefDesc}
+\begin{DoxyRefDesc}{非推奨}
+\item[\mbox{\hyperlink{deprecated__deprecated000002}{非推奨}}]This function is deprecated since 3.\+1.\+0 and will be removed in version 4.\+0.\+0 of the library. Please use \doxylink{classbasic__json_ac12884e86980aa85b6a9ffbb8b84de6a}{items()} instead; that is, replace {\ttfamily json\+::iterator\+\_\+wrapper(j)} with {\ttfamily j.\+items()}. \end{DoxyRefDesc}
 \Hypertarget{classbasic__json_ab8b4e0acdea49e5f0a77abdf1ce465d2}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!iterator\_wrapper@{iterator\_wrapper}}
 \index{iterator\_wrapper@{iterator\_wrapper}!basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}}
 \doxysubsubsection{\texorpdfstring{iterator\_wrapper()}{iterator\_wrapper()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
@@ -2334,11 +2334,11 @@ iteration\+\_\+proxy$<$ \mbox{\hyperlink{classbasic__json_ae206a491161d043f8efaa
 
 wrapper to access iterator member functions in range-\/based for 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/items/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/items/}} 
 \end{DoxySeeAlso}
-\begin{DoxyRefDesc}{Deprecated}
-\item[\mbox{\hyperlink{deprecated__deprecated000001}{Deprecated}}]This function is deprecated since 3.\+1.\+0 and will be removed in version 4.\+0.\+0 of the library. Please use \doxylink{classbasic__json_ac12884e86980aa85b6a9ffbb8b84de6a}{items()} instead; that is, replace {\ttfamily json\+::iterator\+\_\+wrapper(j)} with {\ttfamily j.\+items()}. \end{DoxyRefDesc}
+\begin{DoxyRefDesc}{非推奨}
+\item[\mbox{\hyperlink{deprecated__deprecated000001}{非推奨}}]This function is deprecated since 3.\+1.\+0 and will be removed in version 4.\+0.\+0 of the library. Please use \doxylink{classbasic__json_ac12884e86980aa85b6a9ffbb8b84de6a}{items()} instead; that is, replace {\ttfamily json\+::iterator\+\_\+wrapper(j)} with {\ttfamily j.\+items()}. \end{DoxyRefDesc}
 \Hypertarget{classbasic__json_a380f98b02e7d50cf28af056a6ad8ffe6}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!max\_size@{max\_size}}
 \index{max\_size@{max\_size}!basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}}
 \doxysubsubsection{\texorpdfstring{max\_size()}{max\_size()}}
@@ -2350,7 +2350,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 returns the maximum possible number of elements 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/max_size/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/max\+\_\+size/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a8676ac2433fe299b8d420f00a0741395}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!merge\_patch@{merge\_patch}}
@@ -2364,7 +2364,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 applies a JSON Merge Patch 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/merge_patch/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/merge\+\_\+patch/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a7b435c2ed2db99cb1daa78ae3c6c4580}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!meta@{meta}}
@@ -2378,7 +2378,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT \mbox{\hyperlink{clas
 
 returns version information on the library 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/meta/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/meta/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a50a0e8dacc0f4aa12162da666595e6fd}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!object@{object}}
@@ -2392,7 +2392,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT \mbox{\hyperlink{clas
 
 explicitly create an object from an initializer list 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/object/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/object/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a70e1c8fbdb62f3f8bc04e69eef9cc9cf}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!operator value\_t@{operator value\_t}}
@@ -2406,7 +2406,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 return the type of the JSON value (implicit) 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/operator_value_t/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/operator\+\_\+value\+\_\+t/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a747e3e19891143442991bbdb33edb917}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!operator ValueType@{operator ValueType}}
@@ -2424,15 +2424,15 @@ get a value (implicit)
 Implicit type conversion between the JSON value and a compatible value. The call is realized by calling \doxylink{classbasic__json_a0ab31c7fdbab38898070bca01637f886}{get() const}.
 
 
-\begin{DoxyTemplParams}{Template Parameters}
+\begin{DoxyTemplParams}{テンプレート引数}
 {\em Value\+Type} & non-\/pointer type compatible to the JSON value, for instance {\ttfamily int} for JSON integer numbers, {\ttfamily bool} for JSON booleans, or {\ttfamily std\+::vector} types for JSON arrays. The character type of \doxylink{classbasic__json_ac8c9cde32146e6c343e1960aefc11fba}{string\+\_\+t} as well as an initializer list of this type is excluded to avoid ambiguities as these types implicitly convert to {\ttfamily std\+::string}.\\
 \hline
 \end{DoxyTemplParams}
-\begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{戻り値}
 copy of the JSON value, converted to type {\itshape Value\+Type} 
 \end{DoxyReturn}
 
-\begin{DoxyExceptions}{Exceptions}
+\begin{DoxyExceptions}{例外}
 {\em type\+\_\+error.\+302} & in case passed type {\itshape Value\+Type} is incompatible to the JSON value type (e.\+g., the JSON value is of type boolean, but a string is requested); see example below\\
 \hline
 \end{DoxyExceptions}
@@ -2440,7 +2440,7 @@ copy of the JSON value, converted to type {\itshape Value\+Type}
 
 @liveexample\{The example below shows several conversions from JSON values to other types. There a few things to note\+: (1) Floating-\/point numbers can be converted to integers\textbackslash{}, (2) A JSON array can be converted to a standard {\ttfamily std\+::vector\texorpdfstring{$<$}{<}short\texorpdfstring{$>$}{>}}\textbackslash{}, (3) A JSON object can be converted to C++ associative containers such as {\ttfamily std\+::unordered\+\_\+map\texorpdfstring{$<$}{<}std\+::string\textbackslash{}, json\texorpdfstring{$>$}{>}}.,operator\+\_\+\+\_\+\+Value\+Type\}
 
-\begin{DoxySince}{Since}
+\begin{DoxySince}{から}
 version 1.\+0.\+0 
 \end{DoxySince}
 \Hypertarget{classbasic__json_ac444a656905e3f207ad9fc19275faf25}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!operator+=@{operator+=}}
@@ -2454,7 +2454,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 add an object to an array 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/operator+=/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/operator+=/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a4475e951f51506808ca6fe7e77eb38ca}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!operator+=@{operator+=}}
@@ -2468,7 +2468,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 add an object to an array 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/operator+=/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/operator+=/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a996a58d60e4badd9beadfd3e2e7ffdc1}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!operator+=@{operator+=}}
@@ -2482,7 +2482,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 add an object to an object 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/operator+=/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/operator+=/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a3af74b651da5642cd8b77a3ecc635331}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!operator+=@{operator+=}}
@@ -2496,7 +2496,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 add an object to an object 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/operator+=/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/operator+=/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ab8154023fc24515222c9cf61d677871e}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!operator=@{operator=}}
@@ -2510,7 +2510,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 copy assignment 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/operator=/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/operator=/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a274307158c76b820701077dd471cc75b}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
@@ -2524,7 +2524,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 access specified element via JSON Pointer 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/operator\%5B\%5D/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/operator\%5\+B\%5\+D/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a6aedef6230f66b1271d71a6f77e7fed3}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
@@ -2538,7 +2538,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 access specified element via JSON Pointer 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/operator\%5B\%5D/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/operator\%5\+B\%5\+D/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a3d3ea17617e94886f3e86ac921095a13}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
@@ -2552,7 +2552,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 access specified object element 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/operator\%5B\%5D/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/operator\%5\+B\%5\+D/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a06fe1a1c7aa8c193c73aa40b17ee5f68}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
@@ -2567,7 +2567,7 @@ template$<$class Key\+Type, detail\+::enable\+\_\+if\+\_\+t$<$ detail\+::is\+\_\
 
 access specified object element 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/operator\%5B\%5D/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/operator\%5\+B\%5\+D/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a2e11a3f2a234cd296b515173b6a3b986}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
@@ -2582,7 +2582,7 @@ template$<$class Key\+Type, detail\+::enable\+\_\+if\+\_\+t$<$ detail\+::is\+\_\
 
 access specified object element 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/operator\%5B\%5D/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/operator\%5\+B\%5\+D/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ab4f511db82b9d5eba85d5b2b8e1c6dbb}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
@@ -2596,7 +2596,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 access specified array element 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/operator\%5B\%5D/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/operator\%5\+B\%5\+D/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ae369d1565482903c3af75bf99467776b}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
@@ -2610,7 +2610,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 access specified array element 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/operator\%5B\%5D/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/operator\%5\+B\%5\+D/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a9c5825034534bf9256a33d2dd995c25a}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
@@ -2624,7 +2624,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 access specified object element 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/operator\%5B\%5D/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/operator\%5\+B\%5\+D/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a145a004c0a2fa5be84b260ecc98ab5d9}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!patch@{patch}}
@@ -2638,7 +2638,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 applies a JSON patch to a copy of the current object 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/patch/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/patch/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a693812b31e106dec9166e93d8f6dd7d7}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!patch\_inplace@{patch\_inplace}}
@@ -2652,7 +2652,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 applies a JSON patch in-\/place without copying the object 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/patch/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/patch/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a3d13acce4e49e0d5ee768643a7b89010}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!push\_back@{push\_back}}
@@ -2666,7 +2666,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 add an object to an array 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/push_back/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/push\+\_\+back/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_aca01ca3a9bc310e5c5d067a39dca6933}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!push\_back@{push\_back}}
@@ -2680,7 +2680,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 add an object to an array 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/push_back/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/push\+\_\+back/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_af17fe93acad9b0b991600225dabd42be}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!push\_back@{push\_back}}
@@ -2694,7 +2694,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 add an object to an object 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/push_back/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/push\+\_\+back/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a4fcacc90f17b156f0b6c8e0430624853}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!push\_back@{push\_back}}
@@ -2708,7 +2708,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 add an object to an object 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/push_back/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/push\+\_\+back/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a4ef4aee2259af5183267f6e8f774d0eb}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!rbegin@{rbegin}}
@@ -2722,7 +2722,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 returns an iterator to the reverse-\/beginning 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/rbegin/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/rbegin/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a11da8db436685032e97563cbb7490ff5}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!rbegin@{rbegin}}
@@ -2736,7 +2736,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 returns an iterator to the reverse-\/beginning 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/rbegin/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/rbegin/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ae81c3b38089a63d988a1efefe3ebc4bf}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!rend@{rend}}
@@ -2750,7 +2750,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 returns an iterator to the reverse-\/end 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/rend/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/rend/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a8d8855a8c04ee7986ae8bab283c4f0de}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!rend@{rend}}
@@ -2764,7 +2764,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 returns an iterator to the reverse-\/end 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/rend/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/rend/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a33c35a7d1d038a2a943c817fb3740c97}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!sax\_parse@{sax\_parse}}
@@ -2779,11 +2779,11 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 generate SAX events 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/sax_parse/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/sax\+\_\+parse/}} 
 \end{DoxySeeAlso}
-\begin{DoxyRefDesc}{Deprecated}
-\item[\mbox{\hyperlink{deprecated__deprecated000003}{Deprecated}}]This function is deprecated since 3.\+8.\+0 and will be removed in version 4.\+0.\+0 of the library. Please use sax\+\_\+parse(ptr, ptr + len) instead. \end{DoxyRefDesc}
+\begin{DoxyRefDesc}{非推奨}
+\item[\mbox{\hyperlink{deprecated__deprecated000003}{非推奨}}]This function is deprecated since 3.\+8.\+0 and will be removed in version 4.\+0.\+0 of the library. Please use sax\+\_\+parse(ptr, ptr + len) instead. \end{DoxyRefDesc}
 \Hypertarget{classbasic__json_a391e61df70c5d8454ef8d4f703672c1f}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!sax\_parse@{sax\_parse}}
 \index{sax\_parse@{sax\_parse}!basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}}
 \doxysubsubsection{\texorpdfstring{sax\_parse()}{sax\_parse()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
@@ -2796,7 +2796,7 @@ bool \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 generate SAX events 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/sax_parse/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/sax\+\_\+parse/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a086cbfd1ad4ba83a8127c87467a92f47}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!size@{size}}
@@ -2810,7 +2810,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 returns the number of elements 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/size/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/size/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ac1e32c91d5e641c25c52486341f5a9db}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!swap@{swap}}
@@ -2824,7 +2824,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 exchanges the values 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/swap/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/swap/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a3624e1bbc880bd196e3fa4a220554755}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!swap@{swap}}
@@ -2838,7 +2838,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 exchanges the values 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/swap/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/swap/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_abc9ea6dec87e254de172c2bfeaeef7df}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!swap@{swap}}
@@ -2852,7 +2852,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 exchanges the values 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/swap/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/swap/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a1a94e5348ebb34852092d51a44e21d24}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!swap@{swap}}
@@ -2866,7 +2866,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 exchanges the values 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/swap/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/swap/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_aeac8816c033c659ef8b43a5f03d5f553}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!swap@{swap}}
@@ -2880,7 +2880,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 exchanges the values 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/swap/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/swap/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_aa987625005046c81e7748dca1e84a0e3}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!swap@{swap}}
@@ -2894,7 +2894,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 exchanges the values 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/swap/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/swap/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a77dbad7d1d0d0ac41e86d26fc8420f18}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!to\_bjdata@{to\_bjdata}}
@@ -2908,7 +2908,7 @@ std\+::vector$<$ std\+::uint8\+\_\+t $>$ \mbox{\hyperlink{classbasic__json}{basi
 
 create a BJData serialization of a given JSON value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/to_bjdata/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/to\+\_\+bjdata/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_abfb3a6250e789fa65976bfcaf54d23f8}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!to\_bjdata@{to\_bjdata}}
@@ -2922,7 +2922,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 create a BJData serialization of a given JSON value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/to_bjdata/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/to\+\_\+bjdata/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a87ab091477fdfa01b6c53e260968b3c3}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!to\_bjdata@{to\_bjdata}}
@@ -2936,7 +2936,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 create a BJData serialization of a given JSON value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/to_bjdata/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/to\+\_\+bjdata/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a4ea6478022ab79b47216fda4b53ae1d4}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!to\_bson@{to\_bson}}
@@ -2950,7 +2950,7 @@ std\+::vector$<$ std\+::uint8\+\_\+t $>$ \mbox{\hyperlink{classbasic__json}{basi
 
 create a BSON serialization of a given JSON value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/to_bson/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/to\+\_\+bson/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a71794547dde3dd67e444aa45131ca861}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!to\_bson@{to\_bson}}
@@ -2964,7 +2964,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 create a BSON serialization of a given JSON value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/to_bson/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/to\+\_\+bson/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_afd718b745034da1f4eea4c69f45cebda}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!to\_bson@{to\_bson}}
@@ -2978,7 +2978,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 create a BSON serialization of a given JSON value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/to_bson/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/to\+\_\+bson/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a7c47280dbbb39288384058b771f8eec6}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!to\_cbor@{to\_cbor}}
@@ -2992,7 +2992,7 @@ std\+::vector$<$ std\+::uint8\+\_\+t $>$ \mbox{\hyperlink{classbasic__json}{basi
 
 create a CBOR serialization of a given JSON value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/to_cbor/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/to\+\_\+cbor/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_af31f5ee23264fb21bd31e16bc27adab2}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!to\_cbor@{to\_cbor}}
@@ -3006,7 +3006,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 create a CBOR serialization of a given JSON value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/to_cbor/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/to\+\_\+cbor/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a706ccab0e47bd75cd36911db84451cd1}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!to\_cbor@{to\_cbor}}
@@ -3020,7 +3020,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 create a CBOR serialization of a given JSON value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/to_cbor/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/to\+\_\+cbor/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_aea0ea0404f7ea72f66b0d5d0032b1367}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!to\_msgpack@{to\_msgpack}}
@@ -3034,7 +3034,7 @@ std\+::vector$<$ std\+::uint8\+\_\+t $>$ \mbox{\hyperlink{classbasic__json}{basi
 
 create a Message\+Pack serialization of a given JSON value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/to_msgpack/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/to\+\_\+msgpack/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a51da13ff4e850d4ad1cf23ce4f3b9e4a}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!to\_msgpack@{to\_msgpack}}
@@ -3048,7 +3048,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 create a Message\+Pack serialization of a given JSON value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/to_msgpack/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/to\+\_\+msgpack/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_af46fdac62559d4c38e623d99ad7064e9}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!to\_msgpack@{to\_msgpack}}
@@ -3062,7 +3062,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 create a Message\+Pack serialization of a given JSON value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/to_msgpack/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/to\+\_\+msgpack/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a906e81d488ebcac169960a1d48f6b065}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!to\_ubjson@{to\_ubjson}}
@@ -3076,7 +3076,7 @@ std\+::vector$<$ std\+::uint8\+\_\+t $>$ \mbox{\hyperlink{classbasic__json}{basi
 
 create a UBJSON serialization of a given JSON value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/to_ubjson/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/to\+\_\+ubjson/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ab8b6c6cc3ba1b49af628fe0ec8c73b77}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!to\_ubjson@{to\_ubjson}}
@@ -3090,7 +3090,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 create a UBJSON serialization of a given JSON value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/to_ubjson/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/to\+\_\+ubjson/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ada3d71f1dcfea24465d364b815d11445}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!to\_ubjson@{to\_ubjson}}
@@ -3104,7 +3104,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 create a UBJSON serialization of a given JSON value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/to_ubjson/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/to\+\_\+ubjson/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ac5e52dbb3cb4e9fcabd1b88c37985aef}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!type@{type}}
@@ -3118,7 +3118,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 return the type of the JSON value (explicit) 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/type/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/type/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a15b177614647598e238e15ab1cc889c7}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!type\_name@{type\_name}}
@@ -3132,7 +3132,7 @@ JSON\+\_\+\+HEDLEY\+\_\+\+RETURNS\+\_\+\+NON\+\_\+\+NULL const char \texorpdfstr
 
 return the type as string 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/type_name/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/type\+\_\+name/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_abdb57996898f80522e9abbb5e1e61e46}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!unflatten@{unflatten}}
@@ -3146,7 +3146,7 @@ template$<$template$<$ typename U, typename V, typename... Args $>$ class Object
 
 unflatten a previously flattened JSON value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/unflatten/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/unflatten/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a4ea2b8cef5e4aba5b92d14e6ebe25936}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!update@{update}}
@@ -3160,7 +3160,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 updates a JSON object from another object, overwriting existing keys 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/update/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/update/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a3819f393e82396782ccc22785575b01d}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!update@{update}}
@@ -3174,7 +3174,7 @@ void \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type, Array
 
 updates a JSON object from another object, overwriting existing keys 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/update/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/update/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_ac63045992eb552c11f77fefddd801591}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!value@{value}}
@@ -3189,7 +3189,7 @@ Value\+Type \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type
 
 access specified object element via JSON Pointer with default value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/value/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/value/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a1ab7b5edf8e5831195940f8d377a6ee3}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!value@{value}}
@@ -3204,7 +3204,7 @@ Return\+Type \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Typ
 
 access specified object element via JSON Pointer with default value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/value/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/value/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a80c2436388fd16a1529ce9afce8229ef}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!value@{value}}
@@ -3219,7 +3219,7 @@ Value\+Type \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type
 
 access specified object element with default value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/value/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/value/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a56244e0ed0943ad62faf61b06e7ba139}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!value@{value}}
@@ -3234,7 +3234,7 @@ Return\+Type \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Typ
 
 access specified object element with default value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/value/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/value/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_acbe572bbfbd4687a7a9167465e4d41f2}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!value@{value}}
@@ -3249,7 +3249,7 @@ Value\+Type \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Type
 
 access specified object element with default value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/value/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/value/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a694398741710ce1c22797ad47109898b}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!value@{value}}
@@ -3264,14 +3264,14 @@ Return\+Type \mbox{\hyperlink{classbasic__json}{basic\+\_\+json}}$<$ Object\+Typ
 
 access specified object element via JSON Pointer with default value 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/value/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/value/}} 
 \end{DoxySeeAlso}
 
 
 \label{doc-related-members}
 \Hypertarget{classbasic__json_doc-related-members}
-\doxysubsection{Friends And Related Symbol Documentation}
+\doxysubsection{フレンドと関連関数の詳解}
 \Hypertarget{classbasic__json_af9907af448f7ff794120033e132025f6}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!operator$<$$<$@{operator$<$$<$}}
 \index{operator$<$$<$@{operator$<$$<$}!basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}}
 \doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
@@ -3283,11 +3283,11 @@ std\+::istream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlin
 
 deserialize from stream 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/operator_gtgt/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/operator\+\_\+gtgt/}} 
 \end{DoxySeeAlso}
-\begin{DoxyRefDesc}{Deprecated}
-\item[\mbox{\hyperlink{deprecated__deprecated000004}{Deprecated}}]This stream operator is deprecated since 3.\+0.\+0 and will be removed in version 4.\+0.\+0 of the library. Please use \doxylink{classbasic__json_aea0de29387d532e0bc5f2475cb83995d}{operator$>$$>$(std\+::istream\&, basic\+\_\+json\&)} instead; that is, replace calls like {\ttfamily j \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} i;} with {\ttfamily i \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>} j;}. \end{DoxyRefDesc}
+\begin{DoxyRefDesc}{非推奨}
+\item[\mbox{\hyperlink{deprecated__deprecated000004}{非推奨}}]This stream operator is deprecated since 3.\+0.\+0 and will be removed in version 4.\+0.\+0 of the library. Please use \doxylink{classbasic__json_aea0de29387d532e0bc5f2475cb83995d}{operator$>$$>$(std\+::istream\&, basic\+\_\+json\&)} instead; that is, replace calls like {\ttfamily j \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} i;} with {\ttfamily i \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>} j;}. \end{DoxyRefDesc}
 \Hypertarget{classbasic__json_aea0de29387d532e0bc5f2475cb83995d}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!operator$>$$>$@{operator$>$$>$}}
 \index{operator$>$$>$@{operator$>$$>$}!basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}}
 \doxysubsubsection{\texorpdfstring{operator$>$$>$}{operator>>}}
@@ -3299,7 +3299,7 @@ std\+::istream \& operator$>$$>$ (\begin{DoxyParamCaption}\item[{std\+::istream 
 
 deserialize from stream 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/operator_gtgt/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/operator\+\_\+gtgt/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classbasic__json_a44c98b48b8a0b5e53087776fbb63961f}\index{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$@{basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer, BinaryType, CustomBaseClass $>$}!swap@{swap}}
@@ -3313,11 +3313,11 @@ void swap (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classbasic__json_a6ca
 
 exchanges the values 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/swap/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/swap/}} 
 \end{DoxySeeAlso}
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 json.\+hpp\end{DoxyCompactItemize}

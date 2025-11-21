@@ -1,4 +1,4 @@
-\doxysection{detail\+::lexer\texorpdfstring{$<$}{<} Basic\+Json\+Type, Input\+Adapter\+Type \texorpdfstring{$>$}{>} Class Template Reference}
+\doxysection{detail\+::lexer\texorpdfstring{$<$}{<} Basic\+Json\+Type, Input\+Adapter\+Type \texorpdfstring{$>$}{>} クラステンプレート}
 \hypertarget{classdetail_1_1lexer}{}\label{classdetail_1_1lexer}\index{detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{detail::lexer$<$ BasicJsonType, InputAdapterType $>$}}
 
 
@@ -9,19 +9,19 @@ lexical analysis
 
 {\ttfamily \#include $<$json.\+hpp$>$}
 
-Inheritance diagram for detail\+::lexer\texorpdfstring{$<$}{<} Basic\+Json\+Type, Input\+Adapter\+Type \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+detail\+::lexer\texorpdfstring{$<$}{<} Basic\+Json\+Type, Input\+Adapter\+Type \texorpdfstring{$>$}{>} の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{classdetail_1_1lexer}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Types}
+\doxysubsubsection*{公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classdetail_1_1lexer_a74052693c02be1a1e245295b62e5fcb6}\label{classdetail_1_1lexer_a74052693c02be1a1e245295b62e5fcb6} 
 using {\bfseries token\+\_\+type} = typename \mbox{\hyperlink{classdetail_1_1lexer__base}{lexer\+\_\+base}}$<$Basic\+Json\+Type$>$\+::token\+\_\+type
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{classdetail_1_1lexer__base}{detail\+::lexer\+\_\+base$<$ Basic\+Json\+Type $>$}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{classdetail_1_1lexer__base}{detail\+::lexer\+\_\+base$<$ Basic\+Json\+Type $>$}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 enum class \mbox{\hyperlink{classdetail_1_1lexer__base_add65fa7a85aa15052963809fbcc04540}{token\+\_\+type}} \{ \newline
@@ -48,7 +48,7 @@ enum class \mbox{\hyperlink{classdetail_1_1lexer__base_add65fa7a85aa15052963809f
 \mbox{\hyperlink{classdetail_1_1lexer__base_add65fa7a85aa15052963809fbcc04540ad2a8e6f6721cccec0b466301dd9495a5}{literal\+\_\+or\+\_\+value}}
  \}
 \begin{DoxyCompactList}\small\item\em token types for the parser \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classdetail_1_1lexer_a384af885c37d58c963b902008c279fd6}\label{classdetail_1_1lexer_a384af885c37d58c963b902008c279fd6} 
@@ -94,15 +94,15 @@ void {\bfseries skip\+\_\+whitespace} ()
 \Hypertarget{classdetail_1_1lexer_a6497d12a0c35b355b3e22da69d6819f9}\label{classdetail_1_1lexer_a6497d12a0c35b355b3e22da69d6819f9} 
 token\+\_\+type {\bfseries scan} ()
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classdetail_1_1lexer__base}{detail\+::lexer\+\_\+base$<$ Basic\+Json\+Type $>$}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{classdetail_1_1lexer__base}{detail\+::lexer\+\_\+base$<$ Basic\+Json\+Type $>$}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 JSON\+\_\+\+HEDLEY\+\_\+\+RETURNS\+\_\+\+NON\+\_\+\+NULL static JSON\+\_\+\+HEDLEY\+\_\+\+CONST const char \texorpdfstring{$\ast$}{*} {\bfseries token\+\_\+type\+\_\+name} (const \mbox{\hyperlink{classdetail_1_1lexer__base_add65fa7a85aa15052963809fbcc04540}{token\+\_\+type}} t) noexcept
 \begin{DoxyCompactList}\small\item\em return name of values of type \doxylink{classdetail_1_1lexer__base_add65fa7a85aa15052963809fbcc04540}{token\+\_\+type} (only used for errors) \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsection{詳解}
 \subsubsection*{template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$\newline
 class detail\+::lexer$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$}
 lexical analysis 
@@ -111,7 +111,7 @@ This class organizes the lexical analysis during JSON deserialization.
 
 \label{doc-func-members}
 \Hypertarget{classdetail_1_1lexer_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{classdetail_1_1lexer_a41481d87dc1bcaaf532f529fbc0e690b}\index{detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{detail::lexer$<$ BasicJsonType, InputAdapterType $>$}!get\_token\_string@{get\_token\_string}}
 \index{get\_token\_string@{get\_token\_string}!detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{detail::lexer$<$ BasicJsonType, InputAdapterType $>$}}
 \doxysubsubsection{\texorpdfstring{get\_token\_string()}{get\_token\_string()}}
@@ -130,11 +130,11 @@ bool \mbox{\hyperlink{classdetail_1_1lexer}{detail\+::lexer}}$<$ Basic\+Json\+Ty
 
 skip the UTF-\/8 byte order mark 
 
-\begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{戻り値}
 true iff there is no BOM or the correct BOM has been skipped 
 \end{DoxyReturn}
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 json.\+hpp\end{DoxyCompactItemize}

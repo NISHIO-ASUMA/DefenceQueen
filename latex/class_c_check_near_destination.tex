@@ -1,0 +1,69 @@
+\doxysection{CCheck\+Near\+Destination クラス}
+\hypertarget{class_c_check_near_destination}{}\label{class_c_check_near_destination}\index{CCheckNearDestination@{CCheckNearDestination}}
+CCheck\+Near\+Destination の継承関係図\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_c_check_near_destination}
+\end{center}
+\end{figure}
+\doxysubsubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_check_near_destination_a341eeb2e2b4ee932bb2add5da949a310}\label{class_c_check_near_destination_a341eeb2e2b4ee932bb2add5da949a310} 
+{\bfseries CCheck\+Near\+Destination} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard, \mbox{\hyperlink{class_c_node}{CNode}} \texorpdfstring{$\ast$}{*}True\+Node, \mbox{\hyperlink{class_c_node}{CNode}} \texorpdfstring{$\ast$}{*}False\+Node, float f\+Distance)
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_branch_node_base}{CBranch\+Node\+Base}} に属する継承公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries CBranch\+Node\+Base} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard, \mbox{\hyperlink{class_c_node}{CNode}} \texorpdfstring{$\ast$}{*}True\+Node, \mbox{\hyperlink{class_c_node}{CNode}} \texorpdfstring{$\ast$}{*}False\+Node)
+\item 
+virtual void \mbox{\hyperlink{class_c_branch_node_base_a1f9d8c0e285464094229bc10caabfbcb}{Init}} () override
+\item 
+virtual void \mbox{\hyperlink{class_c_branch_node_base_aea441faf5a0dd5e5baec9122453b40ec}{Update}} () override
+\item 
+virtual void \mbox{\hyperlink{class_c_branch_node_base_ad85e84085d880b95ee4adf051e868576}{Exit}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_c_node_base_a4323bee7fbdad9032c1c0e10b20a17ec}{set\+\_\+node\+\_\+id}} (const int id) override
+\end{DoxyCompactItemize}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_branch_node_base}{CBranch\+Node\+Base}} に属する継承公開型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_branch_node_base_a812dbeed669da07c971c980e03f6af20}\label{class_c_branch_node_base_a812dbeed669da07c971c980e03f6af20} 
+enum {\bfseries BRANCH\+\_\+\+NUM} \{ {\bfseries BRANCH\+\_\+\+NUM\+\_\+\+TRUE}
+, {\bfseries BRANCH\+\_\+\+NUM\+\_\+\+FALSE}
+, {\bfseries BRANCH\+\_\+\+NUM\+\_\+\+MAX}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承限定公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries CNode\+Base} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard)
+\item 
+virtual Node\+Info\+::\+Node\+Result \mbox{\hyperlink{class_c_node_base_addfc5c1a5d933924342ef35d19a4f20f}{get\+\_\+node\+\_\+result}} () const
+\item 
+virtual int \mbox{\hyperlink{class_c_node_base_a244860c6b3acdc60d69fbef61e522b79}{get\+\_\+running\+\_\+node\+\_\+id}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_branch_node_base}{CBranch\+Node\+Base}} に属する継承限定公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_node}{CNode}} \texorpdfstring{$\ast$}{*} {\bfseries m\+\_\+p\+Branch\+Node} \mbox{[}BRANCH\+\_\+\+NUM\+\_\+\+MAX\mbox{]} = \{ nullptr,nullptr \}
+\item 
+int {\bfseries m\+\_\+n\+True\+Idx} = -\/1
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承限定公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*} {\bfseries m\+\_\+p\+Black\+Board} = nullptr
+\item 
+Node\+Info\+::\+Node\+Result {\bfseries m\+\_\+\+Node\+Result} = Node\+Info\+::\+Node\+Result\+::\+Re\+\_\+\+IDLE
+\end{DoxyCompactItemize}
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+checkneardestination.\+h\item 
+checkneardestination.\+cpp\end{DoxyCompactItemize}

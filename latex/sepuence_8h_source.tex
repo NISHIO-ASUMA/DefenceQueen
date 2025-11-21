@@ -1,0 +1,72 @@
+\doxysection{sepuence.\+h}
+\hypertarget{sepuence_8h_source}{}\label{sepuence_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//===================================================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ 順番にソstring^スクをこなすシーケンスノードクラス\ [\ sequence.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//===================================================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//*******************************************************************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//*******************************************************************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//*******************************************************************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//*******************************************************************}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}compositenodebase.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//*******************************************************************}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ 前方宣言}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//*******************************************************************}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_black_board}{CBlackBoard}};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//*******************************************************************}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ シーケンスクラスを定義}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//*******************************************************************}}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }CSequence\ :\ \textcolor{keyword}{public}\ CCompositeNodeBase}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ CSequence(\mbox{\hyperlink{class_c_black_board}{CBlackBoard}}*\ blackboard)\ :\ CCompositeNodeBase(blackboard)\ \{\};}
+\DoxyCodeLine{00031\ \ \ \ \ \string~CSequence()\ \textcolor{keyword}{override}\ =\ \textcolor{keywordflow}{default};\ \textcolor{comment}{//\ 継承元クラスで破棄}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ Update()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00034\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 現在の子ノードの更新を実行する}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ m\_ChildeNode[m\_RanningIndex]-\/>Update();}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ノードの結果を取得する}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ noderesult\ =\ m\_ChildeNode[m\_RanningIndex]-\/>get\_node\_result();}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ノード状態が"{}成功"{}なら}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (noderesult\ ==\ NodeInfo::NodeResult::Re\_SUCCESS)}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 次のシーケンスのため番号を加算し、処理を返す}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_c_composite_node_base_a386deaf9f911aca0f38c004cf5ed549c}{NodeIncrement}}();}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ノード状態が"{}失敗"{}なら}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (noderesult\ ==\ NodeInfo::NodeResult::Re\_FAIL)}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 終了処理実行}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ Exit();}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ノードの状態に代入する}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ m\_NodeResult\ =\ noderesult;}
+\DoxyCodeLine{00058\ \ \ \ \ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00061\ \ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{//\ 次のノードのインデックス番号取得関数}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ GetNextIdx()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00064\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_RanningIndex\ +\ 1;}
+\DoxyCodeLine{00066\ \ \ \ \ \};}
+\DoxyCodeLine{00067\ \};}
+
+\end{DoxyCode}

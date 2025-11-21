@@ -1,12 +1,12 @@
-\doxysection{CParticle Class Reference}
+\doxysection{CParticle クラス}
 \hypertarget{class_c_particle}{}\label{class_c_particle}\index{CParticle@{CParticle}}
-Inheritance diagram for CParticle\+:\begin{figure}[H]
+CParticle の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{class_c_particle}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_particle_a27d31ea066c238c48c7ccb2e83d52777}\label{class_c_particle_a27d31ea066c238c48c7ccb2e83d52777} 
@@ -20,7 +20,7 @@ void \mbox{\hyperlink{class_c_particle_a7e922d838e363e73f4300f7f0bcf669e}{Update
 \item 
 void \mbox{\hyperlink{class_c_particle_a261edda52ebc52d245765e0337151038}{Draw}} (void)
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject} (int n\+Priority=NONE)
@@ -31,13 +31,13 @@ TYPE {\bfseries Get\+Obj\+Type} (void)
 \item 
 \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_particle_a9eee3ab01bffa4625672dbe53d0066df}\label{class_c_particle_a9eee3ab01bffa4625672dbe53d0066df} 
 static \mbox{\hyperlink{class_c_particle}{CParticle}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (D3\+DXVECTOR3 pos, D3\+DXCOLOR col, int n\+Max\+Particle, int n\+Radius, int n\+Length, int n\+Life)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static void {\bfseries Release\+All} (void)
@@ -50,8 +50,8 @@ static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\b
 \item 
 static int {\bfseries Get\+Num\+All} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
@@ -92,7 +92,7 @@ enum {\bfseries PRIORITY} \{ \newline
 {\bfseries PRIORITY\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 void {\bfseries Release} (void)
@@ -101,7 +101,7 @@ void {\bfseries Release} (void)
 
 \label{doc-func-members}
 \Hypertarget{class_c_particle_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_particle_a261edda52ebc52d245765e0337151038}\index{CParticle@{CParticle}!Draw@{Draw}}
 \index{Draw@{Draw}!CParticle@{CParticle}}
 \doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
@@ -110,7 +110,7 @@ void CParticle\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyPara
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_particle_a9cad35467631e10ed581d53b53fab078}\index{CParticle@{CParticle}!Init@{Init}}
 \index{Init@{Init}!CParticle@{CParticle}}
@@ -120,7 +120,7 @@ HRESULT CParticle\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyP
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_particle_a819bc87fc3977ed599df5ec5c94a56bb}\index{CParticle@{CParticle}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CParticle@{CParticle}}
@@ -130,7 +130,7 @@ void CParticle\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyPa
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_particle_a7e922d838e363e73f4300f7f0bcf669e}\index{CParticle@{CParticle}!Update@{Update}}
 \index{Update@{Update}!CParticle@{CParticle}}
@@ -140,11 +140,11 @@ void CParticle\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyPa
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 particle.\+h\item 
 particle.\+cpp\end{DoxyCompactItemize}

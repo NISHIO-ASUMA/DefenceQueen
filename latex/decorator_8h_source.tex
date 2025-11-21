@@ -1,0 +1,61 @@
+\doxysection{decorator.\+h}
+\hypertarget{decorator_8h_source}{}\label{decorator_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=========================================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ ノード結果を加工して返すクラス処理\ [\ decorator.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=========================================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}nodebase.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ 前方宣言}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_black_board}{CBlackBoard}};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ ノード加工クラスを定義}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }CDecorator\ :\ \textcolor{keyword}{public}\ CNodeBase}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ CDecorator(\mbox{\hyperlink{class_c_black_board}{CBlackBoard}}*\ blackboard)\ :\ CNodeBase(blackboard)\ \{\};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~CDecorator()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Init()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00034\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 親クラスの初期化}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ CNodeBase::Init();}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ メンバ変数の初期化}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ m\_ChildNode-\/>Init();}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Exit()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00043\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 親クラスの終了処理}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ CNodeBase::Exit();}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ メンバ変数の終了処理}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ m\_ChildNode-\/>Exit();}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_c_decorator_af3c6bed4247993772bd2b2f252f5cfd8}{SetNode}}(CNode*\ pNode)\ \{\ m\_ChildNode\ =\ pNode;\ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{class_c_node}{CNode}}*\ m\_ChildNode\ =\ \textcolor{keyword}{nullptr};\ \ \textcolor{comment}{//\ 子ノードの変数}}
+\DoxyCodeLine{00060\ \};}
+
+\end{DoxyCode}

@@ -1,0 +1,102 @@
+\doxysection{CComposite\+Node\+Base クラス}
+\hypertarget{class_c_composite_node_base}{}\label{class_c_composite_node_base}\index{CCompositeNodeBase@{CCompositeNodeBase}}
+CComposite\+Node\+Base の継承関係図\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_c_composite_node_base}
+\end{center}
+\end{figure}
+\doxysubsubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_composite_node_base_a3e3431bb29b8cb921637938ad6ba4273}\label{class_c_composite_node_base_a3e3431bb29b8cb921637938ad6ba4273} 
+{\bfseries CComposite\+Node\+Base} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard)
+\item 
+virtual void \mbox{\hyperlink{class_c_composite_node_base_a227cd7284717b796624b603a36ef17d1}{Init}} () override
+\item 
+virtual void \mbox{\hyperlink{class_c_composite_node_base_a1a709f9c0d4ae903df5d0dfe1d88803e}{Exit}} () override
+\item 
+\Hypertarget{class_c_composite_node_base_aa2317c415728287c79a5a9b86c888a82}\label{class_c_composite_node_base_aa2317c415728287c79a5a9b86c888a82} 
+void {\bfseries Add\+Node} (\mbox{\hyperlink{class_c_node}{CNode}} \texorpdfstring{$\ast$}{*}node)
+\item 
+int \mbox{\hyperlink{class_c_composite_node_base_a9e7f0b3578b4fe0cdf07a7e768cf0f53}{get\+\_\+running\+\_\+node\+\_\+id}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_c_node_base_a4323bee7fbdad9032c1c0e10b20a17ec}{set\+\_\+node\+\_\+id}} (const int id) override
+\end{DoxyCompactItemize}
+\doxysubsubsection*{限定公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_composite_node_base_a5e76c45281c688384f0a6f9d95180204}\label{class_c_composite_node_base_a5e76c45281c688384f0a6f9d95180204} 
+virtual const int {\bfseries Get\+Next\+Idx} () const =0
+\item 
+\Hypertarget{class_c_composite_node_base_a386deaf9f911aca0f38c004cf5ed549c}\label{class_c_composite_node_base_a386deaf9f911aca0f38c004cf5ed549c} 
+void {\bfseries Node\+Increment} ()
+\begin{DoxyCompactList}\small\item\em �m�\mbox{[}�h�̉��\+Z���� \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承限定公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries CNode\+Base} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard)
+\item 
+virtual void \mbox{\hyperlink{class_c_node_base_aa42e5b4777c450f730e0c0b411669aa1}{Update}} () override
+\item 
+virtual Node\+Info\+::\+Node\+Result \mbox{\hyperlink{class_c_node_base_addfc5c1a5d933924342ef35d19a4f20f}{get\+\_\+node\+\_\+result}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{限定公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_composite_node_base_a444a4c2e53871fdf859df9ff619ea9e8}\label{class_c_composite_node_base_a444a4c2e53871fdf859df9ff619ea9e8} 
+std\+::vector$<$ \mbox{\hyperlink{class_c_node}{CNode}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries m\+\_\+\+Childe\+Node}
+\item 
+\Hypertarget{class_c_composite_node_base_ac0dc9d200fd82a22d584a5b32d0a976e}\label{class_c_composite_node_base_ac0dc9d200fd82a22d584a5b32d0a976e} 
+int {\bfseries m\+\_\+\+Ranning\+Index} = 0
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承限定公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*} {\bfseries m\+\_\+p\+Black\+Board} = nullptr
+\item 
+Node\+Info\+::\+Node\+Result {\bfseries m\+\_\+\+Node\+Result} = Node\+Info\+::\+Node\+Result\+::\+Re\+\_\+\+IDLE
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_c_composite_node_base_doc-func-members}
+\doxysubsection{関数詳解}
+\Hypertarget{class_c_composite_node_base_a1a709f9c0d4ae903df5d0dfe1d88803e}\index{CCompositeNodeBase@{CCompositeNodeBase}!Exit@{Exit}}
+\index{Exit@{Exit}!CCompositeNodeBase@{CCompositeNodeBase}}
+\doxysubsubsection{\texorpdfstring{Exit()}{Exit()}}
+{\footnotesize\ttfamily \label{class_c_composite_node_base_a1a709f9c0d4ae903df5d0dfe1d88803e} 
+virtual void CComposite\+Node\+Base\+::\+Exit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_c_node_base}{CNode\+Base}}を再実装しています。
+
+\Hypertarget{class_c_composite_node_base_a9e7f0b3578b4fe0cdf07a7e768cf0f53}\index{CCompositeNodeBase@{CCompositeNodeBase}!get\_running\_node\_id@{get\_running\_node\_id}}
+\index{get\_running\_node\_id@{get\_running\_node\_id}!CCompositeNodeBase@{CCompositeNodeBase}}
+\doxysubsubsection{\texorpdfstring{get\_running\_node\_id()}{get\_running\_node\_id()}}
+{\footnotesize\ttfamily \label{class_c_composite_node_base_a9e7f0b3578b4fe0cdf07a7e768cf0f53} 
+int CComposite\+Node\+Base\+::get\+\_\+running\+\_\+node\+\_\+id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_c_node_base}{CNode\+Base}}を再実装しています。
+
+\Hypertarget{class_c_composite_node_base_a227cd7284717b796624b603a36ef17d1}\index{CCompositeNodeBase@{CCompositeNodeBase}!Init@{Init}}
+\index{Init@{Init}!CCompositeNodeBase@{CCompositeNodeBase}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily \label{class_c_composite_node_base_a227cd7284717b796624b603a36ef17d1} 
+virtual void CComposite\+Node\+Base\+::\+Init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_c_node_base}{CNode\+Base}}を再実装しています。
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+compositenodebase.\+h\end{DoxyCompactItemize}

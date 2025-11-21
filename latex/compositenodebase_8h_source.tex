@@ -1,0 +1,117 @@
+\doxysection{compositenodebase.\+h}
+\hypertarget{compositenodebase_8h_source}{}\label{compositenodebase_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//===================================================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ 子ノードを複数持ち管理するベースクラス\ [\ compositenodebase.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//===================================================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//*******************************************************************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//*******************************************************************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//*******************************************************************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//*******************************************************************}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}nodebase.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{//*******************************************************************}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ 前方宣言}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//*******************************************************************}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_black_board}{CBlackBoard}};}
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_node}{CNode}};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{comment}{//*******************************************************************}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ 子ノードを管理するベースクラスを定義}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//*******************************************************************}}
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }CCompositeNodeBase\ :\ \textcolor{keyword}{public}\ CNodeBase}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ CCompositeNodeBase(\mbox{\hyperlink{class_c_black_board}{CBlackBoard}}*\ blackboard)\ :\ CNodeBase(blackboard)\ \{\};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~CCompositeNodeBase()}
+\DoxyCodeLine{00035\ \ \ \ \ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ポインソstring^の破棄}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ node\ :\ m\_ChildeNode)}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ node;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 配列クリア}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ m\_ChildeNode.clear();}
+\DoxyCodeLine{00044\ \ \ \ \ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Init()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00047\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 親クラスの初期化}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ CNodeBase::Init();}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ メンバ変数の初期化}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ m\_RanningIndex\ =\ NULL;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 最初のノードを初期化}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_ChildeNode.size()\ >\ 0)}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 指定番号の初期化をする}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ m\_ChildeNode[m\_RanningIndex]-\/>Init();}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 失敗リザルトとして初期化}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ m\_NodeResult\ =\ NodeInfo::NodeResult::Re\_FAIL;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00065\ \ \ \ \ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Exit()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00068\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 親クラスの破棄}}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ CNodeBase::Exit();}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 最初のノードを初期化する}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ m\_RanningIndex\ =\ 0;}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ m\_ChildeNode[m\_RanningIndex]-\/>Init();}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ AddNode(CNode*\ node)\ \{\ m\_ChildeNode.push\_back(node);\ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{int}\ get\_running\_node\_id()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00080\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 現在動いているノードのIDを返す}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_ChildeNode[m\_RanningIndex]-\/>get\_running\_node\_id();}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{comment}{//\ 派生先のクラスで使う}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ GetNextIdx()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_c_composite_node_base_a386deaf9f911aca0f38c004cf5ed549c}{NodeIncrement}}()}
+\DoxyCodeLine{00094\ \ \ \ \ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 現在のノードの破棄}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ m\_ChildeNode[m\_RanningIndex]-\/>Exit();}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ノードインデックスを加算}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ m\_RanningIndex\ =\ GetNextIdx();}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 例外設定}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_RanningIndex\ >\ m\_ChildeNode.size()\ -\/\ 1)}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ m\_NodeResult\ =\ NodeInfo::NodeResult::Re\_FAIL;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ Exit();}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 次のノード初期化}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ m\_ChildeNode[m\_RanningIndex]-\/>Init();}
+\DoxyCodeLine{00111\ \ \ \ \ \};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ std::vector<CNode*>m\_ChildeNode;\ \textcolor{comment}{//\ 複数の子ノードを管理する動的配列}}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{int}\ m\_RanningIndex\ =\ 0;\ \textcolor{comment}{//\ 現在ノードのインデックス}}
+\DoxyCodeLine{00115\ \};}
+
+\end{DoxyCode}

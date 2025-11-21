@@ -1,0 +1,84 @@
+\doxysection{CGrass\+Manager 繧ｯ繝ｩ繧ｹ}
+\hypertarget{class_c_grass_manager}{}\label{class_c_grass_manager}\index{CGrassManager@{CGrassManager}}
+\doxysubsubsection*{蜈ｬ髢九Γ繝ｳ繝宣未謨ｰ}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_grass_manager_a1b18d8026b5851ceb2f7ec9411354ffc}\label{class_c_grass_manager_a1b18d8026b5851ceb2f7ec9411354ffc} 
+HRESULT {\bfseries Init} (void)
+\item 
+\Hypertarget{class_c_grass_manager_a9f01bcc8c39a5ad79817d71477145ca2}\label{class_c_grass_manager_a9f01bcc8c39a5ad79817d71477145ca2} 
+void {\bfseries Uninit} (void)
+\item 
+\Hypertarget{class_c_grass_manager_aa34c8b0736e1e8ae31f820fce7149e2a}\label{class_c_grass_manager_aa34c8b0736e1e8ae31f820fce7149e2a} 
+void {\bfseries Update} (void)
+\item 
+\Hypertarget{class_c_grass_manager_a7dc5ed99d712e7b79899ca5a72696150}\label{class_c_grass_manager_a7dc5ed99d712e7b79899ca5a72696150} 
+void {\bfseries Draw} (void)
+\item 
+\Hypertarget{class_c_grass_manager_a3449ad3794123833f9be03a8858685f9}\label{class_c_grass_manager_a3449ad3794123833f9be03a8858685f9} 
+void {\bfseries Push\+Back} (\mbox{\hyperlink{class_c_grass}{CGrass}} \texorpdfstring{$\ast$}{*}p\+New\+Grass)
+\item 
+\mbox{\hyperlink{class_c_grass}{CGrass}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_c_grass_manager_a1ddf345714c8e44a41605c945afd4c92}{Get\+Grass}} (const int n\+Idx)
+\begin{DoxyCompactList}\small\item\em 指定番号から取得 \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_c_grass}{CGrass}} \texorpdfstring{$\ast$}{*} $>$ \& \mbox{\hyperlink{class_c_grass_manager_aef73115793704d8238a3d38657849975}{Get\+All}} (void)
+\begin{DoxyCompactList}\small\item\em 動貼+I配列そのものを取得 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_c_grass_manager_a3f77f8aafa60f0d5914a87f9ae12c9cd}{Get\+Size}} (void) const
+\begin{DoxyCompactList}\small\item\em 配列の要素数を返す \end{DoxyCompactList}\item 
+\Hypertarget{class_c_grass_manager_a5759e4a24a29a6b610f30b60765b5d0c}\label{class_c_grass_manager_a5759e4a24a29a6b610f30b60765b5d0c} 
+\mbox{\hyperlink{class_c_grass}{CGrass}} \texorpdfstring{$\ast$}{*} {\bfseries Create\+Manager} (const D3\+DXVECTOR3 pos, const D3\+DXVECTOR3 rot, const float f\+Width, const float f\+Height)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_c_grass_manager_doc-func-members}
+\doxysubsection{髢｢謨ｰ隧ｳ隗｣}
+\Hypertarget{class_c_grass_manager_aef73115793704d8238a3d38657849975}\index{CGrassManager@{CGrassManager}!GetAll@{GetAll}}
+\index{GetAll@{GetAll}!CGrassManager@{CGrassManager}}
+\doxysubsubsection{\texorpdfstring{GetAll()}{GetAll()}}
+{\footnotesize\ttfamily \label{class_c_grass_manager_aef73115793704d8238a3d38657849975} 
+std\+::vector$<$ \mbox{\hyperlink{class_c_grass}{CGrass}} \texorpdfstring{$\ast$}{*} $>$ \& CGrass\+Manager\+::\+Get\+All (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+動貼+I配列そのものを取得 
+
+\begin{DoxyReturn}{謌ｻ繧雁､}
+
+\end{DoxyReturn}
+\Hypertarget{class_c_grass_manager_a1ddf345714c8e44a41605c945afd4c92}\index{CGrassManager@{CGrassManager}!GetGrass@{GetGrass}}
+\index{GetGrass@{GetGrass}!CGrassManager@{CGrassManager}}
+\doxysubsubsection{\texorpdfstring{GetGrass()}{GetGrass()}}
+{\footnotesize\ttfamily \label{class_c_grass_manager_a1ddf345714c8e44a41605c945afd4c92} 
+\mbox{\hyperlink{class_c_grass}{CGrass}} \texorpdfstring{$\ast$}{*} CGrass\+Manager\+::\+Get\+Grass (\begin{DoxyParamCaption}\item[{const int}]{n\+Idx}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+指定番号から取得 
+
+
+\begin{DoxyParams}{蠑墓焚}
+{\em n\+Idx} & 取得したいソ+Cンデッソ+Nス\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{謌ｻ繧雁､}
+
+\end{DoxyReturn}
+\Hypertarget{class_c_grass_manager_a3f77f8aafa60f0d5914a87f9ae12c9cd}\index{CGrassManager@{CGrassManager}!GetSize@{GetSize}}
+\index{GetSize@{GetSize}!CGrassManager@{CGrassManager}}
+\doxysubsubsection{\texorpdfstring{GetSize()}{GetSize()}}
+{\footnotesize\ttfamily \label{class_c_grass_manager_a3f77f8aafa60f0d5914a87f9ae12c9cd} 
+int CGrass\+Manager\+::\+Get\+Size (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+配列の要素数を返す 
+
+\begin{DoxyReturn}{謌ｻ繧雁､}
+
+\end{DoxyReturn}
+
+
+縺薙�ｮ繧ｯ繝ｩ繧ｹ隧ｳ隗｣縺ｯ谺｡縺ｮ繝輔ぃ繧､繝ｫ縺九ｉ謚ｽ蜃ｺ縺輔ｌ縺ｾ縺励◆\+:\begin{DoxyCompactItemize}
+\item 
+grassmanager.\+h\item 
+grassmanager.\+cpp\end{DoxyCompactItemize}

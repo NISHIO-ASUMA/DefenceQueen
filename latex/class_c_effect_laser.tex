@@ -1,12 +1,12 @@
-\doxysection{CEffect\+Laser Class Reference}
+\doxysection{CEffect\+Laser クラス}
 \hypertarget{class_c_effect_laser}{}\label{class_c_effect_laser}\index{CEffectLaser@{CEffectLaser}}
-Inheritance diagram for CEffect\+Laser\+:\begin{figure}[H]
+CEffect\+Laser の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=3.000000cm]{class_c_effect_laser}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_effect_laser_a90c395ebfaa962897cb4e477b27f4703}\label{class_c_effect_laser_a90c395ebfaa962897cb4e477b27f4703} 
@@ -20,7 +20,7 @@ void \mbox{\hyperlink{class_c_effect_laser_a128fb24091727359a90cbb1f81a5fe39}{Up
 \item 
 void \mbox{\hyperlink{class_c_effect_laser_a412b99b567e187ad14821011341923ba}{Draw}} (void)
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_billboard}{CBillboard}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_billboard}{CBillboard}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CBillboard} (int n\+Priority=static\+\_\+cast$<$ int $>$(CObject\+::\+PRIORITY\+::\+BILLBOARD))
@@ -53,7 +53,7 @@ float {\bfseries Get\+Width} (void)
 \item 
 float {\bfseries Get\+Height} (void)
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject} (int n\+Priority=NONE)
@@ -64,18 +64,18 @@ TYPE {\bfseries Get\+Obj\+Type} (void)
 \item 
 \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_effect_laser_a48953951283a44d45bbbcaf08dc5691b}\label{class_c_effect_laser_a48953951283a44d45bbbcaf08dc5691b} 
 static \mbox{\hyperlink{class_c_effect_laser}{CEffect\+Laser}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (D3\+DXVECTOR3 pos, D3\+DXVECTOR3 Endpos, D3\+DXCOLOR col, D3\+DXVECTOR3 move, int n\+Life, float f\+Radius)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_billboard}{CBillboard}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_billboard}{CBillboard}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static \mbox{\hyperlink{class_c_billboard}{CBillboard}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (D3\+DXVECTOR3 pos, D3\+DXVECTOR3 rot, float f\+Width, float f\+Height, const char \texorpdfstring{$\ast$}{*}p\+Tex\+Name)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static void {\bfseries Release\+All} (void)
@@ -88,8 +88,8 @@ static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\b
 \item 
 static int {\bfseries Get\+Num\+All} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
@@ -130,7 +130,7 @@ enum {\bfseries PRIORITY} \{ \newline
 {\bfseries PRIORITY\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 void {\bfseries Release} (void)
@@ -139,7 +139,7 @@ void {\bfseries Release} (void)
 
 \label{doc-func-members}
 \Hypertarget{class_c_effect_laser_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_effect_laser_a412b99b567e187ad14821011341923ba}\index{CEffectLaser@{CEffectLaser}!Draw@{Draw}}
 \index{Draw@{Draw}!CEffectLaser@{CEffectLaser}}
 \doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
@@ -148,7 +148,7 @@ void CEffect\+Laser\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Dox
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_billboard}{CBillboard}}.
+\mbox{\hyperlink{class_c_billboard}{CBillboard}}を再実装しています。
 
 \Hypertarget{class_c_effect_laser_a811285bbdc2e5a831b64d32ddae1fb81}\index{CEffectLaser@{CEffectLaser}!Init@{Init}}
 \index{Init@{Init}!CEffectLaser@{CEffectLaser}}
@@ -158,7 +158,7 @@ HRESULT CEffect\+Laser\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_billboard}{CBillboard}}.
+\mbox{\hyperlink{class_c_billboard}{CBillboard}}を再実装しています。
 
 \Hypertarget{class_c_effect_laser_aa0214d48693916373b551cc1c11df72f}\index{CEffectLaser@{CEffectLaser}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CEffectLaser@{CEffectLaser}}
@@ -168,7 +168,7 @@ void CEffect\+Laser\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{D
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_billboard}{CBillboard}}.
+\mbox{\hyperlink{class_c_billboard}{CBillboard}}を再実装しています。
 
 \Hypertarget{class_c_effect_laser_a128fb24091727359a90cbb1f81a5fe39}\index{CEffectLaser@{CEffectLaser}!Update@{Update}}
 \index{Update@{Update}!CEffectLaser@{CEffectLaser}}
@@ -178,11 +178,11 @@ void CEffect\+Laser\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{D
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_billboard}{CBillboard}}.
+\mbox{\hyperlink{class_c_billboard}{CBillboard}}を再実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 effectlaser.\+h\item 
 effectlaser.\+cpp\end{DoxyCompactItemize}

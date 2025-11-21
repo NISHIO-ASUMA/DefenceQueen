@@ -1,0 +1,48 @@
+\doxysection{CNode クラス}
+\hypertarget{class_c_node}{}\label{class_c_node}\index{CNode@{CNode}}
+CNode の継承関係図\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.645161cm]{class_c_node}
+\end{center}
+\end{figure}
+\doxysubsubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_node_a6c051ae3cc2df4e87878a1d9310d01bd}\label{class_c_node_a6c051ae3cc2df4e87878a1d9310d01bd} 
+virtual void {\bfseries Init} ()=0
+\item 
+\Hypertarget{class_c_node_a2c9904d0846fc35a8cf14b6495ed6574}\label{class_c_node_a2c9904d0846fc35a8cf14b6495ed6574} 
+virtual void {\bfseries Update} ()=0
+\item 
+\Hypertarget{class_c_node_a961e258a5ebedca5e18caa07af5e8098}\label{class_c_node_a961e258a5ebedca5e18caa07af5e8098} 
+virtual void {\bfseries Exit} ()=0
+\item 
+virtual Node\+Info\+::\+Node\+Result \mbox{\hyperlink{class_c_node_a6ed9459f5e597f3afddaa3cd923f0b35}{get\+\_\+node\+\_\+result}} () const =0
+\item 
+\Hypertarget{class_c_node_a8d9c65ff7c5ec42ff9089c96f5989eec}\label{class_c_node_a8d9c65ff7c5ec42ff9089c96f5989eec} 
+virtual void {\bfseries set\+\_\+node\+\_\+id} (const int id)=0
+\item 
+\Hypertarget{class_c_node_a94c6baef0174119cb555e560c91f7007}\label{class_c_node_a94c6baef0174119cb555e560c91f7007} 
+virtual int {\bfseries get\+\_\+running\+\_\+node\+\_\+id} () const =0
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_c_node_doc-func-members}
+\doxysubsection{関数詳解}
+\Hypertarget{class_c_node_a6ed9459f5e597f3afddaa3cd923f0b35}\index{CNode@{CNode}!get\_node\_result@{get\_node\_result}}
+\index{get\_node\_result@{get\_node\_result}!CNode@{CNode}}
+\doxysubsubsection{\texorpdfstring{get\_node\_result()}{get\_node\_result()}}
+{\footnotesize\ttfamily \label{class_c_node_a6ed9459f5e597f3afddaa3cd923f0b35} 
+virtual Node\+Info\+::\+Node\+Result CNode\+::get\+\_\+node\+\_\+result (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+\mbox{\hyperlink{class_c_always_fail_leaf_a0dc81b427c797437d2e9b41e47d2e8b5}{CAlways\+Fail\+Leaf}}, \mbox{\hyperlink{class_c_always_success_leaf_aef96b71b330ec43e474c12faa2593255}{CAlways\+Success\+Leaf}}で実装されています。
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+node.\+h\end{DoxyCompactItemize}

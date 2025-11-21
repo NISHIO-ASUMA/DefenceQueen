@@ -1,25 +1,21 @@
-\doxysection{CEnemy Class Reference}
+\doxysection{CEnemy クラス}
 \hypertarget{class_c_enemy}{}\label{class_c_enemy}\index{CEnemy@{CEnemy}}
-Inheritance diagram for CEnemy\+:\begin{figure}[H]
+CEnemy の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=3.000000cm]{class_c_enemy}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Types}
+\doxysubsubsection*{公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_enemy_a657761f31ac6669f2f45d01e268568de}\label{class_c_enemy_a657761f31ac6669f2f45d01e268568de} 
-enum {\bfseries MOTION} \{ \newline
-{\bfseries MOTION\+\_\+\+NEUTRAL}
+enum {\bfseries MOTION} \{ {\bfseries MOTION\+\_\+\+NEUTRAL}
 , {\bfseries MOTION\+\_\+\+MOVE}
-, {\bfseries MOTION\+\_\+\+ACTION}
-, {\bfseries MOTION\+\_\+\+DAMAGE}
-, \newline
-{\bfseries MOTION\+\_\+\+MAX}
+, {\bfseries MOTION\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_move_charactor_a4af52925f03e0c12dc0b41dd70b7568e}\label{class_c_move_charactor_a4af52925f03e0c12dc0b41dd70b7568e} 
@@ -32,7 +28,7 @@ enum {\bfseries TYPE} \{ \newline
 {\bfseries TYPE\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
@@ -73,7 +69,7 @@ enum {\bfseries PRIORITY} \{ \newline
 {\bfseries PRIORITY\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_enemy_a5addd3a7b41825fd094a13a44d4cb44d}\label{class_c_enemy_a5addd3a7b41825fd094a13a44d4cb44d} 
@@ -98,8 +94,11 @@ bool {\bfseries Collision} (\mbox{\hyperlink{class_c_sphere_collider}{CSphere\+C
 \item 
 \Hypertarget{class_c_enemy_a1247c7e6b4a39dc153ddb35209af6d40}\label{class_c_enemy_a1247c7e6b4a39dc153ddb35209af6d40} 
 \mbox{\hyperlink{class_c_state_machine}{CState\+Machine}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+State\+Machine} ()
+\item 
+\Hypertarget{class_c_enemy_a10ee612999e38400a9d051fc4e931080}\label{class_c_enemy_a10ee612999e38400a9d051fc4e931080} 
+void {\bfseries Node\+Setting} (void)
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CMove\+Charactor} (int n\+Priority=static\+\_\+cast$<$ int $>$(CObject\+::\+PRIORITY\+::\+CHARACTOR))
@@ -138,7 +137,7 @@ D3\+DXVECTOR3 {\bfseries Get\+Rot\+Dest} (void) const
 \item 
 \mbox{\hyperlink{class_c_motion}{CMotion}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_c_move_charactor_a8755a475a19a7aadc021369cae951c72}{Get\+Motion}} (void)
 \begin{DoxyCompactList}\small\item\em ���\mbox{[}�\+V�����̃\texorpdfstring{$\vert$}{|}�\+C���\texorpdfstring{$^\wedge$}{\string^}��Ԃ� \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject} (int n\+Priority=NONE)
@@ -149,13 +148,13 @@ TYPE {\bfseries Get\+Obj\+Type} (void)
 \item 
 \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_enemy_a1690848a507560469148fc58333e2f67}\label{class_c_enemy_a1690848a507560469148fc58333e2f67} 
 static \mbox{\hyperlink{class_c_enemy}{CEnemy}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (D3\+DXVECTOR3 pos, D3\+DXVECTOR3 rot, int n\+Life)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static void {\bfseries Release\+All} (void)
@@ -168,17 +167,24 @@ static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\b
 \item 
 static int {\bfseries Get\+Num\+All} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 void {\bfseries Release} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}} に属する継承限定公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*} {\bfseries m\+\_\+p\+Black\+Board} = nullptr
+\item 
+\mbox{\hyperlink{class_c_node}{CNode}} \texorpdfstring{$\ast$}{*} {\bfseries m\+\_\+p\+Behavior\+Tree} = nullptr
 \end{DoxyCompactItemize}
 
 
 \label{doc-func-members}
 \Hypertarget{class_c_enemy_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_enemy_a1e2fc9a1da5153a0eb79e49072435735}\index{CEnemy@{CEnemy}!Draw@{Draw}}
 \index{Draw@{Draw}!CEnemy@{CEnemy}}
 \doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
@@ -187,7 +193,7 @@ void CEnemy\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCa
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}}.
+\mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}}を再実装しています。
 
 \Hypertarget{class_c_enemy_a714afb70be90d861a1206911525a7887}\index{CEnemy@{CEnemy}!Init@{Init}}
 \index{Init@{Init}!CEnemy@{CEnemy}}
@@ -197,7 +203,7 @@ HRESULT CEnemy\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyPara
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}}.
+\mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}}を再実装しています。
 
 \Hypertarget{class_c_enemy_a2e89b0bc976d4d6ce3004db008795fd3}\index{CEnemy@{CEnemy}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CEnemy@{CEnemy}}
@@ -207,7 +213,7 @@ void CEnemy\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParam
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}}.
+\mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}}を再実装しています。
 
 \Hypertarget{class_c_enemy_a8c03e118d48ca4377dd9af71a87fc31d}\index{CEnemy@{CEnemy}!Update@{Update}}
 \index{Update@{Update}!CEnemy@{CEnemy}}
@@ -217,11 +223,11 @@ void CEnemy\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParam
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}}.
+\mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}}を再実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 enemy.\+h\item 
 enemy.\+cpp\end{DoxyCompactItemize}

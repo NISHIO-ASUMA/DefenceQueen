@@ -1,16 +1,16 @@
-\doxysection{detail\+::input\+\_\+stream\+\_\+adapter Class Reference}
+\doxysection{detail\+::input\+\_\+stream\+\_\+adapter クラス}
 \hypertarget{classdetail_1_1input__stream__adapter}{}\label{classdetail_1_1input__stream__adapter}\index{detail::input\_stream\_adapter@{detail::input\_stream\_adapter}}
 
 
 {\ttfamily \#include $<$json.\+hpp$>$}
 
-\doxysubsubsection*{Public Types}
+\doxysubsubsection*{公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classdetail_1_1input__stream__adapter_a796d902229ac65b6eec543cba4aff704}\label{classdetail_1_1input__stream__adapter_a796d902229ac65b6eec543cba4aff704} 
 using {\bfseries char\+\_\+type} = char
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classdetail_1_1input__stream__adapter_af54f59dab29bafc1a6816cd9076ed302}\label{classdetail_1_1input__stream__adapter_af54f59dab29bafc1a6816cd9076ed302} 
@@ -36,9 +36,9 @@ std\+::char\+\_\+traits$<$ char $>$\+::int\+\_\+type {\bfseries get\+\_\+charact
 \end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsection{詳解}
 Input adapter for a (caching) istream. Ignores a UFT Byte Order Mark at beginning of input. Does not support changing the underlying std\+::streambuf in mid-\/input. Maintains underlying std\+::istream and std\+::streambuf to support subsequent use of standard std\+::istream operations to process any input characters following those used in parsing the JSON input. Clears the std\+::istream flags; any input errors (e.\+g., EOF) will be detected by the first subsequent call for input from the std\+::istream. 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 json.\+hpp\end{DoxyCompactItemize}

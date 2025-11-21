@@ -1,61 +1,67 @@
 \doxysection{selectpoint.\+h}
 \hypertarget{selectpoint_8h_source}{}\label{selectpoint_8h_source}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{comment}{//=====================================}}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=========================================================}}
 \DoxyCodeLine{00002\ \textcolor{comment}{//}}
 \DoxyCodeLine{00003\ \textcolor{comment}{//\ 選択ポイント処理\ [\ selectpoint.h\ ]}}
 \DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
 \DoxyCodeLine{00005\ \textcolor{comment}{//}}
-\DoxyCodeLine{00006\ \textcolor{comment}{//=====================================}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=========================================================}}
 \DoxyCodeLine{00007\ }
-\DoxyCodeLine{00008\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
-\DoxyCodeLine{00010\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル}}
-\DoxyCodeLine{00015\ \textcolor{comment}{//**********************}}
-\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}object3d.h"{}}}
-\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}move3dobject.h"{}}}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{comment}{//**********************}}
-\DoxyCodeLine{00020\ \textcolor{comment}{//\ 前方宣言}}
-\DoxyCodeLine{00021\ \textcolor{comment}{//**********************}}
-\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}};}
-\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_box_collider}{CBoxCollider}};}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \textcolor{comment}{//****************************}}
-\DoxyCodeLine{00026\ \textcolor{comment}{//\ 噂string~選択の範囲描画クラス定義}}
-\DoxyCodeLine{00027\ \textcolor{comment}{//****************************}}
-\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }CSelectPoint\ :\ CMove3DObject}
-\DoxyCodeLine{00029\ \{}
-\DoxyCodeLine{00030\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \ \ \ \ CSelectPoint(\textcolor{keywordtype}{int}\ nPriority\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(CObject::PRIORITY::MOVE3D));}
-\DoxyCodeLine{00033\ \ \ \ \ \string~CSelectPoint();}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ HRESULT\ Init(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ Draw(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ Moving(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ MovePad(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ SetfRange(\textcolor{keywordtype}{float}\ fRange)\ \{\ m\_fHitRange\ =\ fRange;\ \}}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{bool}\ Collision(\mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}}*\ other);}
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{bool}\ CollisionBox(\mbox{\hyperlink{class_c_box_collider}{CBoxCollider}}*\ pothere,\ D3DXVECTOR3*\ pOutPos);}
-\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}move3dobject.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ 前方宣言}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}};}
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_box_collider}{CBoxCollider}};}
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_black_board}{CBlackBoard}};}
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_node}{CNode}};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ 噂string~選択の範囲描画クラス定義}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }CSelectPoint\ :\ \textcolor{keyword}{public}\ CMove3DObject}
+\DoxyCodeLine{00030\ \{}
+\DoxyCodeLine{00031\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ CSelectPoint(\textcolor{keywordtype}{int}\ nPriority\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(CObject::PRIORITY::MOVE3D));}
+\DoxyCodeLine{00034\ \ \ \ \ \string~CSelectPoint();}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ HRESULT\ Init(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ Draw(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{bool}\ Collision(\mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}}*\ other);}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{bool}\ CollisionBox(\mbox{\hyperlink{class_c_box_collider}{CBoxCollider}}*\ pothere,\ D3DXVECTOR3*\ pOutPos);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ SetfRange(\textcolor{keywordtype}{float}\ fRange)\ \{\ m\_fHitRange\ =\ fRange;\ \}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ SetIsHit(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ isHit)\ \{\ m\_isHit\ =\ isHit;\ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}}*\ GetSphere(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_pSphere;\ \}}
 \DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{float}\ GetfRange(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_fHitRange;\ \}}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{static}\ CSelectPoint*\ Create(\textcolor{keyword}{const}\ D3DXVECTOR3\ pos,\ \textcolor{keyword}{const}\ D3DXVECTOR3\ rot,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fWidth,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fHeight,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fRadius);}
-\DoxyCodeLine{00050\ }
-\DoxyCodeLine{00051\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}}*\ m\_pSphere;\ \textcolor{comment}{//\ 球形コライソ_ー}}
-\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{class_c_box_collider}{CBoxCollider}}*\ m\_pBox;\ \ \ \ \ \ \ \textcolor{comment}{//\ 矩形コライソ_ー}}
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{float}\ m\_fHitRange;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 半径}}
-\DoxyCodeLine{00056\ \};}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{bool}\ GetIsHit(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_isHit;\ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{static}\ CSelectPoint*\ Create(\textcolor{keyword}{const}\ D3DXVECTOR3\ pos,\ \textcolor{keyword}{const}\ D3DXVECTOR3\ rot,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fWidth,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fHeight,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fRadius);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ Moving(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ MovePad(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}}*\ m\_pSphere;\ \textcolor{comment}{//\ 球形コライソ_ー}}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{class_c_box_collider}{CBoxCollider}}*\ m\_pBox;\ \ \ \ \ \ \ \textcolor{comment}{//\ 矩形コライソ_ー}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{float}\ m\_fHitRange;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 半径}}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_isHit;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 当たっているかどうか}}
+\DoxyCodeLine{00062\ \};}
 
 \end{DoxyCode}

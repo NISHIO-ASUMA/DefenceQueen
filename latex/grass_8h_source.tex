@@ -1,0 +1,71 @@
+\doxysection{grass.\+h}
+\hypertarget{grass_8h_source}{}\label{grass_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=========================================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ 草の処理\ [\ grass.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ TODO\ :\ 自前で座標とかを持つ}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ NOTE\ :\ これは草一個に関する処理をまとめたクラス}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00009\ \textcolor{comment}{//=========================================================}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ インクルードファイル}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}object.h"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ 前方宣言}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ 草クラスを定義}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }CGrass\ :\ \textcolor{keyword}{public}\ CObject}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ CGrass(\textcolor{keywordtype}{int}\ nPriority\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(CObject::PRIORITY::BILLBOARD));}
+\DoxyCodeLine{00035\ \ \ \ \ \string~CGrass();}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ HRESULT\ Init(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ Draw(\textcolor{keywordtype}{void})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{bool}\ Collision(D3DXVECTOR3\ *\ pPos);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ SetTexture(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ pTexName);}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRadius(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fRadius)\ \{\ m\_fRadius\ =\ fRadius;\ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ SetPos(\textcolor{keyword}{const}\ D3DXVECTOR3\ pos)\ \{\ m\_pos\ =\ pos;\ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRot(\textcolor{keyword}{const}\ D3DXVECTOR3\ rot)\ \{\ m\_rot\ =\ rot;\ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ SetCol(\textcolor{keyword}{const}\ D3DXCOLOR\ col)\ \{\ m\_col\ =\ col;\ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ SetSize(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fWidth,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fHeight)\ \{\ m\_fWidth\ =\ fWidth,\ m\_fHeight\ =\ fHeight;\ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{static}\ CGrass*\ Create(\textcolor{keyword}{const}\ D3DXVECTOR3\ pos,\ \textcolor{keyword}{const}\ D3DXVECTOR3\ rot,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fWidth,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fHeight);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ LPDIRECT3DVERTEXBUFFER9\ m\_pVtxBuff;\ \ \ \ \ \textcolor{comment}{//\ 頂貼_バッファ}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ D3DXMATRIX\ m\_mtxWorld;\ \ \textcolor{comment}{//\ ワールドソ}トリックス}}
+\DoxyCodeLine{00057\ \ \ \ \ D3DXVECTOR3\ m\_pos;\ \ \textcolor{comment}{//\ 座標情報}}
+\DoxyCodeLine{00058\ \ \ \ \ D3DXVECTOR3\ m\_rot;\ \ \textcolor{comment}{//\ 角度情報}}
+\DoxyCodeLine{00059\ \ \ \ \ D3DXCOLOR\ m\_col;\ \ \ \ \textcolor{comment}{//\ 色情報}}
+\DoxyCodeLine{00060\ \ \ \ \ D3DXVECTOR3\ m\_PushAngle;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{int}\ m\_nIdxTexture;\ \ \textcolor{comment}{//\ テクスチャインデックス}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{float}\ m\_fWidth;\ \ \ \ \ \textcolor{comment}{//\ 横幅}}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{float}\ m\_fHeight;\ \ \ \ \textcolor{comment}{//\ 高さ}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{float}\ m\_fRadius;\ \ \ \ \textcolor{comment}{//\ 半径}}
+\DoxyCodeLine{00066\ \};}
+
+\end{DoxyCode}

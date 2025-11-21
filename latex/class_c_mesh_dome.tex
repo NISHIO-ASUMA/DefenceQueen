@@ -1,12 +1,12 @@
-\doxysection{CMesh\+Dome Class Reference}
+\doxysection{CMesh\+Dome クラス}
 \hypertarget{class_c_mesh_dome}{}\label{class_c_mesh_dome}\index{CMeshDome@{CMeshDome}}
-Inheritance diagram for CMesh\+Dome\+:\begin{figure}[H]
+CMesh\+Dome の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{class_c_mesh_dome}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_mesh_dome_a945932404df9a90a1fbf756fa662d234}\label{class_c_mesh_dome_a945932404df9a90a1fbf756fa662d234} 
@@ -26,7 +26,7 @@ void {\bfseries Set\+Texture} (void)
 \Hypertarget{class_c_mesh_dome_ada379c534bf5bbe691199b8408a9d29a}\label{class_c_mesh_dome_ada379c534bf5bbe691199b8408a9d29a} 
 D3\+DXVECTOR3 {\bfseries Get\+Pos} (void)
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject} (int n\+Priority=NONE)
@@ -37,13 +37,13 @@ TYPE {\bfseries Get\+Obj\+Type} (void)
 \item 
 \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_mesh_dome_aa52929d19b20b60c4053444f822e78a6}\label{class_c_mesh_dome_aa52929d19b20b60c4053444f822e78a6} 
 static \mbox{\hyperlink{class_c_mesh_dome}{CMesh\+Dome}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (D3\+DXVECTOR3 pos, float n\+Radius)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static void {\bfseries Release\+All} (void)
@@ -56,8 +56,8 @@ static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\b
 \item 
 static int {\bfseries Get\+Num\+All} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
@@ -98,7 +98,7 @@ enum {\bfseries PRIORITY} \{ \newline
 {\bfseries PRIORITY\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 void {\bfseries Release} (void)
@@ -107,7 +107,7 @@ void {\bfseries Release} (void)
 
 \label{doc-func-members}
 \Hypertarget{class_c_mesh_dome_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_mesh_dome_a8c9771028f15f58d09b6ba83574005f4}\index{CMeshDome@{CMeshDome}!Draw@{Draw}}
 \index{Draw@{Draw}!CMeshDome@{CMeshDome}}
 \doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
@@ -116,7 +116,7 @@ void CMesh\+Dome\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyPa
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_mesh_dome_aac474ea5273b8b339c9be379d46faf93}\index{CMeshDome@{CMeshDome}!Init@{Init}}
 \index{Init@{Init}!CMeshDome@{CMeshDome}}
@@ -126,7 +126,7 @@ HRESULT CMesh\+Dome\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Dox
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_mesh_dome_a7370c25d9d7ecafc66674a59dddc02d5}\index{CMeshDome@{CMeshDome}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CMeshDome@{CMeshDome}}
@@ -136,7 +136,7 @@ void CMesh\+Dome\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Doxy
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_mesh_dome_aec907e34069d9303eefd25db636bc5ff}\index{CMeshDome@{CMeshDome}!Update@{Update}}
 \index{Update@{Update}!CMeshDome@{CMeshDome}}
@@ -146,11 +146,11 @@ void CMesh\+Dome\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Doxy
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 meshdome.\+h\item 
 meshdome.\+cpp\end{DoxyCompactItemize}

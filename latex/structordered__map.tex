@@ -1,4 +1,4 @@
-\doxysection{ordered\+\_\+map\texorpdfstring{$<$}{<} Key, T, Ignored\+Less, Allocator \texorpdfstring{$>$}{>} Struct Template Reference}
+\doxysection{ordered\+\_\+map\texorpdfstring{$<$}{<} Key, T, Ignored\+Less, Allocator \texorpdfstring{$>$}{>} 構造体テンプレート}
 \hypertarget{structordered__map}{}\label{structordered__map}\index{ordered\_map$<$ Key, T, IgnoredLess, Allocator $>$@{ordered\_map$<$ Key, T, IgnoredLess, Allocator $>$}}
 
 
@@ -9,13 +9,13 @@ a minimal map-\/like container that preserves insertion order
 
 {\ttfamily \#include $<$json.\+hpp$>$}
 
-Inheritance diagram for ordered\+\_\+map\texorpdfstring{$<$}{<} Key, T, Ignored\+Less, Allocator \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+ordered\+\_\+map\texorpdfstring{$<$}{<} Key, T, Ignored\+Less, Allocator \texorpdfstring{$>$}{>} の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{structordered__map}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Types}
+\doxysubsubsection*{公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{structordered__map_abe63d891859a3d0b156933d5b44ac85f}\label{structordered__map_abe63d891859a3d0b156933d5b44ac85f} 
@@ -44,7 +44,7 @@ using {\bfseries key\+\_\+compare} = std\+::equal\+\_\+to$<$Key$>$
 \item 
 {\footnotesize template$<$typename Input\+It$>$ }\\using \mbox{\hyperlink{structordered__map_aa284e71656d430bfbab20d46f84ea0ef}{require\+\_\+input\+\_\+iter}}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{structordered__map_a50b6eea717a66fb6241bbd2e0246849f}\label{structordered__map_a50b6eea717a66fb6241bbd2e0246849f} 
@@ -124,19 +124,19 @@ std\+::pair$<$ iterator, bool $>$ {\bfseries insert} (const value\+\_\+type \&va
 \end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsection{詳解}
 \subsubsection*{template$<$class Key, class T, class Ignored\+Less = std\+::less$<$\+Key$>$, class Allocator = std\+::allocator$<$std\+::pair$<$const Key, T$>$$>$$>$\newline
 struct ordered\+\_\+map$<$ Key, T, Ignored\+Less, Allocator $>$}
 a minimal map-\/like container that preserves insertion order 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/ordered_map/}{\texttt{https\+://json.\+nlohmann.\+me/api/ordered\+\_\+map/}}
 \end{DoxySeeAlso}
 \doxylink{structordered__map}{ordered\+\_\+map}\+: a minimal map-\/like container that preserves insertion order for use within nlohmann\+::basic\+\_\+json$<$ordered\+\_\+map$>$ 
 
 \label{doc-typedef-members}
 \Hypertarget{structordered__map_doc-typedef-members}
-\doxysubsection{Member Typedef Documentation}
+\doxysubsection{型定義メンバ詳解}
 \Hypertarget{structordered__map_aa284e71656d430bfbab20d46f84ea0ef}\index{ordered\_map$<$ Key, T, IgnoredLess, Allocator $>$@{ordered\_map$<$ Key, T, IgnoredLess, Allocator $>$}!require\_input\_iter@{require\_input\_iter}}
 \index{require\_input\_iter@{require\_input\_iter}!ordered\_map$<$ Key, T, IgnoredLess, Allocator $>$@{ordered\_map$<$ Key, T, IgnoredLess, Allocator $>$}}
 \doxysubsubsection{\texorpdfstring{require\_input\_iter}{require\_input\_iter}}
@@ -145,7 +145,7 @@ template$<$class Key, class T, class Ignored\+Less = std\+::less$<$\+Key$>$, cla
 template$<$typename Input\+It$>$ \\
 using \mbox{\hyperlink{structordered__map}{ordered\+\_\+map}}$<$ Key, T, Ignored\+Less, Allocator $>$\+::require\+\_\+input\+\_\+iter}
 
-{\bfseries Initial value\+:}
+{\bfseries 初期値\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\ \textcolor{keyword}{typename}\ std::enable\_if<std::is\_convertible<typename\ std::iterator\_traits<InputIt>::iterator\_category,}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ std::input\_iterator\_tag>::value>::type}
@@ -153,6 +153,6 @@ using \mbox{\hyperlink{structordered__map}{ordered\+\_\+map}}$<$ Key, T, Ignored
 \end{DoxyCode}
 
 
-The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+この構造体詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 json.\+hpp\end{DoxyCompactItemize}

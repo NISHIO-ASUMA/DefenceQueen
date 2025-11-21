@@ -1,12 +1,17 @@
-\doxysection{CMesh\+Piler Class Reference}
+\doxysection{CMesh\+Piler クラス}
 \hypertarget{class_c_mesh_piler}{}\label{class_c_mesh_piler}\index{CMeshPiler@{CMeshPiler}}
-Inheritance diagram for CMesh\+Piler\+:\begin{figure}[H]
+CMesh\+Piler の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{class_c_mesh_piler}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{クラス}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_c_mesh_piler_1_1_mesh_piler}{Mesh\+Piler}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_mesh_piler_a8cdde59d2b41ab4606fc1607fd034240}\label{class_c_mesh_piler_a8cdde59d2b41ab4606fc1607fd034240} 
@@ -20,16 +25,16 @@ void \mbox{\hyperlink{class_c_mesh_piler_aa04ba220496901e2f1818dc016d58f48}{Upda
 \item 
 void \mbox{\hyperlink{class_c_mesh_piler_a3e241db8882e1458c91020e27564eacb}{Draw}} (void)
 \item 
-\Hypertarget{class_c_mesh_piler_ae1958ee6ea43734afcd8100db49de749}\label{class_c_mesh_piler_ae1958ee6ea43734afcd8100db49de749} 
-bool {\bfseries Collision} (D3\+DXVECTOR3 \texorpdfstring{$\ast$}{*}Collision\+Pos)
-\item 
 \Hypertarget{class_c_mesh_piler_a617c3aa406f4cf7507985bf77726420b}\label{class_c_mesh_piler_a617c3aa406f4cf7507985bf77726420b} 
 void {\bfseries Set\+Texture} (void)
+\item 
+\Hypertarget{class_c_mesh_piler_ae1958ee6ea43734afcd8100db49de749}\label{class_c_mesh_piler_ae1958ee6ea43734afcd8100db49de749} 
+bool {\bfseries Collision} (D3\+DXVECTOR3 \texorpdfstring{$\ast$}{*}Collision\+Pos)
 \item 
 \Hypertarget{class_c_mesh_piler_a5feb517411a733984141f6e247c553b2}\label{class_c_mesh_piler_a5feb517411a733984141f6e247c553b2} 
 D3\+DXVECTOR3 {\bfseries Get\+Pos} (void)
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject} (int n\+Priority=NONE)
@@ -40,13 +45,13 @@ TYPE {\bfseries Get\+Obj\+Type} (void)
 \item 
 \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_mesh_piler_a3e914f97f3b4f91746c85e72db0571de}\label{class_c_mesh_piler_a3e914f97f3b4f91746c85e72db0571de} 
 static \mbox{\hyperlink{class_c_mesh_piler}{CMesh\+Piler}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (D3\+DXVECTOR3 pos)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static void {\bfseries Release\+All} (void)
@@ -59,8 +64,8 @@ static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\b
 \item 
 static int {\bfseries Get\+Num\+All} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
@@ -101,7 +106,7 @@ enum {\bfseries PRIORITY} \{ \newline
 {\bfseries PRIORITY\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 void {\bfseries Release} (void)
@@ -110,7 +115,7 @@ void {\bfseries Release} (void)
 
 \label{doc-func-members}
 \Hypertarget{class_c_mesh_piler_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_mesh_piler_a3e241db8882e1458c91020e27564eacb}\index{CMeshPiler@{CMeshPiler}!Draw@{Draw}}
 \index{Draw@{Draw}!CMeshPiler@{CMeshPiler}}
 \doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
@@ -119,7 +124,7 @@ void CMesh\+Piler\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyP
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_mesh_piler_a3c0a74cc3c52739be600ee9b01b8d559}\index{CMeshPiler@{CMeshPiler}!Init@{Init}}
 \index{Init@{Init}!CMeshPiler@{CMeshPiler}}
@@ -129,7 +134,7 @@ HRESULT CMesh\+Piler\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Do
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_mesh_piler_ab0979d2aa5b34f1374f41d0674aa93b3}\index{CMeshPiler@{CMeshPiler}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CMeshPiler@{CMeshPiler}}
@@ -139,7 +144,7 @@ void CMesh\+Piler\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Dox
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_mesh_piler_aa04ba220496901e2f1818dc016d58f48}\index{CMeshPiler@{CMeshPiler}!Update@{Update}}
 \index{Update@{Update}!CMeshPiler@{CMeshPiler}}
@@ -149,11 +154,11 @@ void CMesh\+Piler\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Dox
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 meshpiler.\+h\item 
 meshpiler.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,95 @@
+\doxysection{CDecorator クラス}
+\hypertarget{class_c_decorator}{}\label{class_c_decorator}\index{CDecorator@{CDecorator}}
+CDecorator の継承関係図\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_c_decorator}
+\end{center}
+\end{figure}
+\doxysubsubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_decorator_a1360254eca339e827d5ec5cc130906bc}\label{class_c_decorator_a1360254eca339e827d5ec5cc130906bc} 
+{\bfseries CDecorator} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard)
+\item 
+virtual void \mbox{\hyperlink{class_c_decorator_afda557bfa43b5884a2e1cce198911a89}{Init}} () override
+\item 
+virtual void \mbox{\hyperlink{class_c_decorator_ab2a1ca843bfa87f09f652b8d3951f282}{Exit}} () override
+\item 
+void \mbox{\hyperlink{class_c_decorator_af3c6bed4247993772bd2b2f252f5cfd8}{Set\+Node}} (\mbox{\hyperlink{class_c_node}{CNode}} \texorpdfstring{$\ast$}{*}p\+Node)
+\begin{DoxyCompactList}\small\item\em ���\+H�m�\mbox{[}�h���\+Z�b�g���� \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_c_node_base_a4323bee7fbdad9032c1c0e10b20a17ec}{set\+\_\+node\+\_\+id}} (const int id) override
+\end{DoxyCompactItemize}
+\doxysubsubsection*{限定公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_decorator_a3074c7d57a29fb4de77631255389cc4e}\label{class_c_decorator_a3074c7d57a29fb4de77631255389cc4e} 
+\mbox{\hyperlink{class_c_node}{CNode}} \texorpdfstring{$\ast$}{*} {\bfseries m\+\_\+\+Child\+Node} = nullptr
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承限定公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*} {\bfseries m\+\_\+p\+Black\+Board} = nullptr
+\item 
+Node\+Info\+::\+Node\+Result {\bfseries m\+\_\+\+Node\+Result} = Node\+Info\+::\+Node\+Result\+::\+Re\+\_\+\+IDLE
+\end{DoxyCompactItemize}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承限定公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries CNode\+Base} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard)
+\item 
+virtual void \mbox{\hyperlink{class_c_node_base_aa42e5b4777c450f730e0c0b411669aa1}{Update}} () override
+\item 
+virtual Node\+Info\+::\+Node\+Result \mbox{\hyperlink{class_c_node_base_addfc5c1a5d933924342ef35d19a4f20f}{get\+\_\+node\+\_\+result}} () const
+\item 
+virtual int \mbox{\hyperlink{class_c_node_base_a244860c6b3acdc60d69fbef61e522b79}{get\+\_\+running\+\_\+node\+\_\+id}} () const override
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_c_decorator_doc-func-members}
+\doxysubsection{関数詳解}
+\Hypertarget{class_c_decorator_ab2a1ca843bfa87f09f652b8d3951f282}\index{CDecorator@{CDecorator}!Exit@{Exit}}
+\index{Exit@{Exit}!CDecorator@{CDecorator}}
+\doxysubsubsection{\texorpdfstring{Exit()}{Exit()}}
+{\footnotesize\ttfamily \label{class_c_decorator_ab2a1ca843bfa87f09f652b8d3951f282} 
+virtual void CDecorator\+::\+Exit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_c_node_base}{CNode\+Base}}を再実装しています。
+
+\Hypertarget{class_c_decorator_afda557bfa43b5884a2e1cce198911a89}\index{CDecorator@{CDecorator}!Init@{Init}}
+\index{Init@{Init}!CDecorator@{CDecorator}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily \label{class_c_decorator_afda557bfa43b5884a2e1cce198911a89} 
+virtual void CDecorator\+::\+Init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_c_node_base}{CNode\+Base}}を再実装しています。
+
+\Hypertarget{class_c_decorator_af3c6bed4247993772bd2b2f252f5cfd8}\index{CDecorator@{CDecorator}!SetNode@{SetNode}}
+\index{SetNode@{SetNode}!CDecorator@{CDecorator}}
+\doxysubsubsection{\texorpdfstring{SetNode()}{SetNode()}}
+{\footnotesize\ttfamily \label{class_c_decorator_af3c6bed4247993772bd2b2f252f5cfd8} 
+void CDecorator\+::\+Set\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_c_node}{CNode}} \texorpdfstring{$\ast$}{*}}]{p\+Node}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+���\+H�m�\mbox{[}�h���\+Z�b�g���� 
+
+
+\begin{DoxyParams}{引数}
+{\em p\+Node} & CNode�\+N���\+X�̃\texorpdfstring{$\vert$}{|}�\+C���\texorpdfstring{$^\wedge$}{\string^}\\
+\hline
+\end{DoxyParams}
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+decorator.\+h\end{DoxyCompactItemize}

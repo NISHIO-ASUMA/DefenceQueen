@@ -1,21 +1,21 @@
-\doxysection{json\+\_\+pointer\texorpdfstring{$<$}{<} Ref\+String\+Type \texorpdfstring{$>$}{>} Class Template Reference}
+\doxysection{json\+\_\+pointer\texorpdfstring{$<$}{<} Ref\+String\+Type \texorpdfstring{$>$}{>} クラステンプレート}
 \hypertarget{classjson__pointer}{}\label{classjson__pointer}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}}
 
 
-JSON Pointer defines a string syntax for identifying a specific value within a JSON document.  
+JSON Pointer defines a string syntax for identifying a specific value within a JSON document  
 
 
 
 
 {\ttfamily \#include $<$json.\+hpp$>$}
 
-\doxysubsubsection*{Public Types}
+\doxysubsubsection*{公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291}\label{classjson__pointer_a21dae78c5120aa3044d4c0fa1d970291} 
 using {\bfseries string\+\_\+t} = typename string\+\_\+t\+\_\+helper$<$Ref\+String\+Type$>$\+::type
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classjson__pointer_a5288b8f5d6ff6faca37f664b98a16ecd}{json\+\_\+pointer}} (const string\+\_\+t \&s="{}"{})
@@ -42,7 +42,7 @@ void \mbox{\hyperlink{classjson__pointer_a6fa4848eafc232ae1af91c3d2696897e}{push
 \begin{DoxyCompactList}\small\item\em append an unescaped token at the end of the reference pointer \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classjson__pointer_a5c3d08bd0a0e99c3377db33600c68a64}{empty}} () const noexcept
 \begin{DoxyCompactList}\small\item\em return whether pointer points to the root document \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Friends}
+\doxysubsubsection*{フレンド}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classjson__pointer_ada3100cdb8700566051828f1355fa745}\label{classjson__pointer_ada3100cdb8700566051828f1355fa745} 
@@ -73,19 +73,19 @@ std\+::ostream \& \mbox{\hyperlink{classjson__pointer_ad4140db2dd2f347f46f3abae0
 \begin{DoxyCompactList}\small\item\em compares two JSON pointer for less-\/than \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsection{詳解}
 \subsubsection*{template$<$typename Ref\+String\+Type$>$\newline
 class json\+\_\+pointer$<$ Ref\+String\+Type $>$}
-JSON Pointer defines a string syntax for identifying a specific value within a JSON document. 
+JSON Pointer defines a string syntax for identifying a specific value within a JSON document 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/}} 
 \end{DoxySeeAlso}
 
 
 \label{doc-constructors}
 \Hypertarget{classjson__pointer_doc-constructors}
-\doxysubsection{Constructor \& Destructor Documentation}
+\doxysubsection{構築子と解体子}
 \Hypertarget{classjson__pointer_a5288b8f5d6ff6faca37f664b98a16ecd}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!json\_pointer@{json\_pointer}}
 \index{json\_pointer@{json\_pointer}!json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}}
 \doxysubsubsection{\texorpdfstring{json\_pointer()}{json\_pointer()}}
@@ -97,14 +97,14 @@ template$<$typename Ref\+String\+Type$>$ \\
 
 create JSON pointer 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/json_pointer/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/json\+\_\+pointer/}} 
 \end{DoxySeeAlso}
 
 
 \label{doc-func-members}
 \Hypertarget{classjson__pointer_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{classjson__pointer_aba71e63e4032cfc46dd90aeb09e5cb0f}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!back@{back}}
 \index{back@{back}!json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}}
 \doxysubsubsection{\texorpdfstring{back()}{back()}}
@@ -116,7 +116,7 @@ const string\+\_\+t \& \mbox{\hyperlink{classjson__pointer}{json\+\_\+pointer}}$
 
 return last reference token 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/back/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/back/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_a5c3d08bd0a0e99c3377db33600c68a64}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!empty@{empty}}
@@ -130,7 +130,7 @@ bool \mbox{\hyperlink{classjson__pointer}{json\+\_\+pointer}}$<$ Ref\+String\+Ty
 
 return whether pointer points to the root document 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/empty/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/empty/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_a97364e516620b02f1049f847b2ad43c9}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!operator string\_t@{operator string\_t}}
@@ -144,7 +144,7 @@ template$<$typename Ref\+String\+Type$>$ \\
 
 return a string representation of the JSON pointer 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/operator_string/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/operator\+\_\+string/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_a8bb8e43c6e01a6370cd49ba130171219}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!operator/=@{operator/=}}
@@ -158,7 +158,7 @@ template$<$typename Ref\+String\+Type$>$ \\
 
 append another JSON pointer at the end of this JSON pointer 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/operator_slasheq/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/operator\+\_\+slasheq/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_a6c2bffffbf08b77259e0b658c841703c}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!operator/=@{operator/=}}
@@ -172,7 +172,7 @@ template$<$typename Ref\+String\+Type$>$ \\
 
 append an array index at the end of this JSON pointer 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/operator_slasheq/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/operator\+\_\+slasheq/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_aa810a9db8c1d6e67c4a3703dc66a18d4}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!operator/=@{operator/=}}
@@ -186,7 +186,7 @@ template$<$typename Ref\+String\+Type$>$ \\
 
 append an unescaped reference token at the end of this JSON pointer 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/operator_slasheq/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/operator\+\_\+slasheq/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_aa03c0c1206e171342d27a4583258858b}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!parent\_pointer@{parent\_pointer}}
@@ -200,7 +200,7 @@ template$<$typename Ref\+String\+Type$>$ \\
 
 returns the parent of this JSON pointer 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/parent_pointer/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/parent\+\_\+pointer/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_a662118b470c87a1b564946c2602c49ce}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!pop\_back@{pop\_back}}
@@ -214,7 +214,7 @@ void \mbox{\hyperlink{classjson__pointer}{json\+\_\+pointer}}$<$ Ref\+String\+Ty
 
 remove last reference token 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/pop_back/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/pop\+\_\+back/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_adbe97f9c00a221fb7be88d940b39a24f}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!push\_back@{push\_back}}
@@ -228,7 +228,7 @@ void \mbox{\hyperlink{classjson__pointer}{json\+\_\+pointer}}$<$ Ref\+String\+Ty
 
 append an unescaped token at the end of the reference pointer 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/push_back/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/push\+\_\+back/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_a6fa4848eafc232ae1af91c3d2696897e}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!push\_back@{push\_back}}
@@ -242,7 +242,7 @@ void \mbox{\hyperlink{classjson__pointer}{json\+\_\+pointer}}$<$ Ref\+String\+Ty
 
 append an unescaped token at the end of the reference pointer 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/push_back/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/push\+\_\+back/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_a6b94e2003be4cd72c4f145bcea2578ec}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!to\_string@{to\_string}}
@@ -256,14 +256,14 @@ string\+\_\+t \mbox{\hyperlink{classjson__pointer}{json\+\_\+pointer}}$<$ Ref\+S
 
 return a string representation of the JSON pointer 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/to_string/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/to\+\_\+string/}} 
 \end{DoxySeeAlso}
 
 
 \label{doc-related-members}
 \Hypertarget{classjson__pointer_doc-related-members}
-\doxysubsection{Friends And Related Symbol Documentation}
+\doxysubsection{フレンドと関連関数の詳解}
 \Hypertarget{classjson__pointer_ac45cd9ddda9dd7a4682f0c57f4077fc1}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!operator"!=@{operator"!=}}
 \index{operator"!=@{operator"!=}!json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}}
 \doxysubsubsection{\texorpdfstring{operator"!=}{operator!=}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
@@ -276,7 +276,7 @@ bool operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classjson
 
 compares two JSON pointers for inequality 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/operator_ne/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/operator\+\_\+ne/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_ae0bb92b1f034ac1738d44eb7540f8f66}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!operator"!=@{operator"!=}}
@@ -291,7 +291,7 @@ bool operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classjson
 
 compares JSON pointer and string for inequality 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/operator_ne/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/operator\+\_\+ne/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_a32b28c0ef5f1c96b646817a0c360d7e6}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!operator"!=@{operator"!=}}
@@ -306,7 +306,7 @@ bool operator!= (\begin{DoxyParamCaption}\item[{const String\+Type \&}]{lhs}{, }
 
 compares string and JSON pointer for inequality 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/operator_ne/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/operator\+\_\+ne/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_a90a11fe6c7f37b1746a3ff9cb24b0d53}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!operator/@{operator/}}
@@ -320,7 +320,7 @@ template$<$typename Ref\+String\+Type$>$ \\
 
 create a new JSON pointer by appending the right JSON pointer at the end of the left JSON pointer 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/operator_slash/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/operator\+\_\+slash/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_a29f6d4b492e784b9d196b05a4048c289}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!operator/@{operator/}}
@@ -334,7 +334,7 @@ template$<$typename Ref\+String\+Type$>$ \\
 
 create a new JSON pointer by appending the array-\/index-\/token at the end of the JSON pointer 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/operator_slash/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/operator\+\_\+slash/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_a116956f4487af44732dd685e970679b0}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!operator/@{operator/}}
@@ -348,7 +348,7 @@ template$<$typename Ref\+String\+Type$>$ \\
 
 create a new JSON pointer by appending the unescaped token at the end of the JSON pointer 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/operator_slash/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/operator\+\_\+slash/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_ad4140db2dd2f347f46f3abae0fc2156f}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!operator$<$$<$@{operator$<$$<$}}
@@ -362,7 +362,7 @@ std\+::ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream 
 
 write string representation of the JSON pointer to stream 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/basic_json/operator_ltlt/}{\texttt{https\+://json.\+nlohmann.\+me/api/basic\+\_\+json/operator\+\_\+ltlt/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_a4fe1c9b8096b3c21d3dd1e19c3eff59f}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!operator==@{operator==}}
@@ -377,7 +377,7 @@ bool operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classjson
 
 compares two JSON pointers for equality 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/operator_eq/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/operator\+\_\+eq/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_af6bf727798ad49870a709094e5ff981c}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!operator==@{operator==}}
@@ -392,7 +392,7 @@ bool operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classjson
 
 compares JSON pointer and string for equality 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/operator_eq/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/operator\+\_\+eq/}} 
 \end{DoxySeeAlso}
 \Hypertarget{classjson__pointer_ae7aabbb2a365ddaac5192ccea3226bfb}\index{json\_pointer$<$ RefStringType $>$@{json\_pointer$<$ RefStringType $>$}!operator==@{operator==}}
@@ -407,11 +407,11 @@ bool operator== (\begin{DoxyParamCaption}\item[{const String\+Type \&}]{lhs}{, }
 
 compares string and JSON pointer for equality 
 
-\begin{DoxySeeAlso}{See also}
+\begin{DoxySeeAlso}{参照}
 \href{https://json.nlohmann.me/api/json_pointer/operator_eq/}{\texttt{https\+://json.\+nlohmann.\+me/api/json\+\_\+pointer/operator\+\_\+eq/}} 
 \end{DoxySeeAlso}
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 json.\+hpp\end{DoxyCompactItemize}

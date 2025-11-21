@@ -1,12 +1,12 @@
-\doxysection{CInput\+Mouse Class Reference}
+\doxysection{CInput\+Mouse クラス}
 \hypertarget{class_c_input_mouse}{}\label{class_c_input_mouse}\index{CInputMouse@{CInputMouse}}
-Inheritance diagram for CInput\+Mouse\+:\begin{figure}[H]
+CInput\+Mouse の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{class_c_input_mouse}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Types}
+\doxysubsubsection*{公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_input_mouse_a3dc7159d84a92f5f45147f6acc6776ba}\label{class_c_input_mouse_a3dc7159d84a92f5f45147f6acc6776ba} 
@@ -15,7 +15,7 @@ enum {\bfseries MOUSE} \{ {\bfseries MOUSE\+\_\+\+LEFT}
 , {\bfseries MOUSE\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 HRESULT \mbox{\hyperlink{class_c_input_mouse_a6fc3935edfd5496162be68e7d48f5200}{Init}} (HINSTANCE h\+Instance, HWND h\+Wnd)
@@ -48,18 +48,18 @@ D3\+DXVECTOR2 {\bfseries Get\+Mouse\+Old\+Velocity} ()
 \Hypertarget{class_c_input_mouse_a52e66e7f82c1545a1b662cfc1a2828cb}\label{class_c_input_mouse_a52e66e7f82c1545a1b662cfc1a2828cb} 
 BOOL {\bfseries Is\+Mouse\+Wheel\+Present} (void)
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_input}{CInput}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_input}{CInput}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 LPDIRECTINPUTDEVICE8 {\bfseries Get\+Input\+Device} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_c_input}{CInput}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_input}{CInput}} に属する継承限定公開変数類}
 \begin{DoxyCompactItemize}
 \item 
 LPDIRECTINPUTDEVICE8 {\bfseries m\+\_\+p\+Device}
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Protected Attributes inherited from \mbox{\hyperlink{class_c_input}{CInput}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_input}{CInput}} に属する継承静的限定公開変数類}
 \begin{DoxyCompactItemize}
 \item 
 static LPDIRECTINPUT8 {\bfseries m\+\_\+p\+Input} = nullptr
@@ -68,7 +68,7 @@ static LPDIRECTINPUT8 {\bfseries m\+\_\+p\+Input} = nullptr
 
 \label{doc-func-members}
 \Hypertarget{class_c_input_mouse_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_input_mouse_a6fc3935edfd5496162be68e7d48f5200}\index{CInputMouse@{CInputMouse}!Init@{Init}}
 \index{Init@{Init}!CInputMouse@{CInputMouse}}
 \doxysubsubsection{\texorpdfstring{Init()}{Init()}}
@@ -77,7 +77,7 @@ HRESULT CInput\+Mouse\+::\+Init (\begin{DoxyParamCaption}\item[{HINSTANCE}]{h\+I
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_input}{CInput}}.
+\mbox{\hyperlink{class_c_input}{CInput}}を再実装しています。
 
 \Hypertarget{class_c_input_mouse_af88d540ade452931bc6aed401a26a1d0}\index{CInputMouse@{CInputMouse}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CInputMouse@{CInputMouse}}
@@ -87,7 +87,7 @@ void CInput\+Mouse\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Do
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_input}{CInput}}.
+\mbox{\hyperlink{class_c_input}{CInput}}を再実装しています。
 
 \Hypertarget{class_c_input_mouse_a1a6aaacd51eaf8b84538135f859476f0}\index{CInputMouse@{CInputMouse}!Update@{Update}}
 \index{Update@{Update}!CInputMouse@{CInputMouse}}
@@ -97,11 +97,11 @@ void CInput\+Mouse\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Do
 
 
 
-Implements \mbox{\hyperlink{class_c_input}{CInput}}.
+\mbox{\hyperlink{class_c_input}{CInput}}を実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 input.\+h\item 
 input.\+cpp\end{DoxyCompactItemize}

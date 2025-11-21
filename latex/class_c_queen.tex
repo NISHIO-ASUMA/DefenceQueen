@@ -1,12 +1,12 @@
-\doxysection{CQueen Class Reference}
+\doxysection{CQueen クラス}
 \hypertarget{class_c_queen}{}\label{class_c_queen}\index{CQueen@{CQueen}}
-Inheritance diagram for CQueen\+:\begin{figure}[H]
+CQueen の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=3.000000cm]{class_c_queen}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Types}
+\doxysubsubsection*{公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_queen_a7072e4c62e89a83c1f38234e5be73723}\label{class_c_queen_a7072e4c62e89a83c1f38234e5be73723} 
@@ -19,7 +19,7 @@ enum {\bfseries MOTION} \{ \newline
 {\bfseries MOTION\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
@@ -60,7 +60,7 @@ enum {\bfseries PRIORITY} \{ \newline
 {\bfseries PRIORITY\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_queen_a3049075010293b29c9bc5cb2617659a6}\label{class_c_queen_a3049075010293b29c9bc5cb2617659a6} 
@@ -77,7 +77,7 @@ void \mbox{\hyperlink{class_c_queen_a7509bce00c95c9778de7ec9a5dd09e40}{Draw}} (v
 \Hypertarget{class_c_queen_a7270fcdfa7635dace70319f85aae0c51}\label{class_c_queen_a7270fcdfa7635dace70319f85aae0c51} 
 bool {\bfseries Collision} (\mbox{\hyperlink{class_c_sphere_collider}{CSphere\+Collider}} \texorpdfstring{$\ast$}{*}p\+Other)
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_no_move_charactor}{CNo\+Move\+Charactor}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_no_move_charactor}{CNo\+Move\+Charactor}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CNo\+Move\+Charactor} (int n\+Priority=static\+\_\+cast$<$ int $>$(CObject\+::\+PRIORITY\+::\+CHARACTOR))
@@ -104,7 +104,7 @@ D3\+DXVECTOR3 {\bfseries Get\+Rot} (void) const
 \item 
 \mbox{\hyperlink{class_c_motion}{CMotion}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_c_no_move_charactor_a4b8c8b6307c5feadc7f2447653f48c79}{Get\+Motion}} (void)
 \begin{DoxyCompactList}\small\item\em ���\mbox{[}�\+V�����̐��\texorpdfstring{$\vert$}{|}�\+C���\texorpdfstring{$^\wedge$}{\string^}��Ԃ� \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject} (int n\+Priority=NONE)
@@ -115,13 +115,13 @@ TYPE {\bfseries Get\+Obj\+Type} (void)
 \item 
 \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_queen_a457baf6fe19449df46be45d65a6f07e5}\label{class_c_queen_a457baf6fe19449df46be45d65a6f07e5} 
 static \mbox{\hyperlink{class_c_queen}{CQueen}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (D3\+DXVECTOR3 pos, D3\+DXVECTOR3 rot)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static void {\bfseries Release\+All} (void)
@@ -134,8 +134,8 @@ static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\b
 \item 
 static int {\bfseries Get\+Num\+All} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 void {\bfseries Release} (void)
@@ -144,7 +144,7 @@ void {\bfseries Release} (void)
 
 \label{doc-func-members}
 \Hypertarget{class_c_queen_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_queen_a7509bce00c95c9778de7ec9a5dd09e40}\index{CQueen@{CQueen}!Draw@{Draw}}
 \index{Draw@{Draw}!CQueen@{CQueen}}
 \doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
@@ -153,7 +153,7 @@ void CQueen\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCa
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_no_move_charactor}{CNo\+Move\+Charactor}}.
+\mbox{\hyperlink{class_c_no_move_charactor}{CNo\+Move\+Charactor}}を再実装しています。
 
 \Hypertarget{class_c_queen_a218a77fb0b86e05a33d7da530d2b9fbb}\index{CQueen@{CQueen}!Init@{Init}}
 \index{Init@{Init}!CQueen@{CQueen}}
@@ -163,7 +163,7 @@ HRESULT CQueen\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyPara
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_no_move_charactor}{CNo\+Move\+Charactor}}.
+\mbox{\hyperlink{class_c_no_move_charactor}{CNo\+Move\+Charactor}}を再実装しています。
 
 \Hypertarget{class_c_queen_ace6bac1cdf0f7942cc9c4ee67478cd1c}\index{CQueen@{CQueen}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CQueen@{CQueen}}
@@ -173,7 +173,7 @@ void CQueen\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParam
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_no_move_charactor}{CNo\+Move\+Charactor}}.
+\mbox{\hyperlink{class_c_no_move_charactor}{CNo\+Move\+Charactor}}を再実装しています。
 
 \Hypertarget{class_c_queen_aea5710d5dbc8ae7a045d59e38e7cc65c}\index{CQueen@{CQueen}!Update@{Update}}
 \index{Update@{Update}!CQueen@{CQueen}}
@@ -183,11 +183,11 @@ void CQueen\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParam
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_no_move_charactor}{CNo\+Move\+Charactor}}.
+\mbox{\hyperlink{class_c_no_move_charactor}{CNo\+Move\+Charactor}}を再実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 queen.\+h\item 
 queen.\+cpp\end{DoxyCompactItemize}

@@ -1,33 +1,33 @@
 \doxysection{feed.\+h}
 \hypertarget{feed_8h_source}{}\label{feed_8h_source}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{comment}{//===============================================}}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=========================================================}}
 \DoxyCodeLine{00002\ \textcolor{comment}{//}}
 \DoxyCodeLine{00003\ \textcolor{comment}{//\ 出現する餌の処理\ [\ feed.h\ ]}}
 \DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
 \DoxyCodeLine{00005\ \textcolor{comment}{//}}
-\DoxyCodeLine{00006\ \textcolor{comment}{//===============================================}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=========================================================}}
 \DoxyCodeLine{00007\ }
-\DoxyCodeLine{00008\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
-\DoxyCodeLine{00010\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル}}
-\DoxyCodeLine{00015\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}objectX.h"{}}}
 \DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <memory>}}
 \DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00020\ \textcolor{comment}{//\ 前方宣言}}
-\DoxyCodeLine{00021\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}};}
 \DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_parameter}{CParameter}};}
 \DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00026\ \textcolor{comment}{//\ 餌クラスを定義}}
-\DoxyCodeLine{00027\ \textcolor{comment}{//**********************}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//*********************************************************}}
 \DoxyCodeLine{00028\ \textcolor{keyword}{class\ }CFeed\ :\ \textcolor{keyword}{public}\ CObjectX}
 \DoxyCodeLine{00029\ \{}
 \DoxyCodeLine{00030\ \textcolor{keyword}{public}:}
@@ -40,16 +40,19 @@
 \DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void});}
 \DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ Draw(\textcolor{keywordtype}{void});}
 \DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ DecLife(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nDecValue);}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}}*\ GetCollider(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_pSphere;\ \}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ SetRadius(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fRadius)\ \{\ m\_fRadius\ =\ fRadius;\ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{bool}\ Collision(\mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}}*\ other);}
 \DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{static}\ CFeed*\ Create(D3DXVECTOR3\ pos,\ D3DXVECTOR3\ rot,\ D3DXVECTOR3\ scale,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ pModelName);}
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}}*\ m\_pSphere;\ \textcolor{comment}{//\ 球形コライソ_ー}}
-\DoxyCodeLine{00048\ \ \ \ \ std::unique\_ptr<CParameter>m\_pParam;\ \textcolor{comment}{//\ パラメーソstring^ー}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{float}\ GetRadius(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_fRadius;\ \}}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}}*\ GetCollider(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_pSphere;\ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{static}\ CFeed*\ Create(D3DXVECTOR3\ pos,\ D3DXVECTOR3\ rot,\ D3DXVECTOR3\ scale,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ pModelName,\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ fRadius);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \};}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{class_c_sphere_collider}{CSphereCollider}}*\ m\_pSphere;\ \textcolor{comment}{//\ 球形コライソ_ー}}
+\DoxyCodeLine{00051\ \ \ \ \ std::unique\_ptr<CParameter>m\_pParam;\ \textcolor{comment}{//\ パラメーソstring^ー}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{float}\ m\_fRadius;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 半径}}
+\DoxyCodeLine{00053\ \};}
 
 \end{DoxyCode}

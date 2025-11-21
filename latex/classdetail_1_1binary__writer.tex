@@ -1,4 +1,4 @@
-\doxysection{detail\+::binary\+\_\+writer\texorpdfstring{$<$}{<} Basic\+Json\+Type, Char\+Type \texorpdfstring{$>$}{>} Class Template Reference}
+\doxysection{detail\+::binary\+\_\+writer\texorpdfstring{$<$}{<} Basic\+Json\+Type, Char\+Type \texorpdfstring{$>$}{>} クラステンプレート}
 \hypertarget{classdetail_1_1binary__writer}{}\label{classdetail_1_1binary__writer}\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
 
 
@@ -9,7 +9,7 @@ serialization to CBOR and Message\+Pack values
 
 {\ttfamily \#include $<$json.\+hpp$>$}
 
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classdetail_1_1binary__writer_a5b4f1bfcd0f3f7b57060c059e008c45b}{binary\+\_\+writer}} (\mbox{\hyperlink{namespacedetail_a558c0470e929e42aad8be2527da6c033}{output\+\_\+adapter\+\_\+t}}$<$ Char\+Type $>$ adapter)
@@ -22,7 +22,7 @@ void \mbox{\hyperlink{classdetail_1_1binary__writer_adc3dbefa80134d3530a1b3f1c96
 \item 
 void \mbox{\hyperlink{classdetail_1_1binary__writer_a377616a7e3ca05a134a4cbbed79e3db8}{write\+\_\+ubjson}} (const Basic\+Json\+Type \&j, const bool use\+\_\+count, const bool use\+\_\+type, const bool add\+\_\+prefix=true, const bool use\+\_\+bjdata=false, const \mbox{\hyperlink{namespacedetail_ae785f1c6c99c714463b625da13a75dad}{bjdata\+\_\+version\+\_\+t}} bjdata\+\_\+version=bjdata\+\_\+version\+\_\+t\+::draft2)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classdetail_1_1binary__writer_a2822d4a58bbb0dc2198686da430e8906}\label{classdetail_1_1binary__writer_a2822d4a58bbb0dc2198686da430e8906} 
@@ -39,14 +39,14 @@ void \mbox{\hyperlink{classdetail_1_1binary__writer_a377616a7e3ca05a134a4cbbed79
 \end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsection{詳解}
 \subsubsection*{template$<$typename Basic\+Json\+Type, typename Char\+Type$>$\newline
 class detail\+::binary\+\_\+writer$<$ Basic\+Json\+Type, Char\+Type $>$}
 serialization to CBOR and Message\+Pack values 
 
 \label{doc-constructors}
 \Hypertarget{classdetail_1_1binary__writer_doc-constructors}
-\doxysubsection{Constructor \& Destructor Documentation}
+\doxysubsection{構築子と解体子}
 \Hypertarget{classdetail_1_1binary__writer_a5b4f1bfcd0f3f7b57060c059e008c45b}\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!binary\_writer@{binary\_writer}}
 \index{binary\_writer@{binary\_writer}!detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
 \doxysubsubsection{\texorpdfstring{binary\_writer()}{binary\_writer()}}
@@ -59,7 +59,7 @@ template$<$typename Basic\+Json\+Type, typename Char\+Type$>$ \\
 create a binary writer 
 
 
-\begin{DoxyParams}[1]{Parameters}
+\begin{DoxyParams}[1]{引数}
 \mbox{\texttt{in}}  & {\em adapter} & output adapter to write to \\
 \hline
 \end{DoxyParams}
@@ -67,7 +67,7 @@ create a binary writer
 
 \label{doc-func-members}
 \Hypertarget{classdetail_1_1binary__writer_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{classdetail_1_1binary__writer_a1aae361b7492825979cbb80245b9c0d6}\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!write\_bson@{write\_bson}}
 \index{write\_bson@{write\_bson}!detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}}
 \doxysubsubsection{\texorpdfstring{write\_bson()}{write\_bson()}}
@@ -76,11 +76,11 @@ template$<$typename Basic\+Json\+Type, typename Char\+Type$>$ \\
 void \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::write\+\_\+bson (\begin{DoxyParamCaption}\item[{const Basic\+Json\+Type \&}]{j}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
-\begin{DoxyParams}[1]{Parameters}
+\begin{DoxyParams}[1]{引数}
 \mbox{\texttt{in}}  & {\em j} & JSON value to serialize \\
 \hline
 \end{DoxyParams}
-\begin{DoxyPrecond}{Precondition}
+\begin{DoxyPrecond}{事前条件}
 j.\+type() == \doxylink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{value\+\_\+t\+::object} 
 \end{DoxyPrecond}
 \Hypertarget{classdetail_1_1binary__writer_ae6ab36b61e8ad346e75d9f9abc983d4c}\index{detail::binary\_writer$<$ BasicJsonType, CharType $>$@{detail::binary\_writer$<$ BasicJsonType, CharType $>$}!write\_cbor@{write\_cbor}}
@@ -91,7 +91,7 @@ template$<$typename Basic\+Json\+Type, typename Char\+Type$>$ \\
 void \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::write\+\_\+cbor (\begin{DoxyParamCaption}\item[{const Basic\+Json\+Type \&}]{j}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
-\begin{DoxyParams}[1]{Parameters}
+\begin{DoxyParams}[1]{引数}
 \mbox{\texttt{in}}  & {\em j} & JSON value to serialize \\
 \hline
 \end{DoxyParams}
@@ -103,7 +103,7 @@ template$<$typename Basic\+Json\+Type, typename Char\+Type$>$ \\
 void \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::write\+\_\+msgpack (\begin{DoxyParamCaption}\item[{const Basic\+Json\+Type \&}]{j}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
-\begin{DoxyParams}[1]{Parameters}
+\begin{DoxyParams}[1]{引数}
 \mbox{\texttt{in}}  & {\em j} & JSON value to serialize \\
 \hline
 \end{DoxyParams}
@@ -115,7 +115,7 @@ template$<$typename Basic\+Json\+Type, typename Char\+Type$>$ \\
 void \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+writer}}$<$ Basic\+Json\+Type, Char\+Type $>$\+::write\+\_\+ubjson (\begin{DoxyParamCaption}\item[{const Basic\+Json\+Type \&}]{j}{, }\item[{const bool}]{use\+\_\+count}{, }\item[{const bool}]{use\+\_\+type}{, }\item[{const bool}]{add\+\_\+prefix}{ = {\ttfamily true}, }\item[{const bool}]{use\+\_\+bjdata}{ = {\ttfamily false}, }\item[{const \mbox{\hyperlink{namespacedetail_ae785f1c6c99c714463b625da13a75dad}{bjdata\+\_\+version\+\_\+t}}}]{bjdata\+\_\+version}{ = {\ttfamily bjdata\+\_\+version\+\_\+t\+:\+:draft2}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
-\begin{DoxyParams}[1]{Parameters}
+\begin{DoxyParams}[1]{引数}
 \mbox{\texttt{in}}  & {\em j} & JSON value to serialize \\
 \hline
 \mbox{\texttt{in}}  & {\em use\+\_\+count} & whether to use \textquotesingle{}\#\textquotesingle{} prefixes (optimized format) \\
@@ -131,6 +131,6 @@ void \mbox{\hyperlink{classdetail_1_1binary__writer}{detail\+::binary\+\_\+write
 \end{DoxyParams}
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 json.\+hpp\end{DoxyCompactItemize}

@@ -1,12 +1,12 @@
-\doxysection{CPause Class Reference}
+\doxysection{CPause クラス}
 \hypertarget{class_c_pause}{}\label{class_c_pause}\index{CPause@{CPause}}
-Inheritance diagram for CPause\+:\begin{figure}[H]
+CPause の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=3.000000cm]{class_c_pause}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Types}
+\doxysubsubsection*{公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_pause_a203e87237293c07b058189b10ac91f6d}\label{class_c_pause_a203e87237293c07b058189b10ac91f6d} 
@@ -19,7 +19,7 @@ enum {\bfseries MENU} \{ \newline
 {\bfseries MENU\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object2_d}{CObject2D}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object2_d_a483a21d4e8003ebe21db4c85942c9403}\label{class_c_object2_d_a483a21d4e8003ebe21db4c85942c9403} 
@@ -38,7 +38,7 @@ enum {\bfseries DRAWTYPE} \{ {\bfseries DRAWTYPE\+\_\+\+NONE}
 , {\bfseries DRAWTYPE\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
@@ -79,7 +79,7 @@ enum {\bfseries PRIORITY} \{ \newline
 {\bfseries PRIORITY\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_pause_a164d8e1153c5b72a381e69d010595251}\label{class_c_pause_a164d8e1153c5b72a381e69d010595251} 
@@ -99,7 +99,7 @@ void {\bfseries Set\+Texture} (void)
 \Hypertarget{class_c_pause_a3295aa053a17b2001c6bbad738b277b2}\label{class_c_pause_a3295aa053a17b2001c6bbad738b277b2} 
 void {\bfseries Set\+Type} (int n\+Type)
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object2_d}{CObject2D}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject2D} (int n\+Priority=static\+\_\+cast$<$ int $>$(CObject\+::\+PRIORITY\+::\+UI))
@@ -144,7 +144,7 @@ float {\bfseries Get\+Height} (void) const
 \item 
 int {\bfseries Get\+Draw\+Type} (void) const
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject} (int n\+Priority=NONE)
@@ -155,18 +155,18 @@ TYPE {\bfseries Get\+Obj\+Type} (void)
 \item 
 \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_pause_a7f86eeb35b493ba393b5183744c2ffd9}\label{class_c_pause_a7f86eeb35b493ba393b5183744c2ffd9} 
 static \mbox{\hyperlink{class_c_pause}{CPause}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (D3\+DXVECTOR3 pos, float f\+Width, float f\+Height, D3\+DXCOLOR col, int n\+Type)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object2_d}{CObject2D}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static \mbox{\hyperlink{class_c_object2_d}{CObject2D}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (void)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static void {\bfseries Release\+All} (void)
@@ -179,8 +179,8 @@ static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\b
 \item 
 static int {\bfseries Get\+Num\+All} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 void {\bfseries Release} (void)
@@ -189,7 +189,7 @@ void {\bfseries Release} (void)
 
 \label{doc-func-members}
 \Hypertarget{class_c_pause_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_pause_a590ec637525aff16af1afffb47b92f9a}\index{CPause@{CPause}!Draw@{Draw}}
 \index{Draw@{Draw}!CPause@{CPause}}
 \doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
@@ -198,7 +198,7 @@ void CPause\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCa
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}.
+\mbox{\hyperlink{class_c_object2_d}{CObject2D}}を再実装しています。
 
 \Hypertarget{class_c_pause_a10fccbd19f4f0008bfbf2e3124450ad6}\index{CPause@{CPause}!Init@{Init}}
 \index{Init@{Init}!CPause@{CPause}}
@@ -208,7 +208,7 @@ HRESULT CPause\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyPara
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}.
+\mbox{\hyperlink{class_c_object2_d}{CObject2D}}を再実装しています。
 
 \Hypertarget{class_c_pause_a31d4ba47c44c111516ac269073739319}\index{CPause@{CPause}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CPause@{CPause}}
@@ -218,7 +218,7 @@ void CPause\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParam
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}.
+\mbox{\hyperlink{class_c_object2_d}{CObject2D}}を再実装しています。
 
 \Hypertarget{class_c_pause_a2ae00469f6f5e976e1007629ca1f090a}\index{CPause@{CPause}!Update@{Update}}
 \index{Update@{Update}!CPause@{CPause}}
@@ -228,11 +228,11 @@ void CPause\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParam
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_object2_d}{CObject2D}}.
+\mbox{\hyperlink{class_c_object2_d}{CObject2D}}を再実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 pause.\+h\item 
 pause.\+cpp\end{DoxyCompactItemize}

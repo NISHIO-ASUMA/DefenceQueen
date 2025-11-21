@@ -1,0 +1,74 @@
+\doxysection{CAlways\+Fail\+Leaf クラス}
+\hypertarget{class_c_always_fail_leaf}{}\label{class_c_always_fail_leaf}\index{CAlwaysFailLeaf@{CAlwaysFailLeaf}}
+CAlways\+Fail\+Leaf の継承関係図\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_c_always_fail_leaf}
+\end{center}
+\end{figure}
+\doxysubsubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_always_fail_leaf_a4fcfead7f048181d9b9ded69a59b0fc6}\label{class_c_always_fail_leaf_a4fcfead7f048181d9b9ded69a59b0fc6} 
+{\bfseries CAlways\+Fail\+Leaf} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard)
+\item 
+Node\+Info\+::\+Node\+Result \mbox{\hyperlink{class_c_always_fail_leaf_a0dc81b427c797437d2e9b41e47d2e8b5}{get\+\_\+node\+\_\+result}} () const override
+\begin{DoxyCompactList}\small\item\em ��Ɏ��s�ł���l��Ԃ��֐� \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_c_node_base_a4323bee7fbdad9032c1c0e10b20a17ec}{set\+\_\+node\+\_\+id}} (const int id) override
+\end{DoxyCompactItemize}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_leaf_node_base}{CLeaf\+Node\+Base}} に属する継承限定公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries CLeaf\+Node\+Base} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard)
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承限定公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries CNode\+Base} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard)
+\item 
+virtual void \mbox{\hyperlink{class_c_node_base_aa5f2560825a7ffd75edc5aafe0c8177b}{Init}} () override
+\item 
+virtual void \mbox{\hyperlink{class_c_node_base_aa42e5b4777c450f730e0c0b411669aa1}{Update}} () override
+\item 
+virtual void \mbox{\hyperlink{class_c_node_base_a379cbc1659cc963004d1097ebdaaeb33}{Exit}} () override
+\item 
+virtual int \mbox{\hyperlink{class_c_node_base_a244860c6b3acdc60d69fbef61e522b79}{get\+\_\+running\+\_\+node\+\_\+id}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承限定公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*} {\bfseries m\+\_\+p\+Black\+Board} = nullptr
+\item 
+Node\+Info\+::\+Node\+Result {\bfseries m\+\_\+\+Node\+Result} = Node\+Info\+::\+Node\+Result\+::\+Re\+\_\+\+IDLE
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_c_always_fail_leaf_doc-func-members}
+\doxysubsection{関数詳解}
+\Hypertarget{class_c_always_fail_leaf_a0dc81b427c797437d2e9b41e47d2e8b5}\index{CAlwaysFailLeaf@{CAlwaysFailLeaf}!get\_node\_result@{get\_node\_result}}
+\index{get\_node\_result@{get\_node\_result}!CAlwaysFailLeaf@{CAlwaysFailLeaf}}
+\doxysubsubsection{\texorpdfstring{get\_node\_result()}{get\_node\_result()}}
+{\footnotesize\ttfamily \label{class_c_always_fail_leaf_a0dc81b427c797437d2e9b41e47d2e8b5} 
+Node\+Info\+::\+Node\+Result CAlways\+Fail\+Leaf\+::get\+\_\+node\+\_\+result (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+��Ɏ��s�ł���l��Ԃ��֐� 
+
+\begin{DoxyReturn}{戻り値}
+
+\end{DoxyReturn}
+
+
+\mbox{\hyperlink{class_c_node_base}{CNode\+Base}}を再実装しています。
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+alwaysfail.\+h\end{DoxyCompactItemize}

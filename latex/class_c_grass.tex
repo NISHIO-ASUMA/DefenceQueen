@@ -1,0 +1,171 @@
+\doxysection{CGrass クラス}
+\hypertarget{class_c_grass}{}\label{class_c_grass}\index{CGrass@{CGrass}}
+CGrass の継承関係図\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_c_grass}
+\end{center}
+\end{figure}
+\doxysubsubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_grass_a81c5f09dd3736785009cdd21a2c4b6fd}\label{class_c_grass_a81c5f09dd3736785009cdd21a2c4b6fd} 
+{\bfseries CGrass} (int n\+Priority=static\+\_\+cast$<$ int $>$(CObject\+::\+PRIORITY\+::\+BILLBOARD))
+\item 
+HRESULT \mbox{\hyperlink{class_c_grass_a67dd34480f0487b7b068ad0f97dcf42f}{Init}} (void) override
+\item 
+void \mbox{\hyperlink{class_c_grass_a5adde0e08534833dacd6f1cdc5fd0059}{Uninit}} (void) override
+\item 
+void \mbox{\hyperlink{class_c_grass_ac14013e8b8bcd48c9f9228f6a242c0fe}{Update}} (void) override
+\item 
+void \mbox{\hyperlink{class_c_grass_a5b35c560e73b91ffa625d1473cee6563}{Draw}} (void) override
+\item 
+\Hypertarget{class_c_grass_aa818a4a5c607738dc804551719d0a5f7}\label{class_c_grass_aa818a4a5c607738dc804551719d0a5f7} 
+bool {\bfseries Collision} (D3\+DXVECTOR3 \texorpdfstring{$\ast$}{*}p\+Pos)
+\item 
+\Hypertarget{class_c_grass_a78fc5f6dd12d6bed189cb8d0a32477f3}\label{class_c_grass_a78fc5f6dd12d6bed189cb8d0a32477f3} 
+void {\bfseries Set\+Texture} (const char \texorpdfstring{$\ast$}{*}p\+Tex\+Name)
+\item 
+\Hypertarget{class_c_grass_ae07e8c8d49dd06aff0da837698f80a69}\label{class_c_grass_ae07e8c8d49dd06aff0da837698f80a69} 
+void {\bfseries Set\+Radius} (const float f\+Radius)
+\item 
+\Hypertarget{class_c_grass_afc7f272bd341bf45e65ff1ccf4d1a706}\label{class_c_grass_afc7f272bd341bf45e65ff1ccf4d1a706} 
+void {\bfseries Set\+Pos} (const D3\+DXVECTOR3 pos)
+\item 
+\Hypertarget{class_c_grass_a0d407d7696d61781355de09c2cd4ea75}\label{class_c_grass_a0d407d7696d61781355de09c2cd4ea75} 
+void {\bfseries Set\+Rot} (const D3\+DXVECTOR3 rot)
+\item 
+\Hypertarget{class_c_grass_a18679987d74c0724c792ab3a7568aed6}\label{class_c_grass_a18679987d74c0724c792ab3a7568aed6} 
+void {\bfseries Set\+Col} (const D3\+DXCOLOR col)
+\item 
+\Hypertarget{class_c_grass_a1d46d488f83babbacf74d43235e4f9d1}\label{class_c_grass_a1d46d488f83babbacf74d43235e4f9d1} 
+void {\bfseries Set\+Size} (const float f\+Width, const float f\+Height)
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries CObject} (int n\+Priority=NONE)
+\item 
+void {\bfseries Set\+Obj\+Type} (TYPE type)
+\item 
+TYPE {\bfseries Get\+Obj\+Type} (void)
+\item 
+\mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静的公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_grass_a186363122f3a3682e9c4dcd6bc6df774}\label{class_c_grass_a186363122f3a3682e9c4dcd6bc6df774} 
+static \mbox{\hyperlink{class_c_grass}{CGrass}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (const D3\+DXVECTOR3 pos, const D3\+DXVECTOR3 rot, const float f\+Width, const float f\+Height)
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承静的公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bfseries Release\+All} (void)
+\item 
+static void {\bfseries Update\+All} (void)
+\item 
+static void {\bfseries Draw\+All} (void)
+\item 
+static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Top} (int n\+Priority)
+\item 
+static int {\bfseries Get\+Num\+All} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
+enum {\bfseries TYPE} \{ \newline
+{\bfseries TYPE\+\_\+\+NONE}
+, {\bfseries TYPE\+\_\+\+PLAYER}
+, {\bfseries TYPE\+\_\+\+ARRAY}
+, {\bfseries TYPE\+\_\+\+ENEMY}
+, \newline
+{\bfseries TYPE\+\_\+\+QUEEN}
+, {\bfseries TYPE\+\_\+\+WORKER}
+, {\bfseries TYPE\+\_\+\+MESH}
+, {\bfseries TYPE\+\_\+\+BLOCK}
+, \newline
+{\bfseries TYPE\+\_\+\+PAUSE}
+, {\bfseries TYPE\+\_\+\+BARRIER}
+, {\bfseries TYPE\+\_\+\+ITEM}
+, {\bfseries TYPE\+\_\+\+MAX}
+ \}
+\item 
+\Hypertarget{class_c_object_a0924032649f7068d08cc5da588adc8d0}\label{class_c_object_a0924032649f7068d08cc5da588adc8d0} 
+enum {\bfseries PRIORITY} \{ \newline
+{\bfseries NONE}
+, {\bfseries MESH}
+, {\bfseries BASENUMBER}
+, {\bfseries MODELOBJECT}
+, \newline
+{\bfseries MOVE3D}
+, {\bfseries SHADOW}
+, {\bfseries IMPACT}
+, {\bfseries CHARACTOR}
+, \newline
+{\bfseries BILLBOARD}
+, {\bfseries EFFECT}
+, {\bfseries UI}
+, {\bfseries PAUSE}
+, \newline
+{\bfseries PRIORITY\+\_\+\+MAX}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承限定公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries Release} (void)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_c_grass_doc-func-members}
+\doxysubsection{関数詳解}
+\Hypertarget{class_c_grass_a5b35c560e73b91ffa625d1473cee6563}\index{CGrass@{CGrass}!Draw@{Draw}}
+\index{Draw@{Draw}!CGrass@{CGrass}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily \label{class_c_grass_a5b35c560e73b91ffa625d1473cee6563} 
+void CGrass\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
+
+\Hypertarget{class_c_grass_a67dd34480f0487b7b068ad0f97dcf42f}\index{CGrass@{CGrass}!Init@{Init}}
+\index{Init@{Init}!CGrass@{CGrass}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily \label{class_c_grass_a67dd34480f0487b7b068ad0f97dcf42f} 
+HRESULT CGrass\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
+
+\Hypertarget{class_c_grass_a5adde0e08534833dacd6f1cdc5fd0059}\index{CGrass@{CGrass}!Uninit@{Uninit}}
+\index{Uninit@{Uninit}!CGrass@{CGrass}}
+\doxysubsubsection{\texorpdfstring{Uninit()}{Uninit()}}
+{\footnotesize\ttfamily \label{class_c_grass_a5adde0e08534833dacd6f1cdc5fd0059} 
+void CGrass\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
+
+\Hypertarget{class_c_grass_ac14013e8b8bcd48c9f9228f6a242c0fe}\index{CGrass@{CGrass}!Update@{Update}}
+\index{Update@{Update}!CGrass@{CGrass}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_c_grass_ac14013e8b8bcd48c9f9228f6a242c0fe} 
+void CGrass\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+grass.\+h\item 
+grass.\+cpp\end{DoxyCompactItemize}

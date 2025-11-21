@@ -1,12 +1,12 @@
-\doxysection{CObjectX Class Reference}
+\doxysection{CObjectX クラス}
 \hypertarget{class_c_object_x}{}\label{class_c_object_x}\index{CObjectX@{CObjectX}}
-Inheritance diagram for CObjectX\+:\begin{figure}[H]
+CObjectX の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=3.000000cm]{class_c_object_x}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object_x_af2e4fe3683265a935aadebc2bec65144}\label{class_c_object_x_af2e4fe3683265a935aadebc2bec65144} 
@@ -56,7 +56,7 @@ D3\+DXMATRIX {\bfseries Get\+Mtx\+World} (void)
 \Hypertarget{class_c_object_x_aadf2a5e76482bd1ad9632e3fce437b7e}\label{class_c_object_x_aadf2a5e76482bd1ad9632e3fce437b7e} 
 int {\bfseries Get\+Model\+Idx} (void) const
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject} (int n\+Priority=NONE)
@@ -67,13 +67,13 @@ TYPE {\bfseries Get\+Obj\+Type} (void)
 \item 
 \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{class_c_object_x_acee3df40d2d9c7b63c408c48dd276f90}\label{class_c_object_x_acee3df40d2d9c7b63c408c48dd276f90} 
-static \mbox{\hyperlink{class_c_object_x}{CObjectX}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (int n\+Idx, D3\+DXVECTOR3 pos)
+\Hypertarget{class_c_object_x_a9b8ca308636913659b0cb88c4fb4c8e5}\label{class_c_object_x_a9b8ca308636913659b0cb88c4fb4c8e5} 
+static \mbox{\hyperlink{class_c_object_x}{CObjectX}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (const char \texorpdfstring{$\ast$}{*}p\+Model\+Name, D3\+DXVECTOR3 pos)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static void {\bfseries Release\+All} (void)
@@ -86,8 +86,8 @@ static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\b
 \item 
 static int {\bfseries Get\+Num\+All} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
@@ -128,7 +128,7 @@ enum {\bfseries PRIORITY} \{ \newline
 {\bfseries PRIORITY\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 void {\bfseries Release} (void)
@@ -137,7 +137,7 @@ void {\bfseries Release} (void)
 
 \label{doc-func-members}
 \Hypertarget{class_c_object_x_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_object_x_a506817897c8d93f88bf6353999f38941}\index{CObjectX@{CObjectX}!Draw@{Draw}}
 \index{Draw@{Draw}!CObjectX@{CObjectX}}
 \doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
@@ -146,7 +146,7 @@ void CObject\+X\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyPar
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_object_x_a847767341403f8245dcaeff654a8d4e8}\index{CObjectX@{CObjectX}!Init@{Init}}
 \index{Init@{Init}!CObjectX@{CObjectX}}
@@ -156,7 +156,7 @@ HRESULT CObject\+X\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Doxy
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_object_x_acdc96ed7b96db25dbf30b06a0ad865d9}\index{CObjectX@{CObjectX}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CObjectX@{CObjectX}}
@@ -166,7 +166,7 @@ void CObject\+X\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyP
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_object_x_a5b265df5e9d645e2bd50ee23135b90e5}\index{CObjectX@{CObjectX}!Update@{Update}}
 \index{Update@{Update}!CObjectX@{CObjectX}}
@@ -176,11 +176,11 @@ void CObject\+X\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyP
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 object\+X.\+h\item 
 object\+X.\+cpp\end{DoxyCompactItemize}

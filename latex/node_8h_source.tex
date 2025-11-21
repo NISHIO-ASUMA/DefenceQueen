@@ -1,0 +1,59 @@
+\doxysection{node.\+h}
+\hypertarget{node_8h_source}{}\label{node_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=========================================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ AIノードインソstring^ーフェースクラス処理\ [\ node.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=========================================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once\ }}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ ノードが返す基暴{結果列挙圭string^}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }NodeInfo}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{enum\ class}\ NodeResult}
+\DoxyCodeLine{00019\ \ \ \ \ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ Re\_IDLE,\ \ \ \ \textcolor{comment}{//\ 待機中}}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ Re\_RUNING,\ \ \textcolor{comment}{//\ 実行中}}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ Re\_SUCCESS,\ \textcolor{comment}{//\ 成功結果}}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ Re\_FAIL,\ \ \ \ \textcolor{comment}{//\ 失敗結果}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ Re\_MAX}
+\DoxyCodeLine{00025\ \ \ \ \ \};}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ノード基底クラスを定義}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }CNode}
+\DoxyCodeLine{00032\ \{}
+\DoxyCodeLine{00033\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{comment}{//\ 仮想デストラクソstring^}}
+\DoxyCodeLine{00036\ \ \ \ \ CNode()\ \{\};}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~CNode()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//\ 純粋仮想関数として持つ}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Init()\ =\ 0;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Update()\ =\ 0;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Exit()\ =\ 0;}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{comment}{//\ 取得関数}}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{virtual}\ NodeInfo::NodeResult\ get\_node\_result()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{//\ ノードのIDを保存}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ set\_node\_id(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\ =\ 0;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{//\ 現在動作中のノードのIDを取得}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ get\_running\_node\_id()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00054\ \};}
+
+\end{DoxyCode}

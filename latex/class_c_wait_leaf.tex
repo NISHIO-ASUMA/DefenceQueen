@@ -1,0 +1,77 @@
+\doxysection{CWait\+Leaf クラス}
+\hypertarget{class_c_wait_leaf}{}\label{class_c_wait_leaf}\index{CWaitLeaf@{CWaitLeaf}}
+CWait\+Leaf の継承関係図\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_c_wait_leaf}
+\end{center}
+\end{figure}
+\doxysubsubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_wait_leaf_a8aedc1d3818e4c2ddc68f5b3255c2e88}\label{class_c_wait_leaf_a8aedc1d3818e4c2ddc68f5b3255c2e88} 
+{\bfseries CWait\+Leaf} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard)
+\item 
+void \mbox{\hyperlink{class_c_wait_leaf_aca85bb1ff7ee8aa42a162d0c13c144f8}{Update}} () override
+\item 
+void \mbox{\hyperlink{class_c_wait_leaf_a5d73b3ae36f91f2e4b2ed110464a1778}{Exit}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_c_node_base_a4323bee7fbdad9032c1c0e10b20a17ec}{set\+\_\+node\+\_\+id}} (const int id) override
+\end{DoxyCompactItemize}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_leaf_node_base}{CLeaf\+Node\+Base}} に属する継承限定公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries CLeaf\+Node\+Base} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard)
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承限定公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries CNode\+Base} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard)
+\item 
+virtual void \mbox{\hyperlink{class_c_node_base_aa5f2560825a7ffd75edc5aafe0c8177b}{Init}} () override
+\item 
+virtual Node\+Info\+::\+Node\+Result \mbox{\hyperlink{class_c_node_base_addfc5c1a5d933924342ef35d19a4f20f}{get\+\_\+node\+\_\+result}} () const
+\item 
+virtual int \mbox{\hyperlink{class_c_node_base_a244860c6b3acdc60d69fbef61e522b79}{get\+\_\+running\+\_\+node\+\_\+id}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承限定公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*} {\bfseries m\+\_\+p\+Black\+Board} = nullptr
+\item 
+Node\+Info\+::\+Node\+Result {\bfseries m\+\_\+\+Node\+Result} = Node\+Info\+::\+Node\+Result\+::\+Re\+\_\+\+IDLE
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_c_wait_leaf_doc-func-members}
+\doxysubsection{関数詳解}
+\Hypertarget{class_c_wait_leaf_a5d73b3ae36f91f2e4b2ed110464a1778}\index{CWaitLeaf@{CWaitLeaf}!Exit@{Exit}}
+\index{Exit@{Exit}!CWaitLeaf@{CWaitLeaf}}
+\doxysubsubsection{\texorpdfstring{Exit()}{Exit()}}
+{\footnotesize\ttfamily \label{class_c_wait_leaf_a5d73b3ae36f91f2e4b2ed110464a1778} 
+void CWait\+Leaf\+::\+Exit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_c_node_base}{CNode\+Base}}を再実装しています。
+
+\Hypertarget{class_c_wait_leaf_aca85bb1ff7ee8aa42a162d0c13c144f8}\index{CWaitLeaf@{CWaitLeaf}!Update@{Update}}
+\index{Update@{Update}!CWaitLeaf@{CWaitLeaf}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_c_wait_leaf_aca85bb1ff7ee8aa42a162d0c13c144f8} 
+void CWait\+Leaf\+::\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_c_node_base}{CNode\+Base}}を再実装しています。
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+waitleaf.\+h\end{DoxyCompactItemize}

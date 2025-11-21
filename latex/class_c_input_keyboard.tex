@@ -1,12 +1,12 @@
-\doxysection{CInput\+Keyboard Class Reference}
+\doxysection{CInput\+Keyboard クラス}
 \hypertarget{class_c_input_keyboard}{}\label{class_c_input_keyboard}\index{CInputKeyboard@{CInputKeyboard}}
-Inheritance diagram for CInput\+Keyboard\+:\begin{figure}[H]
+CInput\+Keyboard の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{class_c_input_keyboard}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 HRESULT \mbox{\hyperlink{class_c_input_keyboard_a6079e980f243bfe236775cb26feab5a3}{Init}} (HINSTANCE h\+Instance, HWND h\+Wnd)
@@ -27,18 +27,18 @@ bool {\bfseries Get\+Release} (int n\+Key)
 \Hypertarget{class_c_input_keyboard_abe901f60c8f33c30f3cdde545e0df79b}\label{class_c_input_keyboard_abe901f60c8f33c30f3cdde545e0df79b} 
 bool {\bfseries Get\+Repeat} (int n\+Key, int n\+Max\+Time)
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_input}{CInput}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_input}{CInput}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 LPDIRECTINPUTDEVICE8 {\bfseries Get\+Input\+Device} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_c_input}{CInput}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_input}{CInput}} に属する継承限定公開変数類}
 \begin{DoxyCompactItemize}
 \item 
 LPDIRECTINPUTDEVICE8 {\bfseries m\+\_\+p\+Device}
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Protected Attributes inherited from \mbox{\hyperlink{class_c_input}{CInput}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_input}{CInput}} に属する継承静的限定公開変数類}
 \begin{DoxyCompactItemize}
 \item 
 static LPDIRECTINPUT8 {\bfseries m\+\_\+p\+Input} = nullptr
@@ -47,7 +47,7 @@ static LPDIRECTINPUT8 {\bfseries m\+\_\+p\+Input} = nullptr
 
 \label{doc-func-members}
 \Hypertarget{class_c_input_keyboard_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_input_keyboard_a6079e980f243bfe236775cb26feab5a3}\index{CInputKeyboard@{CInputKeyboard}!Init@{Init}}
 \index{Init@{Init}!CInputKeyboard@{CInputKeyboard}}
 \doxysubsubsection{\texorpdfstring{Init()}{Init()}}
@@ -56,7 +56,7 @@ HRESULT CInput\+Keyboard\+::\+Init (\begin{DoxyParamCaption}\item[{HINSTANCE}]{h
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_input}{CInput}}.
+\mbox{\hyperlink{class_c_input}{CInput}}を再実装しています。
 
 \Hypertarget{class_c_input_keyboard_a9eccb04445ed8eb13a12596419107e5b}\index{CInputKeyboard@{CInputKeyboard}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CInputKeyboard@{CInputKeyboard}}
@@ -66,7 +66,7 @@ void CInput\+Keyboard\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_input}{CInput}}.
+\mbox{\hyperlink{class_c_input}{CInput}}を再実装しています。
 
 \Hypertarget{class_c_input_keyboard_ac30a29e01547d4e10281a82688dea26f}\index{CInputKeyboard@{CInputKeyboard}!Update@{Update}}
 \index{Update@{Update}!CInputKeyboard@{CInputKeyboard}}
@@ -76,11 +76,11 @@ void CInput\+Keyboard\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end
 
 
 
-Implements \mbox{\hyperlink{class_c_input}{CInput}}.
+\mbox{\hyperlink{class_c_input}{CInput}}を実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 input.\+h\item 
 input.\+cpp\end{DoxyCompactItemize}

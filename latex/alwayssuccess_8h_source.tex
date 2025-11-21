@@ -1,0 +1,43 @@
+\doxysection{alwayssuccess.\+h}
+\hypertarget{alwayssuccess_8h_source}{}\label{alwayssuccess_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=========================================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ 常に成功結果を返す末端ノードの処理\ [\ alwayssuccess.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=========================================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}leafnodebase.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ 前方宣言}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_black_board}{CBlackBoard}};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ 成功を常に返すノードクラスを定義}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }CAlwaysSuccessLeaf\ :\ \textcolor{keyword}{public}\ CLeafNodeBase}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ CAlwaysSuccessLeaf(\mbox{\hyperlink{class_c_black_board}{CBlackBoard}}*\ blackboard)\ :\ CLeafNodeBase(blackboard)\ \{\};}
+\DoxyCodeLine{00031\ \ \ \ \ \string~CAlwaysSuccessLeaf()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00037\ \ \ \ \ NodeInfo::NodeResult\ \mbox{\hyperlink{class_c_always_success_leaf_aef96b71b330ec43e474c12faa2593255}{get\_node\_result}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00038\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 成功の番号を返す}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NodeInfo::NodeResult::Re\_SUCCESS;}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \};}
+
+\end{DoxyCode}

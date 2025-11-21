@@ -1,4 +1,4 @@
-\doxysection{detail\+::parser\texorpdfstring{$<$}{<} Basic\+Json\+Type, Input\+Adapter\+Type \texorpdfstring{$>$}{>} Class Template Reference}
+\doxysection{detail\+::parser\texorpdfstring{$<$}{<} Basic\+Json\+Type, Input\+Adapter\+Type \texorpdfstring{$>$}{>} クラステンプレート}
 \hypertarget{classdetail_1_1parser}{}\label{classdetail_1_1parser}\index{detail::parser$<$ BasicJsonType, InputAdapterType $>$@{detail::parser$<$ BasicJsonType, InputAdapterType $>$}}
 
 
@@ -9,7 +9,7 @@ syntax analysis
 
 {\ttfamily \#include $<$json.\+hpp$>$}
 
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classdetail_1_1parser_aece4114e3dbc4a9ccc69a3614903bf45}\label{classdetail_1_1parser_aece4114e3dbc4a9ccc69a3614903bf45} 
@@ -24,7 +24,7 @@ bool \mbox{\hyperlink{classdetail_1_1parser_ac46da3262cbe66ade670c5b4782451e6}{a
 \end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsection{詳解}
 \subsubsection*{template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$\newline
 class detail\+::parser$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$}
 syntax analysis 
@@ -33,7 +33,7 @@ This class implements a recursive descent parser.
 
 \label{doc-func-members}
 \Hypertarget{classdetail_1_1parser_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{classdetail_1_1parser_ac46da3262cbe66ade670c5b4782451e6}\index{detail::parser$<$ BasicJsonType, InputAdapterType $>$@{detail::parser$<$ BasicJsonType, InputAdapterType $>$}!accept@{accept}}
 \index{accept@{accept}!detail::parser$<$ BasicJsonType, InputAdapterType $>$@{detail::parser$<$ BasicJsonType, InputAdapterType $>$}}
 \doxysubsubsection{\texorpdfstring{accept()}{accept()}}
@@ -46,11 +46,11 @@ bool \mbox{\hyperlink{classdetail_1_1parser}{detail\+::parser}}$<$ Basic\+Json\+
 public accept interface 
 
 
-\begin{DoxyParams}[1]{Parameters}
+\begin{DoxyParams}[1]{引数}
 \mbox{\texttt{in}}  & {\em strict} & whether to expect the last token to be EOF \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{戻り値}
 whether the input is a proper JSON text 
 \end{DoxyReturn}
 \Hypertarget{classdetail_1_1parser_a59f4b745d4aa146bf7a60a30060f592f}\index{detail::parser$<$ BasicJsonType, InputAdapterType $>$@{detail::parser$<$ BasicJsonType, InputAdapterType $>$}!parse@{parse}}
@@ -65,14 +65,14 @@ void \mbox{\hyperlink{classdetail_1_1parser}{detail\+::parser}}$<$ Basic\+Json\+
 public parser interface 
 
 
-\begin{DoxyParams}[1]{Parameters}
+\begin{DoxyParams}[1]{引数}
 \mbox{\texttt{in}}  & {\em strict} & whether to expect the last token to be EOF \\
 \hline
 \mbox{\texttt{in,out}}  & {\em result} & parsed JSON value\\
 \hline
 \end{DoxyParams}
 
-\begin{DoxyExceptions}{Exceptions}
+\begin{DoxyExceptions}{例外}
 {\em parse\+\_\+error.\+101} & in case of an unexpected token \\
 \hline
 {\em parse\+\_\+error.\+102} & if to\+\_\+unicode fails or surrogate error \\
@@ -82,6 +82,6 @@ public parser interface
 \end{DoxyExceptions}
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 json.\+hpp\end{DoxyCompactItemize}

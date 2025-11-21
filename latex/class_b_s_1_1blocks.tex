@@ -1,4 +1,4 @@
-\doxysection{BS\+::blocks\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\doxysection{BS\+::blocks\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} クラステンプレート}
 \hypertarget{class_b_s_1_1blocks}{}\label{class_b_s_1_1blocks}\index{BS::blocks$<$ T $>$@{BS::blocks$<$ T $>$}}
 
 
@@ -9,7 +9,7 @@ A helper class to divide a range into blocks. Used by {\ttfamily detach\+\_\+blo
 
 {\ttfamily \#include $<$BS\+\_\+thread\+\_\+pool.\+hpp$>$}
 
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_b_s_1_1blocks_af924f6a66d201d658a1827174d12f65a}{blocks}} (const T first\+\_\+index\+\_\+, const T index\+\_\+after\+\_\+last\+\_\+, const std\+::size\+\_\+t num\+\_\+blocks\+\_\+) noexcept
@@ -22,13 +22,13 @@ T \mbox{\hyperlink{class_b_s_1_1blocks_a0f268e61097b86a9092fc1a4e573f395}{start}
 \begin{DoxyCompactList}\small\item\em Get the first index of a block. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsection{詳解}
 \subsubsection*{template$<$typename T$>$\newline
 class BS\+::blocks$<$ T $>$}
 A helper class to divide a range into blocks. Used by {\ttfamily detach\+\_\+blocks()}, {\ttfamily submit\+\_\+blocks()}, {\ttfamily detach\+\_\+loop()}, and {\ttfamily submit\+\_\+loop()}. 
 
 
-\begin{DoxyTemplParams}{Template Parameters}
+\begin{DoxyTemplParams}{テンプレート引数}
 {\em T} & The type of the indices. Should be a signed or unsigned integer. \\
 \hline
 \end{DoxyTemplParams}
@@ -36,7 +36,7 @@ A helper class to divide a range into blocks. Used by {\ttfamily detach\+\_\+blo
 
 \label{doc-constructors}
 \Hypertarget{class_b_s_1_1blocks_doc-constructors}
-\doxysubsection{Constructor \& Destructor Documentation}
+\doxysubsection{構築子と解体子}
 \Hypertarget{class_b_s_1_1blocks_af924f6a66d201d658a1827174d12f65a}\index{BS::blocks$<$ T $>$@{BS::blocks$<$ T $>$}!blocks@{blocks}}
 \index{blocks@{blocks}!BS::blocks$<$ T $>$@{BS::blocks$<$ T $>$}}
 \doxysubsubsection{\texorpdfstring{blocks()}{blocks()}}
@@ -49,7 +49,7 @@ template$<$typename T$>$ \\
 Construct a {\ttfamily blocks} object with the given specifications. 
 
 
-\begin{DoxyParams}{Parameters}
+\begin{DoxyParams}{引数}
 {\em first\+\_\+index\+\_\+} & The first index in the range. \\
 \hline
 {\em index\+\_\+after\+\_\+last\+\_\+} & The index after the last index in the range. \\
@@ -61,7 +61,7 @@ Construct a {\ttfamily blocks} object with the given specifications.
 
 \label{doc-func-members}
 \Hypertarget{class_b_s_1_1blocks_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_b_s_1_1blocks_a6cdeada652e9ed38b65ac267627aa2c6}\index{BS::blocks$<$ T $>$@{BS::blocks$<$ T $>$}!end@{end}}
 \index{end@{end}!BS::blocks$<$ T $>$@{BS::blocks$<$ T $>$}}
 \doxysubsubsection{\texorpdfstring{end()}{end()}}
@@ -74,11 +74,11 @@ T \mbox{\hyperlink{class_b_s_1_1blocks}{BS\+::blocks}}$<$ T $>$\+::end (\begin{D
 Get the index after the last index of a block. 
 
 
-\begin{DoxyParams}{Parameters}
+\begin{DoxyParams}{引数}
 {\em block} & The block number. \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{戻り値}
 The index after the last index. 
 \end{DoxyReturn}
 \Hypertarget{class_b_s_1_1blocks_a6de6cf97678baf5a24be4a568d402bfe}\index{BS::blocks$<$ T $>$@{BS::blocks$<$ T $>$}!get\_num\_blocks@{get\_num\_blocks}}
@@ -92,7 +92,7 @@ std\+::size\+\_\+t \mbox{\hyperlink{class_b_s_1_1blocks}{BS\+::blocks}}$<$ T $>$
 
 Get the number of blocks. Note that this may be different than the desired number of blocks that was passed to the constructor. 
 
-\begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{戻り値}
 The number of blocks. 
 \end{DoxyReturn}
 \Hypertarget{class_b_s_1_1blocks_a0f268e61097b86a9092fc1a4e573f395}\index{BS::blocks$<$ T $>$@{BS::blocks$<$ T $>$}!start@{start}}
@@ -107,15 +107,15 @@ T \mbox{\hyperlink{class_b_s_1_1blocks}{BS\+::blocks}}$<$ T $>$\+::start (\begin
 Get the first index of a block. 
 
 
-\begin{DoxyParams}{Parameters}
+\begin{DoxyParams}{引数}
 {\em block} & The block number. \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{戻り値}
 The first index. 
 \end{DoxyReturn}
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{_b_s__thread__pool_8hpp}{BS\+\_\+thread\+\_\+pool.\+hpp}}\end{DoxyCompactItemize}

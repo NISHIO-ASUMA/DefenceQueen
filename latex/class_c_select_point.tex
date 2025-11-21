@@ -1,12 +1,12 @@
-\doxysection{CSelect\+Point Class Reference}
+\doxysection{CSelect\+Point クラス}
 \hypertarget{class_c_select_point}{}\label{class_c_select_point}\index{CSelectPoint@{CSelectPoint}}
-Inheritance diagram for CSelect\+Point\+:\begin{figure}[H]
+CSelect\+Point の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.000000cm]{class_c_select_point}
+\includegraphics[height=3.000000cm]{class_c_select_point}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_select_point_a5894bbc6229426e55f6d358fc51782e2}\label{class_c_select_point_a5894bbc6229426e55f6d358fc51782e2} 
@@ -20,35 +20,146 @@ void \mbox{\hyperlink{class_c_select_point_ab0bac6821c42eb9e2eaf1eacd10958f9}{Up
 \item 
 void \mbox{\hyperlink{class_c_select_point_ac6e2b64d526814a2e3a96dac7ffc0ed6}{Draw}} (void) override
 \item 
-\Hypertarget{class_c_select_point_a9e5674da0fad405c695e241a033fcb59}\label{class_c_select_point_a9e5674da0fad405c695e241a033fcb59} 
-void {\bfseries Moving} (void)
-\item 
-\Hypertarget{class_c_select_point_a0bbf3870fee78752c5f17de86923241d}\label{class_c_select_point_a0bbf3870fee78752c5f17de86923241d} 
-void {\bfseries Move\+Pad} (void)
-\item 
-\Hypertarget{class_c_select_point_ababa3c06ab98d7258ea0c69f490e2a14}\label{class_c_select_point_ababa3c06ab98d7258ea0c69f490e2a14} 
-void {\bfseries Setf\+Range} (float f\+Range)
-\item 
 \Hypertarget{class_c_select_point_aa5f43e3f4fdf8a14e066d195d8470364}\label{class_c_select_point_aa5f43e3f4fdf8a14e066d195d8470364} 
 bool {\bfseries Collision} (\mbox{\hyperlink{class_c_sphere_collider}{CSphere\+Collider}} \texorpdfstring{$\ast$}{*}other)
 \item 
 \Hypertarget{class_c_select_point_af0f01d97323d043682003aa899212ace}\label{class_c_select_point_af0f01d97323d043682003aa899212ace} 
 bool {\bfseries Collision\+Box} (\mbox{\hyperlink{class_c_box_collider}{CBox\+Collider}} \texorpdfstring{$\ast$}{*}pothere, D3\+DXVECTOR3 \texorpdfstring{$\ast$}{*}p\+Out\+Pos)
 \item 
+\Hypertarget{class_c_select_point_ababa3c06ab98d7258ea0c69f490e2a14}\label{class_c_select_point_ababa3c06ab98d7258ea0c69f490e2a14} 
+void {\bfseries Setf\+Range} (float f\+Range)
+\item 
+\Hypertarget{class_c_select_point_a5c3f554c356aceeb4b57e20edabcaa7f}\label{class_c_select_point_a5c3f554c356aceeb4b57e20edabcaa7f} 
+void {\bfseries Set\+Is\+Hit} (const bool is\+Hit)
+\item 
+\Hypertarget{class_c_select_point_ac1d2c796c9004465b7f2de2bd21960bf}\label{class_c_select_point_ac1d2c796c9004465b7f2de2bd21960bf} 
+\mbox{\hyperlink{class_c_sphere_collider}{CSphere\+Collider}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Sphere} (void) const
+\item 
 \Hypertarget{class_c_select_point_ab1ca6d233646e9056004a043c8c46c05}\label{class_c_select_point_ab1ca6d233646e9056004a043c8c46c05} 
 float {\bfseries Getf\+Range} (void) const
+\item 
+\Hypertarget{class_c_select_point_a4b67a127ef144d41abf5d92b8a7584fa}\label{class_c_select_point_a4b67a127ef144d41abf5d92b8a7584fa} 
+bool {\bfseries Get\+Is\+Hit} (void) const
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_move3_d_object}{CMove3\+DObject}} に属する継承公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries CMove3\+DObject} (int n\+Priority=static\+\_\+cast$<$ int $>$(CObject\+::\+PRIORITY\+::\+MOVE3D))
+\item 
+void {\bfseries Update\+Position} (void)
+\item 
+void {\bfseries Decay\+Move} (const float f\+Value)
+\item 
+void {\bfseries Set\+Pos} (D3\+DXVECTOR3 pos)
+\item 
+void {\bfseries Set\+Pos\+Old} (D3\+DXVECTOR3 oldpos)
+\item 
+void {\bfseries Set\+Rot} (D3\+DXVECTOR3 rot)
+\item 
+void {\bfseries Set\+Move} (D3\+DXVECTOR3 move)
+\item 
+void {\bfseries Set\+Col} (D3\+DXCOLOR col=COLOR\+\_\+\+WHITE)
+\item 
+void {\bfseries Set\+Size} (float f\+Width, float f\+Height)
+\item 
+void {\bfseries Set\+Texture} (const char \texorpdfstring{$\ast$}{*}p\+Tex\+Name)
+\item 
+D3\+DXVECTOR3 {\bfseries Get\+Pos} (void) const
+\item 
+D3\+DXVECTOR3 {\bfseries Get\+Old\+Pos} (void) const
+\item 
+D3\+DXVECTOR3 {\bfseries Get\+Rot} (void) const
+\item 
+D3\+DXVECTOR3 {\bfseries Get\+Move} (void) const
+\item 
+D3\+DXCOLOR {\bfseries Get\+Col} (void) const
+\item 
+float {\bfseries Get\+Width} (void) const
+\item 
+float {\bfseries Get\+Height} (void) const
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries CObject} (int n\+Priority=NONE)
+\item 
+void {\bfseries Set\+Obj\+Type} (TYPE type)
+\item 
+TYPE {\bfseries Get\+Obj\+Type} (void)
+\item 
+\mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_select_point_af5c056326fd151aa1ea1a69a7fea1992}\label{class_c_select_point_af5c056326fd151aa1ea1a69a7fea1992} 
 static \mbox{\hyperlink{class_c_select_point}{CSelect\+Point}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (const D3\+DXVECTOR3 pos, const D3\+DXVECTOR3 rot, const float f\+Width, const float f\+Height, const float f\+Radius)
 \end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承静的公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bfseries Release\+All} (void)
+\item 
+static void {\bfseries Update\+All} (void)
+\item 
+static void {\bfseries Draw\+All} (void)
+\item 
+static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Top} (int n\+Priority)
+\item 
+static int {\bfseries Get\+Num\+All} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
+enum {\bfseries TYPE} \{ \newline
+{\bfseries TYPE\+\_\+\+NONE}
+, {\bfseries TYPE\+\_\+\+PLAYER}
+, {\bfseries TYPE\+\_\+\+ARRAY}
+, {\bfseries TYPE\+\_\+\+ENEMY}
+, \newline
+{\bfseries TYPE\+\_\+\+QUEEN}
+, {\bfseries TYPE\+\_\+\+WORKER}
+, {\bfseries TYPE\+\_\+\+MESH}
+, {\bfseries TYPE\+\_\+\+BLOCK}
+, \newline
+{\bfseries TYPE\+\_\+\+PAUSE}
+, {\bfseries TYPE\+\_\+\+BARRIER}
+, {\bfseries TYPE\+\_\+\+ITEM}
+, {\bfseries TYPE\+\_\+\+MAX}
+ \}
+\item 
+\Hypertarget{class_c_object_a0924032649f7068d08cc5da588adc8d0}\label{class_c_object_a0924032649f7068d08cc5da588adc8d0} 
+enum {\bfseries PRIORITY} \{ \newline
+{\bfseries NONE}
+, {\bfseries MESH}
+, {\bfseries BASENUMBER}
+, {\bfseries MODELOBJECT}
+, \newline
+{\bfseries MOVE3D}
+, {\bfseries SHADOW}
+, {\bfseries IMPACT}
+, {\bfseries CHARACTOR}
+, \newline
+{\bfseries BILLBOARD}
+, {\bfseries EFFECT}
+, {\bfseries UI}
+, {\bfseries PAUSE}
+, \newline
+{\bfseries PRIORITY\+\_\+\+MAX}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承限定公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries Release} (void)
+\end{DoxyCompactItemize}
 
 
 \label{doc-func-members}
 \Hypertarget{class_c_select_point_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_select_point_ac6e2b64d526814a2e3a96dac7ffc0ed6}\index{CSelectPoint@{CSelectPoint}!Draw@{Draw}}
 \index{Draw@{Draw}!CSelectPoint@{CSelectPoint}}
 \doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
@@ -57,7 +168,7 @@ void CSelect\+Point\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Dox
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_move3_d_object}{CMove3\+DObject}}.
+\mbox{\hyperlink{class_c_move3_d_object}{CMove3\+DObject}}を再実装しています。
 
 \Hypertarget{class_c_select_point_a706153a56d4eb14d34cad79e0a91f8bc}\index{CSelectPoint@{CSelectPoint}!Init@{Init}}
 \index{Init@{Init}!CSelectPoint@{CSelectPoint}}
@@ -67,7 +178,7 @@ HRESULT CSelect\+Point\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_move3_d_object}{CMove3\+DObject}}.
+\mbox{\hyperlink{class_c_move3_d_object}{CMove3\+DObject}}を再実装しています。
 
 \Hypertarget{class_c_select_point_ae0ad89bc7550724223bc572f5ea44176}\index{CSelectPoint@{CSelectPoint}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CSelectPoint@{CSelectPoint}}
@@ -77,7 +188,7 @@ void CSelect\+Point\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{D
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_move3_d_object}{CMove3\+DObject}}.
+\mbox{\hyperlink{class_c_move3_d_object}{CMove3\+DObject}}を再実装しています。
 
 \Hypertarget{class_c_select_point_ab0bac6821c42eb9e2eaf1eacd10958f9}\index{CSelectPoint@{CSelectPoint}!Update@{Update}}
 \index{Update@{Update}!CSelectPoint@{CSelectPoint}}
@@ -87,11 +198,11 @@ void CSelect\+Point\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{D
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_move3_d_object}{CMove3\+DObject}}.
+\mbox{\hyperlink{class_c_move3_d_object}{CMove3\+DObject}}を再実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 selectpoint.\+h\item 
 selectpoint.\+cpp\end{DoxyCompactItemize}

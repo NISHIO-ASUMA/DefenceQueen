@@ -1,0 +1,65 @@
+\doxysection{inverter.\+h}
+\hypertarget{inverter_8h_source}{}\label{inverter_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=========================================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ ノード結果を反転させて返す処理\ [\ inverter.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=========================================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}decorator.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ 前方宣言}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_black_board}{CBlackBoard}};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ 反転する結果を返すクラスを定義}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }CInverter\ :\ \textcolor{keyword}{public}\ CDecorator}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ CInverter(\mbox{\hyperlink{class_c_black_board}{CBlackBoard}}*\ blackboard,\ CNode*\ pChildnode)\ :\ CDecorator(blackboard)}
+\DoxyCodeLine{00031\ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 加工するノードをセット}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_c_decorator_af3c6bed4247993772bd2b2f252f5cfd8}{SetNode}}(pChildnode);}
+\DoxyCodeLine{00034\ \ \ \ \ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \string~CInverter()\ \{\ \textcolor{keyword}{delete}\ m\_ChildNode;\ m\_ChildNode\ =\ \textcolor{keyword}{nullptr};\ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ Update()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00039\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 子ノードの更新処理}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ m\_ChildNode-\/>Update();}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 子ノードの結果を取得する}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ result\ =\ m\_ChildNode-\/>get\_node\_result();}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 取得した結果を反転させてセットする}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (result\ ==\ NodeInfo::NodeResult::Re\_SUCCESS)}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \{\textcolor{comment}{//\ 成功なら失敗に}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ m\_NodeResult\ =\ NodeInfo::NodeResult::Re\_FAIL;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (result\ ==\ NodeInfo::NodeResult::Re\_FAIL)}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \{\textcolor{comment}{//\ 失敗なら成功にして返す}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ m\_NodeResult\ =\ NodeInfo::NodeResult::Re\_SUCCESS;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 実行中ならそのまま実行中にする}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ m\_NodeResult\ =\ NodeInfo::NodeResult::Re\_RUNING;}
+\DoxyCodeLine{00059\ \ \ \ \ \}}
+\DoxyCodeLine{00060\ \};}
+
+\end{DoxyCode}

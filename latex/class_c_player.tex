@@ -1,12 +1,12 @@
-\doxysection{CPlayer Class Reference}
+\doxysection{CPlayer クラス}
 \hypertarget{class_c_player}{}\label{class_c_player}\index{CPlayer@{CPlayer}}
-Inheritance diagram for CPlayer\+:\begin{figure}[H]
+CPlayer の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=3.000000cm]{class_c_player}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Public Types}
+\doxysubsubsection*{公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_player_a760f447f0920dcdda6d244e6346b9240}\label{class_c_player_a760f447f0920dcdda6d244e6346b9240} 
@@ -24,20 +24,7 @@ enum {\bfseries MOTION} \{ \newline
 {\bfseries MOTION\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}}}
-\begin{DoxyCompactItemize}
-\item 
-\Hypertarget{class_c_move_charactor_a4af52925f03e0c12dc0b41dd70b7568e}\label{class_c_move_charactor_a4af52925f03e0c12dc0b41dd70b7568e} 
-enum {\bfseries TYPE} \{ \newline
-{\bfseries TYPE\+\_\+\+NONE}
-, {\bfseries TYPE\+\_\+\+PLAYER}
-, {\bfseries TYPE\+\_\+\+BUDDY}
-, {\bfseries TYPE\+\_\+\+ENEMY}
-, \newline
-{\bfseries TYPE\+\_\+\+MAX}
- \}
-\end{DoxyCompactItemize}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
@@ -78,7 +65,7 @@ enum {\bfseries PRIORITY} \{ \newline
 {\bfseries PRIORITY\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_player_a3a9e5cf8871dad02d88110ea684f6e06}\label{class_c_player_a3a9e5cf8871dad02d88110ea684f6e06} 
@@ -92,8 +79,8 @@ void \mbox{\hyperlink{class_c_player_a08be6cba0a99dce8ca5748864d80b8e0}{Update}}
 \item 
 void \mbox{\hyperlink{class_c_player_a5281c7fa2dcd58b50e463a55a9923a49}{Draw}} (void) override
 \item 
-\Hypertarget{class_c_player_affd9c8a3e46db600fcc66884f6d85c57}\label{class_c_player_affd9c8a3e46db600fcc66884f6d85c57} 
-void {\bfseries Collision\+All} (D3\+DXVECTOR3 p\+Pos)
+\Hypertarget{class_c_player_a826e386eb13a41acc042810c008a782b}\label{class_c_player_a826e386eb13a41acc042810c008a782b} 
+void {\bfseries Collision\+All} (D3\+DXVECTOR3 p\+Pos, \mbox{\hyperlink{class_c_input_keyboard}{CInput\+Keyboard}} \texorpdfstring{$\ast$}{*}p\+Input, \mbox{\hyperlink{class_c_joy_pad}{CJoy\+Pad}} \texorpdfstring{$\ast$}{*}p\+Pad)
 \item 
 \Hypertarget{class_c_player_a1996b70ba443d8fddbf174461d13c1e2}\label{class_c_player_a1996b70ba443d8fddbf174461d13c1e2} 
 void {\bfseries Move\+Key} (\mbox{\hyperlink{class_c_input_keyboard}{CInput\+Keyboard}} \texorpdfstring{$\ast$}{*}p\+Input, \mbox{\hyperlink{class_c_joy_pad}{CJoy\+Pad}} \texorpdfstring{$\ast$}{*}p\+Pad)
@@ -119,26 +106,18 @@ bool {\bfseries is\+Move\+Input\+Key} (\mbox{\hyperlink{class_c_input_keyboard}{
 \Hypertarget{class_c_player_a405d4880453b78fd734eb9e28d13a6ba}\label{class_c_player_a405d4880453b78fd734eb9e28d13a6ba} 
 bool {\bfseries is\+Move\+Pad\+Button} (\mbox{\hyperlink{class_c_joy_pad}{CJoy\+Pad}} \texorpdfstring{$\ast$}{*}p\+Pad)
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_no_move_charactor}{CNo\+Move\+Charactor}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries CMove\+Charactor} (int n\+Priority=static\+\_\+cast$<$ int $>$(CObject\+::\+PRIORITY\+::\+CHARACTOR))
-\item 
-void {\bfseries Update\+Position} (void)
+{\bfseries CNo\+Move\+Charactor} (int n\+Priority=static\+\_\+cast$<$ int $>$(CObject\+::\+PRIORITY\+::\+CHARACTOR))
 \item 
 void {\bfseries Set\+Pos} (const D3\+DXVECTOR3 pos)
 \item 
-void {\bfseries Set\+Old\+Pos} (const D3\+DXVECTOR3 pos\+Old)
-\item 
 void {\bfseries Set\+Rot} (const D3\+DXVECTOR3 rot)
-\item 
-void {\bfseries Set\+Rot\+Dest} (const D3\+DXVECTOR3 rotdest)
 \item 
 void {\bfseries Set\+Scale} (const D3\+DXVECTOR3 scale=INITSCALE)
 \item 
-void {\bfseries Set\+Move} (const D3\+DXVECTOR3 move)
-\item 
-void {\bfseries Set\+Move\+Value} (const float f\+Value)
+void {\bfseries Set\+Old\+Pos} (const D3\+DXVECTOR3 pos\+Old)
 \item 
 void {\bfseries Set\+Type} (TYPE Type)
 \item 
@@ -152,13 +131,9 @@ D3\+DXVECTOR3 {\bfseries Get\+Old\+Pos} (void) const
 \item 
 D3\+DXVECTOR3 {\bfseries Get\+Rot} (void) const
 \item 
-D3\+DXVECTOR3 {\bfseries Get\+Move} (void) const
-\item 
-D3\+DXVECTOR3 {\bfseries Get\+Rot\+Dest} (void) const
-\item 
-\mbox{\hyperlink{class_c_motion}{CMotion}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_c_move_charactor_a8755a475a19a7aadc021369cae951c72}{Get\+Motion}} (void)
-\begin{DoxyCompactList}\small\item\em ���\mbox{[}�\+V�����̃\texorpdfstring{$\vert$}{|}�\+C���\texorpdfstring{$^\wedge$}{\string^}��Ԃ� \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\mbox{\hyperlink{class_c_motion}{CMotion}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_c_no_move_charactor_a4b8c8b6307c5feadc7f2447653f48c79}{Get\+Motion}} (void)
+\begin{DoxyCompactList}\small\item\em ���\mbox{[}�\+V�����̐��\texorpdfstring{$\vert$}{|}�\+C���\texorpdfstring{$^\wedge$}{\string^}��Ԃ� \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject} (int n\+Priority=NONE)
@@ -169,13 +144,13 @@ TYPE {\bfseries Get\+Obj\+Type} (void)
 \item 
 \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_player_aaaa7c902dc7fb201ad3ec9d7bdf75dce}\label{class_c_player_aaaa7c902dc7fb201ad3ec9d7bdf75dce} 
 static \mbox{\hyperlink{class_c_player}{CPlayer}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (D3\+DXVECTOR3 pos, D3\+DXVECTOR3 rot, int n\+Life, const char \texorpdfstring{$\ast$}{*}p\+Filename)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static void {\bfseries Release\+All} (void)
@@ -188,8 +163,8 @@ static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\b
 \item 
 static int {\bfseries Get\+Num\+All} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 void {\bfseries Release} (void)
@@ -198,7 +173,7 @@ void {\bfseries Release} (void)
 
 \label{doc-func-members}
 \Hypertarget{class_c_player_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_player_a5281c7fa2dcd58b50e463a55a9923a49}\index{CPlayer@{CPlayer}!Draw@{Draw}}
 \index{Draw@{Draw}!CPlayer@{CPlayer}}
 \doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
@@ -207,7 +182,7 @@ void CPlayer\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamC
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}}.
+\mbox{\hyperlink{class_c_no_move_charactor}{CNo\+Move\+Charactor}}を再実装しています。
 
 \Hypertarget{class_c_player_a07c42354992367ae080e3e81af9df3bf}\index{CPlayer@{CPlayer}!Init@{Init}}
 \index{Init@{Init}!CPlayer@{CPlayer}}
@@ -217,7 +192,7 @@ HRESULT CPlayer\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyPar
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}}.
+\mbox{\hyperlink{class_c_no_move_charactor}{CNo\+Move\+Charactor}}を再実装しています。
 
 \Hypertarget{class_c_player_a57910c7de6c6fa34b22d1e15cf540933}\index{CPlayer@{CPlayer}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CPlayer@{CPlayer}}
@@ -227,7 +202,7 @@ void CPlayer\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyPara
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}}.
+\mbox{\hyperlink{class_c_no_move_charactor}{CNo\+Move\+Charactor}}を再実装しています。
 
 \Hypertarget{class_c_player_a08be6cba0a99dce8ca5748864d80b8e0}\index{CPlayer@{CPlayer}!Update@{Update}}
 \index{Update@{Update}!CPlayer@{CPlayer}}
@@ -237,11 +212,11 @@ void CPlayer\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyPara
 
 
 
-Reimplemented from \mbox{\hyperlink{class_c_move_charactor}{CMove\+Charactor}}.
+\mbox{\hyperlink{class_c_no_move_charactor}{CNo\+Move\+Charactor}}を再実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 player.\+h\item 
 player.\+cpp\end{DoxyCompactItemize}

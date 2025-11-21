@@ -1,17 +1,17 @@
-\doxysection{CMesh\+Field Class Reference}
+\doxysection{CMesh\+Field クラス}
 \hypertarget{class_c_mesh_field}{}\label{class_c_mesh_field}\index{CMeshField@{CMeshField}}
-Inheritance diagram for CMesh\+Field\+:\begin{figure}[H]
+CMesh\+Field の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{class_c_mesh_field}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Classes}
+\doxysubsubsection*{クラス}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{struct_c_mesh_field_1_1_mesh_field}{Mesh\+Field}}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_mesh_field_a1fd531eca2852f1024129504a3b41ab2}\label{class_c_mesh_field_a1fd531eca2852f1024129504a3b41ab2} 
@@ -46,7 +46,7 @@ float {\bfseries Get\+RadiusX} (void)
 \Hypertarget{class_c_mesh_field_a00c2fcfaa861a7e5a4932fccd8b35383}\label{class_c_mesh_field_a00c2fcfaa861a7e5a4932fccd8b35383} 
 float {\bfseries Get\+RadiusZ} (void)
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries CObject} (int n\+Priority=NONE)
@@ -57,13 +57,13 @@ TYPE {\bfseries Get\+Obj\+Type} (void)
 \item 
 \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Next} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_mesh_field_ad84aa213bf18c03df06294828bf47232}\label{class_c_mesh_field_ad84aa213bf18c03df06294828bf47232} 
 static \mbox{\hyperlink{class_c_mesh_field}{CMesh\+Field}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (D3\+DXVECTOR3 pos, float f\+RadiusX, float f\+RadiusZ, int n\+NumX, int n\+NumZ)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static void {\bfseries Release\+All} (void)
@@ -76,8 +76,8 @@ static \mbox{\hyperlink{class_c_object}{CObject}} \texorpdfstring{$\ast$}{*} {\b
 \item 
 static int {\bfseries Get\+Num\+All} (void)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承公開型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_c_object_a7263d5eae1a949d02e262e246152a2c6}\label{class_c_object_a7263d5eae1a949d02e262e246152a2c6} 
@@ -118,7 +118,7 @@ enum {\bfseries PRIORITY} \{ \newline
 {\bfseries PRIORITY\+\_\+\+MAX}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_c_object}{CObject}}}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_object}{CObject}} に属する継承限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 void {\bfseries Release} (void)
@@ -127,7 +127,7 @@ void {\bfseries Release} (void)
 
 \label{doc-func-members}
 \Hypertarget{class_c_mesh_field_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{class_c_mesh_field_abcab9654b1923664393683e7511fd345}\index{CMeshField@{CMeshField}!Draw@{Draw}}
 \index{Draw@{Draw}!CMeshField@{CMeshField}}
 \doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
@@ -136,7 +136,7 @@ void CMesh\+Field\+::\+Draw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyP
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_mesh_field_a9e5b79a6dd7e2effb1c501c7a73e94aa}\index{CMeshField@{CMeshField}!Init@{Init}}
 \index{Init@{Init}!CMeshField@{CMeshField}}
@@ -146,7 +146,7 @@ HRESULT CMesh\+Field\+::\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Do
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_mesh_field_aa07a6a511f502a9de8163f9a6bca0c89}\index{CMeshField@{CMeshField}!Uninit@{Uninit}}
 \index{Uninit@{Uninit}!CMeshField@{CMeshField}}
@@ -156,7 +156,7 @@ void CMesh\+Field\+::\+Uninit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Dox
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 \Hypertarget{class_c_mesh_field_ac529704ee70e640d7d1ef2ad33971498}\index{CMeshField@{CMeshField}!Update@{Update}}
 \index{Update@{Update}!CMeshField@{CMeshField}}
@@ -166,11 +166,11 @@ void CMesh\+Field\+::\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Dox
 
 
 
-Implements \mbox{\hyperlink{class_c_object}{CObject}}.
+\mbox{\hyperlink{class_c_object}{CObject}}を実装しています。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 meshfield.\+h\item 
 meshfield.\+cpp\end{DoxyCompactItemize}

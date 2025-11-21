@@ -1,6 +1,6 @@
-\doxysection{detail\+::serializer\texorpdfstring{$<$}{<} Basic\+Json\+Type \texorpdfstring{$>$}{>} Class Template Reference}
+\doxysection{detail\+::serializer\texorpdfstring{$<$}{<} Basic\+Json\+Type \texorpdfstring{$>$}{>} クラステンプレート}
 \hypertarget{classdetail_1_1serializer}{}\label{classdetail_1_1serializer}\index{detail::serializer$<$ BasicJsonType $>$@{detail::serializer$<$ BasicJsonType $>$}}
-\doxysubsubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classdetail_1_1serializer_a3d025f3aa1e8661554858b8aaab08c3b}{serializer}} (\mbox{\hyperlink{namespacedetail_a558c0470e929e42aad8be2527da6c033}{output\+\_\+adapter\+\_\+t}}$<$ char $>$ s, const char ichar, \mbox{\hyperlink{namespacedetail_abe7cfa1fd8fa706ff4392bff9d1a8298}{error\+\_\+handler\+\_\+t}} error\+\_\+handler\+\_\+=\mbox{\hyperlink{namespacedetail_abe7cfa1fd8fa706ff4392bff9d1a8298a2133fd717402a7966ee88d06f9e0b792}{error\+\_\+handler\+\_\+t\+::strict}})
@@ -25,7 +25,7 @@ void \mbox{\hyperlink{classdetail_1_1serializer_ae73c1bac64bcc810923b9f1261af8b0
 \Hypertarget{classdetail_1_1serializer_a167710da81ad08541c61bc5640d15688}\label{classdetail_1_1serializer_a167710da81ad08541c61bc5640d15688} 
 {\bfseries if} (JSON\+\_\+\+HEDLEY\+\_\+\+LIKELY(state==UTF8\+\_\+\+ACCEPT))
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Attributes}
+\doxysubsubsection*{公開変数類}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classdetail_1_1serializer_aae0aca92f2f35e72aac9c7d22e01312b}\label{classdetail_1_1serializer_aae0aca92f2f35e72aac9c7d22e01312b} 
@@ -80,7 +80,7 @@ const \mbox{\hyperlink{namespacedetail_abe7cfa1fd8fa706ff4392bff9d1a8298}{error\
 
 \label{doc-constructors}
 \Hypertarget{classdetail_1_1serializer_doc-constructors}
-\doxysubsection{Constructor \& Destructor Documentation}
+\doxysubsection{構築子と解体子}
 \Hypertarget{classdetail_1_1serializer_a3d025f3aa1e8661554858b8aaab08c3b}\index{detail::serializer$<$ BasicJsonType $>$@{detail::serializer$<$ BasicJsonType $>$}!serializer@{serializer}}
 \index{serializer@{serializer}!detail::serializer$<$ BasicJsonType $>$@{detail::serializer$<$ BasicJsonType $>$}}
 \doxysubsubsection{\texorpdfstring{serializer()}{serializer()}}
@@ -89,7 +89,7 @@ template$<$typename Basic\+Json\+Type$>$ \\
 \mbox{\hyperlink{classdetail_1_1serializer}{detail\+::serializer}}$<$ Basic\+Json\+Type $>$\+::serializer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacedetail_a558c0470e929e42aad8be2527da6c033}{output\+\_\+adapter\+\_\+t}}$<$ char $>$}]{s}{, }\item[{const char}]{ichar}{, }\item[{\mbox{\hyperlink{namespacedetail_abe7cfa1fd8fa706ff4392bff9d1a8298}{error\+\_\+handler\+\_\+t}}}]{error\+\_\+handler\+\_\+}{ = {\ttfamily \mbox{\hyperlink{namespacedetail_abe7cfa1fd8fa706ff4392bff9d1a8298a2133fd717402a7966ee88d06f9e0b792}{error\+\_\+handler\+\_\+t\+::strict}}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
-\begin{DoxyParams}[1]{Parameters}
+\begin{DoxyParams}[1]{引数}
 \mbox{\texttt{in}}  & {\em s} & output stream to serialize to \\
 \hline
 \mbox{\texttt{in}}  & {\em ichar} & indentation character to use \\
@@ -101,7 +101,7 @@ template$<$typename Basic\+Json\+Type$>$ \\
 
 \label{doc-func-members}
 \Hypertarget{classdetail_1_1serializer_doc-func-members}
-\doxysubsection{Member Function Documentation}
+\doxysubsection{関数詳解}
 \Hypertarget{classdetail_1_1serializer_ae73c1bac64bcc810923b9f1261af8b09}\index{detail::serializer$<$ BasicJsonType $>$@{detail::serializer$<$ BasicJsonType $>$}!dump@{dump}}
 \index{dump@{dump}!detail::serializer$<$ BasicJsonType $>$@{detail::serializer$<$ BasicJsonType $>$}}
 \doxysubsubsection{\texorpdfstring{dump()}{dump()}}
@@ -124,7 +124,7 @@ This function is called by the public member function dump and organizes the ser
 \end{DoxyItemize}
 
 
-\begin{DoxyParams}[1]{Parameters}
+\begin{DoxyParams}[1]{引数}
 \mbox{\texttt{in}}  & {\em val} & value to serialize \\
 \hline
 \mbox{\texttt{in}}  & {\em pretty\+\_\+print} & whether the output shall be pretty-\/printed \\
@@ -140,7 +140,7 @@ This function is called by the public member function dump and organizes the ser
 
 \label{doc-variable-members}
 \Hypertarget{classdetail_1_1serializer_doc-variable-members}
-\doxysubsection{Member Data Documentation}
+\doxysubsection{メンバ詳解}
 \Hypertarget{classdetail_1_1serializer_a77f1e3cc414fd8d40d080463cbec4937}\index{detail::serializer$<$ BasicJsonType $>$@{detail::serializer$<$ BasicJsonType $>$}!enable\_if\_t$<$ std::is\_signed$<$ NumberType $>$::value, int $>$@{enable\_if\_t$<$ std::is\_signed$<$ NumberType $>$::value, int $>$}}
 \index{enable\_if\_t$<$ std::is\_signed$<$ NumberType $>$::value, int $>$@{enable\_if\_t$<$ std::is\_signed$<$ NumberType $>$::value, int $>$}!detail::serializer$<$ BasicJsonType $>$@{detail::serializer$<$ BasicJsonType $>$}}
 \doxysubsubsection{\texorpdfstring{enable\_if\_t$<$ std::is\_signed$<$ NumberType $>$::value, int $>$}{enable\_if\_t< std::is\_signed< NumberType >::value, int >}}
@@ -148,7 +148,7 @@ This function is called by the public member function dump and organizes the ser
 template$<$typename Basic\+Json\+Type$>$ \\
 \mbox{\hyperlink{classdetail_1_1serializer}{detail\+::serializer}}$<$ Basic\+Json\+Type $>$\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+signed$<$ Number\+Type $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}}, int $>$}
 
-{\bfseries Initial value\+:}
+{\bfseries 初期値\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{=\ 0>}
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{bool}\ is\_negative\_number(NumberType\ x)}
@@ -166,7 +166,7 @@ template$<$typename Basic\+Json\+Type$>$ \\
 template$<$typename Basic\+Json\+Type$>$ \\
 \mbox{\hyperlink{classdetail_1_1serializer}{detail\+::serializer}}$<$ Basic\+Json\+Type $>$\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+unsigned$<$ Number\+Type $>$\mbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{\+::value}}, int $>$}
 
-{\bfseries Initial value\+:}
+{\bfseries 初期値\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{=\ 0\ >}
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{bool}\ is\_negative\_number(NumberType\ )}
@@ -185,7 +185,7 @@ template$<$typename Basic\+Json\+Type$>$ \\
 template$<$typename Basic\+Json\+Type$>$ \\
 JSON\+\_\+\+PRIVATE\+\_\+\+UNLESS\+\_\+\+TESTED const bool \mbox{\hyperlink{classdetail_1_1serializer}{detail\+::serializer}}$<$ Basic\+Json\+Type $>$\+::ensure\+\_\+ascii}
 
-{\bfseries Initial value\+:}
+{\bfseries 初期値\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ std::uint32\_t\ codepoint\{\}}
@@ -193,6 +193,6 @@ JSON\+\_\+\+PRIVATE\+\_\+\+UNLESS\+\_\+\+TESTED const bool \mbox{\hyperlink{clas
 \end{DoxyCode}
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 json.\+hpp\end{DoxyCompactItemize}

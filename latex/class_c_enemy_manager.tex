@@ -1,0 +1,60 @@
+\doxysection{CEnemy\+Manager 繧ｯ繝ｩ繧ｹ}
+\hypertarget{class_c_enemy_manager}{}\label{class_c_enemy_manager}\index{CEnemyManager@{CEnemyManager}}
+\doxysubsubsection*{蜈ｬ髢九Γ繝ｳ繝宣未謨ｰ}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_enemy_manager_a5ed15292367b916f42ddf412f247dac9}\label{class_c_enemy_manager_a5ed15292367b916f42ddf412f247dac9} 
+HRESULT {\bfseries Init} (void)
+\item 
+\Hypertarget{class_c_enemy_manager_adad5e29622ed0b84abe15090c98621d8}\label{class_c_enemy_manager_adad5e29622ed0b84abe15090c98621d8} 
+void {\bfseries Uninit} (void)
+\item 
+\Hypertarget{class_c_enemy_manager_a0a3dfd584b719a2740f23f471936160c}\label{class_c_enemy_manager_a0a3dfd584b719a2740f23f471936160c} 
+void {\bfseries Update} (void)
+\item 
+\mbox{\hyperlink{class_c_enemy}{CEnemy}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_c_enemy_manager_ab70a88adc8f457b9c766dbc65f81704d}{Get\+Enemy\+Idx}} (const int n\+Idx)
+\begin{DoxyCompactList}\small\item\em 配列番号情報の取得 \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_c_enemy}{CEnemy}} \texorpdfstring{$\ast$}{*} $>$ \& \mbox{\hyperlink{class_c_enemy_manager_acd6d93ff88f83bc223cc0346c18fb1bf}{Get\+Enemy}} (void)
+\begin{DoxyCompactList}\small\item\em 動貼+I配列暴{体を取得する \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_c_enemy_manager_doc-func-members}
+\doxysubsection{髢｢謨ｰ隧ｳ隗｣}
+\Hypertarget{class_c_enemy_manager_acd6d93ff88f83bc223cc0346c18fb1bf}\index{CEnemyManager@{CEnemyManager}!GetEnemy@{GetEnemy}}
+\index{GetEnemy@{GetEnemy}!CEnemyManager@{CEnemyManager}}
+\doxysubsubsection{\texorpdfstring{GetEnemy()}{GetEnemy()}}
+{\footnotesize\ttfamily \label{class_c_enemy_manager_acd6d93ff88f83bc223cc0346c18fb1bf} 
+std\+::vector$<$ \mbox{\hyperlink{class_c_enemy}{CEnemy}} \texorpdfstring{$\ast$}{*} $>$ \& CEnemy\+Manager\+::\+Get\+Enemy (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+動貼+I配列暴{体を取得する 
+
+\begin{DoxyReturn}{謌ｻ繧雁､}
+
+\end{DoxyReturn}
+\Hypertarget{class_c_enemy_manager_ab70a88adc8f457b9c766dbc65f81704d}\index{CEnemyManager@{CEnemyManager}!GetEnemyIdx@{GetEnemyIdx}}
+\index{GetEnemyIdx@{GetEnemyIdx}!CEnemyManager@{CEnemyManager}}
+\doxysubsubsection{\texorpdfstring{GetEnemyIdx()}{GetEnemyIdx()}}
+{\footnotesize\ttfamily \label{class_c_enemy_manager_ab70a88adc8f457b9c766dbc65f81704d} 
+\mbox{\hyperlink{class_c_enemy}{CEnemy}} \texorpdfstring{$\ast$}{*} CEnemy\+Manager\+::\+Get\+Enemy\+Idx (\begin{DoxyParamCaption}\item[{const int}]{n\+Idx}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+配列番号情報の取得 
+
+
+\begin{DoxyParams}{蠑墓焚}
+{\em n\+Idx} & 取得するソ+Cンデッソ+Nス\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{謌ｻ繧雁､}
+
+\end{DoxyReturn}
+
+
+縺薙�ｮ繧ｯ繝ｩ繧ｹ隧ｳ隗｣縺ｯ谺｡縺ｮ繝輔ぃ繧､繝ｫ縺九ｉ謚ｽ蜃ｺ縺輔ｌ縺ｾ縺励◆\+:\begin{DoxyCompactItemize}
+\item 
+enemymanager.\+h\item 
+enemymanager.\+cpp\end{DoxyCompactItemize}

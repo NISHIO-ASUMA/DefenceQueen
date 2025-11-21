@@ -1,0 +1,81 @@
+\doxysection{CSelector クラス}
+\hypertarget{class_c_selector}{}\label{class_c_selector}\index{CSelector@{CSelector}}
+CSelector の継承関係図\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_c_selector}
+\end{center}
+\end{figure}
+\doxysubsubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_selector_ac83d8e0f020f756ecac670178edecfe4}\label{class_c_selector_ac83d8e0f020f756ecac670178edecfe4} 
+{\bfseries CSelector} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard)
+\item 
+void \mbox{\hyperlink{class_c_selector_a0b41962ff66f76e1ad97d74e743f6704}{Update}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_composite_node_base}{CComposite\+Node\+Base}} に属する継承公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries CComposite\+Node\+Base} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard)
+\item 
+virtual void \mbox{\hyperlink{class_c_composite_node_base_a227cd7284717b796624b603a36ef17d1}{Init}} () override
+\item 
+virtual void \mbox{\hyperlink{class_c_composite_node_base_a1a709f9c0d4ae903df5d0dfe1d88803e}{Exit}} () override
+\item 
+void {\bfseries Add\+Node} (\mbox{\hyperlink{class_c_node}{CNode}} \texorpdfstring{$\ast$}{*}node)
+\item 
+int \mbox{\hyperlink{class_c_composite_node_base_a9e7f0b3578b4fe0cdf07a7e768cf0f53}{get\+\_\+running\+\_\+node\+\_\+id}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_c_node_base_a4323bee7fbdad9032c1c0e10b20a17ec}{set\+\_\+node\+\_\+id}} (const int id) override
+\end{DoxyCompactItemize}
+\doxysubsubsection*{その他の継承メンバ}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_composite_node_base}{CComposite\+Node\+Base}} に属する継承限定公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries Node\+Increment} ()
+\begin{DoxyCompactList}\small\item\em �m�\mbox{[}�h�̉��\+Z���� \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承限定公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries CNode\+Base} (\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*}blackboard)
+\item 
+virtual Node\+Info\+::\+Node\+Result \mbox{\hyperlink{class_c_node_base_addfc5c1a5d933924342ef35d19a4f20f}{get\+\_\+node\+\_\+result}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_composite_node_base}{CComposite\+Node\+Base}} に属する継承限定公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_c_node}{CNode}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries m\+\_\+\+Childe\+Node}
+\item 
+int {\bfseries m\+\_\+\+Ranning\+Index} = 0
+\end{DoxyCompactItemize}
+\doxysubsection*{基底クラス \mbox{\hyperlink{class_c_node_base}{CNode\+Base}} に属する継承限定公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_black_board}{CBlack\+Board}} \texorpdfstring{$\ast$}{*} {\bfseries m\+\_\+p\+Black\+Board} = nullptr
+\item 
+Node\+Info\+::\+Node\+Result {\bfseries m\+\_\+\+Node\+Result} = Node\+Info\+::\+Node\+Result\+::\+Re\+\_\+\+IDLE
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_c_selector_doc-func-members}
+\doxysubsection{関数詳解}
+\Hypertarget{class_c_selector_a0b41962ff66f76e1ad97d74e743f6704}\index{CSelector@{CSelector}!Update@{Update}}
+\index{Update@{Update}!CSelector@{CSelector}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_c_selector_a0b41962ff66f76e1ad97d74e743f6704} 
+void CSelector\+::\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_c_node_base}{CNode\+Base}}を再実装しています。
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+selector.\+h\end{DoxyCompactItemize}

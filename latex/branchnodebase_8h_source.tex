@@ -1,0 +1,75 @@
+\doxysection{branchnodebase.\+h}
+\hypertarget{branchnodebase_8h_source}{}\label{branchnodebase_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=========================================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ 蚕}分かれノードクラス基底処理\ [\ branchnodebase.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=========================================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}nodebase.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ 前方宣言}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_black_board}{CBlackBoard}};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ 蚕}分かれノードクラスを定義}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }CBranchNodeBase\ :\ \textcolor{keyword}{public}\ CNodeBase}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{//**************************}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{comment}{//\ ノードの判別番号定義}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{//**************************}}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{enum}\ BRANCH\_NUM}
+\DoxyCodeLine{00035\ \ \ \ \ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ BRANCH\_NUM\_TRUE,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ BRANCH\_NUM\_FALSE,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ BRANCH\_NUM\_MAX}
+\DoxyCodeLine{00039\ \ \ \ \ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ CBranchNodeBase(\mbox{\hyperlink{class_c_black_board}{CBlackBoard}}*\ blackboard,\ CNode*\ TrueNode,\ CNode*\ FalseNode)\ :\ CNodeBase(blackboard)}
+\DoxyCodeLine{00042\ \ \ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ m\_pBranchNode[0]\ =\ TrueNode;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ m\_pBranchNode[1]\ =\ FalseNode;}
+\DoxyCodeLine{00045\ \ \ \ \ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~CBranchNodeBase()}
+\DoxyCodeLine{00048\ \ \ \ \ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 配列をクリア}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ nCnt\ =\ 0;\ nCnt\ <\ BRANCH\_NUM\_MAX;\ nCnt++)}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_pBranchNode[nCnt]\ !=\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ m\_pBranchNode[nCnt];}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_pBranchNode[nCnt]\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Init()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Update()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Exit()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ IsCondition()\ =\ 0;\ \textcolor{comment}{//\ 継承先のクラスに持つ}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ CNode*\ m\_pBranchNode[BRANCH\_NUM\_MAX]\ =\ \{\ \textcolor{keyword}{nullptr},\textcolor{keyword}{nullptr}\ \};\ \textcolor{comment}{//\ true,falseの2つのノードのポインソstring^}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{int}\ m\_nTrueIdx\ =\ -\/1;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 条件を満たすノードのインデックス}}
+\DoxyCodeLine{00070\ \};}
+
+\end{DoxyCode}

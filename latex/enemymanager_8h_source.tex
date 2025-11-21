@@ -1,0 +1,54 @@
+\doxysection{enemymanager.\+h}
+\hypertarget{enemymanager_8h_source}{}\label{enemymanager_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//=========================================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ 敵の複数管理処理\ [\ enemymanager.h\ ]}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Author:\ Asuma\ Nishio}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//=========================================================}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ インクルードガード}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ インクルードファイル宣言}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ 前方宣言}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_c_enemy}{CEnemy}};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ 敵の情報を一括管理するクラスを定義}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }CEnemyManager}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ CEnemyManager();}
+\DoxyCodeLine{00031\ \ \ \ \ \string~CEnemyManager();}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ HRESULT\ Init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ Uninit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{class_c_enemy}{CEnemy}}\ *\ \mbox{\hyperlink{class_c_enemy_manager_ab70a88adc8f457b9c766dbc65f81704d}{GetEnemyIdx}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nIdx)\ \{\ \textcolor{keywordflow}{return}\ m\_pEnemys[nIdx];\ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00049\ \ \ \ \ std::vector<CEnemy*>\&\ \mbox{\hyperlink{class_c_enemy_manager_acd6d93ff88f83bc223cc0346c18fb1bf}{GetEnemy}}(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ m\_pEnemys;\ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ std::vector<CEnemy*>m\_pEnemys;\ \textcolor{comment}{//\ 敵の動的配列}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{class_c_enemy}{CEnemy}}*\ CreateManager(\textcolor{keyword}{const}\ D3DXVECTOR3\ pos,\ \textcolor{keyword}{const}\ D3DXVECTOR3\ rot,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nLife);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ PushBack(\mbox{\hyperlink{class_c_enemy}{CEnemy}}*\ pEnemy)\ \{\ m\_pEnemys.push\_back(pEnemy);\ \}}
+\DoxyCodeLine{00070\ \};}
+
+\end{DoxyCode}

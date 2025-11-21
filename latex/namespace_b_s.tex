@@ -1,11 +1,11 @@
-\doxysection{BS Namespace Reference}
+\doxysection{BS 名前空間}
 \hypertarget{namespace_b_s}{}\label{namespace_b_s}\index{BS@{BS}}
 
 
 A namespace used by Barak Shoshany\textquotesingle{}s projects.  
 
 
-\doxysubsubsection*{Classes}
+\doxysubsubsection*{クラス}
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{class_b_s_1_1blocks}{blocks}}
@@ -32,7 +32,7 @@ class \mbox{\hyperlink{class_b_s_1_1thread__pool}{thread\+\_\+pool}}
 \begin{DoxyCompactList}\small\item\em A fast, lightweight, modern, and easy-\/to-\/use C++17/\+C++20/\+C++23 thread pool class. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{struct_b_s_1_1version}{version}}
 \begin{DoxyCompactList}\small\item\em A struct used to store a version number, which can be checked and compared at compilation time. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Typedefs}
+\doxysubsubsection*{型定義}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{namespace_b_s_aacc613e815ee0fd22f6277d882b47356}\label{namespace_b_s_aacc613e815ee0fd22f6277d882b47356} 
@@ -67,7 +67,7 @@ using {\bfseries wdc\+\_\+thread\+\_\+pool} = \mbox{\hyperlink{class_b_s_1_1thre
 \Hypertarget{namespace_b_s_a8ec023f4a0654dae86c06903eeea5006}\label{namespace_b_s_a8ec023f4a0654dae86c06903eeea5006} 
 using {\bfseries binary\+\_\+semaphore} = \mbox{\hyperlink{class_b_s_1_1counting__semaphore}{counting\+\_\+semaphore}}$<$1$>$
 \begin{DoxyCompactList}\small\item\em A polyfill for {\ttfamily std\+::binary\+\_\+semaphore}, to be used if C++20 features are not available. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Enumerations}
+\doxysubsubsection*{列挙型}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{namespace_b_s_ac89368bfe4f0631f4182d7b307317b0b}\label{namespace_b_s_ac89368bfe4f0631f4182d7b307317b0b} 
@@ -86,13 +86,13 @@ enum \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027b}{tp}} \+: 
 , \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba1f051a409d60424953a4b4de63c7e156}{wait\+\_\+deadlock\+\_\+checks}} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3
  \}
 \begin{DoxyCompactList}\small\item\em An enumeration of flags to be used in the bitmask template parameter of {\ttfamily \doxylink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}} to enable optional features. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Functions}
+\doxysubsubsection*{関数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{namespace_b_s_a85e13778681b2b0568573878be6bb9c0}\label{namespace_b_s_a85e13778681b2b0568573878be6bb9c0} 
 constexpr \mbox{\hyperlink{struct_b_s_1_1version}{version}} {\bfseries thread\+\_\+pool\+\_\+version} (BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+VERSION\+\_\+\+MAJOR, BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+VERSION\+\_\+\+MINOR, BS\+\_\+\+THREAD\+\_\+\+POOL\+\_\+\+VERSION\+\_\+\+PATCH)
 \begin{DoxyCompactList}\small\item\em The version of the thread pool library. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Variables}
+\doxysubsubsection*{変数}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{namespace_b_s_abc740f614d24db948d62294c5659164e}\label{namespace_b_s_abc740f614d24db948d62294c5659164e} 
@@ -106,12 +106,12 @@ constexpr bool {\bfseries thread\+\_\+pool\+\_\+native\+\_\+extensions} = false
 \begin{DoxyCompactList}\small\item\em A flag indicating whether the thread pool library\textquotesingle{}s native extensions are enabled. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsection{詳解}
 A namespace used by Barak Shoshany\textquotesingle{}s projects. 
 
 \label{doc-typedef-members}
 \Hypertarget{namespace_b_s_doc-typedef-members}
-\doxysubsection{Typedef Documentation}
+\doxysubsection{型定義詳解}
 \Hypertarget{namespace_b_s_aa2da0cc580df5422698fb41e1c098df5}\index{BS@{BS}!common\_index\_type\_t@{common\_index\_type\_t}}
 \index{common\_index\_type\_t@{common\_index\_type\_t}!BS@{BS}}
 \doxysubsubsection{\texorpdfstring{common\_index\_type\_t}{common\_index\_type\_t}}
@@ -124,7 +124,7 @@ using \mbox{\hyperlink{namespace_b_s_aa2da0cc580df5422698fb41e1c098df5}{BS\+::co
 A helper type alias to obtain the common type from the template {\ttfamily \doxylink{struct_b_s_1_1common__index__type}{BS\+::common\+\_\+index\+\_\+type}}. 
 
 
-\begin{DoxyTemplParams}{Template Parameters}
+\begin{DoxyTemplParams}{テンプレート引数}
 {\em T1} & The first type. \\
 \hline
 {\em T2} & The second type. \\
@@ -134,7 +134,7 @@ A helper type alias to obtain the common type from the template {\ttfamily \doxy
 
 \label{doc-enum-members}
 \Hypertarget{namespace_b_s_doc-enum-members}
-\doxysubsection{Enumeration Type Documentation}
+\doxysubsection{列挙型詳解}
 \Hypertarget{namespace_b_s_ae1a882c1a2584cb3570b567595c8027b}\index{BS@{BS}!tp@{tp}}
 \index{tp@{tp}!BS@{BS}}
 \doxysubsubsection{\texorpdfstring{tp}{tp}}
@@ -145,7 +145,7 @@ enum \mbox{\hyperlink{namespace_b_s_ae1a882c1a2584cb3570b567595c8027b}{BS\+::tp}
 
 An enumeration of flags to be used in the bitmask template parameter of {\ttfamily \doxylink{class_b_s_1_1thread__pool}{BS\+::thread\+\_\+pool}} to enable optional features. 
 
-\begin{DoxyEnumFields}[2]{Enumerator}
+\begin{DoxyEnumFields}[2]{列挙値}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{none@{none}!BS@{BS}}\index{BS@{BS}!none@{none}}}\Hypertarget{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba5b2f2bd1d71de1fa047ae7846bebd786}\label{namespace_b_s_ae1a882c1a2584cb3570b567595c8027ba5b2f2bd1d71de1fa047ae7846bebd786} 
 none&No optional features enabled. \\
 \hline
