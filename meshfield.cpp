@@ -17,8 +17,8 @@
 //*******************************
 namespace MESHFIELD
 {
-	constexpr int XVTX = 1; // X方向の分割数
-	constexpr int ZVTX = 1; // Z方向の分割数
+	constexpr int XVTX = 5; // X方向の分割数
+	constexpr int ZVTX = 5; // Z方向の分割数
 	constexpr int VERTEX = ((XVTX + 1) * (ZVTX + 1)); // 頂点数
 	constexpr int POLYGON = (((XVTX * ZVTX) * 2)) + (4 * (ZVTX - 1)); // ポリゴン数
 	constexpr int INDEX = POLYGON + 2; // インデックス数

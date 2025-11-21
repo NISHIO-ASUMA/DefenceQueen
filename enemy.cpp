@@ -79,9 +79,6 @@ CEnemy* CEnemy::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife)
 //===============================
 HRESULT CEnemy::Init(void)
 {
-	// 名前空間宣言
-	using namespace EnemyTree;
-
 	// キャラクタ―の初期化
 	CMoveCharactor::Init();
 
@@ -97,24 +94,8 @@ HRESULT CEnemy::Init(void)
 	// コライダー生成
 	m_pSphereCollider = CSphereCollider::Create(GetPos(), 60.0f);
 
-	// ブラックボード生成
-	m_pBlackBoard = new CBlackBoard;
-
-	// ブラックボードに情報をセットする
-	auto pos = GetPos();
-	m_pBlackBoard->SetValue<D3DXVECTOR3>("EnemyPos", pos);
-	m_pBlackBoard->SetValue<CEnemy*>("Enemy", this);
-
-	// 対象座標を取得
-	m_pSelect = CGameSceneObject::GetInstance()->GetPoint();
-	m_pBlackBoard->SetValue<CSelectPoint*>("Selector", m_pSelect);
-
-	auto Select = CGameSceneObject::GetInstance()->GetPoint();
-	m_pBlackBoard->SetValue("SelectorPos", Select->GetPos());
-
-	// ツリーノードにセットする
-	m_pBehaviorTree = CEnemyBehaviorTree::SetEnemyTreeNode(m_pBlackBoard);
-	m_pBehaviorTree->Init();
+	// AIノードをセットする
+	NodeSetting();
 
 	// 初期化結果を返す
 	return S_OK;
@@ -164,8 +145,7 @@ void CEnemy::Update(void)
 	D3DXVECTOR3 pos = GetPos();
 
 	// 更新されている座標を取得
-	auto Select = CGameSceneObject::GetInstance()->GetPoint();
-	m_pBlackBoard->SetValue("SelectorPos", Select->GetPos());
+	m_pBlackBoard->SetValue("SelectorPos", m_pSelect->GetPos());
 
 	// ツリーの更新
 	m_pBehaviorTree->Update();
@@ -212,4 +192,31 @@ bool CEnemy::Collision(CSphereCollider* pOther)
 {
 	// 球形同士の当たり判定
 	return CCollisionSphere::Collision(m_pSphereCollider,pOther);
+}
+//===============================
+// ノード作成処理
+//===============================
+void CEnemy::NodeSetting(void)
+{
+	// 名前空間宣言
+	using namespace EnemyTree;
+
+	// ブラックボード生成
+	m_pBlackBoard = new CBlackBoard;
+
+	// ブラックボードに情報をセットする
+	auto pos = GetPos();
+	m_pBlackBoard->SetValue<D3DXVECTOR3>("EnemyPos", pos);
+	m_pBlackBoard->SetValue<CEnemy*>("Enemy", this);
+
+	// 対象座標を取得
+	m_pSelect = CGameSceneObject::GetInstance()->GetPoint();
+	m_pBlackBoard->SetValue<CSelectPoint*>("Selector", m_pSelect);
+
+	auto Select = CGameSceneObject::GetInstance()->GetPoint();
+	m_pBlackBoard->SetValue("SelectorPos", Select->GetPos());
+
+	// ツリーノードにセットする
+	m_pBehaviorTree = CEnemyBehaviorTree::SetEnemyTreeNode(m_pBlackBoard);
+	m_pBehaviorTree->Init();
 }

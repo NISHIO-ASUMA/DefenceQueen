@@ -48,7 +48,7 @@ HRESULT CMoveCharactor::Init(void)
 	// •Ï”‚Ì‰Šú‰»
 	m_pModel.clear();
 
-	// ƒ‚ƒfƒ‹¶¬
+	// ‰eƒ‚ƒfƒ‹¶¬
 	m_pShadowS = CShadowS::Create(m_pos, m_rot);
 
 	return S_OK;

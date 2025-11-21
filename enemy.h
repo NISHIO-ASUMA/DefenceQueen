@@ -59,6 +59,7 @@ public:
 
 	CParameter* GetParameter(void) { return m_pParameter.get(); }
 	CStateMachine* GetStateMachine() { return m_pStateMachine.get(); }
+	void NodeSetting(void);
 
 	static CEnemy* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot,int nLife);
 

@@ -25,7 +25,6 @@ class CBlackBoard;
 //*****************************
 class CLeafNodeBase : public CNodeBase
 {
-
 protected:
 
 	// 基底コンストラクタとデストラクタ

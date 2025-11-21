@@ -172,6 +172,15 @@
     <Filter Include="ヘッダー ファイル\AI_System\Enemy_Node">
       <UniqueIdentifier>{fe750835-3860-4ae8-8aec-3b14a5ced12a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\AI_System\Enemy_Node\Tree">
+      <UniqueIdentifier>{f2308e88-acee-44b3-bfc4-41c2ba1b4ff3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\AI_System\Enemy_Node\Leaf">
+      <UniqueIdentifier>{2fd508ab-e5cf-4399-9fb5-21966f172f2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\AI_System\Enemy_Node\Base">
+      <UniqueIdentifier>{b5a0725d-42bd-4d9a-b7a7-36b117fe6467}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="object2D.cpp">
@@ -469,6 +478,18 @@
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
     <ClCompile Include="enemybehaviortree.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="enemychase.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="enemychaseleaf.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="enemychecknear.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="enemywaitleaf.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -812,7 +833,19 @@
     <ClInclude Include="chasedestination.h">
       <Filter>ヘッダー ファイル\AI_System\LeafNode\Samples</Filter>
     </ClInclude>
+    <ClInclude Include="enemychase.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="enemybehaviortree.h">
+      <Filter>ヘッダー ファイル\AI_System\Enemy_Node\Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="enemychaseleaf.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="enemychecknear.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="enemywaitleaf.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

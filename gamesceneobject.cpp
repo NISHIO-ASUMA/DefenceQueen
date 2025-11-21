@@ -61,7 +61,7 @@ HRESULT CGameSceneObject::Init(void)
 	CMeshField::Create(VECTOR3_NULL,3200.0f,2000.0f,1,1);
 
 	// 敵生成
-	m_pEnemy = CEnemy::Create(D3DXVECTOR3(720.0f, 0.0f, 300.0f), VECTOR3_NULL, 10);
+	CEnemy::Create(D3DXVECTOR3(720.0f, 0.0f, 300.0f), VECTOR3_NULL, 10);
 
 	// ブロックマネージャー生成
 	m_pBlocks = std::make_unique<CBlockManager>();
@@ -102,10 +102,12 @@ void CGameSceneObject::Update(void)
 //===========================
 CGameSceneObject* CGameSceneObject::GetInstance(void)
 {
+	// nullなら
 	if (m_pInstance == nullptr)
 	{
 		m_pInstance = new CGameSceneObject;
 	}
 
+	// インスタンスを返す
 	return m_pInstance;
 }
