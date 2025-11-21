@@ -43,12 +43,6 @@ CCamera::~CCamera()
 //=================================
 HRESULT CCamera::Init(void)
 {
-	// 初期値を設定する
-	//m_pCamera.posV = D3DXVECTOR3(0.0f, 1450.0f, 0.0f);			// カメラの位置
-	//m_pCamera.posR = VECTOR3_NULL;								// カメラの見ている位置
-	//m_pCamera.vecU = D3DXVECTOR3(0.0f, 0.0f, 1.0f);				// 上方向ベクトル
-	//m_pCamera.rot = D3DXVECTOR3(D3DX_PI * 0.5f, 0.0f, 0.0f);	// 角度
-
 	m_pCamera.posV = D3DXVECTOR3(0.0f, 1350.0f, -1200.0f);		// カメラの位置
 	m_pCamera.posR = VECTOR3_NULL;								// カメラの見ている位置
 	m_pCamera.vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);				// 上方向ベクトル
@@ -76,7 +70,16 @@ void CCamera::Uninit(void)
 //=================================
 void CCamera::Update(void)
 {
+#ifdef _DEBUG
+
+	// カメラ更新
 	MouseView(CManager::GetInstance()->GetMouse());
+
+	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_TAB))
+	{
+		// 初期化
+		Init();
+	}
 
 	// 角度の正規化
 	if (m_pCamera.rot.y > D3DX_PI)
@@ -89,6 +92,8 @@ void CCamera::Update(void)
 	{// D3DX_PIより小さくなったら
 		m_pCamera.rot.y += CAMERAINFO::NorRot;
 	}
+
+#endif
 }
 //=================================
 // カメラをセット

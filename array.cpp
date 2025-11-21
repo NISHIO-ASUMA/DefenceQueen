@@ -15,6 +15,7 @@
 #include "collisionsphere.h"
 #include "statemachine.h"
 #include "state.h"
+#include "blackboard.h"
 
 //=====================================
 // コンストラクタ
@@ -85,6 +86,10 @@ HRESULT CArray::Init(void)
 	// モーション取得
 	m_pMotion = CMoveCharactor::GetMotion();
 
+	// ノード生成
+	m_pBlackBoard = new CBlackBoard;
+	m_pBlackBoard->SetValue<CArray*>("Array",this);
+
 	return S_OK;
 }
 //=====================================
@@ -119,14 +124,22 @@ void CArray::Update(void)
 	// 座標のみの更新処理
 	CMoveCharactor::UpdatePosition();
 
-	// 体力がない
+	D3DXVECTOR3 UpdatePos = GetPos();
+
+	// コライダー座標の更新
+	m_pSphereCollider->SetPos(UpdatePos);
+
+	// 体力がなくなった
 	if (m_pParameter && m_pParameter->GetHp() <= NULL)
 	{
 		// 体力を0にする
 		m_pParameter->SetHp(NULL);
 
-		// 未使用にする
+		// 消さずに未使用にする
 		SetActive(false);
+
+		// 下の処理を通さない
+		return;
 	}
 
 	// キャラクターの更新
@@ -148,6 +161,7 @@ void CArray::Draw(void)
 //=====================================
 void CArray::Reset(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const int nLife)
 {
+	// オブジェクト設定
 	SetPos(pos);
 	SetRot(rot);
 	SetActive(true);
@@ -156,6 +170,16 @@ void CArray::Reset(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const int nLife
 	{
 		m_pParameter->SetMaxHp(nLife);
 		m_pParameter->SetHp(nLife);
+	}
+
+	// ノードに改めてセットする
+	if (m_pBlackBoard)
+	{
+		// 一時クリア
+		m_pBlackBoard->Clear();
+
+		// 自身の情報をセットする
+		m_pBlackBoard->SetValue<CArray*>("Array", this);
 	}
 }
 //=====================================

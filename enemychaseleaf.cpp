@@ -61,9 +61,9 @@ void CEnemyChaseLeaf::Update()
 	else
 	{
 		// 一定の距離なら動かない
-		DestObject->SetMove(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+		DestObject->SetMove(VECTOR3_NULL);
 
-		// モーションセット
-		DestObject->GetMotion()->SetMotion(CEnemy::MOTION_NEUTRAL, true, 10);
+		//// モーションセット
+		//DestObject->GetMotion()->SetMotion(CEnemy::MOTION_NEUTRAL, true, 10);
 	}
 }

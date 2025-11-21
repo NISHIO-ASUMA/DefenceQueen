@@ -10,6 +10,11 @@
 //**********************
 #include "titleobject.h"
 
+//**********************
+// 静的メンバ変数宣言
+//**********************
+CTitleObject* CTitleObject::m_pInstance = nullptr; // ただ一つのインスタンス
+
 //=============================
 // コンストラクタ
 //=============================
@@ -22,7 +27,7 @@ CTitleObject::CTitleObject()
 //=============================
 CTitleObject::~CTitleObject()
 {
-	Uninit();
+	
 }
 //=============================
 // 初期化処理
@@ -36,7 +41,12 @@ HRESULT CTitleObject::Init(void)
 //=============================
 void CTitleObject::Uninit(void)
 {
-	// 無し
+	// インスタンスの破棄
+	if (m_pInstance)
+	{
+		delete m_pInstance;
+		m_pInstance = nullptr;
+	}
 }
 //=============================
 // 更新処理
@@ -46,9 +56,14 @@ void CTitleObject::Update(void)
 	// メンバの更新
 }
 //=============================
-// 描画処理
+// シングルトン取得処理
 //=============================
-void CTitleObject::Draw(void)
+CTitleObject* CTitleObject::GetInstance(void)
 {
+	if (m_pInstance == nullptr)
+	{
+		m_pInstance = new CTitleObject;
+	}
 
+	return m_pInstance;
 }

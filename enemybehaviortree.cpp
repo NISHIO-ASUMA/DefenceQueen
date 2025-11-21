@@ -24,40 +24,23 @@
 CNode* EnemyTree::CEnemyBehaviorTree::SetEnemyTreeNode(CBlackBoard* blackboard)
 {
 #if 1
-	// ルートセレクターを作成する
+	// インバーターを作成する
 	auto chase_inverter = new CInverter(blackboard, new CEnemyChaseLeaf(blackboard));
 
-	// Sequenceノードを作成する
+	// シーケンスノードを作成する
 	auto Sequence = new CSequence(blackboard);
 
-	// 近いかどうかのノード作成
+	// 近いかどうかチェックするノード作成
 	Sequence->AddNode(new CEnemyCheckNear(blackboard, new CAlwaysSuccessLeaf(blackboard), chase_inverter, 100.0f));
 
-	// 追従ノードをセレクターノードに追加
+	// 追従をするノードをシーケンスノードに追加
 	Sequence->AddNode(new CEnemyChaseLeaf(blackboard));
 
-	// 待機時ノードセレクターノードに追加
+	// 待機時用のノードをシーケンスノードに追加
 	Sequence->AddNode(new CEnemyWaitLeaf(blackboard));
 
-	// 作成されたルートセレクターノードを返す
+	// 作成されたシーケンスノードを返す
 	return Sequence;
 #else
-	// Inverterノードを作成する
-	auto chase_inverter = new CInverter(blackboard, new CChaseDestinationLeaf(blackboard));
-
-	// Sequenceノードを作成する
-	auto Sequence = new CSequence(blackboard);
-
-	// 近いかどうかのノード作成
-	Sequence->AddNode(new CCheckNearDestination(blackboard, new CAlwaysSuccessLeaf(blackboard), chase_inverter, 100.0f));
-
-	// 追従ノードを作成
-	Sequence->AddNode(new CChaseDestinationLeaf(blackboard));
-
-	// 待機時のノード作成
-	Sequence->AddNode(new CWaitLeaf(blackboard));
-
-	// 作成されたSequenceを返す
-	return Sequence;
 #endif
 }

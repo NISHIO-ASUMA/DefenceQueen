@@ -32,9 +32,7 @@ m_pMotion(nullptr),
 m_pParameter(nullptr),
 m_pStateMachine(nullptr),
 m_pSphereCollider(nullptr),
-m_pBehaviorTree(nullptr),
-m_pSelect(nullptr),
-m_pBlackBoard(nullptr)
+m_pSelect(nullptr)
 {
 	// 値のクリア
 }
@@ -116,21 +114,6 @@ void CEnemy::Uninit(void)
 	{
 		delete m_pSphereCollider;
 		m_pSphereCollider = nullptr;
-	}
-
-	// ノードクラスツリーの破棄
-	if (m_pBehaviorTree)
-	{
-		m_pBehaviorTree->Exit();
-		delete m_pBehaviorTree;
-		m_pBehaviorTree = nullptr;
-	}
-
-	// ブラックボードポインタの破棄
-	if (m_pBlackBoard)
-	{
-		delete m_pBlackBoard;
-		m_pBlackBoard = nullptr;
 	}
 
 	// キャラクターの破棄

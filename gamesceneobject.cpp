@@ -84,6 +84,7 @@ void CGameSceneObject::Uninit(void)
 	// 配置オブジェクトクラスの破棄
 	m_pBlocks.reset();
 
+	// インスタンスの破棄
 	if (m_pInstance)
 	{
 		delete m_pInstance;

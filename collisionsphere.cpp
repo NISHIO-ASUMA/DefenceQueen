@@ -44,16 +44,15 @@ bool CCollisionSphere::Collision(CSphereCollider* thisCollider, CSphereCollider*
 
 	// 2点の座標の距離差分を算出する
 	D3DXVECTOR3 DiffPos = MyPos - OtherPos;
-
-	// 当たる距離を計算する
-	float fDistance = (DiffPos.x * DiffPos.x) + (DiffPos.y * DiffPos.y) + (DiffPos.z * DiffPos.z);
-
-	// 半径の2乗を計算
-	float fAllRadius = fMyRadius + fOtherRadius;
-	fAllRadius = fAllRadius * fAllRadius;
 	
-	// 半径の値よりも小さかったら
-	if (fDistance <= fAllRadius)return true;
+	// 長さを取得
+	float fDistance = D3DXVec3Length(&DiffPos);
+	
+	// 半径の合計
+	float fRadSum = fMyRadius + fOtherRadius;
+
+	// 半径の合計より近い
+	if (fDistance < fRadSum) return true;
 
 	// 未ヒット時
 	return false;

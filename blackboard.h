@@ -72,6 +72,15 @@ public:
 		return m_Data.find(Key) != m_Data.end();
 	}
 
+	/// <summary>
+	/// 要素のクリアを行う関数
+	/// </summary>
+	/// <param name=""></param>
+	void Clear(void)
+	{
+		m_Data.clear();
+	}
+
 private:
 
 	// NOTE : 複数の情報を保持するためunordered_map型の変数を使う

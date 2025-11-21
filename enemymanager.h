@@ -1,6 +1,6 @@
 //=========================================================
 //
-// 複数の餌を管理する処理 [ feedmanager.h ]
+// 敵の複数管理処理 [ enemymanager.h ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -11,51 +11,60 @@
 #pragma once
 
 //*********************************************************
-// インクルードファイル
+// インクルードファイル宣言
 //*********************************************************
 #include <vector>
 
 //*********************************************************
 // 前方宣言
 //*********************************************************
-class CFeed;
+class CEnemy;
 
 //*********************************************************
-// 餌を管理するクラスを定義
+// 敵の情報を一括管理するクラスを定義
 //*********************************************************
-class CFeedManager
+class CEnemyManager
 {
 public:
 
-	CFeedManager();
-	~CFeedManager();
+	CEnemyManager();
+	~CEnemyManager();
 
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
-	void Draw(void);
 
 	/// <summary>
-	/// 配列の指定番号から取得
+	/// 配列番号情報の取得
 	/// </summary>
-	/// <param name="nIdx">取得したいインデックス番号</param>
+	/// <param name="nIdx">取得するインデックス</param>
 	/// <returns></returns>
-	CFeed* GetFeed(const int nIdx) { return m_pFeed[nIdx]; }
+	CEnemy * GetEnemyIdx(const int nIdx) { return m_pEnemys[nIdx]; }
 
 	/// <summary>
-	/// 配列の要素数を取得
+	/// 動的配列本体を取得する
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
-	int GetSize(void) const { return static_cast<int>(m_pFeed.size()); }
+	std::vector<CEnemy*>& GetEnemy(void) { return m_pEnemys; }
+
 
 private:
 
-	std::vector<CFeed*>m_pFeed; // 動的配列
+	std::vector<CEnemy*>m_pEnemys; // 敵の動的配列
 
-	// 出現座標
-	const D3DXVECTOR3 ActivePos[1] =
-	{
-		{200.0f,0.0f,30.0f}
-	};
+	/// <summary>
+	/// 敵の生成関数
+	/// </summary>
+	/// <param name="pos">出現座標</param>
+	/// <param name="rot">角度</param>
+	/// <param name="nLife">体力値</param>
+	/// <returns></returns>
+	CEnemy* CreateManager(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const int nLife);
+
+	/// <summary>
+	/// 配列追加関数
+	/// </summary>
+	/// <param name="pEnemy">生成するインスタンス</param>
+	void PushBack(CEnemy* pEnemy) { m_pEnemys.push_back(pEnemy); }
 };

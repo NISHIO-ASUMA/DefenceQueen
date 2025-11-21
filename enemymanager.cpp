@@ -1,0 +1,68 @@
+//=======================================
+//
+// 敵の複数管理処理 [ enemymanager.cpp ]
+// Author: Asuma Nishio
+//
+//=======================================
+
+//************************************
+// インクルードファイル
+//************************************
+#include "enemymanager.h"
+#include "enemy.h"
+
+//====================================
+// コンストラクタ
+//====================================
+CEnemyManager::CEnemyManager()
+{
+	// 配列クリア
+	m_pEnemys.clear();
+}
+//====================================
+// デストラクタ
+//====================================
+CEnemyManager::~CEnemyManager()
+{
+
+}
+//====================================
+// 初期化処理
+//====================================
+HRESULT CEnemyManager::Init(void)
+{
+	// 配列クリア
+	m_pEnemys.clear();
+
+	return S_OK;
+}
+//====================================
+// 終了処理
+//====================================
+void CEnemyManager::Uninit(void)
+{
+	// 配列クリア
+	m_pEnemys.clear();
+}
+//====================================
+// 更新処理
+//====================================
+void CEnemyManager::Update(void)
+{
+
+}
+//====================================
+// 生成関数処理
+//====================================
+CEnemy* CEnemyManager::CreateManager(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const int nLife)
+{
+	// 敵生成
+	CEnemy* pNewEnemy = CEnemy::Create(pos, rot, nLife);
+
+	// nullじゃないなら
+	if (pNewEnemy) PushBack(pNewEnemy); // 配列追加
+	else pNewEnemy = nullptr;
+
+	// ポインタ返す
+	return pNewEnemy;
+}

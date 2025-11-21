@@ -172,6 +172,7 @@
     <ClCompile Include="enemychase.cpp" />
     <ClCompile Include="enemychaseleaf.cpp" />
     <ClCompile Include="enemychecknear.cpp" />
+    <ClCompile Include="enemymanager.cpp" />
     <ClCompile Include="enemywaitleaf.cpp" />
     <ClCompile Include="gimmickmanager.cpp" />
     <ClCompile Include="gimmicksuction.cpp" />
@@ -286,6 +287,7 @@
     <ClInclude Include="enemychase.h" />
     <ClInclude Include="enemychaseleaf.h" />
     <ClInclude Include="enemychecknear.h" />
+    <ClInclude Include="enemymanager.h" />
     <ClInclude Include="enemywaitleaf.h" />
     <ClInclude Include="gimmickmanager.h" />
     <ClInclude Include="gimmicksuction.h" />

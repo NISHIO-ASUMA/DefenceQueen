@@ -278,12 +278,6 @@ void CMeshPiler::Draw(void)
 	//計算用のマトリックスを宣言
 	D3DXMATRIX mtxRot, mtxTrans;
 
-	// テクスチャ読み込み
-	CTexture* pTexture = CManager::GetInstance()->GetTexture();
-
-	// テクスチャセット
-	pDevice->SetTexture(0, pTexture->GetAddress(m_MeshPiler.nTexIdx));
-
 	//ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxWorld);
 
@@ -304,8 +298,14 @@ void CMeshPiler::Draw(void)
 	//インデックスバッファをデータストリームに設定
 	pDevice->SetIndices(m_pIdx);
 
-	//テクスチャフォーマットの設定
+	//頂点フォーマットの設定
 	pDevice->SetFVF(FVF_VERTEX_3D);
+
+	// テクスチャ読み込み
+	CTexture* pTexture = CManager::GetInstance()->GetTexture();
+
+	// テクスチャセット
+	pDevice->SetTexture(0, pTexture->GetAddress(m_MeshPiler.nTexIdx));
 
 	//ポリゴンの描画
 	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, 0, m_MeshPiler.nNumAllVtx, 0, m_MeshPiler.nNumPrimitive);

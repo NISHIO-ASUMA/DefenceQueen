@@ -19,9 +19,6 @@ void CEnemyWaitLeaf::Update()
 	// 敵のポインタ
 	auto* Enemy = m_pBlackBoard->GetValue<CEnemy*>("Enemy");
 
-	// 移動量を0にする
-	Enemy->SetMove(VECTOR3_NULL);
-
 	// モーションセット
 	Enemy->GetMotion()->SetMotion(CEnemy::MOTION_NEUTRAL,true,10);
 }
