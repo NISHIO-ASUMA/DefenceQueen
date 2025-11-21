@@ -600,6 +600,9 @@
     <ClCompile Include="enemywaitleaf.cpp">
       <Filter>ソース ファイル\Enemy_AI\Leaf</Filter>
     </ClCompile>
+    <ClCompile Include="enemychaseleaf.cpp">
+      <Filter>ソース ファイル\Enemy_AI\Leaf</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blackboard.h">

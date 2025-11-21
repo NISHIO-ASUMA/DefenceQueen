@@ -169,6 +169,7 @@
     <ClCompile Include="collisionbox.cpp" />
     <ClCompile Include="collisionsphere.cpp" />
     <ClCompile Include="enemybehaviortree.cpp" />
+    <ClCompile Include="enemychaseleaf.cpp" />
     <ClCompile Include="enemychecknear.cpp" />
     <ClCompile Include="enemymanager.cpp" />
     <ClCompile Include="enemywaitleaf.cpp" />
