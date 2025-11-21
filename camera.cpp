@@ -43,7 +43,7 @@ CCamera::~CCamera()
 //=================================
 HRESULT CCamera::Init(void)
 {
-	m_pCamera.posV = D3DXVECTOR3(0.0f, 1350.0f, -1200.0f);		// カメラの位置
+	m_pCamera.posV = D3DXVECTOR3(0.0f, 1350.0f, -600.0f);		// カメラの位置
 	m_pCamera.posR = VECTOR3_NULL;								// カメラの見ている位置
 	m_pCamera.vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);				// 上方向ベクトル
 	m_pCamera.rot = D3DXVECTOR3(D3DX_PI * 0.6f, 0.0f, 0.0f);	// 角度
@@ -217,6 +217,30 @@ void CCamera::MouseView(CInputMouse * pMouse)
 	{
 		m_pCamera.rot.x += -CAMERAINFO::NorRot;
 	}
+}
+//==============================
+// マウスホイール処理
+//==============================
+void CCamera::WheelMouse(int nDelta)
+{
+	if (nDelta > 0)
+	{// マウスの値が正
+		m_pCamera.fDistance -= 20.0f;
+	}
+	else if (nDelta < 0)
+	{// マウスの値が負
+		m_pCamera.fDistance += 20.0f;
+	}
+
+	if (m_pCamera.fDistance <= 250.0f)
+	{// 250.0f以下なら
+		m_pCamera.fDistance = 250.0f;
+	}
+
+	// カメラの視点の情報
+	m_pCamera.posV.x = m_pCamera.posR.x - sinf(m_pCamera.rot.x) * sinf(m_pCamera.rot.y) * m_pCamera.fDistance;
+	m_pCamera.posV.y = m_pCamera.posR.y - cosf(m_pCamera.rot.x) * m_pCamera.fDistance;
+	m_pCamera.posV.z = m_pCamera.posR.z - sinf(m_pCamera.rot.x) * cosf(m_pCamera.rot.y) * m_pCamera.fDistance;
 }
 //======================================
 // 値のクリア関数

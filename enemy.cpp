@@ -92,7 +92,7 @@ HRESULT CEnemy::Init(void)
 	// コライダー生成
 	m_pSphereCollider = CSphereCollider::Create(GetPos(), 60.0f);
 
-	// AIノードをセットする
+	// 敵で使うAIノードをセットする
 	NodeSetting();
 
 	// 初期化結果を返す

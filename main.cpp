@@ -13,6 +13,7 @@
 #include "renderer.h"
 #include "manager.h"
 #include "debugproc.h"
+#include "camera.h"
 
 //******************************
 // ウィンドウプロシージャを定義
@@ -206,6 +207,16 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		pRenderer->SetSize(LOWORD(lParam), HIWORD(lParam));
 
 		return 0;
+
+	case WM_MOUSEWHEEL: // マウスのホイール判定
+	{
+		// ローカル変数
+		int zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+
+		// ホイール情報
+		CManager::GetInstance()->GetCamera()->WheelMouse(zDelta);
+	}
+	break;
 
 	case WM_KEYDOWN:				// キー押下のメッセージ
 		switch (wParam)

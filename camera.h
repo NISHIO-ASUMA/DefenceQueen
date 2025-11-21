@@ -56,6 +56,7 @@ public:
 	void Update(void);
 	void SetCamera(void);
 	void MouseView(CInputMouse* pMouse);
+	void WheelMouse(int nDelta);
 
 	void SetMode(int nMode) { m_pCamera.nMode = nMode; }
 	void SetRot(D3DXVECTOR3 rot) { m_pCamera.rot = rot; }

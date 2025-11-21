@@ -75,7 +75,7 @@ HRESULT CArray::Init(void)
 	SetObjType(CObject::TYPE_ARRAY);
 
 	// モーションセット
-	MotionLoad("data/MOTION/Array/ArrayMotion.txt", MOTION_MAX);
+	MotionLoad("data/MOTION/Array/Array_Motion.txt", MOTION_MAX);
 
 	// ステートマシンを生成
 	// m_pStateMachine = std::make_unique<CStateMachine>();
@@ -89,6 +89,8 @@ HRESULT CArray::Init(void)
 	// ノード生成
 	m_pBlackBoard = new CBlackBoard;
 	m_pBlackBoard->SetValue<CArray*>("Array",this);
+
+	m_isActive = true;
 
 	return S_OK;
 }
