@@ -959,5 +959,8 @@
     <ClInclude Include="order.h">
       <Filter>ヘッダー ファイル\Charactor\Player</Filter>
     </ClInclude>
+    <ClInclude Include="targetselector.h">
+      <Filter>ヘッダー ファイル\AI_System\Selector</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

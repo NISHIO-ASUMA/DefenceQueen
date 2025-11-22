@@ -364,6 +364,7 @@
     <ClInclude Include="spherecollider.h" />
     <ClInclude Include="state.h" />
     <ClInclude Include="statemachine.h" />
+    <ClInclude Include="targetselector.h" />
     <ClInclude Include="template.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="time.h" />
