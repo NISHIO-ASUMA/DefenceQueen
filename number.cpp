@@ -16,19 +16,18 @@
 //=================================
 // コンストラクタ
 //=================================
-CNumber::CNumber()
+CNumber::CNumber() : m_pos(VECTOR3_NULL),
+m_fHeight(NULL),
+m_fWidth(NULL),
+m_col(COLOR_WHITE),
+m_nIdxTexture(-1),
+m_pVtxBuff(nullptr),
+m_TexU1(NULL),
+m_TexU(NULL),
+m_TexV(NULL),
+n_nColorCount(NULL)
 {
 	// 値のクリア
-	m_pos = VECTOR3_NULL;
-	m_fHeight = NULL;
-	m_fWidth = NULL;
-	m_TexU = NULL;
-	m_TexU1 = NULL;
-	m_TexV = NULL;
-	m_pVtxBuff = nullptr;
-	m_col = COLOR_WHITE;
-	n_nColorCount = NULL;
-	m_nIdxTexture = -1;
 }
 //=================================
 // デストラクタ
@@ -42,14 +41,13 @@ CNumber::~CNumber()
 //=================================
 HRESULT CNumber::Init(D3DXVECTOR3 pos,float fwidth,float fheight)
 {
-	// 初期値代入
 	m_pos = pos;
 
 	// デバイスの取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// 頂点バッファの作成
-	pDevice->CreateVertexBuffer(sizeof(VERTEX_2D) * 4,
+	pDevice->CreateVertexBuffer(sizeof(VERTEX_2D) * BASEVERTEX,
 		D3DUSAGE_WRITEONLY,
 		FVF_VERTEX_2D,
 		D3DPOOL_MANAGED,
@@ -69,7 +67,7 @@ HRESULT CNumber::Init(D3DXVECTOR3 pos,float fwidth,float fheight)
 	pVtx[3].pos = D3DXVECTOR3(pos.x + fwidth, pos.y + fheight, 0.0f);
 
 	// rhwの設定(1.0fで固定)
-	pVtx[0].rhw = 
+	pVtx[0].rhw =
 	pVtx[1].rhw = 
 	pVtx[2].rhw = 
 	pVtx[3].rhw = 1.0f;
