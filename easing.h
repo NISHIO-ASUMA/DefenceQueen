@@ -17,8 +17,8 @@ class CEasing
 {
 public:
 
-	CEasing();
-	~CEasing();
+	CEasing() = default;
+	~CEasing() = default;
 
 	static float EaseInsine(float t);
 	static float EaseOutsine(float t);

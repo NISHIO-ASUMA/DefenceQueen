@@ -1,30 +1,22 @@
-//=====================================
+//=========================================================
 //
 // 防衛対象の処理 [ queen.cpp ]
 // Author: Asuma Nishio
 //
-//=====================================
+//=========================================================
 
-//**********************
+//*********************************************************
 // インクルードファイル
-//**********************
+//*********************************************************
 #include "queen.h"
 #include "collisionsphere.h"
 #include "spherecollider.h"
 #include "parameter.h"
 #include "statemachine.h"
 
-//****************************
-// 定数宣言
-//****************************
-namespace QUEEN_INFO
-{
-	constexpr int HP = 1000; // 体力値
-};
-
-//==================================
+//=========================================================
 // コンストラクタ
-//==================================
+//=========================================================
 CQueen::CQueen(int nPriority) : CNoMoveCharactor(nPriority),
 m_pSphereCollider(nullptr),
 m_pMotion(nullptr),
@@ -33,16 +25,16 @@ m_pStateMachine(nullptr)
 {
 	// 値のクリア
 }
-//==================================
+//=========================================================
 // デストラクタ
-//==================================
+//=========================================================
 CQueen::~CQueen()
 {
 
 }
-//==================================
+//=========================================================
 // 生成処理
-//==================================
+//=========================================================
 CQueen* CQueen::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 {
 	// インスタンス生成
@@ -59,9 +51,9 @@ CQueen* CQueen::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 	// 生成されたポインタ
 	return pQueen;
 }
-//==================================
+//=========================================================
 // 初期化処理
-//==================================
+//=========================================================
 HRESULT CQueen::Init(void)
 {
 	// 親クラスの初期化
@@ -71,12 +63,12 @@ HRESULT CQueen::Init(void)
 	SetObjType(CObject::TYPE_QUEEN);
 
 	// モーションセット
-	MotionLoad("data/MOTION/Queen/Queen.txt", MOTION_MAX);
+	MotionLoad("data/MOTION/Queen/Queen_Motion.txt", MOTION_MAX);
 
 	// パラメーター生成
 	m_pParameter = std::make_unique<CParameter>();
-	m_pParameter->SetMaxHp(QUEEN_INFO::HP);
-	m_pParameter->SetHp(QUEEN_INFO::HP);
+	m_pParameter->SetMaxHp(QueenInfo::Hp);
+	m_pParameter->SetHp(QueenInfo::Hp);
 
 	// ステートマシンを生成
 	m_pStateMachine = std::make_unique<CStateMachine>();
@@ -85,16 +77,19 @@ HRESULT CQueen::Init(void)
 	// ChangeState(new CPlayerStateNeutral, CPlayerStateBase::ID_NEUTRAL);
 
 	// コライダー生成
-	m_pSphereCollider = CSphereCollider::Create(GetPos(),80.0f);
+	m_pSphereCollider = CSphereCollider::Create(GetPos(), QueenInfo::HitRange);
 
 	// モーション取得
 	m_pMotion = CNoMoveCharactor::GetMotion();
 
+	// 拡大する
+	SetScale(D3DXVECTOR3(1.5f, 1.5f, 1.5f));
+
 	return S_OK;
 }
-//==================================
+//=========================================================
 // 終了処理
-//==================================
+//=========================================================
 void CQueen::Uninit(void)
 {
 	// ポインタ破棄
@@ -113,9 +108,9 @@ void CQueen::Uninit(void)
 	// 親クラスの終了処理
 	CNoMoveCharactor::Uninit();
 }
-//==================================
+//=========================================================
 // 更新処理
-//==================================
+//=========================================================
 void CQueen::Update(void)
 {
 	// 現在座標を取得
@@ -127,17 +122,17 @@ void CQueen::Update(void)
 	// 親クラスの更新
 	CNoMoveCharactor::Update();
 }
-//==================================
+//=========================================================
 // 描画処理
-//==================================
+//=========================================================
 void CQueen::Draw(void)
 {
 	// 親クラスの描画
 	CNoMoveCharactor::Draw();
 }
-//==================================
+//=========================================================
 // 当たり判定処理
-//==================================
+//=========================================================
 bool CQueen::Collision(CSphereCollider* pOther)
 {
 	// 球同士の当たり判定を返す

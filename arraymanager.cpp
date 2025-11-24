@@ -1,13 +1,13 @@
-//===============================================
+//=========================================================
 //
 // 仲間クラス全体の管理処理 [ arraymanager.cpp ]
 // Author: Asuma Nishio
 //
-//===============================================
+//=========================================================
 
-//**********************
+//*********************************************************
 // インクルードファイル
-//**********************
+//*********************************************************
 #include "arraymanager.h"
 #include "array.h"
 #include "manager.h"
@@ -15,52 +15,46 @@
 #include "template.h"
 #include "debugproc.h"
 
-//**********************
-// 定数宣言空間
-//**********************
-namespace ARRAYINFO
-{
-	constexpr int LIFE = 10; // 体力値
-	constexpr int ALLARRAYS = 100; // 最大使用数
-};
-
-//===========================
+//=========================================================
 // コンストラクタ
-//============================
+//==========================================================
 CArrayManager::CArrayManager() : m_pArrays{}, m_nActiveAll(NULL)
 {
 
 }
-//===========================
+//=========================================================
 // デストラクタ
-//============================
+//==========================================================
 CArrayManager::~CArrayManager()
 {
 	Uninit();
 }
-//===========================
+//=========================================================
 // 初期化処理
-//============================
+//==========================================================
 HRESULT CArrayManager::Init(const int nActives)
 {
 	// 配列初期化
 	m_pArrays.clear();
 
+	// 構造体変数
+	ArrayConfig config = {};
+
 	// メモリの箱だけ先に確保
-	m_pArrays.reserve(ARRAYINFO::ALLARRAYS);
+	m_pArrays.reserve(config.ALLARRAYS);
 
 	// ポインタのセット
-	for (int nCnt = 0; nCnt < ARRAYINFO::ALLARRAYS; nCnt++)
+	for (int nCnt = 0; nCnt < config.ALLARRAYS; nCnt++)
 	{
 		// インスタンス生成
-		auto pArray = CArray::Create(VECTOR3_NULL,VECTOR3_NULL,ARRAYINFO::LIFE);
+		auto pArray = CArray::Create(VECTOR3_NULL,VECTOR3_NULL, config.LIFE);
 
 		// 配列に追加
 		m_pArrays.push_back(pArray);
 	}
 
 	// サイズの範囲内にあるかどうかチェック
-	int nUse = Clump(nActives, 0, ARRAYINFO::ALLARRAYS);
+	int nUse = Clump(nActives, 0, config.ALLARRAYS);
 
 	for (int nActive = 0; nActive < nUse; nActive++)
 	{
@@ -76,17 +70,17 @@ HRESULT CArrayManager::Init(const int nActives)
 
 	return S_OK;
 }
-//===========================
+//=========================================================
 // 終了処理
-//============================
+//==========================================================
 void CArrayManager::Uninit(void)
 {
 	// 動的配列の破棄
 	m_pArrays.clear();
 }
-//===========================
+//=========================================================
 // 更新処理
-//============================
+//==========================================================
 void CArrayManager::Update(void)
 {
 #ifdef _DEBUG
@@ -106,22 +100,22 @@ void CArrayManager::Update(void)
 
 #endif // _DEBUG
 }
-//===========================
+//=========================================================
 // 描画処理
-//============================
+//==========================================================
 void CArrayManager::Draw(void)
 {
 	// デバッグ表示
-	CDebugproc::Print("アクティブ数 : [ %d / %d ]", m_nActiveAll, ARRAYINFO::ALLARRAYS);
+	CDebugproc::Print("アクティブ数 : [ %d / %d ]", m_nActiveAll, ArrayConfig::ALLARRAYS);
 	CDebugproc::Draw(0, 140);
 }
-//===========================
+//=========================================================
 // 出現管理処理
-//============================
+//==========================================================
 void CArrayManager::Spawn(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife,const int nNumSpawn)
 {
 	// 出現数超過の時
-	if (m_nActiveAll >= ARRAYINFO::ALLARRAYS)
+	if (m_nActiveAll >= ArrayConfig::ALLARRAYS)
 	{
 		// 例外設定
 		OutputDebugStringA("出現上限に達しました!\n");
@@ -129,7 +123,7 @@ void CArrayManager::Spawn(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife,const int 
 	}
 
 	// 出現数を範囲内に制限
-	int nSpawnCount = Clump(nNumSpawn, 0, ARRAYINFO::ALLARRAYS - m_nActiveAll);
+	int nSpawnCount = Clump(nNumSpawn, 0, ArrayConfig::ALLARRAYS - m_nActiveAll);
 
 	// スポーンするカウント
 	int nSpawned = 0;
@@ -150,7 +144,7 @@ void CArrayManager::Spawn(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife,const int 
 			if (nSpawned >= nSpawnCount) break;
 
 			// 最大数に達したら出現させない
-			if (m_nActiveAll >= ARRAYINFO::ALLARRAYS) break;
+			if (m_nActiveAll >= ArrayConfig::ALLARRAYS) break;
 		}
 	}
 }

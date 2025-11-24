@@ -41,7 +41,7 @@ public:
 	enum MOTION
 	{
 		MOTION_NEUTRAL,	// ニュートラル
-		MOTION_MOVE,	// 移動
+		// MOTION_MOVE,	// 移動
 		MOTION_MAX
 	};
 
@@ -57,11 +57,12 @@ public:
 
 	CParameter* GetParameter(void) { return m_pParameter.get(); }
 	CStateMachine* GetStateMachine() { return m_pStateMachine.get(); }
-	void NodeSetting(void);
 
 	static CEnemy* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot,int nLife);
 
 private:
+
+	void NodeSetting(void);
 
 	CMotion * m_pMotion;				// モーションクラス
 	CSphereCollider* m_pSphereCollider; // 球形コライダー

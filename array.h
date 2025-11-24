@@ -58,6 +58,14 @@ public:
 
 private:
 
+	//***********************
+	// 定数構造体
+	//***********************
+	struct Arrayinfo
+	{
+		static constexpr float SphereRange = 80.0f; // 球形範囲
+	};
+
 	bool m_isActive;					// 使用状態かどうか
 	CMotion* m_pMotion;					// モーションポインタ
 	CSphereCollider* m_pSphereCollider;	// 球形のコライダー

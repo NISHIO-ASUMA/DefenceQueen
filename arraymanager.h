@@ -68,6 +68,16 @@ public:
 	std::vector<CArray*>& GetArray(void) { return m_pArrays; }
 
 private:
+
+	//**********************
+	// 定数構造体
+	//**********************
+	struct ArrayConfig
+	{
+		static constexpr int LIFE = 10; // 体力値
+		static constexpr int ALLARRAYS = 100; // 最大使用数
+	};
+
 	std::vector<CArray*>m_pArrays; // 動的配列
 	int m_nActiveAll;		// 現在の出現数
 };

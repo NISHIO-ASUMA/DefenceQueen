@@ -51,8 +51,6 @@ public:
 
 private:
 
-	std::vector<CEnemy*>m_pEnemys; // 敵の動的配列
-
 	/// <summary>
 	/// 敵の生成関数
 	/// </summary>
@@ -67,4 +65,6 @@ private:
 	/// </summary>
 	/// <param name="pEnemy">生成するインスタンス</param>
 	void PushBack(CEnemy* pEnemy) { m_pEnemys.push_back(pEnemy); }
+
+	std::vector<CEnemy*>m_pEnemys; // 敵の動的配列
 };

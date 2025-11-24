@@ -40,4 +40,12 @@ public:
 
 private:
 
+	//**************************
+	// ’è”Ši”[\‘¢‘Ì
+	//**************************
+	struct ChaseInfo
+	{
+		static constexpr float DISTANCE = 100.0f; // Å‘å’Ç]‹——£
+		static constexpr float SPEED = 4.0f;	  // ˆÚ“®‘¬“x
+	};
 };

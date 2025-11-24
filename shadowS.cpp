@@ -67,7 +67,7 @@ HRESULT CShadowS::Init()
 	pVtx[0].col = 
 	pVtx[1].col = 
 	pVtx[2].col = 
-	pVtx[3].col = D3DXCOLOR(0.0f,0.0f,0.0f,0.5f);
+	pVtx[3].col = D3DXCOLOR(0.0f,0.0f,0.0f,0.3f);
 
 	//テクスチャ座標の設定
 	pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);

@@ -1,13 +1,13 @@
-//=====================================
+//=========================================================
 //
 // 敵の処理 [ enemy.h ]
 // Author: Asuma Nishio
 //
-//=====================================
+//=========================================================
 
-//**********************
+//*********************************************************
 // インクルードファイル
-//**********************
+//*********************************************************
 #include "enemy.h"
 #include "parameter.h"
 #include "motion.h"
@@ -24,9 +24,17 @@
 #include "selectpoint.h"
 #include "enemybehaviortree.h"
 
-//===============================
+//*********************************************************
+// 定数宣言空間
+//*********************************************************
+namespace EnemyInfo
+{
+	constexpr float HitRange = 80.0f; // 球形範囲
+};
+
+//=========================================================
 // コンストラクタ
-//===============================
+//=========================================================
 CEnemy::CEnemy(int nPriority) : CMoveCharactor(nPriority),
 m_pMotion(nullptr),
 m_pParameter(nullptr),
@@ -36,16 +44,16 @@ m_pSelect(nullptr)
 {
 	// 値のクリア
 }
-//===============================
+//=========================================================
 // デストラクタ
-//===============================
+//=========================================================
 CEnemy::~CEnemy()
 {
 	// 無し
 }
-//===============================
+//=========================================================
 // 生成処理
-//===============================
+//=========================================================
 CEnemy* CEnemy::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife)
 {
 	// インスタンス生成
@@ -72,9 +80,9 @@ CEnemy* CEnemy::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife)
 	// 敵のポインタを返す
 	return pEnemy;
 }
-//===============================
+//=========================================================
 // 初期化処理
-//===============================
+//=========================================================
 HRESULT CEnemy::Init(void)
 {
 	// キャラクタ―の初期化
@@ -84,13 +92,13 @@ HRESULT CEnemy::Init(void)
 	SetObjType(CObject::TYPE_ENEMY);
 
 	// モーションセット
-	MotionLoad("data/MOTION/Enemy/EnemyMotion.txt", MOTION_MAX);
+	MotionLoad("data/MOTION/Enemy/Enemy_Motion.txt", MOTION_MAX);
 
 	// ステートマシンを生成
 	m_pStateMachine = std::make_unique<CStateMachine>();
 
 	// コライダー生成
-	m_pSphereCollider = CSphereCollider::Create(GetPos(), 60.0f);
+	m_pSphereCollider = CSphereCollider::Create(GetPos(), EnemyInfo::HitRange);
 
 	// 敵で使うAIノードをセットする
 	NodeSetting();
@@ -98,9 +106,9 @@ HRESULT CEnemy::Init(void)
 	// 初期化結果を返す
 	return S_OK;
 }
-//===============================
+//=========================================================
 // 終了処理
-//===============================
+//=========================================================
 void CEnemy::Uninit(void)
 {
 	// パラメータ終了処理
@@ -119,9 +127,9 @@ void CEnemy::Uninit(void)
 	// キャラクターの破棄
 	CMoveCharactor::Uninit();
 }
-//===============================
+//=========================================================
 // 更新処理
-//===============================
+//=========================================================
 void CEnemy::Update(void)
 {
 	// 座標取得
@@ -145,9 +153,9 @@ void CEnemy::Update(void)
 	// キャラクターの更新処理
 	CMoveCharactor::Update();
 }
-//===============================
+//=========================================================
 // 描画処理
-//===============================
+//=========================================================
 void CEnemy::Draw(void)
 {
 	// キャラクターの描画処理
@@ -157,9 +165,9 @@ void CEnemy::Draw(void)
 	CDebugproc::Print("座標 : %.2f,%.2f,%.2f", GetPos().x, GetPos().y, GetPos().z);
 	CDebugproc::Draw(0, 140);
 }
-//================================
+//==========================================================
 // 状態変更処理
-//================================
+//==========================================================
 void CEnemy::ChangeState(CEnemyStateBase* pNewState, int Id)
 {
 	// ステート変更
@@ -168,17 +176,17 @@ void CEnemy::ChangeState(CEnemyStateBase* pNewState, int Id)
 	// ステート変更
 	m_pStateMachine->ChangeState(pNewState);
 }
-//================================
+//==========================================================
 // 当たり判定処理
-//================================
+//==========================================================
 bool CEnemy::Collision(CSphereCollider* pOther)
 {
 	// 球形同士の当たり判定
 	return CCollisionSphere::Collision(m_pSphereCollider,pOther);
 }
-//===============================
+//=========================================================
 // ノード作成処理
-//===============================
+//=========================================================
 void CEnemy::NodeSetting(void)
 {
 	// 名前空間宣言
@@ -192,14 +200,13 @@ void CEnemy::NodeSetting(void)
 	m_pBlackBoard->SetValue<D3DXVECTOR3>("EnemyPos", pos);
 	m_pBlackBoard->SetValue<CEnemy*>("Enemy", this);
 
-	// 対象座標を取得
 	m_pSelect = CGameSceneObject::GetInstance()->GetPoint();
 	m_pBlackBoard->SetValue<CSelectPoint*>("Selector", m_pSelect);
 
 	auto Select = CGameSceneObject::GetInstance()->GetPoint();
 	m_pBlackBoard->SetValue("SelectorPos", Select->GetPos());
 
-	// ツリーノードにセットする
+	// 敵に使用するツリーノードにセットする
 	m_pBehaviorTree = CEnemyBehaviorTree::SetEnemyTreeNode(m_pBlackBoard);
 	m_pBehaviorTree->Init();
 }

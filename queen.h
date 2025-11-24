@@ -57,6 +57,15 @@ public:
 
 private:
 
+	//***********************************
+	// 定数構造体
+	//***********************************
+	struct QueenInfo
+	{
+		static constexpr int Hp = 1000;
+		static constexpr float HitRange = 80.0f;
+	};
+
 	std::unique_ptr<CParameter>m_pParameter;		// パラメータークラスポインタ
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
 	CMotion* m_pMotion;								// モーションポインタ
