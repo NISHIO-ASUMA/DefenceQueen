@@ -103,12 +103,6 @@ HRESULT CPlayer::Init(void)
 	// モーションセット
 	MotionLoad("data/MOTION/Player/Player100motion.txt", MOTION_MAX);
 
-	// ステートマシンを生成
-	m_pStateMachine = std::make_unique<CStateMachine>();
-
-	// 初期状態をセット
-	ChangeState(new CPlayerStateNeutral(),CPlayerStateBase::ID_NEUTRAL); 
-
 	// コライダー生成
 	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(50.0f,50.0f,50.0f));
 
@@ -125,9 +119,6 @@ void CPlayer::Uninit(void)
 {
 	// パラメータ終了処理
 	m_pParameter.reset();
-
-	// ステート終了処理
-	m_pStateMachine.reset();
 
 	// コライダー破棄
 	if (m_pBoxCollider)
@@ -150,9 +141,6 @@ void CPlayer::Update(void)
 	// 入力デバイスのポインタ取得
 	CInputKeyboard* pKeyboard = CManager::GetInstance()->GetInputKeyboard();
 	CJoyPad* pJoyPad = CManager::GetInstance()->GetJoyPad();
-
-	// nullptrじゃないとき
-	if (m_pStateMachine != nullptr) m_pStateMachine->Update();
 
 	//// スティックでの移動処理
 	//MovePad(pJoyPad);

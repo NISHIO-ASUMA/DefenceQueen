@@ -40,12 +40,12 @@ void CPlayerStateMove::OnStart()
 //=========================================================
 void CPlayerStateMove::OnUpdate()
 {
-	// キー入力情報を取得
-	auto pKey = CManager::GetInstance()->GetInputKeyboard();
-	auto pPad = CManager::GetInstance()->GetJoyPad();
+	//// キー入力情報を取得
+	//auto pKey = CManager::GetInstance()->GetInputKeyboard();
+	//auto pPad = CManager::GetInstance()->GetJoyPad();
 
-	// 移動更新関数
-	m_pPlayer->MoveKey(pKey, pPad);
+	//// 移動更新関数
+	//m_pPlayer->MoveKey(pKey, pPad);
 }
 //=========================================================
 // 終了関数
