@@ -39,6 +39,9 @@ public:
 	void Update(void);
 	void Draw(void);
 
+	void SetType(const int nType) { m_Type = static_cast<TYPE>(nType); }
+
 private:
 
+	TYPE m_Type; // í—Şî•ñ
 };

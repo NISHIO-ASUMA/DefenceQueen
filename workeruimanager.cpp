@@ -16,9 +16,9 @@
 //*********************************************************
 namespace WorkUi
 {
-	const D3DXVECTOR3 Bacepos = D3DXVECTOR3(450.0f, 120.0f, 0.0f); // Šî€À•W
-	constexpr float WIDTH = 70.0f;								   // ‰¡•
-	constexpr float HEIGHT = 70.0f;								   // ‚‚³
+	const D3DXVECTOR3 Bacepos = D3DXVECTOR3(520.0f, 120.0f, 0.0f); // Šî€À•W
+	constexpr float WIDTH = 40.0f;								   // ‰¡•
+	constexpr float HEIGHT = 40.0f;								   // ‚‚³
 }
 
 //=========================================================
@@ -37,7 +37,7 @@ CWorkerUiManager::CWorkerUiManager()
 //=========================================================
 CWorkerUiManager::~CWorkerUiManager()
 {
-
+	Uninit();
 }
 //=========================================================
 // ‰Šú‰»ˆ—

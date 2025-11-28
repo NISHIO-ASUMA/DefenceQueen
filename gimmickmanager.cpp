@@ -13,7 +13,7 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CGimmickManager::CGimmickManager()
+CGimmickManager::CGimmickManager() : m_Type(TYPE_STORM)
 {
 
 }

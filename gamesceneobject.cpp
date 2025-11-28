@@ -20,6 +20,7 @@
 #include "time.h"
 #include "enemy.h"
 #include "array.h"
+#include "workeruimanager.h"
 
 //*********************************************************
 // 静的メンバ変数
@@ -33,7 +34,8 @@ CGameSceneObject::CGameSceneObject() :
 m_pBlocks(nullptr),
 m_pSelectPoint(nullptr),
 m_pTimer(nullptr),
-m_pScore(nullptr)
+m_pScore(nullptr),
+m_pWorkUi(nullptr)
 {
 	// 値のクリア
 }
@@ -75,6 +77,10 @@ HRESULT CGameSceneObject::Init(void)
 	m_pFeed = std::make_unique<CFeedManager>();
 	m_pFeed->Init();
 
+	// ui配置
+	m_pWorkUi = std::make_unique<CWorkerUiManager>();
+	m_pWorkUi->Init();
+
 	return S_OK;
 }
 //=========================================================
@@ -87,6 +93,9 @@ void CGameSceneObject::Uninit(void)
 
 	// 配置オブジェクトクラスの破棄
 	m_pBlocks.reset();
+
+	// ui処理
+	m_pWorkUi.reset();
 
 	// インスタンスの破棄
 	if (m_pInstance)
