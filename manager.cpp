@@ -58,90 +58,44 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 {
 	// キーボードオブジェクトの生成処理
 	m_pInputKeyboard = std::make_unique<CInputKeyboard>();
-
-	// 初期化に失敗したら
-	if (FAILED(m_pInputKeyboard->Init(hInstance, hWnd)))
-	{
-		// E_FAILを返す
-		return E_FAIL;
-	}
+	if (FAILED(m_pInputKeyboard->Init(hInstance, hWnd))) return E_FAIL;
 
 	// ジョイパッドオブジェクトの生成処理
 	m_pJoyPad = std::make_unique<CJoyPad>();
-
-	// 初期化に失敗したら
-	if (FAILED(m_pJoyPad->Init(hInstance, hWnd)))
-	{
-		// E_FAILを返す
-		return E_FAIL;
-	}
+	if (FAILED(m_pJoyPad->Init(hInstance, hWnd))) return E_FAIL;
 
 	// マウスオブジェクトの生成処理
 	m_pInputMouse = std::make_unique<CInputMouse>();
-
-	// 初期化に失敗したら
-	if (FAILED(m_pInputMouse->Init(hInstance, hWnd)))
-	{
-		// E_FAILを返す
-		return E_FAIL;
-	}
+	if (FAILED(m_pInputMouse->Init(hInstance, hWnd))) return E_FAIL;
 
 	// サウンドの生成処理
 	m_pSound = std::make_unique<CSound>();
-
-	if (FAILED(m_pSound->Init(hWnd)))
-	{
-		// E_FAILを返す
-		return E_FAIL;
-	}
+	if (FAILED(m_pSound->Init(hWnd))) return E_FAIL;
 
 	// カメラの生成処理
 	m_pCamera = std::make_unique<CCamera>();
-
-	// 初期化に失敗したら
-	if (FAILED(m_pCamera->Init()))
-	{
-		// E_FAILを返す
-		return E_FAIL;
-	}
+	if (FAILED(m_pCamera->Init())) return E_FAIL;
 
 	// レンダラーの生成処理
 	m_pRenderer = std::make_unique <CRenderer>();
 
-	// 初期化に失敗したら
-	if (FAILED(m_pRenderer->Init(hWnd, bWindow)))
-	{
-		// E_FAILを返す
-		return E_FAIL;
-	}
+	if (FAILED(m_pRenderer->Init(hWnd, bWindow))) return E_FAIL;
 
-	// ライト生成
+	// ライトの生成処理
 	m_pLight = std::make_unique <CLight>();
+	if (FAILED(m_pLight->Init())) return E_FAIL;
 
-	// 初期化に失敗したら
-	if (FAILED(m_pLight->Init()))
-	{
-		// E_FAILを返す
-		return E_FAIL;
-	}
-
-	// テクスチャ生成
+	// テクスチャの生成処理
 	m_pTexture = std::make_unique <CTexture>();
-	m_pTexture->Load();
+	if (FAILED(m_pTexture->Load())) return E_FAIL;
 
-	// Xファイルオブジェクトマネージャー生成
+	// Xファイルオブジェクトマネージャーの生成処理
 	m_pXfileManager = std::make_unique <CXfileManager>();
-	m_pXfileManager->Load();
+	if (FAILED(m_pXfileManager->Load())) return E_FAIL;
 
-	// フェード生成
+	// フェードの生成処理
 	m_pFade = std::make_unique <CFade>();
-
-	// 初期化失敗時
-	if (FAILED(m_pFade->Init()))
-	{
-		// -1を返す
-		return E_FAIL;
-	}
+	if (FAILED(m_pFade->Init())) return E_FAIL;
 
 #ifdef _DEBUG
 	// デバッグ用シーンセット

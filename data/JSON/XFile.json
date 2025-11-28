@@ -6,5 +6,6 @@
   { "XFile": "data/MODEL/STAGEOBJ/Reef.x" },
   { "XFile": "data/MODEL/STAGEOBJ/Wall.x" },
   { "XFile": "data/MODEL/STAGEOBJ/Wall_Side.x" },
+  { "XFile": "data/MODEL/STAGEOBJ/wallback.x" },
   { "XFile": "data/MODEL/FEED/Suger.x" }
 ]

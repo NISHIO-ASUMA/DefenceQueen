@@ -1,9 +1,10 @@
 [
   { "Texture": "data/TEXTURE/PauseBack.png" },
-  { "Texture": "data/TEXTURE/pausemenu_continue.png" },
-  { "Texture": "data/TEXTURE/pausemenu_quit.png" },
-  { "Texture": "data/TEXTURE/pausemenu_retry.png" },
+  { "Texture": "data/TEXTURE/pause_continue.png" },
+  { "Texture": "data/TEXTURE/pause_quit.png" },
+  { "Texture": "data/TEXTURE/pause_retry.png" },
   { "Texture": "data/TEXTURE/wallTexture.jpg" },
   { "Texture": "data/TEXTURE/ground.jpg" },
+  { "Texture": "data/TEXTURE/worker_icon.png" },
   { "Texture": "data/TEXTURE/Reef.jpg" }
 ]

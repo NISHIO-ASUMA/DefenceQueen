@@ -2,6 +2,8 @@
 //
 // 指示を出す働きアリの処理 [ worker.cpp ]
 // Author: Asuma Nishio
+// 
+// TODO : ステート入れる
 //
 //=========================================================
 
@@ -13,6 +15,9 @@
 #include "collisionsphere.h"
 #include "motion.h"
 #include "statemachine.h"
+#include "gamesceneobject.h"
+#include "selectpoint.h"
+#include "workerstateneutral.h"
 
 //=========================================================
 // コンストラクタ
@@ -20,7 +25,10 @@
 CWorker::CWorker(int nPriority) : CMoveCharactor(nPriority),
 m_pMotion(nullptr),
 m_pSphereCollider(nullptr),
-m_pStateMachine(nullptr)
+m_pStateMachine(nullptr),
+m_pSelect(nullptr),
+m_isMove(false),
+m_isWork(false)
 {
 
 }
@@ -69,6 +77,11 @@ HRESULT CWorker::Init(void)
 	// モーションポインタ取得
 	m_pMotion = CMoveCharactor::GetMotion();
 
+	// ステートマシン生成
+	
+	// ゲームオブジェクトから選択ポイントを取得
+	// m_pSelect = CGameSceneObject::GetInstance()->GetPoint();
+
 	return S_OK;
 }
 //=========================================================
@@ -94,7 +107,7 @@ void CWorker::Uninit(void)
 //=========================================================
 void CWorker::Update(void)
 {
-	// 現在座標を取得
+	// 現在のキャラクター座標を取得
 	D3DXVECTOR3 pos = GetPos();
 
 	// キャラクターの座標更新

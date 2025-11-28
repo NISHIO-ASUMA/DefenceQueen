@@ -347,6 +347,13 @@ void CRenderer::Update(void)
 		// ワイヤーフレームOFF
 		OffWireFrame();
 	}
+
+	// ブラー起動
+	if (pInput->GetTrigger(DIK_F6))
+	{
+		SetBuller(true,300);
+	}
+
 #endif // _DEBUG
 }
 //=========================================================

@@ -36,15 +36,10 @@ CPause* CPause::Create(D3DXVECTOR3 pos, float fWidth, float fHeight, D3DXCOLOR c
 {
 	// インスタンス生成
 	CPause* pPause = new CPause;
-
-	// nullptrだったら
 	if (pPause == nullptr) return nullptr;
 
 	// 初期化失敗時
-	if (FAILED(pPause->Init()))
-	{
-		return nullptr;
-	}
+	if (FAILED(pPause->Init())) return nullptr;
 
 	// 2Dオブジェクト設定
 	pPause->SetPos(pos);
@@ -54,7 +49,6 @@ CPause* CPause::Create(D3DXVECTOR3 pos, float fWidth, float fHeight, D3DXCOLOR c
 	pPause->SetTexture();
 	pPause->SetAnchor(ANCHORTYPE_CENTER);
 
-	// 生成されたポインタを返す
 	return pPause;
 }
 //=========================================================
@@ -121,9 +115,6 @@ void CPause::SetTexture(void)
 	// nullだったらここで処理終了
 	if (pTexture == nullptr) return;
 
-	// ファイル名
-	const char* pFileName = nullptr;
-
 	// 種類によってテクスチャ割り当てを切り替える
 	switch (m_nPauseType)
 	{
@@ -132,15 +123,15 @@ void CPause::SetTexture(void)
 		break;
 
 	case MENU_RETRY: // リトライ選択時
-		m_nIdxTexture = pTexture->Register("data/TEXTURE/pausemenu_retry.png"); 		// テクスチャ割り当て
+		m_nIdxTexture = pTexture->Register("data/TEXTURE/pause_retry.png"); 		// テクスチャ割り当て
 		break;
 
 	case MENU_CONTINUE: // コンテニュー選択時
-		m_nIdxTexture = pTexture->Register("data/TEXTURE/pausemenu_continue.png"); 	// テクスチャ割り当て
+		m_nIdxTexture = pTexture->Register("data/TEXTURE/pause_continue.png"); 	// テクスチャ割り当て
 		break;
 
 	case MENU_QUIT: // クイット選択時
-		m_nIdxTexture = pTexture->Register("data/TEXTURE/pausemenu_quit.png"); 		// テクスチャ割り当て
+		m_nIdxTexture = pTexture->Register("data/TEXTURE/pause_quit.png"); 		// テクスチャ割り当て
 		break;
 
 	default:

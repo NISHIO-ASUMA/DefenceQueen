@@ -45,10 +45,8 @@ CTime::~CTime()
 //=========================================================
 CTime* CTime::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
 {
-	// タイムクラスのインスタンス生成
+	// インスタンス生成
 	CTime* pTime = new CTime;
-
-	// nullptrだったら
 	if (pTime == nullptr) return nullptr;
 
 	// メンバ変数にセット
@@ -57,11 +55,7 @@ CTime* CTime::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
 	pTime->m_pos = pos;
 
 	// 初期化失敗時
-	if (FAILED(pTime->Init()))
-	{
-		// nullptr代入
-		return nullptr;
-	}
+	if (FAILED(pTime->Init())) return nullptr;
 
 	// 結果を返す
 	return pTime;

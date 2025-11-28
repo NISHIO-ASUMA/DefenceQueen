@@ -87,6 +87,7 @@ HRESULT CArray::Init(void)
 	m_pBlackBoard = new CBlackBoard;
 	m_pBlackBoard->SetValue<CArray*>("Array",this);
 
+	// NOTE : ÀŒ±‚Å¡‚±‚ê‚É‚µ‚Ä‚é ŒãX‚±‚±‚Ífalse‚É‚·‚é
 	m_isActive = true;
 
 	return S_OK;

@@ -1,6 +1,6 @@
 //=========================================================
 //
-// ゲージ関係のクラス処理 [ gage.cpp ]
+// ゲージ関係のクラス処理 [ gauge.cpp ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -35,11 +35,7 @@ CGauge* CGauge::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
 	if (pGage == nullptr) return nullptr;
 
 	// 初期化失敗時
-	if (FAILED(pGage->Init()))
-	{
-		// nullポインタを返す
-		return nullptr;
-	}
+	if (FAILED(pGage->Init())) return nullptr;
 
 	// オブジェクト設定
 	pGage->SetPos(pos);
@@ -88,7 +84,7 @@ void CGauge::Draw(void)
 //====================================================================
 void CGauge::SetLengthParamInt(const int nMax, const int nCurrent, const float fMaxWidth)
 {
-	// 最大HPが0以下の時
+	// 最大が0以下の時
 	if (nMax <= 0) return;
 
 	// 与えられた引数の値の割合を計算

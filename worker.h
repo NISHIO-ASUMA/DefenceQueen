@@ -22,6 +22,7 @@
 class CMotion;
 class CStateMachine;
 class CSphereCollider;
+class CSelectPoint;
 
 //*********************************************************
 // 働きアリクラスの定義
@@ -50,6 +51,9 @@ public:
 	void Draw(void) override;
 	bool Collision(CSphereCollider* other);
 
+	void SetIsWork(const bool iswork) { m_isWork = iswork; }
+	bool GetIsWork(void) const { return m_isWork; }
+
 	static CWorker* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot);
 
 private:
@@ -57,5 +61,8 @@ private:
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
 	CMotion* m_pMotion;					// モーションポインタ
 	CSphereCollider* m_pSphereCollider;	// 球形のコライダー
+	CSelectPoint* m_pSelect;			// 選択場所取得用
 
+	bool m_isMove;						// 移動中かフラグ
+	bool m_isWork;						// 動作中かフラグ
 };

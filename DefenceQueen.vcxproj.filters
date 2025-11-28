@@ -292,6 +292,18 @@
     <Filter Include="ソース ファイル\Enemy_AI\Leaf">
       <UniqueIdentifier>{0163b5ee-d0ca-4dcb-a92a-94df093b3b6c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\State\Worker">
+      <UniqueIdentifier>{a4833775-f4b7-44fc-b154-23e31f4cd32f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\State\Worker">
+      <UniqueIdentifier>{b342d1c0-e1b9-4e90-ba94-d61c9f08632d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charactor\Worker">
+      <UniqueIdentifier>{0eb2ba27-7e22-45ef-a380-9d87afc76920}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Charactor\Worker">
+      <UniqueIdentifier>{bb2bb065-46e1-4991-be1b-5ed4ca8df153}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="object2D.cpp">
@@ -555,9 +567,6 @@
     <ClCompile Include="order.cpp">
       <Filter>ソース ファイル\Charactor\Param</Filter>
     </ClCompile>
-    <ClCompile Include="worker.cpp">
-      <Filter>ソース ファイル\Charactor\Array</Filter>
-    </ClCompile>
     <ClCompile Include="selectpoint.cpp">
       <Filter>ソース ファイル\3D</Filter>
     </ClCompile>
@@ -602,6 +611,24 @@
     </ClCompile>
     <ClCompile Include="enemychaseleaf.cpp">
       <Filter>ソース ファイル\Enemy_AI\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="workerstatebase.cpp">
+      <Filter>ソース ファイル\State\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="workerstateneutral.cpp">
+      <Filter>ソース ファイル\State\Worker</Filter>
+    </ClCompile>
+    <ClCompile Include="worker.cpp">
+      <Filter>ソース ファイル\Charactor\Worker</Filter>
+    </ClCompile>
+    <ClCompile Include="workermanager.cpp">
+      <Filter>ソース ファイル\Charactor\Worker</Filter>
+    </ClCompile>
+    <ClCompile Include="workerui.cpp">
+      <Filter>ソース ファイル\2DUI</Filter>
+    </ClCompile>
+    <ClCompile Include="workeruimanager.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -669,9 +696,6 @@
       <Filter>ヘッダー ファイル\Charactor\Array</Filter>
     </ClInclude>
     <ClInclude Include="arraymanager.h">
-      <Filter>ヘッダー ファイル\Charactor\Array</Filter>
-    </ClInclude>
-    <ClInclude Include="worker.h">
       <Filter>ヘッダー ファイル\Charactor\Array</Filter>
     </ClInclude>
     <ClInclude Include="enemy.h">
@@ -961,6 +985,24 @@
     </ClInclude>
     <ClInclude Include="targetselector.h">
       <Filter>ヘッダー ファイル\AI_System\Selector</Filter>
+    </ClInclude>
+    <ClInclude Include="workerstatebase.h">
+      <Filter>ヘッダー ファイル\State\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="workerstateneutral.h">
+      <Filter>ヘッダー ファイル\State\Worker</Filter>
+    </ClInclude>
+    <ClInclude Include="worker.h">
+      <Filter>ヘッダー ファイル\Charactor\Worker</Filter>
+    </ClInclude>
+    <ClInclude Include="workermanager.h">
+      <Filter>ヘッダー ファイル\Charactor\Worker</Filter>
+    </ClInclude>
+    <ClInclude Include="workerui.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="workeruimanager.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

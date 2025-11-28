@@ -257,6 +257,11 @@
     <ClCompile Include="tutorialui.cpp" />
     <ClCompile Include="ui.cpp" />
     <ClCompile Include="worker.cpp" />
+    <ClCompile Include="workermanager.cpp" />
+    <ClCompile Include="workerstatebase.cpp" />
+    <ClCompile Include="workerstateneutral.cpp" />
+    <ClCompile Include="workerui.cpp" />
+    <ClCompile Include="workeruimanager.cpp" />
     <ClCompile Include="xfilemanager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -378,6 +383,11 @@
     <ClInclude Include="ui.h" />
     <ClInclude Include="waitleaf.h" />
     <ClInclude Include="worker.h" />
+    <ClInclude Include="workermanager.h" />
+    <ClInclude Include="workerstatebase.h" />
+    <ClInclude Include="workerstateneutral.h" />
+    <ClInclude Include="workerui.h" />
+    <ClInclude Include="workeruimanager.h" />
     <ClInclude Include="xfilemanager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
