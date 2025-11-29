@@ -630,6 +630,9 @@
     <ClCompile Include="workeruimanager.cpp">
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="numberpanel.cpp">
+      <Filter>ソース ファイル\3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blackboard.h">
@@ -999,10 +1002,13 @@
       <Filter>ヘッダー ファイル\Charactor\Worker</Filter>
     </ClInclude>
     <ClInclude Include="workerui.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\2DUI</Filter>
     </ClInclude>
     <ClInclude Include="workeruimanager.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\2DUI</Filter>
+    </ClInclude>
+    <ClInclude Include="numberpanel.h">
+      <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

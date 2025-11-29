@@ -38,9 +38,7 @@ public:
 
 	// ƒˆ‰¼‘zŠÖ”‚Æ‚µ‚Ä‚Â
 	virtual void Init() = 0;
-
 	virtual void Update() = 0;
-
 	virtual void Exit() = 0;
 
 	// æ“¾ŠÖ”

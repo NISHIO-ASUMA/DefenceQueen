@@ -64,7 +64,7 @@ HRESULT CGameSceneObject::Init(void)
 	m_pTimer = CTime::Create(D3DXVECTOR3(HALFWIDTH - 80.0f,40.0f,0.0f),60.0f,40.0f);
 
 	// メッシュフィールド生成
-	CMeshField::Create(VECTOR3_NULL,3200.0f,2000.0f,1,1);
+	CMeshField::Create(VECTOR3_NULL,3200.0f,2000.0f,2,2);
 
 	// 敵生成
 	CEnemy::Create(D3DXVECTOR3(720.0f, 0.0f, 300.0f), VECTOR3_NULL, 10);

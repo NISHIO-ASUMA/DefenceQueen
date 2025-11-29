@@ -67,6 +67,8 @@ void CWorkerUi::Uninit(void)
 //=========================================================
 void CWorkerUi::Update(void)
 {
+	// 現在のアクティブ状態を取得
+	
 	//親クラスの更新
 	CObject2D::Update();
 }

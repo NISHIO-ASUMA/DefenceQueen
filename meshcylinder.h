@@ -52,7 +52,7 @@ public:
 
 private:
 
-	static constexpr int DIGIT_X = 30;		// X方向の分割数
+	static constexpr int DIGIT_X = 20;		// X方向の分割数
 	static constexpr int DIGIT_Z = 1;		// Z方向への分割数
 
 	LPDIRECT3DINDEXBUFFER9 m_pIdx; // インデックスバッファ

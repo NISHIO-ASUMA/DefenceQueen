@@ -23,7 +23,6 @@
 //=========================================================
 CNode* EnemyTree::CEnemyBehaviorTree::SetEnemyTreeNode(CBlackBoard* blackboard)
 {
-#if 1
 	// インバーターを作成する
 	auto chase_inverter = new CInverter(blackboard, new CEnemyChaseLeaf(blackboard));
 
@@ -41,6 +40,4 @@ CNode* EnemyTree::CEnemyBehaviorTree::SetEnemyTreeNode(CBlackBoard* blackboard)
 
 	// 作成されたシーケンスノードを返す
 	return Sequence;
-#else
-#endif
 }

@@ -24,10 +24,10 @@ m_nScore(NULL),
 m_col(COLOR_WHITE),
 m_pos(VECTOR3_NULL),
 m_rot(VECTOR3_NULL),
+m_fHeight(NULL),
+m_fWidth(NULL),
 m_apNumber{},
-m_pLoad{},
-m_fHeight(0.0f),
-m_fWidth(0.0f)
+m_pLoad{}
 {
 	// 値のクリア
 }
@@ -45,8 +45,6 @@ CScore* CScore::Create(D3DXVECTOR3 pos,float fWidth,float fHeight)
 {
 	// スコアインスタンス生成
 	CScore* pScore = new CScore;
-
-	// nullptrだったら
 	if (pScore == nullptr) return nullptr;
 
 	// 座標,サイズ設定
@@ -55,13 +53,8 @@ CScore* CScore::Create(D3DXVECTOR3 pos,float fWidth,float fHeight)
 	pScore->m_fHeight = fHeight;
 
 	// 初期化失敗時
-	if (FAILED(pScore->Init()))
-	{
-		// nullptrを返す
-		return nullptr;
-	}
+	if (FAILED(pScore->Init())) return nullptr;
 	
-	// スコアポインタを返す
 	return pScore;
 }
 //=========================================================
@@ -91,7 +84,7 @@ HRESULT CScore::Init(void)
 		m_apNumber[nCnt]->SetTexture("number003.png");
 	}
 
-	// ポインタ生成
+	// 読み込み処理ポインタ生成
 	m_pLoad = std::make_unique<CLoad>();
 
 	// 初期化結果を返す
@@ -137,7 +130,7 @@ void CScore::Update(void)
 	int nScore = m_nScore;
 
 	// 八桁分
-	for (int nCntScore = 0; nCntScore < NUM_SCORE; nCntScore++) // 右から処理
+	for (int nCntScore = 0; nCntScore < NUM_SCORE; nCntScore++)
 	{
 		// 桁数ごとに分割する値を計算
 		int nDigit = nScore % NUM_DIGIT;

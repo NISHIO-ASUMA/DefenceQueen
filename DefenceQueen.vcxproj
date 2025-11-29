@@ -178,6 +178,7 @@
     <ClCompile Include="grass.cpp" />
     <ClCompile Include="grassmanager.cpp" />
     <ClCompile Include="move3dobject.cpp" />
+    <ClCompile Include="numberpanel.cpp" />
     <ClCompile Include="order.cpp" />
     <ClCompile Include="debugproc.cpp" />
     <ClCompile Include="easing.cpp" />
@@ -301,6 +302,7 @@
     <ClInclude Include="move3dobject.h" />
     <ClInclude Include="node.h" />
     <ClInclude Include="nodebase.h" />
+    <ClInclude Include="numberpanel.h" />
     <ClInclude Include="order.h" />
     <ClInclude Include="debugproc.h" />
     <ClInclude Include="easing.h" />

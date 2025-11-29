@@ -77,8 +77,6 @@ HRESULT CWorker::Init(void)
 	// モーションポインタ取得
 	m_pMotion = CMoveCharactor::GetMotion();
 
-	// ステートマシン生成
-	
 	// ゲームオブジェクトから選択ポイントを取得
 	// m_pSelect = CGameSceneObject::GetInstance()->GetPoint();
 

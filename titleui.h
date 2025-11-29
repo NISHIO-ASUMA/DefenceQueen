@@ -33,7 +33,6 @@ public:
 	enum MENU
 	{
 		MENU_GAME,
-		MENU_TUTORIAL,
 		MENU_EXIT,
 		MENU_MAX
 	};

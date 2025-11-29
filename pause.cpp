@@ -47,7 +47,6 @@ CPause* CPause::Create(D3DXVECTOR3 pos, float fWidth, float fHeight, D3DXCOLOR c
 	pPause->SetCol(col);
 	pPause->SetType(nType);
 	pPause->SetTexture();
-	pPause->SetAnchor(ANCHORTYPE_CENTER);
 
 	return pPause;
 }

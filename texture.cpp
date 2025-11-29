@@ -75,6 +75,9 @@ void CTexture::UnLoad(void)
 //=========================================================
 int CTexture::Register(const char* pFileName)
 {
+	// もしテクスチャ名がnullなら
+	if (pFileName == nullptr) return -1;
+
 	// すでに登録済みならその番号を返す
 	for (int nCnt = 0; nCnt < m_nNumAll; nCnt++)
 	{

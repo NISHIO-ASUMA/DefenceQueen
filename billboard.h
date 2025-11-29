@@ -25,10 +25,10 @@ public:
 	CBillboard(int nPriority = static_cast<int>(CObject::PRIORITY::BILLBOARD));
 	~CBillboard();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 	void Flash(const int nMaxFlashTime,const int Digittime);
 
 	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }

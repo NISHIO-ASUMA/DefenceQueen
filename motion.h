@@ -71,7 +71,6 @@ public:
 
 	void SetMotion(int motiontype);
 	void SetMotionNum(int nMotion) { m_nNumMotion = nMotion; }
-
 	int SetModels(std::istringstream& iss);
 	void SetModelFile(std::istringstream& iss, std::vector<CModel*>& pModel, int nCnt);
 	void SetParts(std::ifstream& file, std::vector<CModel*>& pModel);
@@ -97,20 +96,19 @@ private:
 	int m_motiontype;		// モーションタイプ
 	int m_type;
 
-	bool m_isBlendMotion;	// ブレンドがあるかどうか
-	bool m_isFinishMotion;	// モーションが終わったかどうか
-	bool m_isFirstMotion;	// モーションが始まったフラグ
-	bool m_isLoopMotion;	// ループするかどうか
-
 	int m_motiontypeBlend;	// ブレンドの種類
 	int m_nFrameBlend;		// ブレンドのフレーム数
 	int m_nCounterBlend;	// ブレンドカウンター
 	int m_nKeyBlend;		// ブレンドモーションの現在のキー
 	int m_nNextKeyBlend;	// ブレンドモーションの次のキー
-
 	int m_nNumModels;
 	int m_nNumAllFrame;		// キーごとのフレーム数
 	int m_nAllFrameCount;	// 全体フレーム数
+
+	bool m_isBlendMotion;	// ブレンドがあるかどうか
+	bool m_isFinishMotion;	// モーションが終わったかどうか
+	bool m_isFirstMotion;	// モーションが始まったフラグ
+	bool m_isLoopMotion;	// ループするかどうか
 
 	static constexpr int NEUTRAL = 0; // ニュートラル番号
 };

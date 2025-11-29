@@ -114,7 +114,6 @@ void CModel::Uninit(void)
 	if (m_pTexture != nullptr)
 	{
 		delete[] m_pTexture;
-
 		m_pTexture = nullptr;
 	}
 }
@@ -228,16 +227,10 @@ CModel* CModel::Create(D3DXVECTOR3 pos,D3DXVECTOR3 rot, const char* pFilename)
 {
 	// インスタンス生成
 	CModel* pModel = new CModel;
-
-	// nullだったら
 	if (pModel == nullptr) return nullptr;
 
 	// 初期化失敗時
-	if (FAILED(pModel->Init(pos, rot,pFilename)))
-	{
-		// nullptrセット
-		return  nullptr;
-	}
+	if (FAILED(pModel->Init(pos, rot,pFilename))) return  nullptr;
 
 	// ポインタを返す
 	return pModel;

@@ -55,7 +55,7 @@ public:
 	/// モーションの生ポインタを返す
 	/// </summary>
 	/// <param name=""></param>
-	/// <returns></生成された生ポインタ>
+	/// <returns></returns>
 	CMotion* GetMotion(void) { return m_pMotion.get(); }
 
 private:

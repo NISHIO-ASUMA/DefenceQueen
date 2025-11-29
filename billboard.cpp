@@ -46,8 +46,6 @@ CBillboard* CBillboard::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot,float fWidth, fl
 {
 	// インスタンス生成
 	CBillboard* pBillboard = new CBillboard;
-
-	// nullptrだったら
 	if (pBillboard == nullptr) return nullptr;
 
 	// オブジェクトセット
@@ -57,11 +55,7 @@ CBillboard* CBillboard::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot,float fWidth, fl
 	pBillboard->SetTexture(pTexName);
 
 	// 初期化失敗時
-	if (FAILED(pBillboard->Init()))
-	{
-		// 失敗結果を返す
-		return nullptr;
-	}
+	if (FAILED(pBillboard->Init())) return nullptr;
 
 	// ビルボードのポインタを返す
 	return pBillboard;
@@ -125,10 +119,7 @@ void CBillboard::Uninit(void)
 	// 頂点バッファの破棄
 	if (m_pVtxBuff != nullptr)
 	{
-		// 解放
 		m_pVtxBuff->Release();
-
-		// nullptr初期化
 		m_pVtxBuff = nullptr;
 	}
 

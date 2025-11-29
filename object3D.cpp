@@ -42,21 +42,14 @@ CObject3D* CObject3D::Create(D3DXVECTOR3 pos)
 {
 	// インスタンス生成
 	CObject3D* pObj3D = new CObject3D;
-
-	// nullptrだったら
 	if (pObj3D == nullptr) return nullptr;
 
 	// オブジェクト設定
 	pObj3D->SetPos(pos);
 
 	// 初期化処理失敗時
-	if (FAILED(pObj3D->Init()))
-	{
-		// nullptr代入
-		pObj3D = nullptr;
-	}
+	if (FAILED(pObj3D->Init())) return nullptr;
 
-	// 生成されたポインタを返す
 	return pObj3D;
 }
 //=========================================================

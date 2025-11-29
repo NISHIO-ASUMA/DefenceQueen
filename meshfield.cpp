@@ -83,7 +83,7 @@ HRESULT CMeshField::Init(void)
 	m_MeshFiled.nNumPrimitive = (((m_MeshFiled.nNumX * m_MeshFiled.nNumZ) * 2)) + (4 * (m_MeshFiled.nNumZ - 1)); // ポリゴン数
 	m_MeshFiled.nNumIdx = m_MeshFiled.nNumPrimitive + 2; // インデックス数
 
-	//頂点バッファの生成
+	// 頂点バッファの生成
 	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * m_MeshFiled.nNumAllVtx,
 		D3DUSAGE_WRITEONLY,
 		FVF_VERTEX_3D,
@@ -91,7 +91,7 @@ HRESULT CMeshField::Init(void)
 		&m_pVtx,
 		NULL);
 
-	//インデックスバッファの生成
+	// インデックスバッファの生成
 	pDevice->CreateIndexBuffer(sizeof(WORD) * m_MeshFiled.nNumIdx,
 		D3DUSAGE_WRITEONLY,
 		D3DFMT_INDEX16,
@@ -115,10 +115,10 @@ HRESULT CMeshField::Init(void)
 
 	D3DXVECTOR3 MathPos = m_pos;
 
-	//縦
+	// 縦
 	for (int nCntZ = 0; nCntZ <= m_MeshFiled.nNumZ; nCntZ++)
 	{
-		//横
+		// 横
 		for (int nCntX = 0; nCntX <= m_MeshFiled.nNumX; nCntX++)
 		{
 			// 頂点座標を計算
@@ -153,9 +153,7 @@ HRESULT CMeshField::Init(void)
 	m_pIdx->Lock(0, 0, (void**)&pIdx, 0);
 
 	WORD IndxNum = m_MeshFiled.nNumX + 1;// X
-
 	WORD IdxCnt = 0;// 配列
-
 	WORD Num = 0;
 
 	// インデックスの設定

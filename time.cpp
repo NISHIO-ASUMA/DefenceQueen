@@ -15,18 +15,17 @@
 //=========================================================
 // オーバーロードコンストラクタ
 //=========================================================
-CTime::CTime(int nPriority) : CObject(nPriority)
+CTime::CTime(int nPriority) : CObject(nPriority),
+m_pos(VECTOR3_NULL),
+m_fHeight(NULL),
+m_fWidth(NULL),
+m_nAllTime(NULL),
+m_nCount(NULL),
+m_nDecTime(NULL),
+m_nMinute(NULL),
+m_nSecond(NULL)
 {
 	// 値のクリア
-	m_pos = VECTOR3_NULL;
-	m_fHeight = NULL;
-	m_fWidth = NULL;
-	m_nAllTime = NULL;
-	m_nSecond = NULL;
-	m_nMinute = NULL;
-	m_nDecTime = NULL;
-	m_nCount = NULL;
-
 	for (int nCnt = 0; nCnt < DIGIT_TIME; nCnt++)
 	{
 		m_pNumberMinute[nCnt] = nullptr;
@@ -65,7 +64,7 @@ CTime* CTime::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
 //=========================================================
 HRESULT CTime::Init(void)
 {
-	// メンバ変数の初期化
+	// 最大時間をセット
 	m_nAllTime = NUMTIME;
 
 	// 分を計算
@@ -90,7 +89,7 @@ HRESULT CTime::Init(void)
 		m_pNumberMinute[nCnt]->SetTexture("number003.png");
 	}
 
-	// ずらす値
+	// 横に座標をずらす
 	m_pos.x += VALUE_WIDTH;
 
 	// 秒生成
@@ -189,10 +188,7 @@ void CTime::Draw(void)
 	// 桁数分描画
 	for (int nCnt = 0; nCnt < DIGIT_TIME; nCnt++)
 	{
-		// 分描画
 		m_pNumberMinute[nCnt]->Draw();
-
-		// 秒描画
 		m_pNumberSecond[nCnt]->Draw();
 	}
 }

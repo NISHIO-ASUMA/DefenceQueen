@@ -137,6 +137,7 @@ void CObject2D::Update(void)
 	switch (m_nAnchorType)
 	{
 	case ANCHORTYPE_NONE: // 何もない
+		SetCenter();
 		break;
 
 	case ANCHORTYPE_CENTER: // 中心点
@@ -152,7 +153,6 @@ void CObject2D::Update(void)
 		break;
 
 	default:
-		SetCenter(); // 中心点
 		break;
 	}
 }

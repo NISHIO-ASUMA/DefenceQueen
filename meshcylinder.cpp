@@ -111,11 +111,8 @@ HRESULT CMeshCylinder::Init(void)
 			nor = pVtx[nCnt].pos - m_pos;	// 各頂点から原点の値を引く
 			D3DXVec3Normalize(&pVtx[nCnt].nor, &nor);	// 法線の正規化
 
-			// 法線ベクトルの設定
-			pVtx[nCnt].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-
 			// 頂点カラーの設定
-			pVtx[nCnt].col = D3DCOLOR_RGBA(101, 187, 233, 100);
+			pVtx[nCnt].col = D3DCOLOR_RGBA(101, 187, 233,120);
 
 			// テクスチャ座標の設定
 			pVtx[nCnt].tex = D3DXVECTOR2(fTexX * nCntX, nCntZ * fTexY);

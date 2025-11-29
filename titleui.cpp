@@ -34,9 +34,6 @@ HRESULT CTitleUi::Init(void)
 	// 2Dオブジェクトの初期化処理
 	CObject2D::Init();
 
-	// 頂点タイプを設定
-	SetAnchor(ANCHORTYPE_CENTER);
-
 	// 初期化結果を返す
 	return S_OK;
 }
@@ -95,16 +92,12 @@ void CTitleUi::SetTexture(int nType)
 
 	switch (nType)
 	{
-	case MENU_GAME:				// ゲームメニュー
-		szFileName = "titlemenu_001.png";
-		break;
-
-	case MENU_TUTORIAL:		// チュートリアルメニュー
-		szFileName = "titlemenu_002.png";
+	case MENU_GAME:			// ゲームメニュー
+		szFileName = "menu_start.png";
 		break;
 
 	case MENU_EXIT:			// 終了メニュー
-		szFileName = "titlemenu_003.png";
+		szFileName = "menu_exit.png";
 		break;
 
 	default:

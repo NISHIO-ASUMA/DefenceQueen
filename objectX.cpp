@@ -61,6 +61,7 @@ void CObjectX::Update(void)
 //=========================================================
 void CObjectX::Draw(void)
 {
+	// インデックスが-1なら
 	if (m_nIdxModel == -1)
 		return;
 
@@ -135,10 +136,7 @@ void CObjectX::Draw(void)
 	pDevice->SetMaterial(&matDef);
 
 	// マトリックスシャドウ描画
-	if (m_isShadow)
-	{
-		DrawShadow();
-	}
+	if (m_isShadow) DrawShadow();
 }
 //=========================================================
 // マトリックスシャドウ描画
