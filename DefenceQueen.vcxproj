@@ -234,10 +234,12 @@
     <ClCompile Include="queen.cpp" />
     <ClCompile Include="ranking.cpp" />
     <ClCompile Include="rankingmanager.cpp" />
+    <ClCompile Include="rankingobject.cpp" />
     <ClCompile Include="rankingscore.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="result.cpp" />
     <ClCompile Include="resultmanager.cpp" />
+    <ClCompile Include="resultobject.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="selectpoint.cpp" />
@@ -255,6 +257,7 @@
     <ClCompile Include="titleui.cpp" />
     <ClCompile Include="tutorial.cpp" />
     <ClCompile Include="tutorialmanager.cpp" />
+    <ClCompile Include="tutorialobject.cpp" />
     <ClCompile Include="tutorialui.cpp" />
     <ClCompile Include="ui.cpp" />
     <ClCompile Include="worker.cpp" />
@@ -356,10 +359,12 @@
     <ClInclude Include="queen.h" />
     <ClInclude Include="ranking.h" />
     <ClInclude Include="rankingmanager.h" />
+    <ClInclude Include="rankingobject.h" />
     <ClInclude Include="rankingscore.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="result.h" />
     <ClInclude Include="resultmanager.h" />
+    <ClInclude Include="resultobject.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="selector.h" />
@@ -381,6 +386,7 @@
     <ClInclude Include="titleui.h" />
     <ClInclude Include="tutorial.h" />
     <ClInclude Include="tutorialmanager.h" />
+    <ClInclude Include="tutorialobject.h" />
     <ClInclude Include="tutorialui.h" />
     <ClInclude Include="ui.h" />
     <ClInclude Include="waitleaf.h" />

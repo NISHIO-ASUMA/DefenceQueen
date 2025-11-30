@@ -23,6 +23,7 @@ class CMotion;
 class CStateMachine;
 class CSphereCollider;
 class CSelectPoint;
+class CWorkerStateBase;
 
 //*********************************************************
 // 働きアリクラスの定義
@@ -38,7 +39,6 @@ public:
 	{
 		MOTION_NEUTRAL,		// ニュートラル
 		MOTION_MOVE,		// 移動
-		MOTION_ACTION,		// アクション
 		MOTION_MAX
 	};
 
@@ -51,6 +51,7 @@ public:
 	void Draw(void) override;
 	bool Collision(CSphereCollider* other);
 
+	void ChangeState(CWorkerStateBase* pState, int nId);
 	void SetIsWork(const bool iswork) { m_isWork = iswork; }
 	bool GetIsWork(void) const { return m_isWork; }
 

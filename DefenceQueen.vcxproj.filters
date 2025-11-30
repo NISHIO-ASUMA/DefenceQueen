@@ -633,6 +633,15 @@
     <ClCompile Include="numberpanel.cpp">
       <Filter>ソース ファイル\3D</Filter>
     </ClCompile>
+    <ClCompile Include="rankingobject.cpp">
+      <Filter>ソース ファイル\Scenes\SceneObject</Filter>
+    </ClCompile>
+    <ClCompile Include="resultobject.cpp">
+      <Filter>ソース ファイル\Scenes\SceneObject</Filter>
+    </ClCompile>
+    <ClCompile Include="tutorialobject.cpp">
+      <Filter>ソース ファイル\Scenes\SceneObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blackboard.h">
@@ -1009,6 +1018,15 @@
     </ClInclude>
     <ClInclude Include="numberpanel.h">
       <Filter>ヘッダー ファイル\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="rankingobject.h">
+      <Filter>ヘッダー ファイル\Scene\SceneObject</Filter>
+    </ClInclude>
+    <ClInclude Include="resultobject.h">
+      <Filter>ヘッダー ファイル\Scene\SceneObject</Filter>
+    </ClInclude>
+    <ClInclude Include="tutorialobject.h">
+      <Filter>ヘッダー ファイル\Scene\SceneObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -69,13 +69,17 @@ HRESULT CWorker::Init(void)
 	SetObjType(CObject::TYPE_WORKER);
 
 	// モーションセット
-	MotionLoad("data/MOTION/Worker/Worker.txt", MOTION_MAX);
+	MotionLoad("data/MOTION/Work/Worker_Motion.txt", MOTION_MAX);
 
 	// コライダー生成
 	m_pSphereCollider = CSphereCollider::Create(GetPos(), 60.0f);
 
 	// モーションポインタ取得
 	m_pMotion = CMoveCharactor::GetMotion();
+
+	// ステートマシン生成
+	//m_pStateMachine = std::make_unique<CStateMachine>();
+	//ChangeState(new CWorkerStateNeutral, CWorkerStateBase::ID_NEUTRAL);
 
 	// ゲームオブジェクトから選択ポイントを取得
 	// m_pSelect = CGameSceneObject::GetInstance()->GetPoint();
@@ -87,7 +91,7 @@ HRESULT CWorker::Init(void)
 //=========================================================
 void CWorker::Uninit(void)
 {
-	// ポインタ破棄
+	// ステートポインタ破棄
 	m_pStateMachine.reset();
 
 	// ポインタ破棄
@@ -105,9 +109,6 @@ void CWorker::Uninit(void)
 //=========================================================
 void CWorker::Update(void)
 {
-	// 現在のキャラクター座標を取得
-	D3DXVECTOR3 pos = GetPos();
-
 	// キャラクターの座標更新
 	CMoveCharactor::UpdatePosition();
 
@@ -134,4 +135,15 @@ void CWorker::Draw(void)
 bool CWorker::Collision(CSphereCollider* other)
 {
 	return CCollisionSphere::Collision(m_pSphereCollider,other);
+}
+//=========================================================
+// 状態切り替え関数
+//=========================================================
+void CWorker::ChangeState(CWorkerStateBase* pState, int nId)
+{
+	// 自分自身を代入
+	pState->SetOwner(this);
+
+	// ステート変更
+	m_pStateMachine->ChangeState(pState);
 }

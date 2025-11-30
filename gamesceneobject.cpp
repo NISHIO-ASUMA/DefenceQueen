@@ -21,6 +21,7 @@
 #include "enemy.h"
 #include "array.h"
 #include "workeruimanager.h"
+#include "worker.h"
 
 //*********************************************************
 // 静的メンバ変数
@@ -56,6 +57,9 @@ HRESULT CGameSceneObject::Init(void)
 
 	// NOTE: 実験
 	// CArray::Create(D3DXVECTOR3(-400.0f,0.0f,-200.0f),VECTOR3_NULL,10);
+
+	// NOTE : 実験
+	// CWorker::Create(D3DXVECTOR3(-200.0f, 0.0f, -50.0f), VECTOR3_NULL);
 
 	// 選択ポイント生成
 	m_pSelectPoint = CSelectPoint::Create(VECTOR3_NULL, VECTOR3_NULL, 80.0f, 3.0f, 80.0f);

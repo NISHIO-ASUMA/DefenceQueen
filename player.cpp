@@ -142,12 +142,6 @@ void CPlayer::Update(void)
 	CInputKeyboard* pKeyboard = CManager::GetInstance()->GetInputKeyboard();
 	CJoyPad* pJoyPad = CManager::GetInstance()->GetJoyPad();
 
-	//// スティックでの移動処理
-	//MovePad(pJoyPad);
-
-	//// 座標のみの更新
-	//CNoMoveCharactor::UpdatePosition();
-
 	// 更新された座標を取得
 	D3DXVECTOR3 UpdatePos = GetPos();
 
@@ -212,11 +206,11 @@ void CPlayer::CollisionAll(D3DXVECTOR3 pPos, CInputKeyboard* pInput, CJoyPad* pP
 
 	if (pPoint->GetIsHit())
 	{
+		// 決定キー or Aボタン
 		if (pPad->GetTrigger(CJoyPad::JOYKEY_A) || pInput->GetTrigger(DIK_RETURN))
 		{
-			// TODO : これを司令塔アリの指示に変える
-
-			CBlock::Create(GetPos(), VECTOR3_NULL, INITSCALE, "STAGEOBJ/Reef.x");
+			// これを司令塔アリの指示に指示命令を送るフラグを有効化
+			
 		}
 	}
 }
