@@ -38,6 +38,7 @@ public:
 	enum MOTION
 	{
 		MOTION_NEUTRAL,
+		MOTION_MOVE,
 		MOTION_MAX
 	};
 

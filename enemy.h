@@ -41,7 +41,7 @@ public:
 	enum MOTION
 	{
 		MOTION_NEUTRAL,	// ƒjƒ…[ƒgƒ‰ƒ‹
-		// MOTION_MOVE,	// ˆÚ“®
+		MOTION_MOVE,	// ˆÚ“®
 		MOTION_MAX
 	};
 

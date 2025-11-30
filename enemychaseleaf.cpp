@@ -56,7 +56,7 @@ void CEnemyChaseLeaf::Update()
 		DestObject->SetMove(VecToDestObj);
 
 		// ˆÚ“®ƒ‚[ƒVƒ‡ƒ“‚É•ÏX
-		// DestObject->GetMotion()->SetMotion(CEnemy::MOTION_MOVE);
+		DestObject->GetMotion()->SetMotion(CEnemy::MOTION_MOVE);
 	}
 	else
 	{
