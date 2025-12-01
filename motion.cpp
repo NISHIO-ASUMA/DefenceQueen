@@ -70,8 +70,9 @@ int CMotion::RegisterPath(const char* pMotionName, std::vector<CModel*>& pModel,
 //=========================================================
 std::unique_ptr<CMotion> CMotion::Load(const char* pFilename, std::vector<CModel*>& pModel, int nDestMotions,const bool isShadow)
 {
-	// モーションクラスのインスタンス生成
 	auto pMotion = std::make_unique<CMotion>();
+#if 0
+	// モーションクラスのインスタンス生成
 
 	// ファイル設定
 	std::ifstream file(pFilename);
@@ -151,6 +152,7 @@ std::unique_ptr<CMotion> CMotion::Load(const char* pFilename, std::vector<CModel
 	// ファイルを閉じる
 	file.close();
 
+#endif
 	// 生成されたポインタを返す
 	return pMotion;
 }
@@ -529,6 +531,7 @@ void CMotion::Debug(void)
 	CDebugproc::Draw(800, 360);
 }
 
+#if 0
 //=================================================================
 // モデル数読み込み
 //=================================================================
@@ -881,6 +884,9 @@ void CMotion::SetKeyDate(std::istringstream& ss, const std::string& param, CMoti
 		rotKeyIndex++;
 	}
 }
+
+#endif
+
 //=================================================================
 // モーションフレーム判定
 //=================================================================
@@ -893,3 +899,4 @@ bool CMotion::CheckFrame(int nStartMotion, int nEndMotion, int nMotionType)
 	// それ以外の時
 	return false;
 }
+

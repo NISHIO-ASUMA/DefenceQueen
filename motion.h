@@ -70,13 +70,6 @@ public:
 	bool CheckFrame(int nStartMotion, int nEndMotion, int nMotionType);
 
 	void SetMotion(int motiontype);
-	void SetMotionNum(int nMotion) { m_nNumMotion = nMotion; }
-	int SetModels(std::istringstream& iss);
-	void SetModelFile(std::istringstream& iss, std::vector<CModel*>& pModel, int nCnt, const bool isShadow);
-	void SetParts(std::ifstream& file, std::vector<CModel*>& pModel);
-	void SetPartsMotion(std::ifstream& file, CMotion* pMotion, int nCntMotion);
-	void SetKey(std::ifstream& file, CMotion* pMotion, int nCntMotion, int nCntKey);
-	void SetKeyDate(std::istringstream& ss, const std::string& param, CMotion* pMotion, int nCntMotion, int nCntKey, int& posKeyIndex, int& rotKeyIndex);
 	void SetMotion(int nMotionType, bool isBlend, int nBlendFrame);
 	void SetResetFrame(int nFrame) { m_nCounterMotion = nFrame;}
 
@@ -88,9 +81,11 @@ public:
 	static std::unique_ptr<CMotion>Load(const char* pFilename, std::vector<CModel*>& pModel, int nDestMotions, const bool isShadow);
 
 private: 
+
 	std::vector<INFO> m_aMotionInfo; // モーション情報を動的確保
 
 	int m_nNumMotion;		// モーションの総数
+	int m_nNumModels;		// モデル総数
 	int m_nNumKey;			// キーの総数
 	int m_nKey;				// 現在のキーNo
 	int m_nCounterMotion;	// モーションのカウンター
@@ -103,7 +98,6 @@ private:
 	int m_nCounterBlend;	// ブレンドカウンター
 	int m_nKeyBlend;		// ブレンドモーションの現在のキー
 	int m_nNextKeyBlend;	// ブレンドモーションの次のキー
-	int m_nNumModels;
 	int m_nNumAllFrame;		// キーごとのフレーム数
 	int m_nAllFrameCount;	// 全体フレーム数
 
@@ -117,3 +111,15 @@ private:
 	int m_nMotionIdx;				// モーションファイル番号
 	const char* m_pMotionName;
 };
+
+#if 0
+
+void SetMotionNum(int nMotion) { m_nNumMotion = nMotion; }
+int SetModels(std::istringstream& iss);
+void SetModelFile(std::istringstream& iss, std::vector<CModel*>& pModel, int nCnt, const bool isShadow);
+void SetParts(std::ifstream& file, std::vector<CModel*>& pModel);
+void SetPartsMotion(std::ifstream& file, CMotion* pMotion, int nCntMotion);
+void SetKey(std::ifstream& file, CMotion* pMotion, int nCntMotion, int nCntKey);
+void SetKeyDate(std::istringstream& ss, const std::string& param, CMotion* pMotion, int nCntMotion, int nCntKey, int& posKeyIndex, int& rotKeyIndex);
+
+#endif

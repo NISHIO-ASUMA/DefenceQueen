@@ -52,7 +52,7 @@ HRESULT CMoveCharactor::Init(void)
 	// 変数の初期化
 	m_pModel.clear();
 
-	m_pMotion = std::make_unique<CMotion>();
+	// m_pMotion = std::make_unique<CMotion>();
 
 	// 有効時
 	if (m_isStencilUse)
@@ -192,6 +192,6 @@ void CMoveCharactor::UpdatePosition(void)
 //=========================================================
 void CMoveCharactor::MotionLoad(const char* pScriptName, int nDestMotions, const bool isShadow)
 {
-	// インデックスに登録する
-	m_nidxMotion = m_pMotion->RegisterPath(pScriptName, m_pModel, nDestMotions, isShadow);
+	// モーション情報を取得する
+	m_pMotion;
 }

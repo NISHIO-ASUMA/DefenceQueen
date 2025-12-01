@@ -3,6 +3,8 @@
 // モーションファイル管理クラス [ motionmanager.h ]
 // Author: Asuma Nishio
 //
+// TODO : ここは読み込み情報のセット,受け渡しをする
+// 
 //=========================================================
 
 //*********************************************************
@@ -31,12 +33,43 @@ class CMotionManager
 public:
 
 	//*********************************
-	// モーションファイルデータ構造体
+	// パスを保存する構造体
 	//*********************************
 	struct MOTIONFILE
 	{
 		std::string FilePath;	// ファイル名
-		std::unique_ptr<CMotion>pMotion; // モーションクラスのユニークポインタ
+	};
+
+	//***************************
+	// キー構造体宣言
+	//***************************
+	struct KEY
+	{
+		float fPosX;	// 位置X
+		float fPosY;	// 位置Y
+		float fPosZ;	// 位置Z
+		float fRotX;	// 角度X
+		float fRotY;	// 角度Y
+		float fRotZ;	// 角度Z
+	};
+
+	//***************************
+	// キー情報の構造体宣言
+	//***************************
+	struct KEY_INFO
+	{
+		int nFrame;				// フレーム数
+		std::vector<KEY> aKey;  // 動的なキー数
+	};
+
+	//***************************
+	// モーション情報の構造体宣言
+	//***************************
+	struct INFO
+	{
+		bool bLoop;						// ループするかしないか
+		int nNumKey;					// キーの総数
+		std::vector<KEY_INFO> aKeyInfo; // モーションの動的キーフレーム
 	};
 
 	CMotionManager();
@@ -46,25 +79,62 @@ public:
 	void UnLoad(void);
 
 	/// <summary>
-	/// モーションファイルを登録する
+	/// モーションファイルの登録処理
 	/// </summary>
-	/// <param name="pMotionName">登録したいファイル名</param>
+	/// <param name="pFileName">モーションファイル名</param>
+	/// <param name="pModel">参照モデル</param>
+	/// <param name="nDestMotion">モーション最大数</param>
+	/// <param name="isShadow">影の描画フラグ</param>
 	/// <returns></returns>
-	int Register(const char* pMotionName,std::vector<CModel*>& pModel, const int nNumMotion,const bool isShadow);
+	int Register(const char* pFileName,std::vector<CModel*>& pModel,int nDestMotion,bool isShadow);
+
+	/// <summary>
+	/// 実際のモーションロードを行う
+	/// </summary>
+	/// <param name="pFileName">モーションファイル名</param>
+	/// <param name="pModel">参照モデル</param>
+	/// <param name="nDestMotion">モーション最大数</param>
+	/// <param name="isShadow">影の描画フラグ</param>
+	void LoadMotion(const char* pFileName, std::vector<CModel*>& pModel, int nDestMotion, bool isShadow);
 
 	/// <summary>
 	/// 配列番号を指定して情報を取得
 	/// </summary>
-	/// <param name="nIdx">取得したいインデックス</param>
-	CMotion* GetMotion(const int nIdx) { return m_File[nIdx].pMotion.get(); }
+	/// <param name="nIdx">取得するオブジェクトインデックス</param>
+	/// <returns>インデックス番号に応じたデータ</returns>
+	INFO GetInfo(const int nIdx) { return m_aMotionInfo[nIdx]; }
 
-	MOTIONFILE &GetInfo(const int nIdx) { return m_File[nIdx]; }
+	/// <summary>
+	/// 動的配列の取得
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns>配列ポインタ</returns>
+	std::vector<INFO>& GetList(void) { return m_aMotionInfo; }
 
 private:
 
-	// モーション読み込み関数
-	std::unique_ptr<CMotion> LoadMotionFile(const char* pScript, std::vector<CModel*>& pModel, const int nNumMotion, const bool isShadow);
+	//***********************************
+	// クラス内メンバ関数
+	//***********************************
+	void SetMotionNum(int nMotion) { m_nNumMotion = nMotion; }
+	void SetNumModel(int nNumModel) { m_nNumModels = nNumModel; }
+	int SetModels(std::istringstream& iss);
+	void SetModelFile(std::istringstream& iss, std::vector<CModel*>& pModel, int nCnt, const bool isShadow);
+	void SetParts(std::ifstream& file, std::vector<CModel*>& pModel);
+	void SetPartsMotion(std::ifstream& file, int nCntMotion);
+	void SetKey(std::ifstream& file,int nCntMotion, int nCntKey);
+	void SetKeyDate(std::istringstream& ss, const std::string& param, int nCntMotion, int nCntKey, int& posKeyIndex, int& rotKeyIndex);
 
-	// 動的配列
-	std::vector<MOTIONFILE>m_File;
+	// 静的変数
+	static int m_nNumAll;
+
+	//　ファイルパスを保持しておく配列
+	std::vector<MOTIONFILE>m_FileData;
+
+	// モーション情報を保持する配列
+	std::vector<INFO> m_aMotionInfo;
+
+	int m_nNumMotion;		// モーションの総数
+	int m_nNumModels;		// モデル総数
+
 };
