@@ -35,18 +35,13 @@ HRESULT CFeedManager::Init(void)
 	// クリア
 	m_pFeed.clear();
 
-	// サイズセット
-	m_pFeed.resize(3);
+	// TODO : 一旦挙動を確認したらメモリだけ確保しておく処理に変更
+	m_pFeed.resize(Config::ALLFEED);
 
-	// あらかじめ最大数生成する
-	for (int nCnt = 0; nCnt < m_pFeed.size(); nCnt++)
-	{
-		// インスタンス生成
-		m_pFeed[nCnt] = CFeed::Create(D3DXVECTOR3(300.0f * nCnt, 60.0f, nCnt * 200.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x",85.0f);
-
-		// 円柱生成
-		CMeshCylinder::Create(D3DXVECTOR3(300.0f * nCnt, 0.0f, nCnt * 200.0f), m_pFeed[nCnt]->GetRadius());
-	}
+	// TODO : のちに変更
+	m_pFeed[0] = CFeed::Create(D3DXVECTOR3(-300.0f, 60.0f,-200.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x",85.0f);
+	m_pFeed[1] = CFeed::Create(D3DXVECTOR3(300.0f, 60.0f, -600.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x", 85.0f);
+	m_pFeed[2] = CFeed::Create(D3DXVECTOR3(0.0f, 60.0f, 550.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x", 85.0f);
 
 	return S_OK;
 }
@@ -63,15 +58,13 @@ void CFeedManager::Uninit(void)
 void CFeedManager::Update(void)
 {
 	// 経過時間によって出現する
-	auto GameSceneObject = CGameSceneObject::GetInstance();
-	auto time = GameSceneObject->GetTime();
-
-
+	// auto GameSceneObject = CGameSceneObject::GetInstance();
+	// auto time = GameSceneObject->GetTime();
 }
 //=========================================================
 // 描画処理
 //=========================================================
 void CFeedManager::Draw(void)
 {
-
+	// 無し
 }

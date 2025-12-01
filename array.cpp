@@ -48,6 +48,7 @@ CArray* CArray::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,const int nL
 	// オブジェクト設定
 	pArray->SetPos(pos);
 	pArray->SetRot(rot);
+	pArray->SetUseStencil(false);
 	pArray->m_pParameter = std::make_unique<CParameter>();
 
 	// nullチェック
@@ -75,7 +76,7 @@ HRESULT CArray::Init(void)
 	SetObjType(CObject::TYPE_ARRAY);
 
 	// モーションセット
-	MotionLoad("data/MOTION/Array/Array_Motion.txt", MOTION_MAX);
+	MotionLoad("data/MOTION/Array/Array_Motion.txt", MOTION_MAX,true);
 
 	// スフィアコライダー生成
 	m_pSphereCollider = CSphereCollider::Create(GetPos(), Arrayinfo::SphereRange);
@@ -87,8 +88,11 @@ HRESULT CArray::Init(void)
 	m_pBlackBoard = new CBlackBoard;
 	m_pBlackBoard->SetValue<CArray*>("Array",this);
 
-	// NOTE : 実験で今これにしてる 後々ここはfalseにする
-	m_isActive = true;
+	// TODO : 実験で今これにしてる 後々ここはfalseにする
+	m_isActive = false;
+
+	// 拡大する
+	SetScale(D3DXVECTOR3(1.5f, 1.5f, 1.5f));
 
 	return S_OK;
 }

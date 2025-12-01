@@ -25,6 +25,7 @@
 #include "collision.h"
 #include "fade.h"
 #include "xfilemanager.h"
+#include "motionmanager.h"
 
 //=========================================================
 // コンストラクタ
@@ -40,7 +41,8 @@ m_pRenderer(nullptr),
 m_pScene(nullptr),
 m_pSound(nullptr),
 m_pTexture(nullptr),
-m_pXfileManager(nullptr)
+m_pXfileManager(nullptr),
+m_pMotionManager(nullptr)
 {
 	// 値のクリア
 }
@@ -93,6 +95,10 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	m_pXfileManager = std::make_unique <CXfileManager>();
 	if (FAILED(m_pXfileManager->Load())) return E_FAIL;
 
+	// モーションマネジャーの生成処理
+	m_pMotionManager = std::make_unique<CMotionManager>();
+	if (FAILED(m_pMotionManager->Load())) return E_FAIL;
+
 	// フェードの生成処理
 	m_pFade = std::make_unique <CFade>();
 	if (FAILED(m_pFade->Init())) return E_FAIL;
@@ -138,6 +144,9 @@ void CManager::Uninit(void)
 
 	// モデルインスタンスの破棄
 	m_pXfileManager.reset();
+
+	// モーションマネージャーの破棄
+	m_pMotionManager.reset();
 
 	// シーンの破棄
 	if (m_pScene)

@@ -23,8 +23,10 @@ m_pos(VECTOR3_NULL),
 m_rot(VECTOR3_NULL),
 m_offPos(VECTOR3_NULL),
 m_offRot(VECTOR3_NULL),
+m_scale(INITSCALE),
 m_parttype(PARTTYPE_NONE),
-m_isColorChange(false)
+m_isColorChange(false),
+m_isShadow(false)
 {
 	// 値のクリア
 }
@@ -38,7 +40,7 @@ CModel::~CModel()
 //=========================================================
 // 初期化処理
 //=========================================================
-HRESULT CModel::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot,const char * pFilename)
+HRESULT CModel::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot,const char * pFilename,const bool isShadow)
 {
 	// デバイスポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
@@ -88,8 +90,26 @@ HRESULT CModel::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot,const char * pFilename)
 		}
 	}
 
+	// フラグを設定する
+	SetMtxShadow(isShadow);
+
 	// 結果を返す
 	return S_OK;
+}
+//=========================================================
+// 生成処理
+//=========================================================
+CModel* CModel::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, const char* pFilename,const bool isShadow)
+{
+	// インスタンス生成
+	CModel* pModel = new CModel;
+	if (pModel == nullptr) return nullptr;
+
+	// 初期化失敗時
+	if (FAILED(pModel->Init(pos, rot, pFilename,isShadow))) return  nullptr;
+
+	// ポインタを返す
+	return pModel;
 }
 //=========================================================
 // 終了処理
@@ -133,7 +153,7 @@ void CModel::Draw(void)
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// 計算用のマトリックスを宣言
-	D3DXMATRIX mtxRot, mtxTrans;
+	D3DXMATRIX mtxRot, mtxTrans,mtxScale;
 
 	// 現在のマテリアルを保存
 	D3DMATERIAL9 matDef;
@@ -143,6 +163,10 @@ void CModel::Draw(void)
 
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxworld);
+
+	// 大きさを反映
+	D3DXMatrixScaling(&mtxScale, m_scale.x, m_scale.y, m_scale.z);
+	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxScale);
 
 	// 向きを反映
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y + m_offRot.y, m_rot.x + m_offRot.x, m_rot.z + m_offRot.z);
@@ -219,21 +243,58 @@ void CModel::Draw(void)
 
 	// マテリアルを戻す
 	pDevice->SetMaterial(&matDef);
+
+	// 有効なら
+	if (m_isShadow)
+	{
+		DrawMtxShadow();
+	}
 }
 //=========================================================
-// 生成処理
+// マトリックスシャドウ処理
 //=========================================================
-CModel* CModel::Create(D3DXVECTOR3 pos,D3DXVECTOR3 rot, const char* pFilename)
+void CModel::DrawMtxShadow(void)
 {
-	// インスタンス生成
-	CModel* pModel = new CModel;
-	if (pModel == nullptr) return nullptr;
+	// デバイス取得
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
+	if (!pDevice) return;
 
-	// 初期化失敗時
-	if (FAILED(pModel->Init(pos, rot,pFilename))) return  nullptr;
+	// ライト方向
+	D3DXVECTOR4 lightDir(0.2f, -0.63f, -0.02f, 0.0f);
 
-	// ポインタを返す
-	return pModel;
+	// 平面投影座標を設定
+	D3DXPLANE plane;
+	D3DXVECTOR3 point = D3DXVECTOR3(0.0f, 0.5f, 0.0f);
+	D3DXVECTOR3 normal = D3DXVECTOR3(0.0f, -0.5f, 0.0f);
+	D3DXPlaneFromPointNormal(&plane, &point, &normal);
+
+	// 影マトリックス生成
+	D3DXMATRIX mtxShadow;
+	D3DXMatrixShadow(&mtxShadow, &lightDir, &plane);
+
+	// 影をモデルの位置に合わせる
+	D3DXMATRIX mtxWorldShadow;
+	D3DXMatrixMultiply(&mtxWorldShadow, &m_mtxworld, &mtxShadow);
+
+	// ワールドマトリックスの設定
+	pDevice->SetTransform(D3DTS_WORLD, &mtxWorldShadow);
+
+	// 半透明に設定
+	D3DMATERIAL9 shadowMat = {};
+	shadowMat.Diffuse = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.35f);
+	shadowMat.Ambient = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.35f);
+
+	// マテリアルセット
+	pDevice->SetMaterial(&shadowMat);
+
+	// メッシュ描画
+	for (int nCnt = 0; nCnt < (int)m_dwNumMat; nCnt++)
+	{
+		m_pMesh->DrawSubset(nCnt);
+	}
+
+	// マテリアルを戻す
+	pDevice->SetMaterial(&shadowMat);
 }
 //=========================================================
 // 親パーツ設定処理

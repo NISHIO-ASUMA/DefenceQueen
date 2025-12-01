@@ -159,23 +159,28 @@ void CSelectPoint::Update(void)
 		}
 	}
 
-	// ポインタ取得
+	// 餌クラスのポインタ取得
 	CFeedManager* pManager = CGameSceneObject::GetInstance()->GetFeedManager();
 
-	for (int nCnt = 0; nCnt < pManager->GetSize(); nCnt++)
+	// サイズがnull値じゃなかったら
+	if (pManager->GetSize() > 0)
 	{
-		if (Collision(pManager->GetFeed(nCnt)->GetCollider()))
+		for (int nCnt = 0; nCnt < pManager->GetSize(); nCnt++)
 		{
-			// ヒット時の処理
-			SetIsHit(true);
-			SetCol(COLOR_RED);
-			break;
-		}
-		else
-		{
-			// 未ヒット時の処理
-			SetIsHit(false);
-			SetCol(COLOR_WHITE);
+			// 当たったら
+			if (Collision(pManager->GetFeed(nCnt)->GetCollider()))
+			{
+				// ヒット時の処理
+				SetIsHit(true);
+				SetCol(COLOR_RED);
+				break;
+			}
+			else
+			{
+				// 未ヒット時の処理
+				SetIsHit(false);
+				SetCol(COLOR_WHITE);
+			}
 		}
 	}
 

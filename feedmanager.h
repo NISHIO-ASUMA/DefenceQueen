@@ -51,11 +51,19 @@ public:
 
 private:
 
-	std::vector<CFeed*>m_pFeed; // 動的配列
+	//****************************
+	// 定数構造体
+	//****************************
+	struct Config
+	{
+		static constexpr int ALLFEED = 3; // 最大で確保するメモリ数
+	};
 
-	// 出現座標
+	// 出現座標の配列
 	const D3DXVECTOR3 ActivePos[1] =
 	{
 		{200.0f,0.0f,30.0f}
 	};
+
+	std::vector<CFeed*>m_pFeed; // 動的配列
 };

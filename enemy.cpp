@@ -63,6 +63,7 @@ CEnemy* CEnemy::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife)
 	// オブジェクト設定
 	pEnemy->SetPos(pos);
 	pEnemy->SetRot(rot);
+	pEnemy->SetUseStencil(false);
 
 	// ポインタ生成
 	pEnemy->m_pParameter = std::make_unique<CParameter>();
@@ -92,7 +93,7 @@ HRESULT CEnemy::Init(void)
 	SetObjType(CObject::TYPE_ENEMY);
 
 	// モーションセット
-	MotionLoad("data/MOTION/Enemy/Enemy_Motion.txt", MOTION_MAX);
+	MotionLoad("data/MOTION/Enemy/Enemy_Motion.txt", MOTION_MAX,true);
 
 	// ステートマシンを生成
 	m_pStateMachine = std::make_unique<CStateMachine>();
@@ -102,6 +103,9 @@ HRESULT CEnemy::Init(void)
 
 	// 敵で使うAIノードをセットする
 	NodeSetting();
+
+	// 拡大する
+	// SetScale(D3DXVECTOR3(1.5f, 1.5f, 1.5f));
 
 	// 初期化結果を返す
 	return S_OK;

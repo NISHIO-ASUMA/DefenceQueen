@@ -26,7 +26,7 @@ m_nCountAnim(NULL),
 m_nPatterAnim(NULL),
 m_nIdxTexture(-1),
 m_col(COLOR_WHITE),
-m_isTests(false),
+m_isTests(true),
 m_pVtxBuff(nullptr)
 {
 	// ワールドマトリックスのクリア

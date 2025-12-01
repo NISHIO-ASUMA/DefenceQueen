@@ -16,6 +16,7 @@
 #include "game.h"
 #include "pause.h"
 #include "sound.h"
+#include "camera.h"
 
 //*********************************************************
 // ’è”‹óŠÔ

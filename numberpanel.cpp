@@ -38,6 +38,7 @@ CNumberPanel* CNumberPanel::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,
 	// オブジェクト設定
 	pPanel->SetPos(pos);
 	pPanel->SetRot(rot);
+	pPanel->SetSize(120.0f, 40.0f);
 	pPanel->SetType(nType);
 	pPanel->SetTexture();
 

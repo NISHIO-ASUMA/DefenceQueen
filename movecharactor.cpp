@@ -14,6 +14,7 @@
 #include "manager.h"
 #include "blackboard.h"
 #include "node.h"
+#include "motionmanager.h"
 
 //=========================================================
 // コンストラクタ
@@ -29,7 +30,9 @@ m_type(TYPE_NONE),
 m_pModel{},
 m_pMotion{},
 m_pShadowS{},
-m_fMoveValue(NULL)
+m_fMoveValue(NULL),
+m_isStencilUse(false),
+m_nidxMotion(-1)
 {
 	// 値のクリア
 	D3DXMatrixIdentity(&m_mtxworld);
@@ -49,8 +52,14 @@ HRESULT CMoveCharactor::Init(void)
 	// 変数の初期化
 	m_pModel.clear();
 
-	// 影モデル生成
-	m_pShadowS = CShadowS::Create(m_pos, m_rot);
+	m_pMotion = std::make_unique<CMotion>();
+
+	// 有効時
+	if (m_isStencilUse)
+	{
+		// 影モデル生成
+		m_pShadowS = CShadowS::Create(m_pos, m_rot);
+	}
 
 	return S_OK;
 }
@@ -181,7 +190,8 @@ void CMoveCharactor::UpdatePosition(void)
 //=========================================================
 // モーションロード処理
 //=========================================================
-void CMoveCharactor::MotionLoad(const char* pScriptName, int nDestMotions)
+void CMoveCharactor::MotionLoad(const char* pScriptName, int nDestMotions, const bool isShadow)
 {
-	m_pMotion = CMotion::Load(pScriptName, m_pModel, nDestMotions);
+	// インデックスに登録する
+	m_nidxMotion = m_pMotion->RegisterPath(pScriptName, m_pModel, nDestMotions, isShadow);
 }

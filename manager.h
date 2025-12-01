@@ -23,6 +23,7 @@ class CLight;
 class CFade;
 class CXfileManager;
 class CScene;
+class CMotionManager;
 
 //*********************************************************
 // インクルードファイル
@@ -44,6 +45,7 @@ public:
 	void Draw(void);
 
 	CInputKeyboard* GetInputKeyboard(void) { return m_pInputKeyboard.get(); }
+	CMotionManager* GetMotionManager(void) { return m_pMotionManager.get(); }
 	CXfileManager* GetXManager(void) { return m_pXfileManager.get(); }
 	CRenderer* GetRenderer(void) { return m_pRenderer.get(); }
 	CInputMouse* GetMouse(void) { return m_pInputMouse.get(); }
@@ -81,5 +83,5 @@ private:
 	std::unique_ptr<CScene>m_pScene;;				// シーン管理クラスのポインタ
 	std::unique_ptr<CFade>m_pFade;					// フェードクラスのポインタ
 	std::unique_ptr<CXfileManager>m_pXfileManager;	// Xファイルマネージャークラス
-
+	std::unique_ptr<CMotionManager>m_pMotionManager;// モーションマネージャークラス
 };

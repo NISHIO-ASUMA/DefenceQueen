@@ -11,6 +11,8 @@
 #include "motion.h"
 #include "template.h"
 #include "debugproc.h"
+#include "motionmanager.h"
+#include "manager.h"
 
 //=========================================================
 // コンストラクタ
@@ -39,6 +41,8 @@ CMotion::CMotion() : m_aMotionInfo{}
 	m_isBlendMotion = false;
 	m_isFinishMotion = false;
 	m_isFirstMotion = false;
+
+	m_nMotionIdx = -1;
 }
 //=========================================================
 // デストラクタ
@@ -48,9 +52,23 @@ CMotion::~CMotion()
 	// 無し
 }
 //=========================================================
+// モーションインデックス登録関数
+//=========================================================
+int CMotion::RegisterPath(const char* pMotionName, std::vector<CModel*>& pModel, int nDestMotions, const bool isShadow)
+{
+	// モーションマネージャーを取得する
+	auto MotionManager = CManager::GetInstance()->GetMotionManager();
+	if (MotionManager == nullptr) return -1;
+
+	// モーションマネージャークラスに登録する
+	m_nMotionIdx = MotionManager->Register(pMotionName, pModel, nDestMotions, isShadow);
+
+	return m_nMotionIdx;
+}
+//=========================================================
 // モーション読み込み関数
 //=========================================================
-std::unique_ptr<CMotion> CMotion::Load(const char* pFilename, std::vector<CModel*>& pModel, int nDestMotions)
+std::unique_ptr<CMotion> CMotion::Load(const char* pFilename, std::vector<CModel*>& pModel, int nDestMotions,const bool isShadow)
 {
 	// モーションクラスのインスタンス生成
 	auto pMotion = std::make_unique<CMotion>();
@@ -103,7 +121,7 @@ std::unique_ptr<CMotion> CMotion::Load(const char* pFilename, std::vector<CModel
 		else if (token == "MODEL_FILENAME")
 		{
 			// モデルファイル読み込み
-			pMotion->SetModelFile(iss, pModel, nIdx);
+			pMotion->SetModelFile(iss, pModel, nIdx, isShadow);
 
 			// インデックスカウントを加算
 			nIdx++;
@@ -529,7 +547,7 @@ int CMotion::SetModels(std::istringstream& iss)
 //=================================================================
 // モデルファイル読み込み
 //=================================================================
-void CMotion::SetModelFile(std::istringstream& iss, std::vector<CModel*>& pModel, int nCnt)
+void CMotion::SetModelFile(std::istringstream& iss, std::vector<CModel*>& pModel, int nCnt,const bool isShadow)
 {
 	// 読み込み用文字列
 	std::string eq, filename;
@@ -538,7 +556,7 @@ void CMotion::SetModelFile(std::istringstream& iss, std::vector<CModel*>& pModel
 	iss >> eq >> filename;
 
 	// モデルの生成処理
-	CModel* pNewModel = CModel::Create(VECTOR3_NULL, VECTOR3_NULL, filename.c_str());
+	CModel* pNewModel = CModel::Create(VECTOR3_NULL, VECTOR3_NULL, filename.c_str(), isShadow);
 
 	// モデルのポインタに格納
 	pModel[nCnt] = pNewModel;

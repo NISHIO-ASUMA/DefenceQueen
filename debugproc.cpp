@@ -88,7 +88,6 @@ void CDebugproc::Update(void)
 //=========================================================
 void CDebugproc::Draw(int PosX,int PosY)
 {
-#ifdef _DEBUG
 	if (m_isUse)
 	{
 		// ウィンドウレクト
@@ -100,7 +99,6 @@ void CDebugproc::Draw(int PosX,int PosY)
 		// バッファのクリア
 		memset(m_aStr, 0, sizeof(m_aStr));
 	}
-#endif
 }
 //=========================================================
 // フォント描画関数

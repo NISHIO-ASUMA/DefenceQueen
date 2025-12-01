@@ -62,7 +62,9 @@ public:
 	void SetMove(const D3DXVECTOR3 move) { m_move = move; }
 	void SetMoveValue(const float fValue) { m_fMoveValue = fValue; }
 	void SetType(TYPE Type) { m_type = Type; }
-	void MotionLoad(const char* pScriptName, int nDestMotions);
+	void SetUseStencil(bool isUse) { m_isStencilUse = isUse; }
+
+	void MotionLoad(const char* pScriptName, int nDestMotions,const bool isShadow);
 	void SetCharactor(TYPE type) { m_type = type; }
 
 	D3DXVECTOR3 GetPos(void) const { return m_pos; }
@@ -81,7 +83,7 @@ public:
 protected:
 
 	CBlackBoard* m_pBlackBoard = nullptr; // 共通ブラックボード
-	CNode* m_pBehaviorTree = nullptr;		// ツリーノード
+	CNode* m_pBehaviorTree = nullptr;	  // ツリーノード
 
 private:
 
@@ -99,4 +101,6 @@ private:
 	CShadowS* m_pShadowS;				// ステンシルシャドウクラスのポインタ
 
 	float m_fMoveValue;		// 移動加算値
+	bool m_isStencilUse;	// ステンシルシャドウを使うか
+	int m_nidxMotion;		// モーションインデックス
 };

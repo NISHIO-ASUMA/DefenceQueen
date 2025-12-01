@@ -32,6 +32,11 @@
 #include "playerstateneutral.h"
 #include "gamesceneobject.h"
 #include "selectpoint.h"
+#include "workermanager.h"
+#include "worker.h"
+
+
+
 
 //*********************************************************
 // 名前空間
@@ -72,7 +77,8 @@ CPlayer* CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot,int nLife, const char*
 	// オブジェクト設定
 	pPlayer->SetPos(pos);
 	pPlayer->SetRot(rot);
-
+	pPlayer->SetUseStencil(true);
+	
 	// パラメーターポインタ生成
 	pPlayer->m_pParameter = std::make_unique<CParameter>();
 
@@ -101,7 +107,7 @@ HRESULT CPlayer::Init(void)
 	SetObjType(CObject::TYPE_PLAYER);
 
 	// モーションセット
-	MotionLoad("data/MOTION/Player/Player100motion.txt", MOTION_MAX);
+	MotionLoad("data/MOTION/Player/Player100motion.txt", MOTION_MAX,false);
 
 	// コライダー生成
 	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(50.0f,50.0f,50.0f));
@@ -163,8 +169,10 @@ void CPlayer::Update(void)
 //=========================================================
 void CPlayer::Draw(void)
 {
+#if 0
 	// キャラクターの描画処理
 	CNoMoveCharactor::Draw();
+#endif
 
 	// デバッグ表示
 	CDebugproc::Print("モーションタイプ [ %d ]", m_pMotion->GetMotionType());
@@ -200,259 +208,43 @@ void CPlayer::CollisionAll(D3DXVECTOR3 pPos, CInputKeyboard* pInput, CJoyPad* pP
 		}
 	}
 
-	// 選択ポインターが当たっていたら
+	// 選択ポインタークラス
 	auto pPoint = CGameSceneObject::GetInstance()->GetPoint();
 	if (pPoint == nullptr) return;
 
+	// 働きアリの配列取得
+	auto pWorker = CGameSceneObject::GetInstance()->GetWorkerM();
+	if (pWorker == nullptr) return;
+
+	// 当たっていたら
 	if (pPoint->GetIsHit())
 	{
-		// 決定キー or Aボタン
+		// 決定キー or Aボタン入力
 		if (pPad->GetTrigger(CJoyPad::JOYKEY_A) || pInput->GetTrigger(DIK_RETURN))
 		{
-			// これを司令塔アリの指示に指示命令を送るフラグを有効化
-			
+			for (int nCnt = 0; nCnt < pWorker->GetSize(); nCnt++)
+			{
+				// キャラクター取得
+				auto UseWorker = pWorker->GetWorker(nCnt);
+				if (UseWorker == nullptr) continue;
+
+				// 動かせるなら
+				if (!UseWorker->GetIsWork())
+				{
+					// 有効状態にする
+					UseWorker->SetIsWork(true);
+
+					// 追跡対象にする座標を設定
+					UseWorker->SetDestPos(pPoint->GetPos());
+
+					// 一個に当たったら抜ける
+					break;
+				}
+
+			}
 		}
 	}
 }
-//===================================================================
-// キー入力移動関数
-//===================================================================
-void CPlayer::MoveKey(CInputKeyboard* pInput,CJoyPad * pPad)
-{
-#if 0
-	// パッド入力があったら
-	if (pPad->GetLeftStick()) return;
-
-	// カメラ取得
-	CCamera* pCamera = CManager::GetInstance()->GetCamera();
-	if (pCamera == nullptr) return;
-
-	// 取得関係
-	D3DXVECTOR3 move = GetMove();
-	D3DXVECTOR3 rot = GetRot();
-	D3DXVECTOR3 rotDest = GetRotDest();
-
-	// 移動フラグ
-	bool isMove = false;
-
-
-	if (pInput->GetPress(DIK_A) || pPad->GetPress(CJoyPad::JOYKEY_LEFT))
-	{// Aキー
-		if (pInput->GetPress(DIK_W) || pPad->GetPress(CJoyPad::JOYKEY_RIGHT))
-		{// 左斜め上
-
-			move.x += sinf(pCamera->GetRot().y - D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
-			move.z += cosf(pCamera->GetRot().y - D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
-			rotDest.y = pCamera->GetRot().y + (D3DX_PI * 0.75f);
-
-			isMove = true;
-		}
-		else if (pInput->GetPress(DIK_S) || pPad->GetPress(CJoyPad::JOYKEY_DOWN))
-		{// 右斜め下
-
-			move.x -= sinf(pCamera->GetRot().y + D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
-			move.z -= cosf(pCamera->GetRot().y + D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
-			rotDest.y = pCamera->GetRot().y + (D3DX_PI * 0.25f);
-			isMove = true;
-		}
-		else
-		{// 単体
-			move.x -= sinf(pCamera->GetRot().y + (D3DX_PI * 0.5f)) * PLAYERINFO::MOVE;
-			move.z -= cosf(pCamera->GetRot().y + (D3DX_PI * 0.5f)) * PLAYERINFO::MOVE;
-			rotDest.y = pCamera->GetRot().y + (D3DX_PI * 0.5f);
-
-			isMove = true;
-		}
-
-		// 角度の正規化
-		if (rot.y > D3DX_PI)
-		{// D3DX_PIより大きくなったら
-			rot.y -= PLAYERINFO::NorRot;
-		}
-	}
-	else if (pInput->GetPress(DIK_D) || pPad->GetPress(CJoyPad::JOYKEY_RIGHT))
-	{// Dキーを押した
-
-		if (pInput->GetPress(DIK_W) || pPad->GetPress(CJoyPad::JOYKEY_UP))
-		{// Wキーを押した
-			move.x += sinf(pCamera->GetRot().y + D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
-			move.z += cosf(pCamera->GetRot().y + D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
-			rotDest.y = pCamera->GetRot().y - (D3DX_PI * 0.75f);
-
-			isMove = true;
-		}
-		else if (pInput->GetPress(DIK_S) || pPad->GetPress(CJoyPad::JOYKEY_DOWN))
-		{// Sキーを押した
-			move.x -= sinf(pCamera->GetRot().y - D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
-			move.z -= cosf(pCamera->GetRot().y - D3DX_PI * 0.25f) * PLAYERINFO::MOVE;
-			rotDest.y = pCamera->GetRot().y - (D3DX_PI * 0.25f);
-
-			isMove = true;
-		}
-		else
-		{// Dキーのみ押した
-			move.x += sinf(pCamera->GetRot().y + (D3DX_PI * 0.5f)) * PLAYERINFO::MOVE;
-			move.z += cosf(pCamera->GetRot().y + (D3DX_PI * 0.5f)) * PLAYERINFO::MOVE;
-			rotDest.y = pCamera->GetRot().y - (D3DX_PI * 0.5f);
-
-			isMove = true;
-		}
-
-		// 角度の正規化
-		if (rot.y > D3DX_PI)
-		{// D3DX_PIより大きくなったら
-			rot.y -= PLAYERINFO::NorRot;
-		}
-	}
-	else if (pInput->GetPress(DIK_W) || pPad->GetPress(CJoyPad::JOYKEY_UP))
-	{// Wキーを押した
-
-		move.x += sinf(pCamera->GetRot().y) * PLAYERINFO::MOVE;
-		move.z += cosf(pCamera->GetRot().y) * PLAYERINFO::MOVE;
-		rotDest.y = pCamera->GetRot().y - D3DX_PI;
-
-		isMove = true;
-
-		// 角度を正規化
-		if (rot.y < -D3DX_PI)
-		{// D3DX_PIより小さくなったら
-			rot.y += PLAYERINFO::NorRot;
-		}
-
-	}
-	else if (pInput->GetPress(DIK_S) || pPad->GetPress(CJoyPad::JOYKEY_DOWN))
-	{// Sキーを押した
-
-		move.x -= sinf(pCamera->GetRot().y) * PLAYERINFO::MOVE;
-		move.z -= cosf(pCamera->GetRot().y) * PLAYERINFO::MOVE;
-		rotDest.y = pCamera->GetRot().y;
-
-		isMove = true;
-
-		// 角度の正規化
-		if (rot.y > D3DX_PI)
-		{// D3DX_PIより大きくなったら
-			rot.y -= PLAYERINFO::NorRot;
-		}
-	}
-
-
-	if (isMove)
-	{
-		// MOVEじゃなかったらMOVEに切り替え
-		if (m_pMotion->GetMotionType() != MOTION_MOVE)
-		{
-			m_pMotion->SetMotion(MOTION_MOVE);
-		}
-	}
-	else
-	{
-		// NEUTRALに遷移する
-		if (m_pMotion->GetMotionType() == MOTION_MOVE)
-		{
-			ChangeState(new CPlayerStateNeutral(), CPlayerStateBase::ID_NEUTRAL);
-
-			// キャラクターに適用する
-			SetRot(rot);
-			SetRotDest(rotDest);
-			SetMove(move);
-			return;
-		}
-	}
-
-	if (rotDest.y - rot.y > D3DX_PI)
-	{// 左回転
-		// 角度
-		rot.y = rot.y + PLAYERINFO::NorRot;
-	}
-	else if (rot.y - rotDest.y > D3DX_PI)
-	{// 右回転
-		// 角度
-		rot.y = rot.y - PLAYERINFO::NorRot;
-	}
-
-	// 現在の角度
-	rot.y += (rotDest.y - rot.y) * 0.25f;
-
-	// キャラクターに適用する
-	SetRot(rot);
-	SetRotDest(rotDest);
-	SetMove(move);
-#endif
-}
-//===================================================================
-// ジョイパッド入力移動関数
-//===================================================================
-void CPlayer::MovePad(CJoyPad* pPad)
-{
-#if 0
-	// パッド取得
-	XINPUT_STATE* pStick;
-	pStick = pPad->GetStickAngle();
-
-	// カメラ取得
-	CCamera* pCamera = CManager::GetInstance()->GetCamera();
-	if (pCamera == nullptr) return;
-
-	// キャラクター情報の取得
-	D3DXVECTOR3 move = GetMove();
-	D3DXVECTOR3 rotDest = GetRotDest();
-
-	// フラグ
-	bool isMoving = false;
-	static bool wasStick = false;
-
-	// 取得できたら
-	if (pPad->GetLeftStick())
-	{
-		// 左スティックの角度
-		float LStickAngleY = pStick->Gamepad.sThumbLY;
-		float LStickAngleX = pStick->Gamepad.sThumbLX;
-
-		// デッドゾーンを設定
-		float DeadZone = 32767.0f * 0.25f;
-		float fMag = sqrtf((LStickAngleX * LStickAngleX) + (LStickAngleY * LStickAngleY));
-
-		if (fMag > DeadZone)
-		{
-			// 正規化
-			float normalizeX = (LStickAngleX / fMag);
-			float normalizeY = (LStickAngleY / fMag);
-
-			// 移動量
-			float MoveX = normalizeX * cosf(-pCamera->GetRot().y) - normalizeY * sinf(-pCamera->GetRot().y);
-			float MoveZ = normalizeX * sinf(-pCamera->GetRot().y) + normalizeY * cosf(-pCamera->GetRot().y);
-
-			// プレイヤーの移動量を設定
-			move.x += MoveX * PLAYERINFO::MOVE;
-			move.z += MoveZ * PLAYERINFO::MOVE;
-			rotDest.y = atan2f(-MoveX, -MoveZ);
-			isMoving = true;
-		}
-	}
-
-	if (isMoving)
-	{
-		// MOVEじゃなかったら
-		if (m_pMotion->GetMotionType() != MOTION_MOVE)
-			m_pMotion->SetMotion(MOTION_MOVE);
-	}
-	else if (!isMoving && wasStick)
-	{
-		// 離した瞬間の判定
-		if (m_pMotion->GetMotionType() == MOTION_MOVE)
-			m_pMotion->SetMotion(MOTION_NEUTRAL, true, 10);
-	}
-
-	// フラグを変更する
-	wasStick = isMoving;
-
-	// 適用する
-	SetMove(move);
-	SetRotDest(rotDest);
-#endif
-}
-
 //===================================================================
 // ブロックとの当たり判定
 //===================================================================

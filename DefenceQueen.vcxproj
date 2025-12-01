@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -177,6 +177,7 @@
     <ClCompile Include="gimmicksuction.cpp" />
     <ClCompile Include="grass.cpp" />
     <ClCompile Include="grassmanager.cpp" />
+    <ClCompile Include="motionmanager.cpp" />
     <ClCompile Include="move3dobject.cpp" />
     <ClCompile Include="numberpanel.cpp" />
     <ClCompile Include="order.cpp" />
@@ -302,6 +303,8 @@
     <ClInclude Include="grassmanager.h" />
     <ClInclude Include="inverter.h" />
     <ClInclude Include="leafnodebase.h" />
+    <ClInclude Include="motiondata.h" />
+    <ClInclude Include="motionmanager.h" />
     <ClInclude Include="move3dobject.h" />
     <ClInclude Include="node.h" />
     <ClInclude Include="nodebase.h" />

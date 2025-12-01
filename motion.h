@@ -72,7 +72,7 @@ public:
 	void SetMotion(int motiontype);
 	void SetMotionNum(int nMotion) { m_nNumMotion = nMotion; }
 	int SetModels(std::istringstream& iss);
-	void SetModelFile(std::istringstream& iss, std::vector<CModel*>& pModel, int nCnt);
+	void SetModelFile(std::istringstream& iss, std::vector<CModel*>& pModel, int nCnt, const bool isShadow);
 	void SetParts(std::ifstream& file, std::vector<CModel*>& pModel);
 	void SetPartsMotion(std::ifstream& file, CMotion* pMotion, int nCntMotion);
 	void SetKey(std::ifstream& file, CMotion* pMotion, int nCntMotion, int nCntKey);
@@ -83,7 +83,9 @@ public:
 	int GetMotionType(void) { return m_motiontype; }
 	bool GetFinishMotion(void) { return m_isFinishMotion; }
 
-	static std::unique_ptr<CMotion>Load(const char* pFilename, std::vector<CModel*>& pModel,int nDestMotions);
+	int RegisterPath(const char* pMotionName,std::vector<CModel*>& pModel, int nDestMotions, const bool isShadow);
+
+	static std::unique_ptr<CMotion>Load(const char* pFilename, std::vector<CModel*>& pModel, int nDestMotions, const bool isShadow);
 
 private: 
 	std::vector<INFO> m_aMotionInfo; // モーション情報を動的確保
@@ -111,4 +113,7 @@ private:
 	bool m_isLoopMotion;	// ループするかどうか
 
 	static constexpr int NEUTRAL = 0; // ニュートラル番号
+
+	int m_nMotionIdx;				// モーションファイル番号
+	const char* m_pMotionName;
 };

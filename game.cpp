@@ -15,6 +15,7 @@
 #include "gamesceneobject.h"
 #include "gamestate.h"
 #include "input.h"
+#include "camera.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -40,6 +41,10 @@ CGame::~CGame()
 //=========================================================
 HRESULT CGame::Init(void)
 {
+	// カメラ初期化
+	auto pCamera = CManager::GetInstance()->GetCamera();
+	pCamera->Init();
+
 	// ポーズマネージャー生成
 	m_pPausemanager = new CPauseManager;
 	if (m_pPausemanager == nullptr) return E_FAIL;
@@ -131,7 +136,7 @@ void CGame::Update(void)
 
 #ifdef _DEBUG
 
-	// 検証
+	// 検証キー
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_0))
 	{
 		// 状態変更
@@ -145,5 +150,5 @@ void CGame::Update(void)
 //=========================================================
 void CGame::Draw(void)
 {
-	// 無し
+	CGameSceneObject::GetInstance()->Draw();
 }

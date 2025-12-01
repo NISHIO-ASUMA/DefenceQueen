@@ -44,6 +44,7 @@ CQueen* CQueen::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 	// オブジェクト設定
 	pQueen->SetPos(pos);
 	pQueen->SetRot(rot);
+	pQueen->SetUseStencil(false);
 
 	// 初期化失敗時
 	if (FAILED(pQueen->Init())) return nullptr;
@@ -63,7 +64,7 @@ HRESULT CQueen::Init(void)
 	SetObjType(CObject::TYPE_QUEEN);
 
 	// モーションセット
-	MotionLoad("data/MOTION/Queen/Queen_Motion.txt", MOTION_MAX);
+	MotionLoad("data/MOTION/Queen/Queen_Motion.txt", MOTION_MAX,true);
 
 	// パラメーター生成
 	m_pParameter = std::make_unique<CParameter>();

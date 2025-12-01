@@ -61,8 +61,8 @@ public:
 	void Draw(void) override;
 
 	void CollisionAll(D3DXVECTOR3 pPos,CInputKeyboard* pInput, CJoyPad* pPad);
-	void MoveKey(CInputKeyboard* pInput,CJoyPad * pPad);
-	void MovePad(CJoyPad* pPad);
+	//void MoveKey(CInputKeyboard* pInput,CJoyPad * pPad);
+	//void MovePad(CJoyPad* pPad);
 	void ChangeState(CPlayerStateBase* pNewState,int Id);
 	bool CollisionBlock(CBoxCollider* other, D3DXVECTOR3* pos);
 

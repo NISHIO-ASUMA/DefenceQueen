@@ -43,8 +43,10 @@ HRESULT CWorkerManager::Init(void)
 	// 動的ポインタを生成
 	for (int nCnt = 0; nCnt < config.NUM_WOKER; nCnt++)
 	{
-		// インスタンス生成
-		auto pArray = CWorker::Create(VECTOR3_NULL, VECTOR3_NULL);
+		// nCntごとに右へ動かして並べる
+		float x = config.WORKER_INTERVAL * nCnt;
+
+		auto pArray = CWorker::Create(D3DXVECTOR3(x, 0.0f, 0.0f), VECTOR3_NULL);
 
 		// 配列に追加
 		m_pWorker.push_back(pArray);

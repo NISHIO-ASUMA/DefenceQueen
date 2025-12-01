@@ -27,7 +27,8 @@ m_scale(INITSCALE),
 m_type(TYPE_NONE),
 m_pModel{},
 m_pMotion{},
-m_pShadowS{}
+m_pShadowS{},
+m_isStencilUse(false)
 {
 	// 値のクリア
 	D3DXMatrixIdentity(&m_mtxworld);
@@ -47,8 +48,11 @@ HRESULT CNoMoveCharactor::Init(void)
 	// 変数の初期化
 	m_pModel.clear();
 
-	// モデル生成
-	m_pShadowS = CShadowS::Create(m_pos, m_rot);
+	if (m_isStencilUse)
+	{
+		// モデル生成
+		m_pShadowS = CShadowS::Create(m_pos, m_rot);
+	}
 
 	return S_OK;
 }
@@ -137,8 +141,8 @@ void CNoMoveCharactor::Draw(void)
 //=========================================================
 // モーション読み込み
 //=========================================================
-void CNoMoveCharactor::MotionLoad(const char* pScriptName, int nDestMotions)
+void CNoMoveCharactor::MotionLoad(const char* pScriptName, int nDestMotions,const bool isShadow)
 {
 	// ポインタ生成
-	m_pMotion = CMotion::Load(pScriptName, m_pModel, nDestMotions);
+	m_pMotion = CMotion::Load(pScriptName, m_pModel, nDestMotions, isShadow);
 }

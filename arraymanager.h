@@ -35,6 +35,11 @@ public:
 	void Update(void);
 	void Draw(void);
 
+	/// <summary>
+	/// 現在のアクティブな数を取得する
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
 	int GetUseArray(void) { return m_nActiveAll; }
 
 	/// <summary>
@@ -75,7 +80,7 @@ private:
 	struct ArrayConfig
 	{
 		static constexpr int LIFE = 10; // 体力値
-		static constexpr int ALLARRAYS = 100; // 最大使用数
+		static constexpr int ALLARRAYS = 10; // 最大使用数
 	};
 
 	std::vector<CArray*>m_pArrays; // 動的配列

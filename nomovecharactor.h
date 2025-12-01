@@ -44,7 +44,9 @@ public:
 	void SetScale(const D3DXVECTOR3 scale = INITSCALE) { m_scale = scale; }
 	void SetOldPos(const D3DXVECTOR3 posOld) { m_posOld = posOld; }
 	void SetType(TYPE Type) { m_type = Type; }
-	void MotionLoad(const char* pScriptName, int nDestMotions);
+	void SetUseStencil(bool isUse) { m_isStencilUse = isUse; }
+
+	void MotionLoad(const char* pScriptName, int nDestMotions, const bool isShadow);
 	void SetCharactor(TYPE type) { m_type = type; }
 
 	D3DXVECTOR3 GetPos(void) const { return m_pos; }
@@ -70,4 +72,6 @@ private:
 	std::unique_ptr<CMotion>m_pMotion;	// モーションクラスのユニークポインタ
 	std::vector<CModel*>m_pModel;		// モデルクラスの動的配列
 	CShadowS* m_pShadowS;				// ステンシルシャドウクラスのポインタ
+
+	bool m_isStencilUse;				// ステンシルを使うかどうか
 };

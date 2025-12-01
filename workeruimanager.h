@@ -32,7 +32,6 @@ public:
 private:
 
 	static constexpr int NUM_UI = 3; // 表示数
-	static constexpr float SPACE_WIDTH = 140.0f; // 間隔の横幅
 
 	CWorkerUi* m_pWorkUi[NUM_UI];		// クラスポインタ
 };

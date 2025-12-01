@@ -71,4 +71,3 @@ private:
 	std::vector<XFILEDATA>m_aFileData;	// モデルデータ管理配列
 	static int m_nNumAll; // モデルの総数
 };
-

@@ -61,6 +61,7 @@ private:
 	struct Config
 	{
 		static constexpr int NUM_WOKER = 3;	// 最大数
+		static constexpr float WORKER_INTERVAL = 70.0f; // 間隔
 	};
 
 	std::vector<CWorker*>m_pWorker; // クラス配列ポインタ

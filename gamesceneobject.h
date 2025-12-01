@@ -26,6 +26,8 @@ class CFeedManager;
 class CTime;
 class CEnemy;
 class CWorkerUiManager;
+class CWorkerManager;
+class CArrayManager;
 
 //*********************************************************
 // ゲームシーンで使うオブジェクト管理クラスを定義
@@ -39,6 +41,7 @@ public:
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
+	void Draw(void);
 
 	CTime* GetTime(void) { return m_pTimer; }
 	CScore* GetScore(void) { return m_pScore; }
@@ -46,6 +49,8 @@ public:
 	CFeedManager* GetFeedManager(void) { return m_pFeed.get(); }
 	CBlockManager* GetBlockManager(void) { return m_pBlocks.get(); }
 	CWorkerUiManager* GetWorkUi(void) { return m_pWorkUi.get(); }
+	CWorkerManager* GetWorkerM(void) { return m_pWorkerManager.get(); }
+	CArrayManager* GetArrayManager(void) { return m_pArrayManager.get(); }
 
 	static CGameSceneObject* GetInstance(void);
 
@@ -62,5 +67,6 @@ private:
 	std::unique_ptr<CWorkerUiManager>m_pWorkUi;	// 表示uiクラスポインタ
 	std::unique_ptr<CFeedManager>m_pFeed;	// 餌管理クラスのポインタ
 	std::unique_ptr<CBlockManager>m_pBlocks; // ブロックマネージャークラスのポインタ
-	
+	std::unique_ptr<CWorkerManager>m_pWorkerManager;	// 司令塔アリ管理クラス
+	std::unique_ptr<CArrayManager>m_pArrayManager;	// 仲間アリ管理クラス
 };
