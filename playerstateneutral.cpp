@@ -34,7 +34,7 @@ CPlayerStateNeutral::~CPlayerStateNeutral()
 void CPlayerStateNeutral::OnStart()
 {
 	// モーションセット
-	m_pPlayer->GetMotion()->SetMotion(CPlayer::MOTION_NEUTRAL, true, 10);
+	// m_pPlayer->GetMotion()->SetMotion(CPlayer::MOTION_NEUTRAL, true, 10);
 }
 //==========================================================
 // 更新関数

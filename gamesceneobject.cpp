@@ -39,7 +39,8 @@ m_pSelectPoint(nullptr),
 m_pTimer(nullptr),
 m_pScore(nullptr),
 m_pArrayManager(nullptr),
-m_pWorkUi(nullptr)
+m_pWorkUi(nullptr),
+m_pQueen(nullptr)
 {
 	// 値のクリア
 }
@@ -62,7 +63,7 @@ HRESULT CGameSceneObject::Init(void)
 	// CWorker::Create(D3DXVECTOR3(-200.0f, 0.0f, -50.0f), VECTOR3_NULL);
 
 	// プレイヤー生成
-	// CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -600.0f), VECTOR3_NULL, 10, "data/MOTION/Player/Player_100motion.txt");
+	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -600.0f), VECTOR3_NULL, 10, "data/MOTION/Player/Player_100motion.txt");
 
 	// 選択ポイント生成
 	m_pSelectPoint = CSelectPoint::Create(VECTOR3_NULL, VECTOR3_NULL, 80.0f, 3.0f, 80.0f);
@@ -84,13 +85,13 @@ HRESULT CGameSceneObject::Init(void)
 	m_pFeed = std::make_unique<CFeedManager>();
 	m_pFeed->Init();
 
-	//// 司令塔アリ管理生成
-	//m_pWorkerManager = std::make_unique<CWorkerManager>();
-	//m_pWorkerManager->Init();
+	// 司令塔アリ管理生成
+	m_pWorkerManager = std::make_unique<CWorkerManager>();
+	m_pWorkerManager->Init();
 
-	//// 仲間アリの大軍を生成
-	//m_pArrayManager = std::make_unique<CArrayManager>();
-	//m_pArrayManager->Init(3);
+	// 仲間アリの大軍を生成
+	m_pArrayManager = std::make_unique<CArrayManager>();
+	m_pArrayManager->Init(3);
 
 	//// ui配置
 	//m_pWorkUi = std::make_unique<CWorkerUiManager>();

@@ -40,6 +40,7 @@ CMotionManager::~CMotionManager()
 //=========================================================
 HRESULT CMotionManager::Load(void)
 {
+	// 値の初期化
 	m_aMotionInfo.clear();
 	m_FileData.clear();
 
@@ -50,6 +51,7 @@ HRESULT CMotionManager::Load(void)
 //=========================================================
 void CMotionManager::UnLoad(void)
 {
+	// 値のクリア
 	m_aMotionInfo.clear();
 	m_FileData.clear();
 }
@@ -63,18 +65,54 @@ int CMotionManager::Register(const char* pFileName, std::vector<CModel*>& pModel
 	{
 		// 指定番号のインデックスを返す
 		if (m_FileData[nCnt].FilePath == pFileName)
+		{
+			// モデル配列をセットする
+			pModel.resize(m_FileData[nCnt].Modelpath.size());
+
+			// モデルのパス名を見る 一緒だったらそのモデルパス名で新しく生成する
+			for (int nModel = 0;nModel < m_FileData[nCnt].Modelpath.size();nModel++)
+			{
+				// 保存してあるパスを使用して新たにモデル生成
+				const std::string& path = m_FileData[nCnt].Modelpath[nModel];
+
+				// モデルのポインタを生成
+				CModel* pNewModel = CModel::Create(VECTOR3_NULL, VECTOR3_NULL, path.c_str(), isShadow);
+
+				// 配列に追加
+				pModel[nModel] = pNewModel;
+
+				// 親子関係の設定
+				int parentIndex = m_FileData[nCnt].nParentId[nModel];
+
+				// 親モデルが存在する
+				if (parentIndex != -1)
+				{
+					pNewModel->SetParent(pModel[parentIndex]);
+				}
+				else
+				{
+					pNewModel->SetParent(nullptr);
+				}
+
+				// オフセット設定
+				pNewModel->OffSetPos(m_FileData[nCnt].offpos[nModel]);
+				pNewModel->OffSetRot(m_FileData[nCnt].offrot[nModel]);
+			}
+
+			// ファイルインデックス番号を返す
 			return nCnt;
+		}
 	}
 
 	// 無かったら新規登録と読み込みをする
 	MOTIONFILE motionfile = {};
 	motionfile.FilePath = pFileName;
 
-	// モーションスクリプトファイルの読み込み
-	LoadMotion(pFileName, pModel, nDestMotion, isShadow);
-
 	// 配列に情報を追加
 	m_FileData.push_back(motionfile);
+
+	// モーションスクリプトファイルの読み込み
+	LoadMotion(pFileName, pModel, nDestMotion, isShadow);
 
 	// 加算してインデックスを返す
 	return m_nNumAll++;
@@ -87,12 +125,10 @@ void CMotionManager::LoadMotion(const char* pFileName, std::vector<CModel*>& pMo
 	// 読み込むファイルを設定する
 	std::ifstream file(pFileName);
 
-	// ファイル例外チェック
+	// ファイルが開けなかったら
 	if (!file)
 	{
 		MessageBox(NULL, "ファイルオープン失敗", pFileName, MB_OK);
-
-		// 失敗結果を返す
 		return;
 	}
 
@@ -194,6 +230,10 @@ void CMotionManager::SetModelFile(std::istringstream& iss, std::vector<CModel*>&
 
 	// モデルのポインタに格納
 	pModel[nCnt] = pNewModel;
+
+	// 配列に登録する
+	m_FileData.back().apModel.push_back(pNewModel); // モデルのポインタ
+	m_FileData.back().Modelpath.push_back(filename); // モデルのパス情報
 }
 //=========================================================
 // パーツごとの情報をセットする
@@ -238,11 +278,15 @@ void CMotionManager::SetParts(std::ifstream& file, std::vector<CModel*>& pModel)
 				if (nParentIdx != -1)
 				{// 親モデルが存在する
 					pModel[nIdx]->SetParent(pModel[nParentIdx]);
+
 				}
 				else
 				{// 親モデルが存在しない
 					pModel[nIdx]->SetParent(nullptr);
 				}
+
+				// 親パーツの設定
+				m_FileData.back().nParentId.push_back(nParentIdx);
 			}
 		}
 		// "POS"を読み取った
@@ -257,6 +301,9 @@ void CMotionManager::SetParts(std::ifstream& file, std::vector<CModel*>& pModel)
 			{
 				// モデルのオフセット座標に値を設定
 				pModel[nIdx]->OffSetPos(pos);
+
+				// 登録情報を配列に追加
+				m_FileData.back().offpos.push_back(pos);
 			}
 		}
 		// "ROT"を読み取った
@@ -284,6 +331,9 @@ void CMotionManager::SetParts(std::ifstream& file, std::vector<CModel*>& pModel)
 			{
 				// オフセットの値にセット
 				pModel[nIdx]->OffSetRot(rot);
+
+				// 登録情報を配列に追加
+				m_FileData.back().offrot.push_back(rot);
 			}
 		}
 		// "END_PARTSSET"を読み取った

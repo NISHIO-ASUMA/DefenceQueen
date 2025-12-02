@@ -99,7 +99,7 @@ protected:
 		m_RanningIndex = GetNextIdx();
 
 		// —áŠOÝ’è
-		if (m_RanningIndex > m_ChildeNode.size() - 1)
+		if (m_RanningIndex > static_cast<int>(m_ChildeNode.size() - 1))
 		{
 			m_NodeResult = NodeInfo::NodeResult::Re_FAIL;
 			Exit();

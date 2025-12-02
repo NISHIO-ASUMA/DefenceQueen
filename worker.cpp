@@ -2,8 +2,6 @@
 //
 // 指示を出す働きアリの処理 [ worker.cpp ]
 // Author: Asuma Nishio
-// 
-// TODO : ステート入れる
 //
 //=========================================================
 
@@ -81,9 +79,6 @@ HRESULT CWorker::Init(void)
 	// コライダー生成
 	m_pSphereCollider = CSphereCollider::Create(GetPos(), 60.0f);
 
-	// モーションポインタ取得
-	m_pMotion = CMoveCharactor::GetMotion();
-
 	// ステートマシン生成
 	//m_pStateMachine = std::make_unique<CStateMachine>();
 	//ChangeState(new CWorkerStateNeutral, CWorkerStateBase::ID_NEUTRAL);
@@ -130,7 +125,7 @@ void CWorker::Update(void)
 	if (m_pSphereCollider) m_pSphereCollider->SetPos(UpdatePos);
 
 	// キャラクター全体の更新処理
-	CMoveCharactor::Update();
+ 	CMoveCharactor::Update();
 }
 //=========================================================
 // 描画処理
@@ -184,7 +179,7 @@ void CWorker::MoveToPoint(void)
 		GetMotion()->SetMotion(CWorker::MOTION_NEUTRAL);
 
 		// ランダム値
-		int nrand = rand() % 3;
+		int nrand = rand() % NUMARRAY_MAX;
 
 		if (!m_isCreate)
 		{
@@ -199,7 +194,6 @@ void CWorker::MoveToPoint(void)
 		}
 	}
 }
-
 //=========================================================
 // 球の当たり判定処理
 //=========================================================

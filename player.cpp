@@ -15,11 +15,9 @@
 #include "input.h"
 #include "camera.h"
 #include "state.h"
-#include "parameter.h"
 #include "debugproc.h"
 #include "shadowS.h"
 #include "gamemanager.h"
-#include "playerstatebase.h"
 #include "effect.h"
 #include "game.h"
 #include "sound.h"
@@ -34,16 +32,13 @@
 #include "selectpoint.h"
 #include "workermanager.h"
 #include "worker.h"
-
-
-
+#include "playerstatebase.h"
 
 //*********************************************************
 // 名前空間
 //*********************************************************
 namespace PLAYERINFO
 {
-	constexpr float MOVE = 4.5f;	// 1フレームの移動量
 	constexpr float NorRot = D3DX_PI * 2.0f; // 正規化値
 };
 
@@ -52,7 +47,6 @@ namespace PLAYERINFO
 //=========================================================
 CPlayer::CPlayer(int nPriority) : CNoMoveCharactor(nPriority),
 m_pMotion(nullptr),
-m_pParameter(nullptr),
 m_pStateMachine(nullptr),
 m_pBoxCollider(nullptr)
 {
@@ -78,17 +72,6 @@ CPlayer* CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot,int nLife, const char*
 	pPlayer->SetPos(pos);
 	pPlayer->SetRot(rot);
 	pPlayer->SetUseStencil(true);
-	
-	// パラメーターポインタ生成
-	pPlayer->m_pParameter = std::make_unique<CParameter>();
-
-	// nullチェック
-	if (pPlayer->m_pParameter != nullptr)
-	{
-		// 体力パラメーターを設定
-		pPlayer->m_pParameter->SetHp(nLife);
-		pPlayer->m_pParameter->SetMaxHp(nLife);
-	}
 	
 	// プレイヤー初期化処理
 	if (FAILED(pPlayer->Init())) return nullptr;
@@ -123,9 +106,6 @@ HRESULT CPlayer::Init(void)
 //=========================================================
 void CPlayer::Uninit(void)
 {
-	// パラメータ終了処理
-	m_pParameter.reset();
-
 	// コライダー破棄
 	if (m_pBoxCollider)
 	{

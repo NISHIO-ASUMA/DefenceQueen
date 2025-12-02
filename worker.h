@@ -37,8 +37,8 @@ public:
 	//***********************************
 	enum MOTION
 	{
-		MOTION_NEUTRAL,		// ニュートラル
-		MOTION_MOVE,		// 移動
+		MOTION_NEUTRAL,	// ニュートラル
+		MOTION_MOVE,	// 移動
 		MOTION_MAX
 	};
 

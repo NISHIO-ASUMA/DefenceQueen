@@ -70,18 +70,6 @@ HRESULT CPlayerLifeGage::Init(void)
 		m_pPlayer = CPlayer::GetIdxPlayer(0);
 	}
 #endif
-	// 取得できたら
-	if (m_pPlayer != nullptr)
-	{
-		// パラメーター取得
-		CParameter* pParam = m_pPlayer->GetParameter();
-
-		// 現在の体力を取得する
-		m_nMaxLifeLength = pParam->GetHp();
-
-		// 最大値を保存しておく
-		m_nMaxLife = pParam->GetHp();
-	}
 
 	// 初期化結果を返す
 	return S_OK;
@@ -99,19 +87,6 @@ void CPlayerLifeGage::Uninit(void)
 //========================
 void CPlayerLifeGage::Update(void)
 {
-	// パラメーター取得
-	CParameter* pParam = m_pPlayer->GetParameter();
-
-	// nullじゃない かつ 種類がバーの時
-	if (m_pPlayer != nullptr && m_gage == GAGE_BAR)
-	{
-		// 現在の体力を取得する
-		m_nLifeLength = pParam->GetHp();
-
-		// ゲージの長さ設定
-		// SetGaugeLength(m_nMaxLifeLength, m_nLifeLength, PLAYERLIFEINFO::VALUELENGTH, PLAYERLIFEINFO::GAGE_HEIGHT);
-	}
-
 	if (m_pPlayer != nullptr)
 	{
 #if 0

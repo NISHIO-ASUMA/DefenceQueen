@@ -52,8 +52,6 @@ HRESULT CMoveCharactor::Init(void)
 	// 変数の初期化
 	m_pModel.clear();
 
-	// m_pMotion = std::make_unique<CMotion>();
-
 	// 有効時
 	if (m_isStencilUse)
 	{
@@ -142,7 +140,7 @@ void CMoveCharactor::Update(void)
 	}
 
 	// モーションの更新処理
-	m_pMotion->Update(m_pModel,m_pModel.size());
+	m_pMotion->Update(m_pModel);
 }
 //=========================================================
 // 描画処理
@@ -192,6 +190,6 @@ void CMoveCharactor::UpdatePosition(void)
 //=========================================================
 void CMoveCharactor::MotionLoad(const char* pScriptName, int nDestMotions, const bool isShadow)
 {
-	// モーション情報を取得する
-	m_pMotion;
+	// モーションのポインタを取得する
+	m_pMotion = CMotion::Load(pScriptName, m_pModel, nDestMotions, isShadow);
 }

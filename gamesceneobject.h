@@ -3,6 +3,8 @@
 // ゲームのオブジェクト管理処理 [ gameobject.h ]
 // Author: Asuma Nishio
 //
+// TODO : ここに敵のスポナークラスを持つ
+// 
 //=========================================================
 
 //*********************************************************
@@ -28,6 +30,7 @@ class CEnemy;
 class CWorkerUiManager;
 class CWorkerManager;
 class CArrayManager;
+class CQueen;
 
 //*********************************************************
 // ゲームシーンで使うオブジェクト管理クラスを定義
@@ -45,10 +48,11 @@ public:
 
 	CTime* GetTime(void) { return m_pTimer; }
 	CScore* GetScore(void) { return m_pScore; }
+	CQueen* GetQueen(void) { return m_pQueen; }
 	CSelectPoint* GetPoint(void) { return m_pSelectPoint; }
 	CFeedManager* GetFeedManager(void) { return m_pFeed.get(); }
-	CBlockManager* GetBlockManager(void) { return m_pBlocks.get(); }
 	CWorkerUiManager* GetWorkUi(void) { return m_pWorkUi.get(); }
+	CBlockManager* GetBlockManager(void) { return m_pBlocks.get(); }
 	CWorkerManager* GetWorkerM(void) { return m_pWorkerManager.get(); }
 	CArrayManager* GetArrayManager(void) { return m_pArrayManager.get(); }
 
@@ -63,6 +67,7 @@ private:
 	CScore* m_pScore;	// スコアクラスのポインタ
 	CTime* m_pTimer;	// タイマークラスのポインタ
 	CSelectPoint* m_pSelectPoint;	// 選択ポイントのクラス
+	CQueen* m_pQueen;	// 女王
 
 	std::unique_ptr<CWorkerUiManager>m_pWorkUi;	// 表示uiクラスポインタ
 	std::unique_ptr<CFeedManager>m_pFeed;	// 餌管理クラスのポインタ

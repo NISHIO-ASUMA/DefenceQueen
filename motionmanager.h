@@ -33,16 +33,21 @@ class CMotionManager
 public:
 
 	//*********************************
-	// パスを保存する構造体
+	// モーション情報を保存する構造体
 	//*********************************
 	struct MOTIONFILE
 	{
 		std::string FilePath;	// ファイル名
+		std::vector<CModel*>apModel; // モデルインデックス
+		std::vector<std::string>Modelpath; // モデルパス
+		std::vector<int>nParentId;			// idセット
+		std::vector<D3DXVECTOR3>offpos;		// オフセット座標
+		std::vector<D3DXVECTOR3>offrot;		// オフセット角度
 	};
 
-	//***************************
+	//*********************************
 	// キー構造体宣言
-	//***************************
+	//*********************************
 	struct KEY
 	{
 		float fPosX;	// 位置X
@@ -53,18 +58,18 @@ public:
 		float fRotZ;	// 角度Z
 	};
 
-	//***************************
+	//*********************************
 	// キー情報の構造体宣言
-	//***************************
+	//*********************************
 	struct KEY_INFO
 	{
 		int nFrame;				// フレーム数
 		std::vector<KEY> aKey;  // 動的なキー数
 	};
 
-	//***************************
+	//*********************************
 	// モーション情報の構造体宣言
-	//***************************
+	//*********************************
 	struct INFO
 	{
 		bool bLoop;						// ループするかしないか
@@ -98,27 +103,23 @@ public:
 	void LoadMotion(const char* pFileName, std::vector<CModel*>& pModel, int nDestMotion, bool isShadow);
 
 	/// <summary>
-	/// 配列番号を指定して情報を取得
-	/// </summary>
-	/// <param name="nIdx">取得するオブジェクトインデックス</param>
-	/// <returns>インデックス番号に応じたデータ</returns>
-	INFO GetInfo(const int nIdx) { return m_aMotionInfo[nIdx]; }
-
-	/// <summary>
 	/// 動的配列の取得
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>配列ポインタ</returns>
-	std::vector<INFO>& GetList(void) { return m_aMotionInfo; }
+	const std::vector<INFO>& GetList(void) { return m_aMotionInfo; }
+
+	int GetNumModel(void) const { return m_nNumModels; }
+	int GetNumMotion(void) const { return m_nNumMotion; }
 
 private:
 
 	//***********************************
 	// クラス内メンバ関数
 	//***********************************
+	int SetModels(std::istringstream& iss);
 	void SetMotionNum(int nMotion) { m_nNumMotion = nMotion; }
 	void SetNumModel(int nNumModel) { m_nNumModels = nNumModel; }
-	int SetModels(std::istringstream& iss);
 	void SetModelFile(std::istringstream& iss, std::vector<CModel*>& pModel, int nCnt, const bool isShadow);
 	void SetParts(std::ifstream& file, std::vector<CModel*>& pModel);
 	void SetPartsMotion(std::ifstream& file, int nCntMotion);
@@ -136,5 +137,5 @@ private:
 
 	int m_nNumMotion;		// モーションの総数
 	int m_nNumModels;		// モデル総数
-
+	int m_nParentidx;		// 親インデックス
 };

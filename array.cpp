@@ -16,6 +16,10 @@
 #include "statemachine.h"
 #include "state.h"
 #include "blackboard.h"
+#include "boxcollider.h"
+#include "collisionbox.h"
+#include "arraymanager.h"
+#include "gamesceneobject.h"
 
 //=========================================================
 // コンストラクタ
@@ -25,6 +29,7 @@ m_pSphereCollider(nullptr),
 m_pMotion(nullptr),
 m_pParameter(nullptr),
 m_pStateMachine(nullptr),
+m_pBoxCollider(nullptr),
 m_isActive(false)
 {
 	// 値のクリア
@@ -88,7 +93,6 @@ HRESULT CArray::Init(void)
 	m_pBlackBoard = new CBlackBoard;
 	m_pBlackBoard->SetValue<CArray*>("Array",this);
 
-	// TODO : 実験で今これにしてる 後々ここはfalseにする
 	m_isActive = false;
 
 	// 拡大する
@@ -130,6 +134,44 @@ void CArray::Update(void)
 
 	// コライダー座標の更新
 	m_pSphereCollider->SetPos(UpdatePos);
+
+#if 0
+	// アリ同士の当たり判定
+	for (int i = 0; i < arrayall; i++)
+	{
+		// ポインタ取得
+		CArray* pOther = CGameSceneObject::GetInstance()->GetArrayManager()->GetArrays(i);
+
+		// 自分自身 or 非アクティブは無視
+		if (pOther == this || !pOther->GetActive()) continue;
+
+		// 距離を計算
+		D3DXVECTOR3 posA = UpdatePos;
+		D3DXVECTOR3 posB = pOther->GetPos();
+
+		D3DXVECTOR3 diff = posA - posB;
+		float dist = D3DXVec3Length(&diff);
+
+		float r = m_pSphereCollider->GetRadius() + pOther->m_pSphereCollider->GetRadius();
+		float pushDist = r - dist;
+
+		if (pushDist > 0.0f) // 重なってる
+		{
+			// 正規化
+			D3DXVec3Normalize(&diff, &diff);
+
+			// 押し出し量
+			diff *= (pushDist * 0.5f); // お互いに半分ずつ押し出す
+
+			// 新しい位置を適用
+			posA += diff;
+			posB -= diff;
+
+			SetPos(posA); // 自分の位置更新
+			pOther->SetPos(posB); // 相手の位置更新
+		}
+	}
+#endif
 
 	// 体力がなくなった
 	if (m_pParameter && m_pParameter->GetHp() <= NULL)

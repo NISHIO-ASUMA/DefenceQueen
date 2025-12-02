@@ -1,8 +1,8 @@
 //=========================================================
 //
-// 敵が対象物を追従する処理 [ enemychaseleaf.h ]
+// 敵のスポナー処理 [ enemyspawner.h ]
 // Author: Asuma Nishio
-//
+// 
 //=========================================================
 
 //*********************************************************
@@ -13,42 +13,47 @@
 //*********************************************************
 // インクルードファイル
 //*********************************************************
-#include "leafnodebase.h"
+#include <memory>
+#include <vector>
 
 //*********************************************************
 // 前方宣言
 //*********************************************************
-class CBlackBoard;
+class CEnemy;
 
 //*********************************************************
-// 敵が対象物を追従する末端ノードクラスを定義する
+// 敵の出現するスポナーのクラスを定義
 //*********************************************************
-class CEnemyChaseLeaf : public CLeafNodeBase
+class CEnemySpawner
 {
 public:
 
-	CEnemyChaseLeaf(CBlackBoard* blackboard) : CLeafNodeBase(blackboard) {};
-	~CEnemyChaseLeaf() = default;
+	CEnemySpawner();
+	~CEnemySpawner();
 
-	void Update() override;
+	HRESULT Init(void);
+	void Uninit(void);
+	void Update(void);
+
+	void SetEnemy(const D3DXVECTOR3 pos);
 
 	/// <summary>
-	/// 常に成功である値を返す関数
+	/// 配列番号情報の取得
 	/// </summary>
+	/// <param name="nIdx">取得するインデックス</param>
 	/// <returns></returns>
-	NodeInfo::NodeResult get_node_result() const override
-	{
-		return NodeInfo::NodeResult::Re_SUCCESS;
-	};
+	CEnemy* GetEnemyIdx(const int nIdx) { return m_pEnemy[nIdx]; }
+
+	/// <summary>
+	/// 動的配列本体を取得する
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
+	std::vector<CEnemy*>& GetEnemy(void) { return m_pEnemy; }
 
 private:
 
-	//**************************
-	// 定数格納構造体
-	//**************************
-	struct ChaseInfo
-	{
-		static constexpr float DISTANCE = 100.0f; // 最大追従距離
-		static constexpr float SPEED = 4.0f;	  // 移動速度
-	};
+	std::vector<CEnemy*>m_pEnemy; //配列
+
+	D3DXVECTOR3 m_SpawnPos; // スポナーの座標
 };

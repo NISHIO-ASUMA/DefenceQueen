@@ -17,13 +17,12 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CMotion::CMotion() : m_aMotionInfo{}
+CMotion::CMotion()
 {
 	// 値のクリア
 	m_nCounterMotion = NULL;
 	m_nKey = NULL;
 	m_nNumKey = NULL;
-	m_nNumMotion = NULL;
 	m_motiontype = NULL;
 	m_type = NULL;
 	m_nNextKey = NULL;
@@ -54,105 +53,26 @@ CMotion::~CMotion()
 //=========================================================
 // モーションインデックス登録関数
 //=========================================================
-int CMotion::RegisterPath(const char* pMotionName, std::vector<CModel*>& pModel, int nDestMotions, const bool isShadow)
+void CMotion::RegisterPath(const char* pMotionName, std::vector<CModel*>& pModel, int nDestMotions, const bool isShadow)
 {
 	// モーションマネージャーを取得する
 	auto MotionManager = CManager::GetInstance()->GetMotionManager();
-	if (MotionManager == nullptr) return -1;
+	if (MotionManager == nullptr) return;
 
-	// モーションマネージャークラスに登録する
+	// インデックスに登録し,その情報を取得する
 	m_nMotionIdx = MotionManager->Register(pMotionName, pModel, nDestMotions, isShadow);
-
-	return m_nMotionIdx;
 }
 //=========================================================
 // モーション読み込み関数
 //=========================================================
 std::unique_ptr<CMotion> CMotion::Load(const char* pFilename, std::vector<CModel*>& pModel, int nDestMotions,const bool isShadow)
 {
+	// モーションのユニークポインタ生成
 	auto pMotion = std::make_unique<CMotion>();
-#if 0
-	// モーションクラスのインスタンス生成
 
-	// ファイル設定
-	std::ifstream file(pFilename);
+	// 登録処理
+	pMotion->RegisterPath(pFilename, pModel, nDestMotions, isShadow);
 
-	// ファイル例外チェック
-	if (!file)
-	{
-		MessageBox(NULL, "ファイルオープン失敗", pFilename, MB_OK);
-
-		// 失敗結果を返す
-		return nullptr;
-	}
-
-	// 一行読み込む
-	std::string line;
-
-	// 使用ローカル変数
-	int nModel = 0;
-	int nIdx = 0;
-	int nCntMotion = 0;
-
-	// この引数に読み込むモーション総数を設定してこれの分だけm_amotionInfoでリサイズする
-	pMotion->m_aMotionInfo.resize(nDestMotions);
-	pMotion->SetMotionNum(nDestMotions);
-
-	// 文字列を読み続ける
-	while (std::getline(file, line))
-	{
-		// トークン設定
-		std::istringstream iss(line);
-		std::string token;
-		iss >> token;
-
-		// "NUM_MODEL"読み取り時
-		if (token == "NUM_MODEL")
-		{
-			// モデル数設定
-			nModel  = pMotion->SetModels(iss);
-
-			// 読み込んだモデル数を保存する
-			pMotion->m_nNumModels = nModel;
-
-			// 配列のサイズをセット
-			pModel.resize(nModel);
-		}
-		// "MODEL_FILENAME"読み取り時
-		else if (token == "MODEL_FILENAME")
-		{
-			// モデルファイル読み込み
-			pMotion->SetModelFile(iss, pModel, nIdx, isShadow);
-
-			// インデックスカウントを加算
-			nIdx++;
-		}
-		// "PARTSSET"読み取り時
-		else if (token == "PARTSSET")
-		{
-			// パーツごとのセット
-			pMotion->SetParts(file, pModel);
-		}
-		// "MOTIONSET"読み取り時
-		else if (token == "MOTIONSET")
-		{
-			// パーツのモーションの設定
-			pMotion->SetPartsMotion(file, pMotion.get(), nCntMotion);
-
-			// モーションカウントを加算
-			nCntMotion++;
-		}
-		// "END_SCRIPT"読み取り時
-		else if (token == "END_SCRIPT")
-		{
-			break;
-		}
-	}
-
-	// ファイルを閉じる
-	file.close();
-
-#endif
 	// 生成されたポインタを返す
 	return pMotion;
 }
@@ -223,14 +143,20 @@ void CMotion::SetMotion(int nMotionType, bool isBlend, int nBlendFrame)
 //=========================================================
 // モーション全体更新処理
 //=========================================================
-void CMotion::Update(std::vector<CModel*> m_pModel, const int nMaxPart)
+void CMotion::Update(std::vector<CModel*> pModel)
 {// モーションタイプの番号で該当のモーション更新するだけにする
 
-	// モデル数格納
-	int nNumModel = nMaxPart;
-	
+	// モーションマネージャーから情報を取得
+	auto Manager = CManager::GetInstance()->GetMotionManager();
+	auto Info = Manager->GetList();
+
+	// 最大数情報
+	int nMotionNum = Manager->GetNumMotion();
+	int nModelNum = Manager->GetNumModel();
+
+#if 1
 	// 例外処理
-	if (nNumModel <= 0)
+	if (nModelNum <= 0)
 	{
 		// 警告表示
 		MessageBox(GetActiveWindow(), "モデルが存在しません", "キャラクターエラー", MB_OK);
@@ -240,41 +166,41 @@ void CMotion::Update(std::vector<CModel*> m_pModel, const int nMaxPart)
 	}
 
 	// 現在モーションキー計算
-	m_motiontype = Clump(m_motiontype, 0, m_nNumMotion);
-	m_nNextKey = Wrap(m_nKey + 1, 0, m_aMotionInfo[m_motiontype].nNumKey - 1);
+	m_motiontype = Clump(m_motiontype, 0, nMotionNum);
+	m_nNextKey = Wrap(m_nKey + 1, 0, Info[m_motiontype].nNumKey - 1);
 
 	// 最後のキーとブレンドのキーを計算
-	int nLastKey = m_aMotionInfo[m_motiontype].nNumKey - 1;
+	int nLastKey = Info[m_motiontype].nNumKey - 1;
 
 	// 最大モデル数で回す
-	for (int nCnt = 0; nCnt < nNumModel; nCnt++)
+	for (int nCnt = 0; nCnt < nModelNum; nCnt++)
 	{
 		// ブレンド開始なら
 		if (m_isFirstMotion)
 		{
 			// ブレンドモーションの更新
-			UpdateBlend(m_pModel.data(), nCnt);
+			UpdateBlend(pModel.data(), nCnt);
 		}
 		else
 		{
 			// 現在のモーション更新
-			UpdateCurrentMotion(m_pModel.data(), nCnt);
+			UpdateCurrentMotion(pModel.data(), nCnt);
 		}
 	}
 
 	// フレーム進行処理
-	if (m_nCounterMotion >= m_aMotionInfo[m_motiontype].aKeyInfo[m_nKey].nFrame)
+	if (m_nCounterMotion >= Info[m_motiontype].aKeyInfo[m_nKey].nFrame)
 	{
 		// カウンターをリセット
 		m_nCounterMotion = 0;
 
 		// キー数が上限より一個下
-		if (m_nKey < m_aMotionInfo[m_motiontype].nNumKey - 1)
+		if (m_nKey < Info[m_motiontype].nNumKey - 1)
 		{
 			// キー数加算
 			m_nKey++;
 		}
-		else if (m_nKey >= m_aMotionInfo[m_motiontype].nNumKey)
+		else if (m_nKey >= Info[m_motiontype].nNumKey)
 		{
 			// キーをリセット
 			m_nKey = 0;
@@ -285,7 +211,7 @@ void CMotion::Update(std::vector<CModel*> m_pModel, const int nMaxPart)
 		else
 		{
 			// 通常ループ
-			m_nKey = Wrap(m_nKey + 1, 0, m_aMotionInfo[m_motiontype].nNumKey - 1);
+			m_nKey = Wrap(m_nKey + 1, 0, Info[m_motiontype].nNumKey - 1);
 		}
 	}
 	else
@@ -330,7 +256,7 @@ void CMotion::Update(std::vector<CModel*> m_pModel, const int nMaxPart)
 	}
 
 	// 着地モーションの終了判定
-	if (m_nKey >= nLastKey -1 && m_nCounterMotion >= m_aMotionInfo[m_motiontype].aKeyInfo[m_nKey].nFrame)
+	if (m_nKey >= nLastKey -1 && m_nCounterMotion >= Info[m_motiontype].aKeyInfo[m_nKey].nFrame)
 	{// 最後のキーに達していて、カウンターも終了フレームを超えていたら
 		m_isFinishMotion = true;
 	}
@@ -339,10 +265,10 @@ void CMotion::Update(std::vector<CModel*> m_pModel, const int nMaxPart)
 	int nFrame = 0;
 
 	// キーごとのフレームで回す
-	for (int nCnt = 0; nCnt < m_aMotionInfo[m_motiontype].nNumKey; nCnt++)
+	for (int nCnt = 0; nCnt < Info[m_motiontype].nNumKey; nCnt++)
 	{
 		// 全体計算用に加算
-		nFrame += m_aMotionInfo[m_motiontype].aKeyInfo[nCnt].nFrame;
+		nFrame += Info[m_motiontype].aKeyInfo[nCnt].nFrame;
 	}
 
 	// 最大値よりもカウントがオーバーしたら
@@ -353,26 +279,49 @@ void CMotion::Update(std::vector<CModel*> m_pModel, const int nMaxPart)
 
 	// 全体フレーム計算
 	m_nNumAllFrame = nFrame;
+#endif
 }
 //=================================================================
 // 現在のモーションの更新関数
 //=================================================================
 void CMotion::UpdateCurrentMotion(CModel** ppModel, int nModelCount)
 {
-	// モーションデータの取得変数を宣言
-	const INFO& motionInfo = m_aMotionInfo[m_motiontype];
-	const KEY_INFO& keyInfoNow = motionInfo.aKeyInfo[m_nKey];
-	const KEY_INFO& keyInfoNext = motionInfo.aKeyInfo[m_nNextKey];
+#if 1
+	// 取得
+	CMotionManager* pMotionManager = CManager::GetInstance()->GetMotionManager();
+	if (!pMotionManager) { return; }
 
-	// インデックス範囲チェックしオーバーしている場合
-	if (nModelCount >= static_cast<int>(keyInfoNow.aKey.size()) || nModelCount >= static_cast<int>(keyInfoNext.aKey.size()))
+	// モーションリスト取得
+	const auto& motionList = pMotionManager->GetList();
+
+	// モーションタイプチェック
+	if (m_motiontype < 0 || m_motiontype >= static_cast<int>(motionList.size()))
+		return;
+
+	// 現在のモーション情報取得
+	const CMotionManager::INFO& motionInfo = motionList[m_motiontype];
+
+	// キー範囲チェック
+	if (m_nKey < 0 || m_nKey >= static_cast<int>(motionInfo.aKeyInfo.size()))
+		return;
+	if (m_nNextKey < 0 || m_nNextKey >= static_cast<int>(motionInfo.aKeyInfo.size()))
+		return;
+
+	// 現在と次のキー情報取得
+	const CMotionManager::KEY_INFO& keyInfoNow = motionInfo.aKeyInfo[m_nKey];
+	const CMotionManager::KEY_INFO& keyInfoNext = motionInfo.aKeyInfo[m_nNextKey];
+
+	// モデル番号チェック
+	if (nModelCount < 0 ||
+		nModelCount >= static_cast<int>(keyInfoNow.aKey.size()) ||
+		nModelCount >= static_cast<int>(keyInfoNext.aKey.size()))
 	{
-		return; // 下の処理を通さない
+		return;
 	}
 
-	// 現在と次のキー用の変数を宣言する
-	const KEY& NowKey = keyInfoNow.aKey[nModelCount];
-	const KEY& NextKey = keyInfoNext.aKey[nModelCount];
+	// 現在の KEY
+	const CMotionManager::KEY& NowKey = keyInfoNow.aKey[nModelCount];
+	const CMotionManager::KEY& NextKey = keyInfoNext.aKey[nModelCount];
 
 	// キー情報から位置と向きを算出
 	D3DXVECTOR3 posMotion, rotMotion;
@@ -409,6 +358,8 @@ void CMotion::UpdateCurrentMotion(CModel** ppModel, int nModelCount)
 	// モデルのパーツに設定
 	ppModel[nModelCount]->SetPos(Pos);
 	ppModel[nModelCount]->SetRot(Rot);
+
+#endif
 }
 
 //=================================================================
@@ -416,16 +367,27 @@ void CMotion::UpdateCurrentMotion(CModel** ppModel, int nModelCount)
 //=================================================================
 void CMotion::UpdateBlend(CModel** ppModel, int nModelCount)
 {
+	// モーションマネージャーから取得
+	CMotionManager* pMotionManager = CManager::GetInstance()->GetMotionManager();
+	if (!pMotionManager) { return; }
+
+	// モーション情報を取得
+	const auto& motionList = pMotionManager->GetList();
+
+	// 現在のモーション情報取得
+	const CMotionManager::INFO& motionInfo = motionList[m_motiontype];
+	const CMotionManager::INFO& BlendInfo = motionList[m_motiontypeBlend];
+
 	// ブレンド係数を計算
 	float fBlendFrame = static_cast<float>(m_nCounterBlend) / static_cast<float>(m_nFrameBlend);
-	float fRateMotion = static_cast<float>(m_nCounterMotion) / static_cast<float>(m_aMotionInfo[m_motiontype].aKeyInfo[m_nKey].nFrame);
+	float fRateMotion = static_cast<float>(m_nCounterMotion) / static_cast<float>(motionInfo.aKeyInfo[m_nKey].nFrame);
 
 	// 現在のキーと次のキーを取得
-	const KEY& nowKey = m_aMotionInfo[m_motiontype].aKeyInfo[m_nKey].aKey[nModelCount];
-	const KEY& nextKey = m_aMotionInfo[m_motiontype].aKeyInfo[m_nNextKey].aKey[nModelCount];
+	const CMotionManager::KEY& nowKey = motionInfo.aKeyInfo[m_nKey].aKey[nModelCount];
+	const CMotionManager::KEY& nextKey = motionInfo.aKeyInfo[m_nNextKey].aKey[nModelCount];
 
-	const KEY& nowKeyBlend = m_aMotionInfo[m_motiontypeBlend].aKeyInfo[m_nKeyBlend].aKey[nModelCount];
-	const KEY& nextKeyBlend = m_aMotionInfo[m_motiontypeBlend].aKeyInfo[m_nNextKeyBlend].aKey[nModelCount];
+	const CMotionManager::KEY& nowKeyBlend = BlendInfo.aKeyInfo[m_nKeyBlend].aKey[nModelCount];
+	const CMotionManager::KEY& nextKeyBlend = BlendInfo.aKeyInfo[m_nNextKeyBlend].aKey[nModelCount];
 
 	//==========================
 	// 現在モーションの補間計算
@@ -521,13 +483,17 @@ void CMotion::UpdateBlend(CModel** ppModel, int nModelCount)
 //=================================================================
 void CMotion::Debug(void)
 {
+	// マネージャー取得
+	auto manager = CManager::GetInstance()->GetMotionManager();
+	auto list = manager->GetList();
+
 	CDebugproc::Print("[現在フレームカウント] %d /  [ 最大モーションフレーム ] %d", m_nAllFrameCount, m_nNumAllFrame);
 	CDebugproc::Draw(800, 320);
 
 	CDebugproc::Print("[ブレンドフレーム] %d / [ブレンドカウント] %d", m_nFrameBlend,m_nCounterBlend);
 	CDebugproc::Draw(800, 340);
 
-	CDebugproc::Print("[ キー数 ] %d  / [ 最大キー数] %d ",m_nKey, m_aMotionInfo[m_motiontype].nNumKey);
+	CDebugproc::Print("[ キー数 ] %d  / [ 最大キー数] %d ",m_nKey, list[m_motiontype].nNumKey);
 	CDebugproc::Draw(800, 360);
 }
 
@@ -887,6 +853,204 @@ void CMotion::SetKeyDate(std::istringstream& ss, const std::string& param, CMoti
 
 #endif
 
+#if 0
+// モーションクラスのインスタンス生成
+
+// ファイル設定
+std::ifstream file(pFilename);
+
+// ファイル例外チェック
+if (!file)
+{
+	MessageBox(NULL, "ファイルオープン失敗", pFilename, MB_OK);
+
+	// 失敗結果を返す
+	return nullptr;
+}
+
+// 一行読み込む
+std::string line;
+
+// 使用ローカル変数
+int nModel = 0;
+int nIdx = 0;
+int nCntMotion = 0;
+
+// この引数に読み込むモーション総数を設定してこれの分だけm_amotionInfoでリサイズする
+pMotion->m_aMotionInfo.resize(nDestMotions);
+pMotion->SetMotionNum(nDestMotions);
+
+// 文字列を読み続ける
+while (std::getline(file, line))
+{
+	// トークン設定
+	std::istringstream iss(line);
+	std::string token;
+	iss >> token;
+
+	// "NUM_MODEL"読み取り時
+	if (token == "NUM_MODEL")
+	{
+		// モデル数設定
+		nModel = pMotion->SetModels(iss);
+
+		// 読み込んだモデル数を保存する
+		pMotion->m_nNumModels = nModel;
+
+		// 配列のサイズをセット
+		pModel.resize(nModel);
+	}
+	// "MODEL_FILENAME"読み取り時
+	else if (token == "MODEL_FILENAME")
+	{
+		// モデルファイル読み込み
+		pMotion->SetModelFile(iss, pModel, nIdx, isShadow);
+
+		// インデックスカウントを加算
+		nIdx++;
+	}
+	// "PARTSSET"読み取り時
+	else if (token == "PARTSSET")
+	{
+		// パーツごとのセット
+		pMotion->SetParts(file, pModel);
+	}
+	// "MOTIONSET"読み取り時
+	else if (token == "MOTIONSET")
+	{
+		// パーツのモーションの設定
+		pMotion->SetPartsMotion(file, pMotion.get(), nCntMotion);
+
+		// モーションカウントを加算
+		nCntMotion++;
+	}
+	// "END_SCRIPT"読み取り時
+	else if (token == "END_SCRIPT")
+	{
+		break;
+	}
+}
+
+// ファイルを閉じる
+file.close();
+
+#endif
+
+#if 0
+// モーションマネージャーを取得
+auto pMotionManager = CManager::GetInstance()->GetMotionManager();
+
+// モーションデータ一覧を取得
+const auto& motionList = pMotionManager->GetList();
+
+// インデックスの範囲をチェックしオーバーしている場合
+if (m_motiontype < 0 || m_motiontype >= static_cast<int>(motionList.size()))
+	return;
+
+// 現在のモーション情報を取得
+const auto& info = motionList[m_motiontype];
+const auto& infoBlend = motionList[m_motiontypeBlend];
+
+// ブレンド係数を計算
+float fBlendFrame = static_cast<float>(m_nCounterBlend) / static_cast<float>(m_nFrameBlend);
+float fRateMotion = static_cast<float>(m_nCounterMotion) / static_cast<float>(info.aKeyInfo[m_nKey].nFrame);
+
+// 現在のキーと次のキーを取得
+const CMotionManager::KEY& nowKey = info.aKeyInfo[m_nKey].aKey[nModelCount];
+const CMotionManager::KEY& nextKey = info.aKeyInfo[m_nNextKey].aKey[nModelCount];
+
+const CMotionManager::KEY& nowKeyBlend = infoBlend.aKeyInfo[m_nKeyBlend].aKey[nModelCount];
+const CMotionManager::KEY& nextKeyBlend = infoBlend.aKeyInfo[m_nNextKeyBlend].aKey[nModelCount];
+
+//==========================
+// 現在モーションの補間計算
+//==========================
+D3DXVECTOR3 DiffRot = VECTOR3_NULL; // 角度
+D3DXVECTOR3	CurrentRot = VECTOR3_NULL; // 現在角度
+
+// 角度を計算する
+DiffRot.x = nextKey.fRotX - nowKey.fRotX;
+DiffRot.y = nextKey.fRotY - nowKey.fRotY;
+DiffRot.z = nextKey.fRotZ - nowKey.fRotZ;
+
+// 現在角度に適用
+CurrentRot.x = nowKey.fRotX + DiffRot.x * fRateMotion;
+CurrentRot.y = nowKey.fRotY + DiffRot.y * fRateMotion;
+CurrentRot.z = nowKey.fRotZ + DiffRot.z * fRateMotion;
+
+// 座標を計算
+D3DXVECTOR3 DiffPos = VECTOR3_NULL; // 座標
+D3DXVECTOR3	CurrentPos = VECTOR3_NULL; // 現在座標
+
+// 座標計算
+DiffPos.x = nextKey.fPosX - nowKey.fPosX;
+DiffPos.y = nextKey.fPosY - nowKey.fPosY;
+DiffPos.z = nextKey.fPosZ - nowKey.fPosZ;
+
+// 現在座標に適用
+CurrentPos.x = nowKey.fPosX + DiffPos.x * fRateMotion;
+CurrentPos.y = nowKey.fPosY + DiffPos.y * fRateMotion;
+CurrentPos.z = nowKey.fPosZ + DiffPos.z * fRateMotion;
+
+//==========================================================
+// ブレンドモーションの補間計算
+//==========================================================
+D3DXVECTOR3 DiffBlendRot = VECTOR3_NULL; // 角度
+D3DXVECTOR3	BlendRot = VECTOR3_NULL;	 // ブレンド角度
+
+// ブレンド角度を計算
+DiffBlendRot.x = nextKeyBlend.fRotX - nowKeyBlend.fRotX;
+DiffBlendRot.y = nextKeyBlend.fRotY - nowKeyBlend.fRotY;
+DiffBlendRot.z = nextKeyBlend.fRotZ - nowKeyBlend.fRotZ;
+
+// ブレンドの角度を適用
+BlendRot.x = nowKeyBlend.fRotX + DiffBlendRot.x * fBlendFrame;
+BlendRot.y = nowKeyBlend.fRotY + DiffBlendRot.y * fBlendFrame;
+BlendRot.z = nowKeyBlend.fRotZ + DiffBlendRot.z * fBlendFrame;
+
+D3DXVECTOR3 DiffBlendPos = VECTOR3_NULL; // 座標
+D3DXVECTOR3	BlendPos = VECTOR3_NULL;	 // ブレンド座標
+
+// ブレンド座標を計算
+DiffBlendPos.x = nextKeyBlend.fPosX - nowKeyBlend.fPosX;
+DiffBlendPos.y = nextKeyBlend.fPosY - nowKeyBlend.fPosY;
+DiffBlendPos.z = nextKeyBlend.fPosZ - nowKeyBlend.fPosZ;
+
+// ブレンドの座標を適用
+BlendPos.x = nowKeyBlend.fPosX + DiffBlendPos.x * fBlendFrame;
+BlendPos.y = nowKeyBlend.fPosY + DiffBlendPos.y * fBlendFrame;
+BlendPos.z = nowKeyBlend.fPosZ + DiffBlendPos.z * fBlendFrame;
+
+//==========================================================
+// モデルの座標,角度に適用
+//==========================================================
+
+// 最終角度,座標
+D3DXVECTOR3 LastRot = VECTOR3_NULL;
+D3DXVECTOR3 LastPos = VECTOR3_NULL;
+
+// 角度計算
+LastRot.x = CurrentRot.x + (BlendRot.x - CurrentRot.x) * fBlendFrame;
+LastRot.y = CurrentRot.y + (BlendRot.y - CurrentRot.y) * fBlendFrame;
+LastRot.z = CurrentRot.z + (BlendRot.z - CurrentRot.z) * fBlendFrame;
+
+// 座標計算
+LastPos.x = CurrentPos.x + (BlendPos.x - CurrentPos.x) * fBlendFrame;
+LastPos.y = CurrentPos.y + (BlendPos.y - CurrentPos.y) * fBlendFrame;
+LastPos.z = CurrentPos.z + (BlendPos.z - CurrentPos.z) * fBlendFrame;
+
+// 正規化
+LastRot.x = NormalAngle(LastRot.x);
+LastRot.y = NormalAngle(LastRot.y);
+LastRot.z = NormalAngle(LastRot.z);
+
+//==========================================================
+// モデルにセット
+//==========================================================
+ppModel[nModelCount]->SetPos(LastPos);
+ppModel[nModelCount]->SetRot(LastRot);
+
+#endif
 //=================================================================
 // モーションフレーム判定
 //=================================================================

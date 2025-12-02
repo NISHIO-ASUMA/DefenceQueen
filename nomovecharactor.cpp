@@ -101,7 +101,7 @@ void CNoMoveCharactor::Update(void)
 	}
 
 	// モーションの更新処理
-	m_pMotion->Update(m_pModel, m_pModel.size());
+	m_pMotion->Update(m_pModel);
 }
 //=========================================================
 // 描画処理
@@ -143,6 +143,6 @@ void CNoMoveCharactor::Draw(void)
 //=========================================================
 void CNoMoveCharactor::MotionLoad(const char* pScriptName, int nDestMotions,const bool isShadow)
 {
-	// ポインタ生成
+	// ポインタを取得する
 	m_pMotion = CMotion::Load(pScriptName, m_pModel, nDestMotions, isShadow);
 }

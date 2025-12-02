@@ -75,7 +75,7 @@ HRESULT CQueen::Init(void)
 	m_pStateMachine = std::make_unique<CStateMachine>();
 
 	// 初期状態をセット
-	// ChangeState(new CPlayerStateNeutral, CPlayerStateBase::ID_NEUTRAL);
+	// ChangeState(ID_NEUTRAL);
 
 	// コライダー生成
 	m_pSphereCollider = CSphereCollider::Create(GetPos(), QueenInfo::HitRange);

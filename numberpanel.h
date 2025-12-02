@@ -41,12 +41,20 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 	void SetTexture(void);
-
 	void SetType(const int nType) { m_nType = nType; }
 
 	static CNumberPanel* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const int nType);
 
 private:
+
+	//***********************************
+	// ’è”\‘¢‘Ì
+	//***********************************
+	struct Config
+	{
+		static constexpr float WIDTH = 120.0f; // ‰¡•
+		static constexpr float HEIGHT = 40.0f; // ‚‚³
+	};
 
 	int m_nType;	// í—Ş•Ï”
 };

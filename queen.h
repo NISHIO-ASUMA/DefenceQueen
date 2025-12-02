@@ -38,9 +38,9 @@ public:
 	enum MOTION
 	{
 		MOTION_NEUTRAL,		// ニュートラル
-		MOTION_ACTION,		// アクション
-		MOTION_DAMAGE,		// ダメージ
-		MOTION_DEATH,		// 死亡状態
+		//MOTION_ACTION,	// アクション
+		//MOTION_DAMAGE,	// ダメージ
+		//MOTION_DEATH,		// 死亡状態
 		MOTION_MAX
 	};
 

@@ -1,6 +1,6 @@
 //=========================================================
 //
-// 敵が対象物を追従する処理 [ enemychaseleaf.h ]
+// 敵の攻撃ノードの管理クラス [ enemyattackleaf.h ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -16,39 +16,31 @@
 #include "leafnodebase.h"
 
 //*********************************************************
-// 前方宣言
+// 攻撃操作を行う末端ノードのクラスを定義
 //*********************************************************
-class CBlackBoard;
-
-//*********************************************************
-// 敵が対象物を追従する末端ノードクラスを定義する
-//*********************************************************
-class CEnemyChaseLeaf : public CLeafNodeBase
+class CEnemyAttackLeaf : public CLeafNodeBase
 {
 public:
 
-	CEnemyChaseLeaf(CBlackBoard* blackboard) : CLeafNodeBase(blackboard) {};
-	~CEnemyChaseLeaf() = default;
+	CEnemyAttackLeaf(CBlackBoard* blackboard) : CLeafNodeBase(blackboard) {};
+	~CEnemyAttackLeaf() = default;
 
 	void Update() override;
 
-	/// <summary>
-	/// 常に成功である値を返す関数
-	/// </summary>
-	/// <returns></returns>
 	NodeInfo::NodeResult get_node_result() const override
 	{
+		// 成功を返す
 		return NodeInfo::NodeResult::Re_SUCCESS;
 	};
 
 private:
 
-	//**************************
-	// 定数格納構造体
-	//**************************
-	struct ChaseInfo
+	//***************************
+	// 定数構造体
+	//***************************
+	struct Config
 	{
-		static constexpr float DISTANCE = 100.0f; // 最大追従距離
-		static constexpr float SPEED = 4.0f;	  // 移動速度
+		static constexpr int DAMAGE = 1; // ダメージ量
 	};
 };
+

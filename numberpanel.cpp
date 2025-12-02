@@ -38,7 +38,7 @@ CNumberPanel* CNumberPanel::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,
 	// オブジェクト設定
 	pPanel->SetPos(pos);
 	pPanel->SetRot(rot);
-	pPanel->SetSize(120.0f, 40.0f);
+	pPanel->SetSize(Config::WIDTH, Config::HEIGHT);
 	pPanel->SetType(nType);
 	pPanel->SetTexture();
 
@@ -91,37 +91,37 @@ void CNumberPanel::SetTexture(void)
 	if (pTexture == nullptr) return;
 
 	// テクスチャパス格納
-	const char* pTrxName = {};
+	const char* pTexName = {};
 
 	// 種類によってテクスチャ設定変更
 	switch (m_nType)
 	{
 	case TYPE_LITTLE: // 最小数
-		pTrxName = "number_little.png";
+		pTexName = "number_little.png";
 		break;
 
 	case TYPE_MIDDLE: // 中間数
-		pTrxName = "number_middle.png";
+		pTexName = "number_middle.png";
 		break;
 
 	case TYPE_LARGE:  // 最大数
-		pTrxName = "number_large.png";
+		pTexName = "number_large.png";
 		break;
 
 	default:
-		pTrxName = nullptr;
+		pTexName = nullptr;
 		break;
 	}
 
-	if (pTrxName)
+	if (pTexName)
 	{
 		// テクスチャに割り当てる
-		CBillboard::SetTexture(pTrxName);
+		CBillboard::SetTexture(pTexName);
 	}
 	else
 	{
 		// テクスチャを付けない
-		pTrxName = nullptr;
-		CBillboard::SetTexture(pTrxName);
+		pTexName = nullptr;
+		CBillboard::SetTexture(pTexName);
 	}
 }

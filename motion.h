@@ -28,42 +28,10 @@ class CMotion
 {
 public:
 
-	//***************************
-	// キー構造体宣言
-	//***************************
-	struct KEY
-	{
-		float fPosX;	// 位置X
-		float fPosY;	// 位置Y
-		float fPosZ;	// 位置Z
-		float fRotX;	// 角度X
-		float fRotY;	// 角度Y
-		float fRotZ;	// 角度Z
-	};
-
-	//***************************
-	// キー情報の構造体宣言
-	//***************************
-	struct KEY_INFO
-	{
-		int nFrame;				// フレーム数
-		std::vector<KEY> aKey;  // 動的なキー数
-	};
-
-	//***************************
-	// モーション情報の構造体宣言
-	//***************************
-	struct INFO
-	{
-		bool bLoop;						// ループするかしないか
-		int nNumKey;					// キーの総数
-		std::vector<KEY_INFO> aKeyInfo; // モーションの動的キーフレーム
-	};
-
 	CMotion();
 	~CMotion();
 
-	void Update(std::vector<CModel*> m_pModel, const int nMaxPart);
+	void Update(std::vector<CModel*> pModel);
 	void UpdateCurrentMotion(CModel** ppModel, int nModelCount);
 	void UpdateBlend(CModel** ppModel, int nModelCount);
 	void Debug(void);
@@ -76,15 +44,14 @@ public:
 	int GetMotionType(void) { return m_motiontype; }
 	bool GetFinishMotion(void) { return m_isFinishMotion; }
 
-	int RegisterPath(const char* pMotionName,std::vector<CModel*>& pModel, int nDestMotions, const bool isShadow);
+	// インデックス登録処理
+	void RegisterPath(const char* pMotionName,std::vector<CModel*>& pModel, int nDestMotions, const bool isShadow);
 
+	// モーションの読み込み
 	static std::unique_ptr<CMotion>Load(const char* pFilename, std::vector<CModel*>& pModel, int nDestMotions, const bool isShadow);
 
-private: 
+private:
 
-	std::vector<INFO> m_aMotionInfo; // モーション情報を動的確保
-
-	int m_nNumMotion;		// モーションの総数
 	int m_nNumModels;		// モデル総数
 	int m_nNumKey;			// キーの総数
 	int m_nKey;				// 現在のキーNo
@@ -109,7 +76,6 @@ private:
 	static constexpr int NEUTRAL = 0; // ニュートラル番号
 
 	int m_nMotionIdx;				// モーションファイル番号
-	const char* m_pMotionName;
 };
 
 #if 0

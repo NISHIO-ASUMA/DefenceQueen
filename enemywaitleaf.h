@@ -32,9 +32,12 @@ public:
 
 	void Update() override;
 
+	/// <summary>
+	/// í‚É¬Œ÷‚Å‚ ‚é’l‚ğ•Ô‚·ŠÖ”
+	/// </summary>
+	/// <returns></returns>
 	NodeInfo::NodeResult get_node_result() const override
 	{
-		// ¬Œ÷‚ğ•Ô‚·
 		return NodeInfo::NodeResult::Re_SUCCESS;
 	};
 };

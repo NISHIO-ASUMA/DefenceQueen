@@ -29,7 +29,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-
+	
 	void SetTime(const int nTime) { m_nActiveTime = nTime; }
 	void SetRadius(const float fRadius) { m_fRadius = fRadius; }
 
