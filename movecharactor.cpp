@@ -139,8 +139,10 @@ void CMoveCharactor::Update(void)
 		m_pShadowS->SetRot(m_rot);
 	}
 
-	// モーションの更新処理
+#ifdef NDEBUG
+	// release時だけ
 	m_pMotion->Update(m_pModel);
+#endif
 }
 //=========================================================
 // 描画処理

@@ -9,11 +9,14 @@
 // インクルードファイル
 //*********************************************************
 #include "enemyspawner.h"
+#include "enemy.h"
+#include "gamesceneobject.h"
+#include "time.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
-CEnemySpawner::CEnemySpawner() : m_SpawnPos(VECTOR3_NULL), m_pEnemy{}
+CEnemySpawner::CEnemySpawner() : m_SpawnPos{}, m_pEnemy{},m_SpawnInterval(NULL),m_Timer(NULL)
 {
 	// 値のクリア
 }
@@ -22,7 +25,7 @@ CEnemySpawner::CEnemySpawner() : m_SpawnPos(VECTOR3_NULL), m_pEnemy{}
 //=========================================================
 CEnemySpawner::~CEnemySpawner()
 {
-
+	Uninit();
 }
 //=========================================================
 // 初期化処理
@@ -31,6 +34,11 @@ HRESULT CEnemySpawner::Init(void)
 {
 	// 配列切り離し
 	m_pEnemy.clear();
+
+	// スポーン座標を作成
+	m_SpawnPos.push_back({ 500.0f,0.0f,-200.0f });
+	m_SpawnPos.push_back({ -500.0f,0.0f,200.0f });
+	m_SpawnPos.push_back({ 0.0f,0.0f,-500.0f });
 
 	return S_OK;
 }
@@ -47,13 +55,29 @@ void CEnemySpawner::Uninit(void)
 //========================================================
 void CEnemySpawner::Update(void)
 {
-	// 経過時間に応じてランダムな数でスポーンする
 
 }
 //=========================================================
 // スポーンする場所のセット処理
 //========================================================
-void CEnemySpawner::SetEnemy(const D3DXVECTOR3 pos)
+void CEnemySpawner::SetEnemy(void)
 {
-	// 生成する
+	// 5体ランダム
+	int spawnCount = rand() % 5 + 1;
+
+	for (int i = 0; i < spawnCount; i++)
+	{
+		// スポーン地点をランダム選択
+		int index = rand() % m_SpawnPos.size();
+
+		// 座標
+		D3DXVECTOR3 pos = m_SpawnPos[index];
+		D3DXVECTOR3 rot = VECTOR3_NULL;
+
+		// 敵生成
+		CEnemy* pEnemy = CEnemy::Create(pos, rot, 10);
+
+		// 配列に追加
+		m_pEnemy.push_back(pEnemy);
+	}
 }

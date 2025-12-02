@@ -77,15 +77,3 @@ private:
 
 	int m_nMotionIdx;				// モーションファイル番号
 };
-
-#if 0
-
-void SetMotionNum(int nMotion) { m_nNumMotion = nMotion; }
-int SetModels(std::istringstream& iss);
-void SetModelFile(std::istringstream& iss, std::vector<CModel*>& pModel, int nCnt, const bool isShadow);
-void SetParts(std::ifstream& file, std::vector<CModel*>& pModel);
-void SetPartsMotion(std::ifstream& file, CMotion* pMotion, int nCntMotion);
-void SetKey(std::ifstream& file, CMotion* pMotion, int nCntMotion, int nCntKey);
-void SetKeyDate(std::istringstream& ss, const std::string& param, CMotion* pMotion, int nCntMotion, int nCntKey, int& posKeyIndex, int& rotKeyIndex);
-
-#endif

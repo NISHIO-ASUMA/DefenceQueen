@@ -9,6 +9,9 @@
 // インクルードファイル
 //*********************************************************
 #include "gimmicksuction.h"
+#include "gamesceneobject.h"
+#include "selectpoint.h"
+#include "template.h"
 
 //=========================================================
 // コンストラクタ
@@ -73,10 +76,28 @@ void CGimmickSuction::Update(void)
 	D3DXVECTOR3 pos = GetPos();
 	float fRadius = GetRadius();
 
-	// 吸い込みを発生させる ( 対象は仲間オブジェクト )
-	
+	// 対象物を取得
+	auto select = CGameSceneObject::GetInstance()->GetPoint();
+	auto selectpos = select->GetPos();
+
+	D3DXVECTOR3 vec = pos - selectpos; // 吸い寄せ
+	float dist = D3DXVec3Length(&vec);
+
+	if (dist < fRadius)
+	{
+		// 正規化（方向）
+		D3DXVECTOR3 dir;
+		D3DXVec3Normalize(&dir, &vec);
+
+		// 一定の吸引力
+		const float suctionPower = 5.0f;  // 一定の吸引速度
+		D3DXVECTOR3 suctionMove = dir * suctionPower;
+
+		select->SetMove(suctionMove);
+	}
+
 	// 時間を減らす
-	if (m_nActiveTime <= NULL)
+	if (m_nActiveTime >= NULL)
 	{
 		m_nActiveTime--;
 	}
@@ -85,6 +106,12 @@ void CGimmickSuction::Update(void)
 		Uninit();
 		return;
 	}
+
+	// 角度加算
+	auto rot = GetRot();
+	rot.y += 0.3f;
+	rot.y = NormalAngle(rot.y);
+	SetRot(rot);
 
 	// 親クラスの更新
 	CObjectX::Update();

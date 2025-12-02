@@ -35,7 +35,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 
-	void SetEnemy(const D3DXVECTOR3 pos);
+	void SetEnemy(void);
 
 	/// <summary>
 	/// 配列番号情報の取得
@@ -53,7 +53,9 @@ public:
 
 private:
 
-	std::vector<CEnemy*>m_pEnemy; //配列
+	std::vector<CEnemy*>m_pEnemy; // 出現するオブジェクトの配列
+	std::vector<D3DXVECTOR3>m_SpawnPos; // 出現する座標の配列
 
-	D3DXVECTOR3 m_SpawnPos; // スポナーの座標
+	int m_SpawnInterval;
+	int m_Timer;
 };

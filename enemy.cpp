@@ -166,8 +166,8 @@ void CEnemy::Draw(void)
 	CMoveCharactor::Draw();
 
 	// デバッグフォント
-	CDebugproc::Print("座標 : %.2f,%.2f,%.2f", GetPos().x, GetPos().y, GetPos().z);
-	CDebugproc::Draw(0, 140);
+	//CDebugproc::Print("座標 : %.2f,%.2f,%.2f", GetPos().x, GetPos().y, GetPos().z);
+	//CDebugproc::Draw(0, 140);
 }
 //==========================================================
 // 状態変更処理

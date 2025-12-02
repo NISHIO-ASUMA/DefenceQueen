@@ -24,6 +24,8 @@
 #include "worker.h"
 #include "workermanager.h"
 #include "arraymanager.h"
+#include "enemyspawner.h"
+#include "gimmicksuction.h"
 
 //*********************************************************
 // 静的メンバ変数
@@ -40,7 +42,8 @@ m_pTimer(nullptr),
 m_pScore(nullptr),
 m_pArrayManager(nullptr),
 m_pWorkUi(nullptr),
-m_pQueen(nullptr)
+m_pQueen(nullptr),
+m_pSpawn(nullptr)
 {
 	// 値のクリア
 }
@@ -91,11 +94,14 @@ HRESULT CGameSceneObject::Init(void)
 
 	// 仲間アリの大軍を生成
 	m_pArrayManager = std::make_unique<CArrayManager>();
-	m_pArrayManager->Init(3);
+	m_pArrayManager->Init(30);
 
-	//// ui配置
-	//m_pWorkUi = std::make_unique<CWorkerUiManager>();
-	//m_pWorkUi->Init();
+	// ui配置
+	m_pWorkUi = std::make_unique<CWorkerUiManager>();
+	m_pWorkUi->Init();
+
+	// ギミック生成
+	CGimmickSuction::Create(D3DXVECTOR3(-600.0f,0.0f,-300.0f),VECTOR3_NULL,"STAGEOBJ/tornado00.x",600,300.0f);
 
 	return S_OK;
 }
@@ -115,6 +121,8 @@ void CGameSceneObject::Uninit(void)
 
 	// 働き司令塔アリの破棄
 	m_pWorkerManager.reset();
+
+	m_pSpawn.reset();
 
 	// ui処理
 	m_pWorkUi.reset();
@@ -148,14 +156,11 @@ void CGameSceneObject::Update(void)
 //=========================================================
 void CGameSceneObject::Draw(void)
 {
-#ifdef _DEBUG
-
+	// TODO : 提出の際にデバッグのみにする
 	if (m_pArrayManager)
 	{
 		m_pArrayManager->Draw();
 	}
-#endif // _DEBUG
-
 }
 //=========================================================
 // インスタンス取得処理

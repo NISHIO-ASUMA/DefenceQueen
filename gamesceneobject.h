@@ -31,6 +31,7 @@ class CWorkerUiManager;
 class CWorkerManager;
 class CArrayManager;
 class CQueen;
+class CEnemySpawner;
 
 //*********************************************************
 // ゲームシーンで使うオブジェクト管理クラスを定義
@@ -55,6 +56,7 @@ public:
 	CBlockManager* GetBlockManager(void) { return m_pBlocks.get(); }
 	CWorkerManager* GetWorkerM(void) { return m_pWorkerManager.get(); }
 	CArrayManager* GetArrayManager(void) { return m_pArrayManager.get(); }
+	CEnemySpawner* GetEnemySpawn(void) { return m_pSpawn.get(); }
 
 	static CGameSceneObject* GetInstance(void);
 
@@ -74,4 +76,5 @@ private:
 	std::unique_ptr<CBlockManager>m_pBlocks; // ブロックマネージャークラスのポインタ
 	std::unique_ptr<CWorkerManager>m_pWorkerManager;	// 司令塔アリ管理クラス
 	std::unique_ptr<CArrayManager>m_pArrayManager;	// 仲間アリ管理クラス
+	std::unique_ptr<CEnemySpawner>m_pSpawn;			// スポーン管理クラス
 };
