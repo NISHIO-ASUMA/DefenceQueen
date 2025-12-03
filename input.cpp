@@ -10,6 +10,7 @@
 //*********************************************************
 #include "input.h"
 #include "main.h"
+#include "manager.h"
 
 //*********************************************************
 // 定数空間
@@ -642,4 +643,43 @@ bool CInputMouse::GetState(DIMOUSESTATE* mouseState)
 
 	return true; // 正常に取得できた場合
 
+}
+//=========================================================
+// レイを取得
+//=========================================================
+void CInputMouse::GetRay(D3DXVECTOR3* pOutOrigin, D3DXVECTOR3* pOutDir)
+{
+	// マウス座標
+	POINT p;
+	GetCursorPos(&p);
+	ScreenToClient(FindWindowA(CLASS_NAME, WINDOW_NAME), &p);
+
+	// デバイス
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
+
+	// ビューポートの取得
+	D3DVIEWPORT9 vp;
+	pDevice->GetViewport(&vp);
+
+	// 各マトリックスを取得
+	D3DXMATRIX matProj, matView;
+	pDevice->GetTransform(D3DTS_PROJECTION, &matProj);
+	pDevice->GetTransform(D3DTS_VIEW, &matView);
+
+	// マウス位置をスクリーン座標から正規化デバイス座標へ変換
+	D3DXVECTOR3 vNear((float)p.x, (float)p.y, 0.0f);
+	D3DXVECTOR3 vFar((float)p.x, (float)p.y, 1.0f);
+
+	// ワールド座標に変換
+	D3DXVECTOR3 rayOrigin, rayDir;
+	D3DXVec3Unproject(&rayOrigin, &vNear, &vp, &matProj, &matView, nullptr);
+	D3DXVec3Unproject(&rayDir, &vFar, &vp, &matProj, &matView, nullptr);
+
+	// レイの方向を正規化
+	rayDir -= rayOrigin;
+	D3DXVec3Normalize(&rayDir, &rayDir);
+
+	// 結果を引数に書き込み
+	if (pOutOrigin) *pOutOrigin = rayOrigin;
+	if (pOutDir)    *pOutDir = rayDir;
 }

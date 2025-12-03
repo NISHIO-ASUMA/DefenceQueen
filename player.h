@@ -57,9 +57,11 @@ public:
 	void Uninit(void) override;
 	void Update(void) override;
 	void Draw(void) override;
-
 	void CollisionAll(D3DXVECTOR3 pPos,CInputKeyboard* pInput, CJoyPad* pPad);
 	bool CollisionBlock(CBoxCollider* other, D3DXVECTOR3* pos);
+	void OrderToArray(int nNum, D3DXVECTOR3 destpos);
+
+	D3DXVECTOR3 RandomSetPos(const D3DXVECTOR3& pos,float fRadius, int nMoveActiveNum, int nIdx);
 
 	CStateMachine* GetStateMachine() { return m_pStateMachine.get(); }
 
@@ -70,4 +72,5 @@ private:
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
 	CBoxCollider* m_pBoxCollider;	// 矩形のコライダー
 	CMotion* m_pMotion;				// モーションポインタ
+	int m_nNum;						// 仮変数
 };

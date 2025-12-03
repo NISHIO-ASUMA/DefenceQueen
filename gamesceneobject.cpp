@@ -78,7 +78,7 @@ HRESULT CGameSceneObject::Init(void)
 	CMeshField::Create(VECTOR3_NULL,3200.0f,2000.0f,2,2);
 
 	// 敵生成
-	CEnemy::Create(D3DXVECTOR3(720.0f, 0.0f, 300.0f), VECTOR3_NULL, 10);
+	// CEnemy::Create(D3DXVECTOR3(720.0f, 0.0f, 300.0f), VECTOR3_NULL, 10);
 
 	// ブロックマネージャー生成
 	m_pBlocks = std::make_unique<CBlockManager>();
@@ -94,7 +94,7 @@ HRESULT CGameSceneObject::Init(void)
 
 	// 仲間アリの大軍を生成
 	m_pArrayManager = std::make_unique<CArrayManager>();
-	m_pArrayManager->Init(30);
+	m_pArrayManager->Init(50);
 
 	// ui配置
 	m_pWorkUi = std::make_unique<CWorkerUiManager>();

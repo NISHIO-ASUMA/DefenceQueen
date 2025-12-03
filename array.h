@@ -28,7 +28,7 @@ class CSphereCollider;
 class CBoxCollider;
 
 //*********************************************************
-// プレイヤーの仲間クラスを定義
+// アリ一匹に対するクラスを定義
 //*********************************************************
 class CArray : public CMoveCharactor
 {
@@ -51,10 +51,15 @@ public:
 	void Update(void);
 	void Draw(void);
 	void Reset(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const int nLife);
+	void Moving(void);
 	bool Colision(CSphereCollider* other);
 
 	void SetActive(bool isFlags) { m_isActive = isFlags; }
+	void SetIsMove(bool isMove) { m_isMove = isMove; }
+	void SetDestPos(const D3DXVECTOR3 pos) { m_MoveDestPos = pos; }
+
 	bool GetActive(void) { return m_isActive; }
+	bool GetMove(void) { return m_isMove; }
 
 	static CArray* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,const int nLife);
 
@@ -69,6 +74,8 @@ private:
 	};
 
 	bool m_isActive;					// 使用状態かどうか
+	bool m_isMove;						// 移動するかどうか
+	D3DXVECTOR3 m_MoveDestPos;			// 目的の座標
 	CMotion* m_pMotion;					// モーションポインタ
 	CSphereCollider* m_pSphereCollider;	// 球形のコライダー
 	CBoxCollider* m_pBoxCollider;

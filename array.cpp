@@ -20,6 +20,7 @@
 #include "collisionbox.h"
 #include "arraymanager.h"
 #include "gamesceneobject.h"
+#include "template.h"
 
 //=========================================================
 // コンストラクタ
@@ -30,7 +31,9 @@ m_pMotion(nullptr),
 m_pParameter(nullptr),
 m_pStateMachine(nullptr),
 m_pBoxCollider(nullptr),
-m_isActive(false)
+m_isActive(false),
+m_isMove(false),
+m_MoveDestPos(VECTOR3_NULL)
 {
 	// 値のクリア
 }
@@ -93,7 +96,9 @@ HRESULT CArray::Init(void)
 	m_pBlackBoard = new CBlackBoard;
 	m_pBlackBoard->SetValue<CArray*>("Array",this);
 
+	// フラグ初期化
 	m_isActive = false;
+	m_isMove = false;
 
 	// 拡大する
 	SetScale(D3DXVECTOR3(1.5f, 1.5f, 1.5f));
@@ -126,6 +131,9 @@ void CArray::Update(void)
 	// falseなら通さない
 	if (!m_isActive) return;
 
+	// 移動させるなら
+	if (m_isMove) Moving();
+
 	// 座標のみの更新処理
 	CMoveCharactor::UpdatePosition();
 
@@ -134,44 +142,6 @@ void CArray::Update(void)
 
 	// コライダー座標の更新
 	m_pSphereCollider->SetPos(UpdatePos);
-
-#if 0
-	// アリ同士の当たり判定
-	for (int i = 0; i < arrayall; i++)
-	{
-		// ポインタ取得
-		CArray* pOther = CGameSceneObject::GetInstance()->GetArrayManager()->GetArrays(i);
-
-		// 自分自身 or 非アクティブは無視
-		if (pOther == this || !pOther->GetActive()) continue;
-
-		// 距離を計算
-		D3DXVECTOR3 posA = UpdatePos;
-		D3DXVECTOR3 posB = pOther->GetPos();
-
-		D3DXVECTOR3 diff = posA - posB;
-		float dist = D3DXVec3Length(&diff);
-
-		float r = m_pSphereCollider->GetRadius() + pOther->m_pSphereCollider->GetRadius();
-		float pushDist = r - dist;
-
-		if (pushDist > 0.0f) // 重なってる
-		{
-			// 正規化
-			D3DXVec3Normalize(&diff, &diff);
-
-			// 押し出し量
-			diff *= (pushDist * 0.5f); // お互いに半分ずつ押し出す
-
-			// 新しい位置を適用
-			posA += diff;
-			posB -= diff;
-
-			SetPos(posA); // 自分の位置更新
-			pOther->SetPos(posB); // 相手の位置更新
-		}
-	}
-#endif
 
 	// 体力がなくなった
 	if (m_pParameter && m_pParameter->GetHp() <= NULL)
@@ -225,6 +195,50 @@ void CArray::Reset(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const int nLife
 
 		// 自身の情報をセットする
 		m_pBlackBoard->SetValue<CArray*>("Array", this);
+	}
+}
+//=========================================================
+// 移動処理関数
+//=========================================================
+void CArray::Moving(void)
+{
+	// 進行方向への方向ベクトルを作成
+	D3DXVECTOR3 movevec = m_MoveDestPos - GetPos();
+	float fDis = D3DXVec3Length(&movevec);
+
+	// 範囲外なら移動する
+	if (fDis > 60.0f)
+	{
+		// 正規化
+		D3DXVec3Normalize(&movevec, &movevec);
+
+		// 速度を乗算する
+		movevec *= 5.0f;
+
+		// 計算角度
+		float angleY = atan2(-movevec.x, -movevec.z);
+		D3DXVECTOR3 rotDest = CMoveCharactor::GetRotDest();
+		rotDest.y = angleY;
+
+		// 正規化する
+		rotDest.y = NormalAngle(rotDest.y);
+
+		// 目的角を更新
+		CMoveCharactor::SetRotDest(rotDest);
+
+		// 移動量をセット
+		CMoveCharactor::SetMove(movevec);
+
+		// モーション変更
+		m_pMotion->SetMotion(CArray::MOTION_MOVE);
+	}
+	else
+	{
+		// 固定
+		SetMove(VECTOR3_NULL);
+
+		// モーション変更
+		m_pMotion->SetMotion(CArray::MOTION_NEUTRAL);
 	}
 }
 //=========================================================

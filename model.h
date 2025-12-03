@@ -43,11 +43,11 @@ public:
 	void DrawMtxShadow(void);
 
 	void SetParent(CModel* pModel);
-	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
-	void SetRot(D3DXVECTOR3 rot) { m_rot = rot; }
-	void SetScale(D3DXVECTOR3 scale = INITSCALE) { m_scale = scale; }
-	void OffSetPos(D3DXVECTOR3 offpos) { m_offPos = offpos; }
-	void OffSetRot(D3DXVECTOR3 offrot) { m_offRot = offrot; }
+	void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
+	void SetScale(const D3DXVECTOR3& scale = INITSCALE) { m_scale = scale; }
+	void OffSetPos(const D3DXVECTOR3& offpos) { m_offPos = offpos; }
+	void OffSetRot(const D3DXVECTOR3& offrot) { m_offRot = offrot; }
 	void SetPartType(PARTTYPE nDestPartType) { m_parttype = nDestPartType; }
 	void SetColorChange(bool isFlags) { m_isColorChange = isFlags; }
 	void SetMtxShadow(bool isShadow) { m_isShadow = isShadow; }

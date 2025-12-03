@@ -162,10 +162,13 @@ public:
 	bool GetTriggerUp(int button_type);
 	bool GetPress(int button_type);
 	bool GetState(DIMOUSESTATE* mouseState);
+	int GetMouseX(void) const { return m_CurrentMouseState.lX; }
+	int GetMouseY(void) const { return m_CurrentMouseState.lY; }
 
 	D3DXVECTOR2 GetMouseVelocity() { return D3DXVECTOR2((float)m_CurrentMouseState.lX, (float)m_CurrentMouseState.lY); }
 	D3DXVECTOR2 GetMouseOldVelocity() { return D3DXVECTOR2((float)m_PrevState.lX, (float)m_PrevState.lY); }
 	BOOL IsMouseWheelPresent(void) { return (GetSystemMetrics(SM_MOUSEWHEELPRESENT) != 0); }
+	void GetRay(D3DXVECTOR3* pOutOrigin, D3DXVECTOR3* pOutDir);
 
 private:
 	DIMOUSESTATE m_PrevState;			// É}ÉEÉXèÛë‘

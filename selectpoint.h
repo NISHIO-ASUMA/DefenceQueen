@@ -59,4 +59,6 @@ private:
 
 	float m_fHitRange;			// ”¼Œa
 	bool m_isHit;				// “–‚½‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
+	D3DXVECTOR3 m_RayOrigin = VECTOR3_NULL;
+	D3DXVECTOR3 m_RayDir = VECTOR3_NULL;
 };

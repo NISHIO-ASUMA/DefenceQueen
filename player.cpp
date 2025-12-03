@@ -33,6 +33,8 @@
 #include "workermanager.h"
 #include "worker.h"
 #include "playerstatebase.h"
+#include "arraymanager.h"
+#include "array.h"
 
 //*********************************************************
 // 名前空間
@@ -40,6 +42,7 @@
 namespace PLAYERINFO
 {
 	constexpr float NorRot = D3DX_PI * 2.0f; // 正規化値
+	constexpr float SPRED = 75.0f;			 // 散らす範囲
 };
 
 //=========================================================
@@ -48,7 +51,8 @@ namespace PLAYERINFO
 CPlayer::CPlayer(int nPriority) : CNoMoveCharactor(nPriority),
 m_pMotion(nullptr),
 m_pStateMachine(nullptr),
-m_pBoxCollider(nullptr)
+m_pBoxCollider(nullptr),
+m_nNum(NULL)
 {
 	// 値のクリア
 }
@@ -138,6 +142,13 @@ void CPlayer::Update(void)
 		m_pBoxCollider->SetPosOld(posOld);
 	}
 
+	// 引数の数だけポイントに送る
+	if (pKeyboard->GetTrigger(DIK_B))
+	{
+		// TODO : 後々キー変更
+		m_nNum = m_nNum + 5;
+	}
+
 	// 当たり判定の管理関数
 	CollisionAll(UpdatePos,pKeyboard,pJoyPad);
 
@@ -154,12 +165,12 @@ void CPlayer::Draw(void)
 	CNoMoveCharactor::Draw();
 #endif
 
-	// デバッグ表示
-	CDebugproc::Print("モーションタイプ [ %d ]", m_pMotion->GetMotionType());
-	CDebugproc::Draw(0, 100);
-
 	CDebugproc::Print("Player POS [ %.2f, %.2f,%.2f ]", GetPos().x,GetPos().y,GetPos().z);
 	CDebugproc::Draw(0, 120);
+
+	CDebugproc::Print("設定する移動数 : [ %d ]", m_nNum);
+	CDebugproc::Draw(0, 220);
+
 }
 //===========================================================
 // 全コリジョンチェック関数
@@ -224,6 +235,16 @@ void CPlayer::CollisionAll(D3DXVECTOR3 pPos, CInputKeyboard* pInput, CJoyPad* pP
 			}
 		}
 	}
+
+
+	// キー入力
+	CInputKeyboard* pKeyboard = CManager::GetInstance()->GetInputKeyboard();
+
+	if (pKeyboard->GetTrigger(DIK_V))
+	{
+		// 指令
+		OrderToArray(m_nNum, pPoint->GetPos());
+	}
 }
 //===================================================================
 // ブロックとの当たり判定
@@ -232,4 +253,59 @@ bool CPlayer::CollisionBlock(CBoxCollider* other,D3DXVECTOR3 * pos)
 {
 	// 矩形との当たり判定を返す
 	return CCollisionBox::Collision(m_pBoxCollider, other, pos);
+}
+//===================================================================
+// 指示を出して特定数のアリを送る処理
+//===================================================================
+void CPlayer::OrderToArray(int nNum,D3DXVECTOR3 destpos)
+{
+	// アリ配列を取得
+	auto arrays = CGameSceneObject::GetInstance()->GetArrayManager();
+	if (arrays == nullptr) return;
+
+	// カウント変数
+	int nSend = 0;
+
+	// アクティブなものの中から指定数だけ動かす
+	for (int nCnt = 0; nCnt < arrays->GetAll(); nCnt++)
+	{
+		// 指定数に達したら終わり
+		if (nSend >= nNum) break; 
+
+		// 本体を取得
+		auto Array = arrays->GetArrays(nCnt);
+
+		// 使われていなかったら
+		if (!Array->GetActive()) continue;
+		if (Array->GetMove()) continue;
+
+		// ランダム配置
+		D3DXVECTOR3 randomaiz = RandomSetPos(destpos, PLAYERINFO::SPRED,m_nNum,nCnt);
+
+		// 引数の数だけ移動を有効化する
+		Array->SetIsMove(true);
+		Array->SetDestPos(randomaiz);
+
+		// 加算
+		nSend++;
+	}
+}
+//===================================================================
+// 一定の範囲にランダムに設置する関数
+//===================================================================
+D3DXVECTOR3 CPlayer::RandomSetPos(const D3DXVECTOR3& pos, float fRadius,int nMoveActiveNum,int nIdx)
+{
+	// 以下なら
+	if (nMoveActiveNum <= 0) return pos;
+
+	// 角度を均等に割る
+	float fAngle = (2.0f * D3DX_PI) * (static_cast<float>(nIdx) / nMoveActiveNum);
+
+	// 基準値座標を設定する
+	D3DXVECTOR3 OffSet = VECTOR3_NULL;
+	OffSet.x = cosf(fAngle) * fRadius;
+	OffSet.z = sinf(fAngle) * fRadius;
+	OffSet.y = 0.0f;
+
+	return pos + OffSet;
 }

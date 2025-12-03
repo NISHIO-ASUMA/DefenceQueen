@@ -141,14 +141,6 @@ void CMove3DObject::Update(void)
 
 	// アンロック
 	m_pVtxBuff->Unlock();
-}
-//=========================================================
-// 描画処理
-//=========================================================
-void CMove3DObject::Draw(void)
-{
-	// デバイスポインタを宣言
-	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// 計算用のマトリックスを宣言
 	D3DXMATRIX mtxRot, mtxTrans;
@@ -163,6 +155,14 @@ void CMove3DObject::Draw(void)
 	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
 	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+}
+//=========================================================
+// 描画処理
+//=========================================================
+void CMove3DObject::Draw(void)
+{
+	// デバイスポインタを宣言
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);

@@ -657,6 +657,9 @@
     <ClCompile Include="enemyreturnleaf.cpp">
       <Filter>ソース ファイル\Enemy_AI\Leaf</Filter>
     </ClCompile>
+    <ClCompile Include="arrayspawner.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blackboard.h">
@@ -1060,6 +1063,9 @@
     </ClInclude>
     <ClInclude Include="enemyreturnleaf.h">
       <Filter>ヘッダー ファイル\Enemy_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="arrayspawner.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

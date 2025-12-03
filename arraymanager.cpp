@@ -108,6 +108,7 @@ void CArrayManager::Draw(void)
 	// デバッグ表示
 	CDebugproc::Print("アクティブ数 : [ %d / %d ]", m_nActiveAll, ArrayConfig::ALLARRAYS);
 	CDebugproc::Draw(0, 200);
+
 }
 //=========================================================
 // 出現管理処理

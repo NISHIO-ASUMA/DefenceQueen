@@ -65,6 +65,8 @@ public:
 	D3DXVECTOR3 GetPos(void) { return m_pCamera.posV; }
 	D3DXVECTOR3 GetPosR(void) { return m_pCamera.posR; }
 	D3DXMATRIX GetMtxProjection(void) { return m_pCamera.mtxprojection; }
+	D3DXMATRIX GetView(void) { return m_pCamera.mtxView; }
+
 	int GetMode(void) { return m_pCamera.nMode; }
 
 private:
