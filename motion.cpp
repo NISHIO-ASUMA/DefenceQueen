@@ -179,13 +179,17 @@ void CMotion::Update(std::vector<CModel*> pModel)
 		if (m_isFirstMotion)
 		{
 			// ブレンドモーションの更新
-			UpdateBlend(pModel.data(), nCnt);
+			UpdateBlend(Manager,pModel.data(), nCnt);
 		}
 		else
 		{
 			// 現在のモーション更新
-			UpdateCurrentMotion(pModel.data(), nCnt);
+			UpdateCurrentMotion(Manager,pModel.data(), nCnt);
 		}
+
+		// モデル更新
+		pModel[nCnt]->Update();
+
 	}
 
 	// フレーム進行処理
@@ -284,15 +288,11 @@ void CMotion::Update(std::vector<CModel*> pModel)
 //=================================================================
 // 現在のモーションの更新関数
 //=================================================================
-void CMotion::UpdateCurrentMotion(CModel** ppModel, int nModelCount)
+void CMotion::UpdateCurrentMotion(CMotionManager* pMption,CModel** ppModel, int nModelCount)
 {
 #if 1
-	// 取得
-	CMotionManager* pMotionManager = CManager::GetInstance()->GetMotionManager();
-	if (!pMotionManager) { return; }
-
 	// モーションリスト取得
-	const auto& motionList = pMotionManager->GetList();
+	const auto& motionList = pMption->GetList();
 
 	// モーションタイプチェック
 	if (m_motiontype < 0 || m_motiontype >= static_cast<int>(motionList.size()))
@@ -365,14 +365,10 @@ void CMotion::UpdateCurrentMotion(CModel** ppModel, int nModelCount)
 //=================================================================
 // ブレンドモーションの更新関数
 //=================================================================
-void CMotion::UpdateBlend(CModel** ppModel, int nModelCount)
+void CMotion::UpdateBlend(CMotionManager* pMption,CModel** ppModel, int nModelCount)
 {
-	// モーションマネージャーから取得
-	CMotionManager* pMotionManager = CManager::GetInstance()->GetMotionManager();
-	if (!pMotionManager) { return; }
-
 	// モーション情報を取得
-	const auto& motionList = pMotionManager->GetList();
+	const auto& motionList = pMption->GetList();
 
 	// 現在のモーション情報取得
 	const CMotionManager::INFO& motionInfo = motionList[m_motiontype];

@@ -139,12 +139,6 @@ void CMoveCharactor::Update(void)
 		m_pShadowS->SetRot(m_rot);
 	}
 
-#ifdef NDEBUG
-	// release時だけ
-	m_pMotion->Update(m_pModel);
-#endif
-
-#if 0
 	// 計算用のマトリックスを宣言
 	D3DXMATRIX mtxRot, mtxTrans, mtxScal;
 
@@ -162,7 +156,12 @@ void CMoveCharactor::Update(void)
 	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
 	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxTrans);
+
+#ifdef NDEBUG
+	// release時だけ
+	m_pMotion->Update(m_pModel);
 #endif
+
 }
 //=========================================================
 // 描画処理
@@ -171,26 +170,6 @@ void CMoveCharactor::Draw(void)
 {
 	// デバイス取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
-
-	// 計算用のマトリックスを宣言
-	D3DXMATRIX mtxRot, mtxTrans, mtxScal;
-
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxworld);
-
-	// 大きさを反映
-	D3DXMatrixScaling(&mtxScal, m_scale.x, m_scale.y, m_scale.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxScal);
-
-	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxRot);
-
-	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxTrans);
-
-	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxworld);
 
 	// モデルの描画

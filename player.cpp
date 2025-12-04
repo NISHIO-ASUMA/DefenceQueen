@@ -23,10 +23,8 @@
 #include "sound.h"
 #include "statemachine.h"
 #include "boxcollider.h"
-#include "collisionbox.h"
 #include "motion.h"
 #include "blockmanager.h"
-#include "collisionbox.h"
 #include "playerstateneutral.h"
 #include "gamesceneobject.h"
 #include "selectpoint.h"
@@ -35,6 +33,9 @@
 #include "playerstatebase.h"
 #include "arraymanager.h"
 #include "array.h"
+#include "arrayspawnmanager.h"
+#include "arrayspawner.h"
+#include "template.h"
 
 //*********************************************************
 // 名前空間
@@ -52,9 +53,13 @@ CPlayer::CPlayer(int nPriority) : CNoMoveCharactor(nPriority),
 m_pMotion(nullptr),
 m_pStateMachine(nullptr),
 m_pBoxCollider(nullptr),
-m_nNum(NULL)
+m_nNum(NULL),
+m_nSelectSpawn(NULL)
 {
-	// 値のクリア
+	for (int nCnt = 0; nCnt < NUM_SPAWN; nCnt++)
+	{
+		m_pSpawnData[nCnt] = 0;
+	}
 }
 //=========================================================
 // デストラクタ
@@ -142,13 +147,31 @@ void CPlayer::Update(void)
 		m_pBoxCollider->SetPosOld(posOld);
 	}
 
-	// 引数の数だけポイントに送る
-	if (pKeyboard->GetTrigger(DIK_B))
+	// 選択スポナーの処理
+	if (pKeyboard->GetTrigger(DIK_L))
 	{
-		// TODO : 後々キー変更
-		m_nNum = m_nNum + 5;
+		// ループ選択
+		m_nSelectSpawn = Wrap(m_nSelectSpawn + 1, 0, 2);
 	}
 
+	// 引数の数だけポイントに送る
+	if (pKeyboard->GetTrigger(DIK_UP))
+	{
+		m_nNum += 2;
+		m_nNum = Clump(m_nNum, 0, 10);
+	}
+
+	if (pKeyboard->GetTrigger(DIK_DOWN))
+	{
+		m_nNum -= 2;
+		m_nNum = Clump(m_nNum, 0, 10);
+	}
+
+	if (pKeyboard->GetTrigger(DIK_K))
+	{
+		// スポナーに送る数とインデックスをセット
+		SetSendArrayMoving(m_nSelectSpawn, m_nNum);
+	}
 	// 当たり判定の管理関数
 	CollisionAll(UpdatePos,pKeyboard,pJoyPad);
 
@@ -165,8 +188,11 @@ void CPlayer::Draw(void)
 	CNoMoveCharactor::Draw();
 #endif
 
-	CDebugproc::Print("Player POS [ %.2f, %.2f,%.2f ]", GetPos().x,GetPos().y,GetPos().z);
+	CDebugproc::Print("Player Pos [ %.2f, %.2f,%.2f ]", GetPos().x,GetPos().y,GetPos().z);
 	CDebugproc::Draw(0, 120);
+
+	CDebugproc::Print("選択インデックス : [ %d ]", m_nSelectSpawn);
+	CDebugproc::Draw(0, 200);
 
 	CDebugproc::Print("設定する移動数 : [ %d ]", m_nNum);
 	CDebugproc::Draw(0, 220);
@@ -240,6 +266,7 @@ void CPlayer::CollisionAll(D3DXVECTOR3 pPos, CInputKeyboard* pInput, CJoyPad* pP
 	// キー入力
 	CInputKeyboard* pKeyboard = CManager::GetInstance()->GetInputKeyboard();
 
+	// 一斉指示
 	if (pKeyboard->GetTrigger(DIK_V))
 	{
 		// 指令
@@ -252,43 +279,50 @@ void CPlayer::CollisionAll(D3DXVECTOR3 pPos, CInputKeyboard* pInput, CJoyPad* pP
 bool CPlayer::CollisionBlock(CBoxCollider* other,D3DXVECTOR3 * pos)
 {
 	// 矩形との当たり判定を返す
-	return CCollisionBox::Collision(m_pBoxCollider, other, pos);
+	return false;
 }
 //===================================================================
 // 指示を出して特定数のアリを送る処理
 //===================================================================
 void CPlayer::OrderToArray(int nNum,D3DXVECTOR3 destpos)
-{
-	// アリ配列を取得
-	auto arrays = CGameSceneObject::GetInstance()->GetArrayManager();
-	if (arrays == nullptr) return;
+{// ここの関数をスポナーのインデックスを見てどのスポナーから何体動かすかを決めて一括でポイントに送れるように変更すること
 
-	// カウント変数
-	int nSend = 0;
+#if 0
+   // スポナーマネージャ取得
+	auto pSpawnMgr = CGameSceneObject::GetInstance()->GetArraySpawn();
+	if (!pSpawnMgr) return;
 
-	// アクティブなものの中から指定数だけ動かす
-	for (int nCnt = 0; nCnt < arrays->GetAll(); nCnt++)
+	// 現在選択中のスポナー
+	auto pSpawner = pSpawnMgr->GetIndexSpawner(m_nSelectSpawn);
+	if (!pSpawner) return;
+
+	// 移動命令はスポナーに丸投げ
+	pSpawner->OrderMove(nNum, destpos);
+#endif
+
+	// スポナーマネージャ取得
+	auto pSpawnMgr = CGameSceneObject::GetInstance()->GetArraySpawn();
+	if (!pSpawnMgr) return;
+
+	for (int i = 0; i < NUM_SPAWN; i++)
 	{
-		// 指定数に達したら終わり
-		if (nSend >= nNum) break; 
+		int sendNum = m_pSpawnData[i];
+		if (sendNum <= 0) continue;
 
-		// 本体を取得
-		auto Array = arrays->GetArrays(nCnt);
+		auto pSpawner = pSpawnMgr->GetIndexSpawner(i);
+		if (!pSpawner) continue;
 
-		// 使われていなかったら
-		if (!Array->GetActive()) continue;
-		if (Array->GetMove()) continue;
-
-		// ランダム配置
-		D3DXVECTOR3 randomaiz = RandomSetPos(destpos, PLAYERINFO::SPRED,m_nNum,nCnt);
-
-		// 引数の数だけ移動を有効化する
-		Array->SetIsMove(true);
-		Array->SetDestPos(randomaiz);
-
-		// 加算
-		nSend++;
+		// 各スポナーへ同時命令
+		pSpawner->OrderMove(sendNum, destpos);
 	}
+}
+//===================================================================
+// あらかじめセットをしておく関数
+//===================================================================
+void CPlayer::SetSendArrayMoving(int nIdx, int nNum)
+{
+	// 値をセット
+	m_pSpawnData[nIdx] = nNum;
 }
 //===================================================================
 // 一定の範囲にランダムに設置する関数

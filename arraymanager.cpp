@@ -53,21 +53,6 @@ HRESULT CArrayManager::Init(const int nActives)
 		m_pArrays.push_back(pArray);
 	}
 
-	// サイズの範囲内にあるかどうかチェック
-	int nUse = Clump(nActives, 0, config.ALLARRAYS);
-
-	for (int nActive = 0; nActive < nUse; nActive++)
-	{
-		// 要素を代入
-		auto pArray = m_pArrays[nActive];
-
-		// 有効状態にする
-		pArray->SetActive(true);
-
-		// アクティブ数を加算
-		m_nActiveAll++;
-	}
-
 	return S_OK;
 }
 //=========================================================
@@ -83,22 +68,7 @@ void CArrayManager::Uninit(void)
 //=========================================================
 void CArrayManager::Update(void)
 {
-#ifdef _DEBUG
 
-	// キー入力情報取得
-	auto* pInputKey = CManager::GetInstance()->GetInputKeyboard();
-
-	// キー入力で増減確認
-	if (pInputKey->GetTrigger(DIK_N))
-	{// 増加させる
-		m_nActiveAll = Clump(m_nActiveAll + 1, 0, static_cast<int>(m_pArrays.size()));
-	}
-	else if (pInputKey->GetTrigger(DIK_M))
-	{// 減少させる
-		m_nActiveAll = Clump(m_nActiveAll - 1, 0, static_cast<int>(m_pArrays.size()));
-	}
-
-#endif // _DEBUG
 }
 //=========================================================
 // 描画処理
@@ -106,46 +76,32 @@ void CArrayManager::Update(void)
 void CArrayManager::Draw(void)
 {
 	// デバッグ表示
-	CDebugproc::Print("アクティブ数 : [ %d / %d ]", m_nActiveAll, ArrayConfig::ALLARRAYS);
-	CDebugproc::Draw(0, 200);
+	//CDebugproc::Print("アクティブ数 : [ %d / %d ]", m_nActiveAll, ArrayConfig::ALLARRAYS);
+	//CDebugproc::Draw(0, 200);
 
 }
 //=========================================================
-// 出現管理処理
+// スポナーに渡す関数
 //=========================================================
-void CArrayManager::Spawn(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife,const int nNumSpawn)
+std::vector<CArray*> CArrayManager::Allocate(const int nStock)
 {
-	// 出現数超過の時
-	if (m_nActiveAll >= ArrayConfig::ALLARRAYS)
-	{
-		// 例外設定
-		OutputDebugStringA("出現上限に達しました!\n");
-		return;
-	}
+	// ローカル配列
+	std::vector<CArray*> result;
 
-	// 出現数を範囲内に制限
-	int nSpawnCount = Clump(nNumSpawn, 0, ArrayConfig::ALLARRAYS - m_nActiveAll);
-
-	// スポーンするカウント
-	int nSpawned = 0;
-
+	// 要素数
 	for (auto& pArray : m_pArrays)
 	{
-		// falseの物を探す
+		// 未使用なら
 		if (!pArray->GetActive())
 		{
-			// 再設定処理
-			pArray->Reset(pos, rot, nLife);
+			// スポナー用に作成
+			result.push_back(pArray);
 
-			// カウント加算
-			nSpawned++;
-			m_nActiveAll++;
-
-			// 指定数出現したら終了
-			if (nSpawned >= nSpawnCount) break;
-
-			// 最大数に達したら出現させない
-			if (m_nActiveAll >= ArrayConfig::ALLARRAYS) break;
+			if (static_cast<int>(result.size()) >= nStock)
+				break;
 		}
 	}
+
+	// 要素数を返す
+	return result;
 }

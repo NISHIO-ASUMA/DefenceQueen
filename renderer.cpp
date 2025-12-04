@@ -448,7 +448,6 @@ void CRenderer::Draw(void)
 			m_apRenderMT[1] = pRenderWk;
 		 }
 
-
 		// フォントセット
 		m_pDebug->Print("FPS : %d\n", m_fps);
 

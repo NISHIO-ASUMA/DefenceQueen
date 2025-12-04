@@ -79,7 +79,6 @@ void CXfileManager::UnLoad(void)
 		if (!(*iter).FilePath.empty())
 		{
 			(*iter).FilePath.clear();
-			(*iter).FilePath.shrink_to_fit();
 		}
 
 		// マテリアルデータの破棄

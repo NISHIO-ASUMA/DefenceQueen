@@ -26,6 +26,7 @@
 #include "arraymanager.h"
 #include "enemyspawner.h"
 #include "gimmicksuction.h"
+#include "arrayspawnmanager.h"
 
 //*********************************************************
 // 静的メンバ変数
@@ -43,7 +44,8 @@ m_pScore(nullptr),
 m_pArrayManager(nullptr),
 m_pWorkUi(nullptr),
 m_pQueen(nullptr),
-m_pSpawn(nullptr)
+m_pSpawn(nullptr),
+m_pArraySpawn(nullptr)
 {
 	// 値のクリア
 }
@@ -96,6 +98,10 @@ HRESULT CGameSceneObject::Init(void)
 	m_pArrayManager = std::make_unique<CArrayManager>();
 	m_pArrayManager->Init(50);
 
+	// 出現場所生成
+	m_pArraySpawn = std::make_unique<CArraySpawnManager>();
+	m_pArraySpawn->Init(m_pArrayManager.get());
+
 	// ui配置
 	m_pWorkUi = std::make_unique<CWorkerUiManager>();
 	m_pWorkUi->Init();
@@ -122,7 +128,11 @@ void CGameSceneObject::Uninit(void)
 	// 働き司令塔アリの破棄
 	m_pWorkerManager.reset();
 
+	// 敵スポナー破棄
 	m_pSpawn.reset();
+
+	// 仲間スポナー破棄
+	m_pArraySpawn.reset();
 
 	// ui処理
 	m_pWorkUi.reset();
@@ -150,6 +160,12 @@ void CGameSceneObject::Update(void)
 	{
 		m_pWorkUi->Update();
 	}
+
+	// スポナー情報更新
+	if (m_pArraySpawn)
+	{
+		m_pArraySpawn->Update();
+	}
 }
 //=========================================================
 // 描画処理
@@ -160,6 +176,12 @@ void CGameSceneObject::Draw(void)
 	if (m_pArrayManager)
 	{
 		m_pArrayManager->Draw();
+	}
+
+	// スポナー情報描画
+	if (m_pArraySpawn)
+	{
+		m_pArraySpawn->Draw();
 	}
 }
 //=========================================================

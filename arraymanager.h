@@ -43,15 +43,6 @@ public:
 	int GetUseArray(void) { return m_nActiveAll; }
 
 	/// <summary>
-	/// 仲間を出現させる関数
-	/// </summary>
-	/// <param name="pos">出現座標</param>
-	/// <param name="rot">出現時の角度</param>
-	/// <param name="nLife">体力値</param>
-	/// <returns></returns>
-	void Spawn(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, int nLife,const int nNumSpawn);
-
-	/// <summary>
 	/// 配列の要素数を取得する
 	/// </summary>
 	/// <param name=""></param>
@@ -72,6 +63,19 @@ public:
 	/// <returns></returns>
 	std::vector<CArray*>& GetArray(void) { return m_pArrays; }
 
+	/// <summary>
+	/// スポナー用に確保する関数
+	/// </summary>
+	/// <param name="nfalseData">未使用数</param>
+	/// <returns></returns>
+	std::vector<CArray*> Allocate(const int nStock);
+
+	/// <summary>
+	/// 大元の配列に戻す処理
+	/// </summary>
+	/// <param name="pArray">クラスのポインタ</param>
+	void ReleaseCharactor(CArray* pArray);
+
 private:
 
 	//**********************
@@ -80,7 +84,7 @@ private:
 	struct ArrayConfig
 	{
 		static constexpr int LIFE = 10; // 体力値
-		static constexpr int ALLARRAYS = 150; // 最大使用数
+		static constexpr int ALLARRAYS = 100; // 最大使用数
 	};
 
 	std::vector<CArray*>m_pArrays; // 動的配列

@@ -142,7 +142,6 @@ void CModel::Uninit(void)
 //=========================================================
 void CModel::Update(void)
 {
-	// 行列計算
 
 }
 //=========================================================
@@ -154,13 +153,7 @@ void CModel::Draw(void)
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// 計算用のマトリックスを宣言
-	D3DXMATRIX mtxRot, mtxTrans,mtxScale;
-
-	// 現在のマテリアルを保存
-	D3DMATERIAL9 matDef;
-
-	// マテリアルデータへのポインタ
-	D3DXMATERIAL* pMat;
+	D3DXMATRIX mtxRot, mtxTrans, mtxScale;
 
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxworld);
@@ -197,14 +190,20 @@ void CModel::Draw(void)
 	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxworld);
 
-	// 現在のマトリックスの取得
+	// 現在のマテリアルを保存
+	D3DMATERIAL9 matDef;
+
+	// マテリアルデータへのポインタ
+	D3DXMATERIAL* pMat;
+
+	// 現在のマテリアルの取得
 	pDevice->GetMaterial(&matDef);
 
 	// マテリアルデータへのポインタを取得
 	pMat = (D3DXMATERIAL*)m_pBuffMat->GetBufferPointer();
 
 	// マテリアル数だけ回す
-	for (int nCntMat = 0; nCntMat < (int)m_dwNumMat; nCntMat++)
+	for (int nCntMat = 0; nCntMat < static_cast<int>(m_dwNumMat); nCntMat++)
 	{
 		// カラー変更マテリアル
 		if (m_isColorChange)

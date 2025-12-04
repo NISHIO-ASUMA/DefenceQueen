@@ -101,7 +101,7 @@ HRESULT CArray::Init(void)
 	m_isMove = false;
 
 	// ägëÂÇ∑ÇÈ
-	SetScale(D3DXVECTOR3(1.5f, 1.5f, 1.5f));
+	SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 
 	return S_OK;
 }
@@ -213,7 +213,7 @@ void CArray::Moving(void)
 		D3DXVec3Normalize(&movevec, &movevec);
 
 		// ë¨ìxÇèÊéZÇ∑ÇÈ
-		movevec *= 5.0f;
+		movevec *= Arrayinfo::MoveSpeed;
 
 		// åvéZäpìx
 		float angleY = atan2(-movevec.x, -movevec.z);

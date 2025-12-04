@@ -259,9 +259,6 @@
     <Filter Include="ヘッダー ファイル\MainLoop">
       <UniqueIdentifier>{6d2d8b94-00bc-474c-b384-e992c40c91b8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\MainLoop\Mesh">
-      <UniqueIdentifier>{a2b0f7d6-bb19-4b22-858f-354099a99d86}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\OutSide">
       <UniqueIdentifier>{f29b6f84-2531-47de-bffa-a1708bb6b2fb}</UniqueIdentifier>
     </Filter>
@@ -303,6 +300,9 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\Charactor\Worker">
       <UniqueIdentifier>{bb2bb065-46e1-4991-be1b-5ed4ca8df153}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Mesh">
+      <UniqueIdentifier>{a2b0f7d6-bb19-4b22-858f-354099a99d86}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -660,6 +660,12 @@
     <ClCompile Include="arrayspawner.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="arrayspawnmanager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="topant.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blackboard.h">
@@ -918,19 +924,19 @@
       <Filter>ヘッダー ファイル\2DUI</Filter>
     </ClInclude>
     <ClInclude Include="meshcylinder.h">
-      <Filter>ヘッダー ファイル\MainLoop\Mesh</Filter>
+      <Filter>ヘッダー ファイル\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="meshpiler.h">
-      <Filter>ヘッダー ファイル\MainLoop\Mesh</Filter>
+      <Filter>ヘッダー ファイル\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="meshdome.h">
-      <Filter>ヘッダー ファイル\MainLoop\Mesh</Filter>
+      <Filter>ヘッダー ファイル\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="meshfield.h">
-      <Filter>ヘッダー ファイル\MainLoop\Mesh</Filter>
+      <Filter>ヘッダー ファイル\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="meshimpact.h">
-      <Filter>ヘッダー ファイル\MainLoop\Mesh</Filter>
+      <Filter>ヘッダー ファイル\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
       <Filter>ヘッダー ファイル\MainLoop</Filter>
@@ -1065,6 +1071,12 @@
       <Filter>ヘッダー ファイル\Enemy_AI\Leaf</Filter>
     </ClInclude>
     <ClInclude Include="arrayspawner.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="arrayspawnmanager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="topant.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

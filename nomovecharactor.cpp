@@ -48,11 +48,8 @@ HRESULT CNoMoveCharactor::Init(void)
 	// 変数の初期化
 	m_pModel.clear();
 
-	if (m_isStencilUse)
-	{
-		// モデル生成
-		m_pShadowS = CShadowS::Create(m_pos, m_rot);
-	}
+	// 使用可能時
+	if (m_isStencilUse) m_pShadowS = CShadowS::Create(m_pos, m_rot);
 
 	return S_OK;
 }
@@ -83,7 +80,7 @@ void CNoMoveCharactor::Uninit(void)
 
 	// ポインタ破棄
 	m_pMotion.reset();
-
+	
 	// 自身の破棄
 	CObject::Release();
 }

@@ -24,6 +24,7 @@
 //*********************************************************
 // 前方宣言
 //*********************************************************
+class CMotionManager;
 
 //*********************************************************
 // モーションクラスを定義
@@ -36,8 +37,8 @@ public:
 	~CMotion();
 
 	void Update(std::vector<CModel*> pModel);
-	void UpdateCurrentMotion(CModel** ppModel, int nModelCount);
-	void UpdateBlend(CModel** ppModel, int nModelCount);
+	void UpdateCurrentMotion(CMotionManager * pMption,CModel** ppModel, int nModelCount);
+	void UpdateBlend(CMotionManager* pMption,CModel** ppModel, int nModelCount);
 	void Debug(void);
 	bool CheckFrame(int nStartMotion, int nEndMotion, int nMotionType);
 

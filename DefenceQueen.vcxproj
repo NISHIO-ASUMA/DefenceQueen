@@ -155,6 +155,7 @@
     <ClCompile Include="array.cpp" />
     <ClCompile Include="arraymanager.cpp" />
     <ClCompile Include="arrayspawner.cpp" />
+    <ClCompile Include="arrayspawnmanager.cpp" />
     <ClCompile Include="behaviortree.cpp" />
     <ClCompile Include="billboard.cpp" />
     <ClCompile Include="block.cpp" />
@@ -261,6 +262,7 @@
     <ClCompile Include="titlemanager.cpp" />
     <ClCompile Include="titleobject.cpp" />
     <ClCompile Include="titleui.cpp" />
+    <ClCompile Include="topant.cpp" />
     <ClCompile Include="tutorial.cpp" />
     <ClCompile Include="tutorialmanager.cpp" />
     <ClCompile Include="tutorialobject.cpp" />
@@ -280,6 +282,7 @@
     <ClInclude Include="array.h" />
     <ClInclude Include="arraymanager.h" />
     <ClInclude Include="arrayspawner.h" />
+    <ClInclude Include="arrayspawnmanager.h" />
     <ClInclude Include="behaviortree.h" />
     <ClInclude Include="billboard.h" />
     <ClInclude Include="blackboard.h" />
@@ -397,6 +400,7 @@
     <ClInclude Include="titlemanager.h" />
     <ClInclude Include="titleobject.h" />
     <ClInclude Include="titleui.h" />
+    <ClInclude Include="topant.h" />
     <ClInclude Include="tutorial.h" />
     <ClInclude Include="tutorialmanager.h" />
     <ClInclude Include="tutorialobject.h" />

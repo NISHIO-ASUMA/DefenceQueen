@@ -71,7 +71,9 @@ private:
 	struct Arrayinfo
 	{
 		static constexpr float SphereRange = 80.0f; // 球形範囲
+		static constexpr float MoveSpeed = 4.0f;   // 移動速度
 	};
+
 
 	bool m_isActive;					// 使用状態かどうか
 	bool m_isMove;						// 移動するかどうか
