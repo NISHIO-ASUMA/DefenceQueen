@@ -11,11 +11,12 @@
 #include "arrayspawner.h"
 #include "array.h"
 #include "arraymanager.h"
+#include "topant.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
-CArraySpawner::CArraySpawner() : m_SpawnBasePos(VECTOR3_NULL), m_nStockArrays(NULL), m_AssignedArrays{}
+CArraySpawner::CArraySpawner() : m_SpawnBasePos(VECTOR3_NULL), m_nStockArrays(NULL), m_AssignedArrays{}, m_pTopAnt(nullptr)
 {
 
 }
