@@ -264,8 +264,8 @@ void CModel::DrawMtxShadow(void)
 
 	// 平面投影座標を設定
 	D3DXPLANE plane;
-	D3DXVECTOR3 point = D3DXVECTOR3(0.0f, 0.5f, 0.0f);
-	D3DXVECTOR3 normal = D3DXVECTOR3(0.0f, -0.5f, 0.0f);
+	D3DXVECTOR3 point = D3DXVECTOR3(0.0f, 0.7f, 0.0f);
+	D3DXVECTOR3 normal = D3DXVECTOR3(0.0f, -0.7f, 0.0f);
 	D3DXPlaneFromPointNormal(&plane, &point, &normal);
 
 	// 影マトリックス生成

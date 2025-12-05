@@ -159,8 +159,9 @@ void CMoveCharactor::Update(void)
 
 #ifdef NDEBUG
 	// releaseŽž‚¾‚¯
-	m_pMotion->Update(m_pModel);
+	if (m_pMotion) m_pMotion->Update(m_pModel);
 #endif
+	
 
 }
 //=========================================================
