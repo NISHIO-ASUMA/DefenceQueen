@@ -304,6 +304,9 @@
     <Filter Include="ヘッダー ファイル\Mesh">
       <UniqueIdentifier>{a2b0f7d6-bb19-4b22-858f-354099a99d86}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Charactor\Spawn">
+      <UniqueIdentifier>{8f379e00-8f5a-46f1-b194-17bce5beb2dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="object2D.cpp">
@@ -648,9 +651,6 @@
     <ClCompile Include="enemyattackleaf.cpp">
       <Filter>ソース ファイル\Enemy_AI\Leaf</Filter>
     </ClCompile>
-    <ClCompile Include="enemyspawner.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="enemygetfeedleaf.cpp">
       <Filter>ソース ファイル\Enemy_AI\Leaf</Filter>
     </ClCompile>
@@ -658,13 +658,16 @@
       <Filter>ソース ファイル\Enemy_AI\Leaf</Filter>
     </ClCompile>
     <ClCompile Include="arrayspawner.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Charactor\Spawn</Filter>
     </ClCompile>
     <ClCompile Include="arrayspawnmanager.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Charactor\Spawn</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyspawner.cpp">
+      <Filter>ソース ファイル\Charactor\Spawn</Filter>
     </ClCompile>
     <ClCompile Include="topant.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Charactor\Array</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

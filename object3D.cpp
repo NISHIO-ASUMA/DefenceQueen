@@ -38,7 +38,7 @@ CObject3D::~CObject3D()
 //=========================================================
 // 生成処理
 //=========================================================
-CObject3D* CObject3D::Create(D3DXVECTOR3 pos)
+CObject3D* CObject3D::Create(const D3DXVECTOR3& pos)
 {
 	// インスタンス生成
 	CObject3D* pObj3D = new CObject3D;
@@ -155,14 +155,6 @@ void CObject3D::Update(void)
 
 	// アンロック
 	m_pVtxBuff->Unlock();
-}
-//=========================================================
-// 描画処理
-//=========================================================
-void CObject3D::Draw(void)
-{
-	// デバイスポインタを宣言
-	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// 計算用のマトリックスを宣言
 	D3DXMATRIX mtxRot, mtxTrans;
@@ -175,8 +167,17 @@ void CObject3D::Draw(void)
 	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 
 	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y,m_pos.z);
+	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
 	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+
+}
+//=========================================================
+// 描画処理
+//=========================================================
+void CObject3D::Draw(void)
+{
+	// デバイスポインタを宣言
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);

@@ -83,7 +83,7 @@ void CArrayManager::Draw(void)
 //=========================================================
 // スポナーに渡す関数
 //=========================================================
-std::vector<CArray*> CArrayManager::Allocate(const int nStock)
+std::vector<CArray*> CArrayManager::Allocate(const int& nStock)
 {
 	// ローカル配列
 	std::vector<CArray*> result;

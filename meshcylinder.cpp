@@ -188,29 +188,8 @@ void CMeshCylinder::Uninit(void)
 //=========================================================
 void CMeshCylinder::Update(void)
 {
-	// なし
-}
-//=========================================================
-// 描画処理
-//=========================================================
-void CMeshCylinder::Draw(void)
-{
-	// デバイスのポインタ
-	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
-
 	// 計算用のマトリックスを宣言
 	D3DXMATRIX mtxRot, mtxTrans;
-
-	// テクスチャ読み込み
-	CTexture* pTexture = CManager::GetInstance()->GetTexture();
-
-	// テクスチャセット
-	pDevice->SetTexture(0, pTexture->GetAddress(m_Cylinder.nTexIdx));
-
-	// ゼットテスト
-	pDevice->SetRenderState(D3DRS_CULLMODE, TRUE);
-	pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
-	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
 
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxWorld);
@@ -223,6 +202,20 @@ void CMeshCylinder::Draw(void)
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
 	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
 
+}
+//=========================================================
+// 描画処理
+//=========================================================
+void CMeshCylinder::Draw(void)
+{
+	// デバイスのポインタ
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
+
+	// ゼットテスト
+	pDevice->SetRenderState(D3DRS_CULLMODE, TRUE);
+	pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
+	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+
 	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
 
@@ -234,6 +227,12 @@ void CMeshCylinder::Draw(void)
 
 	// テクスチャフォーマットの設定
 	pDevice->SetFVF(FVF_VERTEX_3D);
+
+	// テクスチャ読み込み
+	CTexture* pTexture = CManager::GetInstance()->GetTexture();
+
+	// テクスチャセット
+	pDevice->SetTexture(0, pTexture->GetAddress(m_Cylinder.nTexIdx));
 
 	// ポリゴンの描画
 	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, 0, m_Cylinder.nNumAllVtx, 0, m_Cylinder.nNumPrimitive);

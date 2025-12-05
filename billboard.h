@@ -31,8 +31,8 @@ public:
 	void Draw(void) override;
 	void Flash(const int nMaxFlashTime,const int Digittime);
 
-	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
-	void SetRot(D3DXVECTOR3 rot) { m_rot = rot; }
+	void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
 	void SetCol(D3DXCOLOR col) { m_col = col; }
 	void SetTexture(const char* pTexName);
 	void SetSize(float fWidth, float fHeight) { m_fWidth = fWidth, m_fHeight = fHeight; }
@@ -46,7 +46,7 @@ public:
 	float GetWidth(void) { return m_fWidth; }
 	float GetHeight(void) { return m_fHeight; }
 
-	static CBillboard* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fWidth, float fHeight, const char* pTexName);
+	static CBillboard* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, float fWidth, float fHeight, const char* pTexName);
 
 private:
 

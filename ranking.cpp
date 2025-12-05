@@ -15,6 +15,7 @@
 #include "fade.h"
 #include "title.h"
 #include <memory>
+#include "ui.h"
 
 //=========================================================
 // オーバーロードコンストラクタ
@@ -49,6 +50,9 @@ CRanking* CRanking::Create(void)
 //=========================================================
 HRESULT CRanking::Init(void)
 {
+	// ui
+	CUi::Create(D3DXVECTOR3(640.0f, 360.0f, 0.0f), 30, 640.0f, 360.0f, "RankBack.jpg", false);
+
 	// インスタンス生成
 	//m_pRankManager = new CRankingManager;
 
@@ -78,7 +82,7 @@ void CRanking::Update(void)
 	// if (m_pRankManager != nullptr) m_pRankManager->Update();
 
 	// 決定キー入力
-	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN) || CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_A) || CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_START))
+	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_SPACE) || CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_A) || CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_START))
 	{
 		// フェード取得
 		CFade* pFade = CManager::GetInstance()->GetFade();

@@ -56,8 +56,8 @@ public:
 
 	void SetUV(float TexU, float TexV);
 	void SetCol(D3DXCOLOR col) { m_col = col; }
-	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
-	void SetRot(D3DXVECTOR3 rot) { m_rot = rot; }
+	void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
 	void SetSize(float fWidth, float fHeight) { m_fWidth = fWidth, m_fHeight = fHeight; }
 	void SetWidth(float fWidth) { m_fWidth = fWidth; }
 	void SetHeight(float fHeight) { m_fWidth = fHeight; }

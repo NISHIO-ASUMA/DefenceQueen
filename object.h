@@ -28,6 +28,7 @@ public:
 		TYPE_ENEMY,		// 敵
 		TYPE_QUEEN,		// 防衛対象
 		TYPE_WORKER,	// 司令塔
+		TYPE_TOP,		// トップキャラクター
 		TYPE_MESH,		// メッシュオブジェクト
 		TYPE_BLOCK,		// ブロック
 		TYPE_PAUSE,		// ポーズ

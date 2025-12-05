@@ -54,12 +54,12 @@ public:
 	virtual void Draw(void) override;
 	void UpdatePosition(void);
 
-	void SetPos(const D3DXVECTOR3 pos) { m_pos = pos; }
-	void SetOldPos(const D3DXVECTOR3 posOld) { m_posOld = posOld; }
-	void SetRot(const D3DXVECTOR3 rot) { m_rot = rot; }
-	void SetRotDest(const D3DXVECTOR3 rotdest) { m_rotDest = rotdest; }
-	void SetScale(const D3DXVECTOR3 scale = INITSCALE) { m_scale = scale; }
-	void SetMove(const D3DXVECTOR3 move) { m_move = move; }
+	void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	void SetOldPos(const D3DXVECTOR3& posOld) { m_posOld = posOld; }
+	void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
+	void SetRotDest(const D3DXVECTOR3& rotdest) { m_rotDest = rotdest; }
+	void SetScale(const D3DXVECTOR3& scale = INITSCALE) { m_scale = scale; }
+	void SetMove(const D3DXVECTOR3& move) { m_move = move; }
 	void SetMoveValue(const float fValue) { m_fMoveValue = fValue; }
 	void SetType(TYPE Type) { m_type = Type; }
 	void SetUseStencil(bool isUse) { m_isStencilUse = isUse; }

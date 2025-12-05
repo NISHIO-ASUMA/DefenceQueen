@@ -42,7 +42,7 @@ CBillboard::~CBillboard()
 //=========================================================
 // 生成処理
 //=========================================================
-CBillboard* CBillboard::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot,float fWidth, float fHeight,const char * pTexName)
+CBillboard* CBillboard::Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot,float fWidth, float fHeight,const char * pTexName)
 {
 	// インスタンス生成
 	CBillboard* pBillboard = new CBillboard;

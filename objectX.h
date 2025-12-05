@@ -30,9 +30,9 @@ public:
 	void Draw(void); 
 	void DrawShadow(void);
 
-	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
-	void SetRot(D3DXVECTOR3 rot) { m_rot = rot; }
-	void SetScale(D3DXVECTOR3 scale) { m_Scale = scale; }
+	void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	void SetRot(const D3DXVECTOR3& rot = VECTOR3_NULL) { m_rot = rot; }
+	void SetScale(const D3DXVECTOR3& scale = INITSCALE) { m_Scale = scale; }
 	void SetMtxWorld(D3DXMATRIX mtxworld) { m_mtxWorld = mtxworld; }
 	void SetFilePass(const char* pFilePass);
 	void SetModelIdx(const int nIdx) { m_nIdxModel = nIdx; }
@@ -43,7 +43,7 @@ public:
 	D3DXMATRIX GetMtxWorld(void) { return m_mtxWorld; }
 	int GetModelIdx(void) const { return m_nIdxModel; }
 
-	static CObjectX* Create(const char* pModelName, D3DXVECTOR3 pos);
+	static CObjectX* Create(const char* pModelName, const D3DXVECTOR3& pos);
 
 private:
 

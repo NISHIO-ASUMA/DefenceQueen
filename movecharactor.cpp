@@ -161,8 +161,6 @@ void CMoveCharactor::Update(void)
 	// release‚¾‚¯
 	if (m_pMotion) m_pMotion->Update(m_pModel);
 #endif
-	
-
 }
 //=========================================================
 // •`‰æˆ—

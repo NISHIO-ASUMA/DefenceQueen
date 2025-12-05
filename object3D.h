@@ -30,8 +30,8 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
-	void SetRot(D3DXVECTOR3 rot) { m_rot = rot; }
+	void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
 	void SetCol(D3DXCOLOR col = COLOR_WHITE) { m_col = col;}
 	void SetSize(float fWidth, float fHeight) { m_fWidth = fWidth, m_fHeight = fHeight; }
 	void SetTexture(const char * pTexName);
@@ -44,7 +44,7 @@ public:
 
 	float GetHeight(D3DXVECTOR3 pos);
 
-	static CObject3D* Create(D3DXVECTOR3 pos);
+	static CObject3D* Create(const D3DXVECTOR3& pos);
 
 private:
 

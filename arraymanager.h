@@ -68,7 +68,7 @@ public:
 	/// </summary>
 	/// <param name="nfalseData">–¢g—p”</param>
 	/// <returns></returns>
-	std::vector<CArray*> Allocate(const int nStock);
+	std::vector<CArray*> Allocate(const int& nStock);
 
 	/// <summary>
 	/// ‘åŒ³‚Ì”z—ñ‚É–ß‚·ˆ—

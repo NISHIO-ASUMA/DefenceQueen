@@ -160,7 +160,7 @@ void CObjectX::DrawShadow(void)
 	if (!model.pMesh) return;
 
 	// ライト方向
-	D3DXVECTOR4 lightDir(0.2f, -0.63f, -0.02f, 0.0f);
+	D3DXVECTOR4 lightDir(0.2f, -0.63f, 0.3f, 0.0f);
 
 	// 平面投影座標を設定
 	D3DXPLANE plane;
@@ -217,7 +217,7 @@ void CObjectX::SetFilePass(const char* pFilePass)
 //=========================================================
 // 生成処理
 //=========================================================
-CObjectX* CObjectX::Create(const char * pModelName,D3DXVECTOR3 pos)
+CObjectX* CObjectX::Create(const char * pModelName,const D3DXVECTOR3& pos)
 {
 	// インスタンス生成
 	CObjectX* pObjX = new CObjectX;

@@ -48,7 +48,6 @@ public:
 	/// <returns></returns>
 	std::vector<CEnemy*>& GetEnemy(void) { return m_pEnemys; }
 
-
 private:
 
 	/// <summary>

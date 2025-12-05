@@ -10,6 +10,11 @@
 //*********************************************************
 #include "result.h"
 #include "resultmanager.h"
+#include "ui.h"
+#include "manager.h"
+#include "ranking.h"
+#include "input.h"
+#include "fade.h"
 
 //=========================================================
 // オーバーロードコンストラクタ
@@ -30,6 +35,9 @@ CResult::~CResult()
 //=========================================================
 HRESULT CResult::Init(void)
 {
+	// 
+	CUi::Create(D3DXVECTOR3(640.0f, 360.0f, 0.0f), 30, 1280.0f, 720.0f, "result.jpg", false);
+
 	// 初期化結果を返す
 	return S_OK;
 }
@@ -45,6 +53,14 @@ void CResult::Uninit(void)
 //=========================================================
 void CResult::Update(void)
 {
+	// 画面遷移
+	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_SPACE))
+	{
+		// 画面遷移
+		auto fade = CManager::GetInstance()->GetFade();
+		fade->SetFade(std::make_unique<CRanking>());
+		return;
+	}
 
 }
 //=========================================================

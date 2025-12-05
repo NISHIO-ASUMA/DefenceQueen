@@ -52,7 +52,7 @@ HRESULT CTitleManager::Init(void)
 	CUi::Create(D3DXVECTOR3(HALFWIDTH, HALFHEIGHT, 0.0f), 0, HALFWIDTH, HALFHEIGHT, "ground.jpg", false);
 
 	// ‰ŠúUI¶¬
-	m_pUi = CUi::Create(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, 650.0f, 0.0f),30, 250.0f, 60.0f, "exit.png", false);
+	m_pUi = CUi::Create(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, 650.0f, 0.0f),30, 250.0f, 60.0f, "enter.png", false);
 
 	// ƒTƒEƒ“ƒhæ“¾
 	CSound* pSound = CManager::GetInstance()->GetSound();

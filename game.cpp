@@ -16,6 +16,8 @@
 #include "gamestate.h"
 #include "input.h"
 #include "camera.h"
+#include "result.h"
+#include "fade.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -132,6 +134,15 @@ void CGame::Update(void)
 
 		// ゲームオブジェクト更新
 		CGameSceneObject::GetInstance()->Update();
+
+		// 画面遷移
+		if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_SPACE))
+		{
+			// 画面遷移
+			auto fade = CManager::GetInstance()->GetFade();
+			fade->SetFade(std::make_unique<CResult>());
+			return;
+		}
 	}
 
 #ifdef _DEBUG

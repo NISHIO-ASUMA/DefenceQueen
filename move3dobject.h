@@ -32,10 +32,10 @@ public:
 	void UpdatePosition(void);
 	void DecayMove(const float fValue);
 
-	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
-	void SetPosOld(D3DXVECTOR3 oldpos) { m_posOld = oldpos; }
-	void SetRot(D3DXVECTOR3 rot) { m_rot = rot; }
-	void SetMove(D3DXVECTOR3 move) { m_move = move; }
+	void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	void SetPosOld(const D3DXVECTOR3& oldpos) { m_posOld = oldpos; }
+	void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
+	void SetMove(const D3DXVECTOR3& move) { m_move = move; }
 	void SetCol(D3DXCOLOR col = COLOR_WHITE) { m_col = col; }
 	void SetSize(float fWidth, float fHeight) { m_fWidth = fWidth, m_fHeight = fHeight; }
 	void SetTexture(const char* pTexName);
