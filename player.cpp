@@ -36,6 +36,7 @@
 #include "arrayspawnmanager.h"
 #include "arrayspawner.h"
 #include "template.h"
+#include "topant.h"
 
 //*********************************************************
 // 名前空間
@@ -54,7 +55,8 @@ m_pMotion(nullptr),
 m_pStateMachine(nullptr),
 m_pBoxCollider(nullptr),
 m_nNum(NULL),
-m_nSelectSpawn(NULL)
+m_nSelectSpawn(NULL),
+m_nPrevSelectSpawn(-1)
 {
 	for (int nCnt = 0; nCnt < NUM_SPAWN; nCnt++)
 	{
@@ -107,6 +109,24 @@ HRESULT CPlayer::Init(void)
 	// モーション取得
 	m_pMotion = CNoMoveCharactor::GetMotion();
 
+	// 味方のスポナーを取得
+	auto pArraySpawn = CGameSceneObject::GetInstance()->GetArraySpawn();
+	auto spawn = pArraySpawn->GetIndexSpawner(m_nSelectSpawn);
+
+	// 存在時
+	if (spawn)
+	{
+		auto topant = spawn->GetTopAnt();
+
+		if (topant)
+		{
+			topant->SetIsActive(true);		// 最初からONになる
+		}
+
+		// 選択インデックス変更
+		m_nPrevSelectSpawn = m_nSelectSpawn;
+	}
+
 	// 結果を返す
 	return S_OK;
 }
@@ -150,8 +170,48 @@ void CPlayer::Update(void)
 	// 選択スポナーの処理
 	if (pKeyboard->GetTrigger(DIK_L))
 	{
-		// ループ選択
+		// インデックスを変更
 		m_nSelectSpawn = Wrap(m_nSelectSpawn + 1, 0, 2);
+
+		// アリスポナー配列取得
+		auto pArraySpawn = CGameSceneObject::GetInstance()->GetArraySpawn();
+
+		// トップアリをoffにする
+		if (m_nPrevSelectSpawn != -1)
+		{
+			// 前のスポナーのトップアリを取得
+			auto prevSpawn = pArraySpawn->GetIndexSpawner(m_nPrevSelectSpawn);
+			if (prevSpawn)
+			{
+				// アリ取得
+				auto prevTop = prevSpawn->GetTopAnt();
+
+				// 取得できたらoffにする
+				if (prevTop)
+				{
+					prevTop->SetIsActive(false);
+				}
+			}
+		}
+
+		// トップアリをonにする
+		auto currentSpawn = pArraySpawn->GetIndexSpawner(m_nSelectSpawn);
+
+		// 取得できたら
+		if (currentSpawn)
+		{
+			// 現在インデックスのトップ取得
+			auto currentTop = currentSpawn->GetTopAnt();
+
+			// 有効化
+			if (currentTop)
+			{
+				currentTop->SetIsActive(true);
+			}
+		}
+
+		// 選択インデックスを更新
+		m_nPrevSelectSpawn = m_nSelectSpawn;
 	}
 
 	// 引数の数だけポイントに送る
@@ -172,6 +232,22 @@ void CPlayer::Update(void)
 		// スポナーに送る数とインデックスをセット
 		SetSendArrayMoving(m_nSelectSpawn, m_nNum);
 	}
+
+	// 取得
+	auto spawn = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(m_nSelectSpawn);
+	if (spawn == nullptr) return;
+
+	// テスト
+	if (pKeyboard->GetTrigger(DIK_J))
+	{
+		// 取得
+		auto top = spawn->GetTopAnt();
+		if (top == nullptr) return;
+
+		// 有効化
+		top->SetIsActive(true);
+	}
+
 	// 当たり判定の管理関数
 	CollisionAll(UpdatePos,pKeyboard,pJoyPad);
 

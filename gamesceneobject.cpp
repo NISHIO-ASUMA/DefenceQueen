@@ -62,17 +62,6 @@ CGameSceneObject::~CGameSceneObject()
 //=========================================================
 HRESULT CGameSceneObject::Init(void)
 {
-	// NOTE: 実験
-	// CArray::Create(D3DXVECTOR3(-400.0f,0.0f,-200.0f),VECTOR3_NULL,10);
-
-	// NOTE : 実験
-	// CWorker::Create(D3DXVECTOR3(-200.0f, 0.0f, -50.0f), VECTOR3_NULL);
-
-	// プレイヤー生成
-	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -600.0f), VECTOR3_NULL, 10, "data/MOTION/Player/Player_100motion.txt");
-
-	// CTopAnt::Create(D3DXVECTOR3(600.0f, 0.0f, 300.0f), VECTOR3_NULL);
-
 	// 選択ポイント生成
 	m_pSelectPoint = CSelectPoint::Create(VECTOR3_NULL, VECTOR3_NULL, 80.0f, 3.0f, 80.0f);
 
@@ -80,10 +69,7 @@ HRESULT CGameSceneObject::Init(void)
 	m_pTimer = CTime::Create(D3DXVECTOR3(960.0f,40.0f,0.0f),60.0f,40.0f);
 
 	// メッシュフィールド生成
-	CMeshField::Create(VECTOR3_NULL,3200.0f,2000.0f,2,2);
-
-	// 敵生成
-	// CEnemy::Create(D3DXVECTOR3(720.0f, 0.0f, 300.0f), VECTOR3_NULL, 10);
+	CMeshField::Create(VECTOR3_NULL,3200.0f,2000.0f,1,1);
 
 	// ブロックマネージャー生成
 	m_pBlocks = std::make_unique<CBlockManager>();
@@ -109,8 +95,8 @@ HRESULT CGameSceneObject::Init(void)
 	m_pWorkUi = std::make_unique<CWorkerUiManager>();
 	m_pWorkUi->Init();
 
-	// ギミック生成
-	CGimmickSuction::Create(D3DXVECTOR3(-600.0f,0.0f,-300.0f),VECTOR3_NULL,"STAGEOBJ/tornado00.x",600,300.0f);
+	// プレイヤー生成
+	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -600.0f), VECTOR3_NULL, 10, "data/MOTION/Player/Player_100motion.txt");
 
 	return S_OK;
 }

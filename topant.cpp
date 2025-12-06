@@ -20,7 +20,7 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CTopAnt::CTopAnt(int nPriority) : CMoveCharactor(nPriority),m_pColliderBox(nullptr)
+CTopAnt::CTopAnt(int nPriority) : CMoveCharactor(nPriority),m_pColliderBox(nullptr),m_isActive(false)
 {
 	
 }
@@ -95,8 +95,11 @@ void CTopAnt::Update(void)
 	CInputKeyboard* pKey = CManager::GetInstance()->GetInputKeyboard();
 
 	// キー入力での移動関数
-	Moving(pPad,pKey);
-	MovePad(pPad);
+	if (m_isActive)
+	{
+		Moving(pPad, pKey);
+		MovePad(pPad);
+	}
 
 	// オブジェクトの座標更新
 	CMoveCharactor::UpdatePosition();

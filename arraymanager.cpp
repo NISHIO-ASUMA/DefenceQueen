@@ -18,7 +18,7 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CArrayManager::CArrayManager() : m_pArrays{}, m_nActiveAll(NULL)
+CArrayManager::CArrayManager() : m_pArrays{},m_nActiveAll(NULL)
 {
 	//
 }

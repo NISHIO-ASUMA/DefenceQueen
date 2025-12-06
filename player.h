@@ -70,11 +70,12 @@ public:
 
 private:
 
+	static constexpr int NUM_SPAWN = 3; // スポーンポイント数
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
 	CBoxCollider* m_pBoxCollider;	// 矩形のコライダー
 	CMotion* m_pMotion;				// モーションポインタ
 	int m_nNum;						// 仮変数
 	int m_nSelectSpawn;				// スポーン選択変数
-	static constexpr int NUM_SPAWN = 3; // スポーンポイント数
+	int m_nPrevSelectSpawn;		// 前回のスポーン選択変数
 	int m_pSpawnData[NUM_SPAWN]; // スポーンデータ配列
 };

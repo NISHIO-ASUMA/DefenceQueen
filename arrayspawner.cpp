@@ -16,7 +16,11 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CArraySpawner::CArraySpawner() : m_SpawnBasePos(VECTOR3_NULL), m_nStockArrays(NULL), m_AssignedArrays{}, m_pTopAnt(nullptr)
+CArraySpawner::CArraySpawner() :
+	m_SpawnBasePos(VECTOR3_NULL),
+	m_nStockArrays(NULL), 
+	m_AssignedArrays{},
+	m_pTopAnts(nullptr)
 {
 
 }
@@ -41,6 +45,9 @@ HRESULT CArraySpawner::Init(CArrayManager* pManager)
 		m_AssignedArrays[nCnt]->SetPos(m_SpawnBasePos);
 		m_AssignedArrays[nCnt]->SetActive(true);
 	}
+	
+	// トップのアリを生成
+	m_pTopAnts = CTopAnt::Create(m_SpawnBasePos + D3DXVECTOR3(0.0f, 0.0f, 50.0f), VECTOR3_NULL);
 
 	return S_OK;
 }
@@ -73,22 +80,26 @@ void CArraySpawner::OrderMove(int nNum, const D3DXVECTOR3& destPos)
 	// カウント
 	int nSend = 0;
 
-	for (int i = 0; i < m_AssignedArrays.size(); i++)
+	for (int nCnt = 0; nCnt < static_cast<int>(m_AssignedArrays.size()); nCnt++)
 	{
+		// 最大なら
 		if (nSend >= nNum) break;
 
-		// 配列
-		auto pArray = m_AssignedArrays[i];
+		// 配列取得
+		auto pArray = m_AssignedArrays[nCnt];
 		if (!pArray) continue;
 
-		// 使われてない
+		// 使われてない物はスキップ
 		if (!pArray->GetActive()) continue;
 		if (pArray->GetMove())  continue;
 
 		// ランダム配置
-		D3DXVECTOR3 randomaiz = RandomSetPos(destPos, 75.0f, nNum,i);
+		D3DXVECTOR3 randomaiz = RandomSetPos(destPos, 75.0f, nNum, nCnt);
 
+		// 移動フラグをセット
 		pArray->SetIsMove(true);
+
+		// 向かう目的地をセット
 		pArray->SetDestPos(randomaiz);
 
 		nSend++;

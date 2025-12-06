@@ -69,7 +69,7 @@ int CMotionManager::Register(const char* pFileName, std::vector<CModel*>& pModel
 			// モデル配列をセットする
 			pModel.resize(m_FileData[nCnt].Modelpath.size());
 
-			// モデルのパス名を見る 一緒だったらそのモデルパス名で新しく生成する
+			// モデルのパス名を見る 一緒だったらそのモデルパス名で生成する
 			for (int nModel = 0;nModel < m_FileData[nCnt].Modelpath.size();nModel++)
 			{
 				// 保存してあるパスを使用して新たにモデル生成

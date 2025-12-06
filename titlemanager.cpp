@@ -59,7 +59,7 @@ HRESULT CTitleManager::Init(void)
 	if (pSound == nullptr) return E_FAIL;
 
 	// サウンド再生
-	//	pSound->Play(CSound::SOUND_LABEL_TITLE_BGM);
+	// pSound->Play(CSound::SOUND_LABEL_TITLE_BGM);
 
 	// 初期化結果を返す
 	return S_OK;
@@ -88,7 +88,7 @@ void CTitleManager::Update(void)
 	CFade* pFade = CManager::GetInstance()->GetFade();
 	if (pFade == nullptr) return;
 
-	// キー入力時 かつ uiが生成されていなかったら
+	// キー入力時の遷移
 	if ((pKey->GetTrigger(DIK_RETURN) || pJoyPad->GetTrigger(pJoyPad->JOYKEY_START)))
 	{
 		pFade->SetFade(std::make_unique<CGame>());	// ゲームシーンに遷移

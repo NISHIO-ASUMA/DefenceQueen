@@ -13,7 +13,6 @@
 #include "collisionbox.h"
 #include "xfilemanager.h"
 #include "manager.h"
-#include "shadowS.h"
 
 //=========================================================
 // コンストラクタ
@@ -65,6 +64,7 @@ HRESULT CBlock::Init(void)
 	int nModelIdx = GetModelIdx();
 	D3DXVECTOR3 Size = pXManager->GetInfo(nModelIdx).Size;
 
+	// パス取得
 	std::string str = pXManager->GetInfo(nModelIdx).FilePath;
 
 	// 葉っぱは当たらない

@@ -11,24 +11,17 @@
 #include "arrayspawnmanager.h"
 #include "arraymanager.h"
 #include "arrayspawner.h"
+#include "topant.h"
 
 //*********************************************************
-// 定数空間
+// 使用名前空間
 //*********************************************************
-namespace SpawnManager
-{
-	const D3DXVECTOR3 POS[3] =
-	{
-		{300.0f,0.0f,-300.0f},
-		{-300.0f,0.0f,300.0f},
-		{0.0f,0.0f,-550.0f}
-	};
-};
+using namespace SpawnManager;
 
 //=========================================================
 // コンストラクタ
 //=========================================================
-CArraySpawnManager::CArraySpawnManager() : m_pArraySpawner{},m_nSelectIdx(NULL)
+CArraySpawnManager::CArraySpawnManager() : m_pArraySpawner{}
 {
 
 }

@@ -3,6 +3,8 @@
 // 各スポナーの仲間に指示を出すアリのクラス [ topant.h ]
 // Author: Asuma Nishio
 // NOTE : これはトップアリ一体に関する処理
+// このクラスのキャラクターが仲間アリの先頭隊列になる
+// 
 //=========================================================
 
 //*********************************************************
@@ -51,7 +53,6 @@ public:
 		ORDER_MAX
 	};
 
-
 	CTopAnt(int nPriority = static_cast<int>(CObject::PRIORITY::CHARACTOR));
 	~CTopAnt();
 
@@ -62,6 +63,9 @@ public:
 	bool Collision(CBoxCollider* pOther, D3DXVECTOR3* pOutPos);
 	void Moving(CJoyPad* pPad, CInputKeyboard* pKey);
 	void MovePad(CJoyPad* pPad);
+
+	void SetIsActive(const bool& isActive) { m_isActive = isActive; }
+	bool GetIsActive(void) const { return m_isActive; }
 
 	static CTopAnt* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
 
@@ -77,5 +81,5 @@ private:
 	};
 
 	CBoxCollider* m_pColliderBox; // 矩形コライダー
-
+	bool m_isActive;			  // アクティブフラグ
 };

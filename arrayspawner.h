@@ -16,6 +16,7 @@
 // インクルードファイル
 //*********************************************************
 #include <vector>
+#include <array>
 
 //*********************************************************
 // 前方宣言
@@ -54,10 +55,24 @@ public:
 	/// <param name="pos">出現座標</param>
 	/// <param name="fRadius">半径</param>
 	/// <param name="nMoveActiveNum">移動させる数</param>
-	/// <param name="nIdx">外列番号</param>
+	/// <param name="nIdx">配列番号</param>
 	/// <returns></returns>
 	D3DXVECTOR3 RandomSetPos(const D3DXVECTOR3& pos, float fRadius, int nMoveActiveNum, int nIdx);
 
+	/// <summary>
+	/// トップアリを取得する関数
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
+	CTopAnt* GetTopAnt(void) { return m_pTopAnts; }
+
+	/// <summary>
+	/// 生成関数
+	/// </summary>
+	/// <param name="pos">出現座標</param>
+	/// <param name="nMaxArray">最大保持数</param>
+	/// <param name="pManager">管理クラスのポインタ</param>
+	/// <returns></returns>
 	static CArraySpawner* Create(const D3DXVECTOR3 pos,const int nMaxArray, CArrayManager* pManager);
 
 private:
@@ -71,8 +86,7 @@ private:
 	};
 
 	D3DXVECTOR3 m_SpawnBasePos; // スポーンのベース座標
-	int m_nStockArrays;			// 1スポナーが保持できるアリの数
+	CTopAnt * m_pTopAnts;	// トップアリの配列
 	std::vector<CArray*> m_AssignedArrays; // 自分の担当アリ
-	CTopAnt* m_pTopAnt; // トップアントのポインタ
+	int m_nStockArrays;			// 1スポナーが保持できるアリの数
 };
-
