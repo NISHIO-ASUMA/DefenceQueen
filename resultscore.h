@@ -1,34 +1,37 @@
 //=========================================================
 //
-// ランキングスコア処理 [ rankingscore.h ]
+// リザルトに表示するスコアの処理 [ resultscore.h ]
 // Author: Asuma Nishio
-//
+// 
 //=========================================================
 
 //*********************************************************
 // インクルードガード
 //*********************************************************
-#pragma once 
+#pragma once
 
 //*********************************************************
 // インクルードファイル
 //*********************************************************
 #include "object.h"
+#include <memory>
+#include <array>
 
 //*********************************************************
 // 前方宣言
 //*********************************************************
+class CLoad;
 class CNumber;
 
 //*********************************************************
-// ランキングスコアクラス定義
+// リザルトに出すスコアを表示するクラスを定義
 //*********************************************************
-class CRankingScore : public CObject
+class CResultScore : public CObject
 {
 public:
 
-	CRankingScore(int nPriority = static_cast<int>(CObject::PRIORITY::UI));
-	~CRankingScore();
+	CResultScore(int nPriority = static_cast<int>(CObject::PRIORITY::UI));
+	~CResultScore();
 
 	HRESULT Init(void);
 	void Uninit(void);
@@ -36,18 +39,23 @@ public:
 	void Draw(void);
 	void Load(void);
 
-	static CRankingScore* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
+	static CResultScore* Create(const D3DXVECTOR3 pos, const float fWidth, const float fHeight);
 
 private:
 
-	static constexpr int RANKSCOREDIGIT = 8; // 表示桁数
-	static constexpr int RANKING_MAX = 5;	// ランキング数
+	//***********************
+	// 定数構造体
+	//***********************
+	struct Config
+	{
+		static constexpr int NUM_SCORE = 8; // 桁数
+		static constexpr int NUM_DIGIT = 10; // 桁数
+	};
 
-	int m_nIdxTex;					// テクスチャインデックス
-	int m_aRankScore[RANKING_MAX];	// スコア配列
-	float m_fWidth;			// 横幅
-	float m_fHeight;		// 高さ
-
-	CNumber* m_apNumber[RANKING_MAX][RANKSCOREDIGIT]; // 各スコアと桁数
-	D3DXVECTOR3 m_pos;		// 座標
+	std::array<CNumber* ,Config::NUM_SCORE>m_pNumber;		// 桁数分のナンバーのポインタ
+	std::unique_ptr<CLoad>m_pLoad; // ユニークポインタ
+	D3DXVECTOR3 m_pos;				// 座標
+	int m_nScore;					// スコア保持用
+	float m_fWidth;					// 横幅
+	float m_fHeight;				// 高さ
 };

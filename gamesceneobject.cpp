@@ -28,6 +28,9 @@
 #include "gimmicksuction.h"
 #include "arrayspawnmanager.h"
 #include "topant.h"
+#include "score.h"
+#include "manager.h"
+#include "input.h"
 
 //*********************************************************
 // 静的メンバ変数
@@ -95,6 +98,9 @@ HRESULT CGameSceneObject::Init(void)
 	m_pWorkUi = std::make_unique<CWorkerUiManager>();
 	m_pWorkUi->Init();
 
+	// スコア生成
+	m_pScore = CScore::Create(D3DXVECTOR3(1180.0f, 60.0f, 0.0f), 40.0f, 60.0f);
+
 	// プレイヤー生成
 	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -600.0f), VECTOR3_NULL, 10, "data/MOTION/Player/Player_100motion.txt");
 
@@ -155,6 +161,24 @@ void CGameSceneObject::Update(void)
 	{
 		m_pArraySpawn->Update();
 	}
+
+#ifdef _DEBUG
+
+	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_F9))
+	{
+		// 書き出しテスト
+		m_pScore->AddScore(12000);
+	}
+
+	//
+	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_F8))
+	{
+		// 書き出しテスト
+		m_pScore->SaveScore();
+	}
+
+#endif // _DEBUG
+
 }
 //=========================================================
 // 描画処理

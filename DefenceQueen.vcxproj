@@ -247,6 +247,7 @@
     <ClCompile Include="result.cpp" />
     <ClCompile Include="resultmanager.cpp" />
     <ClCompile Include="resultobject.cpp" />
+    <ClCompile Include="resultscore.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="selectpoint.cpp" />
@@ -381,6 +382,7 @@
     <ClInclude Include="result.h" />
     <ClInclude Include="resultmanager.h" />
     <ClInclude Include="resultobject.h" />
+    <ClInclude Include="resultscore.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="selector.h" />

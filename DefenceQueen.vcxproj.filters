@@ -669,6 +669,9 @@
     <ClCompile Include="topant.cpp">
       <Filter>ソース ファイル\Charactor\Array</Filter>
     </ClCompile>
+    <ClCompile Include="resultscore.cpp">
+      <Filter>ソース ファイル\2DUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blackboard.h">
@@ -1080,6 +1083,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="topant.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="resultscore.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

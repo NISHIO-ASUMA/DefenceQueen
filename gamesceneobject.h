@@ -33,6 +33,7 @@ class CArrayManager;
 class CQueen;
 class CEnemySpawner;
 class CArraySpawnManager;
+class CScore;
 
 //*********************************************************
 // ゲームシーンで使うオブジェクト管理クラスを定義

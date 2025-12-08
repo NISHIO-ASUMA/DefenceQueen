@@ -15,11 +15,6 @@
 #include <algorithm>
 #include <fstream>
 
-//*********************************************************
-// 静的メンバ変数
-//*********************************************************
-int CRankingScore::m_nNewRankingScore = -1; // 初期化
-
 //=========================================================
 // オーバーロードコンストラクタ
 //=========================================================
@@ -151,13 +146,6 @@ void CRankingScore::Update(void)
 
 			// 桁更新
 			m_apNumber[rank][digit]->SetDigit(num);
-
-			// 該当スコアがランクインしてたら
-			if (rank == m_nNewRankingScore)
-			{
-				// 点滅処理を実行
-				m_apNumber[rank][digit]->SetFlash(10,20,D3DCOLOR_RGBA(255, 0, 0,255));
-			}
 		}
 	}
 }
@@ -182,8 +170,9 @@ void CRankingScore::Draw(void)
 void CRankingScore::Load(void)
 {
 	// 開くファイル設定
-	std::ifstream LoadFile("data\\Loader\\RankScore.txt");
+	std::ifstream LoadFile("data\\SCORE\\RankScore.bin",std::ios::binary);
 
+	// 開けたら
 	if (LoadFile.is_open())
 	{
 		// スコアを5件分読み込む
@@ -191,7 +180,7 @@ void CRankingScore::Load(void)
 		{
 			if (!(LoadFile >> m_aRankScore[nCnt]))
 			{
-				m_aRankScore[nCnt] = 0; // 足りなかったら0点
+				m_aRankScore[nCnt] = 0; // 足りなかったら0点を追加
 			}
 		}
 
@@ -200,6 +189,6 @@ void CRankingScore::Load(void)
 	}
 	else
 	{
-		MessageBox(NULL, "RankScore.txt が開けませんでした", "エラー", MB_OK);
+		MessageBox(NULL, "RankScore.bin が開けませんでした", "エラー", MB_OK);
 	}
 }

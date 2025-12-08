@@ -15,6 +15,7 @@
 #include "ranking.h"
 #include "input.h"
 #include "fade.h"
+#include "resultscore.h"
 
 //=========================================================
 // オーバーロードコンストラクタ
@@ -35,8 +36,11 @@ CResult::~CResult()
 //=========================================================
 HRESULT CResult::Init(void)
 {
-	// 
+	// 仮背景生成 検証結果 : ok
 	CUi::Create(D3DXVECTOR3(640.0f, 360.0f, 0.0f), 30, 1280.0f, 720.0f, "result.jpg", false);
+
+	// スコア確認 検証結果 : ok
+	CResultScore::Create(D3DXVECTOR3(960.0f, 400.0f, 0.0f), 40.0f, 80.0f);
 
 	// 初期化結果を返す
 	return S_OK;
@@ -53,6 +57,8 @@ void CResult::Uninit(void)
 //=========================================================
 void CResult::Update(void)
 {
+#ifdef _DEBUG
+
 	// 画面遷移
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_SPACE))
 	{
@@ -61,6 +67,9 @@ void CResult::Update(void)
 		fade->SetFade(std::make_unique<CRanking>());
 		return;
 	}
+
+#endif // _DEBUG
+
 
 }
 //=========================================================

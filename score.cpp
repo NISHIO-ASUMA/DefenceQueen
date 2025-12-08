@@ -95,27 +95,19 @@ HRESULT CScore::Init(void)
 //=========================================================
 void CScore::Uninit(void)
 {
-	// NOTE : 検証 : ここでスコアを書き出す
-	// SaveScore();
-
 	// 使った分破棄
-	for (int nCnt = 0; nCnt < NUM_SCORE; nCnt++)
+	for (auto number : m_apNumber)
 	{
 		// nullptrチェック
-		if (m_apNumber[nCnt] != nullptr)
+		if (number != nullptr)
 		{
-			// 終了
-			m_apNumber[nCnt]->Uninit();
-
-			// 破棄
-			delete m_apNumber[nCnt];
-
-			// ポインタ初期化
-			m_apNumber[nCnt] = nullptr;
+			number->Uninit();
+			delete number;
+			number = nullptr;
 		}
 	}
 
-	// ポインタ終了
+	// ポインタ破棄
 	m_pLoad.reset();
 
 	// 自身の破棄

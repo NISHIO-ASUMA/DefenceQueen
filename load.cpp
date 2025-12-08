@@ -27,6 +27,44 @@ CLoad::~CLoad()
 {
 	// 無し
 }
+//=========================================================
+// 一つのバイナリ数値データを読み込む
+//=========================================================
+int CLoad::LoadInt(const char* loadfilename)
+{
+	// 格納用変数
+	int nReturnScore = 0;
+
+	// ファイルを開く
+	std::ifstream Openfile(loadfilename, std::ios::binary);
+
+	if (!Openfile)
+	{
+		// 例外処理
+		MessageBox(GetActiveWindow(), "エラー発生", "ファイルが見つかりません!( 関数 : LoadInt )", MB_OK);
+		return -1;
+	}
+
+	// 読み取ったスコアを入れる
+	Openfile.read(reinterpret_cast<char*>(&nReturnScore), sizeof(int));
+
+	// 読み込み失敗チェック
+	if (Openfile.fail())
+	{
+		MessageBox(GetActiveWindow(),
+			"エラー発生",
+			"データの読み込みに失敗しました!( 関数 : LoadInt )",
+			MB_OK);
+
+		return -1;
+	}
+
+	// ファイルを閉じる
+	Openfile.close();
+
+	// 格納スコアを返す
+	return nReturnScore;
+}
 //=================================================================
 // 一つのバイナリ数値データを書き出す
 //=================================================================

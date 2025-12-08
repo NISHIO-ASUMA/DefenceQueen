@@ -25,7 +25,7 @@ public:
 	CLoad();
 	~CLoad();
 
-	void LoadInt(const char * loadfilename);
+	int LoadInt(const char * loadfilename);
 	void LoadIntToArray(const char* loadfilename);
 	void SaveInt(const char* savefilename, const int OutputData);
 	void SaveIntToArray(const char* savefilename, const std::vector<int>& ArrayData);
