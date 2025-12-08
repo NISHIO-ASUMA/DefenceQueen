@@ -31,19 +31,6 @@ class CMotionManager
 public:
 
 	//*********************************
-	// モーション情報を保存する構造体
-	//*********************************
-	struct MOTIONFILE
-	{
-		std::string FilePath;	// ファイル名
-		std::vector<CModel*>apModel; // モデルインデックス
-		std::vector<std::string>Modelpath; // モデルパス
-		std::vector<int>nParentId;			// idセット
-		std::vector<D3DXVECTOR3>offpos;		// オフセット座標
-		std::vector<D3DXVECTOR3>offrot;		// オフセット角度
-	};
-
-	//*********************************
 	// キー構造体宣言
 	//*********************************
 	struct KEY
@@ -75,6 +62,22 @@ public:
 		std::vector<KEY_INFO> aKeyInfo; // モーションの動的キーフレーム
 	};
 
+	//*********************************
+	// モーション情報を保存する構造体
+	//*********************************
+	struct MOTIONFILE
+	{
+		std::string FilePath;	// ファイル名
+		std::vector<CModel*>apModel; // モデルインデックス
+		std::vector<std::string>Modelpath; // モデルパス
+		std::vector<int>nParentId;			// idセット
+		std::vector<D3DXVECTOR3>offpos;		// オフセット座標
+		std::vector<D3DXVECTOR3>offrot;		// オフセット角度
+		int nNumModel;						// 最大モデル数
+		int nNumMotion;						// 最大モーション数
+		std::vector<INFO> m_aMotionInfo;	// モーション情報
+	};
+
 	CMotionManager();
 	~CMotionManager();
 
@@ -101,14 +104,18 @@ public:
 	void LoadMotion(const char* pFileName, std::vector<CModel*>& pModel, int nDestMotion, bool isShadow);
 
 	/// <summary>
-	/// 動的配列の取得
+	/// 動的配列からデータを取得
 	/// </summary>
 	/// <param name=""></param>
-	/// <returns>配列ポインタ</returns>
-	const std::vector<INFO>& GetList(void) { return m_aMotionInfo; }
+	/// <returns></returns>
+	const std::vector<MOTIONFILE>& GetFileData(void) { return m_FileData; }
 
-	int GetNumModel(void) const { return m_nNumModels; }
-	int GetNumMotion(void) const { return m_nNumMotion; }
+	/// <summary>
+	/// インデックスで取得
+	/// </summary>
+	/// <param name="nIdx">取得するモーション番号</param>
+	/// <returns></returns>
+	MOTIONFILE GetFileDataIdx(const int &nIdx) { return m_FileData[nIdx]; }
 
 private:
 
@@ -116,8 +123,6 @@ private:
 	// クラス内メンバ関数
 	//***********************************
 	int SetModels(std::istringstream& iss);
-	void SetMotionNum(int nMotion) { m_nNumMotion = nMotion; }
-	void SetNumModel(int nNumModel) { m_nNumModels = nNumModel; }
 	void SetModelFile(std::istringstream& iss, std::vector<CModel*>& pModel, int nCnt, const bool isShadow);
 	void SetParts(std::ifstream& file, std::vector<CModel*>& pModel);
 	void SetPartsMotion(std::ifstream& file, int nCntMotion);
@@ -129,11 +134,4 @@ private:
 
 	//　ファイルパスを保持しておく配列
 	std::vector<MOTIONFILE>m_FileData;
-
-	// モーション情報を保持する配列
-	std::vector<INFO> m_aMotionInfo;
-
-	int m_nNumMotion;		// モーションの総数
-	int m_nNumModels;		// モデル総数
-	int m_nParentidx;		// 親インデックス
 };

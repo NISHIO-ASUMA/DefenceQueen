@@ -148,12 +148,12 @@ void CMotion::Update(std::vector<CModel*> pModel)
 
 	// モーションマネージャーから情報を取得
 	auto Manager = CManager::GetInstance()->GetMotionManager();
-	auto Info = Manager->GetList();
+	auto Info = Manager->GetFileDataIdx(m_nMotionIdx);
 
 	// 最大数情報
-	int nMotionNum = Manager->GetNumMotion();
-	int nModelNum = Manager->GetNumModel();
-
+	int nMotionNum = Info.nNumMotion;
+	int nModelNum = Info.nNumModel;
+	
 #if 1
 	// 例外処理
 	if (nModelNum <= 0)
@@ -167,10 +167,10 @@ void CMotion::Update(std::vector<CModel*> pModel)
 
 	// 現在モーションキー計算
 	m_motiontype = Clump(m_motiontype, 0, nMotionNum);
-	m_nNextKey = Wrap(m_nKey + 1, 0, Info[m_motiontype].nNumKey - 1);
+	m_nNextKey = Wrap(m_nKey + 1, 0, Info.m_aMotionInfo[m_motiontype].nNumKey - 1);
 
 	// 最後のキーとブレンドのキーを計算
-	int nLastKey = Info[m_motiontype].nNumKey - 1;
+	int nLastKey = Info.m_aMotionInfo[m_motiontype].nNumKey - 1;
 
 	// 最大モデル数で回す
 	for (int nCnt = 0; nCnt < nModelNum; nCnt++)
@@ -193,18 +193,18 @@ void CMotion::Update(std::vector<CModel*> pModel)
 	}
 
 	// フレーム進行処理
-	if (m_nCounterMotion >= Info[m_motiontype].aKeyInfo[m_nKey].nFrame)
+	if (m_nCounterMotion >= Info.m_aMotionInfo[m_motiontype].aKeyInfo[m_nKey].nFrame)
 	{
 		// カウンターをリセット
 		m_nCounterMotion = 0;
 
 		// キー数が上限より一個下
-		if (m_nKey < Info[m_motiontype].nNumKey - 1)
+		if (m_nKey < Info.m_aMotionInfo[m_motiontype].nNumKey - 1)
 		{
 			// キー数加算
 			m_nKey++;
 		}
-		else if (m_nKey >= Info[m_motiontype].nNumKey)
+		else if (m_nKey >= Info.m_aMotionInfo[m_motiontype].nNumKey)
 		{
 			// キーをリセット
 			m_nKey = 0;
@@ -215,7 +215,7 @@ void CMotion::Update(std::vector<CModel*> pModel)
 		else
 		{
 			// 通常ループ
-			m_nKey = Wrap(m_nKey + 1, 0, Info[m_motiontype].nNumKey - 1);
+			m_nKey = Wrap(m_nKey + 1, 0, Info.m_aMotionInfo[m_motiontype].nNumKey - 1);
 		}
 	}
 	else
@@ -260,7 +260,7 @@ void CMotion::Update(std::vector<CModel*> pModel)
 	}
 
 	// 着地モーションの終了判定
-	if (m_nKey >= nLastKey -1 && m_nCounterMotion >= Info[m_motiontype].aKeyInfo[m_nKey].nFrame)
+	if (m_nKey >= nLastKey -1 && m_nCounterMotion >= Info.m_aMotionInfo[m_motiontype].aKeyInfo[m_nKey].nFrame)
 	{// 最後のキーに達していて、カウンターも終了フレームを超えていたら
 		m_isFinishMotion = true;
 	}
@@ -269,10 +269,10 @@ void CMotion::Update(std::vector<CModel*> pModel)
 	int nFrame = 0;
 
 	// キーごとのフレームで回す
-	for (int nCnt = 0; nCnt < Info[m_motiontype].nNumKey; nCnt++)
+	for (int nCnt = 0; nCnt < Info.m_aMotionInfo[m_motiontype].nNumKey; nCnt++)
 	{
 		// 全体計算用に加算
-		nFrame += Info[m_motiontype].aKeyInfo[nCnt].nFrame;
+		nFrame += Info.m_aMotionInfo[m_motiontype].aKeyInfo[nCnt].nFrame;
 	}
 
 	// 最大値よりもカウントがオーバーしたら
@@ -292,32 +292,32 @@ void CMotion::UpdateCurrentMotion(CMotionManager* pMption,CModel** ppModel, int 
 {
 #if 1
 	// モーションリスト取得
-	const auto& motionList = pMption->GetList();
+	const auto& motionList = pMption->GetFileDataIdx(m_nMotionIdx);
 
-	// モーションタイプチェック
-	if (m_motiontype < 0 || m_motiontype >= static_cast<int>(motionList.size()))
-		return;
+	//// モーションタイプチェック
+	//if (m_motiontype < 0 || m_motiontype >= static_cast<int>(motionList.size()))
+	//	return;
 
 	// 現在のモーション情報取得
-	const CMotionManager::INFO& motionInfo = motionList[m_motiontype];
+	const CMotionManager::INFO& motionInfo = motionList.m_aMotionInfo[m_motiontype];
 
-	// キー範囲チェック
-	if (m_nKey < 0 || m_nKey >= static_cast<int>(motionInfo.aKeyInfo.size()))
-		return;
-	if (m_nNextKey < 0 || m_nNextKey >= static_cast<int>(motionInfo.aKeyInfo.size()))
-		return;
+	//// キー範囲チェック
+	//if (m_nKey < 0 || m_nKey >= static_cast<int>(motionInfo.aKeyInfo.size()))
+	//	return;
+	//if (m_nNextKey < 0 || m_nNextKey >= static_cast<int>(motionInfo.aKeyInfo.size()))
+	//	return;
 
 	// 現在と次のキー情報取得
 	const CMotionManager::KEY_INFO& keyInfoNow = motionInfo.aKeyInfo[m_nKey];
 	const CMotionManager::KEY_INFO& keyInfoNext = motionInfo.aKeyInfo[m_nNextKey];
 
-	// モデル番号チェック
-	if (nModelCount < 0 ||
-		nModelCount >= static_cast<int>(keyInfoNow.aKey.size()) ||
-		nModelCount >= static_cast<int>(keyInfoNext.aKey.size()))
-	{
-		return;
-	}
+	//// モデル番号チェック
+	//if (nModelCount < 0 ||
+	//	nModelCount >= static_cast<int>(keyInfoNow.aKey.size()) ||
+	//	nModelCount >= static_cast<int>(keyInfoNext.aKey.size()))
+	//{
+	//	return;
+	//}
 
 	// 現在の KEY
 	const CMotionManager::KEY& NowKey = keyInfoNow.aKey[nModelCount];
@@ -368,11 +368,11 @@ void CMotion::UpdateCurrentMotion(CMotionManager* pMption,CModel** ppModel, int 
 void CMotion::UpdateBlend(CMotionManager* pMption,CModel** ppModel, int nModelCount)
 {
 	// モーション情報を取得
-	const auto& motionList = pMption->GetList();
-
+	const auto& motionList = pMption->GetFileDataIdx(m_nMotionIdx);
+	
 	// 現在のモーション情報取得
-	const CMotionManager::INFO& motionInfo = motionList[m_motiontype];
-	const CMotionManager::INFO& BlendInfo = motionList[m_motiontypeBlend];
+	const CMotionManager::INFO& motionInfo = motionList.m_aMotionInfo[m_motiontype];
+	const CMotionManager::INFO& BlendInfo = motionList.m_aMotionInfo[m_motiontypeBlend];
 
 	// ブレンド係数を計算
 	float fBlendFrame = static_cast<float>(m_nCounterBlend) / static_cast<float>(m_nFrameBlend);
@@ -481,18 +481,13 @@ void CMotion::Debug(void)
 {
 	// マネージャー取得
 	auto manager = CManager::GetInstance()->GetMotionManager();
-	auto list = manager->GetList();
 
 	CDebugproc::Print("[現在フレームカウント] %d /  [ 最大モーションフレーム ] %d", m_nAllFrameCount, m_nNumAllFrame);
 	CDebugproc::Draw(800, 320);
 
-	CDebugproc::Print("[ブレンドフレーム] %d / [ブレンドカウント] %d", m_nFrameBlend,m_nCounterBlend);
+	CDebugproc::Print("[ブレンドフレーム] %d / [ブレンドカウント] %d", m_nFrameBlend, m_nCounterBlend);
 	CDebugproc::Draw(800, 340);
-
-	CDebugproc::Print("[ キー数 ] %d  / [ 最大キー数] %d ",m_nKey, list[m_motiontype].nNumKey);
-	CDebugproc::Draw(800, 360);
 }
-
 //=================================================================
 // モーションフレーム判定
 //=================================================================

@@ -39,15 +39,39 @@ HRESULT CArraySpawner::Init(CArrayManager* pManager)
 	// 使える要素をもらう
 	m_AssignedArrays = pManager->Allocate(m_nStockArrays);
 
+	// トップのアリを生成
+	m_pTopAnts = CTopAnt::Create(m_SpawnBasePos + D3DXVECTOR3(0.0f, 0.0f, 50.0f), VECTOR3_NULL);
+
+	// 隊列の追従関係変数
+	CArray* pPrev = nullptr;
+
 	// セットされた数だけアクティブにする
 	for (int nCnt = 0; nCnt < m_nStockArrays; nCnt++)
 	{
-		m_AssignedArrays[nCnt]->SetPos(m_SpawnBasePos);
-		m_AssignedArrays[nCnt]->SetActive(true);
+		// 変数格納
+		m_AssignedArrays.push_back(CArray::Create(m_SpawnBasePos, VECTOR3_NULL, 10));
+
+		CArray* pArray = m_AssignedArrays[nCnt];
+
+		// 設定関連
+		pArray->SetPos(m_SpawnBasePos);
+		pArray->SetActive(true);
+
+		if (nCnt == 0)
+		{
+			// トップアリを追従
+			pArray->SetFollowTargetTop(m_pTopAnts);
+		}
+		else
+		{
+			// 1つ前のアリを追従
+			pArray->SetPrevAnt(pPrev);
+		}
+
+		// 次の「前のアリ」用に保存
+		pPrev = pArray;
 	}
 	
-	// トップのアリを生成
-	m_pTopAnts = CTopAnt::Create(m_SpawnBasePos + D3DXVECTOR3(0.0f, 0.0f, 50.0f), VECTOR3_NULL);
 
 	return S_OK;
 }

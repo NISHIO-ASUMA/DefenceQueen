@@ -90,5 +90,5 @@ private:
 
 	std::vector<CArray*>m_pArrays; // 動的配列
 	int m_nActiveAll;		// 現在の出現数
-	std::vector< CTopAnt*>m_pTopAnts; // トップアリの配列
+	std::vector<CTopAnt*>m_pTopAnts; // トップアリの配列
 };

@@ -34,6 +34,7 @@ class CQueen;
 class CEnemySpawner;
 class CArraySpawnManager;
 class CScore;
+class CPlayer;
 
 //*********************************************************
 // ゲームシーンで使うオブジェクト管理クラスを定義
@@ -60,6 +61,7 @@ public:
 	CArrayManager* GetArrayManager(void) { return m_pArrayManager.get(); }
 	CEnemySpawner* GetEnemySpawn(void) { return m_pSpawn.get(); }
 	CArraySpawnManager* GetArraySpawn(void) { return m_pArraySpawn.get(); }
+	CPlayer* GetPlayer(void) { return m_pPlayer; }
 
 	static CGameSceneObject* GetInstance(void);
 
@@ -73,6 +75,7 @@ private:
 	CTime* m_pTimer;	// タイマークラスのポインタ
 	CSelectPoint* m_pSelectPoint;	// 選択ポイントのクラス
 	CQueen* m_pQueen;	// 女王
+	CPlayer* m_pPlayer; // プレイヤークラスのポインタ
 
 	std::unique_ptr<CWorkerUiManager>m_pWorkUi;	// 表示uiクラスポインタ
 	std::unique_ptr<CFeedManager>m_pFeed;	// 餌管理クラスのポインタ

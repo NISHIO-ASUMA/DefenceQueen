@@ -49,7 +49,8 @@ m_pArrayManager(nullptr),
 m_pWorkUi(nullptr),
 m_pQueen(nullptr),
 m_pSpawn(nullptr),
-m_pArraySpawn(nullptr)
+m_pArraySpawn(nullptr),
+m_pPlayer(nullptr)
 {
 	// 値のクリア
 }
@@ -65,6 +66,13 @@ CGameSceneObject::~CGameSceneObject()
 //=========================================================
 HRESULT CGameSceneObject::Init(void)
 {
+	//CArray::Create(VECTOR3_NULL, VECTOR3_NULL, 10);
+
+	//CArray::Create(D3DXVECTOR3(30.0f,0.0f,0.0f), VECTOR3_NULL, 10);
+#if 1
+
+
+
 	// 選択ポイント生成
 	m_pSelectPoint = CSelectPoint::Create(VECTOR3_NULL, VECTOR3_NULL, 80.0f, 3.0f, 80.0f);
 
@@ -88,7 +96,7 @@ HRESULT CGameSceneObject::Init(void)
 
 	// 仲間アリの大軍を生成
 	m_pArrayManager = std::make_unique<CArrayManager>();
-	m_pArrayManager->Init(50);
+	m_pArrayManager->Init(40);
 
 	// 出現場所生成
 	m_pArraySpawn = std::make_unique<CArraySpawnManager>();
@@ -98,11 +106,12 @@ HRESULT CGameSceneObject::Init(void)
 	m_pWorkUi = std::make_unique<CWorkerUiManager>();
 	m_pWorkUi->Init();
 
-	// スコア生成
-	m_pScore = CScore::Create(D3DXVECTOR3(1180.0f, 60.0f, 0.0f), 40.0f, 60.0f);
+	m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -600.0f), VECTOR3_NULL, 10, "data/MOTION/Player/Player100motion.txt");
+#endif
 
 	// プレイヤー生成
-	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -600.0f), VECTOR3_NULL, 10, "data/MOTION/Player/Player_100motion.txt");
+	// スコア生成
+	// m_pScore = CScore::Create(D3DXVECTOR3(1180.0f, 60.0f, 0.0f), 40.0f, 60.0f);
 
 	return S_OK;
 }

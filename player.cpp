@@ -101,7 +101,8 @@ HRESULT CPlayer::Init(void)
 	SetObjType(CObject::TYPE_PLAYER);
 
 	// モーションセット
-	MotionLoad("data/MOTION/Player/Player100motion.txt", MOTION_MAX,false);
+	// MotionLoad("data/MOTION/Enemy/Enemy_Motion.txt", MOTION_MAX,false);
+	MotionLoad("data/MOTION/Player/Player100motion.txt", MOTION_MAX, false);
 
 	// コライダー生成
 	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(50.0f,50.0f,50.0f));
@@ -109,9 +110,11 @@ HRESULT CPlayer::Init(void)
 	// モーション取得
 	m_pMotion = CNoMoveCharactor::GetMotion();
 
+#if 1
 	// 味方のスポナーを取得
 	auto pArraySpawn = CGameSceneObject::GetInstance()->GetArraySpawn();
 	auto spawn = pArraySpawn->GetIndexSpawner(m_nSelectSpawn);
+	if (spawn == nullptr) return E_FAIL;
 
 	// 存在時
 	if (spawn)
@@ -126,7 +129,7 @@ HRESULT CPlayer::Init(void)
 		// 選択インデックス変更
 		m_nPrevSelectSpawn = m_nSelectSpawn;
 	}
-
+#endif
 	// 結果を返す
 	return S_OK;
 }
@@ -233,6 +236,7 @@ void CPlayer::Update(void)
 		SetSendArrayMoving(m_nSelectSpawn, m_nNum);
 	}
 
+#if 1
 	// 取得
 	auto spawn = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(m_nSelectSpawn);
 	if (spawn == nullptr) return;
@@ -250,7 +254,7 @@ void CPlayer::Update(void)
 
 	// 当たり判定の管理関数
 	CollisionAll(UpdatePos,pKeyboard,pJoyPad);
-
+#endif
 	// キャラクターの全体更新処理
 	CNoMoveCharactor::Update();
 }
@@ -267,10 +271,10 @@ void CPlayer::Draw(void)
 	CDebugproc::Print("Player Pos [ %.2f, %.2f,%.2f ]", GetPos().x,GetPos().y,GetPos().z);
 	CDebugproc::Draw(0, 120);
 
-	CDebugproc::Print("選択インデックス : [ %d ]", m_nSelectSpawn);
+	CDebugproc::Print("選択中のスポナーのインデックス : [ %d ]", m_nSelectSpawn);
 	CDebugproc::Draw(0, 200);
 
-	CDebugproc::Print("設定する移動数 : [ %d ]", m_nNum);
+	CDebugproc::Print("設定するアリの移動数 : [ %d ]", m_nNum);
 	CDebugproc::Draw(0, 220);
 
 }
@@ -338,12 +342,8 @@ void CPlayer::CollisionAll(D3DXVECTOR3 pPos, CInputKeyboard* pInput, CJoyPad* pP
 		}
 	}
 
-
-	// キー入力
-	CInputKeyboard* pKeyboard = CManager::GetInstance()->GetInputKeyboard();
-
 	// 一斉指示
-	if (pKeyboard->GetTrigger(DIK_V))
+	if (pInput->GetTrigger(DIK_V))
 	{
 		// 指令
 		OrderToArray(m_nNum, pPoint->GetPos());
@@ -380,12 +380,12 @@ void CPlayer::OrderToArray(int nNum,D3DXVECTOR3 destpos)
 	auto pSpawnMgr = CGameSceneObject::GetInstance()->GetArraySpawn();
 	if (!pSpawnMgr) return;
 
-	for (int i = 0; i < NUM_SPAWN; i++)
+	for (int nCnt = 0; nCnt < NUM_SPAWN; nCnt++)
 	{
-		int sendNum = m_pSpawnData[i];
+		int sendNum = m_pSpawnData[nCnt];
 		if (sendNum <= 0) continue;
 
-		auto pSpawner = pSpawnMgr->GetIndexSpawner(i);
+		auto pSpawner = pSpawnMgr->GetIndexSpawner(nCnt);
 		if (!pSpawner) continue;
 
 		// 各スポナーへ同時命令
@@ -393,7 +393,7 @@ void CPlayer::OrderToArray(int nNum,D3DXVECTOR3 destpos)
 	}
 }
 //===================================================================
-// あらかじめセットをしておく関数
+// 設定を保存しておく関数
 //===================================================================
 void CPlayer::SetSendArrayMoving(int nIdx, int nNum)
 {

@@ -31,7 +31,7 @@ MODEL_FILENAME = data/MODEL/PLAYER/Player_LeftHand100.x		# [11]左手
 
 MODEL_FILENAME = data/MODEL/PLAYER/Player_RightThighs100.x	# [12]右腿
 MODEL_FILENAME = data/MODEL/PLAYER/Player_RightLeg100.x		# [13]右脛
-MODEL_FILENAME = data/MODEL/PLAYER/Player_RightFoot100.x		# [14]右足首
+MODEL_FILENAME = data/MODEL/PLAYER/Player_RightFoot100.x	# [14]右足首
 
 MODEL_FILENAME = data/MODEL/PLAYER/Player_LeftThighs100.x	# [15]左腿
 MODEL_FILENAME = data/MODEL/PLAYER/Player_LeftLeg100.x		# [16]左脛

@@ -115,8 +115,10 @@ void CNoMoveCharactor::Update(void)
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
 	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxTrans);
 
+#ifdef NDEBUG
 	// モーションの更新処理
 	m_pMotion->Update(m_pModel);
+#endif // _NDEBUG
 }
 //=========================================================
 // 描画処理

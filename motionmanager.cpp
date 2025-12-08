@@ -24,7 +24,7 @@ int CMotionManager::m_nNumAll = NULL; // 総数加算
 //=========================================================
 // コンストラクタ
 //=========================================================
-CMotionManager::CMotionManager() : m_aMotionInfo{},m_FileData{},m_nNumModels(NULL),m_nNumMotion(NULL)
+CMotionManager::CMotionManager() :m_FileData{}
 {
 
 }
@@ -41,7 +41,6 @@ CMotionManager::~CMotionManager()
 HRESULT CMotionManager::Load(void)
 {
 	// 値の初期化
-	m_aMotionInfo.clear();
 	m_FileData.clear();
 
 	return S_OK;
@@ -52,7 +51,6 @@ HRESULT CMotionManager::Load(void)
 void CMotionManager::UnLoad(void)
 {
 	// 値のクリア
-	m_aMotionInfo.clear();
 	m_FileData.clear();
 }
 //=========================================================
@@ -141,8 +139,10 @@ void CMotionManager::LoadMotion(const char* pFileName, std::vector<CModel*>& pMo
 	int nCntMotion = 0;
 
 	// この引数に読み込むモーション総数を設定してこれの分だけm_amotionInfoでリサイズする
-	m_aMotionInfo.resize(nDestMotion);
-	SetMotionNum(nDestMotion);
+	m_FileData.back().m_aMotionInfo.resize(nDestMotion);
+
+	// 最大モーション数を保持する
+	m_FileData.back().nNumMotion = nDestMotion;
 
 	// 文字列を読み続ける
 	while (std::getline(file, line))
@@ -158,10 +158,7 @@ void CMotionManager::LoadMotion(const char* pFileName, std::vector<CModel*>& pMo
 			// モデル数設定
 			nModel = SetModels(iss);
 
-			// 読み込んだモデル数の最大数を保持する
-			SetNumModel(nModel);
-
-			// 配列のサイズをセット
+			// モデルの配列のサイズをセット
 			pModel.resize(nModel);
 		}
 		// "MODEL_FILENAME"読み取り時
@@ -210,6 +207,9 @@ int CMotionManager::SetModels(std::istringstream& iss)
 
 	// 読み込んだモデル数を設定
 	iss >> eq >> nModel;
+
+	// モデル数格納
+	m_FileData.back().nNumModel = nModel;
 
 	// モデル数を返す
 	return nModel;
@@ -374,7 +374,7 @@ void CMotionManager::SetPartsMotion(std::ifstream& file, int nCntMotion)
 			if (eq == "=")
 			{
 				// モーションループフラグを設定
-				m_aMotionInfo[nCntMotion].bLoop = loopFlag;
+				m_FileData.back().m_aMotionInfo[nCntMotion].bLoop = loopFlag;
 			}
 		}
 		// "NUM_KEY"を読み取った
@@ -390,16 +390,16 @@ void CMotionManager::SetPartsMotion(std::ifstream& file, int nCntMotion)
 			motionss >> eq >> numKeys;
 
 			// nNumKeyを代入
-			m_aMotionInfo[nCntMotion].nNumKey = numKeys;
+			m_FileData.back().m_aMotionInfo[nCntMotion].nNumKey = numKeys;
 
 			// 上の処理でそのモーションのキー全体が上の処理でわかるのでその分のサイズを設定
-			m_aMotionInfo[nCntMotion].aKeyInfo.resize(numKeys);
+			m_FileData.back().m_aMotionInfo[nCntMotion].aKeyInfo.resize(numKeys);
 
 			//	キー数の上限に達するまで
 			while (nCntKey < numKeys)
 			{
 				// aKeyInfoのサイズがわかったらキーごとにあるパーツの情報をakeyにサイズセットをして箱を確保してあげる
-				m_aMotionInfo[nCntMotion].aKeyInfo[nCntKey].aKey.resize(m_nNumModels); // m_nNumModelsは最大モデル数
+				m_FileData.back().m_aMotionInfo[nCntMotion].aKeyInfo[nCntKey].aKey.resize(m_FileData.back().nNumModel); // m_nNumModelsは最大モデル数
 
 				// キー情報の設定
 				SetKey(file,nCntMotion, nCntKey);
@@ -441,7 +441,7 @@ void CMotionManager::SetKey(std::ifstream& file,int nCntMotion, int nCntKey)
 		// 読み取り一致時
 		if (cmd == "FRAME" && eq == "=")
 		{
-			m_aMotionInfo[nCntMotion].aKeyInfo[nCntKey].nFrame = frame;
+			m_FileData.back().m_aMotionInfo[nCntMotion].aKeyInfo[nCntKey].nFrame = frame;
 
 			break;
 		}
@@ -501,7 +501,7 @@ void CMotionManager::SetKeyDate(std::istringstream& ss, const std::string& param
 	if (eq != "=") return;
 
 	// キー情報変数に代入する
-	KEY_INFO& keyInfo = m_aMotionInfo[nCntMotion].aKeyInfo[nCntKey];
+	KEY_INFO& keyInfo = m_FileData.back().m_aMotionInfo[nCntMotion].aKeyInfo[nCntKey];
 
 	// "POS"読み取り時
 	if (param == "POS")

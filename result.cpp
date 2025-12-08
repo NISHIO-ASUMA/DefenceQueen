@@ -36,6 +36,7 @@ CResult::~CResult()
 //=========================================================
 HRESULT CResult::Init(void)
 {
+	// TODO : 以下のオブジェクトはResultObjectクラスで生成するように変更予定
 	// 仮背景生成 検証結果 : ok
 	CUi::Create(D3DXVECTOR3(640.0f, 360.0f, 0.0f), 30, 1280.0f, 720.0f, "result.jpg", false);
 
@@ -60,7 +61,7 @@ void CResult::Update(void)
 #ifdef _DEBUG
 
 	// 画面遷移
-	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_SPACE))
+	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN))
 	{
 		// 画面遷移
 		auto fade = CManager::GetInstance()->GetFade();
@@ -69,8 +70,6 @@ void CResult::Update(void)
 	}
 
 #endif // _DEBUG
-
-
 }
 //=========================================================
 // 描画処理

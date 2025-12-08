@@ -76,7 +76,7 @@ private:
 	//**********************
 	struct Config
 	{
-		static constexpr float SPEED = 7.0f; // ˆÚ“®‘¬“x
+		static constexpr float SPEED = 4.0f; // ˆÚ“®‘¬“x
 		static constexpr float NorRot = D3DX_PI * 2.0f; // ‰ñ“]‘¬“x
 	};
 

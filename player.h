@@ -62,8 +62,9 @@ public:
 	void OrderToArray(int nNum, D3DXVECTOR3 destpos);
 	void SetSendArrayMoving(int nIdx,int nNum);
 
-	D3DXVECTOR3 RandomSetPos(const D3DXVECTOR3& pos,float fRadius, int nMoveActiveNum, int nIdx);
+	int GetSelectIndex() const { return m_nSelectSpawn; }
 
+	D3DXVECTOR3 RandomSetPos(const D3DXVECTOR3& pos,float fRadius, int nMoveActiveNum, int nIdx);
 	CStateMachine* GetStateMachine() { return m_pStateMachine.get(); }
 
 	static CPlayer* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife,const char* pFilename);
