@@ -1,6 +1,6 @@
 //=========================================================
 //
-// ゲームのオブジェクト管理処理 [ gameobject.cpp ]
+// ゲームのオブジェクト管理処理 [ gamesceneobject.cpp ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -66,13 +66,6 @@ CGameSceneObject::~CGameSceneObject()
 //=========================================================
 HRESULT CGameSceneObject::Init(void)
 {
-	//CArray::Create(VECTOR3_NULL, VECTOR3_NULL, 10);
-
-	//CArray::Create(D3DXVECTOR3(30.0f,0.0f,0.0f), VECTOR3_NULL, 10);
-#if 1
-
-
-
 	// 選択ポイント生成
 	m_pSelectPoint = CSelectPoint::Create(VECTOR3_NULL, VECTOR3_NULL, 80.0f, 3.0f, 80.0f);
 
@@ -96,7 +89,7 @@ HRESULT CGameSceneObject::Init(void)
 
 	// 仲間アリの大軍を生成
 	m_pArrayManager = std::make_unique<CArrayManager>();
-	m_pArrayManager->Init(40);
+	m_pArrayManager->Init();
 
 	// 出現場所生成
 	m_pArraySpawn = std::make_unique<CArraySpawnManager>();
@@ -106,12 +99,11 @@ HRESULT CGameSceneObject::Init(void)
 	m_pWorkUi = std::make_unique<CWorkerUiManager>();
 	m_pWorkUi->Init();
 
-	m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -600.0f), VECTOR3_NULL, 10, "data/MOTION/Player/Player100motion.txt");
-#endif
-
 	// プレイヤー生成
+	m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -600.0f), VECTOR3_NULL, 10, "data/MOTION/Player/Player100motion.txt");
+
 	// スコア生成
-	// m_pScore = CScore::Create(D3DXVECTOR3(1180.0f, 60.0f, 0.0f), 40.0f, 60.0f);
+	m_pScore = CScore::Create(D3DXVECTOR3(1180.0f, 60.0f, 0.0f), 40.0f, 60.0f);
 
 	return S_OK;
 }
@@ -194,11 +186,19 @@ void CGameSceneObject::Update(void)
 //=========================================================
 void CGameSceneObject::Draw(void)
 {
-	// TODO : 提出の際にデバッグのみにする
+#ifdef _DEBUG
+	// アリ管理クラスの描画
 	if (m_pArrayManager)
 	{
 		m_pArrayManager->Draw();
 	}
+
+	if (m_pArraySpawn)
+	{
+		m_pArraySpawn->Draw();
+	}
+
+#endif // _DEBUG
 
 	// スポナー情報描画
 	if (m_pArraySpawn)

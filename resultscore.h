@@ -38,6 +38,7 @@ public:
 	void Update(void);
 	void Draw(void);
 	void Load(void);
+	void Save(void);
 
 	static CResultScore* Create(const D3DXVECTOR3 pos, const float fWidth, const float fHeight);
 
@@ -50,6 +51,7 @@ private:
 	{
 		static constexpr int NUM_SCORE = 8; // 桁数
 		static constexpr int NUM_DIGIT = 10; // 桁数
+		static constexpr int WRITE_SCORE = 5; // 書き出し数
 	};
 
 	std::array<CNumber* ,Config::NUM_SCORE>m_pNumber;		// 桁数分のナンバーのポインタ

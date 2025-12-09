@@ -62,5 +62,5 @@ private:
 	float m_fHeight;				// 高さ
 	int m_nScore;					// スコア保持用
 
-	std::unique_ptr<CLoad>m_pLoad; // ユニークポインタ
+	std::unique_ptr<CLoad>m_pLoad;	// ユニークポインタ
 };

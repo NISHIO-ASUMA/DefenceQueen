@@ -16,6 +16,9 @@
 #include "manager.h"
 #include "input.h"
 #include "camera.h"
+#include "debugproc.h"
+#include "player.h"
+#include "meshcylinder.h"
 
 //=========================================================
 // コンストラクタ
@@ -99,6 +102,13 @@ void CTopAnt::Update(void)
 	{
 		Moving(pPad, pKey);
 		MovePad(pPad);
+
+		// メッシュ取得
+		auto mesh = CGameSceneObject::GetInstance()->GetPlayer()->GetMeshCylinder();
+		if (mesh == nullptr) return;
+
+		// 座標を合わせる
+		mesh->SetPos(pos);
 	}
 
 	// オブジェクトの座標更新
@@ -146,6 +156,10 @@ void CTopAnt::Draw(void)
 {
 	// 親クラスの描画
 	CMoveCharactor::Draw();
+
+	// デバッグ情報
+	// CDebugproc::Print("");
+
 }
 //=========================================================
 // 矩形の当たり判定処理

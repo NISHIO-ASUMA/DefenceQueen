@@ -26,6 +26,7 @@ class CStateMachine;
 class CPlayerStateBase;
 class CBoxCollider;
 class CMotion;
+class CMeshCylinder;
 
 //*********************************************************
 // プレイヤークラスを定義
@@ -61,20 +62,21 @@ public:
 	bool CollisionBlock(CBoxCollider* other, D3DXVECTOR3* pos);
 	void OrderToArray(int nNum, D3DXVECTOR3 destpos);
 	void SetSendArrayMoving(int nIdx,int nNum);
-
 	int GetSelectIndex() const { return m_nSelectSpawn; }
-
-	D3DXVECTOR3 RandomSetPos(const D3DXVECTOR3& pos,float fRadius, int nMoveActiveNum, int nIdx);
 	CStateMachine* GetStateMachine() { return m_pStateMachine.get(); }
+	CMeshCylinder* GetMeshCylinder(void) { return m_pCylinder; }
 
 	static CPlayer* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife,const char* pFilename);
 
 private:
 
 	static constexpr int NUM_SPAWN = 3; // スポーンポイント数
+
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
 	CBoxCollider* m_pBoxCollider;	// 矩形のコライダー
 	CMotion* m_pMotion;				// モーションポインタ
+	CMeshCylinder* m_pCylinder;		// メッシュ円柱
+
 	int m_nNum;						// 仮変数
 	int m_nSelectSpawn;				// スポーン選択変数
 	int m_nPrevSelectSpawn;		// 前回のスポーン選択変数

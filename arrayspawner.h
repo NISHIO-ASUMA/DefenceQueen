@@ -50,6 +50,13 @@ public:
 	void OrderMove(int nNum, const D3DXVECTOR3& destPos);
 
 	/// <summary>
+	/// 基地にもどる命令をする
+	/// </summary>
+	/// <param name="nNum">戻す数</param>
+	/// <param name="returnpos">戻したい座標</param>
+	void OrderReturn(int nNum, const D3DXVECTOR3& returnpos);
+
+	/// <summary>
 	/// ランダムに配置
 	/// </summary>
 	/// <param name="pos">出現座標</param>
@@ -65,6 +72,35 @@ public:
 	/// <param name=""></param>
 	/// <returns></returns>
 	CTopAnt* GetTopAnt(void) { return m_pTopAnts; }
+
+	/// <summary>
+	/// アリのインデックスを設定する
+	/// </summary>
+	/// <param name="pArray">仲間アリのポインタ</param>
+	/// <returns></returns>
+	int GetArrayIndex(CArray* pArray);
+
+	/// <summary>
+	/// スポナーに格納されているアリをindexで取得
+	/// </summary>
+	/// <param name="index">指定番号</param>
+	/// <returns></returns>
+	CArray* GetArray(int index);
+
+	/// <summary>
+	/// ストックされているアリの数を取得する関数
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
+	int GetStockArray(void) { return m_nStockArrays; }
+
+	D3DXVECTOR3 GetPos(void) { return m_SpawnBasePos; }
+
+	/// <summary>
+	/// 先頭の仲間のアリを取得
+	/// </summary>
+	/// <returns></returns>
+	CArray* GetTopArray() const;
 
 	/// <summary>
 	/// 生成関数

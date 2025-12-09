@@ -36,7 +36,7 @@ public:
 		float fRadius;		// ”¼Œa
 	};
 
-	CMeshCylinder(int nPrio = static_cast<int>(CObject::PRIORITY::MODELOBJECT));
+	CMeshCylinder(int nPrio = static_cast<int>(CObject::PRIORITY::BILLBOARD));
 	~CMeshCylinder();
 
 	HRESULT Init(void);
@@ -45,6 +45,7 @@ public:
 	void Draw(void);
 	void SetTexture(void);
 
+	void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
 	float GetRadius(void) const { return m_Cylinder.fRadius; }
 

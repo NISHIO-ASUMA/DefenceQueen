@@ -12,6 +12,7 @@
 #include "array.h"
 #include "arraymanager.h"
 #include "topant.h"
+#include "debugproc.h"
 
 //=========================================================
 // コンストラクタ
@@ -49,7 +50,7 @@ HRESULT CArraySpawner::Init(CArrayManager* pManager)
 	for (int nCnt = 0; nCnt < m_nStockArrays; nCnt++)
 	{
 		// 変数格納
-		m_AssignedArrays.push_back(CArray::Create(m_SpawnBasePos, VECTOR3_NULL, 10));
+		m_AssignedArrays[nCnt] = CArray::Create(m_SpawnBasePos, VECTOR3_NULL, 1);
 
 		CArray* pArray = m_AssignedArrays[nCnt];
 
@@ -130,6 +131,58 @@ void CArraySpawner::OrderMove(int nNum, const D3DXVECTOR3& destPos)
 	}
 }
 //=========================================================
+// 基地にもどる命令をする関数
+//=========================================================
+void CArraySpawner::OrderReturn(int nNum, const D3DXVECTOR3& returnpos)
+{
+	// カウント
+	int nSend = 0;
+
+	// 今動いているアリだけを抽出する配列を見る
+	std::vector<CArray*> movingList;
+	movingList.reserve(m_AssignedArrays.size());
+
+	for (auto pArray : m_AssignedArrays)
+	{
+		if (!pArray) continue;
+		if (!pArray->GetActive()) continue;
+
+		if (pArray->GetMove())// 今動いているアリだけ
+		{
+			// 移動させたい配列に追加していく
+			movingList.push_back(pArray);
+		}
+	}
+
+	// 後ろからnNum個だけreturnさせる
+	int count = 0;
+
+	// 現在移動しているアリの中から抽出する
+	// 最大数から減算するfor
+	for (int i = (int)movingList.size() - 1; i >= 0; i--)
+	{
+		// 最大なら
+		if (nSend >= nNum) break;
+
+		// リスト取得
+		auto pArray = movingList[i];
+		if (!pArray) continue;
+
+		// 基地にもどるフラグをセット
+		pArray->SetReturnSpawn(true);
+		pArray->SetIsMove(false);
+
+		pArray->SetFollowTargetTop(nullptr);
+		pArray->SetPrevAnt(nullptr);
+
+		// 向かう目的地をセット
+		pArray->SetDestPos(returnpos);
+
+		// 送る数を加算
+		nSend++;
+	}
+}
+//=========================================================
 // 格納数設定処理
 //=========================================================
 void CArraySpawner::SetMaxArray(const int& nMaxArray)
@@ -181,4 +234,34 @@ CArraySpawner* CArraySpawner::Create(const D3DXVECTOR3 pos, const int nMaxArray,
 	if (FAILED(pSpawner->Init(pManager))) return nullptr;
 
 	return pSpawner;
+}
+
+//=========================================================
+// 配列のトップの仲間アリを返す
+//=========================================================
+CArray* CArraySpawner::GetTopArray() const
+{
+	return m_AssignedArrays[0]; // 先頭の配列
+}
+//=========================================================
+// インデックスを取得する
+//=========================================================
+int CArraySpawner::GetArrayIndex(CArray* pArray)
+{
+	// アリの格納配列で回す
+	for (int nCnt = 0; nCnt < m_AssignedArrays.size(); nCnt++)
+	{
+		// 一致したら
+		if (m_AssignedArrays[nCnt] == pArray) return nCnt;
+	}
+
+	return -1;
+}
+//=========================================================
+// 配列の中からインデックスを指定して取得
+//=========================================================
+CArray* CArraySpawner::GetArray(int index)
+{
+	if (index < 0 || index >= m_AssignedArrays.size()) return nullptr;
+	return m_AssignedArrays[index];
 }

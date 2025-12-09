@@ -16,6 +16,7 @@
 #include "title.h"
 #include <memory>
 #include "ui.h"
+#include "rankingscore.h"
 
 //=========================================================
 // オーバーロードコンストラクタ
@@ -52,6 +53,9 @@ HRESULT CRanking::Init(void)
 {
 	// ui
 	CUi::Create(D3DXVECTOR3(640.0f, 360.0f, 0.0f), 30, 640.0f, 360.0f, "RankBack.jpg", false);
+
+	// ランキングスコア生成
+	CRankingScore::Create(D3DXVECTOR3(850.0f, 160.0f, 0.0f), 250.0f, 40.0f);
 
 	// インスタンス生成
 	//m_pRankManager = new CRankingManager;

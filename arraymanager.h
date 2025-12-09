@@ -31,7 +31,7 @@ public:
 	CArrayManager();
 	~CArrayManager();
 
-	HRESULT Init(const int nActives);
+	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
@@ -84,11 +84,11 @@ private:
 	//**********************
 	struct ArrayConfig
 	{
-		static constexpr int LIFE = 10; // 体力値
-		static constexpr int ALLARRAYS = 100; // 最大使用数
+		static constexpr int LIFE = 1; // 体力値
+		static constexpr int ALLARRAYS = 150; // 最大使用数
 	};
 
 	std::vector<CArray*>m_pArrays; // 動的配列
-	int m_nActiveAll;		// 現在の出現数
+	int m_nActiveAll;				// 現在の出現数
 	std::vector<CTopAnt*>m_pTopAnts; // トップアリの配列
 };

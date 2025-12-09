@@ -62,7 +62,7 @@ private:
 	//***********************************
 	struct QueenInfo
 	{
-		static constexpr int Hp = 1000;
+		static constexpr int Hp = 100;
 		static constexpr float HitRange = 80.0f;
 	};
 

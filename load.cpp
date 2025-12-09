@@ -65,6 +65,67 @@ int CLoad::LoadInt(const char* loadfilename)
 	// 格納スコアを返す
 	return nReturnScore;
 }
+//=========================================================
+// int型のバイナリデータ配列を返す(5個)
+//=========================================================
+std::vector<int> CLoad::LoadIntToArray(const char* loadfilename)
+{
+	// 配列
+	std::vector<int> ReturnScore;
+
+	// ファイルを開く
+	std::ifstream Openfile(loadfilename, std::ios::binary);
+
+	if (!Openfile)
+	{
+		// 例外処理
+		MessageBox(GetActiveWindow(), "エラー発生", "ファイルが見つかりません!( 関数 : LoadIntToArray )", MB_OK);
+		return ReturnScore;
+	}
+
+	// まず要素数を読む
+	int nDataCount = 0;
+
+	// ファイルから情報をセットする
+	Openfile.read(reinterpret_cast<char*>(&nDataCount), sizeof(int));
+
+	// サイズを確定する
+	ReturnScore.resize(nDataCount);
+
+	// 配列本体を読み込む
+	Openfile.read(reinterpret_cast<char*>(ReturnScore.data()), sizeof(int) * nDataCount);
+
+	// ファイルを閉じる
+	Openfile.close();
+
+	// 配列そのものを返す
+	return ReturnScore;
+}
+//=============================================================
+// 固定長5件分のint型バイナリデータを返す
+//=============================================================
+std::array<int,CLoad::Config::SAVE_NUMARRAY> CLoad::LoadIntToFixedArray(const char* loadfilename)
+{
+	// 読み込み用配列を宣言する
+	std::array<int, Config::SAVE_NUMARRAY> LoadData = { NULL };
+
+	// ファイルを開く
+	std::ifstream Openfile(loadfilename, std::ios::binary);
+
+	// 開けたら
+	if (Openfile)
+	{
+		// データを格納する
+		Openfile.read((char*)LoadData.data(),sizeof(int) * Config::SAVE_NUMARRAY);
+	}
+
+	// ファイルを閉じる
+	Openfile.close();
+
+	// 配列データを返す
+	return LoadData;
+}
+
 //=================================================================
 // 一つのバイナリ数値データを書き出す
 //=================================================================
@@ -80,7 +141,7 @@ void CLoad::SaveInt(const char* savefilename, const int OutputData)
 	}
 
 	// 数値を書き出す
-	Openfile.write(reinterpret_cast<const char*>(&OutputData), sizeof(int));
+	Openfile.write((const char*)&OutputData, sizeof(int));
 
 	// ファイルを閉じる
 	Openfile.close();
@@ -114,4 +175,25 @@ void CLoad::SaveIntToArray(const char* savefilename, const std::vector<int>& Arr
 	
 	// ファイルを閉じる
 	Openfile.close();
+}
+//=============================================================
+// 固定長5件分のint型バイナリデータを書き出す
+//=============================================================
+void CLoad::SaveIntToFixedArray(const char* savefilename, const std::array<int, Config::SAVE_NUMARRAY>& ArrayData)
+{
+	// 書き出すファイル
+	std::ofstream SaveFile(savefilename, std::ios::binary);
+
+	if (!SaveFile)
+	{
+		// 例外処理
+		MessageBox(GetActiveWindow(), "書き出し失敗", "ファイルが見つかりません( SaveIntToFixedArray )", MB_OK);
+		return;
+	}
+
+	// 配列データを書き出す
+	SaveFile.write((const char*)ArrayData.data(), sizeof(int) * Config::SAVE_NUMARRAY);
+
+	// ファイルを閉じる
+	SaveFile.close();
 }

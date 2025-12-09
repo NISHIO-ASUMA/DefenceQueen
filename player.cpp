@@ -11,7 +11,6 @@
 #include "player.h"
 #include "manager.h"
 #include "particle.h"
-#include "meshimpact.h"
 #include "input.h"
 #include "camera.h"
 #include "state.h"
@@ -37,6 +36,7 @@
 #include "arrayspawner.h"
 #include "template.h"
 #include "topant.h"
+#include "meshcylinder.h"
 
 //*********************************************************
 // 名前空間
@@ -54,6 +54,7 @@ CPlayer::CPlayer(int nPriority) : CNoMoveCharactor(nPriority),
 m_pMotion(nullptr),
 m_pStateMachine(nullptr),
 m_pBoxCollider(nullptr),
+m_pCylinder(nullptr),
 m_nNum(NULL),
 m_nSelectSpawn(NULL),
 m_nPrevSelectSpawn(-1)
@@ -110,20 +111,28 @@ HRESULT CPlayer::Init(void)
 	// モーション取得
 	m_pMotion = CNoMoveCharactor::GetMotion();
 
+	// メッシュ生成
+	m_pCylinder = CMeshCylinder::Create(VECTOR3_NULL, 65.0f);
+
 #if 1
 	// 味方のスポナーを取得
 	auto pArraySpawn = CGameSceneObject::GetInstance()->GetArraySpawn();
 	auto spawn = pArraySpawn->GetIndexSpawner(m_nSelectSpawn);
 	if (spawn == nullptr) return E_FAIL;
 
-	// 存在時
+	// 存在しているなら
 	if (spawn)
 	{
+		// 取得
 		auto topant = spawn->GetTopAnt();
 
 		if (topant)
 		{
-			topant->SetIsActive(true);		// 最初からONになる
+			// 最初からONになる
+			topant->SetIsActive(true);	
+
+			// 円柱の座標を移動
+			m_pCylinder->SetPos(topant->GetPos());
 		}
 
 		// 選択インデックス変更
@@ -210,6 +219,9 @@ void CPlayer::Update(void)
 			if (currentTop)
 			{
 				currentTop->SetIsActive(true);
+
+				// ここでメッシュの座標をセットする
+				m_pCylinder->SetPos(currentTop->GetPos());
 			}
 		}
 
@@ -244,16 +256,16 @@ void CPlayer::Update(void)
 	// テスト
 	if (pKeyboard->GetTrigger(DIK_J))
 	{
-		// 取得
-		auto top = spawn->GetTopAnt();
-		if (top == nullptr) return;
-
-		// 有効化
-		top->SetIsActive(true);
+		if (spawn)
+		{
+			// 帰還命令
+			spawn->OrderReturn(m_nNum, spawn->GetPos()); // 戻す数指定
+		}
 	}
 
 	// 当たり判定の管理関数
 	CollisionAll(UpdatePos,pKeyboard,pJoyPad);
+
 #endif
 	// キャラクターの全体更新処理
 	CNoMoveCharactor::Update();
@@ -274,7 +286,7 @@ void CPlayer::Draw(void)
 	CDebugproc::Print("選択中のスポナーのインデックス : [ %d ]", m_nSelectSpawn);
 	CDebugproc::Draw(0, 200);
 
-	CDebugproc::Print("設定するアリの移動数 : [ %d ]", m_nNum);
+	CDebugproc::Print("設定するアリの数 : [ %d ]", m_nNum);
 	CDebugproc::Draw(0, 220);
 
 }
@@ -390,6 +402,9 @@ void CPlayer::OrderToArray(int nNum,D3DXVECTOR3 destpos)
 
 		// 各スポナーへ同時命令
 		pSpawner->OrderMove(sendNum, destpos);
+
+		// 初期インデックスにする
+		m_pSpawnData[nCnt] = 0;
 	}
 }
 //===================================================================
@@ -399,23 +414,4 @@ void CPlayer::SetSendArrayMoving(int nIdx, int nNum)
 {
 	// 値をセット
 	m_pSpawnData[nIdx] = nNum;
-}
-//===================================================================
-// 一定の範囲にランダムに設置する関数
-//===================================================================
-D3DXVECTOR3 CPlayer::RandomSetPos(const D3DXVECTOR3& pos, float fRadius,int nMoveActiveNum,int nIdx)
-{
-	// 以下なら
-	if (nMoveActiveNum <= 0) return pos;
-
-	// 角度を均等に割る
-	float fAngle = (2.0f * D3DX_PI) * (static_cast<float>(nIdx) / nMoveActiveNum);
-
-	// 基準値座標を設定する
-	D3DXVECTOR3 OffSet = VECTOR3_NULL;
-	OffSet.x = cosf(fAngle) * fRadius;
-	OffSet.z = sinf(fAngle) * fRadius;
-	OffSet.y = 0.0f;
-
-	return pos + OffSet;
 }

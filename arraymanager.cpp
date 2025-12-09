@@ -32,7 +32,7 @@ CArrayManager::~CArrayManager()
 //=========================================================
 // 初期化処理
 //=========================================================
-HRESULT CArrayManager::Init(const int nActives)
+HRESULT CArrayManager::Init(void)
 {
 	// 配列初期化
 	m_pArrays.clear();
@@ -76,9 +76,8 @@ void CArrayManager::Update(void)
 void CArrayManager::Draw(void)
 {
 	// デバッグ表示
-	//CDebugproc::Print("アクティブ数 : [ %d / %d ]", m_nActiveAll, ArrayConfig::ALLARRAYS);
-	//CDebugproc::Draw(0, 200);
-
+	CDebugproc::Print("最大アリ数 : [ %d ]", ArrayConfig::ALLARRAYS);
+	CDebugproc::Draw(0, 240);
 }
 //=========================================================
 // スポナーに渡す関数

@@ -9,25 +9,24 @@
 // インクルードファイル
 //*********************************************************
 #include "rankingscore.h"
-#include "manager.h"
-#include "texture.h"
 #include "number.h"
 #include <algorithm>
 #include <fstream>
+#include "load.h"
 
 //=========================================================
 // オーバーロードコンストラクタ
 //=========================================================
-CRankingScore::CRankingScore(int nPriority) : CObject(nPriority)
+CRankingScore::CRankingScore(int nPriority) : CObject(nPriority),
+m_fHeight(NULL),
+m_fWidth(NULL),
+m_pos(VECTOR3_NULL),
+m_pLoad(nullptr)
 {
-	// 値のクリア
-	m_nIdxTex = NULL;
-	m_pos = VECTOR3_NULL;
-
 	for (int nCntData = 0; nCntData < RANKING_MAX; nCntData++)
 	{
 		// スコアを格納
-		m_aRankScore[nCntData] = NULL;
+		m_aRankData[nCntData] = NULL;
 
 		for (int nCnt = 0; nCnt < RANKSCOREDIGIT; nCnt++)
 		{
@@ -52,16 +51,12 @@ CRankingScore* CRankingScore::Create(D3DXVECTOR3 pos, float fWidth, float fHeigh
 	CRankingScore* pRankScore = new CRankingScore;
 	if (pRankScore == nullptr) return nullptr;
 
-	// オブジェクト
 	pRankScore->m_pos = pos; // 目的の座標
 	pRankScore->m_fWidth = fWidth;
 	pRankScore->m_fHeight = fHeight;
 
 	// 初期化失敗時
-	if (FAILED(pRankScore->Init()))
-	{
-		return nullptr;
-	}
+	if (FAILED(pRankScore->Init())) return nullptr;
 
 	// 生成されたポインタを返す
 	return pRankScore;
@@ -100,7 +95,7 @@ HRESULT CRankingScore::Init(void)
 			m_apNumber[nRank][nDigit]->SetSize(fTexPos, m_fHeight);
 
 			// テクスチャ設定
-			m_apNumber[nRank][nDigit]->SetTexture("score001.png");
+			m_apNumber[nRank][nDigit]->SetTexture("number003.png");
 		}
 	}
 
@@ -126,6 +121,9 @@ void CRankingScore::Uninit(void)
 		}
 	}
 
+	// ポインタの破棄
+	m_pLoad.reset();
+
 	// 自身の破棄
 	CObject::Release();
 }
@@ -137,7 +135,7 @@ void CRankingScore::Update(void)
 	// スコアの桁数更新
 	for (int rank = 0; rank < RANKING_MAX; rank++)
 	{
-		int score = m_aRankScore[rank];
+		int score = m_aRankData[rank];
 
 		for (int digit = 0; digit < RANKSCOREDIGIT; digit++)
 		{
@@ -165,30 +163,13 @@ void CRankingScore::Draw(void)
 	}
 }
 //=========================================================
-// 読み込み処理
+// リザルトの最終のスコア読み込み
 //=========================================================
 void CRankingScore::Load(void)
 {
-	// 開くファイル設定
-	std::ifstream LoadFile("data\\SCORE\\RankScore.bin",std::ios::binary);
+	// ユニークポインタ生成
+	m_pLoad = std::make_unique<CLoad>();
 
-	// 開けたら
-	if (LoadFile.is_open())
-	{
-		// スコアを5件分読み込む
-		for (int nCnt = 0; nCnt < RANKING_MAX; nCnt++)
-		{
-			if (!(LoadFile >> m_aRankScore[nCnt]))
-			{
-				m_aRankScore[nCnt] = 0; // 足りなかったら0点を追加
-			}
-		}
-
-		// ファイルを閉じる
-		LoadFile.close();
-	}
-	else
-	{
-		MessageBox(NULL, "RankScore.bin が開けませんでした", "エラー", MB_OK);
-	}
+	// 配列の固定長データ読み込み
+	m_aRankData = m_pLoad->LoadIntToFixedArray("data/SCORE/Ranking.bin");
 }

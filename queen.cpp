@@ -71,11 +71,11 @@ HRESULT CQueen::Init(void)
 	m_pParameter->SetMaxHp(QueenInfo::Hp);
 	m_pParameter->SetHp(QueenInfo::Hp);
 
-	// ステートマシンを生成
-	m_pStateMachine = std::make_unique<CStateMachine>();
+	//// ステートマシンを生成
+	//m_pStateMachine = std::make_unique<CStateMachine>();
 
-	// 初期状態をセット
-	// ChangeState(ID_NEUTRAL);
+	//// 初期状態をセット
+	//// ChangeState(ID_NEUTRAL);
 
 	// コライダー生成
 	m_pSphereCollider = CSphereCollider::Create(GetPos(), QueenInfo::HitRange);
@@ -97,7 +97,7 @@ void CQueen::Uninit(void)
 	m_pParameter.reset();
 
 	// ステート終了処理
-	m_pStateMachine.reset();
+	// m_pStateMachine.reset();
 
 	// コライダー破棄
 	if (m_pSphereCollider)

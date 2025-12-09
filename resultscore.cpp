@@ -13,6 +13,7 @@
 #include "manager.h"
 #include "load.h"
 #include "number.h"
+#include <algorithm>
 
 //=========================================================
 // コンストラクタ
@@ -94,6 +95,9 @@ HRESULT CResultScore::Init(void)
 //=========================================================
 void CResultScore::Uninit(void)
 {
+	// 破棄する前に書き出し実行
+	Save();
+
 	// ポインタの破棄
 	for (auto number : m_pNumber)
 	{
@@ -155,4 +159,50 @@ void CResultScore::Load(void)
 
 	// バイナリファイル読み込み開始
 	m_nScore = m_pLoad->LoadInt("data/SCORE/GameScore.bin");
+}
+//=========================================================
+// データ書き出し処理
+//=========================================================
+void CResultScore::Save(void)
+{
+	// nullだったら
+	if (!m_pLoad) return;
+
+	// 元データのファイル名
+	const char* filename = "data/SCORE/Ranking.bin";
+
+	//*************************************************
+	// 現在のスコア
+	//*************************************************
+	int nCurrentScore = m_nScore;
+
+	//==============================
+	// 既存ランキング(5件)を読む
+	//==============================
+	std::array<int, Config::WRITE_SCORE> scores = { NULL };
+
+	{
+		std::ifstream file(filename, std::ios::binary);
+
+		if (file)
+		{
+			// 5件読み込み
+			file.read((char*)scores.data(),sizeof(int) * Config::WRITE_SCORE);
+		}
+	}
+
+	//==============================
+	// 今回のスコアを追加（5件の最後に仮置き）
+	//==============================
+	scores[Config::WRITE_SCORE - 1] = m_nScore;
+
+	//==============================
+	// 降順ソート
+	//==============================
+	std::sort(scores.begin(), scores.end(), std::greater<int>());
+
+	//==============================
+	// 保存
+	//==============================
+	m_pLoad->SaveIntToFixedArray(filename, scores);
 }
