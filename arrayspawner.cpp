@@ -37,7 +37,7 @@ CArraySpawner::~CArraySpawner()
 //=========================================================
 HRESULT CArraySpawner::Init(CArrayManager* pManager)
 {
-	// 使える要素をもらう
+	// Managerから渡された最大配列のうちのストック数分だけ持つ
 	m_AssignedArrays = pManager->Allocate(m_nStockArrays);
 
 	// トップのアリを生成
@@ -49,9 +49,7 @@ HRESULT CArraySpawner::Init(CArrayManager* pManager)
 	// セットされた数だけアクティブにする
 	for (int nCnt = 0; nCnt < m_nStockArrays; nCnt++)
 	{
-		// 変数格納
-		m_AssignedArrays[nCnt] = CArray::Create(m_SpawnBasePos, VECTOR3_NULL, 1);
-
+		// ローカルポインタ
 		CArray* pArray = m_AssignedArrays[nCnt];
 
 		// 設定関連

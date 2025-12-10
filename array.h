@@ -53,6 +53,8 @@ public:
 	void Draw(void);
 	void Reset(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const int nLife);
 	void Moving(void);
+	void OnSeparation(void);
+
 	void TopAntFollow(void);
 	void ArrayFollow(void);
 	void SpawnReturn(void);

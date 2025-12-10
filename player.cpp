@@ -375,19 +375,6 @@ bool CPlayer::CollisionBlock(CBoxCollider* other,D3DXVECTOR3 * pos)
 void CPlayer::OrderToArray(int nNum,D3DXVECTOR3 destpos)
 {// ここの関数をスポナーのインデックスを見てどのスポナーから何体動かすかを決めて一括でポイントに送れるように変更すること
 
-#if 0
-   // スポナーマネージャ取得
-	auto pSpawnMgr = CGameSceneObject::GetInstance()->GetArraySpawn();
-	if (!pSpawnMgr) return;
-
-	// 現在選択中のスポナー
-	auto pSpawner = pSpawnMgr->GetIndexSpawner(m_nSelectSpawn);
-	if (!pSpawner) return;
-
-	// 移動命令はスポナーに丸投げ
-	pSpawner->OrderMove(nNum, destpos);
-#endif
-
 	// スポナーマネージャ取得
 	auto pSpawnMgr = CGameSceneObject::GetInstance()->GetArraySpawn();
 	if (!pSpawnMgr) return;

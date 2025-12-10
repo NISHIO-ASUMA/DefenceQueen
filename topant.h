@@ -63,9 +63,13 @@ public:
 	bool Collision(CBoxCollider* pOther, D3DXVECTOR3* pOutPos);
 	void Moving(CJoyPad* pPad, CInputKeyboard* pKey);
 	void MovePad(CJoyPad* pPad);
+	void Separation(void);
 
 	void SetIsActive(const bool& isActive) { m_isActive = isActive; }
+	void SetSeparationRadius(const float& Radius) { m_fSeparationRadius = Radius; }
+
 	bool GetIsActive(void) const { return m_isActive; }
+	float GetSeparationRadius(void) { return m_fSeparationRadius; }
 
 	static CTopAnt* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
 
@@ -77,9 +81,14 @@ private:
 	struct Config
 	{
 		static constexpr float SPEED = 4.0f; // 移動速度
-		static constexpr float NorRot = D3DX_PI * 2.0f; // 回転速度
+		static constexpr float MAX_RADIUS = 150.0f; // 最大範囲
+		static constexpr float NorRot = D3DX_PI * 2.0f; // 回転補正
+		static constexpr float Separation = 3.0f; // 範囲拡大
 	};
 
 	CBoxCollider* m_pColliderBox; // 矩形コライダー
 	bool m_isActive;			  // アクティブフラグ
+	bool m_isBranchSet;			  // 切り離し中かどうか
+	bool m_isHPressing;   // Hキーを押している間
+	float m_fSeparationRadius;	  // 切り離し範囲
 };

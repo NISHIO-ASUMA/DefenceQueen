@@ -10,10 +10,8 @@
 //*********************************************************
 #include "title.h"
 #include "manager.h"
-#include "game.h"
-#include "ui.h"
 #include "titlemanager.h"
-#include "input.h"
+#include "titleobject.h"
 
 //=========================================================
 // コンストラクタ
@@ -33,8 +31,11 @@ CTitle::~CTitle()
 //=========================================================
 HRESULT CTitle::Init(void)
 {
-	// 初期化処理
+	// マネージャー初期化処理
 	CTitleManager::GetInstance()->Init();
+
+	// タイトルオブジェクト処理
+	CTitleObject::GetInstance()->Init();
 
 	// 初期化結果を返す
 	return S_OK;
@@ -44,22 +45,31 @@ HRESULT CTitle::Init(void)
 //=========================================================
 void CTitle::Uninit(void)
 {
-	// 終了処理
+	// mマネージャー終了処理
 	CTitleManager::GetInstance()->Uninit();
+
+	// タイトルオブジェクト終了処理
+	CTitleObject::GetInstance()->Uninit();
 }
 //=========================================================
 // 更新処理
 //=========================================================
 void CTitle::Update(void)
 {
-	// 更新処理
+	// マネージャー更新処理
 	CTitleManager::GetInstance()->Update();
+
+	// タイトルオブジェクト更新処理
+	CTitleObject::GetInstance()->Update();
 }
 //=========================================================
 // 描画処理
 //=========================================================
 void CTitle::Draw(void)
 {
-	// 描画処理
+	// マネージャー描画処理
 	CTitleManager::GetInstance()->Draw();
+
+	// タイトルオブジェクト描画処理
+	CTitleObject::GetInstance()->Update();
 }

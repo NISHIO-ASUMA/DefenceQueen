@@ -78,14 +78,9 @@ HRESULT CGameSceneObject::Init(void)
 	// ブロックマネージャー生成
 	m_pBlocks = std::make_unique<CBlockManager>();
 	m_pBlocks->Init();
-
 	// 餌を配置
 	m_pFeed = std::make_unique<CFeedManager>();
 	m_pFeed->Init();
-
-	// 司令塔アリ管理生成
-	m_pWorkerManager = std::make_unique<CWorkerManager>();
-	m_pWorkerManager->Init();
 
 	// 仲間アリの大軍を生成
 	m_pArrayManager = std::make_unique<CArrayManager>();
@@ -95,6 +90,10 @@ HRESULT CGameSceneObject::Init(void)
 	m_pArraySpawn = std::make_unique<CArraySpawnManager>();
 	m_pArraySpawn->Init(m_pArrayManager.get());
 
+	// 司令塔アリ管理生成
+	m_pWorkerManager = std::make_unique<CWorkerManager>();
+	m_pWorkerManager->Init();
+
 	// ui配置
 	m_pWorkUi = std::make_unique<CWorkerUiManager>();
 	m_pWorkUi->Init();
@@ -103,8 +102,7 @@ HRESULT CGameSceneObject::Init(void)
 	m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -600.0f), VECTOR3_NULL, 10, "data/MOTION/Player/Player100motion.txt");
 
 	// スコア生成
-	m_pScore = CScore::Create(D3DXVECTOR3(1180.0f, 60.0f, 0.0f), 40.0f, 60.0f);
-
+	m_pScore = CScore::Create(D3DXVECTOR3(1180.0f, 300.0f, 0.0f), 40.0f, 60.0f);
 	return S_OK;
 }
 //=========================================================

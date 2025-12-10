@@ -39,7 +39,4 @@ public:
 private:
 
 	CTitleManager();
-
-	CUi* m_pUi;				// クラスポインタ
-	int m_nIdx;				// 選択番号
 };

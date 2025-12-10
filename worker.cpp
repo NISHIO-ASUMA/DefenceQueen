@@ -3,6 +3,8 @@
 // 指示を出す働きアリの処理 [ worker.cpp ]
 // Author: Asuma Nishio
 //
+// NOTE : 餌のところに自動で動かせるようにする
+// 
 //=========================================================
 
 //*********************************************************
@@ -41,7 +43,7 @@ m_nScaleNum(NULL)
 //=========================================================
 CWorker::~CWorker()
 {
-
+	
 }
 //=========================================================
 // 生成処理
@@ -154,7 +156,7 @@ void CWorker::MoveToPoint(void)
 		D3DXVec3Normalize(&VecMove, &VecMove);
 
 		// 速度を乗算する
-		VecMove *= 5.0f;
+		VecMove *= Config::Move;
 
 		// 計算角度
 		float angleY = atan2(-VecMove.x, -VecMove.z);

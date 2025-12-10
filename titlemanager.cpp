@@ -21,9 +21,7 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CTitleManager::CTitleManager() : 
-m_pUi(nullptr),
-m_nIdx(NULL)
+CTitleManager::CTitleManager()
 {
 	// 値のクリア
 }
@@ -47,12 +45,7 @@ CTitleManager* CTitleManager::GetInstance(void)
 // 初期化処理
 //=========================================================
 HRESULT CTitleManager::Init(void)
-{	
-	// 背景
-	CUi::Create(D3DXVECTOR3(HALFWIDTH, HALFHEIGHT, 0.0f), 0, HALFWIDTH, HALFHEIGHT, "ground.jpg", false);
-
-	// 初期UI生成
-	m_pUi = CUi::Create(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, 650.0f, 0.0f),30, 250.0f, 60.0f, "enter.png", false);
+{
 
 	// サウンド取得
 	CSound* pSound = CManager::GetInstance()->GetSound();

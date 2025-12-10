@@ -1,6 +1,6 @@
 //=========================================================
 //
-// プレイヤーの仲間処理 [ array.cpp ]
+// プレイヤーの仲間アリ1匹に対する処理 [ array.cpp ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -264,6 +264,18 @@ void CArray::Moving(void)
 	}
 }
 //=========================================================
+// 切り離される処理 TODO : ここでノード見る
+//=========================================================
+void CArray::OnSeparation(void)
+{
+	m_pFollowTarget = nullptr;
+	m_pFollowTargetTop = nullptr;
+	m_isMove = false;
+
+	// 帰還モードにする
+	SetReturnSpawn(true);
+}
+//=========================================================
 // スポナーの先頭アリに追従する処理
 //=========================================================
 void CArray::TopAntFollow(void)
@@ -310,6 +322,8 @@ void CArray::TopAntFollow(void)
 //=========================================================
 void CArray::ArrayFollow(void)
 {
+	if (!m_isReturn && !m_pFollowTarget) return;
+
 	// ターゲット座標を取得
 	D3DXVECTOR3 targetPos = m_pFollowTarget->GetPos();
 	D3DXVECTOR3 followVec = targetPos - GetPos();
@@ -355,7 +369,7 @@ void CArray::SpawnReturn(void)
 	D3DXVECTOR3 followVec = targetPos - GetPos();
 	float fDistance = D3DXVec3Length(&followVec);
 
-	if (fDistance > Arrayinfo::ARRAY_DISTANCE)
+	if (fDistance > 20.0f/*Arrayinfo::ARRAY_DISTANCE*/)
 	{
 		// ベクトルを正規化
 		D3DXVec3Normalize(&followVec, &followVec);
@@ -387,6 +401,9 @@ void CArray::SpawnReturn(void)
 		CArraySpawner* spawner = CGameSceneObject::GetInstance()
 			->GetArraySpawn()
 			->GetIndexSpawner(idx);
+
+		// topターゲットを設定
+		m_pFollowTargetTop = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(idx)->GetTopAnt();
 
 		// 自分のインデックスを取得
 		int nMyIndex = spawner->GetArrayIndex(this);

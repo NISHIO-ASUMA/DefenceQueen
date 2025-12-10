@@ -9,6 +9,8 @@
 // インクルードファイル
 //*********************************************************
 #include "titleobject.h"
+#include "ui.h"
+#include "meshfield.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -34,6 +36,15 @@ CTitleObject::~CTitleObject()
 //=========================================================
 HRESULT CTitleObject::Init(void)
 {
+	// TODO : ここを3D背景に変えてアリを出す(タイトル用の,群れでずっと動いているようにする)
+	
+	// メッシュフィールド生成
+	CMeshField::Create(VECTOR3_NULL, 4000.0f, 2000.0f, 1, 1);
+
+	// 初期UI生成
+	CUi::Create(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, 650.0f, 0.0f), 30, 180.0f, 60.0f, "GameStart.png", false);
+	CUi::Create(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, 180.0f, 0.0f), 30, 300.0f, 150.0f, "TitleLogo.png", false);
+
 	return S_OK;
 }
 //=========================================================

@@ -86,6 +86,9 @@ std::vector<CArray*> CArrayManager::Allocate(const int& nStock)
 {
 	// ローカル配列
 	std::vector<CArray*> result;
+	result.reserve(nStock);
+
+	int nCnt = 0;
 
 	// 要素数
 	for (auto& pArray : m_pArrays)
@@ -95,12 +98,54 @@ std::vector<CArray*> CArrayManager::Allocate(const int& nStock)
 		{
 			// スポナー用に作成
 			result.push_back(pArray);
-
-			if (static_cast<int>(result.size()) >= nStock)
-				break;
+			pArray->SetActive(true);
+			nCnt++;
 		}
+		
+		if (nCnt >= nStock) break;
 	}
 
 	// 要素数を返す
 	return result;
+}
+//=========================================================
+// 仲間の切り離し設定関数
+//=========================================================
+void CArrayManager::ApplySeparation(const D3DXVECTOR3& center, float radius)
+{
+	// 0以下なら
+	if (radius <= 0.0f) return;
+
+	for (auto pArray : m_pArrays)
+	{
+		if (!pArray) continue;
+
+		// 座標を取得
+		D3DXVECTOR3 pos = pArray->GetPos();
+		D3DXVECTOR3 diff = pos - center;
+		float fDis = D3DXVec3Length(&diff);
+
+		if (fDis< radius)
+		{
+			pArray->OnSeparation(); // アリに伝える
+		}
+	}
+}
+//=========================================================
+// 配列のアクティブ数をセットする
+//=========================================================
+void CArrayManager::CountActiveArrays(const int& nCountArrays)
+{
+	m_nActiveAll += nCountArrays;
+}
+//=========================================================
+// フラグをセットする
+//=========================================================
+void CArrayManager::SetActiveAll(void)
+{
+	for (int nCnt = 0; nCnt < m_nActiveAll; nCnt++)
+	{
+		// 指定数だけアクティブ数に設定する
+		m_pArrays[nCnt]->SetActive(true);
+	}
 }

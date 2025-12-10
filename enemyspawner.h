@@ -22,7 +22,7 @@
 class CEnemy;
 
 //*********************************************************
-// 敵の出現するスポナーのクラスを定義
+// 敵の出現するスポナー1個に対するクラスを定義
 //*********************************************************
 class CEnemySpawner
 {
@@ -38,14 +38,14 @@ public:
 	void SetEnemy(void);
 
 	/// <summary>
-	/// 配列番号情報の取得
+	/// スポナーに登録されている敵の配列番号情報の取得
 	/// </summary>
 	/// <param name="nIdx">取得するインデックス</param>
 	/// <returns></returns>
 	CEnemy* GetEnemyIdx(const int nIdx) { return m_pEnemy[nIdx]; }
 
 	/// <summary>
-	/// 動的配列本体を取得する
+	/// スポナーに登録されている敵の動的配列本体を取得する
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>

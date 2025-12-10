@@ -72,10 +72,21 @@ public:
 	std::vector<CArray*> Allocate(const int& nStock);
 
 	/// <summary>
-	/// 大元の配列に戻す処理
+	/// 仲間のアリの切り離しを通知する
 	/// </summary>
-	/// <param name="pArray">クラスのポインタ</param>
-	void ReleaseCharactor(CArray* pArray);
+	/// <param name="center">座標</param>
+	/// <param name="radius">半径</param>
+	void ApplySeparation(const D3DXVECTOR3& center, float radius);
+
+	/// <summary>
+	/// 配列の一部を渡す関数
+	/// </summary>
+	/// <returns></returns>
+	std::vector<CArray*> GetSeparationSize();
+
+	void CountActiveArrays(const int& nCountArrays);
+	void SetActiveAll(void);
+	int GetArraysActive(void) { return m_nActiveAll; }
 
 private:
 

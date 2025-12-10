@@ -70,10 +70,16 @@ void CCamera::Uninit(void)
 //=========================================================
 void CCamera::Update(void)
 {
-#ifdef _DEBUG
+	// モード取得
+	auto SceneMode = CManager::GetInstance()->GetScene();
+
+	// タイトル用に配置
+	if (SceneMode == CScene::MODE_TITLE) SetTitle();
 
 	// カメラ更新
 	MouseView(CManager::GetInstance()->GetMouse());
+
+#ifdef _DEBUG
 
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_TAB))
 	{
@@ -137,6 +143,24 @@ void CCamera::SetCamera(void)
 
 	CDebugproc::Print("Camera : Rot [ %.2f, %.2f, %.2f ]\n", m_pCamera.rot.x, m_pCamera.rot.y, m_pCamera.rot.z);
 	CDebugproc::Draw(0, 80);
+}
+//==============================================================
+// タイトル用カメラ設定処理
+//==============================================================
+void CCamera::SetTitle(void)
+{
+	m_pCamera.posV = D3DXVECTOR3(0.0f,450.0f, -1500.0f);		// カメラの位置
+	m_pCamera.posR = VECTOR3_NULL;								// カメラの見ている位置
+	m_pCamera.vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);				// 上方向ベクトル
+	m_pCamera.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 角度
+
+	// 距離を計算
+	float fRotx = m_pCamera.posV.x - m_pCamera.posR.x;
+	float fRoty = m_pCamera.posV.y - m_pCamera.posR.y;
+	float fRotz = m_pCamera.posV.z - m_pCamera.posR.z;
+
+	// 視点から注視点までの距離
+	m_pCamera.fDistance = sqrtf((fRotx * fRotx) + (fRoty * fRoty) + (fRotz * fRotz));
 }
 //==============================================================
 // マウス操作の視点移動

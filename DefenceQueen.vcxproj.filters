@@ -307,6 +307,12 @@
     <Filter Include="ソース ファイル\Charactor\Spawn">
       <UniqueIdentifier>{8f379e00-8f5a-46f1-b194-17bce5beb2dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Charactor\TitleCharactor">
+      <UniqueIdentifier>{07b3099f-2a14-4751-8166-c5778da09601}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Charactor\Spawn">
+      <UniqueIdentifier>{36ccf051-4241-48be-94d2-9d57da77e2b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="object2D.cpp">
@@ -1067,9 +1073,6 @@
     <ClInclude Include="motionmanager.h">
       <Filter>ヘッダー ファイル\Charactor\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="enemyspawner.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="enemygetfeedleaf.h">
       <Filter>ヘッダー ファイル\Enemy_AI\Leaf</Filter>
     </ClInclude>
@@ -1077,16 +1080,19 @@
       <Filter>ヘッダー ファイル\Enemy_AI\Leaf</Filter>
     </ClInclude>
     <ClInclude Include="arrayspawner.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Charactor\Spawn</Filter>
     </ClInclude>
     <ClInclude Include="arrayspawnmanager.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Charactor\Spawn</Filter>
     </ClInclude>
-    <ClInclude Include="topant.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="enemyspawner.h">
+      <Filter>ヘッダー ファイル\Charactor\Spawn</Filter>
     </ClInclude>
     <ClInclude Include="resultscore.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\2DUI</Filter>
+    </ClInclude>
+    <ClInclude Include="topant.h">
+      <Filter>ヘッダー ファイル\Charactor\Array</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

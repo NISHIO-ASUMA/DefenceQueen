@@ -19,11 +19,14 @@
 #include "debugproc.h"
 #include "player.h"
 #include "meshcylinder.h"
+#include "effect.h"
+#include "arraymanager.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
-CTopAnt::CTopAnt(int nPriority) : CMoveCharactor(nPriority),m_pColliderBox(nullptr),m_isActive(false)
+CTopAnt::CTopAnt(int nPriority) : CMoveCharactor(nPriority),m_pColliderBox(nullptr),m_isActive(false), m_isBranchSet(false),
+m_fSeparationRadius(NULL), m_isHPressing(false)
 {
 	
 }
@@ -100,6 +103,7 @@ void CTopAnt::Update(void)
 	// キー入力での移動関数
 	if (m_isActive)
 	{
+		// 移動関数
 		Moving(pPad, pKey);
 		MovePad(pPad);
 
@@ -109,6 +113,42 @@ void CTopAnt::Update(void)
 
 		// 座標を合わせる
 		mesh->SetPos(pos);
+
+		if (pKey->GetPress(DIK_H))
+		{
+			// 切り離しの加算
+			if (!m_isHPressing)
+			{
+				m_isHPressing = true;
+				m_fSeparationRadius = 0.0f; // 1回押すごとに距離初期化
+			}
+
+			// 押している間
+			Separation();
+		}
+		else
+		{
+			// 離した瞬間
+			if (m_isHPressing)
+			{
+				// 無効化
+				m_isHPressing = false;
+
+				// 管理クラスにに通知
+				auto pManager = CGameSceneObject::GetInstance()->GetArrayManager();
+
+				if (pManager)
+				{
+					// 管理通知
+					pManager->ApplySeparation(GetPos(), m_fSeparationRadius);
+				}
+			}
+		}
+	}
+	else
+	{
+		// モーションを元に戻す
+		GetMotion()->SetMotion(NEUTRAL, true, 10);
 	}
 
 	// オブジェクトの座標更新
@@ -156,10 +196,6 @@ void CTopAnt::Draw(void)
 {
 	// 親クラスの描画
 	CMoveCharactor::Draw();
-
-	// デバッグ情報
-	// CDebugproc::Print("");
-
 }
 //=========================================================
 // 矩形の当たり判定処理
@@ -395,4 +431,42 @@ void CTopAnt::MovePad(CJoyPad * pPad)
 	// 適用
 	SetMove(move);
 	SetRotDest(rotdest);
+}
+//=========================================================
+// 切り離す範囲を決める関数
+//=========================================================
+void CTopAnt::Separation(void)
+{
+#if 0
+	// オフセットを作成する
+	auto MyPos = this->GetPos();
+	auto SeparationPos = MyPos;
+
+	// 範囲を加算し続ける
+	m_fSeparationRadius += Config::Separation;
+
+	// 上限値以上なら
+	if (m_fSeparationRadius >= Config::MAX_RADIUS)
+	{
+		m_fSeparationRadius = Config::MAX_RADIUS;
+	}
+
+	// 値を保存する
+	SetSeparationRadius(m_fSeparationRadius);
+
+	// エフェクト生成
+	CEffect::Create(SeparationPos, COLOR_RED, VECTOR3_NULL, 12, m_fSeparationRadius);
+#endif
+
+	// 半径加算処理
+	m_fSeparationRadius += Config::Separation;
+	if (m_fSeparationRadius >= Config::MAX_RADIUS)
+		m_fSeparationRadius = Config::MAX_RADIUS;
+
+	// 設定する
+	SetSeparationRadius(m_fSeparationRadius);
+
+	// エフェクト生成
+	auto SeparationPos = D3DXVECTOR3(300.0f, 0.0f, 200.0f);
+	CEffect::Create(SeparationPos, COLOR_RED, VECTOR3_NULL, 6, m_fSeparationRadius);
 }
