@@ -6,5 +6,8 @@
   { "Texture": "data/TEXTURE/wallTexture.jpg" },
   { "Texture": "data/TEXTURE/ground.jpg" },
   { "Texture": "data/TEXTURE/worker_icon.png" },
-  { "Texture": "data/TEXTURE/Reef.jpg" }
+  { "Texture": "data/TEXTURE/Reef.jpg" },
+  { "Texture": "data/TEXTURE/field.jpg" },
+  { "Texture": "data/TEXTURE/TitleLogo.png" },
+  { "Texture": "data/TEXTURE/GameStart.png" }
 ]
