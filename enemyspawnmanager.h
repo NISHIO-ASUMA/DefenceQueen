@@ -1,6 +1,6 @@
 //=========================================================
 //
-// 仲間のスポナー管理処理 [ arrayspawnmanager.h ]
+// 敵のスポナー複数管理処理 [ enemyspawnmanager.h ]
 // Author: Asuma Nishio
 // 
 //=========================================================
@@ -13,63 +13,61 @@
 //*********************************************************
 // インクルードファイル
 //*********************************************************
+#include <memory>
+#include <vector>
 #include <array>
 
 //*********************************************************
 // 前方宣言
 //*********************************************************
-class CArraySpawner;
-class CArrayManager;
-class CTopAnt;
+class CEnemySpawner;
 
 //*********************************************************
 // 名前空間
 //*********************************************************
-namespace SpawnManager
+namespace SET_INFO
 {
-	static constexpr int NUM_ARRAYSPAWNER = 3; // スポナーの数
+	static constexpr int CREATE_NUM = 3; // 最大生成数
 
-	const D3DXVECTOR3 POS[NUM_ARRAYSPAWNER] =
+	const D3DXVECTOR3 SpawnPos[CREATE_NUM]
 	{
-		{300.0f,0.0f,-300.0f},
-		{-300.0f,0.0f,300.0f},
-		{0.0f,0.0f,-550.0f}
+		{ 500.0f,0.0f,-200.0f },
+		{ -500.0f,0.0f,200.0f },
+		{ 0.0f,0.0f,-500.0f }
 	};
-
-	const D3DXVECTOR3 TOP_POS[NUM_ARRAYSPAWNER] =
-	{
-		{300.0f,0.0f,-200.0f},
-		{-300.0f,0.0f,200.0f},
-		{0.0f,0.0f,-350.0f}
-	};
-
-	static constexpr int NUM_CREATEARRAY = 30; // 一個のスポナーに渡す数
 };
 
 //*********************************************************
-// スポーン配列の管理クラスを定義
+// 複数スポナーの管理クラスを定義
 //*********************************************************
-class CArraySpawnManager
+class CEnemySpawnManager
 {
 public:
+	//***************************
+	// 定数構造体
+	//***************************
+	struct Config
+	{
+		
+	};
 
-	CArraySpawnManager();
-	~CArraySpawnManager();
+	CEnemySpawnManager();
+	~CEnemySpawnManager();
 
-	HRESULT Init(CArrayManager * pManager);
+	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 
 	/// <summary>
-	/// 自身で選択したスポナーの取得
+	/// 各所のスポナーを取得する
 	/// </summary>
-	/// <param name="nIdx">取得したいスポナー番号</param>
+	/// <param name="nIdx">取得するスポナーのインデックス番号</param>
 	/// <returns></returns>
-	CArraySpawner* GetIndexSpawner(const int& nIdx) { return m_pArraySpawner[nIdx]; }
+	CEnemySpawner* GetSpawner(const int& nIdx) { return m_pSpawners[nIdx]; }
 
 private:
 
-	// 所持するスポナー配列
-	std::array<CArraySpawner*, SpawnManager::NUM_ARRAYSPAWNER>m_pArraySpawner; 
+	std::array<CEnemySpawner*, SET_INFO::CREATE_NUM>m_pSpawners; // 敵のスポナー配列
 };
+

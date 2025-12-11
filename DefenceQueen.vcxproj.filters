@@ -322,6 +322,12 @@
     <Filter Include="ソース ファイル\Array_AI\Leaf">
       <UniqueIdentifier>{70a7f790-0dbf-476d-90b0-30c893744137}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Charactor\Spawn\Array_Spawn">
+      <UniqueIdentifier>{87895896-6079-4805-9e72-f9ff297a8497}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charactor\Spawn\Enemy_Spawn">
+      <UniqueIdentifier>{d5b2b06b-3f18-4ec7-9be6-d03acf13f0c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="object2D.cpp">
@@ -672,15 +678,6 @@
     <ClCompile Include="enemyreturnleaf.cpp">
       <Filter>ソース ファイル\Enemy_AI\Leaf</Filter>
     </ClCompile>
-    <ClCompile Include="arrayspawner.cpp">
-      <Filter>ソース ファイル\Charactor\Spawn</Filter>
-    </ClCompile>
-    <ClCompile Include="arrayspawnmanager.cpp">
-      <Filter>ソース ファイル\Charactor\Spawn</Filter>
-    </ClCompile>
-    <ClCompile Include="enemyspawner.cpp">
-      <Filter>ソース ファイル\Charactor\Spawn</Filter>
-    </ClCompile>
     <ClCompile Include="topant.cpp">
       <Filter>ソース ファイル\Charactor\Array</Filter>
     </ClCompile>
@@ -688,6 +685,18 @@
       <Filter>ソース ファイル\2DUI</Filter>
     </ClCompile>
     <ClCompile Include="arraybehaviortree.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="arrayspawner.cpp">
+      <Filter>ソース ファイル\Charactor\Spawn\Array_Spawn</Filter>
+    </ClCompile>
+    <ClCompile Include="arrayspawnmanager.cpp">
+      <Filter>ソース ファイル\Charactor\Spawn\Array_Spawn</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyspawner.cpp">
+      <Filter>ソース ファイル\Charactor\Spawn\Enemy_Spawn</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyspawnmanager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1107,6 +1116,9 @@
       <Filter>ヘッダー ファイル\Charactor\Array</Filter>
     </ClInclude>
     <ClInclude Include="arraybehaviortree.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="enemyspawnmanager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

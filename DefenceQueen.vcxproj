@@ -179,6 +179,7 @@
     <ClCompile Include="enemymanager.cpp" />
     <ClCompile Include="enemyreturnleaf.cpp" />
     <ClCompile Include="enemyspawner.cpp" />
+    <ClCompile Include="enemyspawnmanager.cpp" />
     <ClCompile Include="enemywaitleaf.cpp" />
     <ClCompile Include="gimmickmanager.cpp" />
     <ClCompile Include="gimmicksuction.cpp" />
@@ -312,6 +313,7 @@
     <ClInclude Include="enemymanager.h" />
     <ClInclude Include="enemyreturnleaf.h" />
     <ClInclude Include="enemyspawner.h" />
+    <ClInclude Include="enemyspawnmanager.h" />
     <ClInclude Include="enemywaitleaf.h" />
     <ClInclude Include="gimmickmanager.h" />
     <ClInclude Include="gimmicksuction.h" />

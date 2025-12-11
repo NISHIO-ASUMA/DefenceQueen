@@ -16,7 +16,7 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CEnemySpawner::CEnemySpawner() : m_SpawnPos{}, m_pEnemy{},m_SpawnInterval(NULL),m_Timer(NULL)
+CEnemySpawner::CEnemySpawner() : m_pEnemy{},m_SpawnInterval(NULL),m_Timer(NULL)
 {
 	// 値のクリア
 }
@@ -34,11 +34,6 @@ HRESULT CEnemySpawner::Init(void)
 {
 	// 配列切り離し
 	m_pEnemy.clear();
-
-	// スポーン座標を作成
-	m_SpawnPos.push_back({ 500.0f,0.0f,-200.0f });
-	m_SpawnPos.push_back({ -500.0f,0.0f,200.0f });
-	m_SpawnPos.push_back({ 0.0f,0.0f,-500.0f });
 
 	return S_OK;
 }
@@ -62,6 +57,7 @@ void CEnemySpawner::Update(void)
 //========================================================
 void CEnemySpawner::SetEnemy(void)
 {
+#if 0
 	// 5体ランダム
 	int spawnCount = rand() % 5 + 1;
 
@@ -80,4 +76,5 @@ void CEnemySpawner::SetEnemy(void)
 		// 配列に追加
 		m_pEnemy.push_back(pEnemy);
 	}
+#endif
 }
