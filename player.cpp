@@ -111,8 +111,8 @@ HRESULT CPlayer::Init(void)
 	// モーション取得
 	m_pMotion = CNoMoveCharactor::GetMotion();
 
-	// メッシュ生成
-	m_pCylinder = CMeshCylinder::Create(VECTOR3_NULL, 65.0f);
+	//// メッシュ生成
+	// m_pCylinder = CMeshCylinder::Create(VECTOR3_NULL, 65.0f);
 
 #if 1
 	// 味方のスポナーを取得
@@ -131,8 +131,8 @@ HRESULT CPlayer::Init(void)
 			// 最初からONになる
 			topant->SetIsActive(true);	
 
-			// 円柱の座標を移動
-			m_pCylinder->SetPos(topant->GetPos());
+			//// 円柱の座標を移動
+			// m_pCylinder->SetPos(topant->GetPos());
 		}
 
 		// 選択インデックス変更
@@ -221,7 +221,7 @@ void CPlayer::Update(void)
 				currentTop->SetIsActive(true);
 
 				// ここでメッシュの座標をセットする
-				m_pCylinder->SetPos(currentTop->GetPos());
+				// m_pCylinder->SetPos(currentTop->GetPos());
 			}
 		}
 
@@ -229,17 +229,18 @@ void CPlayer::Update(void)
 		m_nPrevSelectSpawn = m_nSelectSpawn;
 	}
 
+
 	// 引数の数だけポイントに送る
 	if (pKeyboard->GetTrigger(DIK_UP))
 	{
-		m_nNum += 2;
-		m_nNum = Clump(m_nNum, 0, 10);
+		m_nNum += 5;
+		m_nNum = Clump(m_nNum, 0, 50);
 	}
 
 	if (pKeyboard->GetTrigger(DIK_DOWN))
 	{
-		m_nNum -= 2;
-		m_nNum = Clump(m_nNum, 0, 10);
+		m_nNum -= 5;
+		m_nNum = Clump(m_nNum, 0, 50);
 	}
 
 	if (pKeyboard->GetTrigger(DIK_K))
@@ -248,7 +249,7 @@ void CPlayer::Update(void)
 		SetSendArrayMoving(m_nSelectSpawn, m_nNum);
 	}
 
-#if 1
+#if 0
 	// 取得
 	auto spawn = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(m_nSelectSpawn);
 	if (spawn == nullptr) return;
@@ -263,10 +264,24 @@ void CPlayer::Update(void)
 		}
 	}
 
-	// 当たり判定の管理関数
-	CollisionAll(UpdatePos,pKeyboard,pJoyPad);
-
 #endif
+
+	// 一斉指示
+	if (pKeyboard->GetTrigger(DIK_V))
+	{
+		// 指定座標
+		auto point = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(m_nSelectSpawn)->GetTopAnt()->GetDestPos();
+		D3DXVECTOR3 checkpos = VECTOR3_NULL;
+
+		if (point <= checkpos) return;
+
+		// 指令アリの当たったポイントで判断する
+		OrderToArray(m_nNum, point);
+	}
+
+	// 当たり判定の管理関数
+	CollisionAll(UpdatePos, pKeyboard, pJoyPad);
+
 	// キャラクターの全体更新処理
 	CNoMoveCharactor::Update();
 }
@@ -353,26 +368,11 @@ void CPlayer::CollisionAll(D3DXVECTOR3 pPos, CInputKeyboard* pInput, CJoyPad* pP
 			}
 		}
 	}
-
-	// 一斉指示
-	if (pInput->GetTrigger(DIK_V))
-	{
-		// 指令
-		OrderToArray(m_nNum, pPoint->GetPos());
-	}
-}
-//===================================================================
-// ブロックとの当たり判定
-//===================================================================
-bool CPlayer::CollisionBlock(CBoxCollider* other,D3DXVECTOR3 * pos)
-{
-	// 矩形との当たり判定を返す
-	return false;
 }
 //===================================================================
 // 指示を出して特定数のアリを送る処理
 //===================================================================
-void CPlayer::OrderToArray(int nNum,D3DXVECTOR3 destpos)
+void CPlayer::OrderToArray(int nNum, const D3DXVECTOR3& destpos)
 {// ここの関数をスポナーのインデックスを見てどのスポナーから何体動かすかを決めて一括でポイントに送れるように変更すること
 
 	// スポナーマネージャ取得
@@ -401,4 +401,12 @@ void CPlayer::SetSendArrayMoving(int nIdx, int nNum)
 {
 	// 値をセット
 	m_pSpawnData[nIdx] = nNum;
+}
+//===================================================================
+// ブロックとの当たり判定
+//===================================================================
+bool CPlayer::CollisionBlock(CBoxCollider* other, D3DXVECTOR3* pos)
+{
+	// 矩形との当たり判定を返す
+	return false;
 }

@@ -31,8 +31,7 @@ m_pModel{},
 m_pMotion{},
 m_pShadowS{},
 m_fMoveValue(NULL),
-m_isStencilUse(false),
-m_nidxMotion(-1)
+m_isStencilUse(false)
 {
 	// ’l‚ÌƒNƒŠƒA
 	D3DXMatrixIdentity(&m_mtxworld);

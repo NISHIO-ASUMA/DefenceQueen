@@ -42,6 +42,8 @@ namespace SpawnManager
 		{-300.0f,0.0f,200.0f},
 		{0.0f,0.0f,-350.0f}
 	};
+
+	static constexpr int NUM_CREATEARRAY = 30; // 一個のスポナーに渡す数
 };
 
 //*********************************************************

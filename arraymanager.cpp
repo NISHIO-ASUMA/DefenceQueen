@@ -122,10 +122,10 @@ void CArrayManager::ApplySeparation(const D3DXVECTOR3& center, float radius)
 
 		// À•W‚ðŽæ“¾
 		D3DXVECTOR3 pos = pArray->GetPos();
-		D3DXVECTOR3 diff = pos - center;
+		D3DXVECTOR3 diff =  center - pos;
 		float fDis = D3DXVec3Length(&diff);
 
-		if (fDis< radius)
+		if (fDis < radius)
 		{
 			pArray->OnSeparation(); // ƒAƒŠ‚É“`‚¦‚é
 		}

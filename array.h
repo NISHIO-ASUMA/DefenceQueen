@@ -55,25 +55,27 @@ public:
 	void Moving(void);
 	void OnSeparation(void);
 
-	void TopAntFollow(void);
+	void FollowDestination(const D3DXVECTOR3& DestPos);
+
 	void ArrayFollow(void);
 	void SpawnReturn(void);
-
+	void NodeSetting(void);
+	
 	bool Colision(CSphereCollider* other);
 
 	void SetDestPos(const D3DXVECTOR3 pos) { m_MoveDestPos = pos; }
 	void SetPrevAnt(CArray* pPrev) { m_pFollowTarget = pPrev;}
-	void SetFollowTargetTop(CTopAnt* pTop) { m_pFollowTargetTop = pTop;}
-
 	void SetActive(bool isFlags) { m_isActive = isFlags; }
 	void SetIsMove(bool isMove) { m_isMove = isMove; }
 	void SetTopFollow(bool isFollow) { m_isTopAntFollow = isFollow; }
 	void SetReturnSpawn(const bool& isReturn) { m_isReturn = isReturn; }
-
+	void SetAtBase(const bool& isBase) { m_isAtBase = isBase; }
+	void SetIsStop(const bool& isStop) { m_isStop = isStop; }
 	bool GetActive(void) { return m_isActive; }
 	bool GetMove(void) { return m_isMove; }
-	bool GetFollow(void) { return m_isTopAntFollow; }
 	bool GetReturn(void) { return m_isReturn; }
+	bool GetIsAtBase(void) { return m_isAtBase; }
+	bool GetisStop(void) { return m_isStop; }
 
 	static CArray* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,const int nLife);
 
@@ -86,14 +88,18 @@ private:
 	{
 		static constexpr float MoveSpeed = 4.0f;	// 移動速度
 		static constexpr float SphereRange = 80.0f; // 球形範囲
-		static constexpr float ARRAY_DISTANCE = 100.0f; // 仲間アリとの距離
-		static constexpr float TOP_DISTANCE = 40.0f; // 先頭のアリとの距離
+		static constexpr float ARRAY_DISTANCE = 60.0f; // 仲間アリとの距離
+		static constexpr float TOP_DISTANCE = 30.0f; // 先頭のアリとの距離
+		static constexpr float PRIORITY_DISTANCE = 150.0f;
+		static constexpr float STOP_DISTANCE = 20.0f;
 	};
 
 	bool m_isActive;					// 使用状態かどうか
 	bool m_isMove;						// 移動するかどうか
 	bool m_isTopAntFollow;				// トップアリについて行くかどうか
 	bool m_isReturn;					// 巣にもどるかどうか
+	bool m_isAtBase;					// スポナーにいるか
+	bool m_isStop;						// 停止フラグ
 
 	D3DXVECTOR3 m_MoveDestPos;			// 目的の座標
 	CMotion* m_pMotion;					// モーションポインタ
@@ -103,5 +109,4 @@ private:
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
 
 	CArray* m_pFollowTarget;		// 一個前の自身のポインタ
-	CTopAnt* m_pFollowTargetTop;	// トップアリのポインタ
 };

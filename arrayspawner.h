@@ -41,6 +41,7 @@ public:
 	void Draw(void);
 	void SetPos(const D3DXVECTOR3& pos) { m_SpawnBasePos = pos; }
 	void SetMaxArray(const int& nMaxArray);
+	D3DXVECTOR3 GetPos(void) { return m_SpawnBasePos; }
 
 	/// <summary>
 	/// 移動命令を出す関数
@@ -94,13 +95,26 @@ public:
 	/// <returns></returns>
 	int GetStockArray(void) { return m_nStockArrays; }
 
-	D3DXVECTOR3 GetPos(void) { return m_SpawnBasePos; }
-
 	/// <summary>
 	/// 先頭の仲間のアリを取得
 	/// </summary>
 	/// <returns></returns>
 	CArray* GetTopArray() const;
+
+	/// <summary>
+	/// 最後尾のアリを返す
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
+	CArray* GetLastActiveAnt(void);
+
+	void FollwoChain(void);
+
+	/// <summary>
+	/// 配列に要素を登録する
+	/// </summary>
+	/// <param name="peturnArray">基地に帰ったアリのポインタ</param>
+	void PushBack(CArray* peturnArray) { return m_ReturnAntList.push_back(peturnArray); FollwoChain(); }
 
 	/// <summary>
 	/// 生成関数
@@ -124,5 +138,6 @@ private:
 	D3DXVECTOR3 m_SpawnBasePos; // スポーンのベース座標
 	CTopAnt * m_pTopAnts;	// トップアリの配列
 	std::vector<CArray*> m_AssignedArrays; // 自分の担当アリ
+	std::vector<CArray*>m_ReturnAntList;	// 帰ってきたアリたちの配列
 	int m_nStockArrays;			// 1スポナーが保持できるアリの数
 };

@@ -21,12 +21,16 @@
 #include "meshcylinder.h"
 #include "effect.h"
 #include "arraymanager.h"
+#include "spherecollider.h"
+#include "collisionsphere.h"
+#include "feedmanager.h"
+#include "feed.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
 CTopAnt::CTopAnt(int nPriority) : CMoveCharactor(nPriority),m_pColliderBox(nullptr),m_isActive(false), m_isBranchSet(false),
-m_fSeparationRadius(NULL), m_isHPressing(false)
+m_fSeparationRadius(NULL), m_isHPressing(false),m_pColliderSphere(nullptr), m_DestPos(VECTOR3_NULL)
 {
 	
 }
@@ -70,6 +74,9 @@ HRESULT CTopAnt::Init(void)
 	// コライダー生成
 	m_pColliderBox = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(40.0f, 40.0f, 40.0f));
 
+	// コライダー生成
+	m_pColliderSphere = CSphereCollider::Create(GetPos(),Config::MAX_RADIUS);
+
 	return S_OK;
 }
 //=========================================================
@@ -82,6 +89,13 @@ void CTopAnt::Uninit(void)
 	{
 		delete m_pColliderBox;
 		m_pColliderBox = nullptr;
+	}
+
+	// コライダー破棄
+	if (m_pColliderSphere)
+	{
+		delete m_pColliderSphere;
+		m_pColliderSphere = nullptr;
 	}
 
 	// 親クラスの終了処理
@@ -107,13 +121,7 @@ void CTopAnt::Update(void)
 		Moving(pPad, pKey);
 		MovePad(pPad);
 
-		// メッシュ取得
-		auto mesh = CGameSceneObject::GetInstance()->GetPlayer()->GetMeshCylinder();
-		if (mesh == nullptr) return;
-
-		// 座標を合わせる
-		mesh->SetPos(pos);
-
+		// キー入力で検証
 		if (pKey->GetPress(DIK_H))
 		{
 			// 切り離しの加算
@@ -157,6 +165,12 @@ void CTopAnt::Update(void)
 	// 更新された座標を取得
 	D3DXVECTOR3 UpdatePos = GetPos();
 
+	// 球形コライダーの位置更新
+	if (m_pColliderSphere)
+	{
+		m_pColliderSphere->SetPos(UpdatePos);
+	}
+
 	// 矩形コライダーの位置更新
 	if (m_pColliderBox)
 	{
@@ -186,6 +200,41 @@ void CTopAnt::Update(void)
 		}
 	}
 
+	// 餌クラスのポインタ取得
+	CFeedManager* pManager = CGameSceneObject::GetInstance()->GetFeedManager();
+
+	// サイズがnull値じゃなかったら
+	if (pManager->GetSize() > 0)
+	{
+		for (int nCnt = 0; nCnt < pManager->GetSize(); nCnt++)
+		{
+			// 当たったら
+			if (CollisionSphere(pManager->GetFeed(nCnt)->GetCollider()))
+			{
+				// エフェクト生成
+				CEffect::Create(UpdatePos, COLOR_RED, VECTOR3_NULL, 6, 80.0f);
+
+				// 伝令フラグを有効化
+				SetIsReturnPos(true);
+				break;
+			}
+			else
+			{
+				// 伝令フラグを無効化
+				SetIsReturnPos(false);
+
+			}
+		}
+	}
+
+	// フラグが有効時 かつ キー入力があったら
+	if (m_isReturnNumber && pKey->GetTrigger(DIK_Q))
+	{
+		m_DestPos = VECTOR3_NULL;
+		// 目的地の座標をセットする
+		SetDestMovePos(UpdatePos);
+	}
+
 	// 親クラスの更新
 	CMoveCharactor::Update();
 }
@@ -203,6 +252,13 @@ void CTopAnt::Draw(void)
 bool CTopAnt::Collision(CBoxCollider * pOther,D3DXVECTOR3 * pOutPos)
 {
 	return CCollisionBox::Collision(m_pColliderBox,pOther,pOutPos);
+}
+//=========================================================
+// 球形の当たり判定処理
+//=========================================================
+bool CTopAnt::CollisionSphere(CSphereCollider* pOther)
+{
+	return CCollisionSphere::Collision(m_pColliderSphere,pOther);
 }
 //=========================================================
 // キー入力移動
@@ -437,36 +493,18 @@ void CTopAnt::MovePad(CJoyPad * pPad)
 //=========================================================
 void CTopAnt::Separation(void)
 {
-#if 0
-	// オフセットを作成する
-	auto MyPos = this->GetPos();
-	auto SeparationPos = MyPos;
-
-	// 範囲を加算し続ける
-	m_fSeparationRadius += Config::Separation;
-
-	// 上限値以上なら
-	if (m_fSeparationRadius >= Config::MAX_RADIUS)
-	{
-		m_fSeparationRadius = Config::MAX_RADIUS;
-	}
-
-	// 値を保存する
-	SetSeparationRadius(m_fSeparationRadius);
-
-	// エフェクト生成
-	CEffect::Create(SeparationPos, COLOR_RED, VECTOR3_NULL, 12, m_fSeparationRadius);
-#endif
+	// 自身の体から半径を作成
+	D3DXVECTOR3 pos = GetPos();
 
 	// 半径加算処理
 	m_fSeparationRadius += Config::Separation;
+
 	if (m_fSeparationRadius >= Config::MAX_RADIUS)
 		m_fSeparationRadius = Config::MAX_RADIUS;
 
 	// 設定する
 	SetSeparationRadius(m_fSeparationRadius);
 
-	// エフェクト生成
-	auto SeparationPos = D3DXVECTOR3(300.0f, 0.0f, 200.0f);
-	CEffect::Create(SeparationPos, COLOR_RED, VECTOR3_NULL, 6, m_fSeparationRadius);
+	// 検証用でエフェクト生成
+	CEffect::Create(pos, COLOR_RED, VECTOR3_NULL, 6, m_fSeparationRadius);
 }

@@ -102,5 +102,4 @@ private:
 
 	float m_fMoveValue;		// 移動加算値
 	bool m_isStencilUse;	// ステンシルシャドウを使うか
-	int m_nidxMotion;		// モーションインデックス
 };

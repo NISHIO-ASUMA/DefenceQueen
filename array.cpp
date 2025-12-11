@@ -36,11 +36,12 @@ m_pParameter(nullptr),
 m_pStateMachine(nullptr),
 m_pBoxCollider(nullptr),
 m_pFollowTarget(nullptr),
-m_pFollowTargetTop(nullptr),
 m_isActive(false),
 m_isMove(false),
 m_isTopAntFollow(false),
 m_isReturn(false),
+m_isAtBase(true),
+m_isStop(false),
 m_MoveDestPos(VECTOR3_NULL)
 {
 	// 値のクリア
@@ -145,16 +146,8 @@ void CArray::Update(void)
 		SpawnReturn();
 	}
 
-	// 先頭に追従設定があるなら
-	if (m_pFollowTargetTop && m_isMove)
-	{
-		TopAntFollow();
-	}
-	else if (m_pFollowTarget && m_isMove)
-	{
-		ArrayFollow();		// 仲間アリ追従
-	}
-
+	// 移動する関数
+	FollowDestination(m_MoveDestPos);
 
 	// 座標のみの更新処理
 	CMoveCharactor::UpdatePosition();
@@ -268,60 +261,93 @@ void CArray::Moving(void)
 //=========================================================
 void CArray::OnSeparation(void)
 {
-	m_pFollowTarget = nullptr;
-	m_pFollowTargetTop = nullptr;
+	// 移動フラグを無効化
 	m_isMove = false;
 
 	// 帰還モードにする
 	SetReturnSpawn(true);
 }
+
 //=========================================================
-// スポナーの先頭アリに追従する処理
+// ある一定の目標地点に向かう処理
 //=========================================================
-void CArray::TopAntFollow(void)
+void CArray::FollowDestination(const D3DXVECTOR3& DestPos)
 {
-	if (!m_pFollowTargetTop) return;
+	// もし移動時状態じゃなかったら
+	if (!m_isMove) return;
 
-	// 追従対象の座標
-	D3DXVECTOR3 targetPos = m_pFollowTargetTop->GetPos();
+	// 目的地までの距離を算出
+	D3DXVECTOR3 moveVec = DestPos - GetPos();
+	float distToDest = D3DXVec3Length(&moveVec);
 
-	// 自分との差分
-	D3DXVECTOR3 followVec = targetPos - GetPos();
-	float fDistance = D3DXVec3Length(&followVec);
-
-	if (fDistance > Arrayinfo::TOP_DISTANCE)
+	// 目的地が近いなら隊列を切って直接目的地へ
+	if (distToDest < Arrayinfo::PRIORITY_DISTANCE)
 	{
+		// 隊列フォロー解除
+		m_pFollowTarget = nullptr;
+
+		// 到着したら止まる
+		if (distToDest < Arrayinfo::STOP_DISTANCE)
+		{
+			SetMove(VECTOR3_NULL);
+
+			m_pMotion->SetMotion(CArray::MOTION_NEUTRAL);
+
+			m_isMove = false;
+			m_isStop = true;
+			return;
+		}
+
+		// 目的地へ直接移動
+		D3DXVec3Normalize(&moveVec, &moveVec);
+		moveVec *= Arrayinfo::MoveSpeed;
+
+		float fAngle = atan2(-moveVec.x, -moveVec.z);
+		D3DXVECTOR3 Rotdest = GetRotDest();
+
 		// 正規化
-		D3DXVec3Normalize(&followVec, &followVec);
+		Rotdest.y = NormalAngle(fAngle);
 
-		// 移動速度
-		followVec *= Arrayinfo::MoveSpeed;
+		// 値をセット
+		SetRotDest(Rotdest);
 
-		// 向き調整
-		float angleY = atan2(-followVec.x, -followVec.z);
-		D3DXVECTOR3 rotDest = GetRotDest();
-		rotDest.y = NormalAngle(angleY);
+		// 移動量を加算
+		SetMove(moveVec);
 
-		// 目的の角度を更新
-		SetRotDest(rotDest);
-
-		// 移動設定
-		SetMove(followVec);
-
-		// モーション変更
+		// 移動モーションにセット
 		m_pMotion->SetMotion(CArray::MOTION_MOVE);
+
+		return;
 	}
-	else
+
+	// 隊列を形成する
+	if (m_pFollowTarget)
 	{
-		SetMove(VECTOR3_NULL);
-		m_pMotion->SetMotion(CArray::MOTION_NEUTRAL);
+		ArrayFollow();
+		return;
 	}
+
+	// 単独で目的に向かう
+	D3DXVec3Normalize(&moveVec, &moveVec);
+	moveVec *= Arrayinfo::MoveSpeed;
+
+	float ang = atan2(-moveVec.x, -moveVec.z);
+	D3DXVECTOR3 r = GetRotDest();
+	r.y = NormalAngle(ang);
+	SetRotDest(r);
+
+	SetMove(moveVec);
+
+	m_pMotion->SetMotion(CArray::MOTION_MOVE);
 }
+
+
 //=========================================================
 // 仲間を追従する
 //=========================================================
 void CArray::ArrayFollow(void)
 {
+	// 無かったら
 	if (!m_isReturn && !m_pFollowTarget) return;
 
 	// ターゲット座標を取得
@@ -359,17 +385,19 @@ void CArray::ArrayFollow(void)
 	}
 }
 //=========================================================
-// 巣にもどる
+// 巣にもどる　
+// TODO : 設置されているランダムなスポーンに行くように変更
 //=========================================================
 void CArray::SpawnReturn(void)
 {
 	// ターゲット座標を取得
 	auto idx = CGameSceneObject::GetInstance()->GetPlayer()->GetSelectIndex();
 	auto targetPos = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(idx)->GetPos();
+
 	D3DXVECTOR3 followVec = targetPos - GetPos();
 	float fDistance = D3DXVec3Length(&followVec);
 
-	if (fDistance > 20.0f/*Arrayinfo::ARRAY_DISTANCE*/)
+	if (fDistance > 10.0f)
 	{
 		// ベクトルを正規化
 		D3DXVec3Normalize(&followVec, &followVec);
@@ -391,28 +419,35 @@ void CArray::SpawnReturn(void)
 	}
 	else
 	{
+		// 停止
 		SetMove(VECTOR3_NULL);
+
+		// 待機させる
 		m_pMotion->SetMotion(CArray::MOTION_NEUTRAL);
 
-		// 基地についたので Return モード解除
+		// 基地についたのでReturnモード解除
 		SetReturnSpawn(false);
 
-		// FollowTarget を元に戻す
+		// 基地到着
+		SetAtBase(true);
+
+		// リセット
+		m_isMove = false;
+		m_pFollowTarget = nullptr;
+		SetPrevAnt(nullptr);
+
+		// FollowTargetを元に戻す
 		CArraySpawner* spawner = CGameSceneObject::GetInstance()
 			->GetArraySpawn()
 			->GetIndexSpawner(idx);
-
-		// topターゲットを設定
-		m_pFollowTargetTop = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(idx)->GetTopAnt();
-
-		// 自分のインデックスを取得
-		int nMyIndex = spawner->GetArrayIndex(this);
-
-		if (nMyIndex > 0)
-		{
-			SetPrevAnt(spawner->GetArray(nMyIndex - 1));
-		}
 	}
+}
+//=========================================================
+// ノードを設定する
+//=========================================================
+void CArray::NodeSetting(void)
+{
+
 }
 //=========================================================
 // 球の当たり判定処理

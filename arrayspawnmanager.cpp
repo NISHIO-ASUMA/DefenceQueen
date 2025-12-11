@@ -39,10 +39,11 @@ CArraySpawnManager::~CArraySpawnManager()
 //=========================================================
 HRESULT CArraySpawnManager::Init(CArrayManager* pManager)
 {
+	
 	for (int nCnt = 0; nCnt < NUM_ARRAYSPAWNER; nCnt++)
 	{
 		// スポナー生成 ( スポナー座標,初期の仲間のストック数,アリ管理マネージャーポインタ )
-		m_pArraySpawner[nCnt] = CArraySpawner::Create(SpawnManager::POS[nCnt],30, pManager);
+		m_pArraySpawner[nCnt] = CArraySpawner::Create(SpawnManager::POS[nCnt], NUM_CREATEARRAY, pManager);
 
 		// アクティブなアリを加算
 		pManager->CountActiveArrays(m_pArraySpawner[nCnt]->GetStockArray());

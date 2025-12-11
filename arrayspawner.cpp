@@ -21,6 +21,7 @@ CArraySpawner::CArraySpawner() :
 	m_SpawnBasePos(VECTOR3_NULL),
 	m_nStockArrays(NULL), 
 	m_AssignedArrays{},
+	m_ReturnAntList{},
 	m_pTopAnts(nullptr)
 {
 
@@ -58,8 +59,8 @@ HRESULT CArraySpawner::Init(CArrayManager* pManager)
 
 		if (nCnt == 0)
 		{
-			// トップアリを追従
-			pArray->SetFollowTargetTop(m_pTopAnts);
+			// 先頭は無し
+			pArray->SetPrevAnt(nullptr);
 		}
 		else
 		{
@@ -114,16 +115,20 @@ void CArraySpawner::OrderMove(int nNum, const D3DXVECTOR3& destPos)
 
 		// 使われてない物はスキップ
 		if (!pArray->GetActive()) continue;
+		if (!pArray->GetIsAtBase()) continue;
 		if (pArray->GetMove())  continue;
-
-		// ランダム配置
-		D3DXVECTOR3 randomaiz = RandomSetPos(destPos, 75.0f, nNum, nCnt);
+		if (pArray->GetisStop()) continue;
 
 		// 移動フラグをセット
 		pArray->SetIsMove(true);
 
+		// 基地から出た判定にする
+		pArray->SetAtBase(false);
+
 		// 向かう目的地をセット
-		pArray->SetDestPos(randomaiz);
+		pArray->SetDestPos(destPos);
+
+		pArray->SetPrevAnt(nullptr);
 
 		nSend++;
 	}
@@ -169,8 +174,6 @@ void CArraySpawner::OrderReturn(int nNum, const D3DXVECTOR3& returnpos)
 		// 基地にもどるフラグをセット
 		pArray->SetReturnSpawn(true);
 		pArray->SetIsMove(false);
-
-		pArray->SetFollowTargetTop(nullptr);
 		pArray->SetPrevAnt(nullptr);
 
 		// 向かう目的地をセット
@@ -240,6 +243,34 @@ CArraySpawner* CArraySpawner::Create(const D3DXVECTOR3 pos, const int nMaxArray,
 CArray* CArraySpawner::GetTopArray() const
 {
 	return m_AssignedArrays[0]; // 先頭の配列
+}
+//=========================================================
+// 動いているアリの最後尾を返す
+//=========================================================
+CArray* CArraySpawner::GetLastActiveAnt(void)
+{
+	// 最後尾配列から回す
+	for (int nAnt = m_nStockArrays -1;nAnt >= 0;nAnt--)
+	{
+		if (!m_AssignedArrays[nAnt]->GetActive()) continue;
+		if (!m_AssignedArrays[nAnt]->GetMove()) continue;
+
+		// 移動かつアクティブなら
+		if (m_AssignedArrays[nAnt]->GetActive() && m_AssignedArrays[nAnt]->GetMove())
+		{
+			// そのアリの番号を取得
+			return m_AssignedArrays[nAnt];
+		}
+	}
+
+	// 一匹のアリもついていない
+	return nullptr;
+}
+//=========================================================
+// 配列つなぎなおし
+//=========================================================
+void CArraySpawner::FollwoChain(void)
+{
 }
 //=========================================================
 // インデックスを取得する

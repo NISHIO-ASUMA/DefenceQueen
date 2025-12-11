@@ -60,7 +60,7 @@ public:
 	void Draw(void) override;
 	void CollisionAll(D3DXVECTOR3 pPos,CInputKeyboard* pInput, CJoyPad* pPad);
 	bool CollisionBlock(CBoxCollider* other, D3DXVECTOR3* pos);
-	void OrderToArray(int nNum, D3DXVECTOR3 destpos);
+	void OrderToArray(int nNum, const D3DXVECTOR3& destpos);
 	void SetSendArrayMoving(int nIdx,int nNum);
 	int GetSelectIndex() const { return m_nSelectSpawn; }
 	CStateMachine* GetStateMachine() { return m_pStateMachine.get(); }

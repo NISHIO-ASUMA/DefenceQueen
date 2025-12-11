@@ -153,6 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="array.cpp" />
+    <ClCompile Include="arraybehaviortree.cpp" />
     <ClCompile Include="arraymanager.cpp" />
     <ClCompile Include="arrayspawner.cpp" />
     <ClCompile Include="arrayspawnmanager.cpp" />
@@ -281,6 +282,7 @@
     <ClInclude Include="alwaysfail.h" />
     <ClInclude Include="alwayssuccess.h" />
     <ClInclude Include="array.h" />
+    <ClInclude Include="arraybehaviortree.h" />
     <ClInclude Include="arraymanager.h" />
     <ClInclude Include="arrayspawner.h" />
     <ClInclude Include="arrayspawnmanager.h" />
