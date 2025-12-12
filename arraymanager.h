@@ -78,12 +78,6 @@ public:
 	/// <param name="radius">”¼Œa</param>
 	void ApplySeparation(const D3DXVECTOR3& center, float radius);
 
-	/// <summary>
-	/// ”z—ñ‚Ìˆê•”‚ğ“n‚·ŠÖ”
-	/// </summary>
-	/// <returns></returns>
-	std::vector<CArray*> GetSeparationSize();
-
 	void CountActiveArrays(const int& nCountArrays);
 	void SetActiveAll(void);
 	int GetArraysActive(void) { return m_nActiveAll; }

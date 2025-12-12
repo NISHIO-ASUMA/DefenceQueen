@@ -167,6 +167,9 @@ void CSelectPoint::Update(void)
 	{
 		for (int nCnt = 0; nCnt < pManager->GetSize(); nCnt++)
 		{
+			// nullチェック
+			if (!pManager->GetFeed(nCnt)->GetCollider()) break;
+
 			// 当たったら
 			if (Collision(pManager->GetFeed(nCnt)->GetCollider()))
 			{

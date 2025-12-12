@@ -55,9 +55,6 @@ void CGameState::OnUpdate()
 	// ポインタが無かったら
 	if (m_pGame == nullptr) return;
 
-	// 終了状態なら更新しない
-	if (m_Progress == PROGRESS_END) return;
-
 	// フェード取得
 	auto pFade = CManager::GetInstance()->GetFade();
 	if (pFade == nullptr) return;

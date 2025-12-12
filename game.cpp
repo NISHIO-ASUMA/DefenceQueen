@@ -18,6 +18,7 @@
 #include "camera.h"
 #include "result.h"
 #include "fade.h"
+#include "time.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -143,16 +144,23 @@ void CGame::Update(void)
 			fade->SetFade(std::make_unique<CResult>());
 			return;
 		}
+
+		if (CGameSceneObject::GetInstance()->GetTime()->GetToAll() <= 0)
+		{
+			// 状態変更
+			m_pState->SetProgress(CGameState::PROGRESS_END);
+			return;
+		}
 	}
 
 #ifdef _DEBUG
 
-	// 検証キー
-	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_0))
-	{
-		// 状態変更
-		m_pState->SetProgress(CGameState::PROGRESS_END);
-	}
+	//// 検証キー
+	//if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_0))
+	//{
+	//	// 状態変更
+	//	m_pState->SetProgress(CGameState::PROGRESS_END);
+	//}
 
 #endif // _DEBUG
 }

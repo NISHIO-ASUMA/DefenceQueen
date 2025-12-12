@@ -93,4 +93,10 @@ void CArraySpawnManager::Draw(void)
 	CDebugproc::Print("各スポナーの先頭アリ情報\n[0]番目 : アクティブ =  %d\n[1]番目 : アクティブ =  %d\n[2]番目 : アクティブ =  %d\n",
 		m_pArraySpawner[0]->GetTopAnt()->GetIsActive(), m_pArraySpawner[1]->GetTopAnt()->GetIsActive(), m_pArraySpawner[2]->GetTopAnt()->GetIsActive());
 	CDebugproc::Draw(0, 340);
+
+	// インデックス情報の管理
+	CDebugproc::Print("各スポナーのIDX情報\n[0]番目 : %d\n[1]番目 : %d\n[2]番目 : %d\n",
+		m_pArraySpawner[0]->GetIdx(), m_pArraySpawner[1]->GetIdx(), m_pArraySpawner[2]->GetIdx());
+	CDebugproc::Draw(0, 420);
+
 }

@@ -17,13 +17,14 @@
 #include "gamesceneobject.h"
 #include "manager.h"
 #include "xfilemanager.h"
+#include "feedmanager.h"
 
 //*********************************************************
 // 定数宣言
 //*********************************************************
 namespace FEEDINFO
 {
-	constexpr int LIFE = 15; // 基底体力値
+	constexpr int LIFE = 25; // 基底体力値
 };
 
 //=========================================================
@@ -127,7 +128,7 @@ void CFeed::Draw(void)
 //=========================================================
 // パラメーター減算処理
 //=========================================================
-void CFeed::DecLife(const int nDecValue)
+void CFeed::DecLife(const int& nDecValue)
 {
 	// 引数の分減少
 	int nHp = m_pParam->GetHp();
@@ -135,8 +136,15 @@ void CFeed::DecLife(const int nDecValue)
 
 	if (nHp <= NULL)
 	{
+		// 体力を0にする
 		m_pParam->SetHp(NULL);
+
+		// 要素の削除
+		CGameSceneObject::GetInstance()->GetFeedManager()->Erase(this);
+
+		// 自身の破棄
 		Uninit();
+
 		return;
 	}
 	else

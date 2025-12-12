@@ -65,12 +65,15 @@ public:
 
 	void SetDestPos(const D3DXVECTOR3 pos) { m_MoveDestPos = pos; }
 	void SetPrevAnt(CArray* pPrev) { m_pFollowTarget = pPrev;}
+	void SetMyListId(const int& nIdx) { m_nListGroupId = nIdx; }
+
 	void SetActive(bool isFlags) { m_isActive = isFlags; }
 	void SetIsMove(bool isMove) { m_isMove = isMove; }
 	void SetTopFollow(bool isFollow) { m_isTopAntFollow = isFollow; }
 	void SetReturnSpawn(const bool& isReturn) { m_isReturn = isReturn; }
 	void SetAtBase(const bool& isBase) { m_isAtBase = isBase; }
 	void SetIsStop(const bool& isStop) { m_isStop = isStop; }
+
 	bool GetActive(void) { return m_isActive; }
 	bool GetMove(void) { return m_isMove; }
 	bool GetReturn(void) { return m_isReturn; }
@@ -86,13 +89,16 @@ private:
 	//***********************
 	struct Arrayinfo
 	{
-		static constexpr float MoveSpeed = 4.0f;	// 移動速度
+		static constexpr float MoveSpeed = 2.0f;	// 移動速度
 		static constexpr float SphereRange = 80.0f; // 球形範囲
 		static constexpr float ARRAY_DISTANCE = 60.0f; // 仲間アリとの距離
 		static constexpr float TOP_DISTANCE = 30.0f; // 先頭のアリとの距離
-		static constexpr float PRIORITY_DISTANCE = 150.0f;
-		static constexpr float STOP_DISTANCE = 20.0f;
+		static constexpr float PRIORITY_DISTANCE = 140.0f;
+		static constexpr float STOP_DISTANCE = 15.0f;
 	};
+
+	int m_nListGroupId;					// 自身が動いているidのリスト番号
+	int m_nStopCount;					// ストップカウント
 
 	bool m_isActive;					// 使用状態かどうか
 	bool m_isMove;						// 移動するかどうか
@@ -100,6 +106,7 @@ private:
 	bool m_isReturn;					// 巣にもどるかどうか
 	bool m_isAtBase;					// スポナーにいるか
 	bool m_isStop;						// 停止フラグ
+	bool m_isCollisionOnFeed;					// 当たったフラグ
 
 	D3DXVECTOR3 m_MoveDestPos;			// 目的の座標
 	CMotion* m_pMotion;					// モーションポインタ

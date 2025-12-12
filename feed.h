@@ -36,7 +36,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-	void DecLife(const int nDecValue);
+	void DecLife(const int& nDecValue);
 	void SetRadius(const float fRadius) { m_fRadius = fRadius; }
 	bool Collision(CSphereCollider* other);
 

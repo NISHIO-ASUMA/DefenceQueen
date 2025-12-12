@@ -12,6 +12,7 @@
 #include "array.h"
 #include "arraymanager.h"
 #include "topant.h"
+#include "separationant.h"
 #include "debugproc.h"
 
 //=========================================================
@@ -22,7 +23,8 @@ CArraySpawner::CArraySpawner() :
 	m_nStockArrays(NULL), 
 	m_AssignedArrays{},
 	m_ReturnAntList{},
-	m_pTopAnts(nullptr)
+	m_pTopAnts(nullptr),
+	m_nMySpawnIndexList(-1)
 {
 
 }
@@ -53,7 +55,7 @@ HRESULT CArraySpawner::Init(CArrayManager* pManager)
 		// ローカルポインタ
 		CArray* pArray = m_AssignedArrays[nCnt];
 
-		// 設定関連
+		// 座標セット
 		pArray->SetPos(m_SpawnBasePos);
 		pArray->SetActive(true);
 
@@ -68,10 +70,13 @@ HRESULT CArraySpawner::Init(CArrayManager* pManager)
 			pArray->SetPrevAnt(pPrev);
 		}
 
-		// 次の「前のアリ」用に保存
+		// 次の前のアリ用に保存
 		pPrev = pArray;
 	}
 	
+	// 分隊用リスト生成
+	m_pSeparationListAnt = std::make_unique<CSeparationAnt>();
+	m_pSeparationListAnt->Init(m_nStockArrays);
 
 	return S_OK;
 }
@@ -80,7 +85,8 @@ HRESULT CArraySpawner::Init(CArrayManager* pManager)
 //=========================================================
 void CArraySpawner::Uninit(void)
 {
-
+	// ポインタの破棄
+	m_pSeparationListAnt.reset();
 }
 //=========================================================
 // 更新処理
@@ -94,13 +100,16 @@ void CArraySpawner::Update(void)
 //=========================================================
 void CArraySpawner::Draw(void)
 {
+	// デバッグ表示
 
 }
 //=========================================================
 // 移動先設定関数
 //=========================================================
 void CArraySpawner::OrderMove(int nNum, const D3DXVECTOR3& destPos)
-{
+{// 毎回指定された座標に移動するときにそこに先頭のアリがいるかチェックするようにしないといけない
+ // そうしないといつまでも先行で出たアリの最後尾を追従してしまう
+ 
 	// カウント
 	int nSend = 0;
 
@@ -128,7 +137,11 @@ void CArraySpawner::OrderMove(int nNum, const D3DXVECTOR3& destPos)
 		// 向かう目的地をセット
 		pArray->SetDestPos(destPos);
 
-		pArray->SetPrevAnt(nullptr);
+		// 仲間自身の登録番号を設定する
+		pArray->SetMyListId(m_nMySpawnIndexList);
+
+		// 分隊のリストに追加する
+		m_pSeparationListAnt->AddToListGroup(m_nMySpawnIndexList, pArray);
 
 		nSend++;
 	}
@@ -150,7 +163,8 @@ void CArraySpawner::OrderReturn(int nNum, const D3DXVECTOR3& returnpos)
 		if (!pArray) continue;
 		if (!pArray->GetActive()) continue;
 
-		if (pArray->GetMove())// 今動いているアリだけ
+		// 今動いているアリだけ
+		if (pArray->GetMove())
 		{
 			// 移動させたい配列に追加していく
 			movingList.push_back(pArray);
@@ -162,13 +176,13 @@ void CArraySpawner::OrderReturn(int nNum, const D3DXVECTOR3& returnpos)
 
 	// 現在移動しているアリの中から抽出する
 	// 最大数から減算するfor
-	for (int i = (int)movingList.size() - 1; i >= 0; i--)
+	for (int nMoveCnt = static_cast<int>(movingList.size()) - 1; nMoveCnt >= 0; nMoveCnt--)
 	{
 		// 最大なら
 		if (nSend >= nNum) break;
 
 		// リスト取得
-		auto pArray = movingList[i];
+		auto pArray = movingList[nMoveCnt];
 		if (!pArray) continue;
 
 		// 基地にもどるフラグをセット
@@ -198,26 +212,6 @@ void CArraySpawner::SetMaxArray(const int& nMaxArray)
 		m_nStockArrays = nMaxArray;
 	}
 }
-//=========================================================
-// 配置
-//=========================================================
-D3DXVECTOR3 CArraySpawner::RandomSetPos(const D3DXVECTOR3& pos, float fRadius, int nMoveActiveNum, int nIdx)
-{
-	// 以下なら
-	if (nMoveActiveNum <= 0) return pos;
-
-	// 角度を均等に割る
-	float fAngle = (2.0f * D3DX_PI) * (static_cast<float>(nIdx) / nMoveActiveNum);
-
-	// 基準値座標を設定する
-	D3DXVECTOR3 OffSet = VECTOR3_NULL;
-	OffSet.x = cosf(fAngle) * fRadius;
-	OffSet.z = sinf(fAngle) * fRadius;
-	OffSet.y = 0.0f;
-
-	return pos + OffSet;
-}
-
 //=========================================================
 // 生成関数
 //=========================================================
@@ -265,12 +259,6 @@ CArray* CArraySpawner::GetLastActiveAnt(void)
 
 	// 一匹のアリもついていない
 	return nullptr;
-}
-//=========================================================
-// 配列つなぎなおし
-//=========================================================
-void CArraySpawner::FollwoChain(void)
-{
 }
 //=========================================================
 // インデックスを取得する

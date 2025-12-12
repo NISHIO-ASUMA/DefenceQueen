@@ -39,9 +39,9 @@ HRESULT CFeedManager::Init(void)
 	m_pFeed.resize(Config::ALLFEED);
 
 	// TODO : のちに変更
-	m_pFeed[0] = CFeed::Create(D3DXVECTOR3(-300.0f, 60.0f,-200.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x",85.0f);
-	m_pFeed[1] = CFeed::Create(D3DXVECTOR3(300.0f, 60.0f, -600.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x", 85.0f);
-	m_pFeed[2] = CFeed::Create(D3DXVECTOR3(0.0f, 60.0f, 550.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x", 85.0f);
+	m_pFeed[0] = CFeed::Create(D3DXVECTOR3(-700.0f, 60.0f,-600.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x",85.0f);
+	m_pFeed[1] = CFeed::Create(D3DXVECTOR3(700.0f, 60.0f, -600.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x", 85.0f);
+	m_pFeed[2] = CFeed::Create(D3DXVECTOR3(0.0f, 60.0f, 600.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x", 85.0f);
 
 	return S_OK;
 }
@@ -67,4 +67,27 @@ void CFeedManager::Update(void)
 void CFeedManager::Draw(void)
 {
 	// 無し
+}
+//=========================================================
+// 要素を消す
+//=========================================================
+void CFeedManager::Erase(CFeed* pFeed)
+{
+	// 削除処理
+	auto DeleteDestObj = std::find(m_pFeed.begin(), m_pFeed.end(), pFeed);
+
+	// もし最後尾なら
+	if (DeleteDestObj == m_pFeed.end())
+	{
+		return;
+	}
+
+	// 削除
+	(*DeleteDestObj)->Uninit();
+
+	// 先をnullにする
+	pFeed = nullptr;
+
+	// 配列の要素を消す
+	DeleteDestObj = m_pFeed.erase(DeleteDestObj);
 }

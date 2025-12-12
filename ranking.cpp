@@ -86,7 +86,7 @@ void CRanking::Update(void)
 	// if (m_pRankManager != nullptr) m_pRankManager->Update();
 
 	// 決定キー入力
-	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_SPACE) || CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_A) || CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_START))
+	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN) || CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_A) || CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_START))
 	{
 		// フェード取得
 		CFade* pFade = CManager::GetInstance()->GetFade();

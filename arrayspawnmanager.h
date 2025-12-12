@@ -31,8 +31,8 @@ namespace SpawnManager
 
 	const D3DXVECTOR3 POS[NUM_ARRAYSPAWNER] =
 	{
-		{300.0f,0.0f,-300.0f},
-		{-300.0f,0.0f,300.0f},
+		{800.0f,0.0f,480.0f},
+		{-800.0f,0.0f,480.0f},
 		{0.0f,0.0f,-550.0f}
 	};
 

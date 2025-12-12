@@ -58,8 +58,6 @@ void CResult::Uninit(void)
 //=========================================================
 void CResult::Update(void)
 {
-#ifdef _DEBUG
-
 	// ‰æ–Ê‘JˆÚ
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN))
 	{
@@ -68,8 +66,6 @@ void CResult::Update(void)
 		fade->SetFade(std::make_unique<CRanking>());
 		return;
 	}
-
-#endif // _DEBUG
 }
 //=========================================================
 // •`‰æˆ—

@@ -57,12 +57,10 @@ m_pBoxCollider(nullptr),
 m_pCylinder(nullptr),
 m_nNum(NULL),
 m_nSelectSpawn(NULL),
-m_nPrevSelectSpawn(-1)
+m_nPrevSelectSpawn(-1),
+m_pSpawnData{}
 {
-	for (int nCnt = 0; nCnt < NUM_SPAWN; nCnt++)
-	{
-		m_pSpawnData[nCnt] = 0;
-	}
+
 }
 //=========================================================
 // デストラクタ
@@ -157,9 +155,9 @@ void CPlayer::Uninit(void)
 	// キャラクターの破棄
 	CNoMoveCharactor::Uninit();
 }
-//======================================================================================
+//=========================================================
 // プレイヤー更新処理
-//======================================================================================
+//=========================================================
 void CPlayer::Update(void)
 {
 	// 現在の座標取得
@@ -230,43 +228,28 @@ void CPlayer::Update(void)
 	}
 
 
-	// 引数の数だけポイントに送る
+	// 送る数を加算
 	if (pKeyboard->GetTrigger(DIK_UP))
 	{
-		m_nNum += 5;
-		m_nNum = Clump(m_nNum, 0, 50);
+		m_nNum += Config::VALUE_ANT;
+		m_nNum = Clump(m_nNum, 0, Config::MAX_VALUE);
 	}
 
+	// 送る数を減算
 	if (pKeyboard->GetTrigger(DIK_DOWN))
 	{
-		m_nNum -= 5;
-		m_nNum = Clump(m_nNum, 0, 50);
+		m_nNum -= Config::VALUE_ANT;
+		m_nNum = Clump(m_nNum, 0, Config::MAX_VALUE);
 	}
 
+	// 情報登録
 	if (pKeyboard->GetTrigger(DIK_K))
 	{
 		// スポナーに送る数とインデックスをセット
 		SetSendArrayMoving(m_nSelectSpawn, m_nNum);
 	}
 
-#if 0
-	// 取得
-	auto spawn = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(m_nSelectSpawn);
-	if (spawn == nullptr) return;
-
-	// テスト
-	if (pKeyboard->GetTrigger(DIK_J))
-	{
-		if (spawn)
-		{
-			// 帰還命令
-			spawn->OrderReturn(m_nNum, spawn->GetPos()); // 戻す数指定
-		}
-	}
-
-#endif
-
-	// 一斉指示
+	// アリに指示を送る処理
 	if (pKeyboard->GetTrigger(DIK_V))
 	{
 		// 指定座標
@@ -306,6 +289,13 @@ void CPlayer::Draw(void)
 
 }
 //===========================================================
+// キー入力情報のまとめ関数
+//===========================================================
+void CPlayer::KeyInput(const CInputKeyboard* pKey)
+{
+
+}
+//===========================================================
 // 全コリジョンチェック関数
 //===========================================================
 void CPlayer::CollisionAll(D3DXVECTOR3 pPos, CInputKeyboard* pInput, CJoyPad* pPad)
@@ -340,54 +330,54 @@ void CPlayer::CollisionAll(D3DXVECTOR3 pPos, CInputKeyboard* pInput, CJoyPad* pP
 	auto pWorker = CGameSceneObject::GetInstance()->GetWorkerM();
 	if (pWorker == nullptr) return;
 
-	// 当たっていたら
-	if (pPoint->GetIsHit())
+	// 決定キー or Aボタン入力
+	if (pPoint->GetIsHit() && pPad->GetTrigger(CJoyPad::JOYKEY_A) || pInput->GetTrigger(DIK_RETURN))
 	{
-		// 決定キー or Aボタン入力
-		if (pPad->GetTrigger(CJoyPad::JOYKEY_A) || pInput->GetTrigger(DIK_RETURN))
+		for (int nCnt = 0; nCnt < pWorker->GetSize(); nCnt++)
 		{
-			for (int nCnt = 0; nCnt < pWorker->GetSize(); nCnt++)
+			// キャラクター取得
+			auto UseWorker = pWorker->GetWorker(nCnt);
+			if (UseWorker == nullptr) continue;
+
+			// 動かせるなら
+			if (!UseWorker->GetIsWork())
 			{
-				// キャラクター取得
-				auto UseWorker = pWorker->GetWorker(nCnt);
-				if (UseWorker == nullptr) continue;
+				// 有効状態にする
+				UseWorker->SetIsWork(true);
 
-				// 動かせるなら
-				if (!UseWorker->GetIsWork())
-				{
-					// 有効状態にする
-					UseWorker->SetIsWork(true);
+				// 追跡対象にする座標を設定
+				UseWorker->SetDestPos(pPoint->GetPos());
 
-					// 追跡対象にする座標を設定
-					UseWorker->SetDestPos(pPoint->GetPos());
-
-					// 一個に当たったら抜ける
-					break;
-				}
-
+				// 一個に当たったら抜ける
+				break;
 			}
 		}
 	}
+	
 }
 //===================================================================
 // 指示を出して特定数のアリを送る処理
 //===================================================================
 void CPlayer::OrderToArray(int nNum, const D3DXVECTOR3& destpos)
-{// ここの関数をスポナーのインデックスを見てどのスポナーから何体動かすかを決めて一括でポイントに送れるように変更すること
-
+{
 	// スポナーマネージャ取得
 	auto pSpawnMgr = CGameSceneObject::GetInstance()->GetArraySpawn();
 	if (!pSpawnMgr) return;
 
-	for (int nCnt = 0; nCnt < NUM_SPAWN; nCnt++)
+	for (int nCnt = 0; nCnt < Config::NUM_SPAWN; nCnt++)
 	{
+		// 送る数を設定
 		int sendNum = m_pSpawnData[nCnt];
 		if (sendNum <= 0) continue;
 
+		// スポナーのインデックスを取得
 		auto pSpawner = pSpawnMgr->GetIndexSpawner(nCnt);
 		if (!pSpawner) continue;
 
-		// 各スポナーへ同時命令
+		// ここでスポナーがもっているリストのインデックスを加算
+		pSpawner->IncrementIdx();
+
+		// 各スポナーへ同時命令(各スポナーのインデックスに対するリストの番号を保持しておく必要がある)
 		pSpawner->OrderMove(sendNum, destpos);
 
 		// 初期インデックスにする

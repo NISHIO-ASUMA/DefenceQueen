@@ -122,7 +122,7 @@ void CTopAnt::Update(void)
 		MovePad(pPad);
 
 		// ƒL[“ü—Í‚ÅŒŸØ
-		if (pKey->GetPress(DIK_H))
+		if (pKey->GetPress(DIK_B))
 		{
 			// Ø‚è—£‚µ‚Ì‰ÁZ
 			if (!m_isHPressing)

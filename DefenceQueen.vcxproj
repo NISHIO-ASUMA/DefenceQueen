@@ -253,6 +253,7 @@
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="selectpoint.cpp" />
+    <ClCompile Include="separationant.cpp" />
     <ClCompile Include="shadow.cpp" />
     <ClCompile Include="shadowS.cpp" />
     <ClCompile Include="sound.cpp" />
@@ -391,6 +392,7 @@
     <ClInclude Include="score.h" />
     <ClInclude Include="selector.h" />
     <ClInclude Include="selectpoint.h" />
+    <ClInclude Include="separationant.h" />
     <ClInclude Include="sepuence.h" />
     <ClInclude Include="shadow.h" />
     <ClInclude Include="shadowS.h" />

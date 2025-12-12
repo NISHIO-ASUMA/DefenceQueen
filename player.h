@@ -58,6 +58,9 @@ public:
 	void Uninit(void) override;
 	void Update(void) override;
 	void Draw(void) override;
+
+	void KeyInput(const CInputKeyboard* pKey);
+
 	void CollisionAll(D3DXVECTOR3 pPos,CInputKeyboard* pInput, CJoyPad* pPad);
 	bool CollisionBlock(CBoxCollider* other, D3DXVECTOR3* pos);
 	void OrderToArray(int nNum, const D3DXVECTOR3& destpos);
@@ -70,7 +73,16 @@ public:
 
 private:
 
-	static constexpr int NUM_SPAWN = 3; // スポーンポイント数
+	//***********************************
+	// 定数構造体
+	//***********************************
+	struct Config
+	{
+		static constexpr int NUM_SPAWN = 3; // スポーンポイント数
+		static constexpr int VALUE_ANT = 5;	// キー入力の増加数
+		static constexpr int MAX_VALUE = 50;// 最大の増加数
+	};
+
 
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
 	CBoxCollider* m_pBoxCollider;	// 矩形のコライダー
@@ -80,5 +92,5 @@ private:
 	int m_nNum;						// 仮変数
 	int m_nSelectSpawn;				// スポーン選択変数
 	int m_nPrevSelectSpawn;		// 前回のスポーン選択変数
-	int m_pSpawnData[NUM_SPAWN]; // スポーンデータ配列
+	int m_pSpawnData[Config::NUM_SPAWN]; // スポーンデータ配列
 };

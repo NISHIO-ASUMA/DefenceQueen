@@ -151,6 +151,12 @@ void CTime::Uninit(void)
 //=========================================================
 void CTime::Update(void)
 {
+	if (m_nAllTime <= 0)
+	{
+		m_nAllTime = 0;
+		return;
+	}
+
 	// ƒJƒEƒ“ƒ^[‚ð‰ÁŽZ
 	m_nCount++;
 
@@ -170,7 +176,10 @@ void CTime::Update(void)
 		m_nSecond = m_nAllTime % CARVETIME;
 
 		// 0ˆÈ‰º‚È‚ç
-		if (m_nAllTime <= 0) m_nAllTime = 0;
+		if (m_nAllTime <= 0)
+		{
+			m_nAllTime = 0;
+		}
 
 		// Œ¸­‚µ‚Ä‚¢‚Á‚½ŽžŠÔ‚ð‰ÁŽZ
 		m_nDecTime++;
@@ -179,6 +188,7 @@ void CTime::Update(void)
 	// Œ…ŒvŽZ
 	Second();
 	Minute();
+	
 }
 //=========================================================
 // •`‰æˆ—

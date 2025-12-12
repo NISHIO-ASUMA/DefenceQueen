@@ -25,6 +25,9 @@
 #include "arrayspawner.h"
 #include "topant.h"
 #include "player.h"
+#include "separationant.h"
+#include "feedmanager.h"
+#include "feed.h"
 
 //=========================================================
 // コンストラクタ
@@ -42,7 +45,9 @@ m_isTopAntFollow(false),
 m_isReturn(false),
 m_isAtBase(true),
 m_isStop(false),
-m_MoveDestPos(VECTOR3_NULL)
+m_isCollisionOnFeed(false),
+m_MoveDestPos(VECTOR3_NULL),
+m_nListGroupId(NULL)
 {
 	// 値のクリア
 }
@@ -157,6 +162,33 @@ void CArray::Update(void)
 
 	// コライダー座標の更新
 	m_pSphereCollider->SetPos(UpdatePos);
+
+	// アリと餌の当たり判定
+	CFeedManager* pFeed = CGameSceneObject::GetInstance()->GetFeedManager();
+
+	// nullじゃないとき
+	if (pFeed != nullptr)
+	{
+		// 配列取得
+		for (int nCnt = 0; nCnt < pFeed->GetSize(); nCnt++)
+		{
+			// 変数格納
+			auto feed = pFeed->GetFeed(nCnt);
+			auto Collider = feed->GetCollider();
+
+			// 当たっていたら
+			if (Colision(feed->GetCollider()))
+			{
+				// 当たった対象物の体力値を減らす
+				feed->DecLife(1);
+
+				// コライダーの更新と指示変更
+				m_pSphereCollider->SetPos(UpdatePos);
+				this->OnSeparation();
+				break;
+			}
+		}
+	}
 
 	// 体力がなくなった
 	if (m_pParameter && m_pParameter->GetHp() <= NULL)
@@ -293,8 +325,10 @@ void CArray::FollowDestination(const D3DXVECTOR3& DestPos)
 
 			m_pMotion->SetMotion(CArray::MOTION_NEUTRAL);
 
+			// フラグを有効化
 			m_isMove = false;
 			m_isStop = true;
+
 			return;
 		}
 
@@ -331,10 +365,10 @@ void CArray::FollowDestination(const D3DXVECTOR3& DestPos)
 	D3DXVec3Normalize(&moveVec, &moveVec);
 	moveVec *= Arrayinfo::MoveSpeed;
 
-	float ang = atan2(-moveVec.x, -moveVec.z);
-	D3DXVECTOR3 r = GetRotDest();
-	r.y = NormalAngle(ang);
-	SetRotDest(r);
+	float angle = atan2(-moveVec.x, -moveVec.z);
+	D3DXVECTOR3 rotdest = GetRotDest();
+	rotdest.y = NormalAngle(angle);
+	SetRotDest(rotdest);
 
 	SetMove(moveVec);
 
@@ -385,8 +419,8 @@ void CArray::ArrayFollow(void)
 	}
 }
 //=========================================================
-// 巣にもどる　
-// TODO : 設置されているランダムなスポーンに行くように変更
+// 巣にもどる命令を受けたときの移動
+// NOTE : 設置されているランダムなスポーンに行くように変更
 //=========================================================
 void CArray::SpawnReturn(void)
 {
@@ -435,11 +469,10 @@ void CArray::SpawnReturn(void)
 		m_isMove = false;
 		m_pFollowTarget = nullptr;
 		SetPrevAnt(nullptr);
+		SetIsStop(false);
 
-		// FollowTargetを元に戻す
-		CArraySpawner* spawner = CGameSceneObject::GetInstance()
-			->GetArraySpawn()
-			->GetIndexSpawner(idx);
+		// この時に要素をクリアする
+		CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(idx)->GetSeparationAnt()->ClearListGroup(m_nListGroupId, this);
 	}
 }
 //=========================================================

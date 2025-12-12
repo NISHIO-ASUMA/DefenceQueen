@@ -49,6 +49,8 @@ public:
 	/// <returns></returns>
 	int GetSize(void) const { return static_cast<int>(m_pFeed.size()); }
 
+	void Erase(CFeed* pFeed);
+
 private:
 
 	//****************************
