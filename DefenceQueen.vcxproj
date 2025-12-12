@@ -185,6 +185,7 @@
     <ClCompile Include="gimmicksuction.cpp" />
     <ClCompile Include="grass.cpp" />
     <ClCompile Include="grassmanager.cpp" />
+    <ClCompile Include="modelmanager.cpp" />
     <ClCompile Include="motionmanager.cpp" />
     <ClCompile Include="move3dobject.cpp" />
     <ClCompile Include="numberpanel.cpp" />
@@ -322,6 +323,7 @@
     <ClInclude Include="grassmanager.h" />
     <ClInclude Include="inverter.h" />
     <ClInclude Include="leafnodebase.h" />
+    <ClInclude Include="modelmanager.h" />
     <ClInclude Include="motiondata.h" />
     <ClInclude Include="motionmanager.h" />
     <ClInclude Include="move3dobject.h" />

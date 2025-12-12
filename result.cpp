@@ -58,7 +58,7 @@ void CResult::Uninit(void)
 //=========================================================
 void CResult::Update(void)
 {
-	// ‰æ–Ê‘JˆÚ
+	// ‰æ–Ê‘JˆÚ‚·‚é
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN))
 	{
 		// ‰æ–Ê‘JˆÚ

@@ -71,4 +71,5 @@ private:
 	int* m_pTexture;		// テクスチャポインタ
 	bool m_isColorChange;	// 変更かどうか
 	bool m_isShadow;		// 影を設定するかどうか
+	int m_nModelIdx;		// モデルインデックス
 };
