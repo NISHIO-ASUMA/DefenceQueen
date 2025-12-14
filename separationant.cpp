@@ -63,7 +63,7 @@ void CSeparationAnt::Draw(void)
 void CSeparationAnt::AddListAnt(const int& nSquadIndex, CArray* pAnt)
 {
 	// もし0以下 または 配列オーバーなら
-	if (nSquadIndex < 0 || nSquadIndex >= m_pAntList.size()) return;
+	if (nSquadIndex < 0 || nSquadIndex >= static_cast<int>(m_pAntList.size())) return;
 
 	// リスト要素を格納
 	auto& listRef = m_pAntList[nSquadIndex];
@@ -91,7 +91,7 @@ void CSeparationAnt::AddListAnt(const int& nSquadIndex, CArray* pAnt)
 void CSeparationAnt::AddToListGroup(const int& nGroup, CArray* pAnt)
 {
 	// サイズチェック
-	if (nGroup >= m_pAntGroup.size())
+	if (nGroup >= static_cast<int>(m_pAntGroup.size()))
 		m_pAntGroup.resize(nGroup + 1);
 
 	// 参照リスト変数
@@ -120,7 +120,7 @@ void CSeparationAnt::AddToListGroup(const int& nGroup, CArray* pAnt)
 void CSeparationAnt::ClearListGroup(const int& nGroup, CArray* pAnt)
 {
 	// 番号が範囲外なら
-	if (nGroup < 0 || nGroup >= m_pAntGroup.size()) return;
+	if (nGroup < 0 || nGroup >= static_cast<int>(m_pAntGroup.size())) return;
 
 	// 参照変数
 	auto& listRef = m_pAntGroup[nGroup];

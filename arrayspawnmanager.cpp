@@ -98,5 +98,4 @@ void CArraySpawnManager::Draw(void)
 	CDebugproc::Print("各スポナーのIDX情報\n[0]番目 : %d\n[1]番目 : %d\n[2]番目 : %d\n",
 		m_pArraySpawner[0]->GetIdx(), m_pArraySpawner[1]->GetIdx(), m_pArraySpawner[2]->GetIdx());
 	CDebugproc::Draw(0, 420);
-
 }

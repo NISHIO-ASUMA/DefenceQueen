@@ -116,7 +116,7 @@ void CObjectX::Draw(void)
 		// テクスチャ取得
 		CTexture* pTex = CManager::GetInstance()->GetTexture();
 
-		for (int nCnt = 0; nCnt < model.dwNumMat; nCnt++)
+		for (int nCnt = 0; nCnt < static_cast<int>(model.dwNumMat); nCnt++)
 		{
 			// マテリアルのセット
 			pDevice->SetMaterial(&pMat[nCnt].MatD3D);
@@ -188,7 +188,7 @@ void CObjectX::DrawShadow(void)
 	pDevice->SetMaterial(&shadowMat);
 
 	// メッシュ描画
-	for (int nCnt = 0; nCnt < model.dwNumMat; nCnt++)
+	for (int nCnt = 0; nCnt < static_cast<int>(model.dwNumMat); nCnt++)
 	{
 		model.pMesh->DrawSubset(nCnt);
 	}

@@ -26,6 +26,7 @@
 #include "fade.h"
 #include "xfilemanager.h"
 #include "motionmanager.h"
+#include "modelmanager.h"
 
 //=========================================================
 // コンストラクタ
@@ -42,7 +43,8 @@ m_pScene(nullptr),
 m_pSound(nullptr),
 m_pTexture(nullptr),
 m_pXfileManager(nullptr),
-m_pMotionManager(nullptr)
+m_pMotionManager(nullptr),
+m_pModelManager(nullptr)
 {
 	// 値のクリア
 }
@@ -95,10 +97,14 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	m_pXfileManager = std::make_unique <CXfileManager>();
 	if (FAILED(m_pXfileManager->Load())) return E_FAIL;
 
+	// キャラクターモデル管理クラスの生成処理
+	m_pModelManager = std::make_unique<CModelManager>();
+	if (FAILED(m_pModelManager->Load())) return E_FAIL;
+
 	// モーションマネジャーの生成処理
 	m_pMotionManager = std::make_unique<CMotionManager>();
 	if (FAILED(m_pMotionManager->Load())) return E_FAIL;
-
+	
 	// フェードの生成処理
 	m_pFade = std::make_unique <CFade>();
 	if (FAILED(m_pFade->Init())) return E_FAIL;
@@ -144,6 +150,9 @@ void CManager::Uninit(void)
 
 	// モデルインスタンスの破棄
 	m_pXfileManager.reset();
+
+	// キャラクターモデルの破棄
+	m_pModelManager.reset();
 
 	// モーションマネージャーの破棄
 	m_pMotionManager.reset();

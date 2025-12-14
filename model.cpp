@@ -11,23 +11,22 @@
 #include "model.h"
 #include "manager.h"
 #include "texture.h"
+#include "modelmanager.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
-CModel::CModel() : m_dwNumMat{},
-m_pBuffMat(nullptr),
-m_pMesh(nullptr),
+CModel::CModel() :m_pParent(nullptr),
 m_pTexture(nullptr),
-m_nModelIdx(NULL),
+m_nModelIdx(-1),
 m_pos(VECTOR3_NULL),
 m_rot(VECTOR3_NULL),
 m_offPos(VECTOR3_NULL),
 m_offRot(VECTOR3_NULL),
 m_scale(INITSCALE),
 m_parttype(PARTTYPE_NONE),
-m_isColorChange(false),
-m_isShadow(false)
+m_isShadow(false),
+m_mtxworld{}
 {
 	// 値のクリア
 }
@@ -46,50 +45,16 @@ HRESULT CModel::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot,const char * pFilename,con
 	// デバイスポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
-	// Xファイルの読み込み
-	D3DXLoadMeshFromX(pFilename,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&m_pBuffMat,
-		NULL,
-		&m_dwNumMat,
-		&m_pMesh);
+	// モデルセット
+	SetModelPass(pFilename);
 
 	// 位置の設定
 	m_pos = pos;
 	m_rot = rot;
 
-	// オフセットを代入
+	// オフセット位置を設定
 	m_offPos = pos;
 	m_offRot = rot;
-
-	// マテリアルデータへのポインタ
-	D3DXMATERIAL* pMat;
-
-	// マテリアルデータへのポインタを取得
-	pMat = (D3DXMATERIAL*)m_pBuffMat->GetBufferPointer();
-
-	// テクスチャインデックス配列の動的確保
-	m_pTexture = new int[m_dwNumMat];
-
-	// マテリアル数だけ回す
-	for (int nCntMat = 0; nCntMat < (int)m_dwNumMat; nCntMat++)
-	{
-		// テクスチャが読み込めたら
-		if (pMat[nCntMat].pTextureFilename != nullptr)
-		{
-			// テクスチャポインタ取得
-			CTexture* pTexture = CManager::GetInstance()->GetTexture();
-
-			// テクスチャセット
-			m_pTexture[nCntMat] = pTexture->Register(pMat[nCntMat].pTextureFilename);
-		}
-		else
-		{
-			m_pTexture[nCntMat] = -1; // テクスチャなし
-		}
-	}
 
 	// フラグを設定する
 	SetMtxShadow(isShadow);
@@ -117,49 +82,49 @@ CModel* CModel::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, const char* pFilename,c
 //=========================================================
 void CModel::Uninit(void)
 {
-	// メッシュの破棄
-	if (m_pMesh != nullptr)
-	{
-		m_pMesh->Release();
-		m_pMesh = nullptr;
-	}
-
-	// マテリアルの破棄
-	if (m_pBuffMat != nullptr)
-	{
-		m_pBuffMat->Release();
-		m_pBuffMat = nullptr;
-	}
-
-	// テクスチャポインタの破棄
-	if (m_pTexture != nullptr)
-	{
-		delete[] m_pTexture;
-		m_pTexture = nullptr;
-	}
+	// 無し
 }
 //=========================================================
 // 更新処理
 //=========================================================
 void CModel::Update(void)
 {
-
+	// 無し
 }
 //=========================================================
 // 描画処理
 //=========================================================
 void CModel::Draw(void)
 {
+	// インデックスが-1なら
+	if (m_nModelIdx == -1)
+		return;
+
+	// ファイルマネージャー取得
+	CModelManager* pXMgr = CManager::GetInstance()->GetModelManagere();
+	if (!pXMgr) return;
+
+	// 配列情報
+	auto& fileData = pXMgr->GetList();
+	if (m_nModelIdx >= static_cast<int>(fileData.size())) return;
+
+	// 配列
+	auto& model = fileData[m_nModelIdx];
+	if (!model.pMesh) return;
+
 	// デバイスポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// 計算用のマトリックスを宣言
-	D3DXMATRIX mtxRot, mtxTrans, mtxScale;
+	D3DXMATRIX mtxScale, mtxRot, mtxTrans;
+
+	// 現在のマテリアルを保存
+	D3DMATERIAL9 matDef;
 
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxworld);
 
-	// 大きさを反映
+	// 拡大率を反映
 	D3DXMatrixScaling(&mtxScale, m_scale.x, m_scale.y, m_scale.z);
 	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxScale);
 
@@ -191,65 +156,39 @@ void CModel::Draw(void)
 	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxworld);
 
-	// 現在のマテリアルを保存
-	D3DMATERIAL9 matDef;
-
-	// マテリアルデータへのポインタ
-	D3DXMATERIAL* pMat;
-
-	// 現在のマテリアルの取得
+	// 現在のマトリックスの取得
 	pDevice->GetMaterial(&matDef);
 
-	// マテリアルデータへのポインタを取得
-	pMat = (D3DXMATERIAL*)m_pBuffMat->GetBufferPointer();
-
-	// マテリアル数だけ回す
-	for (int nCntMat = 0; nCntMat < static_cast<int>(m_dwNumMat); nCntMat++)
+	// マテリアルが取得できたら
+	if (model.pBuffMat)
 	{
-		// カラー変更マテリアル
-		if (m_isColorChange)
+		// マテリアルデータのポインタ
+		D3DXMATERIAL* pMat = (D3DXMATERIAL*)model.pBuffMat->GetBufferPointer();
+
+		// テクスチャ取得
+		CTexture* pTex = CManager::GetInstance()->GetTexture();
+
+		for (int nCnt = 0; nCnt < static_cast<int>(model.dwNumMat); nCnt++)
 		{
-			D3DXMATERIAL Col = pMat[nCntMat];
+			// マテリアルのセット
+			pDevice->SetMaterial(&pMat[nCnt].MatD3D);
 
-			Col.MatD3D.Diffuse.a = 0.5f;
-
-			// マテリアル設定
-			pDevice->SetMaterial(&Col.MatD3D);
-		}
-		else
-		{
-			// マテリアル設定
-			pDevice->SetMaterial(&pMat[nCntMat].MatD3D);
-		}
-
-
-		// インデックスに応じて変更する
-		if (m_pTexture[nCntMat] != -1)
-		{
 			// テクスチャ取得
-			CTexture* pTexture = CManager::GetInstance()->GetTexture();
+			int texIdx = model.pTexture[nCnt];
 
 			// テクスチャセット
-			pDevice->SetTexture(0, pTexture->GetAddress(m_pTexture[nCntMat]));
-		}
-		else
-		{
-			// テクスチャなし
-			pDevice->SetTexture(0, nullptr); 
-		}
+			pDevice->SetTexture(0, (texIdx >= 0) ? pTex->GetAddress(texIdx) : nullptr);
 
-		// モデル(パーツ)の描画
-		m_pMesh->DrawSubset(nCntMat);
+			// モデルの描画
+			model.pMesh->DrawSubset(nCnt);
+		}
 	}
 
 	// マテリアルを戻す
 	pDevice->SetMaterial(&matDef);
 
 	// 有効なら
-	if (m_isShadow)
-	{
-		DrawMtxShadow();
-	}
+	if (m_isShadow) DrawMtxShadow();
 }
 //=========================================================
 // マトリックスシャドウ処理
@@ -260,8 +199,20 @@ void CModel::DrawMtxShadow(void)
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 	if (!pDevice) return;
 
+	// Xファイルマネージャー取得
+	CModelManager* pMgr = CManager::GetInstance()->GetModelManagere();
+	if (!pMgr) return;
+
+	// 配列情報の取得
+	auto& fileData = pMgr->GetList();
+	if (m_nModelIdx < NULL || m_nModelIdx >= static_cast<int>(fileData.size())) return;
+
+	// モデル要素を取得
+	auto& model = fileData[m_nModelIdx];
+	if (!model.pMesh) return;
+
 	// ライト方向
-	D3DXVECTOR4 lightDir(0.2f, -0.63f, -0.02f, 0.0f);
+	D3DXVECTOR4 lightDir(0.0f, -0.63f, -0.02f, 0.0f);
 
 	// 平面投影座標を設定
 	D3DXPLANE plane;
@@ -289,13 +240,25 @@ void CModel::DrawMtxShadow(void)
 	pDevice->SetMaterial(&shadowMat);
 
 	// メッシュ描画
-	for (int nCnt = 0; nCnt < (int)m_dwNumMat; nCnt++)
+	for (int nCnt = 0; nCnt < static_cast<int>(model.dwNumMat); nCnt++)
 	{
-		m_pMesh->DrawSubset(nCnt);
+		model.pMesh->DrawSubset(nCnt);
 	}
 
 	// マテリアルを戻す
 	pDevice->SetMaterial(&shadowMat);
+}
+//=========================================================
+// モデルインデックス登録
+//=========================================================
+void CModel::SetModelPass(const char* pModelName)
+{
+	// マネージャーから取得
+	auto ModelManager = CManager::GetInstance()->GetModelManagere();
+	if (ModelManager == nullptr) return;
+
+	// インデックスセット
+	m_nModelIdx = ModelManager->Register(pModelName);
 }
 //=========================================================
 // 親パーツ設定処理

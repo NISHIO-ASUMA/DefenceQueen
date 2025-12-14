@@ -97,7 +97,7 @@ void CXfileManager::UnLoad(void)
 int CXfileManager::Register(const char* pFileName)
 {
 	// すでに登録済みならそのインデックスを返す
-	for (int nCnt = 0; nCnt < m_aFileData.size(); nCnt++)
+	for (int nCnt = 0; nCnt < static_cast<int>(m_aFileData.size()); nCnt++)
 	{
 		if (m_aFileData[nCnt].FilePath == pFileName)
 			return nCnt;
@@ -186,7 +186,7 @@ int CXfileManager::Register(const char* pFileName)
 		// テクスチャポインタ取得
 		CTexture* pTexture = CManager::GetInstance()->GetTexture();
 
-		for (int nCnt = 0; nCnt < newData.dwNumMat; nCnt++)
+		for (int nCnt = 0; nCnt < static_cast<int>(newData.dwNumMat); nCnt++)
 		{
 			if (pMat[nCnt].pTextureFilename)
 			{
@@ -262,7 +262,7 @@ HRESULT CXfileManager::LoadJson(void)
 	return S_OK;
 }
 //=========================================================
-// モデル登録処理
+// モデルの部分読み込み処理
 //=========================================================
 void CXfileManager::LoadModel(const char* pModelName)
 {
@@ -348,7 +348,7 @@ void CXfileManager::LoadModel(const char* pModelName)
 		// テクスチャクラスポインタ取得
 		CTexture* pTexture = CManager::GetInstance()->GetTexture();
 
-		for (int nCnt = 0; nCnt < newData.dwNumMat; nCnt++)
+		for (int nCnt = 0; nCnt < static_cast<int>(newData.dwNumMat); nCnt++)
 		{
 			// nullチェック
 			if (pMat[nCnt].pTextureFilename)

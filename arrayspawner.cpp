@@ -266,7 +266,7 @@ CArray* CArraySpawner::GetLastActiveAnt(void)
 int CArraySpawner::GetArrayIndex(CArray* pArray)
 {
 	// ƒAƒŠ‚ÌŠi”[”z—ñ‚Å‰ñ‚·
-	for (int nCnt = 0; nCnt < m_AssignedArrays.size(); nCnt++)
+	for (int nCnt = 0; nCnt < static_cast<int>(m_AssignedArrays.size()); nCnt++)
 	{
 		// ˆê’v‚µ‚½‚ç
 		if (m_AssignedArrays[nCnt] == pArray) return nCnt;
@@ -279,6 +279,6 @@ int CArraySpawner::GetArrayIndex(CArray* pArray)
 //=========================================================
 CArray* CArraySpawner::GetArray(int index)
 {
-	if (index < 0 || index >= m_AssignedArrays.size()) return nullptr;
+	if (index < NULL || index >= static_cast<int>(m_AssignedArrays.size())) return nullptr;
 	return m_AssignedArrays[index];
 }

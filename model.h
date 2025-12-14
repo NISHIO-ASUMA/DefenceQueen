@@ -41,6 +41,7 @@ public:
 	void Update(void);
 	void Draw(void);
 	void DrawMtxShadow(void);
+	void SetModelPass(const char* pModelName);
 
 	void SetParent(CModel* pModel);
 	void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
@@ -49,7 +50,6 @@ public:
 	void OffSetPos(const D3DXVECTOR3& offpos) { m_offPos = offpos; }
 	void OffSetRot(const D3DXVECTOR3& offrot) { m_offRot = offrot; }
 	void SetPartType(PARTTYPE nDestPartType) { m_parttype = nDestPartType; }
-	void SetColorChange(bool isFlags) { m_isColorChange = isFlags; }
 	void SetMtxShadow(bool isShadow) { m_isShadow = isShadow; }
 
 	D3DXMATRIX GetMtxWorld(void) { return m_mtxworld; }
@@ -62,14 +62,9 @@ private:
 	D3DXVECTOR3 m_pos, m_rot,m_offPos,m_offRot,m_scale; // 座標,角度,大きさ
 	D3DXMATRIX m_mtxworld;	  // ワールドマトリックス
 	CModel* m_pParent;		  // 親モデル
-
-	LPD3DXMESH m_pMesh;		// メッシュ情報
-	LPD3DXBUFFER m_pBuffMat; // マテリアル情報
-	DWORD m_dwNumMat;		// マテリアル数
 	PARTTYPE m_parttype;	// モデルの種類
 
 	int* m_pTexture;		// テクスチャポインタ
-	bool m_isColorChange;	// 変更かどうか
 	bool m_isShadow;		// 影を設定するかどうか
 	int m_nModelIdx;		// モデルインデックス
 };

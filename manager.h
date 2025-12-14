@@ -24,6 +24,7 @@ class CFade;
 class CXfileManager;
 class CScene;
 class CMotionManager;
+class CModelManager;
 
 //*********************************************************
 // インクルードファイル
@@ -46,6 +47,7 @@ public:
 
 	CInputKeyboard* GetInputKeyboard(void) { return m_pInputKeyboard.get(); }
 	CMotionManager* GetMotionManager(void) { return m_pMotionManager.get(); }
+	CModelManager* GetModelManagere(void) { return m_pModelManager.get(); }
 	CXfileManager* GetXManager(void) { return m_pXfileManager.get(); }
 	CRenderer* GetRenderer(void) { return m_pRenderer.get(); }
 	CInputMouse* GetMouse(void) { return m_pInputMouse.get(); }
@@ -84,4 +86,5 @@ private:
 	std::unique_ptr<CFade>m_pFade;					// フェードクラスのポインタ
 	std::unique_ptr<CXfileManager>m_pXfileManager;	// Xファイルマネージャークラス
 	std::unique_ptr<CMotionManager>m_pMotionManager;// モーションマネージャークラス
+	std::unique_ptr<CModelManager>m_pModelManager;  // キャラクターモデル管理クラス
 };

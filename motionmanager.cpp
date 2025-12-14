@@ -59,7 +59,7 @@ void CMotionManager::UnLoad(void)
 int CMotionManager::Register(const char* pFileName, std::vector<CModel*>& pModel, int nDestMotion, bool isShadow)
 {
 	// もしすでにファイルが登録されていたら
-	for (int nCnt = 0; nCnt < m_FileData.size(); nCnt++)
+	for (int nCnt = 0; nCnt < static_cast<int>(m_FileData.size()); nCnt++)
 	{
 		// 指定番号のインデックスを返す
 		if (m_FileData[nCnt].FilePath == pFileName)
@@ -68,7 +68,7 @@ int CMotionManager::Register(const char* pFileName, std::vector<CModel*>& pModel
 			pModel.resize(m_FileData[nCnt].Modelpath.size());
 
 			// モデルのパス名を見る 一緒だったらそのモデルパス名で生成する
-			for (int nModel = 0;nModel < m_FileData[nCnt].Modelpath.size();nModel++)
+			for (int nModel = 0;nModel < static_cast<int>(m_FileData[nCnt].Modelpath.size());nModel++)
 			{
 				// 保存してあるパスを使用して新たにモデル生成
 				const std::string& path = m_FileData[nCnt].Modelpath[nModel];

@@ -6,7 +6,7 @@
 //=========================================================
 
 //*********************************************************
-// ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹éŒ¾
+// ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
 //*********************************************************
 #include "easing.h"
 
@@ -22,7 +22,7 @@ float CEasing::SetEase(int EaseFrame, int MaxEaseFrame)
 	}
 
 	// t‚ğ‹‚ß‚é
-	float t = (float)EaseFrame / (float)MaxEaseFrame;
+	float t = static_cast<float>(EaseFrame) / static_cast<float>(MaxEaseFrame);
 
 	// t‚Ì’l‚ğ•Ô‚·
 	return t;
@@ -69,7 +69,7 @@ float CEasing::EaseOutQuad(float t)
 //================================================================
 float CEasing::EaseInOutQuad(float t)
 {
-	return (float)t < 0.5f ? 2.0f * t * t : 1.0f - pow(-2.0f * t + 2.0f, 2.0f) * 0.5f;
+	return static_cast<float>(t < 0.5f ? 2.0f * t * t : 1.0f - pow(-2.0f * t + 2.0f, 2.0f) * 0.5f);
 }
 
 //=============================================================
@@ -91,7 +91,7 @@ float CEasing::EaseOutCubic(float t)
 //=============================================================
 float CEasing::EaseInOutCubic(float t)
 {
-	return (float)t < 0.5f ? 4.0f * t * t * t : 1.0f - pow(-2.0f * t + 2.0f, 3.0f) * 0.5f;
+	return static_cast<float>(t < 0.5f ? 4.0f * t * t * t : 1.0f - pow(-2.0f * t + 2.0f, 3.0f) * 0.5f);
 }
 
 //=============================================================
@@ -147,7 +147,7 @@ float CEasing::EaseOutQuint(float t)
 //=============================================================
 float CEasing::EaseInOutQuint(float t)
 {
-	return (float)t < 0.5f ? 16.0f * t * t * t * t * t : 1.0f - pow(-2.0f * t + 2.0f, 5.0f) * 0.5f;
+	return static_cast<float>(t < 0.5f ? 16.0f * t * t * t * t * t : 1.0f - pow(-2.0f * t + 2.0f, 5.0f) * 0.5f);
 }
 
 //=============================================================
@@ -184,9 +184,7 @@ float CEasing::EaseInOutBack(float t)
 		t = t * 2.0f - 2.0f;
 		return 0.5f * (t * t * ((s + 1.0f) * t + s) + 2.0f);  // Œã”¼‚Í”½“]‚ÆŒ¸‘¬
 	}
-
 }
-
 //=============================================================
 // ˆê“x‹t•ûŒü‚Éˆø‚Á’£‚é¨U“®‚Åi‚Ş
 //=============================================================
@@ -203,7 +201,7 @@ float CEasing::EaseInElastic(float t)
 	const float p = 0.3f;  // U“®üŠú
 	const float s = p * 0.25f;  // U“®‚Ì‹­‚³
 
-	return (float)(-(pow(2.0f, 10.0f* (t -= 1.0f)) * sin((t - s) * (2.0f * D3DX_PI) / p)));  // U“®‚Ì“®‚«
+	return static_cast<float>(-(pow(2.0f, 10.0f* (t -= 1.0f)) * sin((t - s) * (2.0f * D3DX_PI) / p)));  // U“®‚Ì“®‚«
 }
 //=============================================================
 // U“®‚µ‚È‚ª‚ç~‚Ü‚é
@@ -222,7 +220,7 @@ float CEasing::EaseOutElastic(float t)
 	const float p = 0.3f;  // U“®üŠú
 	const float s = p * 0.25f;  // U“®‚Ì‹­‚³
 
-	return (float)(pow(2.0f, -10.0f * t) * sin((t - s) * (2.0f * D3DX_PI) / p) + 1.0f);  // U“®‚Ì“®‚«
+	return static_cast<float>(pow(2.0f, -10.0f * t) * sin((t - s) * (2.0f * D3DX_PI) / p) + 1.0f);  // U“®‚Ì“®‚«
 
 }
 //===========================================================
@@ -243,8 +241,8 @@ float CEasing::EaseInOutElastic(float t)
 
 	if (t < 0.5f)
 	{
-		return (float)(-0.5f * (pow(2.0f, 20.0f * t - 10.0f) * sin((20.0f * t - 11.125f) * (2.0f * D3DX_PI) / p)));
+		return static_cast<float>(-0.5f * (pow(2.0f, 20.0f * t - 10.0f) * sin((20.0f * t - 11.125f) * (2.0f * D3DX_PI) / p)));
 	}
 
-	return (float)(pow(2.0f, -20.0f * t + 10.0f) * sin((20.0f * t - 11.125f) * (2 * D3DX_PI) / p) * 0.5f + 1.0f);
+	return static_cast<float>(pow(2.0f, -20.0f * t + 10.0f) * sin((20.0f * t - 11.125f) * (2 * D3DX_PI) / p) * 0.5f + 1.0f);
 }

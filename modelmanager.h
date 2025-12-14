@@ -24,15 +24,16 @@ class CModelManager
 public:
 
 	//*************************
-	// モデルデータ構造体
+	// 読み込み用構造体
 	//*************************
-	struct ModelInfo
+	struct ModelManagerInfo
 	{
 		LPD3DXMESH pMesh;		// メッシュのポインタ
 		LPD3DXBUFFER pBuffMat;	// マテリアルのポインタ
 		DWORD dwNumMat;			// マテリアル数
 		std::vector<int>pTexture; // テクスチャの動的ポインタ
 		std::string FilePath;	// ファイル名
+		int nParnent;			// 親を持つ
 	};
 
 	CModelManager();
@@ -53,20 +54,22 @@ public:
 	/// </summary>
 	/// <param name="nIdx">取得するオブジェクトインデックス</param>
 	/// <returns>インデックス番号に応じたデータ</returns>
-	ModelInfo GetInfo(const int nIdx) { return m_aModelData[nIdx]; }
+	ModelManagerInfo GetInfo(const int nIdx) { return m_aModelData[nIdx]; }
 
 	/// <summary>
 	/// 動的配列の取得
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>配列ポインタ</returns>
-	std::vector<ModelInfo>& GetList(void) { return m_aModelData; }
+	std::vector<ModelManagerInfo>& GetList(void) { return m_aModelData; }
 
 private:
 
 	HRESULT LoadJson(void);					// jsonfile読み込み関数
 	void LoadModel(const char* pModelName); // モデル登録関数
 
-	std::vector<ModelInfo>m_aModelData;	// モデルデータ管理配列
-	static int m_nNumAll; // モデルの総数
+	std::vector<ModelManagerInfo>m_aModelData;	// モデルデータ管理配列
+	static int m_nNumAll;						// モデルの総数
+
+	static constexpr const char* LOAD_FILE = "data/JSON/Model.json";
 };
