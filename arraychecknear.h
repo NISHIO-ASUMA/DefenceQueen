@@ -1,6 +1,6 @@
 //=========================================================
 //
-// ランキングシーン処理 [ ranking.h ]
+// 範囲内にいるかチェックする処理 [ arraychecknear.h ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -8,33 +8,32 @@
 //*********************************************************
 // インクルードガード
 //*********************************************************
-#pragma once 
+#pragma once
 
 //*********************************************************
-// インクルードファイル宣言
+// インクルードファイル
 //*********************************************************
-#include "scene.h"
+#include "branchnodebase.h"
 
 //*********************************************************
 // 前方宣言
 //*********************************************************
+class CBlackBoard;
 
 //*********************************************************
-// ランキングシーンクラスを定義
+// 対象オブジェクトが近くにあるか判定をするクラスを定義
 //*********************************************************
-class CRanking : public CScene
+class CArrayCheckNear : public CBranchNodeBase
 {
 public:
 
-	CRanking();
-	~CRanking();
-
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
-
-	static CRanking* Create(void);
+	CArrayCheckNear(CBlackBoard* blackboard, CNode* TrueNode, CNode* FalseNode, const float fDistance);
+	~CArrayCheckNear() = default;
 
 private:
+
+	const bool IsCondition() override;
+
+	float m_fDistance = NULL; // 判定半径格納
 };
+

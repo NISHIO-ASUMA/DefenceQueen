@@ -54,6 +54,9 @@ public:
 	void Draw(void) override;
 	void ChangeState(CEnemyStateBase* pNewState, int Id);
 	bool Collision(CSphereCollider* pOther);
+	bool SetIsActive(const bool& isActive) { m_isActive = isActive; }
+
+	bool GetIsActive(void) { return m_isActive; }
 
 	CParameter* GetParameter(void) { return m_pParameter.get(); }
 	CStateMachine* GetStateMachine() { return m_pStateMachine.get(); }
@@ -63,6 +66,8 @@ public:
 private:
 
 	void NodeSetting(void);
+
+	bool m_isActive; // 有効かどうか
 
 	CMotion * m_pMotion;				// モーションクラス
 	CSphereCollider* m_pSphereCollider; // 球形コライダー

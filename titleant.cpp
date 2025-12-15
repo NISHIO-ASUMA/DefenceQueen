@@ -1,92 +1,82 @@
 //=========================================================
 //
-// ランキングシーン処理 [ ranking.cpp ]
+// タイトルのキャラクター処理 [ titleant.cpp ]
 // Author: Asuma Nishio
 //
+// 簡易的な移動ロジックを組む
+// 
 //=========================================================
 
 //*********************************************************
-// インクルードファイル宣言
+// インクルードファイル
 //*********************************************************
-#include "ranking.h"
-#include "manager.h"
-#include "input.h"
-#include "fade.h"
-#include "title.h"
-#include "rankingobject.h"
-#include <memory>
+#include "titleant.h"
 
 //=========================================================
-// オーバーロードコンストラクタ
+// コンストラクタ
 //=========================================================
-CRanking::CRanking() : CScene(CScene::MODE_RANKING)
+CTitleAnt::CTitleAnt(int nPriority) : CMoveCharactor(nPriority)
 {
 
 }
 //=========================================================
 // デストラクタ
 //=========================================================
-CRanking::~CRanking()
+CTitleAnt::~CTitleAnt()
 {
-	// 無し
+
 }
 //=========================================================
 // 生成処理
 //=========================================================
-CRanking* CRanking::Create(void)
+CTitleAnt* CTitleAnt::Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
 {
 	// インスタンス生成
-	CRanking* pRanking = new CRanking;
-	if (pRanking == nullptr) return nullptr;
+	CTitleAnt * pAnt = new CTitleAnt;
+	if (pAnt == nullptr) return nullptr;
+
+	// オブジェクト設定
+	pAnt->SetPos(pos);
+	pAnt->SetRot(rot);
+	pAnt->SetUseStencil(false);
 
 	// 初期化失敗時
-	if (FAILED(pRanking->Init())) return nullptr;
+	if (pAnt->Init()) return nullptr;
 
-	return pRanking;
+	return pAnt;
 }
 //=========================================================
 // 初期化処理
 //=========================================================
-HRESULT CRanking::Init(void)
+HRESULT CTitleAnt::Init(void)
 {
-	// ランキングオブジェクト生成
-	CRankingObject::GetInstance()->Init();
+	// 親クラスの初期化
+	CMoveCharactor::Init();
 
-	// 初期化結果を返す
+	// MotionLoad();
 	return S_OK;
 }
 //=========================================================
 // 終了処理
 //=========================================================
-void CRanking::Uninit(void)
+void CTitleAnt::Uninit(void)
 {
-	// インスタンスの破棄
-	CRankingObject::GetInstance()->Uninit();
+	// 親クラスの終了
+	CMoveCharactor::Uninit();
 }
 //=========================================================
 // 更新処理
 //=========================================================
-void CRanking::Update(void)
+void CTitleAnt::Update(void)
 {
-	// オブジェクト更新
-	CRankingObject::GetInstance()->Update();
-
-	// 決定キー入力
-	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN) || CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_A) || CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_START))
-	{
-		// フェード取得
-		CFade* pFade = CManager::GetInstance()->GetFade();
-		if (pFade == nullptr) return;
-
-		// 画面遷移
-		pFade->SetFade(std::make_unique<CTitle>());
-		return;
-	}
+	// 親クラスの終了
+	CMoveCharactor::Update();
 }
 //=========================================================
 // 描画処理
 //=========================================================
-void CRanking::Draw(void)
+void CTitleAnt::Draw(void)
 {
-	// 無し
+	// 親クラスの描画
+	CMoveCharactor::Draw();
 }

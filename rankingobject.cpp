@@ -9,6 +9,8 @@
 // インクルードファイル
 //*********************************************************
 #include "rankingobject.h"
+#include "ui.h"
+#include "rankingscore.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -33,7 +35,14 @@ CRankingObject::~CRankingObject()
 // 初期化処理
 //=========================================================
 HRESULT CRankingObject::Init(void)
-{
+{// 各種オブジェクトの生成
+	
+	// ui
+	CUi::Create(D3DXVECTOR3(640.0f, 360.0f, 0.0f), 30, 640.0f, 360.0f, "RankBack.jpg", false);
+
+	// ランキングスコア生成
+	CRankingScore::Create(D3DXVECTOR3(850.0f, 160.0f, 0.0f), 250.0f, 40.0f);
+
 	return S_OK;
 }
 //=========================================================

@@ -138,6 +138,17 @@ void CNoMoveCharactor::Draw(void)
 	}
 }
 //=========================================================
+// 一度だけ描画
+//=========================================================
+void CNoMoveCharactor::DrawOnly(void)
+{
+	// 全モデルの subset0 だけ描画
+	for (auto& model : m_pModel)
+	{
+		model->DrawAtOnce(0);
+	}
+}
+//=========================================================
 // モーション読み込み
 //=========================================================
 void CNoMoveCharactor::MotionLoad(const char* pScriptName, int nDestMotions,const bool isShadow)

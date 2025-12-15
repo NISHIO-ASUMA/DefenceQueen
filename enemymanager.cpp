@@ -3,6 +3,8 @@
 // 敵の複数管理処理 [ enemymanager.cpp ]
 // Author: Asuma Nishio
 //
+// TODO : 出現位置はランダムなスポーン場所に任せる
+// 
 //=========================================================
 
 //*********************************************************
@@ -14,17 +16,16 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CEnemyManager::CEnemyManager()
+CEnemyManager::CEnemyManager() : m_pEnemys{}
 {
-	// 配列クリア
-	m_pEnemys.clear();
+
 }
 //=========================================================
 // デストラクタ
 //=========================================================
 CEnemyManager::~CEnemyManager()
 {
-
+	Uninit();
 }
 //=========================================================
 // 初期化処理
@@ -33,6 +34,19 @@ HRESULT CEnemyManager::Init(void)
 {
 	// 配列クリア
 	m_pEnemys.clear();
+
+	// 配列のサイズを設定
+	m_pEnemys.reserve(Config::NUM_ENEMY);
+
+	// 生成する
+	for (auto iter = m_pEnemys.begin(); iter != m_pEnemys.end(); iter++)
+	{
+		// キャラクター生成
+		auto Newenemy = CEnemy::Create(VECTOR3_NULL,VECTOR3_NULL,Config::LIFE);
+
+		// 配列に格納
+		m_pEnemys.push_back(Newenemy);
+	}
 
 	return S_OK;
 }
@@ -50,19 +64,4 @@ void CEnemyManager::Uninit(void)
 void CEnemyManager::Update(void)
 {
 
-}
-//=========================================================
-// 生成関数処理
-//=========================================================
-CEnemy* CEnemyManager::CreateManager(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const int nLife)
-{
-	// 敵生成
-	CEnemy* pNewEnemy = CEnemy::Create(pos, rot, nLife);
-
-	// nullじゃないなら
-	if (pNewEnemy) PushBack(pNewEnemy); // 配列追加
-	else pNewEnemy = nullptr;
-
-	// ポインタ返す
-	return pNewEnemy;
 }

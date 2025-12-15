@@ -183,7 +183,7 @@ HRESULT CModelManager::LoadJson(void)
 	// 例外処理
 	if (!openfile.is_open())
 	{
-		MessageBox(GetActiveWindow(), "Model.json が開けません", "modelmanager", MB_OK);
+		MessageBox(GetActiveWindow(), "Model.json が開けません", "CModelmanager", MB_OK);
 		return E_FAIL;
 	}
 
@@ -195,7 +195,7 @@ HRESULT CModelManager::LoadJson(void)
 	// 情報がなかったら
 	if (loadjson.is_null() || loadjson.empty())
 	{
-		MessageBox(GetActiveWindow(), "Model.json にデータがありません", "modelmanager", MB_OK);
+		MessageBox(GetActiveWindow(), "Model.json にデータがありません", "CModelmanager", MB_OK);
 		return E_FAIL;
 	}
 
@@ -258,7 +258,7 @@ void CModelManager::LoadModel(const char* pModelName)
 	{
 		std::string message = "モデル読み込みに失敗しました: ";
 		message += pModelName;
-		MessageBox(GetActiveWindow(), message.c_str(), "CXfileManager", MB_OK);
+		MessageBox(GetActiveWindow(), message.c_str(), "CModelManager", MB_OK);
 		return;
 	}
 

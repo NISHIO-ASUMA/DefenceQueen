@@ -35,6 +35,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 
+	void SetPos(const D3DXVECTOR3& pos) { m_Activepos = pos; }
 	void SetEnemy(void);
 
 	/// <summary>
@@ -54,6 +55,7 @@ public:
 private:
 
 	std::vector<CEnemy*>m_pEnemy; // 出現するオブジェクトの配列
+	D3DXVECTOR3 m_Activepos;	// 出現座標
 
 	int m_SpawnInterval;
 	int m_Timer;

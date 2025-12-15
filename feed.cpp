@@ -18,6 +18,7 @@
 #include "manager.h"
 #include "xfilemanager.h"
 #include "feedmanager.h"
+#include "worker.h"
 
 //*********************************************************
 // 定数宣言
@@ -33,7 +34,8 @@ namespace FEEDINFO
 CFeed::CFeed(int nPriority) : CObjectX(nPriority),
 m_pSphere(nullptr),
 m_pParam(nullptr),
-m_fRadius(NULL)
+m_fRadius(NULL),
+m_isDeath(false)
 {
 	// 値のクリア
 }
@@ -138,6 +140,9 @@ void CFeed::DecLife(const int& nDecValue)
 	{
 		// 体力を0にする
 		m_pParam->SetHp(NULL);
+
+		// イベント起動
+		m_event();
 
 		// 要素の削除
 		CGameSceneObject::GetInstance()->GetFeedManager()->Erase(this);

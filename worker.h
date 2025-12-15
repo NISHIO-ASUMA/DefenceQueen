@@ -61,6 +61,8 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 	void MoveToPoint(void);
+	void MoveToReturnBase(void);
+
 	void ChangeState(CWorkerStateBase* pState, int nId);
 	bool Collision(CSphereCollider* other);
 
@@ -80,7 +82,7 @@ private:
 	//****************************
 	struct Config
 	{
-		static constexpr float Distance = 100.0f;
+		static constexpr float Distance = 80.0f;
 		static constexpr float Move = 5.0f;
 		static constexpr int LITTLE = 10;
 		static constexpr int MIDDLE = 15;
@@ -92,6 +94,9 @@ private:
 	CSphereCollider* m_pSphereCollider;	// 球形のコライダー
 	CSelectPoint* m_pSelect;			// 選択場所取得用
 	D3DXVECTOR3 m_DestPos;				// 目的の座標
+
+	D3DXVECTOR3 m_SavePos;				// 保存用座標
+	D3DXVECTOR3 m_SaveRot;				// 保存用角度
 
 	int m_nScaleNum;					// 必要な仲間数を返す
 	int m_nIdxNumber;					// インデックス番号

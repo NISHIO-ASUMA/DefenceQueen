@@ -48,5 +48,22 @@
   { "Model": "data/MODEL/ANT/WORKER/Work_Front_Long_Right.x" },
   { "Model": "data/MODEL/ANT/WORKER/Work_Front_Short_Left.x" },
   { "Model": "data/MODEL/ANT/WORKER/Work_Front_Short_Right.x" },
-  { "Model": "data/MODEL/ANT/WORKER/Work_FrontBody.x" }
+  { "Model": "data/MODEL/ANT/WORKER/Work_FrontBody.x" },
+
+  { "Model": "data/MODEL/ANT/QUEEN/Queen_Back_Long_Left.x" },
+  { "Model": "data/MODEL/ANT/QUEEN/Queen_Back_Long_Right.x" },
+  { "Model": "data/MODEL/ANT/QUEEN/Queen_Back_Short_Left.x" },
+  { "Model": "data/MODEL/ANT/QUEEN/Queen_Back_Short_Right.x" },
+  { "Model": "data/MODEL/ANT/QUEEN/Queen_BackBody.x" },
+  { "Model": "data/MODEL/ANT/QUEEN/Queen_Center_Long_Left.x" },
+  { "Model": "data/MODEL/ANT/QUEEN/Queen_Center_Long_Right.x" },
+  { "Model": "data/MODEL/ANT/QUEEN/Queen_Center_Short_Left.x" },
+  { "Model": "data/MODEL/ANT/QUEEN/Queen_Center_Short_Right.x" },
+  { "Model": "data/MODEL/ANT/QUEEN/Queen_CenterBody.x" },
+  { "Model": "data/MODEL/ANT/QUEEN/Queen_Face.x" },
+  { "Model": "data/MODEL/ANT/QUEEN/Queen_Front_Long_Left.x" },
+  { "Model": "data/MODEL/ANT/QUEEN/Queen_Front_Long_Right.x" },
+  { "Model": "data/MODEL/ANT/QUEEN/Queen_Front_Short_Left.x" },
+  { "Model": "data/MODEL/ANT/QUEEN/Queen_Front_Short_Right.x" },
+  { "Model": "data/MODEL/ANT/QUEEN/Queen_FrontBody.x" }
 ]

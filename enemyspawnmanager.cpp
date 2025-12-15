@@ -10,6 +10,7 @@
 //*********************************************************
 #include "enemyspawnmanager.h"
 #include "enemyspawner.h"
+#include "block.h"
 
 //=========================================================
 // コンストラクタ
@@ -30,7 +31,18 @@ CEnemySpawnManager::~CEnemySpawnManager()
 //=========================================================
 HRESULT CEnemySpawnManager::Init(void)
 {
-	// 初期生成
+	// 名前空間使用
+	using namespace SET_INFO;
+
+	for (int nCnt = 0; nCnt < CREATE_NUM; nCnt++)
+	{
+		// 初期スポナー生成
+		m_pSpawners[nCnt] = new CEnemySpawner;
+		m_pSpawners[nCnt]->SetPos(SpawnPos[nCnt]);
+
+		// オブジェクト配置
+		CBlock::Create(SpawnPos[nCnt], VECTOR3_NULL, INITSCALE, "STAGEOBJ/EnemySpawn.x");
+	}
 
 	return S_OK;
 }
@@ -62,4 +74,6 @@ void CEnemySpawnManager::Update(void)
 //=========================================================
 void CEnemySpawnManager::Draw(void)
 {
+	// デバッグ表示
+
 }

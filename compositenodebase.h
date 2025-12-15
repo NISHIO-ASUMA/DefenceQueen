@@ -52,7 +52,7 @@ public:
 		m_RanningIndex = NULL;
 
 		// Å‰‚Ìƒm[ƒh‚ð‰Šú‰»
-		if (m_ChildeNode.size() > 0)
+		if (static_cast<int>(m_ChildeNode.size()) > NULL)
 		{
 			// Žw’è”Ô†‚Ì‰Šú‰»‚ð‚·‚é
 			m_ChildeNode[m_RanningIndex]->Init();

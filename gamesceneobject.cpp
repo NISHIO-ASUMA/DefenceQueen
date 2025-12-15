@@ -31,6 +31,8 @@
 #include "score.h"
 #include "manager.h"
 #include "input.h"
+#include "queen.h"
+#include "enemyspawnmanager.h"
 
 //*********************************************************
 // 静的メンバ変数
@@ -50,7 +52,8 @@ m_pWorkUi(nullptr),
 m_pQueen(nullptr),
 m_pSpawn(nullptr),
 m_pArraySpawn(nullptr),
-m_pPlayer(nullptr)
+m_pPlayer(nullptr),
+m_pEnemySpawnManager(nullptr)
 {
 	// 値のクリア
 }
@@ -78,6 +81,7 @@ HRESULT CGameSceneObject::Init(void)
 	// ブロックマネージャー生成
 	m_pBlocks = std::make_unique<CBlockManager>();
 	m_pBlocks->Init();
+
 	// 餌を配置
 	m_pFeed = std::make_unique<CFeedManager>();
 	m_pFeed->Init();
@@ -101,8 +105,15 @@ HRESULT CGameSceneObject::Init(void)
 	// プレイヤー生成
 	m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -600.0f), VECTOR3_NULL, 10, "data/MOTION/Player/Player100motion.txt");
 
+	// クイーン生成
+	m_pQueen = CQueen::Create(D3DXVECTOR3(0.0f,0.0f,-150.0f),VECTOR3_NULL);
+
+	m_pEnemySpawnManager = std::make_unique<CEnemySpawnManager>();
+	m_pEnemySpawnManager->Init();
+
 	// スコア生成
 	m_pScore = CScore::Create(D3DXVECTOR3(1180.0f, 300.0f, 0.0f), 40.0f, 60.0f);
+
 	return S_OK;
 }
 //=========================================================
@@ -127,6 +138,9 @@ void CGameSceneObject::Uninit(void)
 
 	// 仲間スポナー破棄
 	m_pArraySpawn.reset();
+
+	// 敵のスポナー管理クラス
+	m_pEnemySpawnManager.reset();
 
 	// ui処理
 	m_pWorkUi.reset();

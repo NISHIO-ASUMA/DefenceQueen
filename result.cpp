@@ -10,12 +10,11 @@
 //*********************************************************
 #include "result.h"
 #include "resultmanager.h"
-#include "ui.h"
 #include "manager.h"
 #include "ranking.h"
 #include "input.h"
 #include "fade.h"
-#include "resultscore.h"
+#include "resultobject.h"
 
 //=========================================================
 // オーバーロードコンストラクタ
@@ -36,12 +35,8 @@ CResult::~CResult()
 //=========================================================
 HRESULT CResult::Init(void)
 {
-	// TODO : 以下のオブジェクトはResultObjectクラスで生成するように変更予定
-	// 仮背景生成 検証結果 : ok
-	CUi::Create(D3DXVECTOR3(640.0f, 360.0f, 0.0f), 30, 1280.0f, 720.0f, "result.jpg", false);
-
-	// スコア確認 検証結果 : ok
-	CResultScore::Create(D3DXVECTOR3(960.0f, 400.0f, 0.0f), 40.0f, 80.0f);
+	// オブジェクト初期化
+	CResultObject::GetInstance()->Init();
 
 	// 初期化結果を返す
 	return S_OK;
@@ -51,13 +46,17 @@ HRESULT CResult::Init(void)
 //=========================================================
 void CResult::Uninit(void)
 {
-
+	// インスタンス破棄
+	CResultObject::GetInstance()->Uninit();
 }
 //=========================================================
 // 更新処理
 //=========================================================
 void CResult::Update(void)
 {
+	// オブジェクト更新
+	CResultObject::GetInstance()->Update();
+
 	// 画面遷移する
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN))
 	{

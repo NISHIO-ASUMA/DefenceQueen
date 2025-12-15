@@ -249,6 +249,29 @@ void CModel::DrawMtxShadow(void)
 	pDevice->SetMaterial(&shadowMat);
 }
 //=========================================================
+// サブセット
+//=========================================================
+void CModel::DrawAtOnce(UINT SubSet)
+{
+	// デバイス取得
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
+	if (!pDevice) return;
+
+	// Xファイルマネージャー取得
+	CModelManager* pMgr = CManager::GetInstance()->GetModelManagere();
+	if (!pMgr) return;
+
+	// 配列情報の取得
+	auto& fileData = pMgr->GetList();
+	if (m_nModelIdx < NULL || m_nModelIdx >= static_cast<int>(fileData.size())) return;
+
+	// モデル要素を取得
+	auto& model = fileData[m_nModelIdx];
+	if (!model.pMesh) return;
+
+	model.pMesh->DrawSubset(SubSet);
+}
+//=========================================================
 // モデルインデックス登録
 //=========================================================
 void CModel::SetModelPass(const char* pModelName)

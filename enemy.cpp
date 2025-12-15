@@ -40,7 +40,8 @@ m_pMotion(nullptr),
 m_pParameter(nullptr),
 m_pStateMachine(nullptr),
 m_pSphereCollider(nullptr),
-m_pSelect(nullptr)
+m_pSelect(nullptr),
+m_isActive(false)
 {
 	// 値のクリア
 }
@@ -136,6 +137,9 @@ void CEnemy::Uninit(void)
 //=========================================================
 void CEnemy::Update(void)
 {
+	// 未使用なら
+	if (!m_isActive) return;
+
 	// 座標取得
 	D3DXVECTOR3 pos = GetPos();
 
@@ -162,6 +166,9 @@ void CEnemy::Update(void)
 //=========================================================
 void CEnemy::Draw(void)
 {
+	// 未使用なら
+	if (!m_isActive) return;
+
 	// キャラクターの描画処理
 	CMoveCharactor::Draw();
 
@@ -193,7 +200,7 @@ bool CEnemy::Collision(CSphereCollider* pOther)
 //=========================================================
 void CEnemy::NodeSetting(void)
 {
-	// 名前空間宣言
+	// 名前空間取得
 	using namespace EnemyTree;
 
 	// ブラックボード生成

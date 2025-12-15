@@ -20,6 +20,8 @@
 #include "workerstateneutral.h"
 #include "template.h"
 #include "numberpanel.h"
+#include "feed.h"
+#include "feedmanager.h"
 
 //=========================================================
 // コンストラクタ
@@ -33,6 +35,8 @@ m_isMove(false),
 m_isWork(false),
 m_isCreate(false),
 m_DestPos(VECTOR3_NULL),
+m_SavePos(VECTOR3_NULL),
+m_SaveRot(VECTOR3_NULL),
 m_nIdxNumber(NULL),
 m_nScaleNum(NULL)
 {
@@ -59,6 +63,10 @@ CWorker* CWorker::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
 	pWorker->SetRot(rot);
 	pWorker->SetUseStencil(false);
 
+	// 保存変数
+	pWorker->m_SavePos = pos;
+	pWorker->m_SaveRot = rot;
+
 	// 初期化失敗時
 	if (FAILED(pWorker->Init())) return nullptr;
 
@@ -79,7 +87,7 @@ HRESULT CWorker::Init(void)
 	MotionLoad("data/MOTION/Work/Worker_Motion.txt", MOTION_MAX,true);
 
 	// コライダー生成
-	m_pSphereCollider = CSphereCollider::Create(GetPos(), 60.0f);
+	m_pSphereCollider = CSphereCollider::Create(GetPos(), 80.0f);
 
 	// ステートマシン生成
 	//m_pStateMachine = std::make_unique<CStateMachine>();
@@ -116,6 +124,10 @@ void CWorker::Update(void)
 		// 移動関数
 		MoveToPoint();
 	}
+	else if (!m_isWork)
+	{
+		MoveToReturnBase();
+	}
 
 	// キャラクターの座標更新
 	CMoveCharactor::UpdatePosition();
@@ -125,6 +137,25 @@ void CWorker::Update(void)
 
 	// コライダー座標の更新
 	if (m_pSphereCollider) m_pSphereCollider->SetPos(UpdatePos);
+
+	// 当たり判定
+	auto pFeed = CGameSceneObject::GetInstance()->GetFeedManager();
+
+	for (int nCnt = 0; nCnt < pFeed->GetSize(); nCnt++)
+	{
+		// 取得
+		auto ChildFeed = pFeed->GetFeed(nCnt);
+
+		// コリジョンしていた
+		if (Collision(ChildFeed->GetCollider()))
+		{
+			// イベント登録
+			ChildFeed->RegisterEvent([&](void) { this->MoveToReturnBase(); });
+
+			// コライダー更新
+			m_pSphereCollider->SetPos(UpdatePos);
+		}
+	}
 
 	// キャラクター全体の更新処理
  	CMoveCharactor::Update();
@@ -196,6 +227,56 @@ void CWorker::MoveToPoint(void)
 		}
 	}
 }
+//=========================================================
+// 元の場所にもどってくる処理
+//=========================================================
+void CWorker::MoveToReturnBase(void)
+{
+	// もどる座標を設定
+	SetDestPos(m_SavePos);
+
+	// 現在の座標を取得
+	D3DXVECTOR3 pos = GetPos();
+
+	// 目的から現在の座標までのベクトル
+	D3DXVECTOR3 VecMove = m_DestPos - pos;
+	float dist = D3DXVec3Length(&VecMove);
+
+	if (dist > 1.0f)
+	{
+		// 正規化
+		D3DXVec3Normalize(&VecMove, &VecMove);
+
+		// 速度を乗算する
+		VecMove *= Config::Move;
+
+		// 計算角度
+		float angleY = atan2(-VecMove.x, -VecMove.z);
+		D3DXVECTOR3 rotDest = GetRotDest();
+		rotDest.y = angleY;
+
+		// 正規化する
+		rotDest.y = NormalAngle(rotDest.y);
+
+		// 目的角を更新
+		SetRotDest(rotDest);
+
+		// 移動量をセット
+		SetMove(VecMove);
+
+		// 移動モーションに変更
+		GetMotion()->SetMotion(CWorker::MOTION_MOVE);
+	}
+	else
+	{
+		// 移動しない
+		SetMove(VECTOR3_NULL);
+
+		// 移動モーションに変更
+		GetMotion()->SetMotion(CWorker::MOTION_NEUTRAL);
+	}
+}
+
 //=========================================================
 // 球の当たり判定処理
 //=========================================================

@@ -13,6 +13,8 @@
 #include "spherecollider.h"
 #include "parameter.h"
 #include "statemachine.h"
+#include "manager.h"
+#include "renderer.h"
 
 //=========================================================
 // コンストラクタ
@@ -21,7 +23,8 @@ CQueen::CQueen(int nPriority) : CNoMoveCharactor(nPriority),
 m_pSphereCollider(nullptr),
 m_pMotion(nullptr),
 m_pParameter(nullptr),
-m_pStateMachine(nullptr)
+m_pStateMachine(nullptr),
+m_pOutLine(nullptr)
 {
 	// 値のクリア
 }
@@ -84,8 +87,41 @@ HRESULT CQueen::Init(void)
 	m_pMotion = CNoMoveCharactor::GetMotion();
 
 	// 拡大する
-	SetScale(D3DXVECTOR3(1.5f, 1.5f, 1.5f));
+	SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 
+	// デバイス取得
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
+
+//-------------------------------------------------
+	LPD3DXBUFFER pErr = nullptr; // ローカル変数
+
+	// シェーダー読み込み
+	HRESULT hr = D3DXCreateEffectFromFile(
+		pDevice,						// デバイス
+		"data/Outline.hlsl",			// ファイル
+		nullptr,
+		nullptr,
+		D3DXSHADER_DEBUG,
+		nullptr,
+		&m_pOutLine,			// ポインタ
+		&pErr
+	);
+
+	// 読み込み失敗時
+	if (FAILED(hr))
+	{
+		if (pErr)
+		{
+			MessageBoxA(nullptr,
+				(char*)pErr->GetBufferPointer(),
+				"Outline Effect Error",
+				MB_OK);
+			pErr->Release();
+		}
+
+		return hr;
+	}
+//-------------------------------
 	return S_OK;
 }
 //=========================================================
@@ -128,8 +164,68 @@ void CQueen::Update(void)
 //=========================================================
 void CQueen::Draw(void)
 {
+	// デバイス取得
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
+
 	// 親クラスの描画
 	CNoMoveCharactor::Draw();
+
+//-----------------------------
+// アウトライン適用
+//-----------------------------
+
+	// ポインタが無かったら
+	if (!m_pOutLine) return;
+
+	// 行列を取得する
+	D3DXMATRIX mtxWorld,mtxProj, mtxView;
+
+	mtxWorld = GetWorldMtx();							// ワールドマトリックス
+	pDevice->GetTransform(D3DTS_PROJECTION, &mtxProj);  // プロジェクション
+	pDevice->GetTransform(D3DTS_VIEW, &mtxView);		// ビューマトリックス
+
+	// かけ合わせる
+	D3DXMATRIX mtxViewProj = mtxView * mtxProj;
+
+	// シェーダーにセットする
+	m_pOutLine->SetMatrix("g_mtxWorld", &mtxWorld);
+	m_pOutLine->SetMatrix("g_mtxViewProj", &mtxViewProj);
+
+	// アウトライン幅
+	float outlineWidth = 0.5f;
+	m_pOutLine->SetFloat("g_fOutlineWidth", outlineWidth);
+
+	// アウトラインカラー
+	D3DXVECTOR4 color(1, 0, 0, 1); // 赤
+	m_pOutLine->SetVector("g_Color", &color);
+
+	// テクニック取得
+	D3DXHANDLE hTech = m_pOutLine->GetTechniqueByName("OutLine");
+	m_pOutLine->SetTechnique(hTech);
+
+	// カリング反転
+	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
+
+	UINT passNum = 0;
+	m_pOutLine->Begin(&passNum, 0);
+
+	for (UINT i = 0; i < passNum; ++i)
+	{
+		// パス開始
+		m_pOutLine->BeginPass(i);
+
+		// モデル描画
+		CNoMoveCharactor::DrawOnly();
+
+		// パス解除
+		m_pOutLine->EndPass();
+	}
+	
+	// 終了
+	m_pOutLine->End();
+
+	// カリング戻す
+	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 //=========================================================
 // 当たり判定処理

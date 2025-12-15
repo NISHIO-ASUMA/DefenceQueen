@@ -15,6 +15,7 @@
 //*********************************************************
 #include "objectX.h"
 #include <memory>
+#include <functional>
 
 //*********************************************************
 // 前方宣言
@@ -39,6 +40,10 @@ public:
 	void DecLife(const int& nDecValue);
 	void SetRadius(const float fRadius) { m_fRadius = fRadius; }
 	bool Collision(CSphereCollider* other);
+	bool GetIsDeath(void) { return m_isDeath; }
+
+	// イベントで使う関数を登録する
+	void RegisterEvent(std::function<void(void)> Event) { m_event = Event; }
 
 	float GetRadius(void) const { return m_fRadius; }
 	CSphereCollider* GetCollider(void) const { return m_pSphere; }
@@ -47,7 +52,10 @@ public:
 
 private:
 
+	std::function<void(void)>m_event; // 死亡時に呼ばれる処理
+
 	CSphereCollider* m_pSphere; // 球形コライダー
 	std::unique_ptr<CParameter>m_pParam; // パラメーター
 	float m_fRadius;			// 半径
+	bool m_isDeath;
 };

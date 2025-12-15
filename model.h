@@ -41,6 +41,7 @@ public:
 	void Update(void);
 	void Draw(void);
 	void DrawMtxShadow(void);
+	void DrawAtOnce(UINT SubSet);
 	void SetModelPass(const char* pModelName);
 
 	void SetParent(CModel* pModel);

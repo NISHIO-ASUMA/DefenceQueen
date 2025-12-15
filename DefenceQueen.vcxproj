@@ -153,10 +153,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="array.cpp" />
+    <ClCompile Include="arrayattackleaf.cpp" />
     <ClCompile Include="arraybehaviortree.cpp" />
+    <ClCompile Include="arraychecknear.cpp" />
+    <ClCompile Include="arraygetfeedleaf.cpp" />
     <ClCompile Include="arraymanager.cpp" />
     <ClCompile Include="arrayspawner.cpp" />
     <ClCompile Include="arrayspawnmanager.cpp" />
+    <ClCompile Include="arraywaitleaf.cpp" />
     <ClCompile Include="behaviortree.cpp" />
     <ClCompile Include="billboard.cpp" />
     <ClCompile Include="block.cpp" />
@@ -264,6 +268,7 @@
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="time.cpp" />
     <ClCompile Include="title.cpp" />
+    <ClCompile Include="titleant.cpp" />
     <ClCompile Include="titlemanager.cpp" />
     <ClCompile Include="titleobject.cpp" />
     <ClCompile Include="titleui.cpp" />
@@ -285,10 +290,14 @@
     <ClInclude Include="alwaysfail.h" />
     <ClInclude Include="alwayssuccess.h" />
     <ClInclude Include="array.h" />
+    <ClInclude Include="arrayattackleaf.h" />
     <ClInclude Include="arraybehaviortree.h" />
+    <ClInclude Include="arraychecknear.h" />
+    <ClInclude Include="arraygetfeedleaf.h" />
     <ClInclude Include="arraymanager.h" />
     <ClInclude Include="arrayspawner.h" />
     <ClInclude Include="arrayspawnmanager.h" />
+    <ClInclude Include="arraywaitleaf.h" />
     <ClInclude Include="behaviortree.h" />
     <ClInclude Include="billboard.h" />
     <ClInclude Include="blackboard.h" />
@@ -407,6 +416,7 @@
     <ClInclude Include="texture.h" />
     <ClInclude Include="time.h" />
     <ClInclude Include="title.h" />
+    <ClInclude Include="titleant.h" />
     <ClInclude Include="titlemanager.h" />
     <ClInclude Include="titleobject.h" />
     <ClInclude Include="titleui.h" />

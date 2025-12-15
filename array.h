@@ -91,7 +91,7 @@ private:
 	{
 		static constexpr float MoveSpeed = 2.0f;	// 移動速度
 		static constexpr float SphereRange = 80.0f; // 球形範囲
-		static constexpr float ARRAY_DISTANCE = 60.0f; // 仲間アリとの距離
+		static constexpr float ARRAY_DISTANCE = 80.0f; // 仲間アリとの距離
 		static constexpr float TOP_DISTANCE = 30.0f; // 先頭のアリとの距離
 		static constexpr float PRIORITY_DISTANCE = 140.0f;
 		static constexpr float STOP_DISTANCE = 15.0f;

@@ -1,40 +1,46 @@
 //=========================================================
 //
-// ランキングシーン処理 [ ranking.h ]
+// 敵の待機状態の末端ノード処理 [ arraywaitleaf.h ]
 // Author: Asuma Nishio
 //
-//=========================================================
+
 
 //*********************************************************
 // インクルードガード
 //*********************************************************
-#pragma once 
+#pragma once
 
 //*********************************************************
-// インクルードファイル宣言
+// インクルードファイル
 //*********************************************************
-#include "scene.h"
+#include "leafnodebase.h"
 
 //*********************************************************
 // 前方宣言
 //*********************************************************
+class CBlackBoard;
 
 //*********************************************************
-// ランキングシーンクラスを定義
+// 待機状態のノードクラスを定義
 //*********************************************************
-class CRanking : public CScene
+class CArrayWaitLeaf : public CLeafNodeBase
 {
 public:
 
-	CRanking();
-	~CRanking();
+	CArrayWaitLeaf(CBlackBoard* blackboard) : CLeafNodeBase(blackboard) {};
+	~CArrayWaitLeaf() = default;
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	void Update() override;
 
-	static CRanking* Create(void);
+	/// <summary>
+	/// 常に成功である値を返す関数
+	/// </summary>
+	/// <returns></returns>
+	NodeInfo::NodeResult get_node_result() const override
+	{
+		return NodeInfo::NodeResult::Re_SUCCESS;
+	};
 
 private:
+
 };

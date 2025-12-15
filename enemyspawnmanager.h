@@ -27,13 +27,14 @@ class CEnemySpawner;
 //*********************************************************
 namespace SET_INFO
 {
-	static constexpr int CREATE_NUM = 3; // 最大生成数
+	static constexpr int CREATE_NUM = 4; // 最大生成数
 
-	const D3DXVECTOR3 SpawnPos[CREATE_NUM]
+	const D3DXVECTOR3 SpawnPos[CREATE_NUM] // スポーンの生成座標
 	{
-		{ 500.0f,0.0f,-200.0f },
-		{ -500.0f,0.0f,200.0f },
-		{ 0.0f,0.0f,-500.0f }
+		{ 1000.0f,0.0f,308.0f },
+		{ 1000.0f,0.0f,-308.0f },
+		{ -1000.0f,0.0f,320.0f },
+		{ -1000.0f,0.0f,-320.0f }
 	};
 };
 
@@ -43,13 +44,6 @@ namespace SET_INFO
 class CEnemySpawnManager
 {
 public:
-	//***************************
-	// 定数構造体
-	//***************************
-	struct Config
-	{
-		
-	};
 
 	CEnemySpawnManager();
 	~CEnemySpawnManager();

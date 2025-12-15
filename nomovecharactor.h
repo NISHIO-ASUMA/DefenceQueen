@@ -45,6 +45,7 @@ public:
 	void SetOldPos(const D3DXVECTOR3& posOld) { m_posOld = posOld; }
 	void SetType(TYPE Type) { m_type = Type; }
 	void SetUseStencil(bool isUse) { m_isStencilUse = isUse; }
+	void DrawOnly(void);
 
 	void MotionLoad(const char* pScriptName, int nDestMotions, const bool isShadow);
 	void SetCharactor(TYPE type) { m_type = type; }
@@ -52,6 +53,7 @@ public:
 	D3DXVECTOR3 GetPos(void) const { return m_pos; }
 	D3DXVECTOR3 GetOldPos(void) const { return m_posOld; }
 	D3DXVECTOR3 GetRot(void) const { return m_rot; }
+	D3DXMATRIX GetWorldMtx(void) { return m_mtxworld; }
 
 	/// <summary>
 	/// モーションの生ポインタを返す

@@ -47,7 +47,7 @@ CGrass* CGrass::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const float
 
 	// オブジェクト設定
 	pGrass->SetPos(pos);
-	pGrass->SetRot(D3DXVECTOR3(rot.x,rot.y,rot.z ));
+	pGrass->SetRot(rot);
 	pGrass->SetTexture("grass000.png");
 	pGrass->SetSize(fWidth, fHeight);
 	

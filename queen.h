@@ -70,4 +70,6 @@ private:
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
 	CMotion* m_pMotion;								// モーションポインタ
 	CSphereCollider* m_pSphereCollider;				// 円形ののコライダー
+
+	LPD3DXEFFECT m_pOutLine;		// エフェクトハンドル
 };
