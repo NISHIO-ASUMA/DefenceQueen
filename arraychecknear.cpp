@@ -21,8 +21,6 @@ CArrayCheckNear::CArrayCheckNear(CBlackBoard* blackboard, CNode* TrueNode, CNode
 }
 //=========================================================
 // 判別関数 
-// TODO : ここを移動の条件じゃなくて一定の範囲内にオブジェクトがあるかで使用する
-// このノードは距離をboolで判別する(主に餌との距離で見る)
 //=========================================================
 const bool CArrayCheckNear::IsCondition()
 {

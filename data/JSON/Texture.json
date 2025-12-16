@@ -9,5 +9,6 @@
   { "Texture": "data/TEXTURE/Reef.jpg" },
   { "Texture": "data/TEXTURE/field.jpg" },
   { "Texture": "data/TEXTURE/TitleLogo.png" },
-  { "Texture": "data/TEXTURE/GameStart.png" }
+  { "Texture": "data/TEXTURE/GameStart.png" },
+  { "Texture": "data/TEXTURE/result_logo.png" }
 ]

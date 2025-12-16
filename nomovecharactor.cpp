@@ -10,10 +10,10 @@
 //*********************************************************
 #include "nomovecharactor.h"
 #include "motion.h"
-#include "model.h"
 #include "shadowS.h"
 #include "manager.h"
 #include "blackboard.h"
+#include "outline.h"
 
 //=========================================================
 // コンストラクタ
@@ -28,7 +28,8 @@ m_type(TYPE_NONE),
 m_pModel{},
 m_pMotion{},
 m_pShadowS{},
-m_isStencilUse(false)
+m_isStencilUse(false),
+m_isOutLine(false)
 {
 	// 値のクリア
 	D3DXMatrixIdentity(&m_mtxworld);
@@ -136,18 +137,33 @@ void CNoMoveCharactor::Draw(void)
 	{
 		model->Draw();
 	}
-}
-//=========================================================
-// 一度だけ描画
-//=========================================================
-void CNoMoveCharactor::DrawOnly(void)
-{
-	// 全モデルの subset0 だけ描画
+
+	// falseなら
+	if (!m_isOutLine) return;
+
+	// ワールドマトリックスの設定
+	pDevice->SetTransform(D3DTS_WORLD, &m_mtxworld);
+
+	// カリング切る
+	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
+
+	// 開始
+	COutLine::GetInstance()->Begin();
+	COutLine::GetInstance()->BeginPass();
+
 	for (auto& model : m_pModel)
 	{
-		model->DrawAtOnce(0);
+		model->DrawOutLine();
 	}
+
+	// 終了
+	COutLine::GetInstance()->EndPass();
+	COutLine::GetInstance()->End();
+
+	// カリングを戻す
+	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
+
 //=========================================================
 // モーション読み込み
 //=========================================================

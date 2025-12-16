@@ -50,7 +50,12 @@ HRESULT CRankingObject::Init(void)
 //=========================================================
 void CRankingObject::Uninit(void)
 {
-
+	// インスタンスの破棄
+	if (m_pInstance)
+	{
+		delete m_pInstance;
+		m_pInstance = nullptr;
+	}
 }
 //=========================================================
 // 更新処理

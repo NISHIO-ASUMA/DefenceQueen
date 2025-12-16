@@ -24,6 +24,7 @@ class CStateMachine;
 class CSphereCollider;
 class CSelectPoint;
 class CWorkerStateBase;
+class CFeed;
 
 //*********************************************************
 // 働きアリクラスの定義
@@ -43,7 +44,7 @@ public:
 	};
 
 	//***********************************
-	// モーション列挙型
+	// 出す数字列挙型
 	//***********************************
 	enum NUMARRAY
 	{
@@ -51,6 +52,17 @@ public:
 		NUMARRAY_MIDDLE, // 中央値
 		NUMARRAY_LARGE,  // 最大値
 		NUMARRAY_MAX
+	};
+
+	//***********************************
+	// 行動状態列挙型
+	//***********************************
+	enum MOVE
+	{
+		NONE,		// 動いてない
+		MOVE_FEED,	// えさ移動
+		MOVE_BASE,	// 基地に移動
+		MOVE_MAX
 	};
 
 	CWorker(int nPriority = static_cast<int>(CObject::PRIORITY::CHARACTOR));
@@ -62,6 +74,7 @@ public:
 	void Draw(void) override;
 	void MoveToPoint(void);
 	void MoveToReturnBase(void);
+	void AssignFeed(CFeed* pFeed); // 割り当て関数
 
 	void ChangeState(CWorkerStateBase* pState, int nId);
 	bool Collision(CSphereCollider* other);
@@ -73,6 +86,11 @@ public:
 	bool GetIsCreate(void) const { return m_isCreate; }
 	int RequiredNumber(void);
 
+	MOVE SetMoveState(MOVE Move) { m_MoveState = Move; }
+	bool GetMoveState(void) { return m_MoveState == NONE; }
+
+	CFeed* SetPoint(CFeed* pfeed) { m_pTargetFeed = pfeed; }
+
 	static CWorker* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot);
 
 private:
@@ -83,7 +101,7 @@ private:
 	struct Config
 	{
 		static constexpr float Distance = 80.0f;
-		static constexpr float Move = 5.0f;
+		static constexpr float Move = 2.0f;
 		static constexpr int LITTLE = 10;
 		static constexpr int MIDDLE = 15;
 		static constexpr int LARGE = 20;
@@ -100,7 +118,12 @@ private:
 
 	int m_nScaleNum;					// 必要な仲間数を返す
 	int m_nIdxNumber;					// インデックス番号
+
 	bool m_isMove;						// 移動中かフラグ
 	bool m_isWork;						// 動作中かフラグ
-	bool m_isCreate;					// 生成したか
+	bool m_isCreate;					// 生成したかどうか
+	bool m_isSetNum;					// セットしたかどうか
+
+	MOVE m_MoveState;					// 移動状態
+	CFeed* m_pTargetFeed;				// 自身が目的地とするターゲットの餌
 };

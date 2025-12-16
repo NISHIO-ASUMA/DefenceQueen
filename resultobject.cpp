@@ -11,6 +11,7 @@
 #include "resultobject.h"
 #include "ui.h"
 #include "resultscore.h"
+#include "meshfield.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -29,6 +30,7 @@ CResultObject::CResultObject()
 //=========================================================
 CResultObject::~CResultObject()
 {
+
 }
 //=========================================================
 // 初期化処理
@@ -36,8 +38,14 @@ CResultObject::~CResultObject()
 HRESULT CResultObject::Init(void)
 {// 各種オブジェクト生成
 
-	// ui
-	CUi::Create(D3DXVECTOR3(640.0f, 360.0f, 0.0f), 30, 1280.0f, 720.0f, "result.jpg", false);
+	// 外部からマップ読み込み
+	
+
+	// UI
+	CUi::Create(D3DXVECTOR3(640.0f, 75.0f, 0.0f), 30, 200.0f, 55.0f, "result_logo.png", false);
+
+	// メッシュフィールド生成
+	CMeshField::Create(VECTOR3_NULL, 3200.0f, 2000.0f, 1, 1);
 
 	// リザルト表示スコア
 	CResultScore::Create(D3DXVECTOR3(960.0f, 400.0f, 0.0f), 40.0f, 80.0f);
@@ -49,7 +57,12 @@ HRESULT CResultObject::Init(void)
 //=========================================================
 void CResultObject::Uninit(void)
 {
-
+	// インスタンスの破棄
+	if (m_pInstance)
+	{
+		delete m_pInstance;
+		m_pInstance = nullptr;
+	}
 }
 //=========================================================
 // 更新処理

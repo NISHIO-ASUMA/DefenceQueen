@@ -12,6 +12,7 @@
 #include "manager.h"
 #include "texture.h"
 #include "modelmanager.h"
+#include "outline.h"
 
 //=========================================================
 // コンストラクタ
@@ -191,7 +192,7 @@ void CModel::Draw(void)
 	if (m_isShadow) DrawMtxShadow();
 }
 //=========================================================
-// マトリックスシャドウ処理
+// マトリックスシャドウ描画処理
 //=========================================================
 void CModel::DrawMtxShadow(void)
 {
@@ -249,27 +250,76 @@ void CModel::DrawMtxShadow(void)
 	pDevice->SetMaterial(&shadowMat);
 }
 //=========================================================
-// サブセット
+// アウトライン描画設定関数
 //=========================================================
-void CModel::DrawAtOnce(UINT SubSet)
+void CModel::DrawOutLine(void)
 {
-	// デバイス取得
-	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
-	if (!pDevice) return;
+	// インデックスが-1なら
+	if (m_nModelIdx == -1)
+		return;
 
-	// Xファイルマネージャー取得
-	CModelManager* pMgr = CManager::GetInstance()->GetModelManagere();
-	if (!pMgr) return;
+	// ファイルマネージャー取得
+	CModelManager* pXMgr = CManager::GetInstance()->GetModelManagere();
+	if (!pXMgr) return;
 
-	// 配列情報の取得
-	auto& fileData = pMgr->GetList();
-	if (m_nModelIdx < NULL || m_nModelIdx >= static_cast<int>(fileData.size())) return;
+	// 配列情報
+	auto& fileData = pXMgr->GetList();
+	if (m_nModelIdx >= static_cast<int>(fileData.size())) return;
 
-	// モデル要素を取得
+	// 配列
 	auto& model = fileData[m_nModelIdx];
 	if (!model.pMesh) return;
 
-	model.pMesh->DrawSubset(SubSet);
+	// デバイスポインタを宣言
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
+
+	// 計算用のマトリックスを宣言
+	D3DXMATRIX mtxScale, mtxRot, mtxTrans;
+
+	// ワールドマトリックスの初期化
+	D3DXMatrixIdentity(&m_mtxworld);
+
+	// 拡大率を反映
+	D3DXMatrixScaling(&mtxScale, m_scale.x, m_scale.y, m_scale.z);
+	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxScale);
+
+	// 向きを反映
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y + m_offRot.y, m_rot.x + m_offRot.x, m_rot.z + m_offRot.z);
+	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxRot);
+
+	// 位置を反映
+	D3DXMatrixTranslation(&mtxTrans, m_pos.x + m_offPos.x, m_pos.y + m_offPos.y, m_pos.z + m_offPos.z);
+	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxTrans);
+
+	// 親のペアネント格納用変数
+	D3DXMATRIX mtxParent;
+
+	if (m_pParent != nullptr)
+	{// 親が存在する
+		// ワールドマトリックス取得
+		mtxParent = m_pParent->GetMtxWorld();
+	}
+	else
+	{// 親が存在しない
+		// マトリックス取得
+		pDevice->GetTransform(D3DTS_WORLD, &mtxParent);
+	}
+
+	// 親のマトリックスとかけ合わせる
+	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxParent);
+
+	// マテリアルが取得できたら
+	if (model.pBuffMat)
+	{
+		for (int nCnt = 0; nCnt < static_cast<int>(model.dwNumMat); nCnt++)
+		{
+			// シェーダーパラメーター設定
+			COutLine::GetInstance()->SetParameter(0.44f, D3DXVECTOR4(1.0f,0.65f, 0.2f, 1.0f), m_mtxworld);
+
+			// モデルの描画
+			model.pMesh->DrawSubset(nCnt);
+		}
+	}
 }
 //=========================================================
 // モデルインデックス登録

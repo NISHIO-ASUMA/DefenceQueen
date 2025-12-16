@@ -91,3 +91,18 @@ void CFeedManager::Erase(CFeed* pFeed)
 	// ”z—ñ‚Ì—v‘f‚ðÁ‚·
 	DeleteDestObj = m_pFeed.erase(DeleteDestObj);
 }
+//=========================================================
+// –¢“o˜^‚Ì‰a‚ð’T‚·
+//=========================================================
+CFeed* CFeedManager::FindFreeFeed(void)
+{
+	// Å‘å”‚ðŒ©‚é
+	for (auto& feed : m_pFeed)
+	{
+		// ‚à‚µŠ„‚è“–‚Ä‚ç‚ê‚Ä‚È‚©‚Á‚½‚ç
+		if (!feed->IsAssigned())
+			return feed;
+	}
+
+	return nullptr;
+}

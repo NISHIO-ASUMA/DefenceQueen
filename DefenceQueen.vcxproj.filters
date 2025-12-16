@@ -328,6 +328,12 @@
     <Filter Include="ソース ファイル\Charactor\Spawn\Enemy_Spawn">
       <UniqueIdentifier>{d5b2b06b-3f18-4ec7-9be6-d03acf13f0c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Shader">
+      <UniqueIdentifier>{44aee120-22af-4176-8a1a-ae7ab4016f6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Shader">
+      <UniqueIdentifier>{60ca1e87-3696-452b-a4b0-eaf709e1c3aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="object2D.cpp">
@@ -719,6 +725,9 @@
     </ClCompile>
     <ClCompile Include="titleant.cpp">
       <Filter>ソース ファイル\Charactor\TitleCharactor</Filter>
+    </ClCompile>
+    <ClCompile Include="outline.cpp">
+      <Filter>ソース ファイル\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1163,5 +1172,11 @@
     <ClInclude Include="titleant.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="outline.h">
+      <Filter>ヘッダー ファイル\Shader</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Out_Line.hlsl" />
   </ItemGroup>
 </Project>

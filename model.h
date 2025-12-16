@@ -41,7 +41,7 @@ public:
 	void Update(void);
 	void Draw(void);
 	void DrawMtxShadow(void);
-	void DrawAtOnce(UINT SubSet);
+	void DrawOutLine(void);
 	void SetModelPass(const char* pModelName);
 
 	void SetParent(CModel* pModel);
@@ -61,8 +61,8 @@ public:
 private:
 
 	D3DXVECTOR3 m_pos, m_rot,m_offPos,m_offRot,m_scale; // 座標,角度,大きさ
-	D3DXMATRIX m_mtxworld;	  // ワールドマトリックス
-	CModel* m_pParent;		  // 親モデル
+	D3DXMATRIX m_mtxworld;	// ワールドマトリックス
+	CModel* m_pParent;		// 親モデル
 	PARTTYPE m_parttype;	// モデルの種類
 
 	int* m_pTexture;		// テクスチャポインタ

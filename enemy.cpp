@@ -103,10 +103,12 @@ HRESULT CEnemy::Init(void)
 	m_pSphereCollider = CSphereCollider::Create(GetPos(), EnemyInfo::HitRange);
 
 	// 敵で使うAIノードをセットする
-	NodeSetting();
+	// NodeSetting();
 
 	// 拡大する
 	// SetScale(D3DXVECTOR3(1.5f, 1.5f, 1.5f));
+
+	m_isActive = true;
 
 	// 初期化結果を返す
 	return S_OK;
@@ -143,11 +145,11 @@ void CEnemy::Update(void)
 	// 座標取得
 	D3DXVECTOR3 pos = GetPos();
 
-	// 更新されている座標を取得
-	m_pBlackBoard->SetValue("SelectorPos", m_pSelect->GetPos());
+	//// 更新されている座標を取得
+	//m_pBlackBoard->SetValue("SelectorPos", m_pSelect->GetPos());
 
-	// ツリーの更新
-	m_pBehaviorTree->Update();
+	//// ツリーの更新
+	//m_pBehaviorTree->Update();
 
 	// 座標のみの更新
 	CMoveCharactor::UpdatePosition();

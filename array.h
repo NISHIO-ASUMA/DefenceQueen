@@ -34,6 +34,7 @@ class CTopAnt;
 class CArray : public CMoveCharactor
 {
 public:
+
 	//************************
 	// モーション列挙型
 	//************************
@@ -54,19 +55,14 @@ public:
 	void Reset(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const int nLife);
 	void Moving(void);
 	void OnSeparation(void);
-
 	void FollowDestination(const D3DXVECTOR3& DestPos);
-
 	void ArrayFollow(void);
 	void SpawnReturn(void);
-	void NodeSetting(void);
 	
 	bool Colision(CSphereCollider* other);
-
 	void SetDestPos(const D3DXVECTOR3 pos) { m_MoveDestPos = pos; }
 	void SetPrevAnt(CArray* pPrev) { m_pFollowTarget = pPrev;}
 	void SetMyListId(const int& nIdx) { m_nListGroupId = nIdx; }
-
 	void SetActive(bool isFlags) { m_isActive = isFlags; }
 	void SetIsMove(bool isMove) { m_isMove = isMove; }
 	void SetTopFollow(bool isFollow) { m_isTopAntFollow = isFollow; }
@@ -96,6 +92,8 @@ private:
 		static constexpr float PRIORITY_DISTANCE = 140.0f;
 		static constexpr float STOP_DISTANCE = 15.0f;
 	};
+
+	void NodeSetting(void); // ノード生成
 
 	int m_nListGroupId;					// 自身が動いているidのリスト番号
 	int m_nStopCount;					// ストップカウント

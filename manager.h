@@ -86,5 +86,5 @@ private:
 	std::unique_ptr<CFade>m_pFade;					// フェードクラスのポインタ
 	std::unique_ptr<CXfileManager>m_pXfileManager;	// Xファイルマネージャークラス
 	std::unique_ptr<CMotionManager>m_pMotionManager;// モーションマネージャークラス
-	std::unique_ptr<CModelManager>m_pModelManager;  // キャラクターモデル管理クラス
+	std::unique_ptr<CModelManager>m_pModelManager;	// キャラクターモデル管理クラス
 };

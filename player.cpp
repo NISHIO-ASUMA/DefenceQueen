@@ -320,40 +320,7 @@ void CPlayer::CollisionAll(D3DXVECTOR3 pPos, CInputKeyboard* pInput, CJoyPad* pP
 			// コライダー座標更新
 			m_pBoxCollider->SetPos(pPos);
 		}
-	}
-
-	// 選択ポインタークラス
-	auto pPoint = CGameSceneObject::GetInstance()->GetPoint();
-	if (pPoint == nullptr) return;
-
-	// 働きアリの配列取得
-	auto pWorker = CGameSceneObject::GetInstance()->GetWorkerM();
-	if (pWorker == nullptr) return;
-
-	// 決定キー or Aボタン入力
-	if (pPoint->GetIsHit() && pPad->GetTrigger(CJoyPad::JOYKEY_A) || pInput->GetTrigger(DIK_RETURN))
-	{
-		for (int nCnt = 0; nCnt < pWorker->GetSize(); nCnt++)
-		{
-			// キャラクター取得
-			auto UseWorker = pWorker->GetWorker(nCnt);
-			if (UseWorker == nullptr) continue;
-
-			// 動かせるなら
-			if (!UseWorker->GetIsWork())
-			{
-				// 有効状態にする
-				UseWorker->SetIsWork(true);
-
-				// 追跡対象にする座標を設定
-				UseWorker->SetDestPos(pPoint->GetPos());
-
-				// 一個に当たったら抜ける
-				break;
-			}
-		}
-	}
-	
+	}	
 }
 //===================================================================
 // 指示を出して特定数のアリを送る処理

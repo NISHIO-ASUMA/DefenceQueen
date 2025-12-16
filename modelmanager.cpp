@@ -127,6 +127,9 @@ int CModelManager::Register(const char* pModelName)
 		&NewModelInfo.pMesh
 	);
 
+	//// xファイルの法線情報関数
+	//D3DXComputeNormals();
+
 	// 例外メッセージ
 	if (FAILED(hr))
 	{

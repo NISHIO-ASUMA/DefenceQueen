@@ -145,6 +145,7 @@ void CGame::Update(void)
 			return;
 		}
 
+#if 0
 		if (CGameSceneObject::GetInstance()->GetTime()->GetToAll() <= 0)
 		{
 			// ó‘Ô•ÏX
@@ -152,7 +153,8 @@ void CGame::Update(void)
 			return;
 		}
 	}
-
+#endif
+	}
 #ifdef _DEBUG
 
 	//// ŒŸØƒL[

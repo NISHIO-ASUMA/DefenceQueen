@@ -27,6 +27,7 @@
 #include "xfilemanager.h"
 #include "motionmanager.h"
 #include "modelmanager.h"
+#include "outline.h"
 
 //=========================================================
 // コンストラクタ
@@ -105,6 +106,9 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	m_pMotionManager = std::make_unique<CMotionManager>();
 	if (FAILED(m_pMotionManager->Load())) return E_FAIL;
 	
+	// アウトラインクラス生成
+	COutLine::GetInstance()->Init("data/SHADER/Out_Line.hlsl");
+
 	// フェードの生成処理
 	m_pFade = std::make_unique <CFade>();
 	if (FAILED(m_pFade->Init())) return E_FAIL;
@@ -156,6 +160,9 @@ void CManager::Uninit(void)
 
 	// モーションマネージャーの破棄
 	m_pMotionManager.reset();
+
+	// アウトラインの破棄
+	COutLine::GetInstance()->Uninit();
 
 	// シーンの破棄
 	if (m_pScene)

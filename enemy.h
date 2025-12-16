@@ -65,7 +65,7 @@ public:
 
 private:
 
-	void NodeSetting(void);
+	void NodeSetting(void); // 敵のAIノードツリー
 
 	bool m_isActive; // 有効かどうか
 

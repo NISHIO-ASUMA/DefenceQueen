@@ -4,6 +4,7 @@
 // Author: Asuma Nishio
 //
 // NOTE : 餌のところに自動で動かせるようにする
+// ↑ 仮完成 あとは数が増減したときにどうするか(餌の管理配列)
 // 
 //=========================================================
 
@@ -22,6 +23,7 @@
 #include "numberpanel.h"
 #include "feed.h"
 #include "feedmanager.h"
+#include "parameter.h"
 
 //=========================================================
 // コンストラクタ
@@ -31,14 +33,17 @@ m_pMotion(nullptr),
 m_pSphereCollider(nullptr),
 m_pStateMachine(nullptr),
 m_pSelect(nullptr),
+m_pTargetFeed(nullptr),
 m_isMove(false),
 m_isWork(false),
 m_isCreate(false),
+m_isSetNum(false),
 m_DestPos(VECTOR3_NULL),
 m_SavePos(VECTOR3_NULL),
 m_SaveRot(VECTOR3_NULL),
 m_nIdxNumber(NULL),
-m_nScaleNum(NULL)
+m_nScaleNum(NULL),
+m_MoveState(NONE)
 {
 
 }
@@ -87,11 +92,13 @@ HRESULT CWorker::Init(void)
 	MotionLoad("data/MOTION/Work/Worker_Motion.txt", MOTION_MAX,true);
 
 	// コライダー生成
-	m_pSphereCollider = CSphereCollider::Create(GetPos(), 80.0f);
+	m_pSphereCollider = CSphereCollider::Create(GetPos(), 60.0f);
 
+#if 0
 	// ステートマシン生成
 	//m_pStateMachine = std::make_unique<CStateMachine>();
 	//ChangeState(new CWorkerStateNeutral, CWorkerStateBase::ID_NEUTRAL);
+#endif
 
 	return S_OK;
 }
@@ -121,11 +128,12 @@ void CWorker::Update(void)
 	// 有効なら
 	if (m_isWork)
 	{
-		// 移動関数
+		// 目的地に移動する関数
 		MoveToPoint();
 	}
 	else if (!m_isWork)
 	{
+		// 基地に移動する関数
 		MoveToReturnBase();
 	}
 
@@ -143,12 +151,25 @@ void CWorker::Update(void)
 
 	for (int nCnt = 0; nCnt < pFeed->GetSize(); nCnt++)
 	{
-		// 取得
+		// 餌を取得
 		auto ChildFeed = pFeed->GetFeed(nCnt);
 
 		// コリジョンしていた
 		if (Collision(ChildFeed->GetCollider()))
 		{
+			// ナンバーパネルのパラメーターを渡す
+			if (!m_isSetNum)
+			{ 
+				// ランダムパネル
+				int nData = RequiredNumber();
+
+				// 体力値を更新
+				ChildFeed->GetParam()->SetHp(nData);
+
+				// フラグを有効化
+				m_isSetNum = true;
+			}
+
 			// イベント登録
 			ChildFeed->RegisterEvent([&](void) { this->MoveToReturnBase(); });
 
@@ -210,21 +231,6 @@ void CWorker::MoveToPoint(void)
 	{
 		// 待機モーションに変更
 		GetMotion()->SetMotion(CWorker::MOTION_NEUTRAL);
-
-		// ランダム値
-		int nrand = rand() % NUMARRAY_MAX;
-
-		if (!m_isCreate)
-		{
-			// パネル生成
-			CNumberPanel::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 200.0f, GetPos().z), D3DXVECTOR3(0.0f,0.0f,0.0f), nrand);
-
-			// セットする
-			SetNeedNumber(nrand);
-			
-			// フラグを有効化
-			m_isCreate = true;
-		}
 	}
 }
 //=========================================================
@@ -242,7 +248,7 @@ void CWorker::MoveToReturnBase(void)
 	D3DXVECTOR3 VecMove = m_DestPos - pos;
 	float dist = D3DXVec3Length(&VecMove);
 
-	if (dist > 1.0f)
+	if (dist > 0.1f)
 	{
 		// 正規化
 		D3DXVec3Normalize(&VecMove, &VecMove);
@@ -274,7 +280,30 @@ void CWorker::MoveToReturnBase(void)
 
 		// 移動モーションに変更
 		GetMotion()->SetMotion(CWorker::MOTION_NEUTRAL);
+
+		// フラグ初期化
+		m_isSetNum = false;
+
+		// 状態変更
+		m_MoveState = NONE;
 	}
+}
+//=========================================================
+// 餌に働きアリを割り当てる処理
+//=========================================================
+void CWorker::AssignFeed(CFeed* pFeed)
+{
+	// ターゲット設定
+	m_pTargetFeed = pFeed;
+
+	// 状態切り替え
+	m_MoveState = MOVE::MOVE_FEED;
+
+	// 目的の座標にセット
+	SetDestPos(D3DXVECTOR3(pFeed->GetPos().x,0.0f,pFeed->GetPos().z));
+
+	// 働いている状態にする
+	m_isWork = true;
 }
 
 //=========================================================
@@ -300,26 +329,41 @@ void CWorker::ChangeState(CWorkerStateBase* pState, int nId)
 //=========================================================
 int CWorker::RequiredNumber(void)
 {
-	// インデックスに応じて変更
-	switch (m_nIdxNumber)
+	// ランダム値
+	int nrand = rand() % NUMARRAY_MAX;
+
+	if (!m_isCreate)
 	{
-	case NUMARRAY_LITTLE: // 最小値
-		m_nScaleNum = Config::LITTLE;
-		break;
+		// セットする
+		SetNeedNumber(nrand);
 
-	case NUMARRAY_MIDDLE: // 中間値
-		m_nScaleNum = Config::MIDDLE;
-		break;
+		// インデックスに応じて変更
+		switch (m_nIdxNumber)
+		{
+		case NUMARRAY_LITTLE: // 最小値
+			m_nScaleNum = Config::LITTLE;
+			break;
 
-	case NUMARRAY_LARGE: // 最大値
-		m_nScaleNum = Config::LARGE;
-		break;
+		case NUMARRAY_MIDDLE: // 中間値
+			m_nScaleNum = Config::MIDDLE;
+			break;
 
-	default:
-		m_nScaleNum = NULL;
-		break;
+		case NUMARRAY_LARGE: // 最大値
+			m_nScaleNum = Config::LARGE;
+			break;
+
+		default:
+			m_nScaleNum = NULL;
+			break;
+		}
+
+		// パネル生成
+		CNumberPanel::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 200.0f, GetPos().z), VECTOR3_NULL, nrand);
+
+		// フラグを有効化
+		m_isCreate = true;
 	}
-	
+
 	// 取得する値を返す
 	return m_nScaleNum;
 }

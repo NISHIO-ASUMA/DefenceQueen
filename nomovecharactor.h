@@ -14,6 +14,7 @@
 // インクルードファイル
 //*********************************************************
 #include "object.h"
+#include "model.h"
 #include <memory>
 #include <vector>
 
@@ -21,7 +22,6 @@
 // 前方宣言
 //*********************************************************
 class CShadowS;
-class CModel;
 class CMotion;
 
 //*********************************************************
@@ -45,7 +45,7 @@ public:
 	void SetOldPos(const D3DXVECTOR3& posOld) { m_posOld = posOld; }
 	void SetType(TYPE Type) { m_type = Type; }
 	void SetUseStencil(bool isUse) { m_isStencilUse = isUse; }
-	void DrawOnly(void);
+	void SetUseOutLine(const bool isUse = false) { m_isOutLine = isUse; }
 
 	void MotionLoad(const char* pScriptName, int nDestMotions, const bool isShadow);
 	void SetCharactor(TYPE type) { m_type = type; }
@@ -62,7 +62,15 @@ public:
 	/// <returns></returns>
 	CMotion* GetMotion(void) { return m_pMotion.get(); }
 
+	/// <summary>
+	/// モデルごとのマトリックス取得
+	/// </summary>
+	/// <param name="nIdx">取得番号</param>
+	/// <returns></returns>
+	D3DXMATRIX GetMtxModel(const int& nIdx) { return m_pModel[nIdx]->GetMtxWorld(); }
+
 private:
+
 	D3DXVECTOR3 m_pos;		// 座標
 	D3DXVECTOR3 m_posOld;	// 過去座標
 	D3DXVECTOR3 m_rot;		// 角度
@@ -76,4 +84,5 @@ private:
 	CShadowS* m_pShadowS;				// ステンシルシャドウクラスのポインタ
 
 	bool m_isStencilUse;				// ステンシルを使うかどうか
+	bool m_isOutLine;
 };

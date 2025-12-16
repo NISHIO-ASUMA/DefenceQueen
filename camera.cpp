@@ -74,7 +74,7 @@ void CCamera::Update(void)
 	auto SceneMode = CManager::GetInstance()->GetScene();
 
 	// タイトル用に配置
-	if (SceneMode == CScene::MODE_TITLE) SetTitle();
+	if (SceneMode == CScene::MODE_TITLE || SceneMode == CScene::MODE_RESULT) SetSceneCamara();
 
 	// カメラ更新
 	MouseView(CManager::GetInstance()->GetMouse());
@@ -145,9 +145,9 @@ void CCamera::SetCamera(void)
 	CDebugproc::Draw(0, 80);
 }
 //==============================================================
-// タイトル用カメラ設定処理
+// シーン別カメラ設定処理
 //==============================================================
-void CCamera::SetTitle(void)
+void CCamera::SetSceneCamara(void)
 {
 	m_pCamera.posV = D3DXVECTOR3(0.0f,450.0f, -1500.0f);		// カメラの位置
 	m_pCamera.posR = VECTOR3_NULL;								// カメラの見ている位置

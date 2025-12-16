@@ -38,15 +38,20 @@ public:
 	void Update(void);
 	void Draw(void);
 	void DecLife(const int& nDecValue);
-	void SetRadius(const float fRadius) { m_fRadius = fRadius; }
 	bool Collision(CSphereCollider* other);
-	bool GetIsDeath(void) { return m_isDeath; }
 
 	// イベントで使う関数を登録する
 	void RegisterEvent(std::function<void(void)> Event) { m_event = Event; }
 
+	void SetRadius(const float fRadius) { m_fRadius = fRadius; }
+	void SetAssigned(const bool isAssing) { m_isAssing = isAssing; }
+
+	bool IsAssigned() const { return m_isAssing; }
+	bool GetIsDeath(void) { return m_isDeath; }
 	float GetRadius(void) const { return m_fRadius; }
+
 	CSphereCollider* GetCollider(void) const { return m_pSphere; }
+	CParameter* GetParam(void) { return m_pParam.get(); }
 
 	static CFeed* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const char* pModelName,const float fRadius);
 
@@ -58,4 +63,5 @@ private:
 	std::unique_ptr<CParameter>m_pParam; // パラメーター
 	float m_fRadius;			// 半径
 	bool m_isDeath;
+	bool m_isAssing;			// 割り当てられたかどうか
 };

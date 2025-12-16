@@ -230,7 +230,9 @@ void CTopAnt::Update(void)
 	// フラグが有効時 かつ キー入力があったら
 	if (m_isReturnNumber && pKey->GetTrigger(DIK_Q))
 	{
+		// 初期化
 		m_DestPos = VECTOR3_NULL;
+
 		// 目的地の座標をセットする
 		SetDestMovePos(UpdatePos);
 	}

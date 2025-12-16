@@ -35,7 +35,8 @@ CFeed::CFeed(int nPriority) : CObjectX(nPriority),
 m_pSphere(nullptr),
 m_pParam(nullptr),
 m_fRadius(NULL),
-m_isDeath(false)
+m_isDeath(false),
+m_isAssing(false)
 {
 	// ’l‚ÌƒNƒŠƒA
 }

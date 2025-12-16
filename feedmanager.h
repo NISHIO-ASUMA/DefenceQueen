@@ -51,6 +51,8 @@ public:
 
 	void Erase(CFeed* pFeed);
 
+	CFeed* FindFreeFeed(void);
+
 private:
 
 	//****************************

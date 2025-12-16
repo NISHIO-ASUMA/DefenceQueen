@@ -69,18 +69,15 @@ CGameSceneObject::~CGameSceneObject()
 //=========================================================
 HRESULT CGameSceneObject::Init(void)
 {
-	// 選択ポイント生成
-	m_pSelectPoint = CSelectPoint::Create(VECTOR3_NULL, VECTOR3_NULL, 80.0f, 3.0f, 80.0f);
-
-	// タイマー生成
-	m_pTimer = CTime::Create(D3DXVECTOR3(960.0f,40.0f,0.0f),60.0f,40.0f);
-
-	// メッシュフィールド生成
-	CMeshField::Create(VECTOR3_NULL,3200.0f,2000.0f,1,1);
-
 	// ブロックマネージャー生成
 	m_pBlocks = std::make_unique<CBlockManager>();
 	m_pBlocks->Init();
+
+	// タイマー生成
+	m_pTimer = CTime::Create(D3DXVECTOR3(960.0f,40.0f,0.0f),60.0f,40.0f);
+	
+	// メッシュフィールド生成
+	CMeshField::Create(VECTOR3_NULL,3200.0f,2000.0f,1,1);
 
 	// 餌を配置
 	m_pFeed = std::make_unique<CFeedManager>();
@@ -108,6 +105,7 @@ HRESULT CGameSceneObject::Init(void)
 	// クイーン生成
 	m_pQueen = CQueen::Create(D3DXVECTOR3(0.0f,0.0f,-150.0f),VECTOR3_NULL);
 
+	// 敵場所生成
 	m_pEnemySpawnManager = std::make_unique<CEnemySpawnManager>();
 	m_pEnemySpawnManager->Init();
 
@@ -121,6 +119,7 @@ HRESULT CGameSceneObject::Init(void)
 //=========================================================
 void CGameSceneObject::Uninit(void)
 {
+#if 1
 	// 餌管理クラスの破棄
 	m_pFeed.reset();
 
@@ -144,6 +143,7 @@ void CGameSceneObject::Uninit(void)
 
 	// ui処理
 	m_pWorkUi.reset();
+#endif
 
 	// インスタンスの破棄
 	if (m_pInstance)
@@ -175,6 +175,10 @@ void CGameSceneObject::Update(void)
 		m_pArraySpawn->Update();
 	}
 
+	if (m_pWorkerManager)
+	{
+		m_pWorkerManager->Update();
+	}
 #ifdef _DEBUG
 
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_F9))

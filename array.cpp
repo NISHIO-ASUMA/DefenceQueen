@@ -28,6 +28,9 @@
 #include "separationant.h"
 #include "feedmanager.h"
 #include "feed.h"
+#include "arraybehaviortree.h"
+#include "node.h"
+#include "blackboard.h"
 
 //=========================================================
 // コンストラクタ
@@ -106,9 +109,8 @@ HRESULT CArray::Init(void)
 	// モーション取得
 	m_pMotion = CMoveCharactor::GetMotion();
 
-	// ノード生成
-	m_pBlackBoard = new CBlackBoard;
-	m_pBlackBoard->SetValue<CArray*>("Array",this);
+	// ノードセット
+	// NodeSetting();
 
 	// フラグ初期化
 	m_isActive = false;
@@ -480,6 +482,22 @@ void CArray::SpawnReturn(void)
 //=========================================================
 void CArray::NodeSetting(void)
 {
+	// 名前空間取得
+	using namespace ArrayTree;
+
+	// ブラックボード生成
+	m_pBlackBoard = new CBlackBoard;
+
+	// ブラックボードに情報をセットする
+	auto pos = GetPos();
+	m_pBlackBoard->SetValue<CArray*>("Array", this);
+	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayPos", pos);
+	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayDestPos", m_MoveDestPos);
+
+
+	// 仲間に使用するツリーノードにセットする
+	//m_pBehaviorTree = CArrayBehaviorTree::SetArrayTreeNode(m_pBlackBoard);
+	//m_pBehaviorTree->Init();
 
 }
 //=========================================================

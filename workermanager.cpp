@@ -10,6 +10,9 @@
 //*********************************************************
 #include "workermanager.h"
 #include "worker.h"
+#include "gamesceneobject.h"
+#include "feedmanager.h"
+#include "feed.h"
 
 //=========================================================
 // コンストラクタ
@@ -67,5 +70,30 @@ void CWorkerManager::Uninit(void)
 //=========================================================
 void CWorkerManager::Update(void)
 {
+#if 1
+	// 餌取得
+	auto pFeedMgr = CGameSceneObject::GetInstance()->GetFeedManager();
 
+	// Workerを見る
+	for (auto& worker : m_pWorker)
+	{
+		// 動いていない働きアリ
+		if (!worker->GetMoveState()) continue;
+
+		// 未割当の餌を探す
+		CFeed* pFeed = pFeedMgr->FindFreeFeed();
+		if (!pFeed) break;
+
+		// Workerに指示
+		worker->AssignFeed(pFeed);
+
+		// セットするにする
+		pFeed->SetAssigned(true);
+	}
+#endif
+	//// 各Workerの更新
+	//for (auto& worker : m_pWorker)
+	//{
+	//	worker->Update();
+	//}
 }
