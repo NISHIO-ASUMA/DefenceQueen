@@ -134,6 +134,7 @@ void CCamera::SetCamera(void)
 	// プロジェクションマトリックスの設定
 	pDevice->SetTransform(D3DTS_PROJECTION, &m_pCamera.mtxprojection);
 
+#ifdef _DEBUG
 	// フォントセット
 	CDebugproc::Print("Camera : PosV [ %.2f, %.2f, %.2f ]\n", m_pCamera.posV.x, m_pCamera.posV.y, m_pCamera.posV.z);
 	CDebugproc::Draw(0, 20);
@@ -143,6 +144,8 @@ void CCamera::SetCamera(void)
 
 	CDebugproc::Print("Camera : Rot [ %.2f, %.2f, %.2f ]\n", m_pCamera.rot.x, m_pCamera.rot.y, m_pCamera.rot.z);
 	CDebugproc::Draw(0, 80);
+#endif // _DEBUG
+
 }
 //==============================================================
 // シーン別カメラ設定処理

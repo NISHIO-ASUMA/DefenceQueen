@@ -75,9 +75,12 @@ void CArrayManager::Update(void)
 //=========================================================
 void CArrayManager::Draw(void)
 {
+#ifdef _DEBUG
 	// デバッグ表示
 	CDebugproc::Print("最大アリ数 : [ %d ]", ArrayConfig::ALLARRAYS);
 	CDebugproc::Draw(0, 240);
+#endif // _DEBUG
+
 }
 //=========================================================
 // スポナーに渡す関数

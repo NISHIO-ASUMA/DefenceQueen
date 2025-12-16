@@ -479,14 +479,14 @@ void CMotion::UpdateBlend(CMotionManager* pMption,CModel** ppModel, int nModelCo
 //=================================================================
 void CMotion::Debug(void)
 {
-	// マネージャー取得
-	auto manager = CManager::GetInstance()->GetMotionManager();
-
+#ifdef _DEBUG
 	CDebugproc::Print("[現在フレームカウント] %d /  [ 最大モーションフレーム ] %d", m_nAllFrameCount, m_nNumAllFrame);
 	CDebugproc::Draw(800, 320);
 
 	CDebugproc::Print("[ブレンドフレーム] %d / [ブレンドカウント] %d", m_nFrameBlend, m_nCounterBlend);
 	CDebugproc::Draw(800, 340);
+#endif // _DEBUG
+
 }
 //=================================================================
 // モーションフレーム判定

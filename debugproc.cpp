@@ -89,7 +89,6 @@ void CDebugproc::Update(void)
 void CDebugproc::Draw(int PosX,int PosY)
 {
 #ifdef _DEBUG
-
 	if (m_isUse)
 	{
 		// ウィンドウレクト
@@ -109,6 +108,8 @@ void CDebugproc::Draw(int PosX,int PosY)
 //=========================================================
 void CDebugproc::Print(const char* fmt, ...)
 {
+#ifdef _DEBUG
+
 	// 変数宣言
 	va_list list;
 
@@ -123,4 +124,5 @@ void CDebugproc::Print(const char* fmt, ...)
 
 	// 文字列にコピー
 	va_copy(list, m_aStr);
+#endif // _DEBUG
 }

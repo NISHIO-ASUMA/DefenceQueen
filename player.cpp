@@ -45,6 +45,7 @@ namespace PLAYERINFO
 {
 	constexpr float NorRot = D3DX_PI * 2.0f; // 正規化値
 	constexpr float SPRED = 75.0f;			 // 散らす範囲
+	const D3DXVECTOR3 POS = VECTOR3_NULL;
 };
 
 //=========================================================
@@ -253,10 +254,11 @@ void CPlayer::Update(void)
 	if (pKeyboard->GetTrigger(DIK_V))
 	{
 		// 指定座標
-		auto point = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(m_nSelectSpawn)->GetTopAnt()->GetDestPos();
-		D3DXVECTOR3 checkpos = VECTOR3_NULL;
-
-		if (point <= checkpos) return;
+		D3DXVECTOR3 point = VECTOR3_NULL;
+		point = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(m_nSelectSpawn)->GetTopAnt()->GetDestPos();
+		
+		// 0.0より小さかったら
+		if (point <= PLAYERINFO::POS) return;
 
 		// 指令アリの当たったポイントで判断する
 		OrderToArray(m_nNum, point);
@@ -278,6 +280,7 @@ void CPlayer::Draw(void)
 	CNoMoveCharactor::Draw();
 #endif
 
+#ifdef _DEBUG
 	CDebugproc::Print("Player Pos [ %.2f, %.2f,%.2f ]", GetPos().x,GetPos().y,GetPos().z);
 	CDebugproc::Draw(0, 120);
 
@@ -286,7 +289,7 @@ void CPlayer::Draw(void)
 
 	CDebugproc::Print("設定するアリの数 : [ %d ]", m_nNum);
 	CDebugproc::Draw(0, 220);
-
+#endif // _DEBUG
 }
 //===========================================================
 // キー入力情報のまとめ関数

@@ -84,6 +84,7 @@ void CArraySpawnManager::Update(void)
 //=========================================================
 void CArraySpawnManager::Draw(void)
 {
+#ifdef _DEBUG
 	// デバッグ情報表示処理
 	CDebugproc::Print("各スポナーのアリ情報\n[0]番目 : ストックアリ数 [ %d ]\n[1]番目 : ストックアリ数 [ %d ]\n[2]番目 : ストックアリ数 [ %d ]\n",
 		m_pArraySpawner[0]->GetStockArray(), m_pArraySpawner[1]->GetStockArray(), m_pArraySpawner[2]->GetStockArray());
@@ -98,4 +99,16 @@ void CArraySpawnManager::Draw(void)
 	CDebugproc::Print("各スポナーのIDX情報\n[0]番目 : %d\n[1]番目 : %d\n[2]番目 : %d\n",
 		m_pArraySpawner[0]->GetIdx(), m_pArraySpawner[1]->GetIdx(), m_pArraySpawner[2]->GetIdx());
 	CDebugproc::Draw(0, 420);
+
+
+	// 座標情報の管理
+	CDebugproc::Print("各スポナーの目的座標\n[0]番目 : %.2f,%.2f,%.2f\n[1]番目 : %.2f,%.2f,%.2f\n[2]番目 : %.2f,%.2f,%.2f\n",
+		m_pArraySpawner[0]->GetTopAnt()->GetDestPos().x, m_pArraySpawner[0]->GetTopAnt()->GetDestPos().y, m_pArraySpawner[0]->GetTopAnt()->GetDestPos().z,
+		m_pArraySpawner[1]->GetTopAnt()->GetDestPos().x, m_pArraySpawner[1]->GetTopAnt()->GetDestPos().y, m_pArraySpawner[1]->GetTopAnt()->GetDestPos().z,
+		m_pArraySpawner[2]->GetTopAnt()->GetDestPos().x, m_pArraySpawner[2]->GetTopAnt()->GetDestPos().y, m_pArraySpawner[2]->GetTopAnt()->GetDestPos().z);
+	CDebugproc::Draw(0, 500);
+
+
+#endif // _DEBUG
+
 }

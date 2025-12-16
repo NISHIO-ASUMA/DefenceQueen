@@ -200,10 +200,6 @@ void CSelectPoint::Draw(void)
 {
 	// 親クラスの描画
 	CMove3DObject::Draw();
-
-	// デバッグ情報
-	CDebugproc::Print("選択ポインター座標 : [ %.2f,%.2f,%.2f ] \n当たったかどうか [ %d ]", GetPos().x, GetPos().y, GetPos().z,GetIsHit());
-	CDebugproc::Draw(0, 160);
 }
 //=========================================================
 // ポインター移動処理
