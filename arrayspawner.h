@@ -149,7 +149,7 @@ private:
 	CTopAnt * m_pTopAnts;					// トップアリのポインタ
 	std::vector<CArray*> m_AssignedArrays;	// 自分の担当アリ
 	std::vector<CArray*>m_ReturnAntList;	// 帰ってきたアリたちの配列
-	std::unique_ptr<CSeparationAnt>m_pSeparationListAnt;   // 分隊を管理するポインタ
+	std::unique_ptr<CSeparationAnt>m_pSeparationListAnt;	// 分隊を管理するポインタ
 	int m_nStockArrays;						// 1スポナーが保持できるアリの数
 	int m_nMySpawnIndexList;				// 自分のスポナーのインデックス
 };

@@ -74,12 +74,15 @@ HRESULT CGameSceneObject::Init(void)
 	m_pBlocks->Init();
 
 	// タイマー生成
-	m_pTimer = CTime::Create(D3DXVECTOR3(960.0f,40.0f,0.0f),60.0f,40.0f);
-	
+	m_pTimer = CTime::Create(D3DXVECTOR3(1040.0f,40.0f,0.0f),60.0f,40.0f);
+
+	// コロン生成
+	CUi::Create(D3DXVECTOR3(1145.0f, 40.0f, 0.0f), 0, 15.0f, 30.0f, "coron.png", false);
+
 	// メッシュフィールド生成
 	CMeshField::Create(VECTOR3_NULL,3200.0f,2000.0f,1,1);
 
-	// 餌を配置
+	// 餌の管理クラスを生成
 	m_pFeed = std::make_unique<CFeedManager>();
 	m_pFeed->Init();
 
@@ -95,19 +98,21 @@ HRESULT CGameSceneObject::Init(void)
 	m_pWorkerManager = std::make_unique<CWorkerManager>();
 	m_pWorkerManager->Init();
 
-	// ui配置
+	// 働きアリの状態ui配置
 	m_pWorkUi = std::make_unique<CWorkerUiManager>();
 	m_pWorkUi->Init();
 
 	// プレイヤー生成
 	m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -600.0f), VECTOR3_NULL, 10, "data/MOTION/Player/Player100motion.txt");
 
-	// クイーン生成
+	// 防衛対象のクイーン生成
 	m_pQueen = CQueen::Create(D3DXVECTOR3(0.0f,0.0f,-150.0f),VECTOR3_NULL);
 
 	// 敵場所生成
 	m_pEnemySpawnManager = std::make_unique<CEnemySpawnManager>();
 	m_pEnemySpawnManager->Init();
+
+	CEnemy::Create(D3DXVECTOR3(-600.0f, 0.0f, -300.0f), VECTOR3_NULL, 1);
 
 	// スコア生成
 	m_pScore = CScore::Create(D3DXVECTOR3(1180.0f, 300.0f, 0.0f), 40.0f, 60.0f);
@@ -163,22 +168,30 @@ void CGameSceneObject::Update(void)
 		m_pArrayManager->Update();
 	}
 
-	// uiクラスの更新
+	// 働きアリuiクラスの更新
 	if (m_pWorkUi)
 	{
 		m_pWorkUi->Update();
 	}
 
-	// スポナー情報更新
+	// 仲間アリのスポナー情報更新
 	if (m_pArraySpawn)
 	{
 		m_pArraySpawn->Update();
 	}
 
+	// 働きアリの更新
 	if (m_pWorkerManager)
 	{
 		m_pWorkerManager->Update();
 	}
+
+	// 餌管理クラスの更新
+	if (m_pFeed)
+	{
+		m_pFeed->Update();
+	}
+
 #ifdef _DEBUG
 
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_F9))

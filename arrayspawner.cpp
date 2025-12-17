@@ -101,14 +101,12 @@ void CArraySpawner::Update(void)
 void CArraySpawner::Draw(void)
 {
 	// デバッグ表示
-
 }
 //=========================================================
 // 移動先設定関数
 //=========================================================
 void CArraySpawner::OrderMove(int nNum, const D3DXVECTOR3& destPos)
 {// 毎回指定された座標に移動するときにそこに先頭のアリがいるかチェックするようにしないといけない
- // そうしないといつまでも先行で出たアリの最後尾を追従してしまう
  
 	// カウント
 	int nSend = 0;

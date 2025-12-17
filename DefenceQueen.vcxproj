@@ -166,6 +166,7 @@
     <ClCompile Include="block.cpp" />
     <ClCompile Include="blockmanager.cpp" />
     <ClCompile Include="boxcollider.cpp" />
+    <ClCompile Include="boxtospherecollision.cpp" />
     <ClCompile Include="branchnodebase.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="charactorparam.cpp" />
@@ -305,6 +306,7 @@
     <ClInclude Include="block.h" />
     <ClInclude Include="blockmanager.h" />
     <ClInclude Include="boxcollider.h" />
+    <ClInclude Include="boxtospherecollision.h" />
     <ClInclude Include="branchnodebase.h" />
     <ClInclude Include="BS_thread_pool.hpp" />
     <ClInclude Include="camera.h" />

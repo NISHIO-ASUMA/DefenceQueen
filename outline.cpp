@@ -1,7 +1,7 @@
 //=========================================================
 // 
-// 
-// 
+// アウトラインシェーダークラス [ outline.cpp ]
+// Author : Asuma Nishio
 // 
 //=========================================================
 
@@ -34,9 +34,10 @@ HRESULT COutLine::Init(const char* pShaderFile)
 	// デバイス取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
-	LPD3DXBUFFER pErr = nullptr; // ローカル変数
+	// ローカル変数
+	LPD3DXBUFFER pErr = nullptr; 
 
-	// シェーダー読み込み
+	// シェーダーファイル読み込み
 	HRESULT hr = D3DXCreateEffectFromFile(
 		pDevice,		// デバイス
 		pShaderFile,	// ファイル
@@ -44,7 +45,7 @@ HRESULT COutLine::Init(const char* pShaderFile)
 		nullptr,
 		D3DXSHADER_DEBUG,
 		nullptr,
-		&m_pOutLine,		// ポインタ
+		&m_pOutLine,		// エフェクトポインタ
 		&pErr
 	);
 
@@ -53,9 +54,10 @@ HRESULT COutLine::Init(const char* pShaderFile)
 	{
 		if (pErr)
 		{
+			// メッセージ表示
 			MessageBoxA(nullptr,
 				(char*)pErr->GetBufferPointer(),
-				"Outline Effect Error",
+				"Out_Line.hlslが読み込めません",
 				MB_OK);
 			pErr->Release();
 		}
@@ -77,7 +79,7 @@ void COutLine::Uninit(void)
 	}
 }
 //=========================================================
-// パス開始
+// シェーダー開始
 //=========================================================
 void COutLine::Begin(void)
 {
@@ -98,7 +100,7 @@ void COutLine::EndPass(void)
 	m_pOutLine->EndPass();
 }
 //=========================================================
-// パス終了
+// シェーダー終了
 //=========================================================
 void COutLine::End(void)
 {

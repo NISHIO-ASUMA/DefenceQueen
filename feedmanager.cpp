@@ -12,11 +12,12 @@
 #include "feed.h"
 #include "meshcylinder.h"
 #include "gamesceneobject.h"
+#include "time.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
-CFeedManager::CFeedManager() :m_pFeed{}
+CFeedManager::CFeedManager() :m_pFeed{}, m_nCreateLastTime(-1), m_nStopCount(NULL)
 {
 
 }
@@ -25,6 +26,7 @@ CFeedManager::CFeedManager() :m_pFeed{}
 //=========================================================
 CFeedManager::~CFeedManager()
 {
+	// 破棄
 	Uninit();
 }
 //=========================================================
@@ -32,16 +34,13 @@ CFeedManager::~CFeedManager()
 //=========================================================
 HRESULT CFeedManager::Init(void)
 {
-	// クリア
+	// 配列クリア
 	m_pFeed.clear();
 
-	// TODO : 一旦挙動を確認したらメモリだけ確保しておく処理に変更
-	m_pFeed.resize(Config::ALLFEED);
-
-	// TODO : のちに変更
-	m_pFeed[0] = CFeed::Create(D3DXVECTOR3(-700.0f, 60.0f,-600.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x",85.0f);
-	m_pFeed[1] = CFeed::Create(D3DXVECTOR3(700.0f, 60.0f, -600.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x", 85.0f);
-	m_pFeed[2] = CFeed::Create(D3DXVECTOR3(0.0f, 60.0f, 600.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x", 85.0f);
+	// 初期生成の餌
+	m_pFeed.push_back(CFeed::Create(D3DXVECTOR3(-700.0f, 60.0f,-600.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x",85.0f));
+	m_pFeed.push_back(CFeed::Create(D3DXVECTOR3(700.0f, 60.0f, -600.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x", 85.0f));
+	m_pFeed.push_back(CFeed::Create(D3DXVECTOR3(0.0f, 40.0f, 570.0f), VECTOR3_NULL, INITSCALE, "FEED/Lemon.x", 85.0f));
 
 	return S_OK;
 }
@@ -57,9 +56,31 @@ void CFeedManager::Uninit(void)
 //=========================================================
 void CFeedManager::Update(void)
 {
+#if 0
 	// 経過時間によって出現する
-	// auto GameSceneObject = CGameSceneObject::GetInstance();
-	// auto time = GameSceneObject->GetTime();
+	 auto GameSceneObject = CGameSceneObject::GetInstance();
+	 auto time = GameSceneObject->GetTime()->GetToAll();
+
+
+	 // 総ゲーム時間から計算 (15秒ごとに一個追加で出現させたい 配列を拡張するのでサイズを変える)
+	 if (time != 120 && time % 15 == 0 && time != m_nCreateLastTime)
+	 {
+		 // ランダムな座標
+		 D3DXVECTOR3 pos = CreateRandomPos();
+
+		 // 配列に追加
+		 m_pFeed.push_back(
+			 CFeed::Create(pos,
+				 VECTOR3_NULL,
+				 INITSCALE,
+				 "FEED/Suger.x",
+				 85.0f)
+		 );
+
+		 // 時間変更
+		 m_nCreateLastTime = time;
+	 }
+#endif
 }
 //=========================================================
 // 描画処理
@@ -105,4 +126,17 @@ CFeed* CFeedManager::FindFreeFeed(void)
 	}
 
 	return nullptr;
+}
+//=========================================================
+// ランダムな座標を計算する関数
+//=========================================================
+D3DXVECTOR3 CFeedManager::CreateRandomPos(void)
+{
+	// 変数計算
+	float x = -200.0f;
+	float y = 60.0f;
+	float z = -400.0f;
+
+	// 値を返す
+	return D3DXVECTOR3(x, y, z);
 }

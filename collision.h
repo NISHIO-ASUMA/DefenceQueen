@@ -25,6 +25,7 @@ public:
 		TYPE_NONE,		// –³‚µ
 		TYPE_BOX,		// ‹éŒ`
 		TYPE_SPHERE,	// ‹…
+		TYPE_BOXSPHERE, // ‹…‚Æ‹éŒ`
 		TYPE_MAX
 	};
 

@@ -48,7 +48,6 @@ m_isTopAntFollow(false),
 m_isReturn(false),
 m_isAtBase(true),
 m_isStop(false),
-m_isCollisionOnFeed(false),
 m_MoveDestPos(VECTOR3_NULL),
 m_nListGroupId(NULL)
 {
@@ -186,7 +185,10 @@ void CArray::Update(void)
 
 				// コライダーの更新と指示変更
 				m_pSphereCollider->SetPos(UpdatePos);
+
+				// 基地に帰る
 				this->OnSeparation();
+
 				break;
 			}
 		}
@@ -296,7 +298,7 @@ void CArray::Moving(void)
 void CArray::OnSeparation(void)
 {
 	// 移動フラグを無効化
-	m_isMove = false;
+	SetIsMove(false);
 
 	// 帰還モードにする
 	SetReturnSpawn(true);
@@ -473,7 +475,7 @@ void CArray::SpawnReturn(void)
 		SetPrevAnt(nullptr);
 		SetIsStop(false);
 
-		// この時に要素をクリアする
+		// この時にグループの要素をクリアする
 		CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(idx)->GetSeparationAnt()->ClearListGroup(m_nListGroupId, this);
 	}
 }
@@ -490,10 +492,10 @@ void CArray::NodeSetting(void)
 
 	// ブラックボードに情報をセットする
 	auto pos = GetPos();
-	m_pBlackBoard->SetValue<CArray*>("Array", this);
-	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayPos", pos);
-	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayDestPos", m_MoveDestPos);
-
+	m_pBlackBoard->SetValue<CArray*>("Array", this);			// 自身
+	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayPos", pos);		// 座標
+	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayDestPos", m_MoveDestPos); // 目的座標
+	m_pBlackBoard->SetValue<bool>("ReturnSpawn", m_isReturn);	// 基地に帰るフラグ
 
 	// 仲間に使用するツリーノードにセットする
 	//m_pBehaviorTree = CArrayBehaviorTree::SetArrayTreeNode(m_pBlackBoard);

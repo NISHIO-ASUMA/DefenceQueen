@@ -80,7 +80,6 @@ void CArrayManager::Draw(void)
 	CDebugproc::Print("最大アリ数 : [ %d ]", ArrayConfig::ALLARRAYS);
 	CDebugproc::Draw(0, 240);
 #endif // _DEBUG
-
 }
 //=========================================================
 // スポナーに渡す関数
@@ -91,6 +90,7 @@ std::vector<CArray*> CArrayManager::Allocate(const int& nStock)
 	std::vector<CArray*> result;
 	result.reserve(nStock);
 
+	// カウント用変数
 	int nCnt = 0;
 
 	// 要素数

@@ -320,7 +320,7 @@ void CJoyPad::SetVibration(int leftMotor, int rightMotor, int durationMs)
 {
 	m_leftMotor = leftMotor;	// 左のモーターの強さ
 	m_rightMotor = rightMotor;  // 右モーターの強さ
-	m_VibrationEndTime = GetTickCount64() + durationMs; // 継続時間
+	m_VibrationEndTime = static_cast<DWORD>(GetTickCount64() + durationMs); // 継続時間
 	m_isVibration = true;		// フラグを有効化
 
 	// XInputを設定

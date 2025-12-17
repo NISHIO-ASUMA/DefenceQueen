@@ -1,6 +1,6 @@
 //=========================================================
 //
-// 防衛対象の処理 [ queen.cpp ]
+// 防衛対象アリの処理 [ queen.cpp ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -23,8 +23,7 @@ CQueen::CQueen(int nPriority) : CNoMoveCharactor(nPriority),
 m_pSphereCollider(nullptr),
 m_pMotion(nullptr),
 m_pParameter(nullptr),
-m_pStateMachine(nullptr),
-m_pOutLine(nullptr)
+m_pStateMachine(nullptr)
 {
 	// 値のクリア
 }
@@ -38,7 +37,7 @@ CQueen::~CQueen()
 //=========================================================
 // 生成処理
 //=========================================================
-CQueen* CQueen::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+CQueen* CQueen::Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
 {
 	// インスタンス生成
 	CQueen* pQueen = new CQueen;
@@ -68,7 +67,7 @@ HRESULT CQueen::Init(void)
 	SetObjType(CObject::TYPE_QUEEN);
 
 	// モーションセット
-	MotionLoad("data/MOTION/Queen/Queen_Motion.txt", MOTION_MAX,true);
+	MotionLoad(QueenInfo::SCRIPT, MOTION_MAX,true);
 
 	// パラメーター生成
 	m_pParameter = std::make_unique<CParameter>();
@@ -134,6 +133,30 @@ void CQueen::Draw(void)
 {
 	// 親クラスの描画
 	CNoMoveCharactor::Draw();
+}
+//=========================================================
+// ダメージ処理
+//=========================================================
+void CQueen::Hit(const int& nDamage)
+{
+	// 体力値を減らす
+	int nHp = m_pParameter->GetHp();
+	nHp -= nDamage;
+
+	if (nHp <= 0)
+	{
+		// 体力を0にする
+		m_pParameter->SetHp(NULL);
+
+		// 自身の破棄
+		Uninit();
+
+		// 処理終了
+		return;
+	}
+
+	// 現在の体力値をセット
+	m_pParameter->SetHp(nHp);
 }
 //=========================================================
 // 当たり判定処理

@@ -188,7 +188,6 @@ void CTime::Update(void)
 	// Œ…ŒvŽZ
 	Second();
 	Minute();
-	
 }
 //=========================================================
 // •`‰æˆ—
@@ -231,7 +230,6 @@ void CTime::Second(void)
 			m_pNumberMinute[nCnt]->Update();
 			m_pNumberMinute[nCnt]->SetDigit(aPosTexU);
 		}
-
 	}
 }
 //=========================================================

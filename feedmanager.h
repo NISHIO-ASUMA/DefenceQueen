@@ -49,8 +49,17 @@ public:
 	/// <returns></returns>
 	int GetSize(void) const { return static_cast<int>(m_pFeed.size()); }
 
+	/// <summary>
+	/// 配列から要素を削除する
+	/// </summary>
+	/// <param name="pFeed">餌自身のポインタ</param>
 	void Erase(CFeed* pFeed);
 
+	/// <summary>
+	/// 割り当てられてない餌を探して割り当てる関数
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
 	CFeed* FindFreeFeed(void);
 
 private:
@@ -63,11 +72,9 @@ private:
 		static constexpr int ALLFEED = 3; // 最大で確保するメモリ数
 	};
 
-	// 出現座標の配列
-	const D3DXVECTOR3 ActivePos[1] =
-	{
-		{200.0f,0.0f,30.0f}
-	};
+	D3DXVECTOR3 CreateRandomPos(void);	// 生成ランダム座標
 
-	std::vector<CFeed*>m_pFeed; // 動的配列
+	std::vector<CFeed*>m_pFeed; // 使用する餌の動的配列
+	int m_nCreateLastTime;		// 最後に生成した時間
+	int m_nStopCount;			// 停止時間
 };

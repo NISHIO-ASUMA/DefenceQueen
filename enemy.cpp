@@ -1,6 +1,6 @@
 //=========================================================
 //
-// 敵の処理 [ enemy.h ]
+// 敵の処理 [ enemy.cpp ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -23,6 +23,9 @@
 #include "gamesceneobject.h"
 #include "selectpoint.h"
 #include "enemybehaviortree.h"
+#include "queen.h"
+#include "template.h"
+#include "input.h"
 
 //*********************************************************
 // 定数宣言空間
@@ -40,7 +43,6 @@ m_pMotion(nullptr),
 m_pParameter(nullptr),
 m_pStateMachine(nullptr),
 m_pSphereCollider(nullptr),
-m_pSelect(nullptr),
 m_isActive(false)
 {
 	// 値のクリア
@@ -145,11 +147,18 @@ void CEnemy::Update(void)
 	// 座標取得
 	D3DXVECTOR3 pos = GetPos();
 
-	//// 更新されている座標を取得
-	//m_pBlackBoard->SetValue("SelectorPos", m_pSelect->GetPos());
-
+#if 0
 	//// ツリーの更新
 	//m_pBehaviorTree->Update();
+#endif
+
+#ifdef _DEBUG
+
+	// 女王に移動する
+	MoveToQueen();
+
+#endif // _DEBUG
+
 
 	// 座標のみの更新
 	CMoveCharactor::UpdatePosition();
@@ -157,6 +166,8 @@ void CEnemy::Update(void)
 	// 更新後の座標
 	D3DXVECTOR3 UpdatePos = GetPos();
 
+	// 餌との当たり判定 TODO : これに関しては餌に向かっていくものだけが判定するべき
+	
 	// 球の座標更新
 	if (m_pSphereCollider) m_pSphereCollider->SetPos(UpdatePos);
 
@@ -173,11 +184,75 @@ void CEnemy::Draw(void)
 
 	// キャラクターの描画処理
 	CMoveCharactor::Draw();
-
-	// デバッグフォント
-	//CDebugproc::Print("座標 : %.2f,%.2f,%.2f", GetPos().x, GetPos().y, GetPos().z);
-	//CDebugproc::Draw(0, 140);
 }
+
+//=========================================================
+// 餌に向かう処理
+//=========================================================
+void CEnemy::MoveToFeed(void)
+{
+
+}
+//=========================================================
+// 仲間アリを攻撃する処理
+//=========================================================
+void CEnemy::AttackToAnt(void)
+{
+
+}
+//=========================================================
+// 女王アリを攻撃する処理
+//=========================================================
+void CEnemy::AttackToQueen(void)
+{
+
+}
+//=========================================================
+// 餌を奪う処理
+//=========================================================
+void CEnemy::RobToFeed(void)
+{
+
+}
+//=========================================================
+// 女王アリに向かう処理
+//=========================================================
+void CEnemy::MoveToQueen(void)
+{
+	// 対象を取得
+	auto Queen = CGameSceneObject::GetInstance()->GetQueen();
+	auto DestinationPos = Queen->GetPos();
+	float fRadius = Queen->GetCollider()->GetRadius();
+	D3DXVECTOR3 VecToQueen = DestinationPos - GetPos();
+	float fDiff = D3DXVec3Length(&VecToQueen);
+
+	if (fDiff > fRadius)
+	{
+		// ベクトルを正規化
+		D3DXVec3Normalize(&VecToQueen, &VecToQueen);
+		VecToQueen *= 2.0f;
+
+		// 角度設定
+		float angleY = atan2(-VecToQueen.x, -VecToQueen.z);
+		D3DXVECTOR3 rotDest = GetRotDest();
+		rotDest.y = NormalAngle(angleY);
+
+		// 目的角に設定
+		SetRotDest(rotDest);
+
+		// 移動量を設定
+		SetMove(VecToQueen);
+
+		// 移動モーションに変更
+		GetMotion()->SetMotion(MOTION_MOVE);
+	}
+	else
+	{
+		SetMove(VECTOR3_NULL);
+		GetMotion()->SetMotion(MOTION_NEUTRAL, true, 10);
+	}
+}
+
 //==========================================================
 // 状態変更処理
 //==========================================================
@@ -208,16 +283,18 @@ void CEnemy::NodeSetting(void)
 	// ブラックボード生成
 	m_pBlackBoard = new CBlackBoard;
 
-	// ブラックボードに情報をセットする
+	// 自身の情報
 	auto pos = GetPos();
 	m_pBlackBoard->SetValue<D3DXVECTOR3>("EnemyPos", pos);
 	m_pBlackBoard->SetValue<CEnemy*>("Enemy", this);
 
-	m_pSelect = CGameSceneObject::GetInstance()->GetPoint();
-	m_pBlackBoard->SetValue<CSelectPoint*>("Selector", m_pSelect);
+	// 防衛対象の情報
+	auto Queen = CGameSceneObject::GetInstance()->GetQueen();
+	m_pBlackBoard->SetValue<CQueen*>("Queen", Queen);
+	m_pBlackBoard->SetValue<D3DXVECTOR3>("QueenPos", Queen->GetPos());
 
-	auto Select = CGameSceneObject::GetInstance()->GetPoint();
-	m_pBlackBoard->SetValue("SelectorPos", Select->GetPos());
+	// 餌の情報
+	auto Feed = CGameSceneObject::GetInstance()->GetFeedManager();
 
 	// 敵に使用するツリーノードにセットする
 	m_pBehaviorTree = CEnemyBehaviorTree::SetEnemyTreeNode(m_pBlackBoard);

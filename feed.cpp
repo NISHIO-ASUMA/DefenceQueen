@@ -19,6 +19,8 @@
 #include "xfilemanager.h"
 #include "feedmanager.h"
 #include "worker.h"
+#include "boxcollider.h"
+#include "collisionbox.h"
 
 //*********************************************************
 // 定数宣言
@@ -33,6 +35,7 @@ namespace FEEDINFO
 //=========================================================
 CFeed::CFeed(int nPriority) : CObjectX(nPriority),
 m_pSphere(nullptr),
+m_pBoxCollider(nullptr),
 m_pParam(nullptr),
 m_fRadius(NULL),
 m_isDeath(false),
@@ -76,8 +79,19 @@ HRESULT CFeed::Init(void)
 	// 親クラスの初期化
 	CObjectX::Init();
 
+	// Xファイルオブジェクト取得
+	CXfileManager* pXManager = CManager::GetInstance()->GetXManager();
+	if (pXManager == nullptr) return E_FAIL;
+
+	// インデックス番号を取得
+	int nModelIdx = GetModelIdx();
+	D3DXVECTOR3 Size = pXManager->GetInfo(nModelIdx).Size;
+
 	// 球形コライダー生成
 	m_pSphere = CSphereCollider::Create(GetPos(), m_fRadius);
+
+	// 矩形コライダー生成
+	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetPos(), Size * 0.9f);
 
 	// パラメーター設定
 	m_pParam = std::make_unique<CParameter>();
@@ -93,11 +107,18 @@ HRESULT CFeed::Init(void)
 //=========================================================
 void CFeed::Uninit(void)
 {
-	// 破棄
+	// コライダーの破棄
 	if (m_pSphere)
 	{
 		delete m_pSphere;
 		m_pSphere = nullptr;
+	}
+
+	// コライダーの破棄
+	if (m_pBoxCollider)
+	{
+		delete m_pBoxCollider;
+		m_pBoxCollider = nullptr;
 	}
 
 	// 破棄
@@ -116,6 +137,9 @@ void CFeed::Update(void)
 
 	// コライダー更新
 	m_pSphere->SetPos(pos);
+
+	// コライダー更新
+	m_pBoxCollider->SetPos(pos);
 
 	// 親クラスの更新
 	CObjectX::Update();
@@ -161,9 +185,16 @@ void CFeed::DecLife(const int& nDecValue)
 	}
 }
 //=========================================================
-// 当たり判定処理
+// 球の当たり判定処理
 //=========================================================
 bool CFeed::Collision(CSphereCollider* other)
 {
 	return CCollisionSphere::Collision(m_pSphere,other);
+}
+//=========================================================
+// 矩形の当たり判定処理
+//=========================================================
+bool CFeed::CollisionBox(CBoxCollider* pOther, D3DXVECTOR3* OutPos)
+{
+	return CCollisionBox::Collision(m_pBoxCollider,pOther,OutPos);
 }

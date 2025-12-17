@@ -26,7 +26,6 @@ class CShadowS;
 class CStateMachine;
 class CEnemyStateBase;
 class CSphereCollider;
-class CSelectPoint;
 
 //*********************************************************
 // 敵クラスを定義
@@ -52,12 +51,21 @@ public:
 	void Uninit(void) override;
 	void Update(void) override;
 	void Draw(void) override;
+	
+//------------------------------
+	// ノード関数
+	void MoveToFeed(void);
+	void AttackToAnt(void);
+	void AttackToQueen(void);
+	void RobToFeed(void);
+	void MoveToQueen(void);
+//------------------------------
+
 	void ChangeState(CEnemyStateBase* pNewState, int Id);
 	bool Collision(CSphereCollider* pOther);
 	bool SetIsActive(const bool& isActive) { m_isActive = isActive; }
 
 	bool GetIsActive(void) { return m_isActive; }
-
 	CParameter* GetParameter(void) { return m_pParameter.get(); }
 	CStateMachine* GetStateMachine() { return m_pStateMachine.get(); }
 
@@ -67,11 +75,10 @@ private:
 
 	void NodeSetting(void); // 敵のAIノードツリー
 
-	bool m_isActive; // 有効かどうか
+	bool m_isActive;		// 有効かどうか
 
 	CMotion * m_pMotion;				// モーションクラス
 	CSphereCollider* m_pSphereCollider; // 球形コライダー
-	CSelectPoint* m_pSelect;			// 判定の受け皿ポインタ
 	std::unique_ptr <CParameter>m_pParameter;		 // パラメータクラス
 	std::unique_ptr<CStateMachine>m_pStateMachine;	 // ステート基底クラスのポインタ
 };

@@ -25,6 +25,7 @@
 #include "collisionsphere.h"
 #include "feedmanager.h"
 #include "feed.h"
+#include "boxtospherecollision.h"
 
 //=========================================================
 // コンストラクタ
@@ -69,10 +70,10 @@ HRESULT CTopAnt::Init(void)
 	CMoveCharactor::Init();
 
 	// モーションロード
-	MotionLoad("data/MOTION/Enemy/Enemy_Motion.txt", MOTION_MAX, true);
+	MotionLoad(Config::MOTION_NAME, MOTION_MAX, true);
 
 	// コライダー生成
-	m_pColliderBox = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(40.0f, 40.0f, 40.0f));
+	m_pColliderBox = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(30.0f, 30.0f, 30.0f));
 
 	// コライダー生成
 	m_pColliderSphere = CSphereCollider::Create(GetPos(),Config::MAX_RADIUS);
@@ -128,8 +129,9 @@ void CTopAnt::Update(void)
 			if (!m_isHPressing)
 			{
 				m_isHPressing = true;
-				m_fSeparationRadius = 0.0f; // 1回押すごとに距離初期化
+				m_fSeparationRadius = NULL; // 1回押すごとに距離初期化
 			}
+
 
 			// 押している間
 			Separation();
@@ -208,14 +210,22 @@ void CTopAnt::Update(void)
 	{
 		for (int nCnt = 0; nCnt < pManager->GetSize(); nCnt++)
 		{
-			// 当たったら
-			if (CollisionSphere(pManager->GetFeed(nCnt)->GetCollider()))
+			// 当たったら TODO : このままだと移動しながらじゃないと座標セット出来ないから止まってもできるように考える
+
+			if (CollisonT(pManager->GetFeed(nCnt)->GetCollider()))
 			{
+				// 当たった点の座標セット
+				SetPos(UpdatePos);
+
+				// 矩形コライダー座標更新
+				m_pColliderBox->SetPos(UpdatePos);
+
 				// エフェクト生成
 				CEffect::Create(UpdatePos, COLOR_RED, VECTOR3_NULL, 6, 80.0f);
 
 				// 伝令フラグを有効化
 				SetIsReturnPos(true);
+
 				break;
 			}
 			else
@@ -229,9 +239,6 @@ void CTopAnt::Update(void)
 	// フラグが有効時 かつ キー入力があったら
 	if (m_isReturnNumber && pKey->GetTrigger(DIK_Q))
 	{
-		//// 初期化
-		//m_DestPos = VECTOR3_NULL;
-
 		// 目的地の座標をセットする
 		SetDestMovePos(UpdatePos);
 	}
@@ -260,6 +267,13 @@ bool CTopAnt::Collision(CBoxCollider * pOther,D3DXVECTOR3 * pOutPos)
 bool CTopAnt::CollisionSphere(CSphereCollider* pOther)
 {
 	return CCollisionSphere::Collision(m_pColliderSphere,pOther);
+}
+//=========================================================
+// 球と矩形の当たり判定処理
+//=========================================================
+bool CTopAnt::CollisonT(CSphereCollider* pOther)
+{
+	return CBoxToSphereCollision::Collision(m_pColliderBox,pOther);
 }
 //=========================================================
 // キー入力移動
@@ -359,7 +373,6 @@ void CTopAnt::Moving(CJoyPad * pPad,CInputKeyboard * pKey)
 		{// D3DX_PIより小さくなったら
 			rot.y += Config::NorRot;
 		}
-
 	}
 	else if (pKey->GetPress(DIK_S) || pPad->GetPress(CJoyPad::JOYKEY_DOWN))
 	{// Sキーを押した
@@ -412,7 +425,6 @@ void CTopAnt::Moving(CJoyPad * pPad,CInputKeyboard * pKey)
 	SetRot(rot);
 	SetRotDest(rotdest);
 	SetMove(move);
-
  }
 //=========================================================
 // パッド入力移動

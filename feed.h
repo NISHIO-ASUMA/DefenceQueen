@@ -21,6 +21,7 @@
 // 前方宣言
 //*********************************************************
 class CSphereCollider;
+class CBoxCollider;
 class CParameter;
 
 //*********************************************************
@@ -39,6 +40,7 @@ public:
 	void Draw(void);
 	void DecLife(const int& nDecValue);
 	bool Collision(CSphereCollider* other);
+	bool CollisionBox(CBoxCollider* pOther, D3DXVECTOR3* OutPos);
 
 	// イベントで使う関数を登録する
 	void RegisterEvent(std::function<void(void)> Event) { m_event = Event; }
@@ -51,6 +53,7 @@ public:
 	float GetRadius(void) const { return m_fRadius; }
 
 	CSphereCollider* GetCollider(void) const { return m_pSphere; }
+	CBoxCollider* GetBoxCollider(void) const { return m_pBoxCollider; }
 	CParameter* GetParam(void) { return m_pParam.get(); }
 
 	static CFeed* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const char* pModelName,const float fRadius);
@@ -60,6 +63,7 @@ private:
 	std::function<void(void)>m_event; // 死亡時に呼ばれる処理
 
 	CSphereCollider* m_pSphere; // 球形コライダー
+	CBoxCollider* m_pBoxCollider; // 矩形コライダー
 	std::unique_ptr<CParameter>m_pParam; // パラメーター
 	float m_fRadius;			// 半径
 	bool m_isDeath;

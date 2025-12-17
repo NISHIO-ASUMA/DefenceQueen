@@ -35,7 +35,15 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+	void SetActiveAll(void);
 	
+	/// <summary>
+	/// アクティブ数を返す
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
+	int GetArraysActive(void) { return m_nActiveAll; }
+
 	/// <summary>
 	/// 現在のアクティブな数を取得する
 	/// </summary>
@@ -67,20 +75,22 @@ public:
 	/// <summary>
 	/// スポナー用に確保する関数
 	/// </summary>
-	/// <param name="nfalseData">未使用数</param>
+	/// <param name="nStock">未使用数</param>
 	/// <returns></returns>
 	std::vector<CArray*> Allocate(const int& nStock);
 
 	/// <summary>
 	/// 仲間のアリの切り離しを通知する
 	/// </summary>
-	/// <param name="center">座標</param>
+	/// <param name="center">中心座標</param>
 	/// <param name="radius">半径</param>
 	void ApplySeparation(const D3DXVECTOR3& center, float radius);
 
+	/// <summary>
+	/// アクティブな物をカウントする
+	/// </summary>
+	/// <param name="nCountArrays">カウントする数</param>
 	void CountActiveArrays(const int& nCountArrays);
-	void SetActiveAll(void);
-	int GetArraysActive(void) { return m_nActiveAll; }
 
 private:
 
@@ -93,7 +103,7 @@ private:
 		static constexpr int ALLARRAYS = 150; // 最大使用数
 	};
 
-	std::vector<CArray*>m_pArrays; // 動的配列
-	int m_nActiveAll;				// 現在の出現数
-	std::vector<CTopAnt*>m_pTopAnts; // トップアリの配列
+	std::vector<CArray*>m_pArrays;		// 動的配列
+	std::vector<CTopAnt*>m_pTopAnts;	// トップアリの配列
+	int m_nActiveAll;					// 現在の出現数
 };

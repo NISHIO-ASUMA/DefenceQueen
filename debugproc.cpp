@@ -108,6 +108,10 @@ void CDebugproc::Draw(int PosX,int PosY)
 //=========================================================
 void CDebugproc::Print(const char* fmt, ...)
 {
+#ifdef NDEBUG
+	fmt = nullptr;
+#endif // NDEBUG
+
 #ifdef _DEBUG
 
 	// •Ï”éŒ¾

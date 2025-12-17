@@ -1,6 +1,6 @@
 //=========================================================
 //
-// 防衛対象の処理 [ queen.h ]
+// 防衛対象アリの処理 [ queen.h ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -20,7 +20,6 @@
 // 前方宣言
 //*********************************************************
 class CParameter;
-class CShadowS;
 class CStateMachine;
 class CSphereCollider;
 class CMotion;
@@ -51,9 +50,12 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+	void Hit(const int& nDamage);
 	bool Collision(CSphereCollider * pOther);
 
-	static CQueen* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot);
+	CSphereCollider* GetCollider(void) { return m_pSphereCollider; }
+
+	static CQueen* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
 
 private:
 
@@ -62,14 +64,13 @@ private:
 	//***********************************
 	struct QueenInfo
 	{
-		static constexpr int Hp = 100;
-		static constexpr float HitRange = 80.0f;
+		static constexpr int Hp = 100;			// 体力値
+		static constexpr float HitRange = 80.0f;// コリジョン半径
+		static constexpr const char* SCRIPT = "data/MOTION/Queen/Queen_Motion.txt"; // ロードファイル名
 	};
 
 	std::unique_ptr<CParameter>m_pParameter;		// パラメータークラスポインタ
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
 	CMotion* m_pMotion;								// モーションポインタ
 	CSphereCollider* m_pSphereCollider;				// 円形ののコライダー
-
-	LPD3DXEFFECT m_pOutLine;		// エフェクトハンドル
 };

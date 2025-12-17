@@ -133,7 +133,7 @@ void CWorker::Update(void)
 	}
 	else if (!m_isWork)
 	{
-		// 基地に移動する関数
+		// 基地に帰る関数
 		MoveToReturnBase();
 	}
 
@@ -238,6 +238,8 @@ void CWorker::MoveToPoint(void)
 //=========================================================
 void CWorker::MoveToReturnBase(void)
 {
+	m_isWork = false;
+
 	// もどる座標を設定
 	SetDestPos(m_SavePos);
 
@@ -245,10 +247,10 @@ void CWorker::MoveToReturnBase(void)
 	D3DXVECTOR3 pos = GetPos();
 
 	// 目的から現在の座標までのベクトル
-	D3DXVECTOR3 VecMove = m_DestPos - pos;
+	D3DXVECTOR3 VecMove = m_SavePos - pos;
 	float dist = D3DXVec3Length(&VecMove);
 
-	if (dist > 0.1f)
+	if (dist > 3.0f)
 	{
 		// 正規化
 		D3DXVec3Normalize(&VecMove, &VecMove);
@@ -281,11 +283,13 @@ void CWorker::MoveToReturnBase(void)
 		// 移動モーションに変更
 		GetMotion()->SetMotion(CWorker::MOTION_NEUTRAL);
 
-		// フラグ初期化
-		m_isSetNum = false;
-
 		// 状態変更
 		m_MoveState = NONE;
+
+		m_isWork = false;
+
+		// フラグ初期化
+		m_isSetNum = false;
 	}
 }
 //=========================================================
