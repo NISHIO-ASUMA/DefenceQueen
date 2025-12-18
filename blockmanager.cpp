@@ -122,28 +122,33 @@ HRESULT CBlockManager::Load()
 	// SetObjectsの配列を回す
 	for (const auto& b : j["SetObjects"])
 	{
+		// ファイルパス
 		std::string filepath = b["filepath"];
 		int idx = b["idx"];
 
+		// 座標
 		D3DXVECTOR3 pos(
 			b["pos"][0],
 			b["pos"][1],
 			b["pos"][2]
 		);
+
+		// 角度
 		D3DXVECTOR3 rot(
 			b["rot"][0],
 			b["rot"][1],
 			b["rot"][2]
 		);
 
+		// サイズ
 		D3DXVECTOR3 size(
 			b["scale"][0],
 			b["scale"][1],
 			b["scale"][2]
 		);
 
-		// ブロック生成
-		CBlock* block = CreateManager(pos, rot, size, filepath.c_str());
+		// 実際のブロック生成
+		CreateManager(pos, rot, size, filepath.c_str());
 	}
 
 	return S_OK;

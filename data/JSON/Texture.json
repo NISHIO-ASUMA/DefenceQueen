@@ -5,6 +5,7 @@
   { "Texture": "data/TEXTURE/pause_retry.png" },
   { "Texture": "data/TEXTURE/wallTexture.jpg" },
   { "Texture": "data/TEXTURE/ground.jpg" },
+  { "Texture": "data/TEXTURE/DomeTex.jpg" },
   { "Texture": "data/TEXTURE/worker_icon.png" },
   { "Texture": "data/TEXTURE/Reef.jpg" },
   { "Texture": "data/TEXTURE/field.jpg" },

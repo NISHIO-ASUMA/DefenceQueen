@@ -36,7 +36,7 @@ public:
 	void Draw(void);
 	bool Collision(CBoxCollider * pOther,D3DXVECTOR3 * OutPos);
 
-	CBoxCollider* GetCollider(void) { return m_pCollider; }
+	inline CBoxCollider* GetCollider(void) { return m_pCollider; }
 
 	static CBlock* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const D3DXVECTOR3 scale, const char* pModelName);
 

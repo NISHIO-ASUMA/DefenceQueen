@@ -145,57 +145,6 @@ void CArraySpawner::OrderMove(int nNum, const D3DXVECTOR3& destPos)
 	}
 }
 //=========================================================
-// 基地にもどる命令をする関数
-//=========================================================
-void CArraySpawner::OrderReturn(int nNum, const D3DXVECTOR3& returnpos)
-{
-	// カウント
-	int nSend = 0;
-
-	// 今動いているアリだけを抽出する配列を見る
-	std::vector<CArray*> movingList;
-	movingList.reserve(m_AssignedArrays.size());
-
-	for (auto pArray : m_AssignedArrays)
-	{
-		if (!pArray) continue;
-		if (!pArray->GetActive()) continue;
-
-		// 今動いているアリだけ
-		if (pArray->GetMove())
-		{
-			// 移動させたい配列に追加していく
-			movingList.push_back(pArray);
-		}
-	}
-
-	// 後ろからnNum個だけreturnさせる
-	int count = 0;
-
-	// 現在移動しているアリの中から抽出する
-	// 最大数から減算するfor
-	for (int nMoveCnt = static_cast<int>(movingList.size()) - 1; nMoveCnt >= 0; nMoveCnt--)
-	{
-		// 最大なら
-		if (nSend >= nNum) break;
-
-		// リスト取得
-		auto pArray = movingList[nMoveCnt];
-		if (!pArray) continue;
-
-		// 基地にもどるフラグをセット
-		pArray->SetReturnSpawn(true);
-		pArray->SetIsMove(false);
-		pArray->SetPrevAnt(nullptr);
-
-		// 向かう目的地をセット
-		pArray->SetDestPos(returnpos);
-
-		// 送る数を加算
-		nSend++;
-	}
-}
-//=========================================================
 // 格納数設定処理
 //=========================================================
 void CArraySpawner::SetMaxArray(const int& nMaxArray)
@@ -257,6 +206,57 @@ CArray* CArraySpawner::GetLastActiveAnt(void)
 
 	// 一匹のアリもついていない
 	return nullptr;
+}
+//=========================================================
+// 移動命令がonのアリの数を返す
+//=========================================================
+int CArraySpawner::GetIsMoveArrays(void)
+{
+	// カウント数
+	int nActiveNum = 0;
+
+	for (int nCnt = 0; nCnt < static_cast<int>(m_AssignedArrays.size()); nCnt++)
+	{
+		// アクティブなら加算
+		if (m_AssignedArrays[nCnt]->GetMove()) nActiveNum++;
+	}
+
+	// 総カウント数を返す
+	return nActiveNum;
+}
+//=========================================================
+// 帰還命令がonのアリの数を返す
+//=========================================================
+int CArraySpawner::GetIsReturn(void)
+{
+	// カウント数
+	int nActiveNum = 0;
+
+	for (int nCnt = 0; nCnt < static_cast<int>(m_AssignedArrays.size()); nCnt++)
+	{
+		// 停止なら加算
+		if (m_AssignedArrays[nCnt]->GetReturn()) nActiveNum++;
+	}
+
+	// 総カウント数を返す
+	return nActiveNum;
+}
+//=========================================================
+// 停止命令がonのアリの数を返す
+//=========================================================
+int CArraySpawner::GetIsStop(void)
+{
+	// カウント数
+	int nActiveNum = 0;
+
+	for (int nCnt = 0; nCnt < static_cast<int>(m_AssignedArrays.size()); nCnt++)
+	{
+		// 停止なら加算
+		if (m_AssignedArrays[nCnt]->GetisStop()) nActiveNum++;
+	}
+
+	// 総カウント数を返す
+	return nActiveNum;
 }
 //=========================================================
 // インデックスを取得する

@@ -1,5 +1,5 @@
 {
-   "AllObject": 9,
+   "AllObject": 10,
    "SetObjects": [
       {
          "filepath": "STAGEOBJ/Wall.x",
@@ -154,23 +154,42 @@
       ]
     },
     {
-        "filepath": "STAGEOBJ/Reef.x",
-        "idx": 8,
-        "pos": [
-          -1045.0,
-          170.0,
-          -320.0
-        ],
-        "rot": [
-          0.0,
-          3.140000104904175,
-          0.0
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
+      "filepath": "STAGEOBJ/Reef.x",
+      "idx": 8,
+      "pos": [
+        -1045.0,
+        170.0,
+        -320.0
+      ],
+      "rot": [
+        0.0,
+        3.140000104904175,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "filepath": "STAGEOBJ/WorkerBase.x",
+      "idx": 9,
+      "pos": [
+        0.0,
+        20.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
     }
    ]
 }

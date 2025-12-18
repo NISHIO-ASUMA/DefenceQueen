@@ -178,7 +178,7 @@ void CArray::Update(void)
 			auto Collider = feed->GetCollider();
 
 			// 当たっていたら
-			if (Colision(feed->GetCollider()))
+			if (Colision(Collider))
 			{
 				// 当たった対象物の体力値を減らす
 				feed->DecLife(1);
@@ -238,15 +238,15 @@ void CArray::Reset(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const int nLife
 		m_pParameter->SetHp(nLife);
 	}
 
-	// ノードに改めてセットする
-	if (m_pBlackBoard)
-	{
-		// 一時クリア
-		m_pBlackBoard->Clear();
+	//// ノードに改めてセットする
+	//if (m_pBlackBoard)
+	//{
+	//	// 一時クリア
+	//	m_pBlackBoard->Clear();
 
-		// 自身の情報をセットする
-		m_pBlackBoard->SetValue<CArray*>("Array", this);
-	}
+	//	// 自身の情報をセットする
+	//	m_pBlackBoard->SetValue<CArray*>("Array", this);
+	//}
 }
 //=========================================================
 // 指定のポイントに移動する関数
@@ -424,7 +424,7 @@ void CArray::ArrayFollow(void)
 }
 //=========================================================
 // 巣にもどる命令を受けたときの移動
-// NOTE : 設置されているランダムなスポーンに行くように変更
+// NOTE : 設置されているランダムなスポーンに行くように変更 これは冬休みか?
 //=========================================================
 void CArray::SpawnReturn(void)
 {
@@ -493,7 +493,7 @@ void CArray::NodeSetting(void)
 	// ブラックボードに情報をセットする
 	auto pos = GetPos();
 	m_pBlackBoard->SetValue<CArray*>("Array", this);			// 自身
-	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayPos", pos);		// 座標
+	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayPos", pos);		// 自身の座標
 	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayDestPos", m_MoveDestPos); // 目的座標
 	m_pBlackBoard->SetValue<bool>("ReturnSpawn", m_isReturn);	// 基地に帰るフラグ
 
@@ -507,5 +507,6 @@ void CArray::NodeSetting(void)
 //=========================================================
 bool CArray::Colision(CSphereCollider* other)
 {
+	// 球同士の当たり判定の関数を返す
 	return CCollisionSphere::Collision(m_pSphereCollider,other);
 }

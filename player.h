@@ -59,17 +59,15 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 
-	void KeyInput(const CInputKeyboard* pKey);
+	void InputAction(CInputKeyboard* pKey,CJoyPad * pPad);
 
-	void CollisionAll(D3DXVECTOR3 pPos,CInputKeyboard* pInput, CJoyPad* pPad);
-	bool CollisionBlock(CBoxCollider* other, D3DXVECTOR3* pos);
-	void OrderToArray(int nNum, const D3DXVECTOR3& destpos);
+	void OrderToArray(const D3DXVECTOR3& destpos);
 	void SetSendArrayMoving(int nIdx,int nNum);
 	int GetSelectIndex() const { return m_nSelectSpawn; }
 	CStateMachine* GetStateMachine() { return m_pStateMachine.get(); }
 	CMeshCylinder* GetMeshCylinder(void) { return m_pCylinder; }
 
-	static CPlayer* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife,const char* pFilename);
+	static CPlayer* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot);
 
 private:
 

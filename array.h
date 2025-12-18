@@ -93,7 +93,7 @@ private:
 		static constexpr float STOP_DISTANCE = 10.0f;
 	};
 
-	void NodeSetting(void); // ノード生成
+	void NodeSetting(void);				// ノード生成
 
 	int m_nListGroupId;					// 自身が動いているidのリスト番号
 	int m_nStopCount;					// ストップカウント

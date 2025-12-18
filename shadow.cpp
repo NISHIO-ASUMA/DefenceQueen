@@ -94,9 +94,6 @@ void CShadow::Draw(void)
 	// デバイス取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
-	// テクスチャポインタ取得
-	CTexture* pTexture = CManager::GetInstance()->GetTexture();
-
 	// 減算合成の設定
 	pDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_REVSUBTRACT);
 	pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);

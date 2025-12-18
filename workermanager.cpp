@@ -14,6 +14,19 @@
 #include "feedmanager.h"
 #include "feed.h"
 
+//*********************************************************
+// 定数宣言空間
+//*********************************************************
+namespace BASEDATA
+{
+	const D3DXVECTOR3 CreatePos[3]
+	{
+		{VECTOR3_NULL},
+		{-60.0f,0.0f,10.0f},
+		{60.0f,0.0f,10.0f},
+	};
+};
+
 //=========================================================
 // コンストラクタ
 //=========================================================
@@ -46,13 +59,11 @@ HRESULT CWorkerManager::Init(void)
 	// 動的ポインタを生成
 	for (int nCnt = 0; nCnt < config.NUM_WOKER; nCnt++)
 	{
-		// nCntごとに右へ動かして並べる
-		float x = config.WORKER_INTERVAL * nCnt;
-
-		auto pArray = CWorker::Create(D3DXVECTOR3(x, 0.0f, 0.0f), VECTOR3_NULL);
+		// 生成
+		auto pWork = CWorker::Create(BASEDATA::CreatePos[nCnt], VECTOR3_NULL);
 
 		// 配列に追加
-		m_pWorker.push_back(pArray);
+		m_pWorker.push_back(pWork);
 	}
 
 	return S_OK;
@@ -91,9 +102,4 @@ void CWorkerManager::Update(void)
 		pFeed->SetAssigned(true);
 	}
 #endif
-	//// 各Workerの更新
-	//for (auto& worker : m_pWorker)
-	//{
-	//	worker->Update();
-	//}
 }

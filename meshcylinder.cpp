@@ -105,7 +105,7 @@ HRESULT CMeshCylinder::Init(void)
 			float fAngle = (D3DX_PI * 2.0f) / DIGIT_X * nCntX;
 
 			// 頂点座標の設定
-			pVtx[nCnt].pos = D3DXVECTOR3(sinf((fAngle)) * m_Cylinder.fRadius, nCntZ * 50.0f, cosf((fAngle)) * m_Cylinder.fRadius);
+			pVtx[nCnt].pos = D3DXVECTOR3(sinf((fAngle)) * m_Cylinder.fRadius, nCntZ * 30.0f, cosf((fAngle)) * m_Cylinder.fRadius);
 
 			// 法線ベクトルの設定
 			nor = pVtx[nCnt].pos - m_pos;	// 各頂点から原点の値を引く
@@ -201,7 +201,6 @@ void CMeshCylinder::Update(void)
 	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
 	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
-
 }
 //=========================================================
 // 描画処理
@@ -240,6 +239,7 @@ void CMeshCylinder::Draw(void)
 	// テクスチャを戻す
 	pDevice->SetTexture(0, nullptr);
 
+	// Zテストを元に戻す
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 	pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);

@@ -53,13 +53,6 @@ public:
 	void OrderMove(int nNum, const D3DXVECTOR3& destPos);
 
 	/// <summary>
-	/// 基地にもどる命令をする
-	/// </summary>
-	/// <param name="nNum">戻す数</param>
-	/// <param name="returnpos">戻したい座標</param>
-	void OrderReturn(int nNum, const D3DXVECTOR3& returnpos);
-
-	/// <summary>
 	/// インデックス番号の加算
 	/// </summary>
 	/// <param name=""></param>
@@ -112,6 +105,27 @@ public:
 	/// <param name=""></param>
 	/// <returns></returns>
 	CArray* GetLastActiveAnt(void);
+
+	/// <summary>
+	/// 移動命令を受けたアリの数
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
+	int GetIsMoveArrays(void);
+
+	/// <summary>
+	/// 帰還命令を受けたアリの数
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
+	int GetIsReturn(void);
+
+	/// <summary>
+	/// 停止命令を受けたアリの数
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
+	int GetIsStop(void);
 
 	/// <summary>
 	/// 配列に要素を登録する

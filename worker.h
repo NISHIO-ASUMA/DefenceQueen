@@ -100,8 +100,8 @@ private:
 	//****************************
 	struct Config
 	{
-		static constexpr float Distance = 80.0f;
-		static constexpr float Move = 2.0f;
+		static constexpr float Distance = 80.0f; // ”»’è‹——£
+		static constexpr float Move = 3.5f;		 // ˆÚ“®‘¬“x
 		static constexpr int LITTLE = 10;
 		static constexpr int MIDDLE = 15;
 		static constexpr int LARGE = 20;

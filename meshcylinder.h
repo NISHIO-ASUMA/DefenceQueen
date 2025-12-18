@@ -46,8 +46,8 @@ public:
 	void SetTexture(void);
 
 	void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
-	D3DXVECTOR3 GetPos(void) { return m_pos; }
-	float GetRadius(void) const { return m_Cylinder.fRadius; }
+	inline D3DXVECTOR3 GetPos(void) { return m_pos; }
+	inline float GetRadius(void) const { return m_Cylinder.fRadius; }
 
 	static CMeshCylinder* Create(D3DXVECTOR3 pos, float fRadius);
 

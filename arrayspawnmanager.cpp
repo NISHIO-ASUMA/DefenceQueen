@@ -13,6 +13,7 @@
 #include "arrayspawner.h"
 #include "topant.h"
 #include "debugproc.h"
+#include "array.h"
 
 //*********************************************************
 // 使用名前空間
@@ -86,27 +87,41 @@ void CArraySpawnManager::Draw(void)
 {
 #ifdef _DEBUG
 	// デバッグ情報表示処理
-	CDebugproc::Print("各スポナーのアリ情報\n[0]番目 : ストックアリ数 [ %d ]\n[1]番目 : ストックアリ数 [ %d ]\n[2]番目 : ストックアリ数 [ %d ]\n",
+	CDebugproc::Print("各スポナーのアリ情報\n[0]番目 : ストック数 [ %d ]\n[1]番目 : ストック数 [ %d ]\n[2]番目 : ストック数 [ %d ]\n",
 		m_pArraySpawner[0]->GetStockArray(), m_pArraySpawner[1]->GetStockArray(), m_pArraySpawner[2]->GetStockArray());
-	CDebugproc::Draw(0, 260);
+	CDebugproc::Draw(1050, 20, COLOR_BLACK);
 
 	// アリの状態表示
 	CDebugproc::Print("各スポナーの先頭アリ情報\n[0]番目 : アクティブ =  %d\n[1]番目 : アクティブ =  %d\n[2]番目 : アクティブ =  %d\n",
 		m_pArraySpawner[0]->GetTopAnt()->GetIsActive(), m_pArraySpawner[1]->GetTopAnt()->GetIsActive(), m_pArraySpawner[2]->GetTopAnt()->GetIsActive());
-	CDebugproc::Draw(0, 340);
+	CDebugproc::Draw(1050, 100, COLOR_BLACK);
 
 	// インデックス情報の管理
 	CDebugproc::Print("各スポナーのIDX情報\n[0]番目 : %d\n[1]番目 : %d\n[2]番目 : %d\n",
 		m_pArraySpawner[0]->GetIdx(), m_pArraySpawner[1]->GetIdx(), m_pArraySpawner[2]->GetIdx());
-	CDebugproc::Draw(0, 420);
+	CDebugproc::Draw(1050, 180, COLOR_BLACK);
 
 	// 座標情報の管理
 	CDebugproc::Print("各スポナーの目的座標\n[0]番目 : %.2f,%.2f,%.2f\n[1]番目 : %.2f,%.2f,%.2f\n[2]番目 : %.2f,%.2f,%.2f\n",
 		m_pArraySpawner[0]->GetTopAnt()->GetDestPos().x, m_pArraySpawner[0]->GetTopAnt()->GetDestPos().y, m_pArraySpawner[0]->GetTopAnt()->GetDestPos().z,
 		m_pArraySpawner[1]->GetTopAnt()->GetDestPos().x, m_pArraySpawner[1]->GetTopAnt()->GetDestPos().y, m_pArraySpawner[1]->GetTopAnt()->GetDestPos().z,
 		m_pArraySpawner[2]->GetTopAnt()->GetDestPos().x, m_pArraySpawner[2]->GetTopAnt()->GetDestPos().y, m_pArraySpawner[2]->GetTopAnt()->GetDestPos().z);
-	CDebugproc::Draw(0, 500);
+	CDebugproc::Draw(1050, 260, COLOR_BLACK);
+
+	// 移動命令を受けたアリのフラグ情報の管理
+	CDebugproc::Print("移動命令を受けたアリの数\n[0] : { %d / 50 }\n[1] : { %d / 50 }\n[2] : { %d / 50 }\n",
+		m_pArraySpawner[0]->GetIsMoveArrays(), m_pArraySpawner[1]->GetIsMoveArrays(), m_pArraySpawner[2]->GetIsMoveArrays());
+	CDebugproc::Draw(1050, 330, COLOR_BLACK);
+
+	// 帰還命令を受けたアリのフラグ情報の管理
+	CDebugproc::Print("帰還命令を受けたアリの数\n[0] : { %d / 50 }\n[1] : { %d / 50 }\n[2] : { %d / 50 }\n",
+		m_pArraySpawner[0]->GetIsReturn(), m_pArraySpawner[1]->GetIsReturn(), m_pArraySpawner[2]->GetIsReturn());
+	CDebugproc::Draw(1050, 400, COLOR_BLACK);
+
+	// 停止命令を受けたアリのフラグ情報の管理
+	CDebugproc::Print("停止命令を受けたアリの数\n[0] : { %d / 50 }\n[1] : { %d / 50 }\n[2] : { %d / 50 }\n",
+		m_pArraySpawner[0]->GetIsStop(), m_pArraySpawner[1]->GetIsStop(), m_pArraySpawner[2]->GetIsStop());
+	CDebugproc::Draw(1050, 480, COLOR_BLACK);
 
 #endif // _DEBUG
-
 }

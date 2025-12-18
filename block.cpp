@@ -64,7 +64,7 @@ HRESULT CBlock::Init(void)
 	int nModelIdx = GetModelIdx();
 	D3DXVECTOR3 Size = pXManager->GetInfo(nModelIdx).Size;
 
-	// パス取得
+	// モデルのパス取得
 	std::string str = pXManager->GetInfo(nModelIdx).FilePath;
 
 	// 葉っぱは当たらない
@@ -100,7 +100,7 @@ void CBlock::Update(void)
 	// 現在の座標取得
 	D3DXVECTOR3 pos = GetPos();
 
-	// 座標の更新
+	// コライダー座標の更新
 	if (m_pCollider) m_pCollider->SetPos(pos);
 }
 //=========================================================

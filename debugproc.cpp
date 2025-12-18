@@ -86,7 +86,7 @@ void CDebugproc::Update(void)
 //=========================================================
 // デバッグプロセスの描画処理
 //=========================================================
-void CDebugproc::Draw(int PosX,int PosY)
+void CDebugproc::Draw(int PosX,int PosY, const D3DXCOLOR& color)
 {
 #ifdef _DEBUG
 	if (m_isUse)
@@ -94,14 +94,13 @@ void CDebugproc::Draw(int PosX,int PosY)
 		// ウィンドウレクト
 		RECT rect = { PosX,PosY,SCREEN_WIDTH,SCREEN_HEIGHT };
 
-		// フォントの生成
-		m_pFont->DrawText(NULL, m_aStr, -1, &rect, DT_LEFT, D3DCOLOR_ARGB(255, 255, 255, 255));
+		// デバッグフォントの生成
+		m_pFont->DrawText(NULL, m_aStr, -1, &rect, DT_LEFT,color);
 
 		// バッファのクリア
 		memset(m_aStr, 0, sizeof(m_aStr));
 	}
 #endif // _DEBUG
-
 }
 //=========================================================
 // フォント描画関数

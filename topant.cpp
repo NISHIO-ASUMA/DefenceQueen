@@ -210,8 +210,6 @@ void CTopAnt::Update(void)
 	{
 		for (int nCnt = 0; nCnt < pManager->GetSize(); nCnt++)
 		{
-			// 当たったら TODO : このままだと移動しながらじゃないと座標セット出来ないから止まってもできるように考える
-
 			if (CollisonT(pManager->GetFeed(nCnt)->GetCollider()))
 			{
 				// 当たった点の座標セット
@@ -237,8 +235,11 @@ void CTopAnt::Update(void)
 	}
 
 	// フラグが有効時 かつ キー入力があったら
-	if (m_isReturnNumber && pKey->GetTrigger(DIK_Q))
+	if (m_isReturnNumber)
 	{
+		// ここで関数イベント呼ぶ
+		m_event();
+
 		// 目的地の座標をセットする
 		SetDestMovePos(UpdatePos);
 	}

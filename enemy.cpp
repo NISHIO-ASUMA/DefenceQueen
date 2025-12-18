@@ -221,7 +221,8 @@ void CEnemy::MoveToQueen(void)
 {
 	// 対象を取得
 	auto Queen = CGameSceneObject::GetInstance()->GetQueen();
-	auto DestinationPos = Queen->GetPos();
+	auto DestinationPos = D3DXVECTOR3(Queen->GetPos().x,0.0f,Queen->GetPos().z);
+
 	float fRadius = Queen->GetCollider()->GetRadius();
 	D3DXVECTOR3 VecToQueen = DestinationPos - GetPos();
 	float fDiff = D3DXVec3Length(&VecToQueen);
@@ -230,7 +231,7 @@ void CEnemy::MoveToQueen(void)
 	{
 		// ベクトルを正規化
 		D3DXVec3Normalize(&VecToQueen, &VecToQueen);
-		VecToQueen *= 2.0f;
+		VecToQueen *= 1.5f;
 
 		// 角度設定
 		float angleY = atan2(-VecToQueen.x, -VecToQueen.z);

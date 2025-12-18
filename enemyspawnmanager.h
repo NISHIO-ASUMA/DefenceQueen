@@ -2,6 +2,7 @@
 //
 // 敵のスポナー複数管理処理 [ enemyspawnmanager.h ]
 // Author: Asuma Nishio
+// NOTE : ここら辺のオブジェクトの配置も外部ファイルで読み込む バイナリとかで
 // 
 //=========================================================
 
@@ -31,10 +32,10 @@ namespace SET_INFO
 
 	const D3DXVECTOR3 SpawnPos[CREATE_NUM] // スポーンの生成座標
 	{
-		{ 1000.0f,0.0f,308.0f },
-		{ 1000.0f,0.0f,-308.0f },
-		{ -1000.0f,0.0f,320.0f },
-		{ -1000.0f,0.0f,-320.0f }
+		{ 1125.0f,0.0f,308.0f },
+		{ 1125.0f,0.0f,-308.0f },
+		{ -1125.0f,0.0f,320.0f },
+		{ -1125.0f,0.0f,-320.0f }
 	};
 };
 
@@ -64,4 +65,3 @@ private:
 
 	std::array<CEnemySpawner*, SET_INFO::CREATE_NUM>m_pSpawners; // 敵のスポナー配列
 };
-

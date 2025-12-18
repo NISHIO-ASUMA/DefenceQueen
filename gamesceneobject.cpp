@@ -73,11 +73,11 @@ HRESULT CGameSceneObject::Init(void)
 	m_pBlocks = std::make_unique<CBlockManager>();
 	m_pBlocks->Init();
 
-	// タイマー生成
-	m_pTimer = CTime::Create(D3DXVECTOR3(1040.0f,40.0f,0.0f),60.0f,40.0f);
+	//// タイマー生成
+	//m_pTimer = CTime::Create(D3DXVECTOR3(1040.0f,40.0f,0.0f),60.0f,40.0f);
 
 	// コロン生成
-	CUi::Create(D3DXVECTOR3(1145.0f, 40.0f, 0.0f), 0, 15.0f, 30.0f, "coron.png", false);
+	// CUi::Create(D3DXVECTOR3(1145.0f, 40.0f, 0.0f), 0, 15.0f, 30.0f, "coron.png", false);
 
 	// メッシュフィールド生成
 	CMeshField::Create(VECTOR3_NULL,3200.0f,2000.0f,1,1);
@@ -103,10 +103,10 @@ HRESULT CGameSceneObject::Init(void)
 	m_pWorkUi->Init();
 
 	// プレイヤー生成
-	m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -600.0f), VECTOR3_NULL, 10, "data/MOTION/Player/Player100motion.txt");
+	m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -600.0f), VECTOR3_NULL);
 
 	// 防衛対象のクイーン生成
-	m_pQueen = CQueen::Create(D3DXVECTOR3(0.0f,0.0f,-150.0f),VECTOR3_NULL);
+	m_pQueen = CQueen::Create(D3DXVECTOR3(0.0f,30.0f,0.0f),VECTOR3_NULL);
 
 	// 敵場所生成
 	m_pEnemySpawnManager = std::make_unique<CEnemySpawnManager>();
@@ -115,7 +115,7 @@ HRESULT CGameSceneObject::Init(void)
 	CEnemy::Create(D3DXVECTOR3(-600.0f, 0.0f, -300.0f), VECTOR3_NULL, 1);
 
 	// スコア生成
-	m_pScore = CScore::Create(D3DXVECTOR3(1180.0f, 300.0f, 0.0f), 40.0f, 60.0f);
+	m_pScore = CScore::Create(D3DXVECTOR3(1180.0f, 620.0f, 0.0f), 40.0f, 60.0f);
 
 	return S_OK;
 }

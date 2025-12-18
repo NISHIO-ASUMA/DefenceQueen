@@ -45,7 +45,7 @@ namespace PLAYERINFO
 {
 	constexpr float NorRot = D3DX_PI * 2.0f; // 正規化値
 	constexpr float SPRED = 75.0f;			 // 散らす範囲
-	const D3DXVECTOR3 POS = VECTOR3_NULL;
+	const D3DXVECTOR3 POS = D3DXVECTOR3(-0.1f,-0.1f,-0.1f);
 };
 
 //=========================================================
@@ -73,7 +73,7 @@ CPlayer::~CPlayer()
 //=========================================================
 // プレイヤー生成処理
 //=========================================================
-CPlayer* CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot,int nLife, const char* pFilename)
+CPlayer* CPlayer::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
 {
 	// プレイヤーのインスタンス生成
 	CPlayer* pPlayer = new CPlayer;
@@ -110,8 +110,8 @@ HRESULT CPlayer::Init(void)
 	// モーション取得
 	m_pMotion = CNoMoveCharactor::GetMotion();
 
-	//// メッシュ生成
-	// m_pCylinder = CMeshCylinder::Create(VECTOR3_NULL, 65.0f);
+	// メッシュ生成
+	 m_pCylinder = CMeshCylinder::Create(VECTOR3_NULL, 65.0f);
 
 #if 1
 	// 味方のスポナーを取得
@@ -130,8 +130,8 @@ HRESULT CPlayer::Init(void)
 			// 最初からONになる
 			topant->SetIsActive(true);	
 
-			//// 円柱の座標を移動
-			// m_pCylinder->SetPos(topant->GetPos());
+			// 円柱の座標を移動
+			 m_pCylinder->SetPos(topant->GetPos());
 		}
 
 		// 選択インデックス変更
@@ -178,14 +178,63 @@ void CPlayer::Update(void)
 		m_pBoxCollider->SetPosOld(posOld);
 	}
 
-	// 選択スポナーの処理
-	if (pKeyboard->GetTrigger(DIK_L))
+	// アクションキー
+	InputAction(pKeyboard, pJoyPad);
+
+	// null値チェック
+	if (m_nSelectSpawn != -1)
+	{
+		auto pArraySpawn = CGameSceneObject::GetInstance()->GetArraySpawn();
+		auto pSpawn = pArraySpawn->GetIndexSpawner(m_nSelectSpawn);
+
+		if (pSpawn)
+		{
+			auto pTop = pSpawn->GetTopAnt();
+
+			if (pTop)
+			{
+				m_pCylinder->SetPos(pTop->GetPos());
+			}
+		}
+	}
+
+	// キャラクターの全体更新処理
+	CNoMoveCharactor::Update();
+}
+//=========================================================
+// プレイヤー描画処理
+//=========================================================
+void CPlayer::Draw(void)
+{
+#if 0
+	// キャラクターの描画処理
+	CNoMoveCharactor::Draw();
+#endif
+
+#ifdef _DEBUG
+	CDebugproc::Print("Player Pos [ %.2f, %.2f,%.2f ]", GetPos().x,GetPos().y,GetPos().z);
+	CDebugproc::Draw(0, 120);
+
+	CDebugproc::Print("選択中のスポナーのインデックス : [ %d ]", m_nSelectSpawn);
+	CDebugproc::Draw(0, 200);
+
+	CDebugproc::Print("設定するアリの数 : [ %d ]", m_nNum);
+	CDebugproc::Draw(0, 220);
+#endif // _DEBUG
+}
+//===========================================================
+// プレイヤーが操作する情報関数
+//===========================================================
+void CPlayer::InputAction(CInputKeyboard* pKey, CJoyPad* pPad)
+{
+	// アリスポナー配列取得
+	auto pArraySpawn = CGameSceneObject::GetInstance()->GetArraySpawn();
+
+	// スポナーの指示アリを切り替える処理
+	if (pKey->GetTrigger(DIK_L) || pPad->GetTrigger(CJoyPad::JOYKEY_LEFT_B) || pPad->GetTrigger(CJoyPad::JOYKEY_RIGHT_B))
 	{
 		// インデックスを変更
-		m_nSelectSpawn = Wrap(m_nSelectSpawn + 1, 0, 2);
-
-		// アリスポナー配列取得
-		auto pArraySpawn = CGameSceneObject::GetInstance()->GetArraySpawn();
+		m_nSelectSpawn = Wrap(m_nSelectSpawn + 1, 0, Config::NUM_SPAWN - 1);
 
 		// トップアリをoffにする
 		if (m_nPrevSelectSpawn != -1)
@@ -214,13 +263,13 @@ void CPlayer::Update(void)
 			// 現在インデックスのトップ取得
 			auto currentTop = currentSpawn->GetTopAnt();
 
-			// 有効化
 			if (currentTop)
 			{
+				// 有効化
 				currentTop->SetIsActive(true);
 
 				// ここでメッシュの座標をセットする
-				// m_pCylinder->SetPos(currentTop->GetPos());
+				m_pCylinder->SetPos(currentTop->GetPos());
 			}
 		}
 
@@ -228,107 +277,44 @@ void CPlayer::Update(void)
 		m_nPrevSelectSpawn = m_nSelectSpawn;
 	}
 
-
-	// 送る数を加算
-	if (pKeyboard->GetTrigger(DIK_UP))
+	// 送る数を加算する
+	if (pKey->GetTrigger(DIK_UP) || pPad->GetTriggerLT())
 	{
 		m_nNum += Config::VALUE_ANT;
 		m_nNum = Clump(m_nNum, 0, Config::MAX_VALUE);
 	}
 
-	// 送る数を減算
-	if (pKeyboard->GetTrigger(DIK_DOWN))
+	// 送る数を減算する
+	if (pKey->GetTrigger(DIK_DOWN) || pPad->GetTriggerRT())
 	{
 		m_nNum -= Config::VALUE_ANT;
 		m_nNum = Clump(m_nNum, 0, Config::MAX_VALUE);
 	}
 
-	// 情報登録
-	if (pKeyboard->GetTrigger(DIK_K))
+	// イベント登録
+	auto TopS = pArraySpawn->GetIndexSpawner(m_nSelectSpawn)->GetTopAnt();
+
+	// 有効化されている物だけ
+	if (TopS->GetIsActive())
 	{
-		// スポナーに送る数とインデックスをセット
-		SetSendArrayMoving(m_nSelectSpawn, m_nNum);
+		TopS->RegisterEvent([&](void) { this->SetSendArrayMoving(m_nSelectSpawn,m_nNum); });
 	}
 
-	// アリに指示を送る処理
-	if (pKeyboard->GetTrigger(DIK_V))
+	// 移動命令を送る処理
+	if (pKey->GetTrigger(DIK_V) || pPad->GetTrigger(CJoyPad::JOYKEY_X))
 	{
 		// 指定座標
 		D3DXVECTOR3 point = VECTOR3_NULL;
 		point = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(m_nSelectSpawn)->GetTopAnt()->GetDestPos();
-		
-		// 0.0より小さかったら
-		if (point <= PLAYERINFO::POS) return;
 
 		// 指令アリの当たったポイントで判断する
-		OrderToArray(m_nNum, point);
+		OrderToArray(point);
 	}
-
-	// 当たり判定の管理関数
-	CollisionAll(UpdatePos, pKeyboard, pJoyPad);
-
-	// キャラクターの全体更新処理
-	CNoMoveCharactor::Update();
-}
-//=========================================================
-// プレイヤー描画処理
-//=========================================================
-void CPlayer::Draw(void)
-{
-#if 0
-	// キャラクターの描画処理
-	CNoMoveCharactor::Draw();
-#endif
-
-#ifdef _DEBUG
-	CDebugproc::Print("Player Pos [ %.2f, %.2f,%.2f ]", GetPos().x,GetPos().y,GetPos().z);
-	CDebugproc::Draw(0, 120);
-
-	CDebugproc::Print("選択中のスポナーのインデックス : [ %d ]", m_nSelectSpawn);
-	CDebugproc::Draw(0, 200);
-
-	CDebugproc::Print("設定するアリの数 : [ %d ]", m_nNum);
-	CDebugproc::Draw(0, 220);
-#endif // _DEBUG
-}
-//===========================================================
-// キー入力情報のまとめ関数
-//===========================================================
-void CPlayer::KeyInput(const CInputKeyboard* pKey)
-{
-
-}
-//===========================================================
-// 全コリジョンチェック関数
-//===========================================================
-void CPlayer::CollisionAll(D3DXVECTOR3 pPos, CInputKeyboard* pInput, CJoyPad* pPad)
-{
-	// 配置されているブロックを取得
-	auto Block = CGameSceneObject::GetInstance()->GetBlockManager();
-	if (Block == nullptr) return;
-
-	// ブロックオブジェクトとの当たり判定
-	for (int nBlock = 0; nBlock < Block->GetAll(); nBlock++)
-	{
-		// コライダー取得
-		CBoxCollider* pOtherCollider = Block->GetBlock(nBlock)->GetCollider();
-		if (pOtherCollider == nullptr) continue;
-
-		// 実際のコリジョン
-		if (CollisionBlock(pOtherCollider, &pPos))
-		{
-			// 座標セット
-			SetPos(pPos);
-
-			// コライダー座標更新
-			m_pBoxCollider->SetPos(pPos);
-		}
-	}	
 }
 //===================================================================
 // 指示を出して特定数のアリを送る処理
 //===================================================================
-void CPlayer::OrderToArray(int nNum, const D3DXVECTOR3& destpos)
+void CPlayer::OrderToArray(const D3DXVECTOR3& destpos)
 {
 	// スポナーマネージャ取得
 	auto pSpawnMgr = CGameSceneObject::GetInstance()->GetArraySpawn();
@@ -344,13 +330,17 @@ void CPlayer::OrderToArray(int nNum, const D3DXVECTOR3& destpos)
 		auto pSpawner = pSpawnMgr->GetIndexSpawner(nCnt);
 		if (!pSpawner) continue;
 
+		// トップのアリがアクティブの物だけから命令を生成する
+		auto UseTop = pSpawner->GetTopAnt()->GetIsActive();
+		if (!UseTop) continue;
+
 		// ここでスポナーがもっているリストのインデックスを加算
 		pSpawner->IncrementIdx();
 
-		// 各スポナーへ同時命令(各スポナーのインデックスに対するリストの番号を保持しておく必要がある)
+		// 各スポナーへ命令する
 		pSpawner->OrderMove(sendNum, destpos);
 
-		// 初期インデックスにする
+		// 値をクリア
 		m_pSpawnData[nCnt] = 0;
 	}
 }
@@ -361,12 +351,4 @@ void CPlayer::SetSendArrayMoving(int nIdx, int nNum)
 {
 	// 値をセット
 	m_pSpawnData[nIdx] = nNum;
-}
-//===================================================================
-// ブロックとの当たり判定
-//===================================================================
-bool CPlayer::CollisionBlock(CBoxCollider* other, D3DXVECTOR3* pos)
-{
-	// 矩形との当たり判定を返す
-	return false;
 }

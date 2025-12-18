@@ -15,6 +15,7 @@
 // インクルードファイル
 //*********************************************************
 #include "movecharactor.h"
+#include <functional>
 
 //*********************************************************
 // 前方宣言
@@ -71,6 +72,9 @@ public:
 	bool CollisionSphere(CSphereCollider* pOther);
 	bool CollisonT(CSphereCollider* pOther);
 	
+	// イベントで使う関数を登録する
+	void RegisterEvent(std::function<void(void)> Event) { m_event = Event; }
+
 	void SetDestMovePos(const D3DXVECTOR3& pos) { m_DestPos = pos; }
 	void SetIsActive(const bool& isActive) { m_isActive = isActive; }
 	void SetSeparationRadius(const float& Radius) { m_fSeparationRadius = Radius; }
@@ -90,7 +94,7 @@ private:
 	//**********************
 	struct Config
 	{
-		static constexpr float SPEED = 4.0f;											 // 移動速度
+		static constexpr float SPEED = 3.0f;											 // 移動速度
 		static constexpr float MAX_RADIUS = 100.0f;										 // 最大範囲
 		static constexpr float NorRot = D3DX_PI * 2.0f;									 // 回転補正
 		static constexpr float Separation = 3.0f;										 // 範囲拡大
@@ -99,6 +103,8 @@ private:
 
 	CSphereCollider* m_pColliderSphere; // 球形コライダー
 	CBoxCollider* m_pColliderBox;		// 矩形コライダー
+	std::function<void(void)>m_event;	// 決定時に呼ばれるイベント処理
+
 	D3DXVECTOR3 m_DestPos;				// 座標設置用
 	bool m_isActive;					// アクティブフラグ
 	bool m_isBranchSet;					// 切り離し中かどうか

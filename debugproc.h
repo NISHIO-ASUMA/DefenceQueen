@@ -24,7 +24,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 
-	static void Draw(int PosX, int PosY);
+	static void Draw(int PosX, int PosY,const D3DXCOLOR& color = COLOR_WHITE);
 	static void Print(const char* fmt, ...);
 
 private:
