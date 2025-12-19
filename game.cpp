@@ -135,8 +135,17 @@ void CGame::Update(void)
 
 		// ゲームオブジェクト更新
 		CGameSceneObject::GetInstance()->Update();
+
+		if (CGameSceneObject::GetInstance()->GetTime()->GetToAll() <= 0)
+		{
+			// 状態変更
+			m_pState->SetProgress(CGameState::PROGRESS_END);
+			return;
+		}
 	}
 
+	// 時間が0になったら
+	
 	//auto p = CGameSceneObject::GetInstance()->GetQueen();
 
 	//if ()
