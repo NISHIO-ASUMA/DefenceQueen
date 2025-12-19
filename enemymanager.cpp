@@ -2,8 +2,6 @@
 //
 // 敵の複数管理処理 [ enemymanager.cpp ]
 // Author: Asuma Nishio
-//
-// TODO : 出現位置はランダムなスポーン場所に任せる
 // 
 //=========================================================
 
@@ -12,11 +10,14 @@
 //*********************************************************
 #include "enemymanager.h"
 #include "enemy.h"
+#include "gamesceneobject.h"
+#include "time.h"
+#include "enemyspawnmanager.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
-CEnemyManager::CEnemyManager() : m_pEnemys{}
+CEnemyManager::CEnemyManager() : m_pEnemys{}, m_nCreateLastTime(-1)
 {
 
 }
@@ -38,15 +39,7 @@ HRESULT CEnemyManager::Init(void)
 	// 配列のサイズを設定
 	m_pEnemys.reserve(Config::NUM_ENEMY);
 
-	// 生成する
-	for (auto iter = m_pEnemys.begin(); iter != m_pEnemys.end(); iter++)
-	{
-		// キャラクター生成
-		auto Newenemy = CEnemy::Create(VECTOR3_NULL,VECTOR3_NULL,Config::LIFE);
-
-		// 配列に格納
-		m_pEnemys.push_back(Newenemy);
-	}
+	m_nCreateLastTime = -1;
 
 	return S_OK;
 }
@@ -63,5 +56,43 @@ void CEnemyManager::Uninit(void)
 //=========================================================
 void CEnemyManager::Update(void)
 {
+	auto GameSceneObject = CGameSceneObject::GetInstance();
+	int time = GameSceneObject->GetTime()->GetToAll();
 
+	using namespace SET_INFO;
+
+	if (time > 0 &&
+		time % 10 == 0 &&
+		time != m_nCreateLastTime)
+	{
+		// 今回の湧き数
+		int spawnCount = SPAWN_MIN + rand() % (SPAWN_MAX + 1);
+
+		for (int i = 0; i < spawnCount; i++)
+		{
+			// スポーン位置ランダム
+			int index = rand() % CREATE_NUM;
+			D3DXVECTOR3 pos = SpawnPos[index];
+
+			// 
+			D3DXVECTOR3 offset(
+				(rand() % 50 - 25) * 1.0f,
+				0.0f,
+				(rand() % 50 - 25) * 1.0f
+			);
+
+			pos += offset;
+
+			CEnemy* pEnemy = CEnemy::Create(pos, VECTOR3_NULL, Config::LIFE);
+			if (pEnemy)
+			{
+				pEnemy->SetIsActive(true);
+				m_pEnemys.push_back(pEnemy);
+			}
+
+			
+		}
+
+		m_nCreateLastTime = time;
+	}
 }

@@ -732,6 +732,12 @@
     <ClCompile Include="boxtospherecollision.cpp">
       <Filter>ソース ファイル\Physics\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="pointobj.cpp">
+      <Filter>ソース ファイル\XFile</Filter>
+    </ClCompile>
+    <ClCompile Include="signalui.cpp">
+      <Filter>ソース ファイル\2DUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blackboard.h">
@@ -1178,10 +1184,16 @@
     <ClInclude Include="outline.h">
       <Filter>ヘッダー ファイル\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="boxtospherecollision.h">
+    <ClInclude Include="resource.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="boxtospherecollision.h">
+      <Filter>ヘッダー ファイル\Physics\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="pointobj.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="signalui.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

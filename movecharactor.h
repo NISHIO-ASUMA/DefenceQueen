@@ -62,7 +62,8 @@ public:
 	void SetMove(const D3DXVECTOR3& move) { m_move = move; }
 	void SetMoveValue(const float fValue) { m_fMoveValue = fValue; }
 	void SetType(TYPE Type) { m_type = Type; }
-	void SetUseStencil(bool isUse) { m_isStencilUse = isUse; }
+	void SetUseStencil(const bool isUse) { m_isStencilUse = isUse; }
+	void SetUseOutLine(const bool isUse = false) { m_isOutLine = isUse; }
 
 	void MotionLoad(const char* pScriptName, int nDestMotions,const bool isShadow);
 	void SetCharactor(TYPE type) { m_type = type; }
@@ -102,4 +103,5 @@ private:
 
 	float m_fMoveValue;		// 移動加算値
 	bool m_isStencilUse;	// ステンシルシャドウを使うか
+	bool m_isOutLine;		// アウトラインを使うかどうか
 };

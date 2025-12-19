@@ -16,6 +16,7 @@
 #include "number.h"
 #include "object.h"
 #include <memory>
+#include <array>
 
 //*********************************************************
 // 前方宣言
@@ -53,7 +54,6 @@ private:
 	static constexpr int NUM_SCORE = 8; // 桁数
 	static constexpr int NUM_DIGIT = 10; // 表示する分割桁数の値
 
-	CNumber *m_apNumber[NUM_SCORE];	// 桁数分のナンバーのポインタ
 	D3DXCOLOR m_col;				// カラー
 	D3DXVECTOR3 m_pos;				// 座標
 	D3DXVECTOR3 m_rot;				// 角度
@@ -62,5 +62,6 @@ private:
 	float m_fHeight;				// 高さ
 	int m_nScore;					// スコア保持用
 
+	std::array<CNumber*,NUM_SCORE>m_apNumber;	// 桁数分のナンバーのポインタ
 	std::unique_ptr<CLoad>m_pLoad;	// ユニークポインタ
 };

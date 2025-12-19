@@ -26,6 +26,8 @@
 #include "queen.h"
 #include "template.h"
 #include "input.h"
+#include "feedmanager.h"
+#include "feed.h"
 
 //*********************************************************
 // 定数宣言空間
@@ -33,6 +35,7 @@
 namespace EnemyInfo
 {
 	constexpr float HitRange = 80.0f; // 球形範囲
+	const char* MOTION_NAME = "data/MOTION/Enemy/Enemy_Motion.txt";
 };
 
 //=========================================================
@@ -43,7 +46,10 @@ m_pMotion(nullptr),
 m_pParameter(nullptr),
 m_pStateMachine(nullptr),
 m_pSphereCollider(nullptr),
-m_isActive(false)
+m_pTargetFeed(nullptr),
+m_isActive(false),
+m_isDestQueen(false),
+m_isDestFeed(false)
 {
 	// 値のクリア
 }
@@ -81,7 +87,6 @@ CEnemy* CEnemy::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife)
 	// 初期化失敗時
 	if (FAILED(pEnemy->Init())) return nullptr;
 
-	// 敵のポインタを返す
 	return pEnemy;
 }
 //=========================================================
@@ -96,7 +101,7 @@ HRESULT CEnemy::Init(void)
 	SetObjType(CObject::TYPE_ENEMY);
 
 	// モーションセット
-	MotionLoad("data/MOTION/Enemy/Enemy_Motion.txt", MOTION_MAX,true);
+	MotionLoad(EnemyInfo::MOTION_NAME, MOTION_MAX,true);
 
 	// ステートマシンを生成
 	m_pStateMachine = std::make_unique<CStateMachine>();
@@ -110,7 +115,25 @@ HRESULT CEnemy::Init(void)
 	// 拡大する
 	// SetScale(D3DXVECTOR3(1.5f, 1.5f, 1.5f));
 
-	m_isActive = true;
+	// 有効化
+	
+	m_isDestQueen = true;
+	//// ランダム数
+	//int nRand = rand() % 2;
+
+	//switch (nRand)
+	//{
+	//case 0:
+	//	m_isDestQueen = true;
+	//	break;
+
+	//case 1:
+	//	m_isDestFeed = true;
+	//	break;
+
+	//default:
+	//	break;
+	
 
 	// 初期化結果を返す
 	return S_OK;
@@ -152,13 +175,11 @@ void CEnemy::Update(void)
 	//m_pBehaviorTree->Update();
 #endif
 
-#ifdef _DEBUG
+	// 餌移動
+	if (m_isDestFeed) MoveToFeed();
 
-	// 女王に移動する
-	MoveToQueen();
-
-#endif // _DEBUG
-
+	// 女王移動
+	if (m_isDestQueen) MoveToQueen();
 
 	// 座標のみの更新
 	CMoveCharactor::UpdatePosition();
@@ -166,10 +187,21 @@ void CEnemy::Update(void)
 	// 更新後の座標
 	D3DXVECTOR3 UpdatePos = GetPos();
 
-	// 餌との当たり判定 TODO : これに関しては餌に向かっていくものだけが判定するべき
-	
-	// 球の座標更新
-	if (m_pSphereCollider) m_pSphereCollider->SetPos(UpdatePos);
+	if (m_isDestFeed)
+	{
+		// 当たり判定関数
+		CollisionFeed();
+	}
+
+	if (m_isDestQueen)
+	{
+		// 当たり判定関数
+		CollisionQueen();
+	}
+
+	// 球更新
+	if (m_pSphereCollider)
+	m_pSphereCollider->SetPos(UpdatePos);
 
 	// キャラクターの更新処理
 	CMoveCharactor::Update();
@@ -191,7 +223,43 @@ void CEnemy::Draw(void)
 //=========================================================
 void CEnemy::MoveToFeed(void)
 {
+	// 餌判定を有効化
+	m_isDestFeed = true;
 
+	// ターゲットが無い or 消えたら再取得
+	if (!m_pTargetFeed || m_pTargetFeed->GetParam()->GetHp() <= 0)
+	{
+		if (!m_pTargetFeed) return;
+		m_pTargetFeed = FindFeed();
+	}
+
+	// 目的地（XZのみ）
+	D3DXVECTOR3 destPos = m_pTargetFeed->GetPos();
+	destPos.y = 0.0f;
+
+	D3DXVECTOR3 vec = destPos - GetPos();
+	float dist = D3DXVec3Length(&vec);
+
+	// 一定距離以内なら止まる
+	if (dist < 10.0f)
+	{
+		SetMove(VECTOR3_NULL);
+		GetMotion()->SetMotion(MOTION_NEUTRAL);
+		return;
+	}
+
+	// 正規化して移動
+	D3DXVec3Normalize(&vec, &vec);
+	vec *= 1.0f; // 移動速度
+
+	// 向き
+	float angleY = atan2(-vec.x, -vec.z);
+	D3DXVECTOR3 rot = GetRotDest();
+	rot.y = NormalAngle(angleY);
+	SetRotDest(rot);
+
+	SetMove(vec);
+	GetMotion()->SetMotion(MOTION_MOVE);
 }
 //=========================================================
 // 仲間アリを攻撃する処理
@@ -223,15 +291,14 @@ void CEnemy::MoveToQueen(void)
 	auto Queen = CGameSceneObject::GetInstance()->GetQueen();
 	auto DestinationPos = D3DXVECTOR3(Queen->GetPos().x,0.0f,Queen->GetPos().z);
 
-	float fRadius = Queen->GetCollider()->GetRadius();
 	D3DXVECTOR3 VecToQueen = DestinationPos - GetPos();
 	float fDiff = D3DXVec3Length(&VecToQueen);
 
-	if (fDiff > fRadius)
+	if (fDiff > 10.0f)
 	{
 		// ベクトルを正規化
 		D3DXVec3Normalize(&VecToQueen, &VecToQueen);
-		VecToQueen *= 1.5f;
+		VecToQueen *= 1.0f;
 
 		// 角度設定
 		float angleY = atan2(-VecToQueen.x, -VecToQueen.z);
@@ -251,6 +318,93 @@ void CEnemy::MoveToQueen(void)
 	{
 		SetMove(VECTOR3_NULL);
 		GetMotion()->SetMotion(MOTION_NEUTRAL, true, 10);
+	}
+}
+//=========================================================
+// 餌を見つける処理
+//=========================================================
+CFeed* CEnemy::FindFeed(void)
+{
+	// 餌取得
+	CFeedManager* pFeed = CGameSceneObject::GetInstance()->GetFeedManager();
+	if (!pFeed || pFeed->GetSize() <= 0) return nullptr;
+
+	// 最近点を生成
+	CFeed* pNearest = nullptr;
+	float minDist = FLT_MAX;
+
+	// 座標取得
+	D3DXVECTOR3 myPos = GetPos();
+
+	for (int nCnt = 0; nCnt < pFeed->GetSize(); nCnt++)
+	{
+		CFeed* feed = pFeed->GetFeed(nCnt);
+		if (!feed) continue;
+
+		D3DXVECTOR3 diff = feed->GetPos() - myPos;
+		float dist = D3DXVec3Length(&diff);
+
+		if (dist < minDist)
+		{
+			minDist = dist;
+			pNearest = feed;
+		}
+	}
+
+	return pNearest;
+}
+//==========================================================
+// 餌との当たり判定
+//==========================================================
+void CEnemy::CollisionFeed(void)
+{
+	// アリと餌の当たり判定
+	CFeedManager* pFeed = CGameSceneObject::GetInstance()->GetFeedManager();
+
+	// nullじゃないとき
+	if (pFeed != nullptr)
+	{
+		// 配列取得
+		for (int nCnt = 0; nCnt < pFeed->GetSize(); nCnt++)
+		{
+			// 変数格納
+			auto feed = pFeed->GetFeed(nCnt);
+			auto Collider = feed->GetCollider();
+
+			// 当たっていたら
+			if (Collision(Collider))
+			{
+				// 当たった対象物の体力値を減らす
+				feed->DecLife(1);
+				m_pTargetFeed = nullptr;
+
+				// 自身の破棄
+				Uninit();
+
+				break;
+			}
+		}
+	}
+}
+//==========================================================
+// 女王との当たり判定
+//==========================================================
+void CEnemy::CollisionQueen(void)
+{
+	// 女王の取得
+	auto Queen = CGameSceneObject::GetInstance()->GetQueen();
+	auto Collider = Queen->GetCollider();
+
+	// 有効時
+	if (Collision(Collider))
+	{
+		// 対象オブジェクトの体力値を減算する
+		Queen->Hit(3);
+
+		// 自身の破棄
+		Uninit();
+
+		return;
 	}
 }
 

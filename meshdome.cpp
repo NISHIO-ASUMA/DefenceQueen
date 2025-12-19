@@ -118,7 +118,7 @@ HRESULT CMeshDome::Init(void)
 			// テクスチャ座標を設定
 			pVtx[nCntV * (MeshDome_X_BLOCK + 1) + nCntH].tex = D3DXVECTOR2(
 				(float)nCntH / MeshDome_X_BLOCK,						// U座標（円周方向）
-				1.0f - (float)nCntV / MeshDome_Z_BLOCK				    // V座標（高さ方向）
+				1.0f - (float)nCntV / MeshDome_Z_BLOCK					// V座標（高さ方向）
 			);
 		}
 	}
@@ -229,11 +229,25 @@ void CMeshDome::Draw(void)
 	// 頂点フォーマットの設定
 	pDevice->SetFVF(FVF_VERTEX_3D);
 
-	// ポリゴンの描画
-	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, MeshDome_VERTEX_NUM, 0, MeshDome_INDEX_NUM);
+	// カリング設定
+	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-	// テクスチャNULL
+	// 描画
+	pDevice->DrawIndexedPrimitive(
+		D3DPT_TRIANGLELIST,
+		0,
+		0,
+		MeshDome_VERTEX_NUM,
+		0,
+		MeshDome_INDEX_NUM
+	);
+
+	// テクスチャクリア
 	pDevice->SetTexture(0, nullptr);
+
+	// カリングを戻す
+	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+
 }
 //=========================================================
 // テクスチャ設定

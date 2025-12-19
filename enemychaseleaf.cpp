@@ -18,12 +18,9 @@
 //=========================================================
 void CEnemyChaseLeaf::Update()
 {
+#if 0
 	// ローカル変数
 	ChaseInfo info = {};
-
-	// 対象物の目的の座標を取得する
-	auto ChaseToDest = m_pBlackBoard->GetValue<CSelectPoint*>("Selector");
-	auto DestPos = m_pBlackBoard->GetValue<D3DXVECTOR3>("SelectorPos");
 
 	// 追従する自分を取得する
 	auto* DestObject = m_pBlackBoard->GetValue<CEnemy*>("Enemy");
@@ -63,4 +60,5 @@ void CEnemyChaseLeaf::Update()
 		// 一定の距離なら動かない
 		DestObject->SetMove(VECTOR3_NULL);
 	}
+#endif
 }

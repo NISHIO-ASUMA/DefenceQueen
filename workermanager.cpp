@@ -17,15 +17,15 @@
 //*********************************************************
 // 定数宣言空間
 //*********************************************************
-namespace BASEDATA
-{
-	const D3DXVECTOR3 CreatePos[3]
-	{
-		{VECTOR3_NULL},
-		{-60.0f,0.0f,10.0f},
-		{60.0f,0.0f,10.0f},
-	};
-};
+//namespace BASEDATA
+//{
+//	const D3DXVECTOR3 CreatePos[3]
+//	{
+//		{VECTOR3_NULL},
+//		{-60.0f,0.0f,10.0f},
+//		{60.0f,0.0f,10.0f},
+//	};
+//};
 
 //=========================================================
 // コンストラクタ
@@ -60,7 +60,7 @@ HRESULT CWorkerManager::Init(void)
 	for (int nCnt = 0; nCnt < config.NUM_WOKER; nCnt++)
 	{
 		// 生成
-		auto pWork = CWorker::Create(BASEDATA::CreatePos[nCnt], VECTOR3_NULL);
+		auto pWork = CWorker::Create(VECTOR3_NULL, VECTOR3_NULL);
 
 		// 配列に追加
 		m_pWorker.push_back(pWork);

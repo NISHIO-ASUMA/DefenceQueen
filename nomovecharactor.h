@@ -84,5 +84,5 @@ private:
 	CShadowS* m_pShadowS;				// ステンシルシャドウクラスのポインタ
 
 	bool m_isStencilUse;				// ステンシルを使うかどうか
-	bool m_isOutLine;
+	bool m_isOutLine;					// アウトラインを入れるかどうか
 };

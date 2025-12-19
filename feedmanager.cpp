@@ -14,6 +14,18 @@
 #include "gamesceneobject.h"
 #include "time.h"
 
+//*********************************************************
+// 名前空間
+//*********************************************************
+namespace FEED_INFO
+{
+	const char* MODEL_NAME[2]
+	{
+		"FEED/Lemon.x",
+		"FEED/Suger.x"
+	};
+};
+
 //=========================================================
 // コンストラクタ
 //=========================================================
@@ -56,14 +68,16 @@ void CFeedManager::Uninit(void)
 //=========================================================
 void CFeedManager::Update(void)
 {
-#if 0
+#if 1
 	// 経過時間によって出現する
 	 auto GameSceneObject = CGameSceneObject::GetInstance();
 	 auto time = GameSceneObject->GetTime()->GetToAll();
 
+	 // ランダム数
+	 int nRand = rand() % 2;
 
-	 // 総ゲーム時間から計算 (15秒ごとに一個追加で出現させたい 配列を拡張するのでサイズを変える)
-	 if (time != 120 && time % 15 == 0 && time != m_nCreateLastTime)
+	 // 総ゲーム時間から計算 (25秒ごとに一個追加で出現させたい 配列を拡張するのでサイズを変える)
+	 if (time != 120 && time % 25 == 0 && time != m_nCreateLastTime)
 	 {
 		 // ランダムな座標
 		 D3DXVECTOR3 pos = CreateRandomPos();
@@ -73,7 +87,7 @@ void CFeedManager::Update(void)
 			 CFeed::Create(pos,
 				 VECTOR3_NULL,
 				 INITSCALE,
-				 "FEED/Suger.x",
+				 FEED_INFO::MODEL_NAME[nRand],
 				 85.0f)
 		 );
 
@@ -133,9 +147,9 @@ CFeed* CFeedManager::FindFreeFeed(void)
 D3DXVECTOR3 CFeedManager::CreateRandomPos(void)
 {
 	// 変数計算
-	float x = -200.0f;
-	float y = 60.0f;
-	float z = -400.0f;
+	float x = static_cast<float>((rand() % 1000 - 500)); 
+	float y = 60.0f; 
+	float z = static_cast<float>((rand() % 1000 - 500));
 
 	// 値を返す
 	return D3DXVECTOR3(x, y, z);

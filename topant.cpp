@@ -55,6 +55,7 @@ CTopAnt* CTopAnt::Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
 	pTop->SetPos(pos);
 	pTop->SetRot(rot);
 	pTop->SetUseStencil(false);
+	pTop->SetUseOutLine(true);
 
 	// ‰Šú‰»Ž¸”sŽž
 	if FAILED(pTop->Init()) return nullptr;

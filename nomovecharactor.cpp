@@ -153,7 +153,7 @@ void CNoMoveCharactor::Draw(void)
 
 	for (auto& model : m_pModel)
 	{
-		model->DrawOutLine();
+		model->DrawOutLine(D3DXVECTOR4(1.0f, 0.65f, 0.2f, 1.0f));
 	}
 
 	// èIóπ

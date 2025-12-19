@@ -27,6 +27,7 @@ class CPlayerStateBase;
 class CBoxCollider;
 class CMotion;
 class CMeshCylinder;
+class CPointObj;
 
 //*********************************************************
 // プレイヤークラスを定義
@@ -42,12 +43,6 @@ public:
 	{
 		MOTION_NEUTRAL,		// ニュートラル
 		MOTION_MOVE,		// 移動
-		MOTION_ACTION,		// アクション
-		MOTION_JUMP,		// ジャンプ
-		MOTION_LANDING,		// 着地
-		MOTION_JUMPATTACK,	// ジャンプ攻撃
-		MOTION_DAMAGE,		// ダメージ
-		MOTION_AVOID,		// 回避
 		MOTION_MAX
 	};
 
@@ -65,7 +60,6 @@ public:
 	void SetSendArrayMoving(int nIdx,int nNum);
 	int GetSelectIndex() const { return m_nSelectSpawn; }
 	CStateMachine* GetStateMachine() { return m_pStateMachine.get(); }
-	CMeshCylinder* GetMeshCylinder(void) { return m_pCylinder; }
 
 	static CPlayer* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot);
 
@@ -79,16 +73,16 @@ private:
 		static constexpr int NUM_SPAWN = 3; // スポーンポイント数
 		static constexpr int VALUE_ANT = 5;	// キー入力の増加数
 		static constexpr int MAX_VALUE = 50;// 最大の増加数
+		static constexpr float POINT_VALUE = 120.0f; // ポイントオブジェクトの高さ
 	};
-
 
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
 	CBoxCollider* m_pBoxCollider;	// 矩形のコライダー
 	CMotion* m_pMotion;				// モーションポインタ
-	CMeshCylinder* m_pCylinder;		// メッシュ円柱
+	CPointObj* m_pPointObj;			// ポイントXファイルオブジェクト
 
 	int m_nNum;						// 仮変数
 	int m_nSelectSpawn;				// スポーン選択変数
-	int m_nPrevSelectSpawn;		// 前回のスポーン選択変数
+	int m_nPrevSelectSpawn;			// 前回のスポーン選択変数
 	int m_pSpawnData[Config::NUM_SPAWN]; // スポーンデータ配列
 };

@@ -37,16 +37,16 @@
 #include "template.h"
 #include "topant.h"
 #include "meshcylinder.h"
+#include "pointobj.h"
 
-//*********************************************************
-// 名前空間
-//*********************************************************
-namespace PLAYERINFO
-{
-	constexpr float NorRot = D3DX_PI * 2.0f; // 正規化値
-	constexpr float SPRED = 75.0f;			 // 散らす範囲
-	const D3DXVECTOR3 POS = D3DXVECTOR3(-0.1f,-0.1f,-0.1f);
-};
+////*********************************************************
+//// 名前空間
+////*********************************************************
+//namespace PLAYERINFO
+//{
+//	constexpr float NorRot = D3DX_PI * 2.0f; // 正規化値
+//	constexpr float SPRED = 75.0f;			 // 散らす範囲
+//};
 
 //=========================================================
 // オーバーロードコンストラクタ
@@ -55,7 +55,7 @@ CPlayer::CPlayer(int nPriority) : CNoMoveCharactor(nPriority),
 m_pMotion(nullptr),
 m_pStateMachine(nullptr),
 m_pBoxCollider(nullptr),
-m_pCylinder(nullptr),
+m_pPointObj(nullptr),
 m_nNum(NULL),
 m_nSelectSpawn(NULL),
 m_nPrevSelectSpawn(-1),
@@ -101,8 +101,7 @@ HRESULT CPlayer::Init(void)
 	SetObjType(CObject::TYPE_PLAYER);
 
 	// モーションセット
-	// MotionLoad("data/MOTION/Enemy/Enemy_Motion.txt", MOTION_MAX,false);
-	MotionLoad("data/MOTION/Player/Player100motion.txt", MOTION_MAX, false);
+	MotionLoad("data/MOTION/Enemy/Enemy_Motion.txt", MOTION_MAX,false);
 
 	// コライダー生成
 	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(50.0f,50.0f,50.0f));
@@ -110,10 +109,9 @@ HRESULT CPlayer::Init(void)
 	// モーション取得
 	m_pMotion = CNoMoveCharactor::GetMotion();
 
-	// メッシュ生成
-	 m_pCylinder = CMeshCylinder::Create(VECTOR3_NULL, 65.0f);
+	 // オブジェクト生成
+	 m_pPointObj = CPointObj::Create(D3DXVECTOR3(0.0f, Config::POINT_VALUE, 0.0f),D3DXVECTOR3(-D3DX_PI * 0.5f,0.0f,0.0f));
 
-#if 1
 	// 味方のスポナーを取得
 	auto pArraySpawn = CGameSceneObject::GetInstance()->GetArraySpawn();
 	auto spawn = pArraySpawn->GetIndexSpawner(m_nSelectSpawn);
@@ -129,15 +127,12 @@ HRESULT CPlayer::Init(void)
 		{
 			// 最初からONになる
 			topant->SetIsActive(true);	
-
-			// 円柱の座標を移動
-			 m_pCylinder->SetPos(topant->GetPos());
 		}
 
 		// 選択インデックス変更
 		m_nPrevSelectSpawn = m_nSelectSpawn;
 	}
-#endif
+
 	// 結果を返す
 	return S_OK;
 }
@@ -193,7 +188,7 @@ void CPlayer::Update(void)
 
 			if (pTop)
 			{
-				m_pCylinder->SetPos(pTop->GetPos());
+				m_pPointObj->SetPos(D3DXVECTOR3(pTop->GetPos().x, Config::POINT_VALUE, pTop->GetPos().z));
 			}
 		}
 	}
@@ -268,8 +263,8 @@ void CPlayer::InputAction(CInputKeyboard* pKey, CJoyPad* pPad)
 				// 有効化
 				currentTop->SetIsActive(true);
 
-				// ここでメッシュの座標をセットする
-				m_pCylinder->SetPos(currentTop->GetPos());
+				// ここで矢印の座標をセットする
+				m_pPointObj->SetPos(D3DXVECTOR3(currentTop->GetPos().x, Config::POINT_VALUE, currentTop->GetPos().z));
 			}
 		}
 

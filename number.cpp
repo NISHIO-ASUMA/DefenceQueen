@@ -41,6 +41,7 @@ CNumber::~CNumber()
 //=========================================================
 HRESULT CNumber::Init(D3DXVECTOR3 pos,float fwidth,float fheight)
 {
+	// 座標格納
 	m_pos = pos;
 
 	// デバイスの取得

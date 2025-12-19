@@ -247,6 +247,7 @@
     <ClCompile Include="playerstatebase.cpp" />
     <ClCompile Include="playerstatemove.cpp" />
     <ClCompile Include="playerstateneutral.cpp" />
+    <ClCompile Include="pointobj.cpp" />
     <ClCompile Include="queen.cpp" />
     <ClCompile Include="ranking.cpp" />
     <ClCompile Include="rankingmanager.cpp" />
@@ -263,6 +264,7 @@
     <ClCompile Include="separationant.cpp" />
     <ClCompile Include="shadow.cpp" />
     <ClCompile Include="shadowS.cpp" />
+    <ClCompile Include="signalui.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="spherecollider.cpp" />
     <ClCompile Include="state.cpp" />
@@ -393,6 +395,7 @@
     <ClInclude Include="playerstatebase.h" />
     <ClInclude Include="playerstatemove.h" />
     <ClInclude Include="playerstateneutral.h" />
+    <ClInclude Include="pointobj.h" />
     <ClInclude Include="queen.h" />
     <ClInclude Include="ranking.h" />
     <ClInclude Include="rankingmanager.h" />
@@ -412,6 +415,7 @@
     <ClInclude Include="sepuence.h" />
     <ClInclude Include="shadow.h" />
     <ClInclude Include="shadowS.h" />
+    <ClInclude Include="signalui.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="spherecollider.h" />
     <ClInclude Include="state.h" />

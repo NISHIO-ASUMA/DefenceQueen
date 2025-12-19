@@ -52,9 +52,10 @@ private:
 
 	struct Config
 	{
-		static constexpr int NUM_ENEMY = 70; // Å‘å”
+		static constexpr int NUM_ENEMY = 120; // Å‘å”
 		static constexpr int LIFE = 1;		 // ‘Ì—Í’l
 	};
 
 	std::vector<CEnemy*>m_pEnemys; // “G‚Ì“®“I”z—ñ
+	int m_nCreateLastTime;
 };

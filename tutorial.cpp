@@ -35,7 +35,10 @@ CTutorial::~CTutorial()
 // 初期化処理
 //=========================================================
 HRESULT CTutorial::Init(void)
-{
+{	
+	// マネージャー初期化
+	CTutorialManager::GetInstance()->Init();
+
 	// サウンド取得
 	CSound* pSound = CManager::GetInstance()->GetSound();
 	if (pSound == nullptr) return E_FAIL;
@@ -51,16 +54,21 @@ HRESULT CTutorial::Init(void)
 //=========================================================
 void CTutorial::Uninit(void)
 {
-
+	// マネージャー終了
+	CTutorialManager::GetInstance()->Uninit();
 }
 //=========================================================
 // 更新処理
 //=========================================================
 void CTutorial::Update(void)
 {
+	// マネージャー更新
+	CTutorialManager::GetInstance()->Update();
+
 	// キー入力で遷移
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN))
 	{
+		// ゲーム開始
 		CManager::GetInstance()->GetFade()->SetFade(std::make_unique<CGame>());
 	}
 }

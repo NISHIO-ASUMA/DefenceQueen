@@ -55,10 +55,10 @@ HRESULT CGame::Init(void)
 	// ポーズマネージャー初期化処理
 	m_pPausemanager->Init();
 
-	// ゲームマネージャー
+	// ゲームマネージャー初期化
 	CGameManager::GetInstance()->Init();
 
-	// ゲームオブジェクト
+	// ゲームオブジェクト初期化
 	CGameSceneObject::GetInstance()->Init();
 
 	// ステート生成
@@ -135,34 +135,23 @@ void CGame::Update(void)
 
 		// ゲームオブジェクト更新
 		CGameSceneObject::GetInstance()->Update();
-
-		// 画面遷移
-		if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_SPACE))
-		{
-			// 画面遷移
-			auto fade = CManager::GetInstance()->GetFade();
-			fade->SetFade(std::make_unique<CResult>());
-			return;
-		}
-
-#if 0
-		if (CGameSceneObject::GetInstance()->GetTime()->GetToAll() <= 0)
-		{
-			// 状態変更
-			m_pState->SetProgress(CGameState::PROGRESS_END);
-			return;
-		}
 	}
-#endif
-	}
-#ifdef _DEBUG
 
-	//// 検証キー
-	//if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_0))
+	//auto p = CGameSceneObject::GetInstance()->GetQueen();
+
+	//if ()
 	//{
-	//	// 状態変更
-	//	m_pState->SetProgress(CGameState::PROGRESS_END);
+
 	//}
+#ifdef _DEBUG
+	// 画面遷移
+	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_SPACE))
+	{
+		// 画面遷移
+		auto fade = CManager::GetInstance()->GetFade();
+		fade->SetFade(std::make_unique<CResult>());
+		return;
+	}
 
 #endif // _DEBUG
 }

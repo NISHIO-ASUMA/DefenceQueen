@@ -98,7 +98,7 @@ private:
 		static constexpr float MAX_RADIUS = 100.0f;										 // 最大範囲
 		static constexpr float NorRot = D3DX_PI * 2.0f;									 // 回転補正
 		static constexpr float Separation = 3.0f;										 // 範囲拡大
-		static constexpr const char* MOTION_NAME = "data/MOTION/Enemy/Enemy_Motion.txt"; // モーションパス
+		static constexpr const char* MOTION_NAME = "data/MOTION/Top/Top_Motion.txt"; // モーションパス
 	};
 
 	CSphereCollider* m_pColliderSphere; // 球形コライダー

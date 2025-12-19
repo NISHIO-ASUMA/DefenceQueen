@@ -54,7 +54,7 @@ HRESULT COutLine::Init(const char* pShaderFile)
 	{
 		if (pErr)
 		{
-			// メッセージ表示
+			// エラーメッセージ表示
 			MessageBoxA(nullptr,
 				(char*)pErr->GetBufferPointer(),
 				"Out_Line.hlslが読み込めません",
@@ -72,6 +72,7 @@ HRESULT COutLine::Init(const char* pShaderFile)
 //=========================================================
 void COutLine::Uninit(void)
 {
+	// ポインタの破棄
 	if (m_pOutLine)
 	{
 		m_pOutLine->Release();

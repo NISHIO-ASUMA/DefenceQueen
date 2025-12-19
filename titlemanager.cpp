@@ -11,7 +11,6 @@
 #include "titlemanager.h"
 #include "titleui.h"
 #include "manager.h"
-#include "game.h"
 #include "tutorial.h"
 #include "input.h"
 #include "ui.h"
@@ -30,7 +29,7 @@ CTitleManager::CTitleManager()
 //=========================================================
 CTitleManager::~CTitleManager()
 {
-	// 破棄
+
 }
 //==========================================================
 //インスタンス取得
@@ -84,7 +83,7 @@ void CTitleManager::Update(void)
 	// キー入力時の遷移
 	if ((pKey->GetTrigger(DIK_RETURN) || pJoyPad->GetTrigger(pJoyPad->JOYKEY_START)))
 	{
-		pFade->SetFade(std::make_unique<CGame>());	// ゲームシーンに遷移
+		pFade->SetFade(std::make_unique<CTutorial>());	// チュートリアルシーンに遷移
 		return;
 	}
 }

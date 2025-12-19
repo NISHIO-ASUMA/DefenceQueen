@@ -41,7 +41,7 @@ public:
 	void Update(void);
 	void Draw(void);
 	void DrawMtxShadow(void);
-	void DrawOutLine(void);
+	void DrawOutLine(const D3DXVECTOR4& color = D3DXVECTOR4(0.0f,0.0f,0.0f,1.0f));
 	void SetModelPass(const char* pModelName);
 
 	void SetParent(CModel* pModel);

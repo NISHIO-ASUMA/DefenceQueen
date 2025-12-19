@@ -238,7 +238,10 @@ void CWorker::MoveToPoint(void)
 //=========================================================
 void CWorker::MoveToReturnBase(void)
 {
+	// フラグ初期化
+	m_isSetNum = false;
 	m_isWork = false;
+	m_isCreate = false;
 
 	// もどる座標を設定
 	SetDestPos(m_SavePos);
@@ -286,10 +289,9 @@ void CWorker::MoveToReturnBase(void)
 		// 状態変更
 		m_MoveState = NONE;
 
-		m_isWork = false;
-
 		// フラグ初期化
 		m_isSetNum = false;
+		m_isCreate = false;
 	}
 }
 //=========================================================

@@ -43,9 +43,6 @@ CModel::~CModel()
 //=========================================================
 HRESULT CModel::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot,const char * pFilename,const bool isShadow)
 {
-	// デバイスポインタを宣言
-	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
-
 	// モデルセット
 	SetModelPass(pFilename);
 
@@ -252,7 +249,7 @@ void CModel::DrawMtxShadow(void)
 //=========================================================
 // アウトライン描画設定関数
 //=========================================================
-void CModel::DrawOutLine(void)
+void CModel::DrawOutLine(const D3DXVECTOR4& color)
 {
 	// インデックスが-1なら
 	if (m_nModelIdx == -1)
@@ -314,7 +311,7 @@ void CModel::DrawOutLine(void)
 		for (int nCnt = 0; nCnt < static_cast<int>(model.dwNumMat); nCnt++)
 		{
 			// シェーダーパラメーター設定
-			COutLine::GetInstance()->SetParameter(0.44f, D3DXVECTOR4(1.0f,0.65f, 0.2f, 1.0f), m_mtxworld);
+			COutLine::GetInstance()->SetParameter(0.44f, color, m_mtxworld);
 
 			// モデルの描画
 			model.pMesh->DrawSubset(nCnt);

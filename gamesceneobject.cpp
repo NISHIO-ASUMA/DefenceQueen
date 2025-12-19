@@ -33,6 +33,8 @@
 #include "input.h"
 #include "queen.h"
 #include "enemyspawnmanager.h"
+#include "meshdome.h"
+#include "enemymanager.h"
 
 //*********************************************************
 // 静的メンバ変数
@@ -53,7 +55,8 @@ m_pQueen(nullptr),
 m_pSpawn(nullptr),
 m_pArraySpawn(nullptr),
 m_pPlayer(nullptr),
-m_pEnemySpawnManager(nullptr)
+m_pEnemySpawnManager(nullptr),
+m_pEnemy(nullptr)
 {
 	// 値のクリア
 }
@@ -69,53 +72,21 @@ CGameSceneObject::~CGameSceneObject()
 //=========================================================
 HRESULT CGameSceneObject::Init(void)
 {
-	// ブロックマネージャー生成
-	m_pBlocks = std::make_unique<CBlockManager>();
-	m_pBlocks->Init();
-
-	//// タイマー生成
-	//m_pTimer = CTime::Create(D3DXVECTOR3(1040.0f,40.0f,0.0f),60.0f,40.0f);
-
-	// コロン生成
-	// CUi::Create(D3DXVECTOR3(1145.0f, 40.0f, 0.0f), 0, 15.0f, 30.0f, "coron.png", false);
-
 	// メッシュフィールド生成
 	CMeshField::Create(VECTOR3_NULL,3200.0f,2000.0f,1,1);
 
-	// 餌の管理クラスを生成
-	m_pFeed = std::make_unique<CFeedManager>();
-	m_pFeed->Init();
+	// メッシュドーム生成
+	CMeshDome::Create(D3DXVECTOR3(0.0f,-20.0f,0.0f), 60.0f);
 
-	// 仲間アリの大軍を生成
-	m_pArrayManager = std::make_unique<CArrayManager>();
-	m_pArrayManager->Init();
+#ifdef _DEBUG
+	CUi::Create(D3DXVECTOR3(1160.0f, 280.0f, 0.0f), 0, 120.0f, 300.0f, "backboard.png", false);
+#endif // _DEBUG
 
-	// 出現場所生成
-	m_pArraySpawn = std::make_unique<CArraySpawnManager>();
-	m_pArraySpawn->Init(m_pArrayManager.get());
+	// 各種ポインタクラスの生成
+	CreatePointer();
 
-	// 司令塔アリ管理生成
-	m_pWorkerManager = std::make_unique<CWorkerManager>();
-	m_pWorkerManager->Init();
-
-	// 働きアリの状態ui配置
-	m_pWorkUi = std::make_unique<CWorkerUiManager>();
-	m_pWorkUi->Init();
-
-	// プレイヤー生成
-	m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -600.0f), VECTOR3_NULL);
-
-	// 防衛対象のクイーン生成
-	m_pQueen = CQueen::Create(D3DXVECTOR3(0.0f,30.0f,0.0f),VECTOR3_NULL);
-
-	// 敵場所生成
-	m_pEnemySpawnManager = std::make_unique<CEnemySpawnManager>();
-	m_pEnemySpawnManager->Init();
-
-	CEnemy::Create(D3DXVECTOR3(-600.0f, 0.0f, -300.0f), VECTOR3_NULL, 1);
-
-	// スコア生成
-	m_pScore = CScore::Create(D3DXVECTOR3(1180.0f, 620.0f, 0.0f), 40.0f, 60.0f);
+	// TODO : 仮の敵生成
+	CEnemy::Create(D3DXVECTOR3(-1100.0f, 0.0f, -300.0f), VECTOR3_NULL, 1);
 
 	return S_OK;
 }
@@ -145,6 +116,8 @@ void CGameSceneObject::Uninit(void)
 
 	// 敵のスポナー管理クラス
 	m_pEnemySpawnManager.reset();
+
+	m_pEnemy.reset();
 
 	// ui処理
 	m_pWorkUi.reset();
@@ -192,6 +165,12 @@ void CGameSceneObject::Update(void)
 		m_pFeed->Update();
 	}
 
+	// 敵の更新
+	if (m_pEnemy)
+	{
+		m_pEnemy->Update();
+	}
+
 #ifdef _DEBUG
 
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_F9))
@@ -226,14 +205,8 @@ void CGameSceneObject::Draw(void)
 	{
 		m_pArraySpawn->Draw();
 	}
-
 #endif // _DEBUG
 
-	// スポナー情報描画
-	if (m_pArraySpawn)
-	{
-		m_pArraySpawn->Draw();
-	}
 }
 //=========================================================
 // インスタンス取得処理
@@ -248,4 +221,56 @@ CGameSceneObject* CGameSceneObject::GetInstance(void)
 
 	// インスタンスを返す
 	return m_pInstance;
+}
+//=========================================================
+// ポインタの生成を行う関数わけ
+//=========================================================
+void CGameSceneObject::CreatePointer(void)
+{
+	// ブロックマネージャー生成
+	m_pBlocks = std::make_unique<CBlockManager>();
+	m_pBlocks->Init();
+
+	// タイマー生成
+	m_pTimer = CTime::Create(D3DXVECTOR3(1040.0f,40.0f,0.0f),60.0f,40.0f);
+
+	// コロン生成
+	CUi::Create(D3DXVECTOR3(1145.0f, 40.0f, 0.0f), 0, 15.0f, 30.0f, "coron.png", false);
+
+	// 餌の管理クラスを生成
+	m_pFeed = std::make_unique<CFeedManager>();
+	m_pFeed->Init();
+
+	// 仲間アリの大軍を生成
+	m_pArrayManager = std::make_unique<CArrayManager>();
+	m_pArrayManager->Init();
+
+	// 出現場所生成
+	m_pArraySpawn = std::make_unique<CArraySpawnManager>();
+	m_pArraySpawn->Init(m_pArrayManager.get());
+
+	// 司令塔アリ管理生成
+	m_pWorkerManager = std::make_unique<CWorkerManager>();
+	m_pWorkerManager->Init();
+
+	// 働きアリの状態ui配置
+	m_pWorkUi = std::make_unique<CWorkerUiManager>();
+	m_pWorkUi->Init();
+
+	// プレイヤー生成
+	m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -800.0f), VECTOR3_NULL);
+
+	// 防衛対象のクイーン生成
+	m_pQueen = CQueen::Create(D3DXVECTOR3(0.0f, 30.0f, -5.0f), VECTOR3_NULL);
+
+	// 敵場所生成
+	m_pEnemySpawnManager = std::make_unique<CEnemySpawnManager>();
+	m_pEnemySpawnManager->Init();
+
+	// スコア生成
+	m_pScore = CScore::Create(D3DXVECTOR3(1220.0f, 620.0f, 0.0f), 100.0f, 60.0f);
+
+	// 生成
+	m_pEnemy = std::make_unique<CEnemyManager>();
+	m_pEnemy->Init();
 }

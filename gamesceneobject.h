@@ -33,6 +33,7 @@ class CArraySpawnManager;
 class CScore;
 class CPlayer;
 class CEnemySpawnManager;
+class CEnemyManager;
 
 //*********************************************************
 // ゲームシーンで使うオブジェクト管理クラスを定義
@@ -48,35 +49,28 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	CTime* GetTime(void) { return m_pTimer; }
-	CScore* GetScore(void) { return m_pScore; }
-	CQueen* GetQueen(void) { return m_pQueen; }
-	CPlayer* GetPlayer(void) { return m_pPlayer; }
-	CSelectPoint* GetPoint(void) { return m_pSelectPoint; }
-	CFeedManager* GetFeedManager(void) { return m_pFeed.get(); }
-	CEnemySpawner* GetEnemySpawn(void) { return m_pSpawn.get(); }
-	CWorkerUiManager* GetWorkUi(void) { return m_pWorkUi.get(); }
-	CBlockManager* GetBlockManager(void) { return m_pBlocks.get(); }
-	CWorkerManager* GetWorkerM(void) { return m_pWorkerManager.get(); }
-	CArrayManager* GetArrayManager(void) { return m_pArrayManager.get(); }
-	CArraySpawnManager* GetArraySpawn(void) { return m_pArraySpawn.get(); }
-	CEnemySpawnManager* GetEnemySpawnManager(void) { return m_pEnemySpawnManager.get(); }
-
+	CTime* GetTime(void) const { return m_pTimer; }
+	CScore* GetScore(void) const { return m_pScore; }
+	CQueen* GetQueen(void) const { return m_pQueen; }
+	CPlayer* GetPlayer(void) const { return m_pPlayer; }
+	CSelectPoint* GetPoint(void) const { return m_pSelectPoint; }
+	CFeedManager* GetFeedManager(void) const { return m_pFeed.get(); }
+	CEnemySpawner* GetEnemySpawn(void) const { return m_pSpawn.get(); }
+	CWorkerUiManager* GetWorkUi(void) const { return m_pWorkUi.get(); }
+	CBlockManager* GetBlockManager(void) const { return m_pBlocks.get(); }
+	CWorkerManager* GetWorkerM(void) const { return m_pWorkerManager.get(); }
+	CArrayManager* GetArrayManager(void) const { return m_pArrayManager.get(); }
+	CArraySpawnManager* GetArraySpawn(void) const { return m_pArraySpawn.get(); }
+	CEnemySpawnManager* GetEnemySpawnManager(void) const { return m_pEnemySpawnManager.get(); }
+	
 	static CGameSceneObject* GetInstance(void);
 
 private:
 
-	//*****************************
-	// 定数構造体
-	//*****************************
-	struct Config
-	{
-		static constexpr int INITIAL_ARRAY = 90; // 初期設定数
-	};
+	static CGameSceneObject* m_pInstance;	// シングルトン変数
 
 	CGameSceneObject();	// コンストラクタ
-	
-	static CGameSceneObject* m_pInstance;	// シングルトン変数
+	void CreatePointer(void); // 初期化処理関数分け
 
 	CScore* m_pScore;	// スコアクラスのポインタ
 	CTime* m_pTimer;	// タイマークラスのポインタ
@@ -92,4 +86,5 @@ private:
 	std::unique_ptr<CEnemySpawner>m_pSpawn;			// スポーン管理クラス
 	std::unique_ptr<CArraySpawnManager>m_pArraySpawn; // 仲間スポーン管理クラス
 	std::unique_ptr<CEnemySpawnManager>m_pEnemySpawnManager; // 敵スポーン管理
+	std::unique_ptr<CEnemyManager>m_pEnemy;
 };

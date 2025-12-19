@@ -57,10 +57,10 @@ void CResult::Update(void)
 	// オブジェクト更新
 	CResultObject::GetInstance()->Update();
 
-	// 画面遷移する
+	// キー入力時
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN))
 	{
-		// 画面遷移
+		// ランキング画面遷移
 		auto fade = CManager::GetInstance()->GetFade();
 		fade->SetFade(std::make_unique<CRanking>());
 		return;

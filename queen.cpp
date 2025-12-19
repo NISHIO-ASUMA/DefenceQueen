@@ -87,7 +87,7 @@ HRESULT CQueen::Init(void)
 	m_pMotion = CNoMoveCharactor::GetMotion();
 
 	// Šg‘å‚·‚é
-	SetScale(D3DXVECTOR3(1.5f, 1.5f, 1.5f));
+	SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 
 	return S_OK;
 }

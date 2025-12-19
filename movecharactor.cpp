@@ -15,6 +15,7 @@
 #include "blackboard.h"
 #include "node.h"
 #include "motionmanager.h"
+#include "outline.h"
 
 //=========================================================
 // コンストラクタ
@@ -31,7 +32,8 @@ m_pModel{},
 m_pMotion{},
 m_pShadowS{},
 m_fMoveValue(NULL),
-m_isStencilUse(false)
+m_isStencilUse(false),
+m_isOutLine(false)
 {
 	// 値のクリア
 	D3DXMatrixIdentity(&m_mtxworld);
@@ -176,6 +178,32 @@ void CMoveCharactor::Draw(void)
 	{
 		model->Draw();
 	}
+
+	// falseなら
+	if (!m_isOutLine) return;
+
+	// ワールドマトリックスの設定
+	pDevice->SetTransform(D3DTS_WORLD, &m_mtxworld);
+
+	// カリングを切る
+	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
+
+	// シェーダー開始
+	COutLine::GetInstance()->Begin();
+	COutLine::GetInstance()->BeginPass();
+
+	// アウトライン関数
+	for (auto& model : m_pModel)
+	{
+		model->DrawOutLine();
+	}
+
+	// シェーダー終了
+	COutLine::GetInstance()->EndPass();
+	COutLine::GetInstance()->End();
+
+	// カリングを戻す
+	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 //=========================================================
 // 位置情報の更新
