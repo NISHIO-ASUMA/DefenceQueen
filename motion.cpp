@@ -51,18 +51,6 @@ CMotion::~CMotion()
 	// 無し
 }
 //=========================================================
-// モーションインデックス登録関数
-//=========================================================
-void CMotion::RegisterPath(const char* pMotionName, std::vector<CModel*>& pModel, int nDestMotions, const bool isShadow)
-{
-	// モーションマネージャーを取得する
-	auto MotionManager = CManager::GetInstance()->GetMotionManager();
-	if (MotionManager == nullptr) return;
-
-	// インデックスに登録し,その情報を取得する
-	m_nMotionIdx = MotionManager->Register(pMotionName, pModel, nDestMotions, isShadow);
-}
-//=========================================================
 // モーション読み込み関数
 //=========================================================
 std::unique_ptr<CMotion> CMotion::Load(const char* pFilename, std::vector<CModel*>& pModel, int nDestMotions,const bool isShadow)
@@ -75,6 +63,18 @@ std::unique_ptr<CMotion> CMotion::Load(const char* pFilename, std::vector<CModel
 
 	// 生成されたポインタを返す
 	return pMotion;
+}
+//=========================================================
+// モーションインデックス登録関数
+//=========================================================
+void CMotion::RegisterPath(const char* pMotionName, std::vector<CModel*>& pModel, int nDestMotions, const bool isShadow)
+{
+	// モーションマネージャーを取得する
+	auto MotionManager = CManager::GetInstance()->GetMotionManager();
+	if (MotionManager == nullptr) return;
+
+	// インデックスに登録し,その情報を取得する
+	m_nMotionIdx = MotionManager->Register(pMotionName, pModel, nDestMotions, isShadow);
 }
 //============================================================
 // モーションセット
@@ -294,30 +294,12 @@ void CMotion::UpdateCurrentMotion(CMotionManager* pMption,CModel** ppModel, int 
 	// モーションリスト取得
 	const auto& motionList = pMption->GetFileDataIdx(m_nMotionIdx);
 
-	//// モーションタイプチェック
-	//if (m_motiontype < 0 || m_motiontype >= static_cast<int>(motionList.size()))
-	//	return;
-
 	// 現在のモーション情報取得
 	const CMotionManager::INFO& motionInfo = motionList.m_aMotionInfo[m_motiontype];
-
-	//// キー範囲チェック
-	//if (m_nKey < 0 || m_nKey >= static_cast<int>(motionInfo.aKeyInfo.size()))
-	//	return;
-	//if (m_nNextKey < 0 || m_nNextKey >= static_cast<int>(motionInfo.aKeyInfo.size()))
-	//	return;
 
 	// 現在と次のキー情報取得
 	const CMotionManager::KEY_INFO& keyInfoNow = motionInfo.aKeyInfo[m_nKey];
 	const CMotionManager::KEY_INFO& keyInfoNext = motionInfo.aKeyInfo[m_nNextKey];
-
-	//// モデル番号チェック
-	//if (nModelCount < 0 ||
-	//	nModelCount >= static_cast<int>(keyInfoNow.aKey.size()) ||
-	//	nModelCount >= static_cast<int>(keyInfoNext.aKey.size()))
-	//{
-	//	return;
-	//}
 
 	// 現在の KEY
 	const CMotionManager::KEY& NowKey = keyInfoNow.aKey[nModelCount];

@@ -39,15 +39,6 @@
 #include "meshcylinder.h"
 #include "pointobj.h"
 
-////*********************************************************
-//// 名前空間
-////*********************************************************
-//namespace PLAYERINFO
-//{
-//	constexpr float NorRot = D3DX_PI * 2.0f; // 正規化値
-//	constexpr float SPRED = 75.0f;			 // 散らす範囲
-//};
-
 //=========================================================
 // オーバーロードコンストラクタ
 //=========================================================
@@ -56,7 +47,7 @@ m_pMotion(nullptr),
 m_pStateMachine(nullptr),
 m_pBoxCollider(nullptr),
 m_pPointObj(nullptr),
-m_nNum(NULL),
+m_nSendNum(NULL),
 m_nSelectSpawn(NULL),
 m_nPrevSelectSpawn(-1),
 m_pSpawnData{}
@@ -213,7 +204,7 @@ void CPlayer::Draw(void)
 	CDebugproc::Print("選択中のスポナーのインデックス : [ %d ]", m_nSelectSpawn);
 	CDebugproc::Draw(0, 200);
 
-	CDebugproc::Print("設定するアリの数 : [ %d ]", m_nNum);
+	CDebugproc::Print("設定するアリの数 : [ %d ]", m_nSendNum);
 	CDebugproc::Draw(0, 220);
 #endif // _DEBUG
 }
@@ -275,15 +266,15 @@ void CPlayer::InputAction(CInputKeyboard* pKey, CJoyPad* pPad)
 	// 送る数を加算する
 	if (pKey->GetTrigger(DIK_UP) || pPad->GetTriggerLT())
 	{
-		m_nNum += Config::VALUE_ANT;
-		m_nNum = Clump(m_nNum, 0, Config::MAX_VALUE);
+		m_nSendNum += Config::VALUE_ANT;
+		m_nSendNum = Clump(m_nSendNum, 0, Config::MAX_VALUE);
 	}
 
 	// 送る数を減算する
 	if (pKey->GetTrigger(DIK_DOWN) || pPad->GetTriggerRT())
 	{
-		m_nNum -= Config::VALUE_ANT;
-		m_nNum = Clump(m_nNum, 0, Config::MAX_VALUE);
+		m_nSendNum -= Config::VALUE_ANT;
+		m_nSendNum = Clump(m_nSendNum, 0, Config::MAX_VALUE);
 	}
 
 	// イベント登録
@@ -292,7 +283,7 @@ void CPlayer::InputAction(CInputKeyboard* pKey, CJoyPad* pPad)
 	// 有効化されている物だけ
 	if (TopS->GetIsActive())
 	{
-		TopS->RegisterEvent([&](void) { this->SetSendArrayMoving(m_nSelectSpawn,m_nNum); });
+		TopS->RegisterEvent([&](void) { this->SetSendArrayMoving(m_nSelectSpawn,m_nSendNum); });
 	}
 
 	// 移動命令を送る処理

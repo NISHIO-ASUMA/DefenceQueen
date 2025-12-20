@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="animationobject2d.cpp" />
     <ClCompile Include="array.cpp" />
     <ClCompile Include="arrayattackleaf.cpp" />
     <ClCompile Include="arraybehaviortree.cpp" />
@@ -293,6 +294,7 @@
   <ItemGroup>
     <ClInclude Include="alwaysfail.h" />
     <ClInclude Include="alwayssuccess.h" />
+    <ClInclude Include="animationobject2d.h" />
     <ClInclude Include="array.h" />
     <ClInclude Include="arrayattackleaf.h" />
     <ClInclude Include="arraybehaviortree.h" />

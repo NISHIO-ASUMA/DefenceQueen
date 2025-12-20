@@ -81,7 +81,7 @@ private:
 	CMotion* m_pMotion;				// モーションポインタ
 	CPointObj* m_pPointObj;			// ポイントXファイルオブジェクト
 
-	int m_nNum;						// 仮変数
+	int m_nSendNum;					// 送る数を決める
 	int m_nSelectSpawn;				// スポーン選択変数
 	int m_nPrevSelectSpawn;			// 前回のスポーン選択変数
 	int m_pSpawnData[Config::NUM_SPAWN]; // スポーンデータ配列
