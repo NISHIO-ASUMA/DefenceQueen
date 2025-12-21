@@ -24,6 +24,7 @@
 #include "feed.h"
 #include "feedmanager.h"
 #include "parameter.h"
+#include "signalui.h"
 
 //=========================================================
 // コンストラクタ
@@ -32,15 +33,14 @@ CWorker::CWorker(int nPriority) : CMoveCharactor(nPriority),
 m_pMotion(nullptr),
 m_pSphereCollider(nullptr),
 m_pStateMachine(nullptr),
-m_pSelect(nullptr),
 m_pTargetFeed(nullptr),
+m_pSignal(nullptr),
 m_isMove(false),
 m_isWork(false),
 m_isCreate(false),
 m_isSetNum(false),
 m_DestPos(VECTOR3_NULL),
 m_SavePos(VECTOR3_NULL),
-m_SaveRot(VECTOR3_NULL),
 m_nIdxNumber(NULL),
 m_nScaleNum(NULL),
 m_MoveState(NONE)
@@ -70,7 +70,6 @@ CWorker* CWorker::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
 
 	// 保存変数
 	pWorker->m_SavePos = pos;
-	pWorker->m_SaveRot = rot;
 
 	// 初期化失敗時
 	if (FAILED(pWorker->Init())) return nullptr;
@@ -93,6 +92,9 @@ HRESULT CWorker::Init(void)
 
 	// コライダー生成
 	m_pSphereCollider = CSphereCollider::Create(GetPos(), 60.0f);
+
+	// シグナルui生成
+	m_pSignal = CSignalUi::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 160.0f, GetPos().z), VECTOR3_NULL, 60.0f, 40.0f);
 
 #if 0
 	// ステートマシン生成
@@ -142,6 +144,8 @@ void CWorker::Update(void)
 
 	// 更新後の座標を取得
 	D3DXVECTOR3 UpdatePos = GetPos();
+
+	m_pSignal->SetPos(D3DXVECTOR3(UpdatePos.x, UpdatePos.y + 160.0f, UpdatePos.z));
 
 	// コライダー座標の更新
 	if (m_pSphereCollider) m_pSphereCollider->SetPos(UpdatePos);
@@ -194,6 +198,9 @@ void CWorker::Draw(void)
 //=========================================================
 void CWorker::MoveToPoint(void)
 {
+	// 描画させる
+	m_pSignal->SetIsDraw(true);
+
 	// 現在の座標を取得
 	D3DXVECTOR3 pos = GetPos();
 
@@ -229,6 +236,9 @@ void CWorker::MoveToPoint(void)
 	}
 	else
 	{
+		// 描画しない
+		m_pSignal->SetIsDraw(false);
+
 		// 待機モーションに変更
 		GetMotion()->SetMotion(CWorker::MOTION_NEUTRAL);
 	}
@@ -242,6 +252,7 @@ void CWorker::MoveToReturnBase(void)
 	m_isSetNum = false;
 	m_isWork = false;
 	m_isCreate = false;
+	m_pSignal->SetIsDraw(false);
 
 	// もどる座標を設定
 	SetDestPos(m_SavePos);
@@ -253,7 +264,7 @@ void CWorker::MoveToReturnBase(void)
 	D3DXVECTOR3 VecMove = m_SavePos - pos;
 	float dist = D3DXVec3Length(&VecMove);
 
-	if (dist > 3.0f)
+	if (dist > Config::StopDistance)
 	{
 		// 正規化
 		D3DXVec3Normalize(&VecMove, &VecMove);
@@ -363,7 +374,7 @@ int CWorker::RequiredNumber(void)
 			break;
 		}
 
-		// パネル生成
+		// パネル生成 TODO : ここは後ほどエフェクトとかにして数字を直に出さない方針
 		CNumberPanel::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 200.0f, GetPos().z), VECTOR3_NULL, nrand);
 
 		// フラグを有効化

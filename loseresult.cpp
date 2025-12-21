@@ -37,14 +37,14 @@ CLoseResult::~CLoseResult()
 HRESULT CLoseResult::Init(void)
 {
 	// UI生成
-	CUi::Create(CENTERPOS, 0, HALFWIDTH, HALFHEIGHT, "LoseResult.jpg",false);
+	CUi::Create(CENTERPOS, 0, HALFWIDTH, HALFHEIGHT, "grass000.png",false);
 
 	// サウンド取得
 	CSound* pSound = CManager::GetInstance()->GetSound();
 	if (pSound == nullptr) return E_FAIL;
 
 	// サウンド再生
-	pSound->Play(CSound::SOUND_LABEL_LOSERESULTBGM);
+// 	pSound->Play(CSound::SOUND_LABEL_LOSERESULTBGM);
 
 	// 初期化結果を返す
 	return S_OK;

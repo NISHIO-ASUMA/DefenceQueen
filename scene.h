@@ -22,6 +22,7 @@ public:
 	enum MODE
 	{
 		MODE_NONE,		// 何も無い
+		MODE_START,		// 開始
 		MODE_TITLE,		// タイトル
 		MODE_TUTORIAL,	// チュートリアル
 		MODE_GAME,		// ゲーム

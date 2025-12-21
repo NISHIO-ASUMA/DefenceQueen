@@ -85,8 +85,8 @@ HRESULT CGameSceneObject::Init(void)
 	// 各種ポインタクラスの生成
 	CreatePointer();
 
-	// TODO : 仮の敵生成
-	CEnemy::Create(D3DXVECTOR3(-1100.0f, 0.0f, -300.0f), VECTOR3_NULL, 1);
+	//// TODO : 仮の敵生成
+	//CEnemy::Create(D3DXVECTOR3(-1100.0f, 0.0f, -300.0f), VECTOR3_NULL, 1);
 
 	return S_OK;
 }
@@ -253,9 +253,9 @@ void CGameSceneObject::CreatePointer(void)
 	m_pWorkerManager = std::make_unique<CWorkerManager>();
 	m_pWorkerManager->Init();
 
-	// 働きアリの状態ui配置
-	m_pWorkUi = std::make_unique<CWorkerUiManager>();
-	m_pWorkUi->Init();
+	//// 働きアリの状態ui配置
+	//m_pWorkUi = std::make_unique<CWorkerUiManager>();
+	//m_pWorkUi->Init();
 
 	// プレイヤー生成
 	m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -800.0f), VECTOR3_NULL);

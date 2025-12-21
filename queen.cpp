@@ -15,6 +15,7 @@
 #include "statemachine.h"
 #include "manager.h"
 #include "renderer.h"
+#include "debugproc.h"
 
 //=========================================================
 // コンストラクタ
@@ -23,7 +24,8 @@ CQueen::CQueen(int nPriority) : CNoMoveCharactor(nPriority),
 m_pSphereCollider(nullptr),
 m_pMotion(nullptr),
 m_pParameter(nullptr),
-m_pStateMachine(nullptr)
+m_pStateMachine(nullptr),
+m_isUse(false)
 {
 	// 値のクリア
 }
@@ -86,8 +88,8 @@ HRESULT CQueen::Init(void)
 	// モーション取得
 	m_pMotion = CNoMoveCharactor::GetMotion();
 
-	// 拡大する
-	SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	// 使用する
+	SetIsUse(true);
 
 	return S_OK;
 }
@@ -117,6 +119,9 @@ void CQueen::Uninit(void)
 //=========================================================
 void CQueen::Update(void)
 {
+	// 未使用なら
+	if (!m_isUse) return;
+
 	// 現在座標を取得
 	D3DXVECTOR3 pos = GetPos();
 
@@ -131,8 +136,19 @@ void CQueen::Update(void)
 //=========================================================
 void CQueen::Draw(void)
 {
+	// 未使用なら
+	if (!m_isUse) return;
+
 	// 親クラスの描画
 	CNoMoveCharactor::Draw();
+
+#ifdef _DEBUG
+
+	// デバッグ表示
+	CDebugproc::Print("女王の体力値 [ %d / 100 ]", m_pParameter->GetHp());
+	CDebugproc::Draw(0, 340);
+
+#endif // _DEBUG
 }
 //=========================================================
 // ダメージ処理
@@ -143,13 +159,13 @@ void CQueen::Hit(const int& nDamage)
 	int nHp = m_pParameter->GetHp();
 	nHp -= nDamage;
 
-	if (nHp <= 0)
+	if (nHp <= NULL)
 	{
 		// 体力を0にする
 		m_pParameter->SetHp(NULL);
 
-		// 自身の破棄
-		Uninit();
+		// フラグをセット
+		SetIsUse(false);
 
 		// 処理終了
 		return;

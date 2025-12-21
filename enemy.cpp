@@ -35,7 +35,7 @@
 namespace EnemyInfo
 {
 	constexpr float HitRange = 80.0f; // 球形範囲
-	const char* MOTION_NAME = "data/MOTION/Enemy/Enemy_Motion.txt";
+	const char* MOTION_NAME = "data/MOTION/Enemy/Enemy_Motion.txt"; // モーションパス
 };
 
 //=========================================================
@@ -116,7 +116,7 @@ HRESULT CEnemy::Init(void)
 	// SetScale(D3DXVECTOR3(1.5f, 1.5f, 1.5f));
 
 	// 有効化
-	
+	// ここもノードにする
 	m_isDestQueen = true;
 	//// ランダム数
 	//int nRand = rand() % 2;
@@ -233,7 +233,7 @@ void CEnemy::MoveToFeed(void)
 		m_pTargetFeed = FindFeed();
 	}
 
-	// 目的地（XZのみ）
+	// 目的地座標をセット
 	D3DXVECTOR3 destPos = m_pTargetFeed->GetPos();
 	destPos.y = 0.0f;
 
@@ -288,7 +288,10 @@ void CEnemy::RobToFeed(void)
 void CEnemy::MoveToQueen(void)
 {
 	// 対象を取得
-	auto Queen = CGameSceneObject::GetInstance()->GetQueen();
+	CQueen * Queen = CGameSceneObject::GetInstance()->GetQueen();
+	if (Queen == nullptr) return;
+	if (!Queen->GetIsUse()) return;
+
 	auto DestinationPos = D3DXVECTOR3(Queen->GetPos().x,0.0f,Queen->GetPos().z);
 
 	D3DXVECTOR3 VecToQueen = DestinationPos - GetPos();
@@ -336,21 +339,25 @@ CFeed* CEnemy::FindFeed(void)
 	// 座標取得
 	D3DXVECTOR3 myPos = GetPos();
 
-	for (int nCnt = 0; nCnt < pFeed->GetSize(); nCnt++)
+	// ランダムな餌に飛ぶように設定する
+	int nRandomfeed = rand() % pFeed->GetSize();
+
+	// 餌設定
+	CFeed* feed = pFeed->GetFeed(nRandomfeed);
+	if (!feed) return nullptr;
+
+	// 差分セット
+	D3DXVECTOR3 diff = feed->GetPos() - myPos;
+	float dist = D3DXVec3Length(&diff);
+
+	// 一定値以下なら
+	if (dist < minDist)
 	{
-		CFeed* feed = pFeed->GetFeed(nCnt);
-		if (!feed) continue;
-
-		D3DXVECTOR3 diff = feed->GetPos() - myPos;
-		float dist = D3DXVec3Length(&diff);
-
-		if (dist < minDist)
-		{
-			minDist = dist;
-			pNearest = feed;
-		}
+		minDist = dist;
+		pNearest = feed;
 	}
 
+	// ポインタを取得先でセットする
 	return pNearest;
 }
 //==========================================================
@@ -392,14 +399,19 @@ void CEnemy::CollisionFeed(void)
 void CEnemy::CollisionQueen(void)
 {
 	// 女王の取得
-	auto Queen = CGameSceneObject::GetInstance()->GetQueen();
-	auto Collider = Queen->GetCollider();
+	CQueen * Queen = CGameSceneObject::GetInstance()->GetQueen();
+	if (Queen == nullptr) return;
+	if (!Queen->GetIsUse()) return;
+
+	// コライダー取得
+	CSphereCollider * Collider = Queen->GetCollider();
+	if (Collider == nullptr) return;
 
 	// 有効時
 	if (Collision(Collider))
 	{
 		// 対象オブジェクトの体力値を減算する
-		Queen->Hit(3);
+		Queen->Hit(2);
 
 		// 自身の破棄
 		Uninit();
@@ -424,6 +436,9 @@ void CEnemy::ChangeState(CEnemyStateBase* pNewState, int Id)
 //==========================================================
 bool CEnemy::Collision(CSphereCollider* pOther)
 {
+	// nulなら処理しない
+	if (pOther == nullptr) return false;
+
 	// 球形同士の当たり判定
 	return CCollisionSphere::Collision(m_pSphereCollider,pOther);
 }

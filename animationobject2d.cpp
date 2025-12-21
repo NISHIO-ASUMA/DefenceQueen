@@ -12,6 +12,7 @@
 #include "manager.h"
 #include "renderer.h"
 #include "texture.h"
+#include "template.h"
 #include <string>
 
 //===================================================================
@@ -174,19 +175,94 @@ void CAnimationObject2D::Update(void)
 //===================================================================
 void CAnimationObject2D::Draw(void)
 {
+	// デバイスの取得
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
+	// 頂点バッファをデータストリームに設定
+	pDevice->SetStreamSource(0, m_pVtxBuff, 0, sizeof(VERTEX_2D));
+
+	// nullなら
+	if (m_nIdxTexture == -1)
+	{
+		// テクスチャを戻す
+		pDevice->SetTexture(0, nullptr);
+	}
+	else
+	{
+		// テクスチャ取得
+		CTexture* pTexture = CManager::GetInstance()->GetTexture();
+		if (pTexture == nullptr) return;
+
+		// テクスチャセット
+		pDevice->SetTexture(0, pTexture->GetAddress(m_nIdxTexture));
+	}
+
+	// 頂点フォーマットの設定
+	pDevice->SetFVF(FVF_VERTEX_2D);
+
+	// ポリゴンの描画
+	pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+
+	// テクスチャを戻す
+	pDevice->SetTexture(0, nullptr);
 }
 //===================================================================
 // 点滅処理
 //===================================================================
 void CAnimationObject2D::SetFlash(const int nFirstcount, const int nEndcount, const D3DXCOLOR& col)
 {
+	// 頂点情報のポインタ
+	VERTEX_2D* pVtx = nullptr;
 
+	// 頂点バッファをロックする
+	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+
+	// カラーカウントを加算
+	m_nColorCount++;
+
+	// 点滅する周期を計算する
+	int nCycle = nEndcount - nFirstcount;
+	if (nCycle <= 0) nCycle = 1;
+
+	// 進行度を設定
+	float fProgress = static_cast<float>((m_nColorCount - nFirstcount) % nCycle) / static_cast<float>(nCycle);
+
+	// 透明度を格納する
+	float alpha = NULL;
+
+	if (fProgress < 0.5f)
+	{
+		// 線形補間
+		alpha = Lerp(0.5f, 1.0f, fProgress * 2.0f);
+	}
+	else
+	{
+		// 線形補間
+		alpha = Lerp(1.0f, 0.5f, (fProgress - 0.5f) * 2.0f);
+	}
+
+	// カラー設定
+	D3DXCOLOR ChangeCol(col.r, col.g, col.b, alpha);
+
+	// 現在カラーに適用
+	SetCol(ChangeCol);
+
+	// 頂点バッファをアンロック
+	m_pVtxBuff->Unlock();
 }
 //===================================================================
 // テクスチャ割り当て処理
 //===================================================================
 void CAnimationObject2D::SetTexture(const char* pRegisterName)
 {
+	// テクスチャクラス取得
+	CTexture* pTexture = CManager::GetInstance()->GetTexture();
+	if (pTexture == nullptr) return;
 
+	// パスを短縮する
+	std::string TexName = "data/TEXTURE/";
+	TexName += pRegisterName;
+
+	// 割り当てる
+	m_nIdxTexture = pTexture->Register(TexName.c_str());
 }

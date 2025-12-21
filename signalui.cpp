@@ -37,12 +37,13 @@ CSignalUi* CSignalUi::Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, con
 	pSignal->SetPos(pos);
 	pSignal->SetRot(rot);
 	pSignal->SetSize(fWidth,fHeight);
+	pSignal->SetCol(color);
 	pSignal->SetTexture(Config::TEX_NAME);
 
 	// ‰Šú‰»¸”s
 	if (FAILED(pSignal->Init())) return nullptr;
 
-	return nullptr;
+	return pSignal;
 }
 //=========================================================
 // ‰Šú‰»ˆ—

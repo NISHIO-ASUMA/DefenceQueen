@@ -31,7 +31,7 @@ CCollisionSphere::~CCollisionSphere()
 bool CCollisionSphere::Collision(CSphereCollider* thisCollider, CSphereCollider* otherCollider)
 {
 	// コライダーがnullなら
-	if (!thisCollider || !otherCollider) return false;
+	if (thisCollider == nullptr || otherCollider == nullptr) return false;
 
 	// コライダー情報をセット
 	CSphereCollider* MySphere = thisCollider;

@@ -19,6 +19,7 @@
 #include "result.h"
 #include "fade.h"
 #include "time.h"
+#include "queen.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -136,22 +137,22 @@ void CGame::Update(void)
 		// ゲームオブジェクト更新
 		CGameSceneObject::GetInstance()->Update();
 
+		// 時間が0になったら
 		if (CGameSceneObject::GetInstance()->GetTime()->GetToAll() <= 0)
 		{
 			// 状態変更
 			m_pState->SetProgress(CGameState::PROGRESS_END);
 			return;
 		}
+
+		// 防衛対象が死亡時
+		if (CGameSceneObject::GetInstance()->GetQueen()->GetIsUse() == false)
+		{
+			// 状態変更で負けリザルトへ
+			m_pState->SetProgress(CGameState::PROGRESS_LOSE);
+			return;
+		}
 	}
-
-	// 時間が0になったら
-	
-	//auto p = CGameSceneObject::GetInstance()->GetQueen();
-
-	//if ()
-	//{
-
-	//}
 #ifdef _DEBUG
 	// 画面遷移
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_SPACE))

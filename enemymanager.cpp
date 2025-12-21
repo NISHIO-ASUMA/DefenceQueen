@@ -39,8 +39,6 @@ HRESULT CEnemyManager::Init(void)
 	// 配列のサイズを設定
 	m_pEnemys.reserve(Config::NUM_ENEMY);
 
-	m_nCreateLastTime = -1;
-
 	return S_OK;
 }
 //=========================================================
@@ -59,10 +57,14 @@ void CEnemyManager::Update(void)
 	auto GameSceneObject = CGameSceneObject::GetInstance();
 	int time = GameSceneObject->GetTime()->GetToAll();
 
+	// 使用名前空間
 	using namespace SET_INFO;
 
+	// サイズオーバーチェック
+	if (m_pEnemys.size() >= Config::NUM_ENEMY) return;
+
 	if (time > 0 &&
-		time % 10 == 0 &&
+		time % 15 == 0 &&
 		time != m_nCreateLastTime)
 	{
 		// 今回の湧き数
@@ -76,21 +78,20 @@ void CEnemyManager::Update(void)
 
 			// 
 			D3DXVECTOR3 offset(
-				(rand() % 50 - 25) * 1.0f,
+				(rand() % 50 - 25) * 2.0f,
 				0.0f,
-				(rand() % 50 - 25) * 1.0f
+				(rand() % 50 - 25) * 2.0f
 			);
 
 			pos += offset;
 
 			CEnemy* pEnemy = CEnemy::Create(pos, VECTOR3_NULL, Config::LIFE);
+
 			if (pEnemy)
 			{
 				pEnemy->SetIsActive(true);
 				m_pEnemys.push_back(pEnemy);
 			}
-
-			
 		}
 
 		m_nCreateLastTime = time;

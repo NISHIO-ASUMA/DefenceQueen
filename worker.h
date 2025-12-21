@@ -25,6 +25,7 @@ class CSphereCollider;
 class CSelectPoint;
 class CWorkerStateBase;
 class CFeed;
+class CSignalUi;
 
 //*********************************************************
 // 働きアリクラスの定義
@@ -102,19 +103,21 @@ private:
 	{
 		static constexpr float Distance = 80.0f; // 判定距離
 		static constexpr float Move = 3.5f;		 // 移動速度
-		static constexpr int LITTLE = 10;
-		static constexpr int MIDDLE = 15;
-		static constexpr int LARGE = 20;
+		static constexpr float StopDistance = 2.0f; // 停止最小値
+		static constexpr int LITTLE = 10;		 // 最小値
+		static constexpr int MIDDLE = 15;		 // 中央値
+		static constexpr int LARGE = 20;		 // 最大値
 	};
 
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
+
 	CMotion* m_pMotion;					// モーションポインタ
 	CSphereCollider* m_pSphereCollider;	// 球形のコライダー
-	CSelectPoint* m_pSelect;			// 選択場所取得用
-	D3DXVECTOR3 m_DestPos;				// 目的の座標
+	CFeed* m_pTargetFeed;				// 自身が目的地とするターゲットの餌
+	CSignalUi* m_pSignal;				// シグナル表示用
 
+	D3DXVECTOR3 m_DestPos;				// 目的の座標
 	D3DXVECTOR3 m_SavePos;				// 保存用座標
-	D3DXVECTOR3 m_SaveRot;				// 保存用角度
 
 	int m_nScaleNum;					// 必要な仲間数を返す
 	int m_nIdxNumber;					// インデックス番号
@@ -123,7 +126,5 @@ private:
 	bool m_isWork;						// 動作中かフラグ
 	bool m_isCreate;					// 生成したかどうか
 	bool m_isSetNum;					// セットしたかどうか
-
 	MOVE m_MoveState;					// 移動状態
-	CFeed* m_pTargetFeed;				// 自身が目的地とするターゲットの餌
 };

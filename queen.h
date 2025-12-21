@@ -53,6 +53,9 @@ public:
 	void Hit(const int& nDamage);
 	bool Collision(CSphereCollider * pOther);
 
+	inline void SetIsUse(const bool isUse) { m_isUse = isUse; }
+	inline bool GetIsUse(void) { return m_isUse; }
+
 	CSphereCollider* GetCollider(void) { return m_pSphereCollider; }
 
 	static CQueen* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
@@ -64,7 +67,7 @@ private:
 	//***********************************
 	struct QueenInfo
 	{
-		static constexpr int Hp = 100;			// 体力値
+		static constexpr int Hp = 50;			// 体力値
 		static constexpr float HitRange = 100.0f;// コリジョン半径
 		static constexpr const char* SCRIPT = "data/MOTION/Queen/Queen_Motion.txt"; // ロードファイル名
 	};
@@ -73,4 +76,5 @@ private:
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
 	CMotion* m_pMotion;								// モーションポインタ
 	CSphereCollider* m_pSphereCollider;				// 円形ののコライダー
+	bool m_isUse;									// 使うかどうかのフラグ
 };

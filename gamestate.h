@@ -30,6 +30,7 @@ public:
 		PROGRESS_NONE,		// ‰½‚à–³‚¢
 		PROGRESS_NORMAL,	// ’Êíó‘Ô
 		PROGRESS_END,		// ƒQ[ƒ€I—¹
+		PROGRESS_LOSE,		// ’§íŽ¸”s
 		PROGRESS_MAX
 	};
 

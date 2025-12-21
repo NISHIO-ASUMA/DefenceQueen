@@ -14,6 +14,8 @@
 #include "result.h"
 #include "manager.h"
 #include "gamemanager.h"
+#include "loseresult.h"
+#include "score.h"
 
 //*********************************************************
 // 定数名前空間
@@ -26,7 +28,8 @@ namespace GAMESTATE
 //=========================================================
 // コンストラクタ
 //=========================================================
-CGameState::CGameState() : m_pGame(nullptr),
+CGameState::CGameState() : 
+m_pGame(nullptr),
 m_Progress(PROGRESS_NONE),
 m_nCount(NULL)
 {
@@ -60,8 +63,6 @@ void CGameState::OnUpdate()
 	if (pFade == nullptr) return;
 
 	// シーンオブジェクト取得
-	auto GameSceneObject = CGameSceneObject::GetInstance();
-	if (GameSceneObject == nullptr) return;
 
 	switch (m_Progress)
 	{
@@ -84,11 +85,36 @@ void CGameState::OnUpdate()
 			// 60フレーム経過
 			m_Progress = PROGRESS_NONE; 
 
+			// 一度だけ書き出す
+			CGameSceneObject::GetInstance()->GetScore()->SaveScore();
+
 			// フェードが取得できたら
 			if (pFade != nullptr)
 			{
 				// リザルトシーンに遷移
 				pFade->SetFade(std::make_unique<CResult>());
+			}
+		}
+		break;
+
+	case PROGRESS_LOSE:
+
+		// カウントを加算
+		m_nCount++;
+
+		if (m_nCount >= GAMESTATE::STATECOUNT)
+		{
+			// カウンターを初期化
+			m_nCount = NULL;
+
+			// 60フレーム経過
+			m_Progress = PROGRESS_NONE;
+
+			// フェードが取得できたら
+			if (pFade != nullptr)
+			{
+				// 負けリザルトシーンに遷移
+				pFade->SetFade(std::make_unique<CLoseResult>());
 			}
 		}
 		break;

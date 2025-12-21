@@ -29,8 +29,8 @@ class CEnemySpawner;
 namespace SET_INFO
 {
 	static constexpr int CREATE_NUM = 4; // 最大生成数
-	static constexpr int SPAWN_MIN = 10;       // 最小湧き数
-	static constexpr int SPAWN_MAX = 18;       // 最大湧き数
+	static constexpr int SPAWN_MIN = 5;       // 最小湧き数
+	static constexpr int SPAWN_MAX = 8;       // 最大湧き数
 
 	const D3DXVECTOR3 SpawnPos[CREATE_NUM] // スポーンの生成座標
 	{
