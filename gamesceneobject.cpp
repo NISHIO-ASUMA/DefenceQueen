@@ -35,6 +35,7 @@
 #include "enemyspawnmanager.h"
 #include "meshdome.h"
 #include "enemymanager.h"
+#include "gamemanager.h"
 
 //*********************************************************
 // 静的メンバ変数
@@ -78,15 +79,15 @@ HRESULT CGameSceneObject::Init(void)
 	// メッシュドーム生成
 	CMeshDome::Create(D3DXVECTOR3(0.0f,-20.0f,0.0f), 60.0f);
 
+	// コロン生成
+	CUi::Create(D3DXVECTOR3(645.0f, 40.0f, 0.0f), 0, 15.0f, 30.0f, "coron.png", false);
+
 #ifdef _DEBUG
 	CUi::Create(D3DXVECTOR3(1160.0f, 280.0f, 0.0f), 0, 120.0f, 300.0f, "backboard.png", false);
 #endif // _DEBUG
 
 	// 各種ポインタクラスの生成
 	CreatePointer();
-
-	//// TODO : 仮の敵生成
-	//CEnemy::Create(D3DXVECTOR3(-1100.0f, 0.0f, -300.0f), VECTOR3_NULL, 1);
 
 	return S_OK;
 }
@@ -117,6 +118,7 @@ void CGameSceneObject::Uninit(void)
 	// 敵のスポナー管理クラス
 	m_pEnemySpawnManager.reset();
 
+	// 敵管理の破棄
 	m_pEnemy.reset();
 
 	// ui処理
@@ -162,7 +164,7 @@ void CGameSceneObject::Update(void)
 	// 餌管理クラスの更新
 	if (m_pFeed)
 	{
-		m_pFeed->Update();
+		// m_pFeed->Update();
 	}
 
 	// 敵の更新
@@ -175,7 +177,7 @@ void CGameSceneObject::Update(void)
 
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_F9))
 	{
-		// 書き出しテスト
+		// スコア加算テスト
 		m_pScore->AddScore(12000);
 	}
 
@@ -187,7 +189,6 @@ void CGameSceneObject::Update(void)
 	}
 
 #endif // _DEBUG
-
 }
 //=========================================================
 // 描画処理
@@ -195,18 +196,34 @@ void CGameSceneObject::Update(void)
 void CGameSceneObject::Draw(void)
 {
 #ifdef _DEBUG
-	// アリ管理クラスの描画
+
+	// アリ管理クラスのデバッグ情報
 	if (m_pArrayManager)
 	{
 		m_pArrayManager->Draw();
 	}
 
+	// スポナー管理クラスのデバッグ情報
 	if (m_pArraySpawn)
 	{
 		m_pArraySpawn->Draw();
 	}
 #endif // _DEBUG
+}
+//=========================================================
+// 対象オブジェクトの破棄
+//=========================================================
+void CGameSceneObject::DeleteQueen(void)
+{
+	// nullじゃなかったら
+	if (m_pQueen)
+	{
+		m_pQueen->Uninit();
+		m_pQueen = nullptr;
+	}
 
+	// ゲームフラグを有効化し、進行を停止する
+	CGameManager::GetInstance()->SetIsGameEnd(true);
 }
 //=========================================================
 // インスタンス取得処理
@@ -223,7 +240,7 @@ CGameSceneObject* CGameSceneObject::GetInstance(void)
 	return m_pInstance;
 }
 //=========================================================
-// ポインタの生成を行う関数わけ
+// ポインタの生成を行う関数
 //=========================================================
 void CGameSceneObject::CreatePointer(void)
 {
@@ -232,10 +249,7 @@ void CGameSceneObject::CreatePointer(void)
 	m_pBlocks->Init();
 
 	// タイマー生成
-	m_pTimer = CTime::Create(D3DXVECTOR3(1040.0f,40.0f,0.0f),60.0f,40.0f);
-
-	// コロン生成
-	CUi::Create(D3DXVECTOR3(1145.0f, 40.0f, 0.0f), 0, 15.0f, 30.0f, "coron.png", false);
+	m_pTimer = CTime::Create(D3DXVECTOR3(540.0f,40.0f,0.0f),60.0f,40.0f);
 
 	// 餌の管理クラスを生成
 	m_pFeed = std::make_unique<CFeedManager>();

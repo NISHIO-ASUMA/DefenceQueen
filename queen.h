@@ -23,6 +23,7 @@ class CParameter;
 class CStateMachine;
 class CSphereCollider;
 class CMotion;
+class CLoad;
 
 //*********************************************************
 // 女王キャラクタークラスを定義
@@ -51,12 +52,13 @@ public:
 	void Update(void);
 	void Draw(void);
 	void Hit(const int& nDamage);
+	void SaveHp(void);
 	bool Collision(CSphereCollider * pOther);
 
 	inline void SetIsUse(const bool isUse) { m_isUse = isUse; }
 	inline bool GetIsUse(void) { return m_isUse; }
 
-	CSphereCollider* GetCollider(void) { return m_pSphereCollider; }
+	CSphereCollider* GetCollider(void) { return m_pSphereCollider.get(); }
 
 	static CQueen* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
 
@@ -67,14 +69,16 @@ private:
 	//***********************************
 	struct QueenInfo
 	{
-		static constexpr int Hp = 50;			// 体力値
+		static constexpr int Hp = 100;			// 体力値
 		static constexpr float HitRange = 100.0f;// コリジョン半径
 		static constexpr const char* SCRIPT = "data/MOTION/Queen/Queen_Motion.txt"; // ロードファイル名
 	};
 
 	std::unique_ptr<CParameter>m_pParameter;		// パラメータークラスポインタ
+	std::unique_ptr<CLoad>m_pLoad;					// 情報外部書き出しクラスのポインタ
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
+	std::unique_ptr<CSphereCollider>m_pSphereCollider;				// 円形ののコライダー
 	CMotion* m_pMotion;								// モーションポインタ
-	CSphereCollider* m_pSphereCollider;				// 円形ののコライダー
 	bool m_isUse;									// 使うかどうかのフラグ
+	
 };

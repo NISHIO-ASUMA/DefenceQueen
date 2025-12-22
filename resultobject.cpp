@@ -12,6 +12,8 @@
 #include "ui.h"
 #include "resultscore.h"
 #include "meshfield.h"
+#include "queen.h"
+#include "meshdome.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -38,8 +40,10 @@ CResultObject::~CResultObject()
 HRESULT CResultObject::Init(void)
 {// 各種オブジェクト生成
 
-	// 外部からマップ読み込み
-	
+	CQueen::Create(D3DXVECTOR3(0.0f, 30.0f, -5.0f), VECTOR3_NULL);
+
+	// メッシュドーム生成
+	CMeshDome::Create(D3DXVECTOR3(0.0f, -20.0f, 0.0f), 60.0f);
 
 	// UI
 	CUi::Create(D3DXVECTOR3(640.0f, 75.0f, 0.0f), 30, 200.0f, 55.0f, "result_logo.png", false);

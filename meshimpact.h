@@ -34,7 +34,7 @@ public:
 		float fSpeed;		// Šg‘å‘¬“x
 	};
 
-	CMeshImpact(int nPriority = static_cast<int>(CObject::PRIORITY::IMPACT));
+	CMeshImpact(int nPriority = static_cast<int>(CObject::PRIORITY::MESH));
 	~CMeshImpact();
 
 	HRESULT Init(void);

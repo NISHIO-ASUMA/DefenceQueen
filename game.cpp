@@ -29,7 +29,7 @@ CPauseManager* CGame::m_pPausemanager = nullptr; // ポーズマネージャーのポインタ
 //=========================================================
 // コンストラクタ
 //=========================================================
-CGame::CGame() : CScene(CScene::MODE_GAME), m_pGameManager(nullptr)
+CGame::CGame() : CScene(CScene::MODE_GAME)
 {
 	// 値のクリア
 }
@@ -58,11 +58,12 @@ HRESULT CGame::Init(void)
 
 	// ゲームマネージャー初期化
 	CGameManager::GetInstance()->Init();
+	CGameManager::GetInstance()->SetIsGameEnd(false);
 
 	// ゲームオブジェクト初期化
 	CGameSceneObject::GetInstance()->Init();
 
-	// ステート生成
+	// ゲームステート生成
 	m_pState = new CGameState;
 	if (m_pState == nullptr) return E_FAIL;
 
@@ -70,7 +71,6 @@ HRESULT CGame::Init(void)
 	m_pState->SetGame(this);
 	m_pState->OnStart();
 
-	// 初期化結果を返す
 	return S_OK;
 }
 //=========================================================
@@ -78,10 +78,10 @@ HRESULT CGame::Init(void)
 //=========================================================
 void CGame::Uninit(void)
 {
-	// 破棄
+	// ゲーム管理の破棄
 	CGameManager::GetInstance()->Uninit();
 
-	// ゲームオブジェクト
+	// ゲームオブジェクトの破棄
 	CGameSceneObject::GetInstance()->Uninit();
 
 	// nullチェック
@@ -129,7 +129,7 @@ void CGame::Update(void)
 	m_pPausemanager->Update();
 	
 	// falseの時に更新
-	if (!m_pPausemanager->GetPause())
+	if (!m_pPausemanager->GetPause() && State == m_pState->PROGRESS_NORMAL)
 	{
 		// ゲームマネージャー更新
 		CGameManager::GetInstance()->Update();
@@ -145,16 +145,17 @@ void CGame::Update(void)
 			return;
 		}
 
-		// 防衛対象が死亡時
-		if (CGameSceneObject::GetInstance()->GetQueen()->GetIsUse() == false)
+		// ゲーム終了フラグが有効なら
+		if (CGameManager::GetInstance()->GetIsGameEnd() == true)
 		{
-			// 状態変更で負けリザルトへ
+			// 状態変更
 			m_pState->SetProgress(CGameState::PROGRESS_LOSE);
 			return;
 		}
 	}
+
 #ifdef _DEBUG
-	// 画面遷移
+	// 画面遷移デバッグキー
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_SPACE))
 	{
 		// 画面遷移
@@ -162,7 +163,6 @@ void CGame::Update(void)
 		fade->SetFade(std::make_unique<CResult>());
 		return;
 	}
-
 #endif // _DEBUG
 }
 //=========================================================
@@ -170,5 +170,6 @@ void CGame::Update(void)
 //=========================================================
 void CGame::Draw(void)
 {
+	// オブジェクトの描画
 	CGameSceneObject::GetInstance()->Draw();
 }

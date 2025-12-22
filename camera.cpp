@@ -152,18 +152,23 @@ void CCamera::SetCamera(void)
 //==============================================================
 void CCamera::SetSceneCamara(void)
 {
-	m_pCamera.posV = D3DXVECTOR3(0.0f,450.0f, -1500.0f);		// カメラの位置
-	m_pCamera.posR = VECTOR3_NULL;								// カメラの見ている位置
-	m_pCamera.vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);				// 上方向ベクトル
-	m_pCamera.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 角度
+	// カメラ位置
+	m_pCamera.posV = D3DXVECTOR3(240.0f, 5.0f, -190.0f);
 
-	// 距離を計算
-	float fRotx = m_pCamera.posV.x - m_pCamera.posR.x;
-	float fRoty = m_pCamera.posV.y - m_pCamera.posR.y;
-	float fRotz = m_pCamera.posV.z - m_pCamera.posR.z;
+	// 見上げたい対象
+	m_pCamera.posR = D3DXVECTOR3(80.0f, 100.0f, 0.0f);
 
-	// 視点から注視点までの距離
-	m_pCamera.fDistance = sqrtf((fRotx * fRotx) + (fRoty * fRoty) + (fRotz * fRotz));
+	m_pCamera.vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+
+	// 回転は使わない
+	m_pCamera.rot = D3DXVECTOR3(0.0f,0.0f,D3DX_PI * 0.4f);
+
+	float fPosx = m_pCamera.posV.x - m_pCamera.posR.x;
+	float fPosy = m_pCamera.posV.y - m_pCamera.posR.y;
+	float fPosz = m_pCamera.posV.z - m_pCamera.posR.z;
+
+	//m_pCamera.fDistance = sqrtf(fPosx * fPosx + fPosy * fPosy + fPosz * fPosz);
+	m_pCamera.fDistance = 650.0f;
 }
 //==============================================================
 // マウス操作の視点移動

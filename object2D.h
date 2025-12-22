@@ -51,30 +51,29 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-
-	static CObject2D* Create(void);
-
-	void SetUV(float TexU, float TexV);
-	void SetCol(D3DXCOLOR col) { m_col = col; }
-	void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
-	void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
-	void SetSize(float fWidth, float fHeight) { m_fWidth = fWidth, m_fHeight = fHeight; }
-	void SetWidth(float fWidth) { m_fWidth = fWidth; }
-	void SetHeight(float fHeight) { m_fWidth = fHeight; }
-	void SetFlash(const int nFirstcount, const int nEndcount, const D3DXCOLOR col);
-	void SetAnchor(int Type = ANCHORTYPE_CENTER) { m_nAnchorType = Type; }
-	void SetDrawType(int nType) { m_nDrawType = nType; }
 	void SetCenter(void);
 	void SetLeft(void);
 	void SetRight(void);
 	void SetTexture(const char* pRegisterName);
+	void SetFlash(const int nFirstcount, const int nEndcount, const D3DXCOLOR col);
 
-	D3DXVECTOR3 GetPos(void) const { return m_pos; }	// 現在の座標を取得
-	D3DXVECTOR3 GetRot(void) const { return m_rot; }	// 現在の角度を取得
-	D3DXCOLOR GetCol(void) const { return m_col; }		// 現在の色を取得
-	float GetWidth(void) const { return m_fWidth; }		// 横幅取得
-	float GetHeight(void) const { return m_fHeight; }	// 高さ取得
-	int GetDrawType(void) const { return m_nDrawType; }
+	static CObject2D* Create(void);
+
+	inline void SetCol(D3DXCOLOR col) { m_col = col; }
+	inline void SetUV(float TexU, float TexV);
+	inline void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	inline void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
+	inline void SetSize(float fWidth, float fHeight) { m_fWidth = fWidth, m_fHeight = fHeight; }
+	inline void SetWidth(float fWidth) { m_fWidth = fWidth; }
+	inline void SetHeight(float fHeight) { m_fWidth = fHeight; }
+	inline void SetAnchor(int Type = ANCHORTYPE_CENTER) { m_nAnchorType = Type; }
+	inline void SetDrawType(int nType) { m_nDrawType = nType; }
+
+	inline D3DXVECTOR3 GetPos(void) const { return m_pos; }	// 現在の座標を取得
+	inline D3DXVECTOR3 GetRot(void) const { return m_rot; }	// 現在の角度を取得
+	inline D3DXCOLOR GetCol(void) const { return m_col; }		// 現在の色を取得
+	inline float GetWidth(void) const { return m_fWidth; }		// 横幅取得
+	inline float GetHeight(void) const { return m_fHeight; }	// 高さ取得
 
 private:
 

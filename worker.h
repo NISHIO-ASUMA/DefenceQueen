@@ -76,19 +76,18 @@ public:
 	void MoveToPoint(void);
 	void MoveToReturnBase(void);
 	void AssignFeed(CFeed* pFeed); // 割り当て関数
+	int RequiredNumber(void);
 
 	void ChangeState(CWorkerStateBase* pState, int nId);
 	bool Collision(CSphereCollider* other);
 
-	void SetDestPos(const D3DXVECTOR3 pos) { m_DestPos = pos; }
-	void SetNeedNumber(const int nNumber) { m_nIdxNumber = nNumber; }
-	void SetIsWork(const bool iswork) { m_isWork = iswork; }
-	bool GetIsWork(void) const { return m_isWork; }
-	bool GetIsCreate(void) const { return m_isCreate; }
-	int RequiredNumber(void);
-
-	MOVE SetMoveState(MOVE Move) { m_MoveState = Move; }
-	bool GetMoveState(void) { return m_MoveState == NONE; }
+	inline void SetDestPos(const D3DXVECTOR3 pos) { m_DestPos = pos; }
+	inline void SetNeedNumber(const int nNumber) { m_nIdxNumber = nNumber; }
+	inline void SetIsWork(const bool iswork) { m_isWork = iswork; }
+	inline bool GetIsWork(void) const { return m_isWork; }
+	inline bool GetIsCreate(void) const { return m_isCreate; }
+	inline bool GetMoveState(void) { return m_MoveState == NONE; }
+	inline MOVE SetMoveState(MOVE Move) { m_MoveState = Move; }
 
 	CFeed* SetPoint(CFeed* pfeed) { m_pTargetFeed = pfeed; }
 
@@ -107,6 +106,7 @@ private:
 		static constexpr int LITTLE = 10;		 // 最小値
 		static constexpr int MIDDLE = 15;		 // 中央値
 		static constexpr int LARGE = 20;		 // 最大値
+		static constexpr int MAX_COUNT = 25;	// 生成するのに必要な最大カウント
 	};
 
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
@@ -121,7 +121,7 @@ private:
 
 	int m_nScaleNum;					// 必要な仲間数を返す
 	int m_nIdxNumber;					// インデックス番号
-
+	int m_nImpactCounter;				// 生成のカウント
 	bool m_isMove;						// 移動中かフラグ
 	bool m_isWork;						// 動作中かフラグ
 	bool m_isCreate;					// 生成したかどうか

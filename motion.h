@@ -44,10 +44,10 @@ public:
 
 	void SetMotion(int motiontype);
 	void SetMotion(int nMotionType, bool isBlend, int nBlendFrame);
-	void SetResetFrame(int nFrame) { m_nCounterMotion = nFrame;}
+	inline void SetResetFrame(int nFrame) { m_nCounterMotion = nFrame;}
 
-	int GetMotionType(void) { return m_motiontype; }
-	bool GetFinishMotion(void) { return m_isFinishMotion; }
+	inline int GetMotionType(void) { return m_motiontype; }
+	inline bool GetFinishMotion(void) { return m_isFinishMotion; }
 
 	// インデックス登録処理
 	void RegisterPath(const char* pMotionName,std::vector<CModel*>& pModel, int nDestMotions, const bool isShadow);
@@ -64,6 +64,7 @@ private:
 	int m_nNextKey;			// 次のキー
 	int m_motiontype;		// モーションタイプ
 	int m_type;
+	int m_nMotionIdx;				// モーションファイル番号
 
 	int m_motiontypeBlend;	// ブレンドの種類
 	int m_nFrameBlend;		// ブレンドのフレーム数
@@ -80,5 +81,4 @@ private:
 
 	static constexpr int NEUTRAL = 0; // ニュートラル番号
 
-	int m_nMotionIdx;				// モーションファイル番号
 };

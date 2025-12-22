@@ -31,22 +31,22 @@ public:
 	void Draw(void) override;
 	void UpdatePosition(void);
 	void DecayMove(const float fValue);
-
-	void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
-	void SetPosOld(const D3DXVECTOR3& oldpos) { m_posOld = oldpos; }
-	void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
-	void SetMove(const D3DXVECTOR3& move) { m_move = move; }
-	void SetCol(D3DXCOLOR col = COLOR_WHITE) { m_col = col; }
-	void SetSize(float fWidth, float fHeight) { m_fWidth = fWidth, m_fHeight = fHeight; }
 	void SetTexture(const char* pTexName);
 
-	D3DXVECTOR3 GetPos(void) const { return m_pos; }
-	D3DXVECTOR3 GetOldPos(void) const { return m_posOld; }
-	D3DXVECTOR3 GetRot(void) const { return m_rot; }
-	D3DXVECTOR3 GetMove(void) const { return m_move; }
-	D3DXCOLOR GetCol(void) const { return m_col; }
-	float GetWidth(void) const { return m_fWidth; }
-	float GetHeight(void) const { return m_fHeight; }
+	inline void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	inline void SetPosOld(const D3DXVECTOR3& oldpos) { m_posOld = oldpos; }
+	inline void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
+	inline void SetMove(const D3DXVECTOR3& move) { m_move = move; }
+	inline void SetCol(const D3DXCOLOR& col = COLOR_WHITE) { m_col = col; }
+	inline void SetSize(float fWidth, float fHeight) { m_fWidth = fWidth, m_fHeight = fHeight; }
+
+	inline D3DXVECTOR3 GetPos(void) const { return m_pos; }
+	inline D3DXVECTOR3 GetOldPos(void) const { return m_posOld; }
+	inline D3DXVECTOR3 GetRot(void) const { return m_rot; }
+	inline D3DXVECTOR3 GetMove(void) const { return m_move; }
+	inline D3DXCOLOR GetCol(void) const { return m_col; }
+	inline float GetWidth(void) const { return m_fWidth; }
+	inline float GetHeight(void) const { return m_fHeight; }
 
 private:
 

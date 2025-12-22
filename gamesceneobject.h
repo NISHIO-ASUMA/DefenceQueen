@@ -63,6 +63,8 @@ public:
 	CArraySpawnManager* GetArraySpawn(void) const { return m_pArraySpawn.get(); }
 	CEnemySpawnManager* GetEnemySpawnManager(void) const { return m_pEnemySpawnManager.get(); }
 	
+	void DeleteQueen(void);
+
 	static CGameSceneObject* GetInstance(void);
 
 private:

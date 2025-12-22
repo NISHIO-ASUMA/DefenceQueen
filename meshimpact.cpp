@@ -36,7 +36,7 @@ m_pIdx(nullptr),
 m_pVtx(nullptr),
 m_pos(VECTOR3_NULL),
 m_rot(VECTOR3_NULL),
-m_col(D3DXCOLOR(1.0f, 1.0f, 0.0f, 0.7f)),
+m_col(D3DCOLOR_RGBA(255, 115, 73, 255)),
 m_MeshImpact{}
 {
 	// 値のクリア
@@ -356,13 +356,13 @@ CMeshImpact* CMeshImpact::Create(D3DXVECTOR3 pos, int nLife,float fOutRadius,flo
 	if (pMesh == nullptr) return nullptr;
 
 	// 値を代入
-	pMesh->m_pos = pos;				// 座標
+	pMesh->m_pos = pos;							// 座標
 	pMesh->m_MeshImpact.fInRadius = fInRadius; // 内径
 	pMesh->m_MeshImpact.fOutRadius = fOutRadius; // 外径
 	pMesh->m_MeshImpact.nLife = nLife;			// 継続時間
 	pMesh->m_MeshImpact.fSpeed = fSpeed;		// 拡散速度
 	pMesh->m_MeshImpact.DecAlpha = pMesh->m_col.a / nLife; // αの減少値
-	pMesh->SetObjType(TYPE_MESH);   // オブジェクトのタイプを設定
+	pMesh->SetObjType(TYPE_MESH);				// オブジェクトのタイプを設定
 	
 	// 初期化失敗
 	if (FAILED(pMesh->Init()))	return nullptr;

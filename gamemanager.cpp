@@ -30,7 +30,7 @@ CGameManager* CGameManager::GetInstance(void)
 //=========================================================
 // コンストラクタ
 //=========================================================
-CGameManager::CGameManager()
+CGameManager::CGameManager() : m_isGameEnd(false)
 {
 	// 値のクリア
 }

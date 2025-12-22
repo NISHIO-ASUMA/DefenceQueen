@@ -30,21 +30,21 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 	void Flash(const int nMaxFlashTime,const int Digittime);
-
-	void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
-	void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
-	void SetCol(D3DXCOLOR col) { m_col = col; }
 	void SetTexture(const char* pTexName);
-	void SetSize(float fWidth, float fHeight) { m_fWidth = fWidth, m_fHeight = fHeight; }
-	void SetEnableZtest(bool isflags) { m_isTests = isflags; }
 	void SetAnim(const int nMaxPattern, const int nMaxAnimCount, float fTexU, float fTexV);
 	void SetUV(float fTexU, float fTexU1, float fTexV);
 
-	D3DXVECTOR3 GetPos(void) { return m_pos; };
-	D3DXVECTOR3 GetRot(void) { return m_rot; };
-	D3DXCOLOR GetCol(void) { return m_col; };
-	float GetWidth(void) { return m_fWidth; }
-	float GetHeight(void) { return m_fHeight; }
+	inline void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	inline void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
+	inline void SetCol(D3DXCOLOR col) { m_col = col; }
+	inline void SetSize(float fWidth, float fHeight) { m_fWidth = fWidth, m_fHeight = fHeight; }
+	inline void SetEnableZtest(bool isflags) { m_isTests = isflags; }
+
+	inline D3DXVECTOR3 GetPos(void) const { return m_pos; };
+	inline D3DXVECTOR3 GetRot(void) const { return m_rot; };
+	inline D3DXCOLOR GetCol(void) const { return m_col; };
+	inline float GetWidth(void) const { return m_fWidth; }
+	inline float GetHeight(void) const { return m_fHeight; }
 
 	static CBillboard* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, float fWidth, float fHeight, const char* pTexName);
 

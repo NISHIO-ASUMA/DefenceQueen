@@ -21,6 +21,7 @@
 class CObjectX : public CObject
 {
 public:
+
 	CObjectX(int nPriority = static_cast<int>(CObject::PRIORITY::MODELOBJECT));
 	~CObjectX();
 
@@ -29,19 +30,19 @@ public:
 	void Update(void);
 	void Draw(void); 
 	void DrawShadow(void);
-
-	void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
-	void SetRot(const D3DXVECTOR3& rot = VECTOR3_NULL) { m_rot = rot; }
-	void SetScale(const D3DXVECTOR3& scale = INITSCALE) { m_Scale = scale; }
-	void SetMtxWorld(D3DXMATRIX mtxworld) { m_mtxWorld = mtxworld; }
 	void SetFilePass(const char* pFilePass);
-	void SetModelIdx(const int nIdx) { m_nIdxModel = nIdx; }
-	void SetShadow(bool isFlags) { m_isShadow = isFlags; }
 
-	D3DXVECTOR3 GetPos(void) { return m_pos; };
-	D3DXVECTOR3 GetRot(void) { return m_rot; };
-	D3DXMATRIX GetMtxWorld(void) { return m_mtxWorld; }
-	int GetModelIdx(void) const { return m_nIdxModel; }
+	inline void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	inline void SetRot(const D3DXVECTOR3& rot = VECTOR3_NULL) { m_rot = rot; }
+	inline void SetScale(const D3DXVECTOR3& scale = INITSCALE) { m_Scale = scale; }
+	inline void SetMtxWorld(D3DXMATRIX mtxworld) { m_mtxWorld = mtxworld; }
+	inline void SetModelIdx(const int nIdx) { m_nIdxModel = nIdx; }
+	inline void SetShadow(bool isFlags) { m_isShadow = isFlags; }
+
+	inline D3DXVECTOR3 GetPos(void) const { return m_pos; };
+	inline D3DXVECTOR3 GetRot(void) const { return m_rot; };
+	inline D3DXMATRIX GetMtxWorld(void) const { return m_mtxWorld; }
+	inline int GetModelIdx(void) const { return m_nIdxModel; }
 
 	static CObjectX* Create(const char* pModelName, const D3DXVECTOR3& pos, const D3DXVECTOR3& rot = VECTOR3_NULL);
 

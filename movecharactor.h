@@ -52,27 +52,27 @@ public:
 	virtual void Uninit(void) override;
 	virtual void Update(void) override;
 	virtual void Draw(void) override;
+	void MotionLoad(const char* pScriptName, int nDestMotions,const bool isShadow);
 	void UpdatePosition(void);
 
-	void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
-	void SetOldPos(const D3DXVECTOR3& posOld) { m_posOld = posOld; }
-	void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
-	void SetRotDest(const D3DXVECTOR3& rotdest) { m_rotDest = rotdest; }
-	void SetScale(const D3DXVECTOR3& scale = INITSCALE) { m_scale = scale; }
-	void SetMove(const D3DXVECTOR3& move) { m_move = move; }
-	void SetMoveValue(const float fValue) { m_fMoveValue = fValue; }
-	void SetType(TYPE Type) { m_type = Type; }
-	void SetUseStencil(const bool isUse) { m_isStencilUse = isUse; }
-	void SetUseOutLine(const bool isUse = false) { m_isOutLine = isUse; }
+	inline void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	inline void SetOldPos(const D3DXVECTOR3& posOld) { m_posOld = posOld; }
+	inline void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
+	inline void SetRotDest(const D3DXVECTOR3& rotdest) { m_rotDest = rotdest; }
+	inline void SetScale(const D3DXVECTOR3& scale = INITSCALE) { m_scale = scale; }
+	inline void SetMove(const D3DXVECTOR3& move) { m_move = move; }
+	inline void SetMoveValue(const float fValue) { m_fMoveValue = fValue; }
+	inline void SetType(TYPE Type) { m_type = Type; }
+	inline void SetUseStencil(const bool isUse) { m_isStencilUse = isUse; }
+	inline void SetUseOutLine(const bool isUse = false) { m_isOutLine = isUse; }
 
-	void MotionLoad(const char* pScriptName, int nDestMotions,const bool isShadow);
 	void SetCharactor(TYPE type) { m_type = type; }
 
-	D3DXVECTOR3 GetPos(void) const { return m_pos; }
-	D3DXVECTOR3 GetOldPos(void) const { return m_posOld; }
-	D3DXVECTOR3 GetRot(void) const { return m_rot; }
-	D3DXVECTOR3 GetMove(void) const { return m_move; }
-	D3DXVECTOR3 GetRotDest(void) const { return m_rotDest; }
+	inline D3DXVECTOR3 GetPos(void) const { return m_pos; }
+	inline D3DXVECTOR3 GetOldPos(void) const { return m_posOld; }
+	inline D3DXVECTOR3 GetRot(void) const { return m_rot; }
+	inline D3DXVECTOR3 GetMove(void) const { return m_move; }
+	inline D3DXVECTOR3 GetRotDest(void) const { return m_rotDest; }
 
 	/// <summary>
 	/// モーションのポインタを返す

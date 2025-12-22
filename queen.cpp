@@ -16,6 +16,8 @@
 #include "manager.h"
 #include "renderer.h"
 #include "debugproc.h"
+#include "gamesceneobject.h"
+#include "load.h"
 
 //=========================================================
 // コンストラクタ
@@ -25,6 +27,7 @@ m_pSphereCollider(nullptr),
 m_pMotion(nullptr),
 m_pParameter(nullptr),
 m_pStateMachine(nullptr),
+m_pLoad(nullptr),
 m_isUse(false)
 {
 	// 値のクリア
@@ -83,7 +86,9 @@ HRESULT CQueen::Init(void)
 	//// ChangeState(ID_NEUTRAL);
 
 	// コライダー生成
-	m_pSphereCollider = CSphereCollider::Create(GetPos(), QueenInfo::HitRange);
+	m_pSphereCollider = std::make_unique<CSphereCollider>();
+	m_pSphereCollider->SetPos(GetPos());
+	m_pSphereCollider->SetRadius(QueenInfo::HitRange);
 
 	// モーション取得
 	m_pMotion = CNoMoveCharactor::GetMotion();
@@ -105,11 +110,7 @@ void CQueen::Uninit(void)
 	// m_pStateMachine.reset();
 
 	// コライダー破棄
-	if (m_pSphereCollider)
-	{
-		delete m_pSphereCollider;
-		m_pSphereCollider = nullptr;
-	}
+	m_pSphereCollider.reset();
 
 	// 親クラスの終了処理
 	CNoMoveCharactor::Uninit();
@@ -145,7 +146,7 @@ void CQueen::Draw(void)
 #ifdef _DEBUG
 
 	// デバッグ表示
-	CDebugproc::Print("女王の体力値 [ %d / 100 ]", m_pParameter->GetHp());
+	CDebugproc::Print("女王の体力値 [ %d / %d ]", m_pParameter->GetHp(), QueenInfo::Hp);
 	CDebugproc::Draw(0, 340);
 
 #endif // _DEBUG
@@ -164,8 +165,8 @@ void CQueen::Hit(const int& nDamage)
 		// 体力を0にする
 		m_pParameter->SetHp(NULL);
 
-		// フラグをセット
-		SetIsUse(false);
+		// ここでポインタを破棄
+		CGameSceneObject::GetInstance()->DeleteQueen();
 
 		// 処理終了
 		return;
@@ -175,10 +176,17 @@ void CQueen::Hit(const int& nDamage)
 	m_pParameter->SetHp(nHp);
 }
 //=========================================================
+// 体力情報の外部書き出し
+//=========================================================
+void CQueen::SaveHp(void)
+{
+	m_pLoad->SaveInt("data/SCORE/QueenLastHp.bin", m_pParameter->GetHp());
+}
+//=========================================================
 // 当たり判定処理
 //=========================================================
 bool CQueen::Collision(CSphereCollider* pOther)
 {
 	// 球同士の当たり判定を返す
-	return CCollisionSphere::Collision(m_pSphereCollider,pOther);
+	return CCollisionSphere::Collision(m_pSphereCollider.get(),pOther);
 }

@@ -38,22 +38,21 @@ public:
 	virtual void Uninit(void) override;
 	virtual void Update(void) override;
 	virtual void Draw(void) override;
-
-	void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
-	void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
-	void SetScale(const D3DXVECTOR3& scale = INITSCALE) { m_scale = scale; }
-	void SetOldPos(const D3DXVECTOR3& posOld) { m_posOld = posOld; }
-	void SetType(TYPE Type) { m_type = Type; }
-	void SetUseStencil(bool isUse) { m_isStencilUse = isUse; }
-	void SetUseOutLine(const bool isUse = false) { m_isOutLine = isUse; }
-
 	void MotionLoad(const char* pScriptName, int nDestMotions, const bool isShadow);
-	void SetCharactor(TYPE type) { m_type = type; }
 
-	D3DXVECTOR3 GetPos(void) const { return m_pos; }
-	D3DXVECTOR3 GetOldPos(void) const { return m_posOld; }
-	D3DXVECTOR3 GetRot(void) const { return m_rot; }
-	D3DXMATRIX GetWorldMtx(void) { return m_mtxworld; }
+	inline void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	inline void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
+	inline void SetScale(const D3DXVECTOR3& scale = INITSCALE) { m_scale = scale; }
+	inline void SetOldPos(const D3DXVECTOR3& posOld) { m_posOld = posOld; }
+	inline void SetType(TYPE Type) { m_type = Type; }
+	inline void SetUseStencil(bool isUse) { m_isStencilUse = isUse; }
+	inline void SetUseOutLine(const bool isUse = false) { m_isOutLine = isUse; }
+	inline void SetCharactor(TYPE type) { m_type = type; }
+
+	inline D3DXVECTOR3 GetPos(void) const { return m_pos; }
+	inline D3DXVECTOR3 GetOldPos(void) const { return m_posOld; }
+	inline D3DXVECTOR3 GetRot(void) const { return m_rot; }
+	inline D3DXMATRIX GetWorldMtx(void) { return m_mtxworld; }
 
 	/// <summary>
 	/// モーションの生ポインタを返す
@@ -61,13 +60,6 @@ public:
 	/// <param name=""></param>
 	/// <returns></returns>
 	CMotion* GetMotion(void) { return m_pMotion.get(); }
-
-	/// <summary>
-	/// モデルごとのマトリックス取得
-	/// </summary>
-	/// <param name="nIdx">取得番号</param>
-	/// <returns></returns>
-	D3DXMATRIX GetMtxModel(const int& nIdx) { return m_pModel[nIdx]->GetMtxWorld(); }
 
 private:
 

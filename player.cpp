@@ -277,24 +277,22 @@ void CPlayer::InputAction(CInputKeyboard* pKey, CJoyPad* pPad)
 		m_nSendNum = Clump(m_nSendNum, 0, Config::MAX_VALUE);
 	}
 
-	// イベント登録
+	// トップアリ取得
 	auto TopS = pArraySpawn->GetIndexSpawner(m_nSelectSpawn)->GetTopAnt();
+	if (TopS == nullptr) return;
 
-	// 有効化されている物だけ
-	if (TopS->GetIsActive())
-	{
-		TopS->RegisterEvent([&](void) { this->SetSendArrayMoving(m_nSelectSpawn,m_nSendNum); });
-	}
-
-	// 移動命令を送る処理
+	// 移動命令を送る処理 ( これ一個で全て完結させたい )
 	if (pKey->GetTrigger(DIK_V) || pPad->GetTrigger(CJoyPad::JOYKEY_X))
 	{
 		// 指定座標
-		D3DXVECTOR3 point = VECTOR3_NULL;
-		point = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(m_nSelectSpawn)->GetTopAnt()->GetDestPos();
+		D3DXVECTOR3 PointPos = VECTOR3_NULL;
+		PointPos = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(m_nSelectSpawn)->GetTopAnt()->GetDestPos();
+
+		// 数を保存
+		SetSendArrayMoving(m_nSelectSpawn, m_nSendNum);
 
 		// 指令アリの当たったポイントで判断する
-		OrderToArray(point);
+		OrderToArray(PointPos);
 	}
 }
 //===================================================================

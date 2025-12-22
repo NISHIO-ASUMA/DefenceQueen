@@ -16,6 +16,7 @@
 #include "gamemanager.h"
 #include "loseresult.h"
 #include "score.h"
+#include "queen.h"
 
 //*********************************************************
 // 定数名前空間
@@ -85,8 +86,9 @@ void CGameState::OnUpdate()
 			// 60フレーム経過
 			m_Progress = PROGRESS_NONE; 
 
-			// 一度だけ書き出す
+			// スコア情報の書き出し
 			CGameSceneObject::GetInstance()->GetScore()->SaveScore();
+			CGameSceneObject::GetInstance()->GetQueen()->SaveHp();
 
 			// フェードが取得できたら
 			if (pFade != nullptr)

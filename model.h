@@ -22,14 +22,14 @@ public:
 	//**********************
 	enum PARTTYPE
 	{
-		PARTTYPE_NONE, // ‰½‚àŽí—Þ‚ðÝ’è‚µ‚È‚¢Žž
-		PARTTYPE_HEAD, // “ª
-		PARTTYPE_CHEST, // ‘Ì
+		PARTTYPE_NONE,		// ‰½‚àŽí—Þ‚ðÝ’è‚µ‚È‚¢Žž
+		PARTTYPE_HEAD,		// “ª
+		PARTTYPE_CHEST,		// ‘Ì
 		PARTTYPE_LEFT_HAND, // ¶˜r
 		PARTTYPE_RIGHT_HAND,// ‰E˜r
-		PARTTYPE_LEFT_LEG, //¶‘«
-		PARTTYPE_RIGHT_LEG,// ‰E‘«
-		PARTTYPE_WEAPON,// •Ší
+		PARTTYPE_LEFT_LEG,	//¶‘«
+		PARTTYPE_RIGHT_LEG,	// ‰E‘«
+		PARTTYPE_WEAPON,	// •Ší
 		PARTTYPE_MAX
 	};
 
@@ -41,7 +41,7 @@ public:
 	void Update(void);
 	void Draw(void);
 	void DrawMtxShadow(void);
-	void DrawOutLine(const D3DXVECTOR4& color = D3DXVECTOR4(0.0f,0.0f,0.0f,1.0f));
+	void DrawOutLine(const D3DXVECTOR4& color = D3DXVECTOR4(0.0f,0.0f,0.0f,1.0f)); 
 	void SetModelPass(const char* pModelName);
 
 	void SetParent(CModel* pModel);

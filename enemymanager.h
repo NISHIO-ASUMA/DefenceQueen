@@ -52,7 +52,7 @@ private:
 
 	struct Config
 	{
-		static constexpr int NUM_ENEMY = 120; // �ő吔
+		static constexpr int NUM_ENEMY = 50; // �ő吔
 		static constexpr int LIFE = 1;		 // �̗͒l
 	};
 

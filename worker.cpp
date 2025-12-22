@@ -2,10 +2,7 @@
 //
 // 指示を出す働きアリの処理 [ worker.cpp ]
 // Author: Asuma Nishio
-//
-// NOTE : 餌のところに自動で動かせるようにする
-// ↑ 仮完成 あとは数が増減したときにどうするか(餌の管理配列)
-// 
+// TODO : 
 //=========================================================
 
 //*********************************************************
@@ -25,6 +22,7 @@
 #include "feedmanager.h"
 #include "parameter.h"
 #include "signalui.h"
+#include "meshimpact.h"
 
 //=========================================================
 // コンストラクタ
@@ -43,6 +41,7 @@ m_DestPos(VECTOR3_NULL),
 m_SavePos(VECTOR3_NULL),
 m_nIdxNumber(NULL),
 m_nScaleNum(NULL),
+m_nImpactCounter(NULL),
 m_MoveState(NONE)
 {
 
@@ -180,6 +179,19 @@ void CWorker::Update(void)
 			// コライダー更新
 			m_pSphereCollider->SetPos(UpdatePos);
 		}
+	}
+
+	// 加算
+	m_nImpactCounter++;
+
+	// 生成条件に達したら
+	if (m_isSetNum && m_nImpactCounter >= Config::MAX_COUNT)
+	{
+		// インパクト生成
+		CMeshImpact::Create(GetPos(), Config::MAX_COUNT, 60.0f, 40.0f, 3.0f);
+
+		// 初期化する
+		m_nImpactCounter = NULL;
 	}
 
 	// キャラクター全体の更新処理
@@ -370,12 +382,10 @@ int CWorker::RequiredNumber(void)
 			break;
 
 		default:
-			m_nScaleNum = NULL;
+			// 例外対策値
+			m_nScaleNum = 1;
 			break;
 		}
-
-		// パネル生成 TODO : ここは後ほどエフェクトとかにして数字を直に出さない方針
-		CNumberPanel::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 200.0f, GetPos().z), VECTOR3_NULL, nrand);
 
 		// フラグを有効化
 		m_isCreate = true;

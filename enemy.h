@@ -52,24 +52,20 @@ public:
 	void Uninit(void) override;
 	void Update(void) override;
 	void Draw(void) override;
+	void ChangeState(CEnemyStateBase* pNewState, int Id);
 	
-//------------------------------
-	// ÉmÅ[Éhä÷êî
 	void MoveToFeed(void);
 	void AttackToAnt(void);
-	void AttackToQueen(void);
 	void RobToFeed(void);
 	void MoveToQueen(void);
-//------------------------------
 	CFeed* FindFeed(void);
 
 	void CollisionFeed(void);
 	void CollisionQueen(void);
-
-	void ChangeState(CEnemyStateBase* pNewState, int Id);
 	bool Collision(CSphereCollider* pOther);
-	void SetIsActive(const bool& isActive) { m_isActive = isActive; }
-	bool GetIsActive(void) { return m_isActive; }
+
+	inline void SetIsActive(const bool& isActive) { m_isActive = isActive; }
+	inline bool GetIsActive(void) const { return m_isActive; }
 	CParameter* GetParameter(void) { return m_pParameter.get(); }
 	CStateMachine* GetStateMachine() { return m_pStateMachine.get(); }
 

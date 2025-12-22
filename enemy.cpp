@@ -35,6 +35,7 @@
 namespace EnemyInfo
 {
 	constexpr float HitRange = 80.0f; // 球形範囲
+	constexpr float StopRange = 10.0f;
 	const char* MOTION_NAME = "data/MOTION/Enemy/Enemy_Motion.txt"; // モーションパス
 };
 
@@ -116,15 +117,15 @@ HRESULT CEnemy::Init(void)
 	// SetScale(D3DXVECTOR3(1.5f, 1.5f, 1.5f));
 
 	// 有効化
-	// ここもノードにする
-	m_isDestQueen = true;
+	// TODO : ここもノードにする
+	//m_isDestFeed = true;
 	//// ランダム数
 	//int nRand = rand() % 2;
 
 	//switch (nRand)
 	//{
 	//case 0:
-	//	m_isDestQueen = true;
+	// m_isDestQueen = true;
 	//	break;
 
 	//case 1:
@@ -175,11 +176,11 @@ void CEnemy::Update(void)
 	//m_pBehaviorTree->Update();
 #endif
 
+	// 女王移動
+	if (m_isDestQueen) MoveToQueen();
 	// 餌移動
 	if (m_isDestFeed) MoveToFeed();
 
-	// 女王移動
-	if (m_isDestQueen) MoveToQueen();
 
 	// 座標のみの更新
 	CMoveCharactor::UpdatePosition();
@@ -223,55 +224,60 @@ void CEnemy::Draw(void)
 //=========================================================
 void CEnemy::MoveToFeed(void)
 {
+	// TODO : 下記のフラグ有効化の処理を使うかは怪しい
 	// 餌判定を有効化
 	m_isDestFeed = true;
 
-	// ターゲットが無い or 消えたら再取得
-	if (!m_pTargetFeed || m_pTargetFeed->GetParam()->GetHp() <= 0)
+	// ターゲットが無い
+	if (!m_pTargetFeed)
 	{
-		if (!m_pTargetFeed) return;
+		// 餌を見つける
 		m_pTargetFeed = FindFeed();
+
+		if (!m_pTargetFeed) 
+		{
+			// 女王のに向かうようにターゲットフラグ変更
+			m_isDestQueen = true;
+			return;
+		}
 	}
 
 	// 目的地座標をセット
 	D3DXVECTOR3 destPos = m_pTargetFeed->GetPos();
 	destPos.y = 0.0f;
 
+	// ベクトルを生成する
 	D3DXVECTOR3 vec = destPos - GetPos();
 	float dist = D3DXVec3Length(&vec);
 
 	// 一定距離以内なら止まる
-	if (dist < 10.0f)
+	if (dist < EnemyInfo::StopRange)
 	{
 		SetMove(VECTOR3_NULL);
 		GetMotion()->SetMotion(MOTION_NEUTRAL);
 		return;
 	}
 
-	// 正規化して移動
+	// ベクトルを正規化する
 	D3DXVec3Normalize(&vec, &vec);
 	vec *= 1.0f; // 移動速度
 
 	// 向き
 	float angleY = atan2(-vec.x, -vec.z);
 	D3DXVECTOR3 rot = GetRotDest();
+
 	rot.y = NormalAngle(angleY);
 	SetRotDest(rot);
 
 	SetMove(vec);
+
+	// 移動モーションに設定
 	GetMotion()->SetMotion(MOTION_MOVE);
 }
 //=========================================================
 // 仲間アリを攻撃する処理
 //=========================================================
 void CEnemy::AttackToAnt(void)
-{
-
-}
-//=========================================================
-// 女王アリを攻撃する処理
-//=========================================================
-void CEnemy::AttackToQueen(void)
 {
 
 }

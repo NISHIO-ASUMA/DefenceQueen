@@ -38,7 +38,6 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	CGameManager* GetGameManager(void) { return m_pGameManager.get(); }
 	CGameState* GetState(void) { return m_pState; }
 
 	static CPauseManager* GetPause(void) { return m_pPausemanager; }
@@ -46,5 +45,4 @@ public:
 private:
 	static CPauseManager* m_pPausemanager;			// ポーズマネージャークラスポインタ
 	CGameState * m_pState;							// ゲーム進行管理クラスのポインタ
-	std::unique_ptr<CGameManager>m_pGameManager;	// ゲームマネージャークラスのポインタ
 };

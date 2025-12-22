@@ -2,7 +2,6 @@
 //
 // 各スポナーの仲間に指示を出すアリのクラス [ topant.h ]
 // Author: Asuma Nishio
-// NOTE : これはトップアリ一体に関する処理
 // 
 //=========================================================
 
@@ -15,7 +14,6 @@
 // インクルードファイル
 //*********************************************************
 #include "movecharactor.h"
-#include <functional>
 
 //*********************************************************
 // 前方宣言
@@ -45,17 +43,6 @@ public:
 		MOTION_MAX
 	};
 
-	//********************
-	// 命令の種類
-	//********************
-	enum ORDER
-	{
-		MOVING,
-		STOP,
-		RETURN,
-		ORDER_MAX
-	};
-
 	CTopAnt(int nPriority = static_cast<int>(CObject::PRIORITY::CHARACTOR));
 	~CTopAnt();
 
@@ -72,9 +59,6 @@ public:
 	bool CollisionSphere(CSphereCollider* pOther);
 	bool CollisonT(CSphereCollider* pOther);
 	
-	// イベントで使う関数を登録する
-	void RegisterEvent(std::function<void(void)> Event) { m_event = Event; }
-
 	void SetDestMovePos(const D3DXVECTOR3& pos) { m_DestPos = pos; }
 	void SetIsActive(const bool& isActive) { m_isActive = isActive; }
 	void SetSeparationRadius(const float& Radius) { m_fSeparationRadius = Radius; }
@@ -98,12 +82,11 @@ private:
 		static constexpr float MAX_RADIUS = 100.0f;										 // 最大範囲
 		static constexpr float NorRot = D3DX_PI * 2.0f;									 // 回転補正
 		static constexpr float Separation = 3.0f;										 // 範囲拡大
-		static constexpr const char* MOTION_NAME = "data/MOTION/Top/Top_Motion.txt"; // モーションパス
+		static constexpr const char* MOTION_NAME = "data/MOTION/Top/Top_Motion.txt";	 // モーションパス
 	};
 
 	CSphereCollider* m_pColliderSphere; // 球形コライダー
 	CBoxCollider* m_pColliderBox;		// 矩形コライダー
-	std::function<void(void)>m_event;	// 決定時に呼ばれるイベント処理
 
 	D3DXVECTOR3 m_DestPos;				// 座標設置用
 	bool m_isActive;					// アクティブフラグ

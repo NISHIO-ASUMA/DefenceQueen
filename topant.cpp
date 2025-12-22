@@ -104,7 +104,7 @@ void CTopAnt::Uninit(void)
 	CMoveCharactor::Uninit();
 }
 //=========================================================
-// 更新処理
+// トップアリの更新処理
 //=========================================================
 void CTopAnt::Update(void)
 {
@@ -235,15 +235,8 @@ void CTopAnt::Update(void)
 		}
 	}
 
-	// フラグが有効時 かつ キー入力があったら
-	if (m_isReturnNumber)
-	{
-		// ここで関数イベント呼ぶ
-		m_event();
-
-		// 目的地の座標をセットする
-		SetDestMovePos(UpdatePos);
-	}
+	// 目的地の座標をセットする
+	SetDestMovePos(UpdatePos);
 
 	// 親クラスの更新
 	CMoveCharactor::Update();
@@ -255,27 +248,6 @@ void CTopAnt::Draw(void)
 {
 	// 親クラスの描画
 	CMoveCharactor::Draw();
-}
-//=========================================================
-// 矩形の当たり判定処理
-//=========================================================
-bool CTopAnt::Collision(CBoxCollider * pOther,D3DXVECTOR3 * pOutPos)
-{
-	return CCollisionBox::Collision(m_pColliderBox,pOther,pOutPos);
-}
-//=========================================================
-// 球形の当たり判定処理
-//=========================================================
-bool CTopAnt::CollisionSphere(CSphereCollider* pOther)
-{
-	return CCollisionSphere::Collision(m_pColliderSphere,pOther);
-}
-//=========================================================
-// 球と矩形の当たり判定処理
-//=========================================================
-bool CTopAnt::CollisonT(CSphereCollider* pOther)
-{
-	return CBoxToSphereCollision::Collision(m_pColliderBox,pOther);
 }
 //=========================================================
 // キー入力移動
@@ -522,4 +494,25 @@ void CTopAnt::Separation(void)
 
 	// 検証用でエフェクト生成
 	CEffect::Create(pos, COLOR_RED, VECTOR3_NULL, 6, m_fSeparationRadius);
+}
+//=========================================================
+// 矩形の当たり判定処理
+//=========================================================
+bool CTopAnt::Collision(CBoxCollider* pOther, D3DXVECTOR3* pOutPos)
+{
+	return CCollisionBox::Collision(m_pColliderBox, pOther, pOutPos);
+}
+//=========================================================
+// 球形の当たり判定処理
+//=========================================================
+bool CTopAnt::CollisionSphere(CSphereCollider* pOther)
+{
+	return CCollisionSphere::Collision(m_pColliderSphere, pOther);
+}
+//=========================================================
+// 球と矩形の当たり判定処理
+//=========================================================
+bool CTopAnt::CollisonT(CSphereCollider* pOther)
+{
+	return CBoxToSphereCollision::Collision(m_pColliderBox, pOther);
 }

@@ -34,13 +34,13 @@ public:
 
 	static CAnimationObject2D* Create(const D3DXVECTOR3& pos,const float fWidth,const float fHeight,const char * pTexName);
 
-	void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
-	void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
-	void SetCol(const D3DXCOLOR& col) { m_col = col; }
-	void SetSize(const float fWidth, const float fHeight) { m_fWidth = fWidth, m_fHeight = fHeight; }
-	void SetUV(const float TexU, const float TexV) { m_fTexU = TexU,m_fTexV = TexV; }
-	void SetHeight(const float fHeight) { m_fWidth = fHeight; }
-	void SetAnimFlag(const bool isLoop) { m_isLoop = isLoop; }
+	inline void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	inline void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
+	inline void SetCol(const D3DXCOLOR& col) { m_col = col; }
+	inline void SetSize(const float fWidth, const float fHeight) { m_fWidth = fWidth, m_fHeight = fHeight; }
+	inline void SetUV(const float TexU, const float TexV) { m_fTexU = TexU,m_fTexV = TexV; }
+	inline void SetHeight(const float fHeight) { m_fWidth = fHeight; }
+	inline void SetAnimFlag(const bool isLoop) { m_isLoop = isLoop; }
 
 	inline D3DXVECTOR3 GetPos(void) const { return m_pos; }		// ç¿ïWÇéÊìæ
 	inline D3DXVECTOR3 GetRot(void) const { return m_rot; }		// äpìxÇéÊìæ
