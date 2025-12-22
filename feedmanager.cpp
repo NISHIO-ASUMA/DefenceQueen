@@ -19,10 +19,13 @@
 //*********************************************************
 namespace FEED_INFO
 {
-	const char* MODEL_NAME[2]
+	constexpr int NUM_MODEL = 3; // ç≈ëÂéÌóﬁêî
+
+	const char* MODEL_NAME[NUM_MODEL] // ÉpÉXîzóÒ
 	{
 		"FEED/Lemon.x",
-		"FEED/Suger.x"
+		"FEED/Suger.x",
+		"FEED/Solt.x"
 	};
 };
 

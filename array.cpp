@@ -293,7 +293,7 @@ void CArray::Moving(void)
 	}
 }
 //=========================================================
-// 切り離される処理 TODO : ここでノード見る
+// 切り離される処理
 //=========================================================
 void CArray::OnSeparation(void)
 {
@@ -424,7 +424,6 @@ void CArray::ArrayFollow(void)
 }
 //=========================================================
 // 巣にもどる命令を受けたときの移動
-// NOTE : 設置されているランダムなスポーンに行くように変更 これは冬休みか?
 //=========================================================
 void CArray::SpawnReturn(void)
 {
@@ -432,9 +431,11 @@ void CArray::SpawnReturn(void)
 	auto idx = CGameSceneObject::GetInstance()->GetPlayer()->GetSelectIndex();
 	auto targetPos = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(idx)->GetPos();
 
+	// ベクトルの成分計算
 	D3DXVECTOR3 followVec = targetPos - GetPos();
 	float fDistance = D3DXVec3Length(&followVec);
 
+	// 距離が一定値以上の場合
 	if (fDistance > 10.0f)
 	{
 		// ベクトルを正規化

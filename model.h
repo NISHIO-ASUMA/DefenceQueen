@@ -43,18 +43,18 @@ public:
 	void DrawMtxShadow(void);
 	void DrawOutLine(const D3DXVECTOR4& color = D3DXVECTOR4(0.0f,0.0f,0.0f,1.0f)); 
 	void SetModelPass(const char* pModelName);
-
 	void SetParent(CModel* pModel);
-	void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
-	void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
-	void SetScale(const D3DXVECTOR3& scale = INITSCALE) { m_scale = scale; }
-	void OffSetPos(const D3DXVECTOR3& offpos) { m_offPos = offpos; }
-	void OffSetRot(const D3DXVECTOR3& offrot) { m_offRot = offrot; }
-	void SetPartType(PARTTYPE nDestPartType) { m_parttype = nDestPartType; }
-	void SetMtxShadow(bool isShadow) { m_isShadow = isShadow; }
 
-	D3DXMATRIX GetMtxWorld(void) { return m_mtxworld; }
-	PARTTYPE GetPartType(void) const { return m_parttype; }
+	inline void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	inline void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
+	inline void SetScale(const D3DXVECTOR3& scale = INITSCALE) { m_scale = scale; }
+	inline void OffSetPos(const D3DXVECTOR3& offpos) { m_offPos = offpos; }
+	inline void OffSetRot(const D3DXVECTOR3& offrot) { m_offRot = offrot; }
+	inline void SetPartType(PARTTYPE nDestPartType) { m_parttype = nDestPartType; }
+	inline void SetMtxShadow(bool isShadow) { m_isShadow = isShadow; }
+
+	inline D3DXMATRIX GetMtxWorld(void) { return m_mtxworld; }
+	inline PARTTYPE GetPartType(void) const { return m_parttype; }
 
 	static CModel* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, const char* pFilename,const bool isShadow);
 

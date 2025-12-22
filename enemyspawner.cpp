@@ -16,7 +16,7 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CEnemySpawner::CEnemySpawner() : m_pEnemy{},m_SpawnInterval(NULL),m_Timer(NULL)
+CEnemySpawner::CEnemySpawner() : m_Activepos(VECTOR3_NULL)
 {
 	// 値のクリア
 }
@@ -32,9 +32,6 @@ CEnemySpawner::~CEnemySpawner()
 //========================================================
 HRESULT CEnemySpawner::Init(void)
 {
-	// 配列切り離し
-	m_pEnemy.clear();
-
 	return S_OK;
 }
 //=========================================================
@@ -42,8 +39,7 @@ HRESULT CEnemySpawner::Init(void)
 //========================================================
 void CEnemySpawner::Uninit(void)
 {
-	// 配列切り離し
-	m_pEnemy.clear();
+
 }
 //=========================================================
 // 更新処理
@@ -51,30 +47,4 @@ void CEnemySpawner::Uninit(void)
 void CEnemySpawner::Update(void)
 {
 
-}
-//=========================================================
-// スポーンする場所のセット処理
-//========================================================
-void CEnemySpawner::SetEnemy(void)
-{
-#if 0
-	// 5体ランダム
-	int spawnCount = rand() % 5 + 1;
-
-	for (int i = 0; i < spawnCount; i++)
-	{
-		// スポーン地点をランダム選択
-		int index = rand() % m_SpawnPos.size();
-
-		// 座標
-		D3DXVECTOR3 pos = m_SpawnPos[index];
-		D3DXVECTOR3 rot = VECTOR3_NULL;
-
-		// 敵生成
-		CEnemy* pEnemy = CEnemy::Create(pos, rot, 10);
-
-		// 配列に追加
-		m_pEnemy.push_back(pEnemy);
-	}
-#endif
 }

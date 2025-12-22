@@ -41,7 +41,7 @@ HRESULT CSeparationAnt::Init(const int& nSeparetionNum)
 //===================================================================
 void CSeparationAnt::Uninit(void)
 {
-
+	m_pAntList.clear();
 }
 //===================================================================
 // XVˆ—

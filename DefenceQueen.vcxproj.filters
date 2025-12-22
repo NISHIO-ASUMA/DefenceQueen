@@ -744,6 +744,9 @@
     <ClCompile Include="startexescene.cpp">
       <Filter>ソース ファイル\Scenes\BaseScene</Filter>
     </ClCompile>
+    <ClCompile Include="gamewallmodel.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blackboard.h">
@@ -1206,6 +1209,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="startexescene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="gamewallmodel.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

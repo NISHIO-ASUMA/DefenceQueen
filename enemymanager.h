@@ -48,12 +48,22 @@ public:
 	/// <returns></returns>
 	std::vector<CEnemy*>& GetEnemy(void) { return m_pEnemys; }
 
+	/// <summary>
+	/// 配列から要素を消す関数
+	/// </summary>
+	/// <param name="pEnemy">敵のポインタ</param>
+	void Erase(CEnemy* pEnemy);
+
 private:
 
+	//*******************************
+	// 定数構造体宣言
+	//*******************************
 	struct Config
 	{
 		static constexpr int NUM_ENEMY = 50; // 最大数
 		static constexpr int LIFE = 1;		 // 体力値
+		static constexpr int SPAWM_INTERBAL = 15; // 生成インターバル
 	};
 
 	std::vector<CEnemy*>m_pEnemys; // 敵の動的配列

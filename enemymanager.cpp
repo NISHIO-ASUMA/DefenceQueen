@@ -54,6 +54,7 @@ void CEnemyManager::Uninit(void)
 //=========================================================
 void CEnemyManager::Update(void)
 {
+	// ゲームシーンのオブジェクト取得
 	auto GameSceneObject = CGameSceneObject::GetInstance();
 	int time = GameSceneObject->GetTime()->GetToAll();
 
@@ -64,29 +65,32 @@ void CEnemyManager::Update(void)
 	if (m_pEnemys.size() >= Config::NUM_ENEMY) return;
 
 	if (time > 0 &&
-		time % 15 == 0 &&
+		time % Config::SPAWM_INTERBAL == NULL &&
 		time != m_nCreateLastTime)
 	{
 		// 今回の湧き数
 		int spawnCount = SPAWN_MIN + rand() % (SPAWN_MAX + 1);
 
-		for (int i = 0; i < spawnCount; i++)
+		for (int nSpawn = 0; nSpawn < spawnCount; nSpawn++)
 		{
-			// スポーン位置ランダム
+			// スポーン位置をランダム
 			int index = rand() % CREATE_NUM;
 			D3DXVECTOR3 pos = SpawnPos[index];
 
-			// 
+			// オフセットとして値を作成
 			D3DXVECTOR3 offset(
-				(rand() % 50 - 25) * 2.0f,
+				(rand() % 50 - 25) * 3.0f,
 				0.0f,
-				(rand() % 50 - 25) * 2.0f
+				(rand() % 50 - 25) * 3.0f
 			);
 
+			// 座標と合わせて少しずらす
 			pos += offset;
 
+			// 敵を実際に生成
 			CEnemy* pEnemy = CEnemy::Create(pos, VECTOR3_NULL, Config::LIFE);
 
+			// nullチェック
 			if (pEnemy)
 			{
 				pEnemy->SetIsActive(true);
@@ -94,6 +98,30 @@ void CEnemyManager::Update(void)
 			}
 		}
 
+		// 生成時間を変更
 		m_nCreateLastTime = time;
 	}
+}
+//=========================================================
+// 配列の要素を消す関数
+//=========================================================
+void CEnemyManager::Erase(CEnemy* pEnemy)
+{
+	// 削除処理
+	auto DeleteDestObj = std::find(m_pEnemys.begin(), m_pEnemys.end(), pEnemy);
+
+	// もし最後尾なら
+	if (DeleteDestObj == m_pEnemys.end())
+	{
+		return;
+	}
+
+	// 削除
+	(*DeleteDestObj)->Uninit();
+
+	// 先をnullにする
+	pEnemy = nullptr;
+
+	// 配列の要素を消す
+	DeleteDestObj = m_pEnemys.erase(DeleteDestObj);
 }

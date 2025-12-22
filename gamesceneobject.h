@@ -49,6 +49,8 @@ public:
 	void Update(void);
 	void Draw(void);
 
+	void DeleteQueen(void);
+	
 	CTime* GetTime(void) const { return m_pTimer; }
 	CScore* GetScore(void) const { return m_pScore; }
 	CQueen* GetQueen(void) const { return m_pQueen; }
@@ -62,8 +64,7 @@ public:
 	CArrayManager* GetArrayManager(void) const { return m_pArrayManager.get(); }
 	CArraySpawnManager* GetArraySpawn(void) const { return m_pArraySpawn.get(); }
 	CEnemySpawnManager* GetEnemySpawnManager(void) const { return m_pEnemySpawnManager.get(); }
-	
-	void DeleteQueen(void);
+	CEnemyManager* GetEnemyManager(void) const { return m_pEnemyManager.get(); }
 
 	static CGameSceneObject* GetInstance(void);
 
@@ -88,5 +89,5 @@ private:
 	std::unique_ptr<CEnemySpawner>m_pSpawn;			// スポーン管理クラス
 	std::unique_ptr<CArraySpawnManager>m_pArraySpawn; // 仲間スポーン管理クラス
 	std::unique_ptr<CEnemySpawnManager>m_pEnemySpawnManager; // 敵スポーン管理
-	std::unique_ptr<CEnemyManager>m_pEnemy;
+	std::unique_ptr<CEnemyManager>m_pEnemyManager;		// 敵管理クラス
 };

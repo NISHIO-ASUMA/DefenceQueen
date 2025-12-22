@@ -1,8 +1,8 @@
 //=========================================================
 //
-// 敵のスポナー処理 [ enemyspawner.h ]
+// 世界の壁オブジェクト処理 [ gamewallmodel.h ]
 // Author: Asuma Nishio
-// 
+//
 //=========================================================
 
 //*********************************************************
@@ -13,31 +13,33 @@
 //*********************************************************
 // インクルードファイル
 //*********************************************************
-#include <memory>
-#include <vector>
+#include "objectX.h"
 
 //*********************************************************
 // 前方宣言
 //*********************************************************
-class CEnemy;
+class CBoxCollider;
 
 //*********************************************************
-// 敵の出現するスポナー1個に対するクラスを定義
+// 壁を生成するクラスを定義
 //*********************************************************
-class CEnemySpawner
+class CGameWallModel : public CObjectX
 {
 public:
 
-	CEnemySpawner();
-	~CEnemySpawner();
+	CGameWallModel(int nPriority = static_cast<int>(CObject::PRIORITY::MODELOBJECT));
+	~CGameWallModel();
 
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
+	void Draw(void);
+	bool Collision(CBoxCollider* pOther, D3DXVECTOR3* OutPos);
 
-	inline void SetPos(const D3DXVECTOR3& pos) { m_Activepos = pos; }
+	inline CBoxCollider* GetCollider(void) { return m_pCollider; }
+
+	static CGameWallModel* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, const D3DXVECTOR3& scale, const char* pModelName);
 
 private:
-
-	D3DXVECTOR3 m_Activepos;	// 出現座標
+	CBoxCollider* m_pCollider;	// 矩形のコライダー
 };

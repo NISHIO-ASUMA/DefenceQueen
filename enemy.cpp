@@ -13,8 +13,6 @@
 #include "motion.h"
 #include "shadowS.h"
 #include "manager.h"
-#include "enemystatebase.h"
-#include "statemachine.h"
 #include "spherecollider.h"
 #include "collisionsphere.h"
 #include "blackboard.h"
@@ -28,6 +26,7 @@
 #include "input.h"
 #include "feedmanager.h"
 #include "feed.h"
+#include "enemymanager.h"
 
 //*********************************************************
 // 定数宣言空間
@@ -36,6 +35,7 @@ namespace EnemyInfo
 {
 	constexpr float HitRange = 80.0f; // 球形範囲
 	constexpr float StopRange = 10.0f;
+	constexpr float MoveSpeed = 1.0f;	// 移動速度
 	const char* MOTION_NAME = "data/MOTION/Enemy/Enemy_Motion.txt"; // モーションパス
 };
 
@@ -45,7 +45,6 @@ namespace EnemyInfo
 CEnemy::CEnemy(int nPriority) : CMoveCharactor(nPriority),
 m_pMotion(nullptr),
 m_pParameter(nullptr),
-m_pStateMachine(nullptr),
 m_pSphereCollider(nullptr),
 m_pTargetFeed(nullptr),
 m_isActive(false),
@@ -104,21 +103,18 @@ HRESULT CEnemy::Init(void)
 	// モーションセット
 	MotionLoad(EnemyInfo::MOTION_NAME, MOTION_MAX,true);
 
-	// ステートマシンを生成
-	m_pStateMachine = std::make_unique<CStateMachine>();
-
 	// コライダー生成
-	m_pSphereCollider = CSphereCollider::Create(GetPos(), EnemyInfo::HitRange);
+	m_pSphereCollider = std::make_unique<CSphereCollider>();
+	m_pSphereCollider->SetPos(GetPos());
+	m_pSphereCollider->SetRadius(EnemyInfo::HitRange);
 
 	// 敵で使うAIノードをセットする
 	// NodeSetting();
 
-	// 拡大する
-	// SetScale(D3DXVECTOR3(1.5f, 1.5f, 1.5f));
-
 	// 有効化
 	// TODO : ここもノードにする
-	//m_isDestFeed = true;
+	m_isDestFeed = true;
+
 	//// ランダム数
 	//int nRand = rand() % 2;
 
@@ -134,9 +130,7 @@ HRESULT CEnemy::Init(void)
 
 	//default:
 	//	break;
-	
 
-	// 初期化結果を返す
 	return S_OK;
 }
 //=========================================================
@@ -147,15 +141,8 @@ void CEnemy::Uninit(void)
 	// パラメータ終了処理
 	m_pParameter.reset();
 
-	// ステート終了処理
-	m_pStateMachine.reset();
-
 	// コライダー破棄
-	if (m_pSphereCollider)
-	{
-		delete m_pSphereCollider;
-		m_pSphereCollider = nullptr;
-	}
+	m_pSphereCollider.reset();
 
 	// キャラクターの破棄
 	CMoveCharactor::Uninit();
@@ -178,9 +165,9 @@ void CEnemy::Update(void)
 
 	// 女王移動
 	if (m_isDestQueen) MoveToQueen();
+
 	// 餌移動
 	if (m_isDestFeed) MoveToFeed();
-
 
 	// 座標のみの更新
 	CMoveCharactor::UpdatePosition();
@@ -190,19 +177,18 @@ void CEnemy::Update(void)
 
 	if (m_isDestFeed)
 	{
-		// 当たり判定関数
+		// 餌との当たり判定関数
 		CollisionFeed();
 	}
 
 	if (m_isDestQueen)
 	{
-		// 当たり判定関数
+		// 女王との当たり判定関数
 		CollisionQueen();
 	}
 
-	// 球更新
-	if (m_pSphereCollider)
-	m_pSphereCollider->SetPos(UpdatePos);
+	// 球コライダー更新
+	if (m_pSphereCollider) m_pSphereCollider->SetPos(UpdatePos);
 
 	// キャラクターの更新処理
 	CMoveCharactor::Update();
@@ -218,13 +204,11 @@ void CEnemy::Draw(void)
 	// キャラクターの描画処理
 	CMoveCharactor::Draw();
 }
-
 //=========================================================
 // 餌に向かう処理
 //=========================================================
 void CEnemy::MoveToFeed(void)
 {
-	// TODO : 下記のフラグ有効化の処理を使うかは怪しい
 	// 餌判定を有効化
 	m_isDestFeed = true;
 
@@ -238,6 +222,7 @@ void CEnemy::MoveToFeed(void)
 		{
 			// 女王のに向かうようにターゲットフラグ変更
 			m_isDestQueen = true;
+			m_isDestFeed = false;
 			return;
 		}
 	}
@@ -260,7 +245,7 @@ void CEnemy::MoveToFeed(void)
 
 	// ベクトルを正規化する
 	D3DXVec3Normalize(&vec, &vec);
-	vec *= 1.0f; // 移動速度
+	vec *= EnemyInfo::MoveSpeed; // 移動速度
 
 	// 向き
 	float angleY = atan2(-vec.x, -vec.z);
@@ -298,8 +283,10 @@ void CEnemy::MoveToQueen(void)
 	if (Queen == nullptr) return;
 	if (!Queen->GetIsUse()) return;
 
-	auto DestinationPos = D3DXVECTOR3(Queen->GetPos().x,0.0f,Queen->GetPos().z);
+	// 対象座標を取得
+	auto DestinationPos = D3DXVECTOR3(Queen->GetPos().x,NULL,Queen->GetPos().z);
 
+	// ベクトル生成
 	D3DXVECTOR3 VecToQueen = DestinationPos - GetPos();
 	float fDiff = D3DXVec3Length(&VecToQueen);
 
@@ -307,7 +294,7 @@ void CEnemy::MoveToQueen(void)
 	{
 		// ベクトルを正規化
 		D3DXVec3Normalize(&VecToQueen, &VecToQueen);
-		VecToQueen *= 1.0f;
+		VecToQueen *= EnemyInfo::MoveSpeed;
 
 		// 角度設定
 		float angleY = atan2(-VecToQueen.x, -VecToQueen.z);
@@ -336,7 +323,7 @@ CFeed* CEnemy::FindFeed(void)
 {
 	// 餌取得
 	CFeedManager* pFeed = CGameSceneObject::GetInstance()->GetFeedManager();
-	if (!pFeed || pFeed->GetSize() <= 0) return nullptr;
+	if (!pFeed || pFeed->GetSize() <= NULL) return nullptr;
 
 	// 最近点を生成
 	CFeed* pNearest = nullptr;
@@ -373,29 +360,28 @@ void CEnemy::CollisionFeed(void)
 {
 	// アリと餌の当たり判定
 	CFeedManager* pFeed = CGameSceneObject::GetInstance()->GetFeedManager();
+	if (pFeed == nullptr) return;
 
-	// nullじゃないとき
-	if (pFeed != nullptr)
+	// 配列取得
+	for (int nCnt = 0; nCnt < pFeed->GetSize(); nCnt++)
 	{
-		// 配列取得
-		for (int nCnt = 0; nCnt < pFeed->GetSize(); nCnt++)
+		// 変数格納
+		auto feed = pFeed->GetFeed(nCnt);
+		auto Collider = feed->GetCollider();
+
+		// 当たっていたら
+		if (Collision(Collider))
 		{
-			// 変数格納
-			auto feed = pFeed->GetFeed(nCnt);
-			auto Collider = feed->GetCollider();
+			// 当たった対象物の体力値を減らす
+			feed->DecLife(1);
 
-			// 当たっていたら
-			if (Collision(Collider))
-			{
-				// 当たった対象物の体力値を減らす
-				feed->DecLife(1);
-				m_pTargetFeed = nullptr;
+			// 管理クラスの配列の要素を消す
+			CGameSceneObject::GetInstance()->GetEnemyManager()->Erase(this);
 
-				// 自身の破棄
-				Uninit();
+			// 自身の破棄
+			Uninit();
 
-				break;
-			}
+			break;
 		}
 	}
 }
@@ -407,7 +393,6 @@ void CEnemy::CollisionQueen(void)
 	// 女王の取得
 	CQueen * Queen = CGameSceneObject::GetInstance()->GetQueen();
 	if (Queen == nullptr) return;
-	if (!Queen->GetIsUse()) return;
 
 	// コライダー取得
 	CSphereCollider * Collider = Queen->GetCollider();
@@ -417,25 +402,16 @@ void CEnemy::CollisionQueen(void)
 	if (Collision(Collider))
 	{
 		// 対象オブジェクトの体力値を減算する
-		Queen->Hit(2);
+		Queen->Hit(1);
+
+		// 管理クラスの配列の要素を消す
+		CGameSceneObject::GetInstance()->GetEnemyManager()->Erase(this);
 
 		// 自身の破棄
 		Uninit();
 
 		return;
 	}
-}
-
-//==========================================================
-// 状態変更処理
-//==========================================================
-void CEnemy::ChangeState(CEnemyStateBase* pNewState, int Id)
-{
-	// ステート変更
-	pNewState->SetOwner(this);
-
-	// ステート変更
-	m_pStateMachine->ChangeState(pNewState);
 }
 //==========================================================
 // 当たり判定処理
@@ -446,7 +422,7 @@ bool CEnemy::Collision(CSphereCollider* pOther)
 	if (pOther == nullptr) return false;
 
 	// 球形同士の当たり判定
-	return CCollisionSphere::Collision(m_pSphereCollider,pOther);
+	return CCollisionSphere::Collision(m_pSphereCollider.get(),pOther);
 }
 //=========================================================
 // ノード作成処理
@@ -461,16 +437,13 @@ void CEnemy::NodeSetting(void)
 
 	// 自身の情報
 	auto pos = GetPos();
-	m_pBlackBoard->SetValue<D3DXVECTOR3>("EnemyPos", pos);
 	m_pBlackBoard->SetValue<CEnemy*>("Enemy", this);
+	m_pBlackBoard->SetValue<D3DXVECTOR3>("EnemyPos", pos);
 
 	// 防衛対象の情報
 	auto Queen = CGameSceneObject::GetInstance()->GetQueen();
 	m_pBlackBoard->SetValue<CQueen*>("Queen", Queen);
 	m_pBlackBoard->SetValue<D3DXVECTOR3>("QueenPos", Queen->GetPos());
-
-	// 餌の情報
-	auto Feed = CGameSceneObject::GetInstance()->GetFeedManager();
 
 	// 敵に使用するツリーノードにセットする
 	m_pBehaviorTree = CEnemyBehaviorTree::SetEnemyTreeNode(m_pBlackBoard);

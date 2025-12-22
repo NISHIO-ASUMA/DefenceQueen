@@ -45,7 +45,6 @@
 CPlayer::CPlayer(int nPriority) : CNoMoveCharactor(nPriority),
 m_pMotion(nullptr),
 m_pStateMachine(nullptr),
-m_pBoxCollider(nullptr),
 m_pPointObj(nullptr),
 m_nSendNum(NULL),
 m_nSelectSpawn(NULL),
@@ -94,9 +93,6 @@ HRESULT CPlayer::Init(void)
 	// モーションセット
 	MotionLoad("data/MOTION/Enemy/Enemy_Motion.txt", MOTION_MAX,false);
 
-	// コライダー生成
-	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(50.0f,50.0f,50.0f));
-
 	// モーション取得
 	m_pMotion = CNoMoveCharactor::GetMotion();
 
@@ -132,13 +128,6 @@ HRESULT CPlayer::Init(void)
 //=========================================================
 void CPlayer::Uninit(void)
 {
-	// コライダー破棄
-	if (m_pBoxCollider)
-	{
-		delete m_pBoxCollider;
-		m_pBoxCollider = nullptr;
-	}
-
 	// キャラクターの破棄
 	CNoMoveCharactor::Uninit();
 }
@@ -156,13 +145,6 @@ void CPlayer::Update(void)
 
 	// 更新された座標を取得
 	D3DXVECTOR3 UpdatePos = GetPos();
-
-	// コライダーの位置更新
-	if (m_pBoxCollider)
-	{
-		m_pBoxCollider->SetPos(UpdatePos);
-		m_pBoxCollider->SetPosOld(posOld);
-	}
 
 	// アクションキー
 	InputAction(pKeyboard, pJoyPad);
@@ -281,7 +263,7 @@ void CPlayer::InputAction(CInputKeyboard* pKey, CJoyPad* pPad)
 	auto TopS = pArraySpawn->GetIndexSpawner(m_nSelectSpawn)->GetTopAnt();
 	if (TopS == nullptr) return;
 
-	// 移動命令を送る処理 ( これ一個で全て完結させたい )
+	// 移動命令を送る処理
 	if (pKey->GetTrigger(DIK_V) || pPad->GetTrigger(CJoyPad::JOYKEY_X))
 	{
 		// 指定座標
@@ -308,7 +290,7 @@ void CPlayer::OrderToArray(const D3DXVECTOR3& destpos)
 	{
 		// 送る数を設定
 		int sendNum = m_pSpawnData[nCnt];
-		if (sendNum <= 0) continue;
+		if (sendNum <= NULL) continue;
 
 		// スポナーのインデックスを取得
 		auto pSpawner = pSpawnMgr->GetIndexSpawner(nCnt);

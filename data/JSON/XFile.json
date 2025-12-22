@@ -11,5 +11,6 @@
   { "XFile": "data/MODEL/STAGEOBJ/WorkerBase.x" },
   { "XFile": "data/MODEL/STAGEOBJ/yajirusi.x" },
   { "XFile": "data/MODEL/FEED/Lemon.x" },
+  { "XFile": "data/MODEL/FEED/Solt.x" },
   { "XFile": "data/MODEL/FEED/Suger.x" }
 ]

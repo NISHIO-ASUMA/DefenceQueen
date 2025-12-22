@@ -66,7 +66,7 @@ public:
 	/// </summary>
 	/// <param name="nIdx">取得したいスポナー番号</param>
 	/// <returns></returns>
-	CArraySpawner* GetIndexSpawner(const int& nIdx) { return m_pArraySpawner[nIdx]; }
+	inline CArraySpawner* GetIndexSpawner(const int& nIdx) { return m_pArraySpawner[nIdx]; }
 
 private:
 

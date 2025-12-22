@@ -15,6 +15,7 @@
 //*********************************************************
 #include "nomovecharactor.h"
 #include <memory>
+#include <array>
 
 //*********************************************************
 // 前方宣言
@@ -24,7 +25,6 @@ class CJoyPad;
 class CShadowS;
 class CStateMachine;
 class CPlayerStateBase;
-class CBoxCollider;
 class CMotion;
 class CMeshCylinder;
 class CPointObj;
@@ -77,12 +77,11 @@ private:
 	};
 
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
-	CBoxCollider* m_pBoxCollider;	// 矩形のコライダー
 	CMotion* m_pMotion;				// モーションポインタ
 	CPointObj* m_pPointObj;			// ポイントXファイルオブジェクト
 
 	int m_nSendNum;					// 送る数を決める
 	int m_nSelectSpawn;				// スポーン選択変数
 	int m_nPrevSelectSpawn;			// 前回のスポーン選択変数
-	int m_pSpawnData[Config::NUM_SPAWN]; // スポーンデータ配列
+	std::array<int, Config::NUM_SPAWN>m_pSpawnData; // スポーンデータ配列
 };

@@ -6,6 +6,7 @@
   { "Texture": "data/TEXTURE/wallTexture.jpg" },
   { "Texture": "data/TEXTURE/ground.jpg" },
   { "Texture": "data/TEXTURE/DomeTex.jpg" },
+  { "Texture": "data/TEXTURE/solt.jpg" },
   { "Texture": "data/TEXTURE/worker_icon.png" },
   { "Texture": "data/TEXTURE/Reef.jpg" },
   { "Texture": "data/TEXTURE/field.jpg" },
@@ -14,5 +15,12 @@
   { "Texture": "data/TEXTURE/coron.png" },
   { "Texture": "data/TEXTURE/backboard.png" },
   { "Texture": "data/TEXTURE/Signal.png" },
+  { "Texture": "data/TEXTURE/Total_Logo.png" },
+  { "Texture": "data/TEXTURE/SendNum.png" },
+  { "Texture": "data/TEXTURE/Rank_Logo.png" },
+  { "Texture": "data/TEXTURE/Defence_Late.png" },
+  { "Texture": "data/TEXTURE/tutorial_logo.png" },
+  { "Texture": "data/TEXTURE/Time_frame.png" },
+  { "Texture": "data/TEXTURE/Ranking_PosNumber.png" },
   { "Texture": "data/TEXTURE/result_logo.png" }
 ]

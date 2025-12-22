@@ -65,8 +65,7 @@ public:
 	inline void SetType(TYPE Type) { m_type = Type; }
 	inline void SetUseStencil(const bool isUse) { m_isStencilUse = isUse; }
 	inline void SetUseOutLine(const bool isUse = false) { m_isOutLine = isUse; }
-
-	void SetCharactor(TYPE type) { m_type = type; }
+	inline 	void SetCharactor(TYPE type) { m_type = type; }
 
 	inline D3DXVECTOR3 GetPos(void) const { return m_pos; }
 	inline D3DXVECTOR3 GetOldPos(void) const { return m_posOld; }
@@ -79,7 +78,7 @@ public:
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>
-	CMotion* GetMotion(void) { return m_pMotion.get(); }
+	inline CMotion* GetMotion(void) { return m_pMotion.get(); }
 
 protected:
 

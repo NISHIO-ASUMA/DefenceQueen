@@ -41,9 +41,10 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-	void SetPos(const D3DXVECTOR3& pos) { m_SpawnBasePos = pos; }
 	void SetMaxArray(const int& nMaxArray);
-	D3DXVECTOR3 GetPos(void) { return m_SpawnBasePos; }
+	
+	inline void SetPos(const D3DXVECTOR3& pos) { m_SpawnBasePos = pos; }
+	inline D3DXVECTOR3 GetPos(void) const { return m_SpawnBasePos; }
 
 	/// <summary>
 	/// 移動命令を出す関数
@@ -84,14 +85,14 @@ public:
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
-	int GetStockArray(void) { return m_nStockArrays; }
+	inline int GetStockArray(void) const { return m_nStockArrays; }
 
 	/// <summary>
 	/// スポーンのインデックスリスト番号を返す
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
-	int GetIdx(void) { return m_nMySpawnIndexList; }
+	inline int GetIdx(void) const { return m_nMySpawnIndexList; }
 
 	/// <summary>
 	/// 先頭の仲間のアリを取得
@@ -138,7 +139,7 @@ public:
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
-	CSeparationAnt* GetSeparationAnt(void) { return m_pSeparationListAnt.get(); }
+	inline CSeparationAnt* GetSeparationAnt(void) { return m_pSeparationListAnt.get(); }
 
 	/// <summary>
 	/// 生成関数

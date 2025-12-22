@@ -57,7 +57,7 @@ m_pSpawn(nullptr),
 m_pArraySpawn(nullptr),
 m_pPlayer(nullptr),
 m_pEnemySpawnManager(nullptr),
-m_pEnemy(nullptr)
+m_pEnemyManager(nullptr)
 {
 	// 値のクリア
 }
@@ -80,7 +80,7 @@ HRESULT CGameSceneObject::Init(void)
 	CMeshDome::Create(D3DXVECTOR3(0.0f,-20.0f,0.0f), 60.0f);
 
 	// コロン生成
-	CUi::Create(D3DXVECTOR3(645.0f, 40.0f, 0.0f), 0, 15.0f, 30.0f, "coron.png", false);
+	CUi::Create(D3DXVECTOR3(645.0f, 60.0f, 0.0f), 0, 15.0f, 30.0f, "coron.png", false);
 
 #ifdef _DEBUG
 	CUi::Create(D3DXVECTOR3(1160.0f, 280.0f, 0.0f), 0, 120.0f, 300.0f, "backboard.png", false);
@@ -119,7 +119,7 @@ void CGameSceneObject::Uninit(void)
 	m_pEnemySpawnManager.reset();
 
 	// 敵管理の破棄
-	m_pEnemy.reset();
+	m_pEnemyManager.reset();
 
 	// ui処理
 	m_pWorkUi.reset();
@@ -164,13 +164,13 @@ void CGameSceneObject::Update(void)
 	// 餌管理クラスの更新
 	if (m_pFeed)
 	{
-		// m_pFeed->Update();
+		m_pFeed->Update();
 	}
 
 	// 敵の更新
-	if (m_pEnemy)
+	if (m_pEnemyManager)
 	{
-		m_pEnemy->Update();
+		m_pEnemyManager->Update();
 	}
 
 #ifdef _DEBUG
@@ -249,7 +249,7 @@ void CGameSceneObject::CreatePointer(void)
 	m_pBlocks->Init();
 
 	// タイマー生成
-	m_pTimer = CTime::Create(D3DXVECTOR3(540.0f,40.0f,0.0f),60.0f,40.0f);
+	m_pTimer = CTime::Create(D3DXVECTOR3(540.0f,60.0f,0.0f),60.0f,40.0f);
 
 	// 餌の管理クラスを生成
 	m_pFeed = std::make_unique<CFeedManager>();
@@ -267,10 +267,6 @@ void CGameSceneObject::CreatePointer(void)
 	m_pWorkerManager = std::make_unique<CWorkerManager>();
 	m_pWorkerManager->Init();
 
-	//// 働きアリの状態ui配置
-	//m_pWorkUi = std::make_unique<CWorkerUiManager>();
-	//m_pWorkUi->Init();
-
 	// プレイヤー生成
 	m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -800.0f), VECTOR3_NULL);
 
@@ -284,7 +280,7 @@ void CGameSceneObject::CreatePointer(void)
 	// スコア生成
 	m_pScore = CScore::Create(D3DXVECTOR3(1220.0f, 620.0f, 0.0f), 100.0f, 60.0f);
 
-	// 生成
-	m_pEnemy = std::make_unique<CEnemyManager>();
-	m_pEnemy->Init();
+	// 敵管理クラスの生成
+	m_pEnemyManager = std::make_unique<CEnemyManager>();
+	m_pEnemyManager->Init();
 }
