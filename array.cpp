@@ -13,8 +13,6 @@
 #include "manager.h"
 #include "spherecollider.h"
 #include "collisionsphere.h"
-#include "statemachine.h"
-#include "state.h"
 #include "blackboard.h"
 #include "boxcollider.h"
 #include "collisionbox.h"
@@ -31,6 +29,9 @@
 #include "arraybehaviortree.h"
 #include "node.h"
 #include "blackboard.h"
+#include "score.h"
+#include "enemymanager.h"
+#include "enemy.h"
 
 //=========================================================
 // コンストラクタ
@@ -39,7 +40,6 @@ CArray::CArray(int nPriority) : CMoveCharactor(nPriority),
 m_pSphereCollider(nullptr),
 m_pMotion(nullptr),
 m_pParameter(nullptr),
-m_pStateMachine(nullptr),
 m_pBoxCollider(nullptr),
 m_pFollowTarget(nullptr),
 m_isActive(false),
@@ -49,6 +49,7 @@ m_isReturn(false),
 m_isAtBase(true),
 m_isStop(false),
 m_MoveDestPos(VECTOR3_NULL),
+m_ActivePos(VECTOR3_NULL),
 m_nListGroupId(NULL)
 {
 	// 値のクリア
@@ -74,6 +75,7 @@ CArray* CArray::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,const int nL
 	pArray->SetRot(rot);
 	pArray->SetUseStencil(false);
 	pArray->m_pParameter = std::make_unique<CParameter>();
+	pArray->m_ActivePos = pos;
 
 	// nullチェック
 	if (pArray->m_pParameter)
@@ -114,9 +116,6 @@ HRESULT CArray::Init(void)
 	// フラグ初期化
 	m_isActive = false;
 	m_isMove = false;
-
-	// 拡大する
-	SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 
 	return S_OK;
 }
@@ -164,35 +163,8 @@ void CArray::Update(void)
 	// コライダー座標の更新
 	m_pSphereCollider->SetPos(UpdatePos);
 
-	// アリと餌の当たり判定
-	CFeedManager* pFeed = CGameSceneObject::GetInstance()->GetFeedManager();
-
-	// nullじゃないとき
-	if (pFeed != nullptr)
-	{
-		// 配列取得
-		for (int nCnt = 0; nCnt < pFeed->GetSize(); nCnt++)
-		{
-			// 変数格納
-			auto feed = pFeed->GetFeed(nCnt);
-			auto Collider = feed->GetCollider();
-
-			// 当たっていたら
-			if (Colision(Collider))
-			{
-				// 当たった対象物の体力値を減らす
-				feed->DecLife(1);
-
-				// コライダーの更新と指示変更
-				m_pSphereCollider->SetPos(UpdatePos);
-
-				// 基地に帰る
-				this->OnSeparation();
-
-				break;
-			}
-		}
-	}
+	// 全判定関数
+	CollsionAll(UpdatePos);
 
 	// 体力がなくなった
 	if (m_pParameter && m_pParameter->GetHp() <= NULL)
@@ -378,8 +350,6 @@ void CArray::FollowDestination(const D3DXVECTOR3& DestPos)
 
 	m_pMotion->SetMotion(CArray::MOTION_MOVE);
 }
-
-
 //=========================================================
 // 仲間を追従する
 //=========================================================
@@ -473,6 +443,7 @@ void CArray::SpawnReturn(void)
 		// リセット
 		m_isMove = false;
 		m_pFollowTarget = nullptr;
+
 		SetPrevAnt(nullptr);
 		SetIsStop(false);
 
@@ -510,4 +481,75 @@ bool CArray::Colision(CSphereCollider* other)
 {
 	// 球同士の当たり判定の関数を返す
 	return CCollisionSphere::Collision(m_pSphereCollider,other);
+}
+//=========================================================
+// 当たり判定格納関数
+//=========================================================
+void CArray::CollsionAll(const D3DXVECTOR3& pos)
+{
+	// マップ内の餌の当たり判定
+	CFeedManager* pFeed = CGameSceneObject::GetInstance()->GetFeedManager();
+
+	// nullじゃないとき
+	if (pFeed != nullptr)
+	{
+		// 配列取得
+		for (int nCnt = 0; nCnt < pFeed->GetSize(); nCnt++)
+		{
+			// 変数格納
+			auto feed = pFeed->GetFeed(nCnt);
+			auto Collider = feed->GetCollider();
+
+			// 当たっていたら
+			if (Colision(Collider))
+			{
+				// 当たった対象物の体力値を減らす
+				feed->DecLife(Arrayinfo::Damage);
+
+				// スコアを加算
+				CGameSceneObject::GetInstance()->GetScore()->AddScore(Arrayinfo::SCORE_UP);
+
+				// コライダーの更新と指示変更
+				m_pSphereCollider->SetPos(pos);
+
+				// 基地に帰る
+				this->OnSeparation();
+
+				break;
+			}
+		}
+	}
+
+	// 自分が移動状態じゃなかったら
+	if (!this->m_isMove) return;
+
+	// マップ内の敵の当たり判定
+	CEnemyManager* pEnemyManager = CGameSceneObject::GetInstance()->GetEnemyManager();
+	if (pEnemyManager == nullptr) return;
+
+	// 最大の物と判定
+	for (int nCnt = 0; nCnt < pEnemyManager->GetSize(); nCnt++)
+	{
+		// 単体取得
+		auto Enemy = pEnemyManager->GetEnemyIdx(nCnt);
+		if (!Enemy->GetIsActive()) continue;
+
+		// 衝突したら対象にダメージを与え,自身を未使用にする
+		if (Colision(Enemy->GetCollider()))
+		{
+			// 管理クラスの配列の要素を消す
+			CGameSceneObject::GetInstance()->GetEnemyManager()->Erase(Enemy);
+
+			// 敵の終了
+			Enemy->Uninit();
+
+			// 自身は有効化を終了する
+			this->m_isActive = false;
+
+			// 自身の出てきたスポナーに戻る
+			SetPos(m_ActivePos);
+
+			return;
+		}
+	}
 }

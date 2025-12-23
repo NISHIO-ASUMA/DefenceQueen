@@ -19,6 +19,7 @@
 //*********************************************************
 // 前方宣言
 //*********************************************************
+class CSphereCollider;
 
 //*********************************************************
 // タイトルのアリのクラスを定義
@@ -26,6 +27,16 @@
 class CTitleAnt : public CMoveCharactor
 {
 public:
+
+	//************************
+	// モーション列挙型
+	//************************
+	enum MOTION
+	{
+		MOTION_NEUTRAL,
+		MOTION_MOVE,
+		MOTION_MAX
+	};
 
 	CTitleAnt(int nPriority = static_cast<int>(CObject::PRIORITY::CHARACTOR));
 	~CTitleAnt();

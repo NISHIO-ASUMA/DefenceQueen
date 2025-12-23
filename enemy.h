@@ -23,13 +23,12 @@
 //*********************************************************
 class CParameter;
 class CShadowS;
-class CStateMachine;
-class CEnemyStateBase;
 class CSphereCollider;
 class CFeed;
+class CBoxCollider;
 
 //*********************************************************
-// 敵クラスを定義
+// 敵1体関するクラスを定義
 //*********************************************************
 class CEnemy : public CMoveCharactor
 {
@@ -59,14 +58,18 @@ public:
 	void MoveToQueen(void);
 	CFeed* FindFeed(void);
 
+	bool Collision(CSphereCollider* pOther);
+	bool CollisionBoxToSphere(CBoxCollider* pOther);
+
 	void CollisionFeed(void);
 	void CollisionQueen(void);
-	bool Collision(CSphereCollider* pOther);
+	void CollisionWall(void);
 
 	inline void SetIsActive(const bool& isActive) { m_isActive = isActive; }
 	inline bool GetIsActive(void) const { return m_isActive; }
 
-	CParameter* GetParameter(void) { return m_pParameter.get(); }
+	inline CParameter* GetParameter(void) const { return m_pParameter.get(); }
+	inline CSphereCollider* GetCollider(void) const { return m_pSphereCollider.get(); }
 
 	static CEnemy* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot,int nLife);
 

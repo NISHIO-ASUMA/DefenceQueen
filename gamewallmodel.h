@@ -19,6 +19,7 @@
 // 前方宣言
 //*********************************************************
 class CBoxCollider;
+class CSphereCollider;
 
 //*********************************************************
 // 壁を生成するクラスを定義
@@ -34,10 +35,9 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-	bool Collision(CBoxCollider* pOther, D3DXVECTOR3* OutPos);
+	bool Collision(CSphereCollider* pOther);
 
-	inline CBoxCollider* GetCollider(void) { return m_pCollider; }
-
+	inline CBoxCollider* GetCollider(void) const { return m_pCollider; }
 	static CGameWallModel* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, const D3DXVECTOR3& scale, const char* pModelName);
 
 private:

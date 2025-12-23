@@ -312,7 +312,8 @@ void CMotionManager::SetParts(std::ifstream& file, std::vector<CModel*>& pModel)
 			std::string eq;
 			std::string rest;
 			partss >> eq;
-			std::getline(partss, rest); // 文字列で取得
+
+			std::getline(partss, rest); 
 
 			// コメントを削除
 			size_t commentpos = rest.find('#');
@@ -399,7 +400,7 @@ void CMotionManager::SetPartsMotion(std::ifstream& file, int nCntMotion)
 			while (nCntKey < numKeys)
 			{
 				// aKeyInfoのサイズがわかったらキーごとにあるパーツの情報をakeyにサイズセットをして箱を確保してあげる
-				m_FileData.back().m_aMotionInfo[nCntMotion].aKeyInfo[nCntKey].aKey.resize(m_FileData.back().nNumModel); // m_nNumModelsは最大モデル数
+				m_FileData.back().m_aMotionInfo[nCntMotion].aKeyInfo[nCntKey].aKey.resize(m_FileData.back().nNumModel);
 
 				// キー情報の設定
 				SetKey(file,nCntMotion, nCntKey);

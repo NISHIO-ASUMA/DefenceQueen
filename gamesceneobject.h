@@ -34,6 +34,7 @@ class CScore;
 class CPlayer;
 class CEnemySpawnManager;
 class CEnemyManager;
+class CGameWallManager;
 
 //*********************************************************
 // ゲームシーンで使うオブジェクト管理クラスを定義
@@ -65,6 +66,7 @@ public:
 	CArraySpawnManager* GetArraySpawn(void) const { return m_pArraySpawn.get(); }
 	CEnemySpawnManager* GetEnemySpawnManager(void) const { return m_pEnemySpawnManager.get(); }
 	CEnemyManager* GetEnemyManager(void) const { return m_pEnemyManager.get(); }
+	CGameWallManager* GetGameWall(void) const { return m_pWallManager.get(); }
 
 	static CGameSceneObject* GetInstance(void);
 
@@ -90,4 +92,5 @@ private:
 	std::unique_ptr<CArraySpawnManager>m_pArraySpawn; // 仲間スポーン管理クラス
 	std::unique_ptr<CEnemySpawnManager>m_pEnemySpawnManager; // 敵スポーン管理
 	std::unique_ptr<CEnemyManager>m_pEnemyManager;		// 敵管理クラス
+	std::unique_ptr<CGameWallManager>m_pWallManager;	// ゲームの壁管理
 };

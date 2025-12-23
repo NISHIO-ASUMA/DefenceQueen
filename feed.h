@@ -31,6 +31,16 @@ class CFeed : public CObjectX
 {
 public:
 
+	//******************************************
+	// カラー変更状態列挙型 
+	//******************************************
+	enum COLTYPE
+	{
+		COLTYPE_NONE,	// 通常
+		COLTYPE_CHANGE,	// 変更
+		COLTYPE_MAX
+	};
+
 	CFeed(int nPriority = static_cast<int>(CObject::PRIORITY::MODELOBJECT));
 	~CFeed();
 
@@ -42,15 +52,13 @@ public:
 	bool Collision(CSphereCollider* other);
 	bool CollisionBox(CBoxCollider* pOther, D3DXVECTOR3* OutPos);
 
-	// イベントで使う関数を登録する
 	void RegisterEvent(std::function<void(void)> Event) { m_event = Event; }
 
-	void SetRadius(const float fRadius) { m_fRadius = fRadius; }
-	void SetAssigned(const bool isAssing) { m_isAssing = isAssing; }
+	inline void SetRadius(const float fRadius) { m_fRadius = fRadius; }
+	inline void SetAssigned(const bool isAssing) { m_isAssing = isAssing; }
 
-	bool IsAssigned() const { return m_isAssing; }
-	bool GetIsDeath(void) { return m_isDeath; }
-	float GetRadius(void) const { return m_fRadius; }
+	inline bool IsAssigned() const { return m_isAssing; }
+	inline float GetRadius(void) const { return m_fRadius; }
 
 	CSphereCollider* GetCollider(void) const { return m_pSphere; }
 	CBoxCollider* GetBoxCollider(void) const { return m_pBoxCollider; }
@@ -60,12 +68,18 @@ public:
 
 private:
 
-	std::function<void(void)>m_event; // 死亡時に呼ばれる処理
+	void ColorCheck(void);
+	D3DCOLORVALUE LerpColor(const D3DCOLORVALUE& a,const D3DCOLORVALUE& b,float t);
 
-	CSphereCollider* m_pSphere; // 球形コライダー
-	CBoxCollider* m_pBoxCollider; // 矩形コライダー
+	std::function<void(void)>m_event;	// 死亡時に呼ばれる処理
+
+	CSphereCollider* m_pSphere;			// 球形コライダー
+	CBoxCollider* m_pBoxCollider;		 // 矩形コライダー
 	std::unique_ptr<CParameter>m_pParam; // パラメーター
+
+	COLTYPE m_ColType;			// カラー状態
+
+	int m_ColorFrameCnt;		// カラー変更からの経過フレーム
 	float m_fRadius;			// 半径
-	bool m_isDeath;
 	bool m_isAssing;			// 割り当てられたかどうか
 };

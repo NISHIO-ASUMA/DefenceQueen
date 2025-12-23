@@ -10,7 +10,7 @@
 //*********************************************************
 #include "gamewallmodel.h"
 #include "boxcollider.h"
-#include "collisionbox.h"
+#include "boxtospherecollision.h"
 #include "xfilemanager.h"
 #include "manager.h"
 
@@ -109,7 +109,10 @@ void CGameWallModel::Draw(void)
 //=========================================================
 // ìñÇΩÇËîªíËèàóù
 //=========================================================
-bool CGameWallModel::Collision(CBoxCollider* pOther, D3DXVECTOR3* OutPos)
+bool CGameWallModel::Collision(CSphereCollider* pOther)
 {
-	return CCollisionBox::Collision(m_pCollider,pOther,OutPos);
+	if (pOther == nullptr) return false;
+
+	// ãÈå`Ç∆ãÖÇÃÉqÉbÉgä÷êî
+	return CBoxToSphereCollision::Collision(m_pCollider,pOther);
 }

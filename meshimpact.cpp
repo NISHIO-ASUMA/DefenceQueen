@@ -36,7 +36,7 @@ m_pIdx(nullptr),
 m_pVtx(nullptr),
 m_pos(VECTOR3_NULL),
 m_rot(VECTOR3_NULL),
-m_col(D3DCOLOR_RGBA(255, 115, 73, 255)),
+m_col(D3DCOLOR_RGBA(0, 185, 46, 255)),
 m_MeshImpact{}
 {
 	// 値のクリア
@@ -48,6 +48,29 @@ m_MeshImpact{}
 CMeshImpact::~CMeshImpact()
 {
 	// 無し
+}
+//=========================================================
+// 生成処理
+//=========================================================
+CMeshImpact* CMeshImpact::Create(D3DXVECTOR3 pos, int nLife, float fOutRadius, float fInRadius, float fSpeed)
+{
+	// インスタンス生成
+	CMeshImpact* pMesh = new CMeshImpact;
+	if (pMesh == nullptr) return nullptr;
+
+	// 値を代入
+	pMesh->m_pos = pos;							// 座標
+	pMesh->m_MeshImpact.fInRadius = fInRadius; // 内径
+	pMesh->m_MeshImpact.fOutRadius = fOutRadius; // 外径
+	pMesh->m_MeshImpact.nLife = nLife;			// 継続時間
+	pMesh->m_MeshImpact.fSpeed = fSpeed;		// 拡散速度
+	pMesh->m_MeshImpact.DecAlpha = pMesh->m_col.a / nLife; // αの減少値
+	pMesh->SetObjType(TYPE_MESH);				// オブジェクトのタイプを設定
+
+	// 初期化失敗
+	if (FAILED(pMesh->Init()))	return nullptr;
+
+	return pMesh;
 }
 //=========================================================
 // 初期化処理
@@ -345,29 +368,6 @@ void CMeshImpact::Draw(void)
 	// デバッグフォント
 	CDebugproc::Print("衝撃波の座標 { %.2f,%.2f,%.2f }", m_pos.x, m_pos.y, m_pos.z);
 	CDebugproc::Draw(1000,180);
-}
-//=========================================================
-// 生成処理
-//=========================================================
-CMeshImpact* CMeshImpact::Create(D3DXVECTOR3 pos, int nLife,float fOutRadius,float fInRadius, float fSpeed)
-{
-	// インスタンス生成
-	CMeshImpact* pMesh = new CMeshImpact;
-	if (pMesh == nullptr) return nullptr;
-
-	// 値を代入
-	pMesh->m_pos = pos;							// 座標
-	pMesh->m_MeshImpact.fInRadius = fInRadius; // 内径
-	pMesh->m_MeshImpact.fOutRadius = fOutRadius; // 外径
-	pMesh->m_MeshImpact.nLife = nLife;			// 継続時間
-	pMesh->m_MeshImpact.fSpeed = fSpeed;		// 拡散速度
-	pMesh->m_MeshImpact.DecAlpha = pMesh->m_col.a / nLife; // αの減少値
-	pMesh->SetObjType(TYPE_MESH);				// オブジェクトのタイプを設定
-	
-	// 初期化失敗
-	if (FAILED(pMesh->Init()))	return nullptr;
-
-	return pMesh;
 }
 //=========================================================
 // 当たり判定処理

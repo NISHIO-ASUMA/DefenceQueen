@@ -124,7 +124,7 @@ void CTopAnt::Update(void)
 		MovePad(pPad);
 
 		// ƒL[“ü—Í‚ÅŒŸØ
-		if (pKey->GetPress(DIK_B))
+		if (pKey->GetPress(DIK_B) || pPad->GetPress(CJoyPad::JOYKEY_A))
 		{
 			// Ø‚è—£‚µ‚Ì‰ÁZ
 			if (!m_isHPressing)
@@ -132,7 +132,6 @@ void CTopAnt::Update(void)
 				m_isHPressing = true;
 				m_fSeparationRadius = NULL; // 1‰ñ‰Ÿ‚·‚²‚Æ‚É‹——£‰Šú‰»
 			}
-
 
 			// ‰Ÿ‚µ‚Ä‚¢‚éŠÔ
 			Separation();

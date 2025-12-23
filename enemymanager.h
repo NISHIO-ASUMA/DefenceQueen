@@ -49,6 +49,13 @@ public:
 	std::vector<CEnemy*>& GetEnemy(void) { return m_pEnemys; }
 
 	/// <summary>
+	/// 配列のサイズを取得
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
+	int GetSize(void) const { return static_cast<int>(m_pEnemys.size()); }
+
+	/// <summary>
 	/// 配列から要素を消す関数
 	/// </summary>
 	/// <param name="pEnemy">敵のポインタ</param>

@@ -69,10 +69,10 @@ private:
 	//****************************
 	struct Config
 	{
-		static constexpr int ALLFEED = 3; // 最大で確保するメモリ数
+		static constexpr int ALLFEED = 3;			 // 最大で確保するメモリ数
+		static constexpr int ACTIVE_TIME = 10;		 // 10秒ごとに生成する
+		static constexpr float CreateRadius = 85.0f; // 判定をする半径
 	};
-
-	D3DXVECTOR3 CreateRandomPos(void);	// 生成ランダム座標
 
 	std::vector<CFeed*>m_pFeed; // 使用する餌の動的配列
 	int m_nCreateLastTime;		// 最後に生成した時間

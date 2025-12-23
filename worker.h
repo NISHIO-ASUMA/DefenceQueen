@@ -61,7 +61,7 @@ public:
 	enum MOVE
 	{
 		NONE,		// 動いてない
-		MOVE_FEED,	// えさ移動
+		MOVE_FEED,	// 餌に移動
 		MOVE_BASE,	// 基地に移動
 		MOVE_MAX
 	};
@@ -75,7 +75,7 @@ public:
 	void Draw(void) override;
 	void MoveToPoint(void);
 	void MoveToReturnBase(void);
-	void AssignFeed(CFeed* pFeed); // 割り当て関数
+	void AssignFeed(CFeed* pFeed);
 	int RequiredNumber(void);
 
 	void ChangeState(CWorkerStateBase* pState, int nId);
@@ -84,12 +84,12 @@ public:
 	inline void SetDestPos(const D3DXVECTOR3 pos) { m_DestPos = pos; }
 	inline void SetNeedNumber(const int nNumber) { m_nIdxNumber = nNumber; }
 	inline void SetIsWork(const bool iswork) { m_isWork = iswork; }
+	inline MOVE SetMoveState(MOVE Move) { m_MoveState = Move; }
+	inline CFeed* SetPoint(CFeed* pfeed) { m_pTargetFeed = pfeed; }
+
 	inline bool GetIsWork(void) const { return m_isWork; }
 	inline bool GetIsCreate(void) const { return m_isCreate; }
 	inline bool GetMoveState(void) { return m_MoveState == NONE; }
-	inline MOVE SetMoveState(MOVE Move) { m_MoveState = Move; }
-
-	CFeed* SetPoint(CFeed* pfeed) { m_pTargetFeed = pfeed; }
 
 	static CWorker* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot);
 
@@ -103,10 +103,13 @@ private:
 		static constexpr float Distance = 80.0f; // 判定距離
 		static constexpr float Move = 3.5f;		 // 移動速度
 		static constexpr float StopDistance = 2.0f; // 停止最小値
+		static constexpr float Add_PosY = 160.0f;	// 高さの加算値
+
 		static constexpr int LITTLE = 10;		 // 最小値
 		static constexpr int MIDDLE = 15;		 // 中央値
 		static constexpr int LARGE = 20;		 // 最大値
-		static constexpr int MAX_COUNT = 25;	// 生成するのに必要な最大カウント
+		static constexpr int MAX_COUNT = 90;	// 生成するのに必要な最大カウント
+		static constexpr int IMPACT_LIFE = 60;	// 体力値
 	};
 
 	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ

@@ -22,6 +22,7 @@ m_pos(VECTOR3_NULL),
 m_rot(VECTOR3_NULL),
 m_Scale(INITSCALE),
 m_isShadow(false),
+m_col(V_COLOR_WHITE),
 m_nIdxModel(-1)
 {
 	// 値のクリア
@@ -118,8 +119,17 @@ void CObjectX::Draw(void)
 
 		for (int nCnt = 0; nCnt < static_cast<int>(model.dwNumMat); nCnt++)
 		{
+			// カラー
+			D3DXMATERIAL Col = pMat[nCnt];
+
+			// カラーの乗算
+			Col.MatD3D.Diffuse.a *= m_col.a;
+			Col.MatD3D.Diffuse.r *= m_col.r;
+			Col.MatD3D.Diffuse.g *= m_col.g;
+			Col.MatD3D.Diffuse.b *= m_col.b;
+
 			// マテリアルのセット
-			pDevice->SetMaterial(&pMat[nCnt].MatD3D);
+			pDevice->SetMaterial(&Col.MatD3D);
 
 			// テクスチャ取得
 			int texIdx = model.pTexture[nCnt];

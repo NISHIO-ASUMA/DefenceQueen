@@ -17,6 +17,8 @@
 //=========================================================
 bool CBoxToSphereCollision::Collision(CBoxCollider* pthis, CSphereCollider* pother)
 {
+	if (pthis == nullptr || pother == nullptr) return false;
+
 	// 位置とサイズ
 	D3DXVECTOR3 thisPos = pthis->GetPos();
 	D3DXVECTOR3 thisSize = pthis->GetInfo().Size * 0.5f;

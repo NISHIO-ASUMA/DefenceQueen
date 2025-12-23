@@ -21,13 +21,16 @@
 #include "worker.h"
 #include "boxcollider.h"
 #include "collisionbox.h"
+#include "easing.h"
 
 //*********************************************************
 // 定数宣言
 //*********************************************************
 namespace FEEDINFO
 {
-	constexpr int LIFE = 25; // 基底体力値
+	constexpr int LIFE = 25;			// 基底体力値
+	constexpr int COL_COUNT_MAX = 30;	// 点滅させる総フレーム
+	constexpr float BLINK_SPEED = 1.2f; // sinの速度
 };
 
 //=========================================================
@@ -38,8 +41,9 @@ m_pSphere(nullptr),
 m_pBoxCollider(nullptr),
 m_pParam(nullptr),
 m_fRadius(NULL),
-m_isDeath(false),
-m_isAssing(false)
+m_ColorFrameCnt(NULL),
+m_isAssing(false),
+m_ColType(COLTYPE_NONE)
 {
 	// 値のクリア
 }
@@ -141,6 +145,9 @@ void CFeed::Update(void)
 	// コライダー更新
 	m_pBoxCollider->SetPos(pos);
 
+	// カラーチェック関数
+	ColorCheck();
+
 	// 親クラスの更新
 	CObjectX::Update();
 }
@@ -181,8 +188,76 @@ void CFeed::DecLife(const int& nDecValue)
 	{
 		// 現在の体力にセット
 		m_pParam->SetHp(nHp);
+
+		// カラー状態変更
+		m_ColType = COLTYPE_CHANGE;
+
+		// フレームカウンタ初期化
+		m_ColorFrameCnt = 0;
+
 		return;
 	}
+}
+//=========================================================
+// カラー状態監視関数
+//=========================================================
+void CFeed::ColorCheck(void)
+{
+	switch (m_ColType)
+	{
+	case CFeed::COLTYPE_NONE:
+
+		// カラー設定
+		SetCol(V_COLOR_WHITE);
+		break;
+
+	case CFeed::COLTYPE_CHANGE:
+	{
+		// フレーム加算
+		m_ColorFrameCnt++;
+
+		// サイン波
+		float angle = m_ColorFrameCnt * FEEDINFO::BLINK_SPEED;
+
+		// 振動係数
+		float blink = (sinf(angle) + 1.0f) * 0.5f;
+
+		// カラーを設定
+		D3DCOLORVALUE col =LerpColor(V_COLOR_WHITE, V_COLOR_RED, blink);
+		SetCol(col);
+
+		// 一定フレームで終了
+		if (m_ColorFrameCnt >= FEEDINFO::COL_COUNT_MAX)
+		{
+			m_ColType = COLTYPE_NONE;
+			m_ColorFrameCnt = 0;
+			SetCol(V_COLOR_WHITE);
+		}
+		break;
+	}
+	default:
+
+		// カラー設定
+		SetCol(V_COLOR_WHITE);
+		break;
+	}
+}
+//=========================================================
+// カラー計算関数
+//=========================================================
+D3DCOLORVALUE CFeed::LerpColor(const D3DCOLORVALUE& a, const D3DCOLORVALUE& b, float t)
+{
+	// 算出するカラー変数
+	D3DCOLORVALUE outcolor;
+
+	// 各情報に対して計算
+	outcolor.r = a.r + (b.r - a.r) * t;
+	outcolor.g = a.g + (b.g - a.g) * t;
+	outcolor.b = a.b + (b.b - a.b) * t;
+	outcolor.a = a.a + (b.a - a.a) * t;
+
+	// 最終出力
+	return outcolor;
 }
 //=========================================================
 // 球の当たり判定処理

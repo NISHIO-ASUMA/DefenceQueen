@@ -53,7 +53,9 @@ HRESULT CTitleAnt::Init(void)
 	// 親クラスの初期化
 	CMoveCharactor::Init();
 
-	// MotionLoad();
+	// モーションセット
+	MotionLoad("data/MOTION/Array/Title_Array.txt",MOTION_MAX,false);
+
 	return S_OK;
 }
 //=========================================================

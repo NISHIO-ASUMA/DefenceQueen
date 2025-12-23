@@ -65,6 +65,10 @@
 #define COLOR_GLAY	 (D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.7f))	// グレー
 #define LASER		 (D3DXCOLOR(0.05f, 0.05f, 1.0f, 1.0f))	// レーザーエフェクト
 #define COLOR_NULL	 (D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f))	// 完全透明
+
+#define V_COLOR_WHITE (D3DCOLORVALUE(1.0f, 1.0f, 1.0f, 1.0f))	// 白
+#define V_COLOR_RED (D3DCOLORVALUE(1.0f, 0.0f, 0.0f, 1.0f))		// 赤
+
 #define BASEVERTEX (4)		// 基準頂点
 #define MAX_WORD (256)
 

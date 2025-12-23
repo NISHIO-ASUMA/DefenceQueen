@@ -36,6 +36,7 @@
 #include "meshdome.h"
 #include "enemymanager.h"
 #include "gamemanager.h"
+#include "gamewallmanager.h"
 
 //*********************************************************
 // 静的メンバ変数
@@ -57,7 +58,8 @@ m_pSpawn(nullptr),
 m_pArraySpawn(nullptr),
 m_pPlayer(nullptr),
 m_pEnemySpawnManager(nullptr),
-m_pEnemyManager(nullptr)
+m_pEnemyManager(nullptr),
+m_pWallManager(nullptr)
 {
 	// 値のクリア
 }
@@ -120,6 +122,9 @@ void CGameSceneObject::Uninit(void)
 
 	// 敵管理の破棄
 	m_pEnemyManager.reset();
+
+	// 世界の壁の破棄
+	m_pWallManager.reset();
 
 	// ui処理
 	m_pWorkUi.reset();
@@ -283,4 +288,8 @@ void CGameSceneObject::CreatePointer(void)
 	// 敵管理クラスの生成
 	m_pEnemyManager = std::make_unique<CEnemyManager>();
 	m_pEnemyManager->Init();
+
+	// 世界の壁管理クラスの生成
+	m_pWallManager = std::make_unique<CGameWallManager>();
+	m_pWallManager->Init();
 }

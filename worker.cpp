@@ -2,7 +2,7 @@
 //
 // 指示を出す働きアリの処理 [ worker.cpp ]
 // Author: Asuma Nishio
-// TODO : 
+// 
 //=========================================================
 
 //*********************************************************
@@ -90,7 +90,7 @@ HRESULT CWorker::Init(void)
 	MotionLoad("data/MOTION/Work/Worker_Motion.txt", MOTION_MAX,true);
 
 	// コライダー生成
-	m_pSphereCollider = CSphereCollider::Create(GetPos(), 60.0f);
+	m_pSphereCollider = CSphereCollider::Create(GetPos(), 50.0f);
 
 	// シグナルui生成
 	m_pSignal = CSignalUi::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 160.0f, GetPos().z), VECTOR3_NULL, 60.0f, 40.0f);
@@ -144,7 +144,8 @@ void CWorker::Update(void)
 	// 更新後の座標を取得
 	D3DXVECTOR3 UpdatePos = GetPos();
 
-	m_pSignal->SetPos(D3DXVECTOR3(UpdatePos.x, UpdatePos.y + 160.0f, UpdatePos.z));
+	// UIの座標を設定する
+	m_pSignal->SetPos(D3DXVECTOR3(UpdatePos.x, UpdatePos.y + Config::Add_PosY, UpdatePos.z));
 
 	// コライダー座標の更新
 	if (m_pSphereCollider) m_pSphereCollider->SetPos(UpdatePos);
@@ -188,7 +189,7 @@ void CWorker::Update(void)
 	if (m_isSetNum && m_nImpactCounter >= Config::MAX_COUNT)
 	{
 		// インパクト生成
-		CMeshImpact::Create(GetPos(), Config::MAX_COUNT, 60.0f, 40.0f, 3.0f);
+		CMeshImpact::Create(GetPos(), Config::IMPACT_LIFE, 30.0f, 10.0f, 1.5f);
 
 		// 初期化する
 		m_nImpactCounter = NULL;

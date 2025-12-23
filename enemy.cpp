@@ -27,6 +27,9 @@
 #include "feedmanager.h"
 #include "feed.h"
 #include "enemymanager.h"
+#include "gamewallmanager.h"
+#include "boxtospherecollision.h"
+#include "gamewallmodel.h"
 
 //*********************************************************
 // 定数宣言空間
@@ -111,25 +114,22 @@ HRESULT CEnemy::Init(void)
 	// 敵で使うAIノードをセットする
 	// NodeSetting();
 
-	// 有効化
-	// TODO : ここもノードにする
-	m_isDestFeed = true;
+	// ランダム数
+	int nRand = rand() % 2;
 
-	//// ランダム数
-	//int nRand = rand() % 2;
+	switch (nRand)
+	{
+	case 0:
+		m_isDestQueen = true;
+		break;
 
-	//switch (nRand)
-	//{
-	//case 0:
-	// m_isDestQueen = true;
-	//	break;
+	case 1:
+		m_isDestFeed = true;
+		break;
 
-	//case 1:
-	//	m_isDestFeed = true;
-	//	break;
-
-	//default:
-	//	break;
+	default:
+		break;
+	}
 
 	return S_OK;
 }
@@ -187,6 +187,9 @@ void CEnemy::Update(void)
 		CollisionQueen();
 	}
 
+	// 世界の壁に当たる
+	CollisionWall();
+
 	// 球コライダー更新
 	if (m_pSphereCollider) m_pSphereCollider->SetPos(UpdatePos);
 
@@ -209,20 +212,20 @@ void CEnemy::Draw(void)
 //=========================================================
 void CEnemy::MoveToFeed(void)
 {
-	// 餌判定を有効化
-	m_isDestFeed = true;
-
 	// ターゲットが無い
 	if (!m_pTargetFeed)
 	{
 		// 餌を見つける
 		m_pTargetFeed = FindFeed();
 
-		if (!m_pTargetFeed) 
+		if (m_pTargetFeed == nullptr) 
 		{
 			// 女王のに向かうようにターゲットフラグ変更
 			m_isDestQueen = true;
 			m_isDestFeed = false;
+
+			MoveToQueen();
+
 			return;
 		}
 	}
@@ -414,6 +417,35 @@ void CEnemy::CollisionQueen(void)
 	}
 }
 //==========================================================
+// 世界の壁との当たり判定処理
+//==========================================================
+void CEnemy::CollisionWall(void)
+{
+	// 世界の壁の取得
+	CGameWallManager* WallManager = CGameSceneObject::GetInstance()->GetGameWall();
+	if (WallManager == nullptr) return;
+
+	// サイズで判断する
+	for (int nCnt = 0; nCnt < WallManager->GetSize(); nCnt++)
+	{
+		// 各配列から取得
+		auto Wall = WallManager->GetGameWall(nCnt);
+		if (Wall == nullptr) return;
+
+		// 当たったら
+		if (CollisionBoxToSphere(Wall->GetCollider()))
+		{
+			// 管理クラスの配列の要素を消す
+			CGameSceneObject::GetInstance()->GetEnemyManager()->Erase(this);
+
+			// 自身の破棄
+			Uninit();
+
+			return;
+		}
+	}
+}
+//==========================================================
 // 当たり判定処理
 //==========================================================
 bool CEnemy::Collision(CSphereCollider* pOther)
@@ -423,6 +455,13 @@ bool CEnemy::Collision(CSphereCollider* pOther)
 
 	// 球形同士の当たり判定
 	return CCollisionSphere::Collision(m_pSphereCollider.get(),pOther);
+}
+//==========================================================
+// 当たり判定処理
+//==========================================================
+bool CEnemy::CollisionBoxToSphere(CBoxCollider* pOther)
+{
+	return CBoxToSphereCollision::Collision(pOther,m_pSphereCollider.get());
 }
 //=========================================================
 // ノード作成処理

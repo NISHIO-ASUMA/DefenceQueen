@@ -745,7 +745,10 @@
       <Filter>ソース ファイル\Scenes\BaseScene</Filter>
     </ClCompile>
     <ClCompile Include="gamewallmodel.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\XFile</Filter>
+    </ClCompile>
+    <ClCompile Include="gamewallmanager.cpp">
+      <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1212,6 +1215,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="gamewallmodel.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="gamewallmanager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

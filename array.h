@@ -60,6 +60,8 @@ public:
 	void SpawnReturn(void);
 	
 	bool Colision(CSphereCollider* other);
+	void CollsionAll(const D3DXVECTOR3& pos);
+
 	void SetDestPos(const D3DXVECTOR3 pos) { m_MoveDestPos = pos; }
 	void SetPrevAnt(CArray* pPrev) { m_pFollowTarget = pPrev;}
 	void SetMyListId(const int& nIdx) { m_nListGroupId = nIdx; }
@@ -91,6 +93,9 @@ private:
 		static constexpr float TOP_DISTANCE = 30.0f; // 先頭のアリとの距離
 		static constexpr float PRIORITY_DISTANCE = 140.0f;
 		static constexpr float STOP_DISTANCE = 10.0f;
+
+		static constexpr int SCORE_UP = 15000;	// スコアの加算量
+		static constexpr int Damage = 1;		// ダメージ値
 	};
 
 	void NodeSetting(void);				// ノード生成
@@ -106,10 +111,10 @@ private:
 	bool m_isStop;						// 停止フラグ
 
 	D3DXVECTOR3 m_MoveDestPos;			// 目的の座標
+	D3DXVECTOR3 m_ActivePos;			// 出現時の座標
 	CMotion* m_pMotion;					// モーションポインタ
 	CSphereCollider* m_pSphereCollider;	// 球形のコライダー
 	CBoxCollider* m_pBoxCollider;		// 矩形のコライダー
 	CArray* m_pFollowTarget;			// 一個前の自身のポインタ
 	std::unique_ptr<CParameter>m_pParameter;		// パラメータークラスポインタ
-	std::unique_ptr<CStateMachine>m_pStateMachine;	// ステート基底クラスのポインタ
 };
