@@ -37,27 +37,41 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-	void Load(void);
 	void Save(void);
+
+	void SetAnimScore(const int nDestScore);
 
 	static CResultScore* Create(const D3DXVECTOR3 pos, const float fWidth, const float fHeight);
 
 private:
 
-	//***********************
-	// 定数構造体
-	//***********************
+	void UpdateAnimScore(void); // アニメーションスコア更新関数
+	int ScoreCounter(const int nScore);
+
+	//********************************
+	// 定数構造体宣言
+	//********************************
 	struct Config
 	{
-		static constexpr int NUM_SCORE = 8; // 桁数
-		static constexpr int NUM_DIGIT = 10; // 桁数
-		static constexpr int WRITE_SCORE = 5; // 書き出し数
+		static constexpr int NUM_SCORE = 8;		// 表示桁数
+		static constexpr int NUM_DIGIT = 10;	// 計算桁数
+		static constexpr int WRITE_SCORE = 5;	// 書き出し数
+		static constexpr int MAX_ANIMTIME = 180; // 最大継続時間
 	};
 
-	std::array<CNumber* ,Config::NUM_SCORE>m_pNumber;		// 桁数分のナンバーのポインタ
+	std::array<CNumber*,Config::NUM_SCORE>m_pNumber;	// 桁数分のナンバーのポインタ
 	std::unique_ptr<CLoad>m_pLoad; // ユニークポインタ
-	D3DXVECTOR3 m_pos;				// 座標
-	int m_nScore;					// スコア保持用
-	float m_fWidth;					// 横幅
-	float m_fHeight;				// 高さ
+
+	D3DXVECTOR3 m_pos;	// 座標
+	float m_fWidth;		// 横幅
+	float m_fHeight;	// 高さ
+
+	int m_nLoadScore;	// 読み取ったスコア
+	int m_nCurrentScore;// 今の表示スコア
+	int m_nStartScore;	// 開始時のスコア
+	int m_nTargetScore;	// ゴールのスコア
+	int m_nTimer;		// 経過フレーム
+	int m_nDuration;	// 目的の時間
+
+	bool m_isUse;		// 使用しているかどうか
 };

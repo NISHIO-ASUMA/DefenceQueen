@@ -20,7 +20,7 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CResultManager::CResultManager() : m_nGameScore(NULL)
+CResultManager::CResultManager()
 {
 	// 値のクリア
 }
@@ -44,9 +44,6 @@ CResultManager* CResultManager::GetInstance(void)
 //=========================================================
 HRESULT CResultManager::Init(void)
 {	
-	// データの読み込み
-	Load();
-
 	// サウンド取得
 	CSound* pSound = CManager::GetInstance()->GetSound();
 	if (pSound == nullptr) return E_FAIL;
@@ -99,12 +96,4 @@ void CResultManager::Update(void)
 void CResultManager::Draw(void)
 {
 
-}
-//=========================================================
-// 読み込み処理
-//=========================================================
-void CResultManager::Load(void)
-{
-	// 読み取った値を格納するメンバ変数
-	m_nGameScore = NULL;
 }

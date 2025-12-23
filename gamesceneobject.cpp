@@ -83,6 +83,7 @@ HRESULT CGameSceneObject::Init(void)
 
 	// コロン生成
 	CUi::Create(D3DXVECTOR3(645.0f, 60.0f, 0.0f), 0, 15.0f, 30.0f, "coron.png", false);
+	CUi::Create(D3DXVECTOR3(645.0f, 55.0f, 0.0f), 0, 140.0f, 55.0f, "Time_frame.png", false);
 
 #ifdef _DEBUG
 	CUi::Create(D3DXVECTOR3(1160.0f, 280.0f, 0.0f), 0, 120.0f, 300.0f, "backboard.png", false);
@@ -191,6 +192,7 @@ void CGameSceneObject::Update(void)
 	{
 		// 書き出しテスト
 		m_pScore->SaveScore();
+		m_pQueen->SaveHp();
 	}
 
 #endif // _DEBUG

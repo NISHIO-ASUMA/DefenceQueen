@@ -74,7 +74,14 @@ void CCamera::Update(void)
 	auto SceneMode = CManager::GetInstance()->GetScene();
 
 	// タイトル用に配置
-	if (SceneMode == CScene::MODE_TITLE || SceneMode == CScene::MODE_RESULT) SetSceneCamara();
+	if (SceneMode == CScene::MODE_TITLE)
+	{
+		SetTitleCamara();
+	}
+	else if (SceneMode == CScene::MODE_RESULT)
+	{
+		SetResultCamara();
+	}
 
 	// カメラ更新
 	MouseView(CManager::GetInstance()->GetMouse());
@@ -148,27 +155,46 @@ void CCamera::SetCamera(void)
 
 }
 //==============================================================
-// シーン別カメラ設定処理
+// タイトルカメラ
 //==============================================================
-void CCamera::SetSceneCamara(void)
+void CCamera::SetTitleCamara(void)
 {
+	m_pCamera.posV = D3DXVECTOR3(0.0f, 1050.0f, -600.0f);		// カメラの位置
+	m_pCamera.posR = VECTOR3_NULL;								// カメラの見ている位置
+	m_pCamera.vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);				// 上方向ベクトル
+	m_pCamera.rot = D3DXVECTOR3(D3DX_PI * 0.6f, 0.0f, 0.0f);	// 角度
+
+	// 距離を計算
+	float fRotx = m_pCamera.posV.x - m_pCamera.posR.x;
+	float fRoty = m_pCamera.posV.y - m_pCamera.posR.y;
+	float fRotz = m_pCamera.posV.z - m_pCamera.posR.z;
+
+	// 視点から注視点までの距離
+	m_pCamera.fDistance = sqrtf((fRotx * fRotx) + (fRoty * fRoty) + (fRotz * fRotz));
+}
+//==============================================================
+// リザルトカメラ
+//==============================================================
+void CCamera::SetResultCamara(void)
+{
+#if 1
 	// カメラ位置
-	m_pCamera.posV = D3DXVECTOR3(240.0f, 5.0f, -190.0f);
+	m_pCamera.posV = D3DXVECTOR3(0.0f, 5.0f, -190.0f);
 
 	// 見上げたい対象
-	m_pCamera.posR = D3DXVECTOR3(80.0f, 100.0f, 0.0f);
+	m_pCamera.posR = D3DXVECTOR3(80.0f, 50.0f, 0.0f);
 
 	m_pCamera.vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 
-	// 回転は使わない
-	m_pCamera.rot = D3DXVECTOR3(0.0f,0.0f,D3DX_PI * 0.4f);
+	// 回転
+	m_pCamera.rot = D3DXVECTOR3(D3DX_PI * 0.3f,0.0f,0.0f);
 
 	float fPosx = m_pCamera.posV.x - m_pCamera.posR.x;
 	float fPosy = m_pCamera.posV.y - m_pCamera.posR.y;
 	float fPosz = m_pCamera.posV.z - m_pCamera.posR.z;
 
-	//m_pCamera.fDistance = sqrtf(fPosx * fPosx + fPosy * fPosy + fPosz * fPosz);
-	m_pCamera.fDistance = 650.0f;
+	m_pCamera.fDistance = sqrtf(fPosx * fPosx + fPosy * fPosy + fPosz * fPosz);
+#endif
 }
 //==============================================================
 // マウス操作の視点移動

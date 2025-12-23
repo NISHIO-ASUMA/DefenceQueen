@@ -14,6 +14,8 @@
 #include "fade.h"
 #include "game.h"
 #include "ui.h"
+#include "meshfield.h"
+#include "meshdome.h"
 
 //=========================================================
 // インスタンス取得
@@ -43,8 +45,11 @@ CTutorialManager::~CTutorialManager()
 //=========================================================
 HRESULT CTutorialManager::Init(void)
 {
-	// ui生成
-	CUi::Create(D3DXVECTOR3(65.0f, 200.0f, 0.0f), 0, 60.0f, 30.0f, "bullet.png", false);
+	// メッシュフィールド生成
+	CMeshField::Create(VECTOR3_NULL, 3200.0f, 2000.0f, 1, 1);
+
+	// メッシュドーム生成
+	CMeshDome::Create(D3DXVECTOR3(0.0f, -20.0f, 0.0f), 60.0f);
 
 	// 初期化結果を返す
 	return S_OK;

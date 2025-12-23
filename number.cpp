@@ -25,7 +25,8 @@ m_pVtxBuff(nullptr),
 m_TexU1(NULL),
 m_TexU(NULL),
 m_TexV(NULL),
-n_nColorCount(NULL)
+n_nColorCount(NULL),
+m_isUse(true)
 {
 	// ’l‚ÌƒNƒŠƒA
 }

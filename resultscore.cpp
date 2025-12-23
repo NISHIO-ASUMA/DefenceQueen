@@ -9,10 +9,11 @@
 // インクルードファイル
 //*********************************************************
 #include "resultscore.h"
-#include <fstream>
 #include "manager.h"
 #include "load.h"
 #include "number.h"
+#include "easing.h"
+#include <fstream>
 #include <algorithm>
 
 //=========================================================
@@ -24,7 +25,13 @@ m_pNumber{},
 m_pos(VECTOR3_NULL),
 m_fHeight(NULL),
 m_fWidth(NULL),
-m_nScore(NULL)
+m_nCurrentScore(NULL),
+m_nDuration(NULL),
+m_nLoadScore(NULL),
+m_nStartScore(NULL),
+m_nTargetScore(NULL),
+m_nTimer(NULL),
+m_isUse(false)
 {
 
 }
@@ -81,12 +88,8 @@ HRESULT CResultScore::Init(void)
 		m_pNumber[nCnt]->SetTexture("number003.png");
 	}
 
-
 	// ポインタ生成
 	m_pLoad = std::make_unique<CLoad>();
-
-	// 数値読み込み処理
-	CResultScore::Load();
 
 	return S_OK;
 }
@@ -121,22 +124,8 @@ void CResultScore::Uninit(void)
 //=========================================================
 void CResultScore::Update(void)
 {
-	// スコア格納
-	int nScore = m_nScore;
-
-	// 8桁分
-	for (int nCntScore = 0; nCntScore < Config::NUM_SCORE; nCntScore++)
-	{
-		// 桁数ごとに分割する値を計算
-		int nDigit = nScore % Config::NUM_DIGIT;
-		nScore /= Config::NUM_DIGIT;
-
-		// ナンバー更新
-		m_pNumber[nCntScore]->Update();
-
-		// 桁更新
-		m_pNumber[nCntScore]->SetDigit(nDigit);
-	}
+	// アニメーション更新
+	UpdateAnimScore();
 }
 //=========================================================
 // 描画処理
@@ -148,17 +137,6 @@ void CResultScore::Draw(void)
 	{
 		number->Draw();
 	}
-}
-//=========================================================
-// データ読み込み処理
-//=========================================================
-void CResultScore::Load(void)
-{
-	// nullなら
-	if (!m_pLoad) return;
-
-	// バイナリファイル読み込み開始
-	m_nScore = m_pLoad->LoadInt("data/SCORE/GameScore.bin");
 }
 //=========================================================
 // データ書き出し処理
@@ -189,7 +167,7 @@ void CResultScore::Save(void)
 	//==============================
 	// 今回のスコアを追加
 	//==============================
-	scores[Config::WRITE_SCORE - 1] = m_nScore;
+	scores[Config::WRITE_SCORE - 1] = m_nLoadScore;
 
 	//==============================
 	// 降順ソート
@@ -200,4 +178,78 @@ void CResultScore::Save(void)
 	// 保存
 	//==============================
 	m_pLoad->SaveIntToFixedArray(filename, scores);
+}
+//=========================================================
+// アニメーション更新関数
+//=========================================================
+void CResultScore::UpdateAnimScore(void)
+{
+	// まだアニメ中
+	if (m_nTimer < m_nDuration)
+	{
+		// イージング適用
+		float t = CEasing::SetEase(m_nTimer, m_nDuration);
+		float fRate = CEasing::EaseOutCubic(t);
+
+		// 現在スコアをイージングさせる
+		m_nCurrentScore = m_nStartScore + (int)((m_nLoadScore - m_nStartScore) * fRate);
+
+		// 加算
+		m_nTimer++;
+	}
+	else
+	{
+		// 現在スコアに設定
+		m_nCurrentScore = m_nLoadScore;
+	}
+
+	// 桁数更新
+	int nScore = m_nCurrentScore;
+
+	// 八桁分
+	for (int nCntScore = 0; nCntScore < Config::NUM_SCORE; nCntScore++)
+	{
+		// 桁数ごとに分割する値を計算
+		int nDigit = nScore % Config::NUM_DIGIT;
+		nScore /= Config::NUM_DIGIT;
+
+		// ナンバーの更新
+		m_pNumber[nCntScore]->Update();
+
+		// 桁更新
+		m_pNumber[nCntScore]->SetDigit(nDigit);
+	}
+}
+//=========================================================
+// スコアの0をカウント
+//=========================================================
+int CResultScore::ScoreCounter(const int nScore)
+{
+	int nNum = nScore;		//スコアの0の部分をカウント
+	int nKeepNum = 0;		//スコアの桁数
+
+	while (nNum != 0)		//割り切れなくなるまで繰り返す(0まで)
+	{
+		nNum /= 10;			//nNumを10で割っていく
+		nKeepNum++;			//桁数を加算
+	}
+	if (nScore == 0)
+	{
+		//1桁目に0が入っているとき
+		nKeepNum = 1;
+	}
+
+	return nKeepNum;		//スコアの桁数を返す
+}
+//=========================================================
+// アニメーションするスコアをセットする関数
+//=========================================================
+void CResultScore::SetAnimScore(const int nDestScore)
+{
+	m_nStartScore = 0;			// 初期値
+	m_nLoadScore = nDestScore;  // 目的のスコア
+	m_nCurrentScore = 0;		// 現在の値
+
+	m_nTimer = 0;				// カウントタイマー
+	m_nDuration = Config::MAX_ANIMTIME; // 3秒掛けて目的の値に
 }

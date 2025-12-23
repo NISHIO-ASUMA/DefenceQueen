@@ -261,6 +261,7 @@
     <ClCompile Include="resultmanager.cpp" />
     <ClCompile Include="resultobject.cpp" />
     <ClCompile Include="resultscore.cpp" />
+    <ClCompile Include="resultscoremanager.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="selectpoint.cpp" />
@@ -277,9 +278,11 @@
     <ClCompile Include="time.cpp" />
     <ClCompile Include="title.cpp" />
     <ClCompile Include="titleant.cpp" />
+    <ClCompile Include="titleantmanager.cpp" />
     <ClCompile Include="titlemanager.cpp" />
     <ClCompile Include="titleobject.cpp" />
     <ClCompile Include="titleui.cpp" />
+    <ClCompile Include="titlewallmanager.cpp" />
     <ClCompile Include="topant.cpp" />
     <ClCompile Include="tutorial.cpp" />
     <ClCompile Include="tutorialmanager.cpp" />
@@ -414,6 +417,7 @@
     <ClInclude Include="resultmanager.h" />
     <ClInclude Include="resultobject.h" />
     <ClInclude Include="resultscore.h" />
+    <ClInclude Include="resultscoremanager.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="selector.h" />
@@ -434,9 +438,11 @@
     <ClInclude Include="time.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="titleant.h" />
+    <ClInclude Include="titleantmanager.h" />
     <ClInclude Include="titlemanager.h" />
     <ClInclude Include="titleobject.h" />
     <ClInclude Include="titleui.h" />
+    <ClInclude Include="titlewallmanager.h" />
     <ClInclude Include="topant.h" />
     <ClInclude Include="tutorial.h" />
     <ClInclude Include="tutorialmanager.h" />

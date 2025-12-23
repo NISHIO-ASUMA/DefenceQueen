@@ -20,6 +20,7 @@
 // 前方宣言
 //*********************************************************
 class CSphereCollider;
+class CBoxCollider;
 
 //*********************************************************
 // タイトルのアリのクラスを定義
@@ -45,8 +46,23 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+	bool Collision(CBoxCollider* pOther);
 
-	static CTitleAnt* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
+	static CTitleAnt* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& destpos,const D3DXVECTOR3& rot);
+
+	inline void SetDestPos(const D3DXVECTOR3& pos) { m_DestPos = pos; }
+	inline D3DXVECTOR3 GetDestPos(void) const { return m_DestPos; }
 
 private:
+
+	//**************************************
+	// 定数構造体宣言
+	//**************************************
+	struct Config
+	{
+		static constexpr float MOVE = 3.0f; // 移動量
+	};
+
+	D3DXVECTOR3 m_DestPos;	// 目的座標
+	CSphereCollider* m_pCollider; // 球コライダー
 };

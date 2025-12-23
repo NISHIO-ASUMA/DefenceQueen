@@ -55,7 +55,9 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void SetCamera(void);
-	void SetSceneCamara(void);
+	void SetResultCamara(void);
+	void SetTitleCamara(void);
+
 	void MouseView(CInputMouse* pMouse);
 	void WheelMouse(int nDelta);
 

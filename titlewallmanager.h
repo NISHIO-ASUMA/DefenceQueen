@@ -1,6 +1,6 @@
 //=========================================================
 //
-// ブロック管理処理 [ blockmanager.h ]
+// タイトル画面の壁複数管理クラス [ titlewallmanager.h ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -13,49 +13,53 @@
 //*********************************************************
 // インクルードファイル
 //*********************************************************
-#include "block.h"
-#include <vector>
+#include <array>
 
 //*********************************************************
 // 前方宣言
 //*********************************************************
-class CBoxCollider;
+class CGameWallModel;
 
 //*********************************************************
-// ブロック一括管理クラスを定義
+// タイトルの壁を管理するクラスを定義
 //*********************************************************
-class CBlockManager
+class CTitleWallManager
 {
 public:
 
-	CBlockManager();
-	~CBlockManager();
+	CTitleWallManager();
+	~CTitleWallManager();
 
 	HRESULT Init(void);
 	void Uninit(void);
-	void Update(void);
 
 	/// <summary>
-	/// 配列のサイズを取得する
+	/// 配置されている壁の取得
+	/// </summary>
+	/// <param name="nIdx">取得する番号</param>
+	/// <returns></returns>
+	CGameWallModel* GetGameWall(const int nIdx) const { return m_pWall[nIdx]; }
+
+	/// <summary>
+	/// 配列のサイズを返す
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
-	inline int GetAll(void) { return static_cast<int>(m_pBlocks.size()); }
-
-	/// <summary>
-	/// 配列の中のブロックを取得する
-	/// </summary>
-	/// <param name="nIdx">取得する配列番号</param>
-	/// <returns></returns>
-	inline CBlock* GetBlock(const int nIdx) { return m_pBlocks[nIdx]; }
+	inline int GetSize(void) const { return static_cast<int>(m_pWall.max_size()); }
 
 private:
 
-	static constexpr const char* FILE_NAME = "data/JSON/Map.json"; // ファイル名
-	static constexpr const char* RESULTFILE_NAME = "data/JSON/ResultMap.json"; // ファイル名
+	//**********************************
+	// 定数構造体宣言
+	//**********************************
+	struct Config
+	{
+		static constexpr int NUM_WALL = 2;									// 最大生成数
+		static constexpr const char* FILE_NAME = "data/JSON/Titlewall.json"; // ファイルパス
+	};
 
-	HRESULT Load(void);
-	CBlock* CreateManager(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const char* pModelName);
 
-	std::vector<CBlock*>m_pBlocks; // 配置するブロックの動的配列
+	void LoadJson(void); // json関数
+
+	std::array<CGameWallModel*, Config::NUM_WALL>m_pWall;					// 確保する配列情報
 };

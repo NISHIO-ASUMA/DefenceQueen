@@ -267,8 +267,7 @@ void CPlayer::InputAction(CInputKeyboard* pKey, CJoyPad* pPad)
 	if (pKey->GetTrigger(DIK_V) || pPad->GetTrigger(CJoyPad::JOYKEY_X))
 	{
 		// w’èÀ•W
-		D3DXVECTOR3 PointPos = VECTOR3_NULL;
-		PointPos = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(m_nSelectSpawn)->GetTopAnt()->GetDestPos();
+		D3DXVECTOR3 PointPos = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(m_nSelectSpawn)->GetTopAnt()->GetDestPos();
 
 		// ”‚ğ•Û‘¶
 		SetSendArrayMoving(m_nSelectSpawn, m_nSendNum);

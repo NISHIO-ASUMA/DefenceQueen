@@ -21,6 +21,8 @@
   { "Texture": "data/TEXTURE/Defence_Late.png" },
   { "Texture": "data/TEXTURE/tutorial_logo.png" },
   { "Texture": "data/TEXTURE/Time_frame.png" },
+  { "Texture": "data/TEXTURE/result_feed.png" },
   { "Texture": "data/TEXTURE/Ranking_PosNumber.png" },
+  { "Texture": "data/TEXTURE/underbar.png" },
   { "Texture": "data/TEXTURE/result_logo.png" }
 ]

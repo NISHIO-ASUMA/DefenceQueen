@@ -400,6 +400,9 @@ void CObject2D::SetTexture(const char* pRegisterName)
 	CTexture* pTexture = CManager::GetInstance()->GetTexture();
 	if (pTexture == nullptr) return;
 
+	// –³‚©‚Á‚½‚ç
+	if (pRegisterName == nullptr) return;
+
 	// ƒpƒX‚ğ’Zk‚·‚é
 	std::string TexName = "data/TEXTURE/";
 	TexName += pRegisterName;

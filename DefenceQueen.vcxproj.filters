@@ -750,6 +750,15 @@
     <ClCompile Include="gamewallmanager.cpp">
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="resultscoremanager.cpp">
+      <Filter>ソース ファイル\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="titlewallmanager.cpp">
+      <Filter>ソース ファイル\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="titleantmanager.cpp">
+      <Filter>ソース ファイル\Charactor\TitleCharactor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blackboard.h">
@@ -1218,6 +1227,15 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="gamewallmanager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="resultscoremanager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="titlewallmanager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="titleantmanager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

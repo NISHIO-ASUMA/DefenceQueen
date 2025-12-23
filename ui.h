@@ -30,7 +30,7 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	static CUi* Create(D3DXVECTOR3 pos, int nFlashFrame,float fWidth, float fHeight,const char * Filename,bool isUse);
+	static CUi* Create(D3DXVECTOR3 pos, int nFlashFrame,float fWidth, float fHeight,const char * Filename,bool isUse = false);
 
 private:
 

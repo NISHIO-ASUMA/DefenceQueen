@@ -36,6 +36,9 @@ public:
 	float GetWidth(void) { return m_fWidth; }
 	float GetHeight(void) { return m_fHeight; }
 
+	bool GetIsUse(void) { return m_isUse; }
+	void SetIsUse(bool is) { m_isUse = is; }
+
 private:
 
 	static constexpr float DIGIT_VALUE = 0.1f; // テクスチャ分割数割合
@@ -47,4 +50,5 @@ private:
 	float m_TexU, m_TexU1,m_TexV;	// テクスチャ座標
 	int n_nColorCount;				// 色変更カウント
 	int m_nIdxTexture;				// テクスチャインデックス
+	bool m_isUse;					// 使用フラグ
 };

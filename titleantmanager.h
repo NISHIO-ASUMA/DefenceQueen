@@ -1,6 +1,6 @@
 //=========================================================
 //
-// リザルトのオブジェクト管理 [ resultobject.h ]
+// タイトルのアリを管理する処理 [ titleantmanager.h ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -13,36 +13,29 @@
 //*********************************************************
 // インクルードファイル
 //*********************************************************
-#include <memory>
+#include <vector>
 
 //*********************************************************
 // 前方宣言
 //*********************************************************
-class CResultScoreManager;
-class CBlockManager;
+class CTitleAnt;
 
 //*********************************************************
-// リザルトで使うオブジェクトを管理するクラスを定義
+// タイトルのアリ全体を管理するクラスを定義
 //*********************************************************
-class CResultObject
+class CTitleAntManager
 {
 public:
 
-	~CResultObject();
+	CTitleAntManager();
+	~CTitleAntManager();
 
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
-	void Draw(void);
-
-	static CResultObject* GetInstance(void);
 
 private:
 
-	CResultObject(); // コンストラクタ
-
-	static CResultObject* m_pInstance; // シングルトン変数
-
-	std::unique_ptr<CResultScoreManager>m_pResultScoreManager; // スコア管理クラス
-	std::unique_ptr<CBlockManager>m_pBlock;		// ステージマップ
+	std::vector<CTitleAnt*>m_pAnts; // アリの動的配列
+	int m_nCreateCount;				// 生成カウント
 };

@@ -36,8 +36,8 @@
 //*********************************************************
 namespace EnemyInfo
 {
-	constexpr float HitRange = 80.0f; // 球形範囲
-	constexpr float StopRange = 10.0f;
+	constexpr float HitRange = 70.0f; // 球形範囲
+	constexpr float StopRange = 10.0f;	// 停止範囲
 	constexpr float MoveSpeed = 1.0f;	// 移動速度
 	const char* MOTION_NAME = "data/MOTION/Enemy/Enemy_Motion.txt"; // モーションパス
 };

@@ -33,13 +33,10 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-	void Load(void);
 
 	static CResultManager* GetInstance(void);
 
 private:
 
 	CResultManager();
-
-	int m_nGameScore; // ÉXÉRÉAÇäiî[
 };

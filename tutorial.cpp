@@ -15,6 +15,7 @@
 #include "game.h"
 #include "input.h"
 #include "fade.h"
+#include "camera.h"
 #include <memory>
 
 //=========================================================
@@ -36,6 +37,10 @@ CTutorial::~CTutorial()
 //=========================================================
 HRESULT CTutorial::Init(void)
 {	
+	// カメラ初期化
+	auto Camera = CManager::GetInstance()->GetCamera();
+	Camera->Init();
+
 	// マネージャー初期化
 	CTutorialManager::GetInstance()->Init();
 
