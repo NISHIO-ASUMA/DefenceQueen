@@ -25,6 +25,8 @@ class CBoxCollider;
 class CCollisionSphere;
 class CCollisionBox;
 class CBoxToSphereCollision;
+class CSelectPoint;
+class CFeedSignal;
 
 //*********************************************************
 // 各スポナーのトップのアリのクラスを定義
@@ -78,15 +80,18 @@ private:
 	//**********************
 	struct Config
 	{
-		static constexpr float SPEED = 3.0f;											 // 移動速度
-		static constexpr float MAX_RADIUS = 100.0f;										 // 最大範囲
-		static constexpr float NorRot = D3DX_PI * 2.0f;									 // 回転補正
-		static constexpr float Separation = 3.0f;										 // 範囲拡大
+		static constexpr float SPEED = 3.0f;					 // 移動速度
+		static constexpr float MAX_RADIUS = 90.0f;				 // 最大範囲
+		static constexpr float NorRot = D3DX_PI * 2.0f;			 // 回転補正
+		static constexpr float Separation = 3.0f;				 // 範囲拡大
+		static constexpr float AddPosY = 180.0f;				 // 高さのオフセット
 		static constexpr const char* MOTION_NAME = "data/MOTION/Top/Top_Motion.txt";	 // モーションパス
 	};
 
 	CSphereCollider* m_pColliderSphere; // 球形コライダー
 	CBoxCollider* m_pColliderBox;		// 矩形コライダー
+	CSelectPoint* m_pCircleObj;			// 円形オブジェクト
+	CFeedSignal* m_pFeedSignal;			// 獲得可能サイン
 
 	D3DXVECTOR3 m_DestPos;				// 座標設置用
 	bool m_isActive;					// アクティブフラグ

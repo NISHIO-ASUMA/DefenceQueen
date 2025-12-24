@@ -15,6 +15,7 @@
 #include "input.h"
 #include "fade.h"
 #include "resultobject.h"
+#include  "sound.h"
 
 //=========================================================
 // オーバーロードコンストラクタ
@@ -38,6 +39,13 @@ HRESULT CResult::Init(void)
 	// オブジェクト初期化
 	CResultObject::GetInstance()->Init();
 
+	// サウンド取得
+	auto Sound = CManager::GetInstance()->GetSound();
+	if (Sound == nullptr) return E_FAIL;
+
+	// サウンド再生
+	Sound->Play(CSound::SOUND_LABEL_RESULTBGM);
+
 	// 初期化結果を返す
 	return S_OK;
 }
@@ -58,7 +66,9 @@ void CResult::Update(void)
 	CResultObject::GetInstance()->Update();
 
 	// キー入力時
-	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN))
+	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN) || 
+		CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_A) ||
+		CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_START))
 	{
 		// ランキング画面遷移
 		auto fade = CManager::GetInstance()->GetFade();

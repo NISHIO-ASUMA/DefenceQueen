@@ -17,6 +17,7 @@
 #include "fade.h"
 #include "camera.h"
 #include <memory>
+#include "tutorialobject.h"
 
 //=========================================================
 // オーバーロードコンストラクタ
@@ -44,6 +45,9 @@ HRESULT CTutorial::Init(void)
 	// マネージャー初期化
 	CTutorialManager::GetInstance()->Init();
 
+	// オブジェクト初期化
+	CTutorialObject::GetInstance()->Init();
+
 	// サウンド取得
 	CSound* pSound = CManager::GetInstance()->GetSound();
 	if (pSound == nullptr) return E_FAIL;
@@ -61,6 +65,9 @@ void CTutorial::Uninit(void)
 {
 	// マネージャー終了
 	CTutorialManager::GetInstance()->Uninit();
+
+	// オブジェクト終了
+	CTutorialObject::GetInstance()->Uninit();
 }
 //=========================================================
 // 更新処理

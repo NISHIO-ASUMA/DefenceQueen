@@ -35,6 +35,7 @@ class CPlayer;
 class CEnemySpawnManager;
 class CEnemyManager;
 class CGameWallManager;
+class CSendNumber;
 
 //*********************************************************
 // ゲームシーンで使うオブジェクト管理クラスを定義
@@ -82,6 +83,7 @@ private:
 	CSelectPoint* m_pSelectPoint;	// 選択ポイントのクラス
 	CQueen* m_pQueen;	// 女王クラス
 	CPlayer* m_pPlayer; // プレイヤークラスのポインタ
+	CSendNumber* m_pSendNumber; // 送る数表示
 
 	std::unique_ptr<CWorkerUiManager>m_pWorkUi;	// 表示uiクラスポインタ
 	std::unique_ptr<CFeedManager>m_pFeed;	// 餌管理クラスのポインタ

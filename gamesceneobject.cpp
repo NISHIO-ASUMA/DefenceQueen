@@ -37,6 +37,8 @@
 #include "enemymanager.h"
 #include "gamemanager.h"
 #include "gamewallmanager.h"
+#include "meshcylinder.h"
+#include "sendnumber.h"
 
 //*********************************************************
 // 静的メンバ変数
@@ -79,14 +81,18 @@ HRESULT CGameSceneObject::Init(void)
 	CMeshField::Create(VECTOR3_NULL,3200.0f,2000.0f,1,1);
 
 	// メッシュドーム生成
-	CMeshDome::Create(D3DXVECTOR3(0.0f,-20.0f,0.0f), 60.0f);
+	CMeshDome::Create(D3DXVECTOR3(0.0f,-20.0f,0.0f), 80.0f);
 
+	// メッシュシリンダー生成
+	CMeshCylinder::Create(VECTOR3_NULL,80.0f);
+	
 	// コロン生成
-	CUi::Create(D3DXVECTOR3(645.0f, 60.0f, 0.0f), 0, 15.0f, 30.0f, "coron.png", false);
-	CUi::Create(D3DXVECTOR3(645.0f, 55.0f, 0.0f), 0, 140.0f, 55.0f, "Time_frame.png", false);
+	CUi::Create(D3DXVECTOR3(1125.0f, 60.0f, 0.0f), 0, 15.0f, 30.0f, "coron.png", false);
+	CUi::Create(D3DXVECTOR3(1125.0f, 55.0f, 0.0f), 0, 140.0f, 55.0f, "Time_frame.png", false);
+	CUi::Create(D3DXVECTOR3(105.0f, 35.0f, 0.0f), 0, 100.0f, 30.0f, "SendNum.png", false);
 
 #ifdef _DEBUG
-	CUi::Create(D3DXVECTOR3(1160.0f, 280.0f, 0.0f), 0, 120.0f, 300.0f, "backboard.png", false);
+	// CUi::Create(D3DXVECTOR3(1160.0f, 280.0f, 0.0f), 0, 120.0f, 300.0f, "backboard.png", false);
 #endif // _DEBUG
 
 	// 各種ポインタクラスの生成
@@ -179,6 +185,11 @@ void CGameSceneObject::Update(void)
 		m_pEnemyManager->Update();
 	}
 
+	if (m_pSendNumber)
+	{
+		m_pSendNumber->SetDestScore(m_pPlayer->GetSendNum());
+	}
+
 #ifdef _DEBUG
 
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_F9))
@@ -256,7 +267,7 @@ void CGameSceneObject::CreatePointer(void)
 	m_pBlocks->Init();
 
 	// タイマー生成
-	m_pTimer = CTime::Create(D3DXVECTOR3(540.0f,60.0f,0.0f),60.0f,40.0f);
+	m_pTimer = CTime::Create(D3DXVECTOR3(1020.0f,60.0f,0.0f),60.0f,40.0f);
 
 	// 餌の管理クラスを生成
 	m_pFeed = std::make_unique<CFeedManager>();
@@ -278,7 +289,7 @@ void CGameSceneObject::CreatePointer(void)
 	m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -800.0f), VECTOR3_NULL);
 
 	// 防衛対象のクイーン生成
-	m_pQueen = CQueen::Create(D3DXVECTOR3(0.0f, 30.0f, -5.0f), VECTOR3_NULL);
+	m_pQueen = CQueen::Create(D3DXVECTOR3(0.0f, 55.0f, -5.0f), VECTOR3_NULL);
 
 	// 敵場所生成
 	m_pEnemySpawnManager = std::make_unique<CEnemySpawnManager>();
@@ -294,4 +305,7 @@ void CGameSceneObject::CreatePointer(void)
 	// 世界の壁管理クラスの生成
 	m_pWallManager = std::make_unique<CGameWallManager>();
 	m_pWallManager->Init();
+
+	// ナンバー生成
+	m_pSendNumber = CSendNumber::Create(D3DXVECTOR3(280.0f, 30.0f, 0.0f), 40.0f, 30.0f);
 }

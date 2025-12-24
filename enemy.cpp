@@ -36,7 +36,7 @@
 //*********************************************************
 namespace EnemyInfo
 {
-	constexpr float HitRange = 70.0f; // 球形範囲
+	constexpr float HitRange = 60.0f; // 球形範囲
 	constexpr float StopRange = 10.0f;	// 停止範囲
 	constexpr float MoveSpeed = 1.0f;	// 移動速度
 	const char* MOTION_NAME = "data/MOTION/Enemy/Enemy_Motion.txt"; // モーションパス
@@ -111,24 +111,23 @@ HRESULT CEnemy::Init(void)
 	m_pSphereCollider->SetPos(GetPos());
 	m_pSphereCollider->SetRadius(EnemyInfo::HitRange);
 
+#if 0
 	// 敵で使うAIノードをセットする
 	// NodeSetting();
+#endif
 
 	// ランダム数
-	int nRand = rand() % 2;
+	int nRand = rand() % 100;
 
-	switch (nRand)
+	if (nRand < 80)
 	{
-	case 0:
-		m_isDestQueen = true;
-		break;
-
-	case 1:
-		m_isDestFeed = true;
-		break;
-
-	default:
-		break;
+		// 80%
+		m_isDestFeed = true;   // 1 に相当
+	}
+	else
+	{
+		// 20%
+		m_isDestQueen = true; // 0 に相当
 	}
 
 	return S_OK;

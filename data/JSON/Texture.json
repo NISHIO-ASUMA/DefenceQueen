@@ -10,6 +10,7 @@
   { "Texture": "data/TEXTURE/worker_icon.png" },
   { "Texture": "data/TEXTURE/Reef.jpg" },
   { "Texture": "data/TEXTURE/field.jpg" },
+  { "Texture": "data/TEXTURE/result_back.jpg" },
   { "Texture": "data/TEXTURE/TitleLogo.png" },
   { "Texture": "data/TEXTURE/GameStart.png" },
   { "Texture": "data/TEXTURE/coron.png" },
@@ -24,5 +25,6 @@
   { "Texture": "data/TEXTURE/result_feed.png" },
   { "Texture": "data/TEXTURE/Ranking_PosNumber.png" },
   { "Texture": "data/TEXTURE/underbar.png" },
+  { "Texture": "data/TEXTURE/time.png" },
   { "Texture": "data/TEXTURE/result_logo.png" }
 ]

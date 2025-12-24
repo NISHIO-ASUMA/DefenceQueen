@@ -9,6 +9,11 @@
 // インクルードファイル
 //*********************************************************
 #include "tutorialobject.h"
+#include "meshfield.h"
+#include "meshdome.h"
+#include "ui.h"
+#include "blockmanager.h"
+#include "queen.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -18,7 +23,7 @@ CTutorialObject* CTutorialObject::m_pInstance = nullptr; // クラスインスタンス
 //=========================================================
 // コンストラクタ
 //=========================================================
-CTutorialObject::CTutorialObject() 
+CTutorialObject::CTutorialObject() : m_pBlockManager(nullptr)
 {
 	// 値のクリア
 }
@@ -34,6 +39,22 @@ CTutorialObject::~CTutorialObject()
 //=========================================================
 HRESULT CTutorialObject::Init(void)
 {
+	// マップ読み込み
+	m_pBlockManager = std::make_unique<CBlockManager>();
+	m_pBlockManager->Init();
+
+	// メッシュフィールド生成
+	CMeshField::Create(VECTOR3_NULL, 3200.0f, 2000.0f, 1, 1);
+
+	// メッシュドーム生成
+	CMeshDome::Create(D3DXVECTOR3(0.0f, -20.0f, 0.0f), 60.0f);
+
+	// 各種キャラクターの生成
+	CQueen::Create(D3DXVECTOR3(0.0f, 30.0f, -5.0f), VECTOR3_NULL);
+	
+	// ui生成
+	CUi::Create(CENTERPOS,0,HALFWIDTH,HALFHEIGHT,"tuto.jpg");
+
 	return S_OK;
 }
 //=========================================================
@@ -41,6 +62,9 @@ HRESULT CTutorialObject::Init(void)
 //=========================================================
 void CTutorialObject::Uninit(void)
 {
+	// ポインタの破棄
+	m_pBlockManager.reset();
+
 	// インスタンスの破棄
 	if (m_pInstance)
 	{

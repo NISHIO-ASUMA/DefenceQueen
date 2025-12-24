@@ -18,6 +18,8 @@
 #include "debugproc.h"
 #include "gamesceneobject.h"
 #include "load.h"
+#include "sound.h"
+#include "particlepiler.h"
 
 //=========================================================
 // コンストラクタ
@@ -79,12 +81,6 @@ HRESULT CQueen::Init(void)
 	m_pParameter->SetMaxHp(QueenInfo::Hp);
 	m_pParameter->SetHp(QueenInfo::Hp);
 
-	//// ステートマシンを生成
-	//m_pStateMachine = std::make_unique<CStateMachine>();
-
-	//// 初期状態をセット
-	//// ChangeState(ID_NEUTRAL);
-
 	// コライダー生成
 	m_pSphereCollider = std::make_unique<CSphereCollider>();
 	m_pSphereCollider->SetPos(GetPos());
@@ -105,9 +101,6 @@ void CQueen::Uninit(void)
 {
 	// ポインタ破棄
 	m_pParameter.reset();
-
-	// ステート終了処理
-	// m_pStateMachine.reset();
 
 	// コライダー破棄
 	m_pSphereCollider.reset();
@@ -172,8 +165,19 @@ void CQueen::Hit(const int& nDamage)
 		return;
 	}
 
+
 	// 現在の体力値をセット
 	m_pParameter->SetHp(nHp);
+
+	// パーティクル生成
+	CParticlePiler::Create(D3DXVECTOR3(GetPos().x, 120.0f, GetPos().z), COLOR_GREEN, 60, 200, 400, 15, 0.0f);
+
+	// サウンド取得
+	auto Sound = CManager::GetInstance()->GetSound();
+	if (Sound == nullptr) return;
+
+	// 再生する
+	Sound->Play(CSound::SOUND_LABEL_QUEEN);
 }
 //=========================================================
 // 体力情報の外部書き出し

@@ -178,8 +178,8 @@ void CPauseManager::Update(void)
 		}
 	}
 
-	// Enterキー or Bボタン入力
-	if (pKey->GetTrigger(DIK_RETURN) || pJoyPad->GetTrigger(pJoyPad->JOYKEY_B))
+	// Enterキー or Aボタン入力
+	if (pKey->GetTrigger(DIK_RETURN) || pJoyPad->GetTrigger(pJoyPad->JOYKEY_A))
 	{
 		// サウンド再生
 		pSound->Play(pSound->SOUND_LABEL_RETURN);
@@ -222,10 +222,17 @@ void CPauseManager::Update(void)
 //===========================
 void CPauseManager::SetEnablePause(void)
 {
+	// サウンド取得
+	CSound* pSound = CManager::GetInstance()->GetSound();
+	if (pSound == nullptr) return;
+
 	// Pキー or Start が押された
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_P) ||
 		CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_START))
 	{
+		// サウンド再生
+		pSound->Play(CSound::SOUND_LABEL_PAUSESTART);
+
 		// フラグ変更
 		m_isPause = m_isPause ? false : true;
 	}

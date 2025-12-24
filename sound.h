@@ -27,7 +27,7 @@ public:
 		SOUND_LABEL_RESULTBGM,		// リザルトBGM
 		SOUND_LABEL_TUTORIALBGM,	// チュートリアルBGM
 		SOUND_LABEL_LOSERESULTBGM,	// 敗北リザルト
-
+		SOUND_LABEL_RANKING,		// ランキングBGM
 		SOUND_LABEL_SELECT,		// キー選択SE
 		SOUND_LABEL_RETURN,		// 決定キーSE
 		SOUND_LABEL_ITEM,		// アイテムSE
@@ -43,6 +43,9 @@ public:
 		SOUND_LABEL_BOSS,		// ボス叫びSE
 		SOUND_LABEL_CHANGEWEPON,// 武器切り替え
 		SOUND_LABEL_AVOID,		// 回避SE
+		SOUND_LABEL_TITLEENTER,		// タイトルキー
+		SOUND_LABEL_PAUSESTART,  // 開始音
+		SOUND_LABEL_QUEEN,		// 女王ヒット
 		SOUND_LABEL_MAX
 	};
 
@@ -78,6 +81,7 @@ private:
 		{"data/BGM/resultbgm.wav",-1},		 // リザルトBGM
 		{"data/BGM/tutorialbgm.wav",-1},	 // チュートリアルBGM
 		{"data/BGM/LoseResult.wav",-1},		 // 敗北リザルトBGM
+		{"data/BGM/rankingbgm.wav",-1},		 // ランキングBGM
 
 		{"data/SE/keyselect.wav",0},		 // 選択キーSE
 		{"data/SE/keyenter.wav",0},			 // 決定キーSE
@@ -94,6 +98,9 @@ private:
 		{"data/SE/BossShout.wav",0},		 // 叫び声SE
 		{"data/SE/Change.wav",0},			 // 武器切り替えSE
 		{"data/SE/Avoid.wav",0},			 // 回避SE
+		{"data/SE/TitleEnter.wav",0},			 // タイトルキー
+		{"data/SE/pausekey.wav",0},			 // ポーズキー
+		{"data/SE/QueenHit.wav",0},			 // ポーズキー
 	};
 
 	IXAudio2* m_pXAudio2;									// XAudio2オブジェクトへのインターフェイス

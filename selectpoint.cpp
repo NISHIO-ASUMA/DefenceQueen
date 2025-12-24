@@ -70,10 +70,7 @@ CSelectPoint* CSelectPoint::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,
 	pSelect->SetSize(fWidth, fHeight);
 	pSelect->SetTexture("Circle.png");
 	pSelect->SetfRange(fRadius);
-
-	// コライダー生成
-	pSelect->m_pSphere = CSphereCollider::Create(pos, fRadius);
-	pSelect->m_pBox = CBoxCollider::Create(pos, pos, D3DXVECTOR3(fRadius, fRadius, fRadius));
+	pSelect->SetCol(COLOR_RED);
 
 	return pSelect;
 }
@@ -92,20 +89,6 @@ HRESULT CSelectPoint::Init(void)
 //=========================================================
 void CSelectPoint::Uninit(void)
 {
-	// スフィアコライダーの破棄
-	if (m_pSphere)
-	{
-		delete m_pSphere;
-		m_pSphere = nullptr;
-	}
-
-	// ボックスコライダーの破棄
-	if (m_pBox)
-	{
-		delete m_pBox;
-		m_pBox = nullptr;
-	}
-
 	// 親クラスの終了処理
 	CMove3DObject::Uninit();
 }
@@ -117,78 +100,21 @@ void CSelectPoint::Update(void)
 	// 座標を取得
 	D3DXVECTOR3 oldPos = GetOldPos();
 
+#if 0
 	// キー入力での移動関数
 	Moving();
 	MovePad();
-
+#endif
 	// オブジェクトの座標更新
 	CMove3DObject::UpdatePosition();
 
 	// 更新された座標を取得
 	D3DXVECTOR3 UpdatePos = GetPos();
 
-	// 球形コライダー座標の更新
-	m_pSphere->SetPos(UpdatePos);
-
-	// 矩形コライダーの位置更新
-	if (m_pBox)
-	{
-		m_pBox->SetPos(UpdatePos);
-		m_pBox->SetPosOld(oldPos);
-	}
-
-	// 配置されているブロックを取得
-	auto Block = CGameSceneObject::GetInstance()->GetBlockManager();
-	if (Block == nullptr) return;
-
-	// ブロックオブジェクトとの当たり判定
-	for (int nBlock = 0; nBlock < Block->GetAll(); nBlock++)
-	{
-		// コライダー取得
-		CBoxCollider* pOtherCollider = Block->GetBlock(nBlock)->GetCollider();
-		if (pOtherCollider == nullptr) continue;
-
-		// 矩形で当たる
-		if (CollisionBox(pOtherCollider, &UpdatePos))
-		{
-			// 当たった点の座標セット
-			SetPos(UpdatePos);
-
-			// 矩形コライダー座標更新
-			m_pBox->SetPos(UpdatePos);
-		}
-	}
-
-	// 餌クラスのポインタ取得
-	CFeedManager* pManager = CGameSceneObject::GetInstance()->GetFeedManager();
-
-	// サイズがnull値じゃなかったら
-	if (pManager->GetSize() > 0)
-	{
-		for (int nCnt = 0; nCnt < pManager->GetSize(); nCnt++)
-		{
-			// nullチェック
-			if (!pManager->GetFeed(nCnt)->GetCollider()) break;
-
-			// 当たったら
-			if (Collision(pManager->GetFeed(nCnt)->GetCollider()))
-			{
-				// ヒット時の処理
-				SetIsHit(true);
-				SetCol(COLOR_RED);
-				break;
-			}
-			else
-			{
-				// 未ヒット時の処理
-				SetIsHit(false);
-				SetCol(COLOR_WHITE);
-			}
-		}
-	}
-
+#if 0
 	// 移動量の減衰
 	CMove3DObject::DecayMove(0.75f);
+#endif
 
 	// 親クラスの更新処理
 	CMove3DObject::Update();

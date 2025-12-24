@@ -22,6 +22,9 @@
 #include "boxcollider.h"
 #include "collisionbox.h"
 #include "easing.h"
+#include "particle.h"
+#include "particlepiler.h"
+#include "sound.h"
 
 //*********************************************************
 // 定数宣言
@@ -174,7 +177,7 @@ void CFeed::DecLife(const int& nDecValue)
 		m_pParam->SetHp(NULL);
 
 		// イベント起動
-		m_event();
+		if (m_event) m_event();
 
 		// 要素の削除
 		CGameSceneObject::GetInstance()->GetFeedManager()->Erase(this);
@@ -188,6 +191,16 @@ void CFeed::DecLife(const int& nDecValue)
 	{
 		// 現在の体力にセット
 		m_pParam->SetHp(nHp);
+
+		// パーティクル生成
+		CParticlePiler::Create(D3DXVECTOR3(GetPos().x,120.0f,GetPos().z), COLOR_PURPLE,60,200,400,15,0.0f);
+		
+		// サウンド取得
+		auto Sound = CManager::GetInstance()->GetSound();
+		if (Sound != nullptr)
+		{
+			Sound->Play(CSound::SOUND_LABEL_DAMAGE);
+		}
 
 		// カラー状態変更
 		m_ColType = COLTYPE_CHANGE;

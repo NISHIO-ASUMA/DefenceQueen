@@ -187,6 +187,7 @@
     <ClCompile Include="enemyspawner.cpp" />
     <ClCompile Include="enemyspawnmanager.cpp" />
     <ClCompile Include="enemywaitleaf.cpp" />
+    <ClCompile Include="feedsignal.cpp" />
     <ClCompile Include="gamewallmanager.cpp" />
     <ClCompile Include="gamewallmodel.cpp" />
     <ClCompile Include="gimmickmanager.cpp" />
@@ -239,6 +240,7 @@
     <ClCompile Include="outline.cpp" />
     <ClCompile Include="parameter.cpp" />
     <ClCompile Include="particle.cpp" />
+    <ClCompile Include="particlepiler.cpp" />
     <ClCompile Include="pause.cpp" />
     <ClCompile Include="pausemanager.cpp" />
     <ClCompile Include="pch.cpp">
@@ -265,6 +267,7 @@
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="selectpoint.cpp" />
+    <ClCompile Include="sendnumber.cpp" />
     <ClCompile Include="separationant.cpp" />
     <ClCompile Include="shadow.cpp" />
     <ClCompile Include="shadowS.cpp" />
@@ -287,6 +290,7 @@
     <ClCompile Include="tutorial.cpp" />
     <ClCompile Include="tutorialmanager.cpp" />
     <ClCompile Include="tutorialobject.cpp" />
+    <ClCompile Include="tutorialtopant.cpp" />
     <ClCompile Include="tutorialui.cpp" />
     <ClCompile Include="ui.cpp" />
     <ClCompile Include="worker.cpp" />
@@ -339,6 +343,7 @@
     <ClInclude Include="enemyspawner.h" />
     <ClInclude Include="enemyspawnmanager.h" />
     <ClInclude Include="enemywaitleaf.h" />
+    <ClInclude Include="feedsignal.h" />
     <ClInclude Include="gamewallmanager.h" />
     <ClInclude Include="gamewallmodel.h" />
     <ClInclude Include="gimmickmanager.h" />
@@ -397,6 +402,7 @@
     <ClInclude Include="outline.h" />
     <ClInclude Include="parameter.h" />
     <ClInclude Include="particle.h" />
+    <ClInclude Include="particlepiler.h" />
     <ClInclude Include="pause.h" />
     <ClInclude Include="pausemanager.h" />
     <ClInclude Include="pch.h" />
@@ -422,6 +428,7 @@
     <ClInclude Include="score.h" />
     <ClInclude Include="selector.h" />
     <ClInclude Include="selectpoint.h" />
+    <ClInclude Include="sendnumber.h" />
     <ClInclude Include="separationant.h" />
     <ClInclude Include="sepuence.h" />
     <ClInclude Include="shadow.h" />
@@ -447,6 +454,7 @@
     <ClInclude Include="tutorial.h" />
     <ClInclude Include="tutorialmanager.h" />
     <ClInclude Include="tutorialobject.h" />
+    <ClInclude Include="tutorialtopant.h" />
     <ClInclude Include="tutorialui.h" />
     <ClInclude Include="ui.h" />
     <ClInclude Include="waitleaf.h" />

@@ -26,12 +26,15 @@
 #include "feedmanager.h"
 #include "feed.h"
 #include "boxtospherecollision.h"
+#include "selectpoint.h"
+#include "feedsignal.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
 CTopAnt::CTopAnt(int nPriority) : CMoveCharactor(nPriority),m_pColliderBox(nullptr),m_isActive(false), m_isBranchSet(false),
-m_fSeparationRadius(NULL), m_isHPressing(false),m_pColliderSphere(nullptr), m_DestPos(VECTOR3_NULL)
+m_fSeparationRadius(NULL), m_isHPressing(false),m_pColliderSphere(nullptr), m_DestPos(VECTOR3_NULL), m_pCircleObj(nullptr),
+m_pFeedSignal(nullptr)
 {
 	
 }
@@ -73,11 +76,17 @@ HRESULT CTopAnt::Init(void)
 	// モーションロード
 	MotionLoad(Config::MOTION_NAME, MOTION_MAX, true);
 
-	// コライダー生成
+	// 矩形コライダー生成
 	m_pColliderBox = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(30.0f, 30.0f, 30.0f));
 
-	// コライダー生成
+	// 球コライダー生成
 	m_pColliderSphere = CSphereCollider::Create(GetPos(),Config::MAX_RADIUS);
+
+	// 円形生成
+	m_pCircleObj = CSelectPoint::Create(GetPos(), VECTOR3_NULL, m_fSeparationRadius, 3.0f, 0.0f);
+
+	// サインUI生成
+	m_pFeedSignal = CFeedSignal::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::AddPosY, GetPos().z), VECTOR3_NULL, 90.0f, 90.0f);
 
 	return S_OK;
 }
@@ -144,6 +153,9 @@ void CTopAnt::Update(void)
 				// 無効化
 				m_isHPressing = false;
 
+				// サイズ初期化
+				m_pCircleObj->SetSize(0.0f, 3.0f);
+
 				// 管理クラスにに通知
 				auto pManager = CGameSceneObject::GetInstance()->GetArrayManager();
 
@@ -166,6 +178,9 @@ void CTopAnt::Update(void)
 
 	// 更新された座標を取得
 	D3DXVECTOR3 UpdatePos = GetPos();
+
+	// UIの座標を設定する
+	m_pFeedSignal->SetPos(D3DXVECTOR3(UpdatePos.x, UpdatePos.y + Config::AddPosY, UpdatePos.z));
 
 	// 球形コライダーの位置更新
 	if (m_pColliderSphere)
@@ -218,8 +233,8 @@ void CTopAnt::Update(void)
 				// 矩形コライダー座標更新
 				m_pColliderBox->SetPos(UpdatePos);
 
-				// エフェクト生成
-				CEffect::Create(UpdatePos, COLOR_RED, VECTOR3_NULL, 6, 80.0f);
+				// サインの表示命令
+				m_pFeedSignal->SetIsDraw(true);
 
 				// 伝令フラグを有効化
 				SetIsReturnPos(true);
@@ -228,6 +243,9 @@ void CTopAnt::Update(void)
 			}
 			else
 			{
+				// サインの表示命令
+				m_pFeedSignal->SetIsDraw(false);
+
 				// 伝令フラグを無効化
 				SetIsReturnPos(false);
 			}
@@ -491,8 +509,9 @@ void CTopAnt::Separation(void)
 	// 設定する
 	SetSeparationRadius(m_fSeparationRadius);
 
-	// 検証用でエフェクト生成
-	CEffect::Create(pos, COLOR_RED, VECTOR3_NULL, 6, m_fSeparationRadius);
+	// オブジェクトのサイズ更新
+	m_pCircleObj->SetPos(pos);
+	m_pCircleObj->SetSize(m_fSeparationRadius, 3.0f);
 }
 //=========================================================
 // 矩形の当たり判定処理

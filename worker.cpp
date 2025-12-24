@@ -93,7 +93,7 @@ HRESULT CWorker::Init(void)
 	m_pSphereCollider = CSphereCollider::Create(GetPos(), 50.0f);
 
 	// シグナルui生成
-	m_pSignal = CSignalUi::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 160.0f, GetPos().z), VECTOR3_NULL, 60.0f, 40.0f);
+	m_pSignal = CSignalUi::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::Add_PosY, GetPos().z), VECTOR3_NULL, 60.0f, 40.0f);
 
 #if 0
 	// ステートマシン生成
@@ -157,6 +157,7 @@ void CWorker::Update(void)
 	{
 		// 餌を取得
 		auto ChildFeed = pFeed->GetFeed(nCnt);
+		if (ChildFeed == nullptr) continue;
 
 		// コリジョンしていた
 		if (Collision(ChildFeed->GetCollider()))

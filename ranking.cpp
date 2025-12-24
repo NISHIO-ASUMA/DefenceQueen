@@ -14,6 +14,7 @@
 #include "fade.h"
 #include "title.h"
 #include "rankingobject.h"
+#include "sound.h"
 #include <memory>
 
 //=========================================================
@@ -51,6 +52,13 @@ HRESULT CRanking::Init(void)
 {
 	// ランキングオブジェクト生成
 	CRankingObject::GetInstance()->Init();
+
+	// サウンド取得
+	auto Sound = CManager::GetInstance()->GetSound();
+	if (Sound == nullptr)return E_FAIL;
+
+	// BGM再生
+	Sound->Play(CSound::SOUND_LABEL_RANKING);
 
 	// 初期化結果を返す
 	return S_OK;

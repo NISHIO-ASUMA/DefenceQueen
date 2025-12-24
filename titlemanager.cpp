@@ -51,7 +51,7 @@ HRESULT CTitleManager::Init(void)
 	if (pSound == nullptr) return E_FAIL;
 
 	// サウンド再生
-	// pSound->Play(CSound::SOUND_LABEL_TITLE_BGM);
+	pSound->Play(CSound::SOUND_LABEL_TITLE_BGM);
 
 	// 初期化結果を返す
 	return S_OK;
@@ -83,7 +83,15 @@ void CTitleManager::Update(void)
 	// キー入力時の遷移
 	if ((pKey->GetTrigger(DIK_RETURN) || pJoyPad->GetTrigger(pJoyPad->JOYKEY_START)))
 	{
-		pFade->SetFade(std::make_unique<CTutorial>());	// チュートリアルシーンに遷移
+		// サウンド取得
+		CSound* pSound = CManager::GetInstance()->GetSound();
+		if (pSound == nullptr) return;
+
+		// チュートリアルシーンに遷移
+		pFade->SetFade(std::make_unique<CTutorial>());	
+
+		// サウンド再生
+		pSound->Play(CSound::SOUND_LABEL_TITLEENTER);
 		return;
 	}
 }

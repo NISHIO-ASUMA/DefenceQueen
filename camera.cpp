@@ -83,10 +83,10 @@ void CCamera::Update(void)
 		SetResultCamara();
 	}
 
-	// カメラ更新
-	MouseView(CManager::GetInstance()->GetMouse());
 
 #ifdef _DEBUG
+	// カメラ更新
+	MouseView(CManager::GetInstance()->GetMouse());
 
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_TAB))
 	{

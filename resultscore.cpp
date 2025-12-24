@@ -85,7 +85,7 @@ HRESULT CResultScore::Init(void)
 		m_pNumber[nCnt]->SetPos(m_pos);
 
 		// テクスチャセット
-		m_pNumber[nCnt]->SetTexture("number003.png");
+		m_pNumber[nCnt]->SetTexture("time.png");
 	}
 
 	// ポインタ生成

@@ -18,6 +18,7 @@
 //*********************************************************
 // 前方宣言
 //*********************************************************
+class CBlockManager;
 
 //*********************************************************
 // チュートリアルで使うオブジェクトを管理するクラスを定義
@@ -33,6 +34,8 @@ public:
 	void Update(void);
 	void Draw(void);
 
+	CBlockManager* GetBlockManager(void) const { return m_pBlockManager.get(); }
+
 	static CTutorialObject* GetInstance(void);
 
 private:
@@ -40,5 +43,7 @@ private:
 	CTutorialObject(); // コンストラクタ
 
 	static CTutorialObject* m_pInstance; // シングルトン変数
+
+	std::unique_ptr<CBlockManager>m_pBlockManager; // ブロック管理
 };
 

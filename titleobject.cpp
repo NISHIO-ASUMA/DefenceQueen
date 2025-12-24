@@ -51,8 +51,8 @@ HRESULT CTitleObject::Init(void)
 	CMeshField::Create(VECTOR3_NULL, 4000.0f, 2000.0f, 1, 1);
 
 	// èâä˙UIê∂ê¨
-	CUi::Create(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, 650.0f, 0.0f), 30, 180.0f, 60.0f, "GameStart.png", true);
-	CUi::Create(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, 180.0f, 0.0f), 0, 300.0f, 150.0f, "TitleLogo.png", false);
+	CUi::Create(D3DXVECTOR3(HALFWIDTH, 650.0f, 0.0f), 30, 180.0f, 60.0f, "GameStart.png", true);
+	CUi::Create(D3DXVECTOR3(HALFWIDTH, 180.0f, 0.0f), 0, 300.0f, 150.0f, "TitleLogo.png", false);
 
 	return S_OK;
 }

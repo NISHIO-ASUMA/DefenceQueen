@@ -334,6 +334,9 @@
     <Filter Include="ソース ファイル\Shader">
       <UniqueIdentifier>{60ca1e87-3696-452b-a4b0-eaf709e1c3aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Charactor\TutorialCharactor">
+      <UniqueIdentifier>{aa067d1d-3182-4094-b782-d939d5799d96}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="object2D.cpp">
@@ -735,9 +738,6 @@
     <ClCompile Include="pointobj.cpp">
       <Filter>ソース ファイル\XFile</Filter>
     </ClCompile>
-    <ClCompile Include="signalui.cpp">
-      <Filter>ソース ファイル\2DUI</Filter>
-    </ClCompile>
     <ClCompile Include="animationobject2d.cpp">
       <Filter>ソース ファイル\BaseClass\2D</Filter>
     </ClCompile>
@@ -758,6 +758,21 @@
     </ClCompile>
     <ClCompile Include="titleantmanager.cpp">
       <Filter>ソース ファイル\Charactor\TitleCharactor</Filter>
+    </ClCompile>
+    <ClCompile Include="tutorialtopant.cpp">
+      <Filter>ソース ファイル\Charactor\TutorialCharactor</Filter>
+    </ClCompile>
+    <ClCompile Include="signalui.cpp">
+      <Filter>ソース ファイル\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="feedsignal.cpp">
+      <Filter>ソース ファイル\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="particlepiler.cpp">
+      <Filter>ソース ファイル\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="sendnumber.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1236,6 +1251,18 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="titleantmanager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="tutorialtopant.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="particlepiler.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="feedsignal.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="sendnumber.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

@@ -18,6 +18,7 @@
 #include "fade.h"
 #include "blockmanager.h"
 #include "gamesceneobject.h"
+#include "loseresult.h"
 
 //=========================================================
 // インスタンス取得
@@ -51,6 +52,9 @@ HRESULT CGameManager::Init(void)
 	CSound* pSound = CManager::GetInstance()->GetSound();
 	if (pSound == nullptr) return E_FAIL;
 
+	// サウンド再生
+	pSound->Play(CSound::SOUND_LABEL_GAMEBGM);
+
 	// 初期化結果を返す
 	return S_OK;
 }
@@ -71,7 +75,7 @@ void CGameManager::Update(void)
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_2))
 	{
 		// 遷移更新
-		CManager::GetInstance()->GetFade()->SetFade(std::make_unique<CResult>());
+		CManager::GetInstance()->GetFade()->SetFade(std::make_unique<CLoseResult>());
 
 		return;
 	}

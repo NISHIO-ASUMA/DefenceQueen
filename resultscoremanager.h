@@ -56,8 +56,8 @@ private:
 		static constexpr int IDX_ALL = 2;		// 最終スコアインデックス
 		static constexpr int SCORELISTNUM = 3;	// 配列の最大数
 
-		static constexpr int MAX_MATHSCORE = 1000000; // 最大加算値
-		static constexpr int QUEEN_HP = 100;	// 基準の体力値
+		static constexpr int MAX_MATHSCORE = 2000000; // 最大加算値
+		static constexpr int QUEEN_HP = 200;	// 基準の体力値
 	};
 
 	int MathRateScore(void); // 計算関数

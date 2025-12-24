@@ -37,11 +37,13 @@ CRankingObject::~CRankingObject()
 HRESULT CRankingObject::Init(void)
 {// 各種オブジェクトの生成
 	
-	// ui
-	CUi::Create(D3DXVECTOR3(640.0f, 360.0f, 0.0f), 30, 640.0f, 360.0f, "RankBack.jpg", false);
+	// ui生成
+	CUi::Create(D3DXVECTOR3(640.0f, 360.0f, 0.0f), 0, 640.0f, 360.0f, "result_back.jpg");
+	CUi::Create(D3DXVECTOR3(640.0f, 40.0f, 0.0f), 0, 200.0f, 50.0f, "Rank_Logo.png");
+	CUi::Create(D3DXVECTOR3(280.0f, 365.0f, 0.0f), 0, 60.0f, 240.0f, "Ranking_PosNumber.png");
 
 	// ランキングスコア生成
-	CRankingScore::Create(D3DXVECTOR3(850.0f, 190.0f, 0.0f), 250.0f, 40.0f);
+	CRankingScore::Create(D3DXVECTOR3(870.0f, 160.0f, 0.0f), 250.0f, 40.0f);
 
 	return S_OK;
 }

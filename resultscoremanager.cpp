@@ -48,7 +48,7 @@ HRESULT CResultScoreManager::Init(void)
 	// スコアを生成する
 	m_pResultScore[info.IDX_FEED] = CResultScore::Create(D3DXVECTOR3(1250.0f, 230.0f, 0.0f), 140.0f, 50.0f); // 餌スコア
 	m_pResultScore[info.IDX_QUEEN] = CResultScore::Create(D3DXVECTOR3(1250.0f, 400.0f, 0.0f), 140.0f, 50.0f); // 防衛スコア
-	m_pResultScore[info.IDX_ALL] = CResultScore::Create(D3DXVECTOR3(1255.0f, 635.0f, 0.0f), 160.0f, 60.0f); // 最終スコア
+	m_pResultScore[info.IDX_ALL] = CResultScore::Create(D3DXVECTOR3(1255.0f, 630.0f, 0.0f), 160.0f, 60.0f); // 最終スコア
 
 	// 餌スコアをセットする
 	m_pResultScore[info.IDX_FEED]->SetAnimScore(m_nFeedScore);

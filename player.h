@@ -58,7 +58,10 @@ public:
 
 	void OrderToArray(const D3DXVECTOR3& destpos);
 	void SetSendArrayMoving(int nIdx,int nNum);
-	int GetSelectIndex() const { return m_nSelectSpawn; }
+
+	inline int GetSelectIndex() const { return m_nSelectSpawn; }
+	inline int GetSendNum(void) const { return m_nSendNum; }
+
 	CStateMachine* GetStateMachine() { return m_pStateMachine.get(); }
 
 	static CPlayer* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot);

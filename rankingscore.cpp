@@ -10,7 +10,6 @@
 //*********************************************************
 #include "rankingscore.h"
 #include "number.h"
-#include <algorithm>
 #include <fstream>
 #include "load.h"
 
@@ -94,8 +93,11 @@ HRESULT CRankingScore::Init(void)
 			// サイズ設定
 			m_apNumber[nRank][nDigit]->SetSize(fTexPos, m_fHeight);
 
+			// カラー設定
+			m_apNumber[nRank][nDigit]->SetCol(D3DCOLOR_RGBA(0,193,232,255));
+
 			// テクスチャ設定
-			m_apNumber[nRank][nDigit]->SetTexture("number003.png");
+			m_apNumber[nRank][nDigit]->SetTexture("time.png");
 		}
 	}
 
