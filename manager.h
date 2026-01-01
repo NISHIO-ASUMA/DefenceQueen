@@ -25,6 +25,7 @@ class CXfileManager;
 class CScene;
 class CMotionManager;
 class CModelManager;
+class CNetWork;
 
 //*********************************************************
 // インクルードファイル
@@ -57,6 +58,7 @@ public:
 	CSound* GetSound(void) { return m_pSound.get(); }
 	CLight* GetLight(void) { return m_pLight.get(); }
 	CFade* GetFade(void) { return m_pFade.get(); }
+	CNetWork* GetNetWork(void) { return m_pNetWork.get(); }
 
 	CScene* GetSceneRaw(void) { return m_pScene.get(); }	// 生ポインタを返す
 	void SetScene(std::unique_ptr<CScene> pNewScene);		// unique_ptrで受け取る
@@ -87,4 +89,5 @@ private:
 	std::unique_ptr<CXfileManager>m_pXfileManager;	// Xファイルマネージャークラス
 	std::unique_ptr<CMotionManager>m_pMotionManager;// モーションマネージャークラス
 	std::unique_ptr<CModelManager>m_pModelManager;	// キャラクターモデル管理クラス
+	std::unique_ptr<CNetWork>m_pNetWork;			// ネットワーククラスのポインタ
 };

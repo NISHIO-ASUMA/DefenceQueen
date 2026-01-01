@@ -28,6 +28,7 @@
 #include "motionmanager.h"
 #include "modelmanager.h"
 #include "outline.h"
+#include "network.h"
 
 //=========================================================
 // コンストラクタ
@@ -109,6 +110,10 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// アウトラインクラス生成
 	COutLine::GetInstance()->Init("data/SHADER/Out_Line.hlsl");
 
+	// ネットワーククラスの生成
+	m_pNetWork = std::make_unique<CNetWork>();
+	if (FAILED(m_pNetWork->Init())) return E_FAIL;
+
 	// フェードの生成処理
 	m_pFade = std::make_unique <CFade>();
 	if (FAILED(m_pFade->Init())) return E_FAIL;
@@ -163,6 +168,12 @@ void CManager::Uninit(void)
 
 	// アウトラインの破棄
 	COutLine::GetInstance()->Uninit();
+
+	// ネットワークの破棄
+	if (m_pNetWork)
+	{
+		m_pNetWork.reset();
+	}
 
 	// シーンの破棄
 	if (m_pScene)

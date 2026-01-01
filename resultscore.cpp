@@ -15,6 +15,7 @@
 #include "easing.h"
 #include <fstream>
 #include <algorithm>
+#include "network.h"
 
 //=========================================================
 // コンストラクタ
@@ -91,6 +92,9 @@ HRESULT CResultScore::Init(void)
 	// ポインタ生成
 	m_pLoad = std::make_unique<CLoad>();
 
+	// ファイル初期化
+	ResetScore();
+
 	return S_OK;
 }
 //=========================================================
@@ -98,9 +102,6 @@ HRESULT CResultScore::Init(void)
 //=========================================================
 void CResultScore::Uninit(void)
 {
-	// 破棄する前に書き出し実行
-	Save();
-
 	// ポインタの破棄
 	for (auto number : m_pNumber)
 	{
@@ -152,7 +153,7 @@ void CResultScore::Save(void)
 	//==============================
 	// 既存ランキング(5件)を読む
 	//==============================
-	std::array<int, Config::WRITE_SCORE> scores = { NULL };
+	std::array<int, Config::WRITE_SCORE> scores = { 0 };
 
 	{
 		std::ifstream file(filename, std::ios::binary);
@@ -178,6 +179,16 @@ void CResultScore::Save(void)
 	// 保存
 	//==============================
 	m_pLoad->SaveIntToFixedArray(filename, scores);
+
+	// 通信サーバー設定
+	CNetWork* pNet = CManager::GetInstance()->GetNetWork();
+	if (!pNet) return;
+
+	// サーバーに送信する
+	if (pNet->Connect("127.0.0.1", 22333))
+	{
+		pNet->SendInt(m_nLoadScore);
+	}
 }
 //=========================================================
 // アニメーション更新関数
@@ -221,25 +232,37 @@ void CResultScore::UpdateAnimScore(void)
 	}
 }
 //=========================================================
-// スコアの0をカウント
+// ファイルの情報をリセットする関数
 //=========================================================
-int CResultScore::ScoreCounter(const int nScore)
+void CResultScore::ResetScore(void)
 {
-	int nNum = nScore;		//スコアの0の部分をカウント
-	int nKeepNum = 0;		//スコアの桁数
+	// ファイル設定
+	const char* scoreFile = "data/SCORE/Ranking.bin";
+	const char* initFlag = "data/SCORE/initialized.flag";
 
-	while (nNum != 0)		//割り切れなくなるまで繰り返す(0まで)
+	// すでに初期化済みなら何もしない
+	std::ifstream flag(initFlag);
+	if (flag)
 	{
-		nNum /= 10;			//nNumを10で割っていく
-		nKeepNum++;			//桁数を加算
-	}
-	if (nScore == 0)
-	{
-		//1桁目に0が入っているとき
-		nKeepNum = 1;
+		return;
 	}
 
-	return nKeepNum;		//スコアの桁数を返す
+	//==============================
+	// ランキングを0で初期化
+	//==============================
+	std::array<int, Config::WRITE_SCORE> scores = { 0 };
+
+	std::ofstream file(scoreFile, std::ios::binary | std::ios::trunc);
+	if (file)
+	{
+		file.write((char*)scores.data(), sizeof(int) * Config::WRITE_SCORE);
+	}
+
+	//==============================
+	// 初期化済みフラグ作成
+	//==============================
+	std::ofstream flagOut(initFlag);
+	flagOut << "initialized";
 }
 //=========================================================
 // アニメーションするスコアをセットする関数

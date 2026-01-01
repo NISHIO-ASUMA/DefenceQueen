@@ -197,6 +197,7 @@
     <ClCompile Include="modelmanager.cpp" />
     <ClCompile Include="motionmanager.cpp" />
     <ClCompile Include="move3dobject.cpp" />
+    <ClCompile Include="network.cpp" />
     <ClCompile Include="numberpanel.cpp" />
     <ClCompile Include="order.cpp" />
     <ClCompile Include="debugproc.cpp" />
@@ -356,6 +357,7 @@
     <ClInclude Include="motiondata.h" />
     <ClInclude Include="motionmanager.h" />
     <ClInclude Include="move3dobject.h" />
+    <ClInclude Include="network.h" />
     <ClInclude Include="node.h" />
     <ClInclude Include="nodebase.h" />
     <ClInclude Include="numberpanel.h" />

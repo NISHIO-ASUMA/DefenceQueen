@@ -46,7 +46,7 @@ public:
 private:
 
 	void UpdateAnimScore(void); // アニメーションスコア更新関数
-	int ScoreCounter(const int nScore);
+	void ResetScore(void);		// 配列情報を初期化
 
 	//********************************
 	// 定数構造体宣言
