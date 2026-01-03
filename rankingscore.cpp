@@ -12,6 +12,8 @@
 #include "number.h"
 #include <fstream>
 #include "load.h"
+#include "network.h"
+#include "manager.h"
 
 //=========================================================
 // オーバーロードコンストラクタ
@@ -165,13 +167,43 @@ void CRankingScore::Draw(void)
 	}
 }
 //=========================================================
-// リザルトの最終のスコア読み込み
+// ランキングスコア読み込み
 //=========================================================
 void CRankingScore::Load(void)
 {
-	// ユニークポインタ生成
-	m_pLoad = std::make_unique<CLoad>();
+	// Network取得
+	CNetWork* pNet = CManager::GetInstance()->GetNetWork();
+	if (!pNet) return;
 
-	// 配列の固定長データ読み込み
-	m_aRankData = m_pLoad->LoadIntToFixedArray("data/SCORE/Ranking.bin");
+	// サーバー接続チェック
+	if (pNet->GetIsConnect())
+	{
+#if 1
+		// ランキング送信コマンド
+		int nDummy = 20;
+		pNet->SendInt(nDummy);
+#endif
+		// 受信用配列
+		int recvData[RANKING_MAX] = {};
+
+		// ランキング受信
+		if (pNet->RecvInt(recvData))
+		{
+			// メンバ変数へコピー
+			for (int nRecvScore = 0; nRecvScore < RANKING_MAX; nRecvScore++)
+			{
+				m_aRankData[nRecvScore] = recvData[nRecvScore];
+			}
+		}
+	}
 }
+
+#if 0
+
+//=================================
+// サーバー失敗時はローカル読み込み
+//=================================
+//m_pLoad = std::make_unique<CLoad>();
+//m_aRankData = m_pLoad->LoadIntToFixedArray("data/SCORE/Ranking.bin");
+
+#endif

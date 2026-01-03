@@ -180,12 +180,14 @@ void CResultScore::Save(void)
 	//==============================
 	m_pLoad->SaveIntToFixedArray(filename, scores);
 
+	//==============================
 	// 通信サーバー設定
+	//==============================
 	CNetWork* pNet = CManager::GetInstance()->GetNetWork();
 	if (!pNet) return;
 
 	// サーバーに送信する
-	if (pNet->Connect("127.0.0.1", 22333))
+	if (pNet->Connect("127.0.0.1",22333))
 	{
 		pNet->SendInt(m_nLoadScore);
 	}
@@ -195,7 +197,7 @@ void CResultScore::Save(void)
 //=========================================================
 void CResultScore::UpdateAnimScore(void)
 {
-	// まだアニメ中
+	// まだアニメーション中
 	if (m_nTimer < m_nDuration)
 	{
 		// イージング適用

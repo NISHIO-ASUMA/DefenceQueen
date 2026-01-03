@@ -32,10 +32,14 @@ HRESULT CNetWork::Init(void)
 	// セットアップ
 	WSADATA wsaData;
 
+	// スタートアップに失敗したら
 	if (WSAStartup(WINSOCK_VERSION, &wsaData) != 0)
 	{
 		return E_FAIL;
 	}
+
+	// サーバーと接続開始
+	Connect("127.0.0.1", 22333);
 
 	return S_OK;
 }
@@ -44,7 +48,11 @@ HRESULT CNetWork::Init(void)
 //=========================================================
 void CNetWork::Uninit(void)
 {
+	// 接続消去
 	Disconnect();
+
+	// クリーンアップ
+	WSACleanup();
 }
 //=========================================================
 // 接続処理
@@ -52,17 +60,13 @@ void CNetWork::Uninit(void)
 bool CNetWork::Connect(const char* ip, int port)
 {
 	// もし接続されているなら
-	if (m_isConnected)
-		return true;
+	if (m_isConnected) return true;
 
 	// ソケット作成
 	m_sock = socket(AF_INET, SOCK_STREAM, 0);
 
 	// 生成に失敗したら
-	if (m_sock == INVALID_SOCKET)
-	{
-		return false;
-	}
+	if (m_sock == INVALID_SOCKET) return false;
 
 	// ソケット設定
 	sockaddr_in addr = {};
@@ -95,26 +99,28 @@ bool CNetWork::Connect(const char* ip, int port)
 //=========================================================
 void CNetWork::Disconnect(void)
 {
-	// ソケットがあったら
-	if (m_sock != INVALID_SOCKET)
+	// NULLチェック
+	if (m_sock == INVALID_SOCKET)
 	{
-		// 閉じる
-		closesocket(m_sock);
-		m_sock = INVALID_SOCKET;
+		// 接続されていない時
+		return;
 	}
+
+	// クライアント切断
+	closesocket(m_sock);
+
+	// ソケットをNULL化する
+	m_sock = INVALID_SOCKET;
 
 	// フラグ初期化
 	m_isConnected = false;
-
-	// クリーンアップ
-	WSACleanup();
 }
 //=========================================================
 // int型の数値をサーバーに送る
 //=========================================================
 bool CNetWork::SendInt(int nSendNumber)
 {
-	// 接続されていない または ソケットがnull値
+	// 接続されていない または ソケットがnull値なら
 	if (!m_isConnected || m_sock == INVALID_SOCKET)
 		return false;
 
@@ -131,7 +137,6 @@ bool CNetWork::SendInt(int nSendNumber)
 		// データがないなら
 		if (nData <= 0)
 		{
-			Disconnect();
 			return false;
 		}
 
@@ -153,7 +158,7 @@ bool CNetWork::RecvInt(int* pOutData)
 
 	// 受け取り用変数
 	int nReceived = 0;
-	const int nRecvSize = sizeof(int) * RECVSIZE; // 固定長
+	const int nRecvSize = 20; // 固定長
 
 	while (nReceived < nRecvSize)
 	{
@@ -163,13 +168,20 @@ bool CNetWork::RecvInt(int* pOutData)
 		// 受け取り終わったら
 		if (nRecvData <= 0)
 		{
-			Disconnect();
+			int err = WSAGetLastError();
+
+			char buf[256];
+			sprintf_s(buf, "RecvInt recv error : %d\n", err);
+			OutputDebugStringA(buf);
+
 			return false;
 		}
 
 		// 要素を更新
 		nReceived += nRecvData;
 	}
+
+	m_isConnected = false;
 
 	return true;
 }

@@ -29,6 +29,8 @@ public:
 	bool SendInt(int nSendNumber);
 	bool RecvInt(int* pOutData);
 
+	inline bool GetIsConnect(void) const { return m_isConnected; }
+
 private:
 
 	static constexpr int RECVSIZE = 5;

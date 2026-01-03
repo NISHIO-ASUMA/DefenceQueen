@@ -14,6 +14,7 @@
 #include "manager.h"
 #include "debugproc.h"
 #include "camera.h"
+#include "network.h"
 
 //*********************************************************
 // ウィンドウプロシージャを定義
@@ -27,8 +28,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE /*hInstancePrev
 {
 #ifdef _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_ALWAYS_DF);		// メモリリーク検知用のフラグ
-	// _CrtSetBreakAlloc(2800);
-
 #endif // _DEBUG
 
 	// マネージャークラスのインスタンスを生成
@@ -190,8 +189,14 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	// レンダラーの取得
 	CRenderer* pRenderer = CManager::GetInstance()->GetRenderer();
 
+	// ネットワーク取得
+	auto NetWork = CManager::GetInstance()->GetNetWork();
+
 	// メインプロセス変数
 	CMainProc pProc = {};
+
+	// 定数
+	constexpr int EXIT_MESSAGE = 999;
 
 	switch (uMsg)
 	{
@@ -206,6 +211,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		if (wParam == SIZE_MINIMIZED)
 			return 0;
 
+		// 画面サイズを送る
 		pRenderer->SetSize(LOWORD(lParam), HIWORD(lParam));
 
 		return 0;
@@ -228,7 +234,14 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 			if (nID == IDYES)
 			{
-				DestroyWindow(hWnd);// ウインドウ破棄メッセージ
+				// ウインドウ破棄メッセージ
+				DestroyWindow(hWnd);
+
+				// サーバーにメッセージ送信
+				if (NetWork->Connect("127.0.0.1", 22333))
+				{
+					NetWork->SendInt(EXIT_MESSAGE);
+				}
 			}
 			else
 			{
