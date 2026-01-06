@@ -51,7 +51,7 @@ void CNetWork::Uninit(void)
 	// 接続消去
 	Disconnect();
 
-	// クリーンアップ
+	// WinSockクリーンアップ
 	WSACleanup();
 }
 //=========================================================
@@ -168,10 +168,12 @@ bool CNetWork::RecvInt(int* pOutData)
 		// 受け取り終わったら
 		if (nRecvData <= 0)
 		{
-			int err = WSAGetLastError();
+			// 最終エラーを取得
+			int nErrerId = WSAGetLastError();
 
+			// 例外メッセージ
 			char buf[256];
-			sprintf_s(buf, "RecvInt recv error : %d\n", err);
+			sprintf_s(buf, "RecvInt recv error : %d\n", nErrerId);
 			OutputDebugStringA(buf);
 
 			return false;

@@ -12,6 +12,7 @@
 #include "manager.h"
 #include "xfilemanager.h"
 #include "texture.h"
+#include "outline.h"
 
 //=========================================================
 // コンストラクタ
@@ -22,6 +23,7 @@ m_pos(VECTOR3_NULL),
 m_rot(VECTOR3_NULL),
 m_Scale(INITSCALE),
 m_isShadow(false),
+m_isOutLine(false),
 m_col(V_COLOR_WHITE),
 m_nIdxModel(-1)
 {
@@ -33,6 +35,26 @@ m_nIdxModel(-1)
 CObjectX::~CObjectX()
 {
 	// 無し
+}
+//=========================================================
+// 生成処理
+//=========================================================
+CObjectX* CObjectX::Create(const char* pModelName, const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
+{
+	// インスタンス生成
+	CObjectX* pObjX = new CObjectX;
+	if (pObjX == nullptr) return nullptr;
+
+	// オブジェクト設定
+	pObjX->SetPos(pos);
+	pObjX->SetRot(rot);
+	pObjX->SetFilePass(pModelName);
+
+	// 初期化処理
+	if (FAILED(pObjX->Init())) return nullptr;
+
+	// ポインタを返す
+	return pObjX;
 }
 //=========================================================
 // 初期化処理
@@ -147,6 +169,29 @@ void CObjectX::Draw(void)
 
 	// マトリックスシャドウ描画
 	if (m_isShadow) DrawShadow();
+
+	// アウトラインがないなら
+	if (!m_isOutLine) return;
+
+	// ワールドマトリックスの設定
+	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
+
+	// カリング切る
+	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
+
+	// 開始
+	COutLine::GetInstance()->Begin();
+	COutLine::GetInstance()->BeginPass();
+
+	// アウトラインを描画する
+	DrawOutLine(D3DXVECTOR4(0.0f, 0.0f, 0.0f, 1.0f));
+
+	// 終了
+	COutLine::GetInstance()->EndPass();
+	COutLine::GetInstance()->End();
+
+	// カリングを戻す
+	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 //=========================================================
 // マトリックスシャドウ描画
@@ -207,6 +252,63 @@ void CObjectX::DrawShadow(void)
 	pDevice->SetMaterial(&shadowMat);
 }
 //=========================================================
+// アウトライン描画関数
+//=========================================================
+void CObjectX::DrawOutLine(const D3DXVECTOR4& color)
+{
+	// インデックスが-1なら
+	if (m_nIdxModel == -1)
+		return;
+
+	// ファイルマネージャー取得
+	CXfileManager* pXMgr = CManager::GetInstance()->GetXManager();
+	if (!pXMgr) return;
+
+	// 配列情報
+	auto& fileData = pXMgr->GetList();
+	if (m_nIdxModel >= static_cast<int>(fileData.size())) return;
+
+	// 配列
+	auto& model = fileData[m_nIdxModel];
+	if (!model.pMesh) return;
+
+	// デバイスポインタを宣言
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
+
+	// 計算用のマトリックスを宣言
+	D3DXMATRIX mtxScale, mtxRot, mtxTrans;
+
+	// ワールドマトリックスの初期化
+	D3DXMatrixIdentity(&m_mtxWorld);
+
+	// 拡大率を反映
+	D3DXMatrixScaling(&mtxScale, m_Scale.x, m_Scale.y, m_Scale.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxScale);
+
+	// 向きを反映
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
+
+	// 位置を反映
+	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+	// ワールドマトリックスの設定
+	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
+
+	// マテリアルが取得できたら
+	if (model.pBuffMat)
+	{
+		for (int nCnt = 0; nCnt < static_cast<int>(model.dwNumMat); nCnt++)
+		{
+			// シェーダーパラメーター設定
+			COutLine::GetInstance()->SetParameter(0.75f, color, m_mtxWorld);
+
+			// モデルの描画
+			model.pMesh->DrawSubset(nCnt);
+		}
+	}
+}
+//=========================================================
 // 新規モデル登録
 //=========================================================
 void CObjectX::SetFilePass(const char* pFilePass)
@@ -223,23 +325,4 @@ void CObjectX::SetFilePass(const char* pFilePass)
 		// モデルを登録
 		m_nIdxModel = pXMgr->Register(ModelName.c_str());
 	}
-}
-//=========================================================
-// 生成処理
-//=========================================================
-CObjectX* CObjectX::Create(const char* pModelName, const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
-{
-	// インスタンス生成
-	CObjectX* pObjX = new CObjectX;
-	if (pObjX == nullptr) return nullptr;
-
-	pObjX->SetPos(pos);
-	pObjX->SetRot(rot);
-	pObjX->SetFilePass(pModelName);
-
-	// 初期化処理
-	if (FAILED(pObjX->Init())) return nullptr;
-
-	// ポインタを返す
-	return pObjX;
 }

@@ -107,6 +107,9 @@ HRESULT CFeed::Init(void)
 	// 影をoffにする
 	SetShadow(false);
 
+	// アウトラインをonにする
+	SetIsOutLine(true);
+
 	return S_OK;
 }
 //=========================================================
