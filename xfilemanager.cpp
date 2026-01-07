@@ -9,9 +9,9 @@
 // インクルードファイル
 //*********************************************************
 #include "xfilemanager.h"
-#include "json.hpp"
 #include "manager.h"
 #include "texture.h"
+#include "json.hpp"
 #include <fstream>
 
 //*********************************************************
@@ -111,8 +111,7 @@ int CXfileManager::Register(const char* pFileName)
 	// モデル読み込み
 	//===============================================================
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
-	if (!pDevice)
-		return -1;
+	if (!pDevice) return -1;
 
 	// Xファイルをロードする
 	HRESULT hr = D3DXLoadMeshFromX
@@ -136,12 +135,60 @@ int CXfileManager::Register(const char* pFileName)
 		return -1;
 	}
 
+	//=========================================================
+	// スムース法線生成処理
+	//=========================================================
+	LPD3DXMESH pTempMesh = newData.pMesh; // 一時メッシュ
+	std::vector<DWORD> adjacency;
+
+	// 隣接情報用バッファ確保
+	DWORD FaceNum = pTempMesh->GetNumFaces();
+
+	// バッファのサイズを動的生成
+	adjacency.resize(FaceNum * 3);
+
+	// 隣接情報生成
+	pTempMesh->GenerateAdjacency(0.0001f, adjacency.data());
+
+	// 法線生成
+	D3DXComputeNormals(pTempMesh, adjacency.data());
+
+	// 法線付きFVFでクローン
+	DWORD fvf = pTempMesh->GetFVF();
+
+	// 複製先ポインタ
+	LPD3DXMESH pCloneMesh = nullptr;
+
+	// クローンメッシュ作成
+	HRESULT hrClone = pTempMesh->CloneMeshFVF
+	(
+		D3DXMESH_SYSTEMMEM,
+		fvf | D3DFVF_NORMAL,
+		CManager::GetInstance()->GetRenderer()->GetDevice(),
+		&pCloneMesh
+	);
+
+	// クローン作製成功時
+	if (SUCCEEDED(hrClone))
+	{
+		// 元メッシュ解放と法線情報の差し替え
+		pTempMesh->Release();
+		pTempMesh = pCloneMesh;
+
+		// 隣接情報を再生成
+		adjacency.clear();
+	}
+
+	// メッシュを差し替え
+	newData.pMesh = pTempMesh;
+
 	//===============================================================
 	// モデルサイズ算出
 	//===============================================================
 	D3DXVECTOR3 Vtxmax = VECTOR3_NULL;
 	D3DXVECTOR3 Vtxmin = VECTOR3_NULL;
 
+	// メッシュ頂点数
 	int nNumVtx = newData.pMesh->GetNumVertices();
 
 	DWORD sizeFVF = D3DXGetFVFVertexSize(newData.pMesh->GetFVF());
@@ -214,7 +261,7 @@ int CXfileManager::Register(const char* pFileName)
 HRESULT CXfileManager::LoadJson(void)
 {
 	// ファイルオープン
-	std::ifstream openfile("data/JSON/XFile.json");
+	std::ifstream openfile(LOAD_NAME);
 
 	// 例外処理
 	if (!openfile.is_open())
@@ -296,6 +343,53 @@ void CXfileManager::LoadModel(const char* pModelName)
 		MessageBox(GetActiveWindow(), msg.c_str(), "CXfileManager", MB_OK);
 		return;
 	}
+
+	//=========================================================
+	// スムース法線生成処理
+	//=========================================================
+	LPD3DXMESH pTempMesh = newData.pMesh; // 一時メッシュ
+	std::vector<DWORD> adjacency;
+
+	// 隣接情報用バッファ確保
+	DWORD FaceNum = pTempMesh->GetNumFaces();
+
+	// バッファのサイズを動的生成
+	adjacency.resize(FaceNum * 3);
+
+	// 隣接情報生成
+	pTempMesh->GenerateAdjacency(0.0001f, adjacency.data());
+
+	// 法線生成
+	D3DXComputeNormals(pTempMesh,adjacency.data());
+
+	// 法線付きFVFでクローン
+	DWORD fvf = pTempMesh->GetFVF();
+
+	// 複製先ポインタ
+	LPD3DXMESH pCloneMesh = nullptr;
+
+	// クローンメッシュ作成
+	HRESULT hrClone = pTempMesh->CloneMeshFVF
+	(
+		D3DXMESH_SYSTEMMEM,
+		fvf | D3DFVF_NORMAL,
+		CManager::GetInstance()->GetRenderer()->GetDevice(),
+		&pCloneMesh
+	);
+
+	// クローン作製成功時
+	if (SUCCEEDED(hrClone))
+	{
+		// 元メッシュ解放＆差し替え
+		pTempMesh->Release();
+		pTempMesh = pCloneMesh;
+
+		// 隣接情報を再生成
+		adjacency.clear();
+	}
+	
+	// メッシュを差し替え
+	newData.pMesh = pTempMesh;
 
 	//===============================================================
 	// モデルサイズ算出

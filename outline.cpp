@@ -38,7 +38,8 @@ HRESULT COutLine::Init(const char* pShaderFile)
 	LPD3DXBUFFER pErr = nullptr; 
 
 	// シェーダーファイル読み込み
-	HRESULT hr = D3DXCreateEffectFromFile(
+	HRESULT hr = D3DXCreateEffectFromFile
+	(
 		pDevice,		// デバイス
 		pShaderFile,	// ファイル
 		nullptr,

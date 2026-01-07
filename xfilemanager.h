@@ -28,12 +28,12 @@ public:
 	//*************************
 	struct XFILEDATA
 	{
-		D3DXVECTOR3 Size;		// モデルのサイズ
-		LPD3DXMESH pMesh;		// メッシュのポインタ
-		LPD3DXBUFFER pBuffMat;	// マテリアルのポインタ
-		DWORD dwNumMat;			// マテリアル数
-		std::vector<int>pTexture; // テクスチャの動的ポインタ
-		std::string FilePath;	// ファイル名
+		D3DXVECTOR3 Size;			// モデルのサイズ
+		LPD3DXMESH pMesh;			// メッシュのポインタ
+		LPD3DXBUFFER pBuffMat;		// マテリアルのポインタ
+		DWORD dwNumMat;				// マテリアル数
+		std::vector<int>pTexture;	// テクスチャの動的ポインタ
+		std::string FilePath;		// ファイル名
 	};
 
 	CXfileManager();
@@ -69,5 +69,8 @@ private:
 	void LoadModel(const char* pModelName); // モデル登録関数
 
 	std::vector<XFILEDATA>m_aFileData;	// モデルデータ管理配列
-	static int m_nNumAll; // モデルの総数
+
+	static int m_nNumAll;				// モデルの総数
+
+	static constexpr const char* LOAD_NAME = "data/JSON/XFile.json";
 };
