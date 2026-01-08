@@ -63,6 +63,6 @@ private:
 		static constexpr float MOVE = 3.0f; // 移動量
 	};
 
-	D3DXVECTOR3 m_DestPos;	// 目的座標
-	CSphereCollider* m_pCollider; // 球コライダー
+	D3DXVECTOR3 m_DestPos;			// 目的座標
+	CSphereCollider* m_pCollider;	// 球コライダー
 };

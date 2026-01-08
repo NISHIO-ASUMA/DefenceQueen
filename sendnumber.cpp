@@ -73,6 +73,7 @@ HRESULT CSendNumber::Init(void)
 		// 座標設定
 		m_apNumber[nCnt]->SetPos(m_pos);
 
+		// カラー設定
 		m_apNumber[nCnt]->SetCol(COLOR_GREEN);
 
 		// テクスチャセット

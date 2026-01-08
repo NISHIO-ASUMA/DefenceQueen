@@ -71,5 +71,5 @@ private:
 	std::vector<ModelManagerInfo>m_aModelData;	// モデルデータ管理配列
 	static int m_nNumAll;						// モデルの総数
 
-	static constexpr const char* LOAD_FILE = "data/JSON/Model.json";
+	static constexpr const char* LOAD_FILE = "data/JSON/Model.json"; // 読み込み対象ファイル名
 };
