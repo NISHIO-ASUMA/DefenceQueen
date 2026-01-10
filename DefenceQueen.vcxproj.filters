@@ -340,6 +340,27 @@
     <Filter Include="ソース ファイル\NetWork">
       <UniqueIdentifier>{94ccc271-78fb-49ea-bef6-119dcf52352b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Array_AI">
+      <UniqueIdentifier>{bab8c8d2-ad37-4102-ae5c-54764e7b304d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Array_AI\Base_tree">
+      <UniqueIdentifier>{f0f534c7-cc0c-48d8-9a2e-cb40b7f9355a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Array_AI\Leaf">
+      <UniqueIdentifier>{9a6b38d3-6c2b-4741-be44-7e28c4f5e18c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\NetWork">
+      <UniqueIdentifier>{4ad8d88f-9169-4ba4-aaf7-d42c10960707}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\RC">
+      <UniqueIdentifier>{5cb73d9a-d1fe-4bb8-a848-620fcfc587f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Charactor\TitleCharactor">
+      <UniqueIdentifier>{3658480b-5f83-4224-aa4d-95f3514e52ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Charactor\TutoCharactor">
+      <UniqueIdentifier>{64255440-2883-486b-a223-af006fdb027f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="object2D.cpp">
@@ -1199,86 +1220,86 @@
     <ClInclude Include="topant.h">
       <Filter>ヘッダー ファイル\Charactor\Array</Filter>
     </ClInclude>
-    <ClInclude Include="arraybehaviortree.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="enemyspawnmanager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="separationant.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="modelmanager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="arraygetfeedleaf.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="arraychecknear.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="arraywaitleaf.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="arrayattackleaf.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="titleant.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="outline.h">
       <Filter>ヘッダー ファイル\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="boxtospherecollision.h">
       <Filter>ヘッダー ファイル\Physics\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="pointobj.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="signalui.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="startexescene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="gamewallmodel.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="gamewallmanager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="resultscoremanager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="titlewallmanager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="titleantmanager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="tutorialtopant.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="particlepiler.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="feedsignal.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="sendnumber.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="network.h">
-      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="animationobject2d.h">
       <Filter>ヘッダー ファイル\BaseClass\2D</Filter>
     </ClInclude>
     <ClInclude Include="popupnumber.h">
       <Filter>ヘッダー ファイル\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="arraybehaviortree.h">
+      <Filter>ヘッダー ファイル\Array_AI\Base_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="arrayattackleaf.h">
+      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="arraychecknear.h">
+      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="arraygetfeedleaf.h">
+      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="arraywaitleaf.h">
+      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="gamewallmodel.h">
+      <Filter>ヘッダー ファイル\XFile</Filter>
+    </ClInclude>
+    <ClInclude Include="modelmanager.h">
+      <Filter>ヘッダー ファイル\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="gamewallmanager.h">
+      <Filter>ヘッダー ファイル\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="enemyspawnmanager.h">
+      <Filter>ヘッダー ファイル\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="feedsignal.h">
+      <Filter>ヘッダー ファイル\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="network.h">
+      <Filter>ヘッダー ファイル\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="particlepiler.h">
+      <Filter>ヘッダー ファイル\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="pointobj.h">
+      <Filter>ヘッダー ファイル\XFile</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>ヘッダー ファイル\RC</Filter>
+    </ClInclude>
+    <ClInclude Include="resultscoremanager.h">
+      <Filter>ヘッダー ファイル\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="sendnumber.h">
+      <Filter>ヘッダー ファイル\2DUI</Filter>
+    </ClInclude>
+    <ClInclude Include="separationant.h">
+      <Filter>ヘッダー ファイル\Charactor\Array</Filter>
+    </ClInclude>
+    <ClInclude Include="signalui.h">
+      <Filter>ヘッダー ファイル\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="startexescene.h">
+      <Filter>ヘッダー ファイル\Scene\BaseScene</Filter>
+    </ClInclude>
+    <ClInclude Include="titleant.h">
+      <Filter>ヘッダー ファイル\Charactor\TitleCharactor</Filter>
+    </ClInclude>
+    <ClInclude Include="titleantmanager.h">
+      <Filter>ヘッダー ファイル\Charactor\TitleCharactor</Filter>
+    </ClInclude>
+    <ClInclude Include="titlewallmanager.h">
+      <Filter>ヘッダー ファイル\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="tutorialtopant.h">
+      <Filter>ヘッダー ファイル\Charactor\TutoCharactor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
