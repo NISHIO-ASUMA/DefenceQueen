@@ -217,18 +217,6 @@
     <Filter Include="ヘッダー ファイル\State\Child">
       <UniqueIdentifier>{935efbd1-5ca6-40e7-85fb-572c2e970c1f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Scene">
-      <UniqueIdentifier>{13e9f8a1-8e11-4c2a-ba7c-4efa04748110}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Scene\BaseScene">
-      <UniqueIdentifier>{593f0241-a9cf-48b2-a00e-fa7810fc370c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Scene\SceneManager">
-      <UniqueIdentifier>{b955c5bb-c461-4085-863a-6f5eca372f8d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Scene\SceneObject">
-      <UniqueIdentifier>{63bec1ac-da4d-4233-8b91-36ea81c6f4d3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Physics">
       <UniqueIdentifier>{01515b81-05bc-4424-beb6-d782fed2f059}</UniqueIdentifier>
     </Filter>
@@ -360,6 +348,18 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\Charactor\TutoCharactor">
       <UniqueIdentifier>{64255440-2883-486b-a223-af006fdb027f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scenes">
+      <UniqueIdentifier>{13e9f8a1-8e11-4c2a-ba7c-4efa04748110}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scenes\BaseScene">
+      <UniqueIdentifier>{593f0241-a9cf-48b2-a00e-fa7810fc370c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scenes\SceneManager">
+      <UniqueIdentifier>{b955c5bb-c461-4085-863a-6f5eca372f8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scenes\SceneObject">
+      <UniqueIdentifier>{63bec1ac-da4d-4233-8b91-36ea81c6f4d3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -804,6 +804,9 @@
     <ClCompile Include="popupnumber.cpp">
       <Filter>ソース ファイル\3D</Filter>
     </ClCompile>
+    <ClCompile Include="startscenemanager.cpp">
+      <Filter>ソース ファイル\Scenes\SceneManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blackboard.h">
@@ -936,49 +939,49 @@
       <Filter>ヘッダー ファイル\State\Player</Filter>
     </ClInclude>
     <ClInclude Include="fade.h">
-      <Filter>ヘッダー ファイル\Scene\BaseScene</Filter>
+      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
     </ClInclude>
     <ClInclude Include="game.h">
-      <Filter>ヘッダー ファイル\Scene\BaseScene</Filter>
+      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
     </ClInclude>
     <ClInclude Include="loseresult.h">
-      <Filter>ヘッダー ファイル\Scene\BaseScene</Filter>
+      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
     </ClInclude>
     <ClInclude Include="ranking.h">
-      <Filter>ヘッダー ファイル\Scene\BaseScene</Filter>
+      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
     </ClInclude>
     <ClInclude Include="result.h">
-      <Filter>ヘッダー ファイル\Scene\BaseScene</Filter>
+      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
     </ClInclude>
     <ClInclude Include="scene.h">
-      <Filter>ヘッダー ファイル\Scene\BaseScene</Filter>
+      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
     </ClInclude>
     <ClInclude Include="title.h">
-      <Filter>ヘッダー ファイル\Scene\BaseScene</Filter>
+      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
     </ClInclude>
     <ClInclude Include="tutorial.h">
-      <Filter>ヘッダー ファイル\Scene\BaseScene</Filter>
+      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
     </ClInclude>
     <ClInclude Include="gamemanager.h">
-      <Filter>ヘッダー ファイル\Scene\SceneManager</Filter>
+      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="resultmanager.h">
-      <Filter>ヘッダー ファイル\Scene\SceneManager</Filter>
+      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="titlemanager.h">
-      <Filter>ヘッダー ファイル\Scene\SceneManager</Filter>
+      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="tutorialmanager.h">
-      <Filter>ヘッダー ファイル\Scene\SceneManager</Filter>
+      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="rankingmanager.h">
-      <Filter>ヘッダー ファイル\Scene\SceneManager</Filter>
+      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="gamesceneobject.h">
-      <Filter>ヘッダー ファイル\Scene\SceneObject</Filter>
+      <Filter>ヘッダー ファイル\Scenes\SceneObject</Filter>
     </ClInclude>
     <ClInclude Include="titleobject.h">
-      <Filter>ヘッダー ファイル\Scene\SceneObject</Filter>
+      <Filter>ヘッダー ファイル\Scenes\SceneObject</Filter>
     </ClInclude>
     <ClInclude Include="collider.h">
       <Filter>ヘッダー ファイル\Physics\Collider</Filter>
@@ -1182,13 +1185,13 @@
       <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
     <ClInclude Include="rankingobject.h">
-      <Filter>ヘッダー ファイル\Scene\SceneObject</Filter>
+      <Filter>ヘッダー ファイル\Scenes\SceneObject</Filter>
     </ClInclude>
     <ClInclude Include="resultobject.h">
-      <Filter>ヘッダー ファイル\Scene\SceneObject</Filter>
+      <Filter>ヘッダー ファイル\Scenes\SceneObject</Filter>
     </ClInclude>
     <ClInclude Include="tutorialobject.h">
-      <Filter>ヘッダー ファイル\Scene\SceneObject</Filter>
+      <Filter>ヘッダー ファイル\Scenes\SceneObject</Filter>
     </ClInclude>
     <ClInclude Include="enemyattackleaf.h">
       <Filter>ヘッダー ファイル\Enemy_AI\Leaf</Filter>
@@ -1287,7 +1290,7 @@
       <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
     <ClInclude Include="startexescene.h">
-      <Filter>ヘッダー ファイル\Scene\BaseScene</Filter>
+      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
     </ClInclude>
     <ClInclude Include="titleant.h">
       <Filter>ヘッダー ファイル\Charactor\TitleCharactor</Filter>
@@ -1300,6 +1303,9 @@
     </ClInclude>
     <ClInclude Include="tutorialtopant.h">
       <Filter>ヘッダー ファイル\Charactor\TutoCharactor</Filter>
+    </ClInclude>
+    <ClInclude Include="startscenemanager.h">
+      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

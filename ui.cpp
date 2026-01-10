@@ -16,11 +16,9 @@
 //=========================================================
 // オーバーロードコンストラクタ
 //=========================================================
-CUi::CUi(int nPriority) : CObject2D(nPriority)
+CUi::CUi(int nPriority) : CObject2D(nPriority), m_isAlphaEnable(false), m_isFlash(false), m_nAlphaCnt(NULL), m_nAlphaFrame(NULL), m_nFlashFrame(NULL)
 {
-	// 値のクリア
-	m_isFlash = false;
-	m_nFlashFrame = NULL;
+
 }
 //=========================================================
 // デストラクタ
@@ -28,6 +26,36 @@ CUi::CUi(int nPriority) : CObject2D(nPriority)
 CUi::~CUi()
 {
 	// 無し
+}
+//=========================================================
+// 生成処理
+//=========================================================
+CUi* CUi::Create(D3DXVECTOR3 pos, int nFlashFrame, float fWidth, float fHeight, const char* Filename, bool isUse, bool isAlphaEnable, int nAlphaFrame)
+{
+	// インスタンス生成
+	CUi* pUi = new CUi;
+	if (pUi == nullptr) return nullptr;
+
+	// 初期化失敗時
+	if (FAILED(pUi->Init()))
+	{
+		// nullポインタを返す
+		return nullptr;
+	}
+
+	// オブジェクト設定
+	pUi->SetPos(pos);
+	pUi->SetSize(fWidth, fHeight);
+	pUi->SetAnchor(CObject2D::ANCHORTYPE_CENTER);
+	pUi->SetTexture(Filename);
+
+	pUi->m_nFlashFrame = nFlashFrame;
+	pUi->m_isFlash = isUse;
+	pUi->m_isAlphaEnable = isAlphaEnable;
+	pUi->m_nAlphaFrame = nAlphaFrame;
+
+	// 生成されたポインタを返す
+	return pUi;
 }
 //=========================================================
 // 初期化処理
@@ -53,6 +81,12 @@ void CUi::Uninit(void)
 //=========================================================
 void CUi::Update(void)
 {
+	// フェード透明化フラグ有効時
+	if (m_isAlphaEnable)
+	{
+		UpdateAlphaEnable();
+	}
+
 	// 点滅有効時
 	if (m_isFlash)
 	{
@@ -72,29 +106,37 @@ void CUi::Draw(void)
 	CObject2D::Draw();
 }
 //=========================================================
-// 生成処理
+// フェード点滅更新関数
 //=========================================================
-CUi* CUi::Create(D3DXVECTOR3 pos, int nFlashFrame,float fWidth, float fHeight, const char* Filename, bool isUse)
+void CUi::UpdateAlphaEnable(void)
 {
-	// インスタンス生成
-	CUi* pUi = new CUi;
-	if (pUi == nullptr) return nullptr;
-
-	// 初期化失敗時
-	if (FAILED(pUi->Init()))
+	// カウント上限に達したら
+	if (m_nAlphaCnt >= m_nAlphaFrame)
 	{
-		// nullポインタを返す
-		return nullptr;
+		// 最終的に透明にして止める
+		SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));
+		m_isAlphaEnable = false;
+		return;
 	}
 
-	// オブジェクト設定
-	pUi->SetPos(pos);
-	pUi->SetSize(fWidth, fHeight);
-	pUi->SetAnchor(CObject2D::ANCHORTYPE_CENTER);
-	pUi->SetTexture(Filename);
-	pUi->m_nFlashFrame = nFlashFrame;
-	pUi->m_isFlash = isUse;
+	// 補完係数を計算する
+	float mathAlpha = static_cast<float>(m_nAlphaCnt) / static_cast<float>(m_nAlphaFrame);
+	float alpha = 0.0f;
 
-	// 生成されたポインタを返す
-	return pUi;
+	// フェードイン
+	if (mathAlpha < 0.5f)
+	{
+		alpha = mathAlpha * 2.0f;
+	}
+	// フェードアウト
+	else
+	{
+		alpha = (1.0f - mathAlpha) * 2.0f;
+	}
+
+	// オブジェクトのカラーに設定
+	SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, alpha));
+
+	// カウンターを加算
+	m_nAlphaCnt++;
 }

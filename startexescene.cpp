@@ -9,17 +9,14 @@
 // インクルードファイル
 //*******************************************************************
 #include "startexescene.h"
-#include "fade.h"
-#include "title.h"
-#include "manager.h"
-#include "input.h"
+#include "startscenemanager.h"
 
 //===================================================================
 // コンストラクタ
 //===================================================================
 CStartExeScene::CStartExeScene() : CScene(CScene::MODE_START)
 {
-	// TODO : ここのシーンもオブジェクト作る事になるのでcpp分けておく
+
 }
 //===================================================================
 // デストラクタ
@@ -33,6 +30,9 @@ CStartExeScene::~CStartExeScene()
 //===================================================================
 HRESULT CStartExeScene::Init(void)
 {
+	// 管理クラスの初期化処理
+	CStartSceneManager::GetInstance()->Init();
+
 	return S_OK;
 }
 //===================================================================
@@ -40,14 +40,16 @@ HRESULT CStartExeScene::Init(void)
 //===================================================================
 void CStartExeScene::Uninit(void)
 {
-
+	// 管理クラスの終了処理
+	CStartSceneManager::GetInstance()->Uninit();
 }
 //===================================================================
 // 更新処理
 //===================================================================
 void CStartExeScene::Update(void)
 {
-
+	// 管理クラスの更新処理
+	CStartSceneManager::GetInstance()->Update();
 }
 //===================================================================
 // 描画処理

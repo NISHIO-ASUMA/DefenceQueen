@@ -30,10 +30,17 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	static CUi* Create(D3DXVECTOR3 pos, int nFlashFrame,float fWidth, float fHeight,const char * Filename,bool isUse = false);
+	static CUi* Create(D3DXVECTOR3 pos, int nFlashFrame,float fWidth, float fHeight,const char * Filename,bool isUse = false,bool isAlphaEnable = false,
+					   int nAlphaFrame = 0);
 
 private:
 
+	void UpdateAlphaEnable(void); // フェードイメージの点滅関数
+
 	int m_nFlashFrame;		// 点滅間隔
+	int m_nAlphaFrame;		// フェード全体のフレーム数
+	int m_nAlphaCnt;		// 現在のフレーム
+
 	bool m_isFlash;			// 点滅するかどうか
+	bool m_isAlphaEnable; // 描画開始から透明度を触るかどうか
 };

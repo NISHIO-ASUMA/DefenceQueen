@@ -277,6 +277,7 @@
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="spherecollider.cpp" />
     <ClCompile Include="startexescene.cpp" />
+    <ClCompile Include="startscenemanager.cpp" />
     <ClCompile Include="state.cpp" />
     <ClCompile Include="statemachine.cpp" />
     <ClCompile Include="texture.cpp" />
@@ -441,6 +442,7 @@
     <ClInclude Include="sound.h" />
     <ClInclude Include="spherecollider.h" />
     <ClInclude Include="startexescene.h" />
+    <ClInclude Include="startscenemanager.h" />
     <ClInclude Include="state.h" />
     <ClInclude Include="statemachine.h" />
     <ClInclude Include="targetselector.h" />

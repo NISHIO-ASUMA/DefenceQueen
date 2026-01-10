@@ -29,6 +29,7 @@
 #include "modelmanager.h"
 #include "outline.h"
 #include "network.h"
+#include "startexescene.h"
 
 //=========================================================
 // コンストラクタ
@@ -120,7 +121,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 
 #ifdef _DEBUG
 	// デバッグ用シーンセット
-	m_pFade->SetFade(std::make_unique<CTitle>());
+	m_pFade->SetFade(std::make_unique<CStartExeScene>());
 #else
 	// シーンセット
 	m_pFade->SetFade(std::make_unique<CTitle>());
