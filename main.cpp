@@ -221,8 +221,11 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		// ローカル変数
 		int zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
 
+#ifdef _DEBUG
 		// ホイール情報
 		CManager::GetInstance()->GetCamera()->WheelMouse(zDelta);
+#endif // _DEBUG
+
 	}
 	break;
 
