@@ -53,7 +53,7 @@ HRESULT CTutorialObject::Init(void)
 	CQueen::Create(D3DXVECTOR3(0.0f, 30.0f, -5.0f), VECTOR3_NULL);
 	
 	// uiê∂ê¨
-	CUi::Create(CENTERPOS,0,HALFWIDTH,HALFHEIGHT,"tuto.jpg");
+	//CUi::Create(CENTERPOS,0,HALFWIDTH,HALFHEIGHT,"tuto.jpg");
 
 	return S_OK;
 }

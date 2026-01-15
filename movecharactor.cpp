@@ -191,10 +191,10 @@ void CMoveCharactor::Draw(void)
 	COutLine::GetInstance()->Begin();
 	COutLine::GetInstance()->BeginPass();
 
-	// アウトライン関数
+	// アウトラインシェーダー関数
 	for (auto& model : m_pModel)
 	{
-		model->DrawOutLine();
+		model->DrawOutLine(D3DXVECTOR4(0.0f,0.0f,0.0f,1.0f),0.45f);
 	}
 
 	// シェーダー終了

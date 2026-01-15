@@ -290,6 +290,7 @@
     <ClCompile Include="titleui.cpp" />
     <ClCompile Include="titlewallmanager.cpp" />
     <ClCompile Include="topant.cpp" />
+    <ClCompile Include="tutoarrayant.cpp" />
     <ClCompile Include="tutorial.cpp" />
     <ClCompile Include="tutorialmanager.cpp" />
     <ClCompile Include="tutorialobject.cpp" />
@@ -457,6 +458,7 @@
     <ClInclude Include="titleui.h" />
     <ClInclude Include="titlewallmanager.h" />
     <ClInclude Include="topant.h" />
+    <ClInclude Include="tutoarrayant.h" />
     <ClInclude Include="tutorial.h" />
     <ClInclude Include="tutorialmanager.h" />
     <ClInclude Include="tutorialobject.h" />

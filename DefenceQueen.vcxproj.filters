@@ -807,6 +807,9 @@
     <ClCompile Include="startscenemanager.cpp">
       <Filter>ソース ファイル\Scenes\SceneManager</Filter>
     </ClCompile>
+    <ClCompile Include="tutoarrayant.cpp">
+      <Filter>ソース ファイル\Charactor\TutorialCharactor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blackboard.h">
@@ -1306,6 +1309,9 @@
     </ClInclude>
     <ClInclude Include="startscenemanager.h">
       <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="tutoarrayant.h">
+      <Filter>ヘッダー ファイル\Charactor\TutoCharactor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

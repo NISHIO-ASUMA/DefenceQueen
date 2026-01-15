@@ -1,6 +1,6 @@
 //=========================================================
 //
-// キャラクターモデルファイル管理クラス [ modelmanager.h ]
+// キャラクターモデルファイル管理クラス [ modelmanager.cpp ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -264,6 +264,53 @@ void CModelManager::LoadModel(const char* pModelName)
 		MessageBox(GetActiveWindow(), message.c_str(), "CModelManager", MB_OK);
 		return;
 	}
+
+	//===============================================================
+	// 法線のスムース化を実行
+	//===============================================================
+	LPD3DXMESH pTempMesh = NewModelInfo.pMesh; // 一時メッシュ
+	std::vector<DWORD> adjacency;
+
+	// 隣接情報用バッファ確保
+	DWORD FaceNum = pTempMesh->GetNumFaces();
+
+	// バッファのサイズを動的生成
+	adjacency.resize(FaceNum * 3);
+
+	// 隣接情報生成
+	pTempMesh->GenerateAdjacency(0.0001f, adjacency.data());
+
+	// 法線生成
+	D3DXComputeNormals(pTempMesh, adjacency.data());
+
+	// 法線付きFVFでクローン
+	DWORD fvf = pTempMesh->GetFVF();
+
+	// 複製先ポインタ
+	LPD3DXMESH pCloneMesh = nullptr;
+
+	// クローンメッシュ作成
+	HRESULT hrClone = pTempMesh->CloneMeshFVF
+	(
+		D3DXMESH_SYSTEMMEM,
+		fvf | D3DFVF_NORMAL,
+		CManager::GetInstance()->GetRenderer()->GetDevice(),
+		&pCloneMesh
+	);
+
+	// クローン作製成功時
+	if (SUCCEEDED(hrClone))
+	{
+		// 元メッシュ解放と法線情報の差し替え
+		pTempMesh->Release();
+		pTempMesh = pCloneMesh;
+
+		// 隣接情報を再生成
+		adjacency.clear();
+	}
+
+	// メッシュを法線計算したメッシュに差し替え
+	NewModelInfo.pMesh = pTempMesh;
 
 	//===============================================================
 	// テクスチャ登録

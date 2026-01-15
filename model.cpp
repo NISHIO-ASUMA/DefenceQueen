@@ -249,7 +249,7 @@ void CModel::DrawMtxShadow(void)
 //=========================================================
 // アウトライン描画設定関数
 //=========================================================
-void CModel::DrawOutLine(const D3DXVECTOR4& color)
+void CModel::DrawOutLine(const D3DXVECTOR4& color,const float fOutLinewidth)
 {
 	// インデックスが-1なら
 	if (m_nModelIdx == -1)
@@ -311,7 +311,7 @@ void CModel::DrawOutLine(const D3DXVECTOR4& color)
 		for (int nCnt = 0; nCnt < static_cast<int>(model.dwNumMat); nCnt++)
 		{
 			// シェーダーパラメーター設定
-			COutLine::GetInstance()->SetParameter(0.44f, color, m_mtxworld);
+			COutLine::GetInstance()->SetParameter(fOutLinewidth, color, m_mtxworld);
 
 			// モデルの描画
 			model.pMesh->DrawSubset(nCnt);

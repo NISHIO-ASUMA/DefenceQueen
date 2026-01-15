@@ -105,7 +105,7 @@ HRESULT CMeshField::Init(void)
 	// 頂点情報のポインタを宣言
 	VERTEX_3D* pVtx = nullptr;
 
-	//頂点バッファをロック
+	// 頂点バッファをロック
 	m_pVtx->Lock(0, 0, (void**)&pVtx, 0);
 
 	// テクスチャ座標を計算する変数
@@ -115,10 +115,10 @@ HRESULT CMeshField::Init(void)
 
 	D3DXVECTOR3 MathPos = m_pos;
 
-	// 縦
+	// 縦軸の頂点
 	for (int nCntZ = 0; nCntZ <= m_MeshFiled.nNumZ; nCntZ++)
 	{
-		// 横
+		// 横軸の頂点
 		for (int nCntX = 0; nCntX <= m_MeshFiled.nNumX; nCntX++)
 		{
 			// 頂点座標を計算

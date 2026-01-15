@@ -49,10 +49,23 @@ public:
 	inline int GetMotionType(void) { return m_motiontype; }
 	inline bool GetFinishMotion(void) { return m_isFinishMotion; }
 
-	// インデックス登録処理
+	/// <summary>
+	/// インデックス登録処理
+	/// </summary>
+	/// <param name="pMotionName">モーションスクリプト名</param>
+	/// <param name="pModel">モデルクラスの動的配列</param>
+	/// <param name="nDestMotions">モーション数</param>
+	/// <param name="isShadow">マトリックスシャドウを使うかどうか</param>
 	void RegisterPath(const char* pMotionName,std::vector<CModel*>& pModel, int nDestMotions, const bool isShadow);
 
-	// モーションの読み込み
+	/// <summary>
+	/// モーション読み込み関数
+	/// </summary>
+	/// <param name="pFilename">モーションスクリプト名</param>
+	/// <param name="pModel">モデルクラスの動的配列</param>
+	/// <param name="nDestMotions">モーション数</param>
+	/// <param name="isShadow">マトリックスシャドウを使うかどうか</param>
+	/// <returns></returns>
 	static std::unique_ptr<CMotion>Load(const char* pFilename, std::vector<CModel*>& pModel, int nDestMotions, const bool isShadow);
 
 private:
@@ -64,7 +77,7 @@ private:
 	int m_nNextKey;			// 次のキー
 	int m_motiontype;		// モーションタイプ
 	int m_type;
-	int m_nMotionIdx;				// モーションファイル番号
+	int m_nMotionIdx;		// モーションファイル番号
 
 	int m_motiontypeBlend;	// ブレンドの種類
 	int m_nFrameBlend;		// ブレンドのフレーム数

@@ -32,7 +32,6 @@ public:
 		TYPE_MESH,		// メッシュオブジェクト
 		TYPE_BLOCK,		// ブロック
 		TYPE_PAUSE,		// ポーズ
-		TYPE_BARRIER,	// バリア
 		TYPE_ITEM,		// アイテム
 		TYPE_MAX
 	};

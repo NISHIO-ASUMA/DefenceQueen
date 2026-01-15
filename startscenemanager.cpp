@@ -12,6 +12,7 @@
 #include "manager.h"
 #include "fade.h"
 #include "title.h"
+#include "sound.h"
 #include <memory>
 #include "ui.h"
 
@@ -35,7 +36,11 @@ CStartSceneManager::~CStartSceneManager()
 HRESULT CStartSceneManager::Init(void)
 {
 	// ƒƒSUI¶¬
-	CUi::Create(CENTERPOS, 0, 300, 300, "startgameicon.png", false,true,300);
+	CUi::Create(CENTERPOS, 0, 300, 300, "startgameicon.png", false,true,170);
+
+	// ƒTƒEƒ“ƒhÄ¶
+	auto Sound = CManager::GetInstance()->GetSound();
+	if (Sound) Sound->Play(CSound::SOUND_LABEL_START);
 
 	return S_OK;
 }

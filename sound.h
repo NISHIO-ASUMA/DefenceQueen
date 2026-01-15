@@ -43,9 +43,10 @@ public:
 		SOUND_LABEL_BOSS,		// ボス叫びSE
 		SOUND_LABEL_CHANGEWEPON,// 武器切り替え
 		SOUND_LABEL_AVOID,		// 回避SE
-		SOUND_LABEL_TITLEENTER,		// タイトルキー
+		SOUND_LABEL_TITLEENTER,	// タイトルキー
 		SOUND_LABEL_PAUSESTART,  // 開始音
 		SOUND_LABEL_QUEEN,		// 女王ヒット
+		SOUND_LABEL_START,		// ゲーム開始音
 		SOUND_LABEL_MAX
 	};
 
@@ -98,9 +99,10 @@ private:
 		{"data/SE/BossShout.wav",0},		 // 叫び声SE
 		{"data/SE/Change.wav",0},			 // 武器切り替えSE
 		{"data/SE/Avoid.wav",0},			 // 回避SE
-		{"data/SE/TitleEnter.wav",0},			 // タイトルキー
+		{"data/SE/TitleEnter.wav",0},		 // タイトルキー
 		{"data/SE/pausekey.wav",0},			 // ポーズキー
-		{"data/SE/QueenHit.wav",0},			 // ポーズキー
+		{"data/SE/QueenHit.wav",0},			 // 女王ヒット
+		{"data/SE/Startbgm.wav",0},			 // ゲーム開始画面音
 	};
 
 	IXAudio2* m_pXAudio2;									// XAudio2オブジェクトへのインターフェイス
