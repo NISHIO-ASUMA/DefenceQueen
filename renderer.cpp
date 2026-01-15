@@ -15,6 +15,7 @@
 #include "input.h"
 #include "camera.h"
 #include "fade.h"
+#include "instancing.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -247,6 +248,22 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 	// メンバ変数
 	m_nBullerTime = NULL;
 
+	D3DVERTEXELEMENT9 InstDecl[] =
+	{
+		// Stream 0 : メッシュ頂点
+		{ 0, 0,  D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
+		{ 0, 12, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL,   0 },
+		{ 0, 24, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0 },
+
+		// Stream 1 : インスタンス行列
+		{ 1, 0,  D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0 },
+		{ 1, 16, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 1 },
+		{ 1, 32, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 2 },
+		{ 1, 48, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 3 },
+
+		D3DDECL_END()
+	};
+
 	return S_OK;
 }
 //=========================================================
@@ -446,7 +463,7 @@ void CRenderer::Draw(void)
 			pRenderWk = m_apRenderMT[0];
 			m_apRenderMT[0] = m_apRenderMT[1];
 			m_apRenderMT[1] = pRenderWk;
-		 }
+		}
 
 		// フォントセット
 		m_pDebug->Print("FPS : %d\n", m_fps);
@@ -512,7 +529,6 @@ void CRenderer::ChangeTarget(D3DXVECTOR3 posV, D3DXVECTOR3 posR, D3DXVECTOR3 vec
 	// プロジェクションマトリックスの設定
 	m_pD3DDevice->SetTransform(D3DTS_PROJECTION, &mtxprojection);
 }
-
 //=========================================================
 // ブラーの設定
 //=========================================================

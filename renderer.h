@@ -32,7 +32,6 @@ public:
 	void OnWireFrame();
 	void OffWireFrame();
 	void ChangeTarget(D3DXVECTOR3 posV, D3DXVECTOR3 posR, D3DXVECTOR3 vecU);
-
 	void SetSize(UINT uWidth, UINT uHeight) { m_Width = uWidth, m_Height = uHeight; }
 	void SetBuller(bool isBuller, const int nMaxbullerTime);
 

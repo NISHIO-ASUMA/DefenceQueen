@@ -810,6 +810,9 @@
     <ClCompile Include="tutoarrayant.cpp">
       <Filter>ソース ファイル\Charactor\TutorialCharactor</Filter>
     </ClCompile>
+    <ClCompile Include="instancing.cpp">
+      <Filter>ソース ファイル\Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blackboard.h">
@@ -1313,9 +1316,13 @@
     <ClInclude Include="tutoarrayant.h">
       <Filter>ヘッダー ファイル\Charactor\TutoCharactor</Filter>
     </ClInclude>
+    <ClInclude Include="instancing.h">
+      <Filter>ヘッダー ファイル\Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Out_Line.hlsl" />
+    <FxCompile Include="Instancing.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DefenceQueen.rc">

@@ -30,6 +30,7 @@
 #include "outline.h"
 #include "network.h"
 #include "startexescene.h"
+#include "instancing.h"
 
 //=========================================================
 // コンストラクタ
@@ -85,7 +86,6 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 
 	// レンダラーの生成処理
 	m_pRenderer = std::make_unique <CRenderer>();
-
 	if (FAILED(m_pRenderer->Init(hWnd, bWindow))) return E_FAIL;
 
 	// ライトの生成処理
@@ -110,6 +110,10 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	
 	// アウトラインクラス生成
 	COutLine::GetInstance()->Init("data/SHADER/Out_Line.hlsl");
+
+	// インスタンシングクラス生成
+	CInstancing::GetInstance()->SetDeviceToInstancing(m_pRenderer->GetDevice());
+	CInstancing::GetInstance()->Init("data/SHADER/Instancing.hlsl");
 
 	// ネットワーククラスの生成
 	m_pNetWork = std::make_unique<CNetWork>();
@@ -169,6 +173,9 @@ void CManager::Uninit(void)
 
 	// アウトラインの破棄
 	COutLine::GetInstance()->Uninit();
+
+	// インスタンシングの破棄
+	CInstancing::GetInstance()->Uninit();
 
 	// ネットワークの破棄
 	if (m_pNetWork)
