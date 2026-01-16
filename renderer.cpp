@@ -249,25 +249,10 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 	// メンバ変数
 	m_nBullerTime = NULL;
 
-	D3DVERTEXELEMENT9 InstDecl[] =
-	{
-		// Stream 0 : メッシュ頂点
-		{ 0, 0,  D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
-		{ 0, 12, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL,   0 },
-		{ 0, 24, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0 },
-
-		// Stream 1 : インスタンス行列
-		{ 1, 0,  D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0 },
-		{ 1, 16, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 1 },
-		{ 1, 32, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 2 },
-		{ 1, 48, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 3 },
-
-		D3DDECL_END()
-	};
-
 	// 最大インスタンス数
 	const UINT MAX_INSTANCE = 1024;
 
+	// インスタンシング頂点バッファ生成
 	HRESULT hr = m_pD3DDevice->CreateVertexBuffer
 	(
 		sizeof(InstanceData) * MAX_INSTANCE,
@@ -435,6 +420,7 @@ void CRenderer::Draw(void)
 	if (SUCCEEDED(m_pD3DDevice->BeginScene()))
 	{// 描画成功時
 
+		// ブラー有効時
 		if (m_isbuller)
 		{
 			// ターゲット設定
@@ -447,19 +433,13 @@ void CRenderer::Draw(void)
 		// 全オブジェクト描画
 		CObject::DrawAll();
 
-		// オブジェクトインスタンシング描画
-		//DrawInstancingAll();
-
 		// シーン取得
 		CScene*pScene = CManager::GetInstance()->GetSceneRaw();
 
-		// nullじゃなかったら
-		if (pScene != nullptr)
-		{
-			// シーンの描画
-			pScene->Draw();
-		}
+		// シーンの描画
+		if (pScene != nullptr) pScene->Draw();
 
+#if 0
 		// ブラー有効時
 		if (m_isbuller)
 		{
@@ -492,7 +472,7 @@ void CRenderer::Draw(void)
 			m_apRenderMT[0] = m_apRenderMT[1];
 			m_apRenderMT[1] = pRenderWk;
 		}
-
+#endif
 		// フォントセット
 		m_pDebug->Print("FPS : %d\n", m_fps);
 
@@ -631,8 +611,9 @@ void CRenderer::DrawInstancingAll(void)
 		// プリミティブ描画
 		m_pD3DDevice->DrawIndexedPrimitive
 		(
-			D3DPT_TRIANGLELIST,
-			0, 0,
+			D3DPT_TRIANGLESTRIP,
+			0,
+			0,
 			model.modelData.vtxCount,
 			0,
 			model.modelData.PrimCount
