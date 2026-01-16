@@ -153,7 +153,7 @@ void CMotion::Update(std::vector<CModel*> pModel)
 	// 最大数情報
 	int nMotionNum = Info.nNumMotion;
 	int nModelNum = Info.nNumModel;
-	
+
 #if 1
 	// 例外処理
 	if (nModelNum <= 0)
@@ -189,7 +189,6 @@ void CMotion::Update(std::vector<CModel*> pModel)
 
 		// モデル更新
 		pModel[nCnt]->Update();
-
 	}
 
 	// フレーム進行処理

@@ -14,6 +14,8 @@
 // インクルードファイル
 //*********************************************************
 #include "debugproc.h"
+#include <map>
+#include <vector>
 
 //*********************************************************
 // レンダラークラスを定義
@@ -42,8 +44,20 @@ public:
 	bool GetBuller(void) { return m_isbuller; }
 	void GetFps(int nFps);
 
-	static CDebugproc* GetDebug(void) { return m_pDebug; }
+	/// <summary>
+	/// インスタンシングオブジェクト登録関数
+	/// </summary>
+	/// <param name="modelIdx">モデルのインデックス番号</param>
+	/// <param name="world">ワールドマトリックス</param>
+	void AddInstanceObject(const int modelIdx, const D3DXMATRIX& world);
 
+	/// <summary>
+	/// 全インスタンシングオブジェクト描画関数
+	/// </summary>
+	/// <param name=""></param>
+	void DrawInstancingAll(void);
+
+	static CDebugproc* GetDebug(void) { return m_pDebug; }
 private:
 
 	static inline constexpr int NUM_FEEDBACKPOLYGON = 2; // フィードバック用ポリゴン
@@ -68,4 +82,15 @@ private:
 	D3DVIEWPORT9 m_viewportMT;		 // テクスチャレンダリング用ビューポート
 
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxMT;  // ポリゴン用頂点バッファ
+
+	//*****************************
+	// 実験用構造体
+	//*****************************
+	struct InstanceData
+	{
+		D3DXMATRIX world; // マトリックス
+	};
+
+	LPDIRECT3DVERTEXBUFFER9 m_instanceVB; // インスタンシング用頂点バッファ
+	std::map<int, std::vector<InstanceData>> m_RegisterInstObject = {}; // 登録配列
 };

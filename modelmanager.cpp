@@ -86,6 +86,20 @@ void CModelManager::UnLoad(void)
 		{
 			(*iter).dwNumMat = 0;
 		}
+
+		// 頂点バッファの破棄
+		if ((*iter).modelData.VtxBuffer != nullptr)
+		{
+			(*iter).modelData.VtxBuffer->Release();
+			(*iter).modelData.VtxBuffer = nullptr;
+		}
+
+		// インデックスバッファの破棄
+		if ((*iter).modelData.IndexBuffer != nullptr)
+		{
+			(*iter).modelData.IndexBuffer->Release();
+			(*iter).modelData.IndexBuffer = nullptr;
+		}
 	}
 
 	// 配列クリア
@@ -126,9 +140,6 @@ int CModelManager::Register(const char* pModelName)
 		&NewModelInfo.dwNumMat,
 		&NewModelInfo.pMesh
 	);
-
-	//// xファイルの法線情報関数
-	//D3DXComputeNormals();
 
 	// 例外メッセージ
 	if (FAILED(hr))
@@ -311,6 +322,20 @@ void CModelManager::LoadModel(const char* pModelName)
 
 	// メッシュを法線計算したメッシュに差し替え
 	NewModelInfo.pMesh = pTempMesh;
+
+	// VERTEX/INDEXバッファ取得
+	LPDIRECT3DVERTEXBUFFER9 vtxbuffer = nullptr;
+	LPDIRECT3DINDEXBUFFER9 indexbuffer = nullptr;
+
+	// 元モデルから取得する
+	NewModelInfo.pMesh->GetVertexBuffer(&vtxbuffer);
+	NewModelInfo.pMesh->GetIndexBuffer(&indexbuffer);
+
+	// インデックスと頂点数を設定
+	NewModelInfo.modelData.VtxBuffer = vtxbuffer;
+	NewModelInfo.modelData.IndexBuffer = indexbuffer;
+	NewModelInfo.modelData.vtxCount = NewModelInfo.pMesh->GetNumVertices();
+	NewModelInfo.modelData.PrimCount = NewModelInfo.pMesh->GetNumFaces();
 
 	//===============================================================
 	// テクスチャ登録

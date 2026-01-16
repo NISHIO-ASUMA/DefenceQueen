@@ -13,6 +13,7 @@
 #include "texture.h"
 #include "modelmanager.h"
 #include "outline.h"
+#include "instancing.h"
 
 //=========================================================
 // コンストラクタ
@@ -87,7 +88,8 @@ void CModel::Uninit(void)
 //=========================================================
 void CModel::Update(void)
 {
-	// 無し
+	// インスタンシング登録
+	//CManager::GetInstance()->GetRenderer()->AddInstanceObject(m_nModelIdx, m_mtxworld);
 }
 //=========================================================
 // 描画処理

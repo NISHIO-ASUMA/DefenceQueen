@@ -108,3 +108,13 @@ struct VERTEX_3D_MULTI
 	D3DXVECTOR2 tex;	// テクスチャ座標
 	D3DXVECTOR2 texM;	// マルチテクスチャ
 };
+
+//*********************************************************
+// 3Dモデル構造体
+//*********************************************************
+struct MODEL_3D
+{
+	D3DXVECTOR3 pos;	// 座標
+	DWORD		color;	// カラー
+	D3DXVECTOR3 normal;	// 法線
+};

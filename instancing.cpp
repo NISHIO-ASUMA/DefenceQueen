@@ -13,7 +13,7 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CInstancing::CInstancing() : m_pInstanceDevice{},m_pInstancing(nullptr)
+CInstancing::CInstancing() : m_pInstanceDevice{}, m_pInstancing(nullptr), m_pDeclaration{}
 {
 
 }
@@ -31,6 +31,26 @@ HRESULT CInstancing::Init(const char* pShaderFile)
 {
 	// ローカル変数
 	LPD3DXBUFFER pErr = nullptr;
+
+	// 頂点宣言作成
+	D3DVERTEXELEMENT9 declElems[] =
+	{
+		// ストリーム0
+		{ 0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },	// 座標
+		{ 0, 12, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_COLOR, 0 },	// カラー
+		{ 0, 24, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL,  0},	// 法線
+
+		// ストリーム1
+		{ 1, 0,  D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0 },	// ワールド位置
+		{ 1, 16, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 1 },	// ワールド位置
+		{ 1, 32, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 2 },	// ワールド位置
+		{ 1, 48, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 3 },	// ワールド位置
+
+		D3DDECL_END()
+	};
+
+	// デクレーション作成
+	m_pInstanceDevice->CreateVertexDeclaration(declElems, &m_pDeclaration);
 
 	// シェーダーファイル読み込み
 	HRESULT hr = D3DXCreateEffectFromFile
@@ -66,6 +86,67 @@ HRESULT CInstancing::Init(const char* pShaderFile)
 	return S_OK;
 }
 //=========================================================
+// インスタンシング開始
+//=========================================================
+void CInstancing::BeginInstancing
+(
+	int instanceCount,
+	LPDIRECT3DVERTEXBUFFER9 meshVB,
+	UINT meshStride,
+	LPDIRECT3DINDEXBUFFER9 meshIB,
+	LPDIRECT3DVERTEXBUFFER9 instanceVB,
+	UINT instanceStride)
+{
+	//================================
+	// インスタンス宣言
+	//================================
+	m_pInstanceDevice->SetStreamSourceFreq(0, D3DSTREAMSOURCE_INDEXEDDATA | instanceCount);
+	m_pInstanceDevice->SetStreamSourceFreq(1, D3DSTREAMSOURCE_INSTANCEDATA | 1);
+
+	//================================
+	// デクレーションバッファを設定
+	//================================
+	m_pInstanceDevice->SetVertexDeclaration(m_pDeclaration);
+
+	//===============================
+	// メッシュバッファをストリーム0に設定
+	//===============================
+	m_pInstanceDevice->SetStreamSource(0, meshVB, 0, meshStride);
+
+	//===============================
+	// インスタンスバッファをストリーム1に設定
+	//===============================
+	m_pInstanceDevice->SetStreamSource(1, instanceVB, 0, instanceStride);
+
+	//===============================
+	// インデックスを設定する
+	//===============================
+	m_pInstanceDevice->SetIndices(meshIB);
+}
+//=========================================================
+// インスタンシングパラメーター設定
+//=========================================================
+void CInstancing::SetInstancingParam(void)
+{
+	// ポインタが無かったら
+	if (!m_pInstancing) return;
+
+	// 行列を取得する
+	D3DXMATRIX mtxProj, mtxView;
+	m_pInstanceDevice->GetTransform(D3DTS_PROJECTION, &mtxProj);	// プロジェクションマトリックス
+	m_pInstanceDevice->GetTransform(D3DTS_VIEW, &mtxView);			// ビューマトリックス
+
+	// シェーダーのテクニック宣言を取得
+	D3DXHANDLE hTech = m_pInstancing->GetTechniqueByName("Instancing");
+	m_pInstancing->SetTechnique(hTech);
+
+	// シェーダーパラメータを設定
+	m_pInstancing->SetMatrix("g_mtxview", &mtxView); // ビュー
+	m_pInstancing->SetMatrix("g_mtxprojection", &mtxProj); // プロジェクション
+
+	m_pInstancing->CommitChanges();
+}
+//=========================================================
 // 終了処理
 //=========================================================
 void CInstancing::Uninit(void)
@@ -92,6 +173,14 @@ void CInstancing::BeginPass(const int nPass)
 	m_pInstancing->BeginPass(nPass);
 }
 //=========================================================
+// インスタンシング終了
+//=========================================================
+void CInstancing::EndInstancing(void)
+{
+	m_pInstanceDevice->SetStreamSourceFreq(0, 1);
+	m_pInstanceDevice->SetStreamSourceFreq(1, 1);
+}
+//=========================================================
 // パス終了関数
 //=========================================================
 void CInstancing::EndPass(void)
@@ -104,29 +193,4 @@ void CInstancing::EndPass(void)
 void CInstancing::End(void)
 {
 	m_pInstancing->End();
-}
-//=========================================================
-// インスタンシングパラメーター設定
-//=========================================================
-void CInstancing::SetInstancingParam(const float &col)
-{
-	// ポインタが無かったら
-	if (!m_pInstancing) return;
-
-	// 行列を取得する
-	D3DXMATRIX mtxProj, mtxView;
-	m_pInstanceDevice->GetTransform(D3DTS_PROJECTION, &mtxProj);	// プロジェクションマトリックス
-	m_pInstanceDevice->GetTransform(D3DTS_VIEW, &mtxView);			// ビューマトリックス
-
-	// シェーダーのテクニック宣言を取得
-	D3DXHANDLE hTech = m_pInstancing->GetTechniqueByName("Instancing");
-	m_pInstancing->SetTechnique(hTech);
-
-	// シェーダーに書かれているパラメータを設定
-	m_pInstancing->SetMatrix("g_mtxprojection", &mtxProj);
-	m_pInstancing->SetMatrix("g_mtxview", &mtxView);
-	m_pInstancing->SetFloat("g_ObjectCol", col);
-
-	// コミット切り替え
-	m_pInstancing->CommitChanges();
 }

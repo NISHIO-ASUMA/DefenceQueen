@@ -24,6 +24,17 @@ class CModelManager
 public:
 
 	//*************************
+	// インスタンシングデータ構造体
+	//*************************
+	struct MODEL_DATA
+	{
+		LPDIRECT3DVERTEXBUFFER9 VtxBuffer;		// 頂点バッファ
+		LPDIRECT3DINDEXBUFFER9  IndexBuffer;	// インデックスバッファ
+		UINT vtxCount;							// 頂点カウント
+		UINT PrimCount;							// ポリゴンカウント
+	};
+
+	//*************************
 	// 読み込み用構造体
 	//*************************
 	struct ModelManagerInfo
@@ -34,7 +45,9 @@ public:
 		std::vector<int>pTexture; // テクスチャの動的ポインタ
 		std::string FilePath;	// ファイル名
 		int nParnent;			// 親を持つ
+		MODEL_DATA modelData;   // 構造体変数
 	};
+
 
 	CModelManager();
 	~CModelManager();

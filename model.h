@@ -40,6 +40,8 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+	void UpdateCalcMtx(void);
+
 	void DrawMtxShadow(void);
 	void DrawOutLine(const D3DXVECTOR4& color = D3DXVECTOR4(0.0f,0.0f,0.0f,1.0f),const float fOutLinewidth = 0.44f); 
 	void SetModelPass(const char* pModelName);

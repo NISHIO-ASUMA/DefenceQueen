@@ -16,6 +16,7 @@
 #include "camera.h"
 #include "fade.h"
 #include "instancing.h"
+#include "modelmanager.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -264,6 +265,23 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 		D3DDECL_END()
 	};
 
+	// 最大インスタンス数
+	const UINT MAX_INSTANCE = 1024;
+
+	HRESULT hr = m_pD3DDevice->CreateVertexBuffer
+	(
+		sizeof(InstanceData) * MAX_INSTANCE,
+		D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY,
+		0,
+		D3DPOOL_DEFAULT,
+		&m_instanceVB,
+		nullptr
+	);
+
+	// 生成失敗時
+	if (FAILED(hr))
+		return hr;
+
 	return S_OK;
 }
 //=========================================================
@@ -312,6 +330,13 @@ void CRenderer::Uninit(void)
 			m_apRenderMT[nCnt]->Release();
 			m_apRenderMT[nCnt] = nullptr;
 		}
+	}
+
+	// インスタンシング頂点バッファの破棄
+	if (m_instanceVB)
+	{
+		m_instanceVB->Release();
+		m_instanceVB = nullptr;
 	}
 
 	// Direct3Dデバイスの破棄
@@ -421,6 +446,9 @@ void CRenderer::Draw(void)
 
 		// 全オブジェクト描画
 		CObject::DrawAll();
+
+		// オブジェクトインスタンシング描画
+		//DrawInstancingAll();
 
 		// シーン取得
 		CScene*pScene = CManager::GetInstance()->GetSceneRaw();
@@ -555,6 +583,73 @@ void CRenderer::GetFps(int nFps)
 	// 代入
 	m_fps = nFps;
 }
+
+//=========================================================
+// インスタンシングオブジェクト登録関数
+//=========================================================
+void CRenderer::AddInstanceObject(const int modelIdx, const D3DXMATRIX& world)
+{
+	// 対象オブジェクトを動的配列に追加
+	m_RegisterInstObject[modelIdx].push_back({ world });
+}
+//=========================================================
+// インスタンシング描画関数
+//=========================================================
+void CRenderer::DrawInstancingAll(void)
+{
+	// モデルマネージャー取得
+	auto* modelMgr = CManager::GetInstance()->GetModelManagere();
+	auto& models = modelMgr->GetList();
+
+	for (auto& pair : m_RegisterInstObject)
+	{
+		// 最初と次
+		int modelIdx = pair.first;
+		auto& instances = pair.second;
+
+		// モデル配列
+		auto& model = models[modelIdx];
+
+		// インスタンシング開始
+		CInstancing::GetInstance()->Begin();
+		CInstancing::GetInstance()->BeginPass();
+
+		// パラメーター設定
+		CInstancing::GetInstance()->SetInstancingParam();
+
+		// シェーダー開始
+		CInstancing::GetInstance()->BeginInstancing
+		(
+			instances.size(),
+			model.modelData.VtxBuffer,
+			sizeof(VERTEX_3D),
+			model.modelData.IndexBuffer,
+			m_instanceVB,
+			sizeof(InstanceData)
+		);
+
+		// プリミティブ描画
+		m_pD3DDevice->DrawIndexedPrimitive
+		(
+			D3DPT_TRIANGLELIST,
+			0, 0,
+			model.modelData.vtxCount,
+			0,
+			model.modelData.PrimCount
+		);
+
+		// インスタンシングパラメーターリセット
+		CInstancing::GetInstance()->EndInstancing();
+
+		// シェーダー終了
+		CInstancing::GetInstance()->EndPass();
+		CInstancing::GetInstance()->End();
+	}
+
+	// 配列をクリア
+	m_RegisterInstObject.clear();
+}
+
 //=========================================================
 // ワイヤーフレーム起動
 //=========================================================
