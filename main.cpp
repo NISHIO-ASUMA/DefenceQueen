@@ -55,8 +55,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE /*hInstancePrev
 		LoadIcon(NULL,IDI_APPLICATION), // ファイルアイコン
 	};
 
-	HWND hWnd;  // ウインドウハンドル(識別子)
-	MSG msg;    // メッセージを格納する変数
+	HWND hWnd;		// ウインドウハンドル(識別子)
+	MSG msg;		// メッセージを格納する変数
 
 	// 画面サイズの構造
 	RECT rect = { 0,0,SCREEN_WIDTH,SCREEN_HEIGHT };

@@ -1,6 +1,6 @@
 //=========================================================
 //
-// モデル処理 [ model.cpp ]
+// インスタンシング適用モデル処理 [ instancingmodel.cpp ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -8,17 +8,17 @@
 //*********************************************************
 // インクルードファイル
 //*********************************************************
-#include "model.h"
+#include "instancemodel.h"
 #include "manager.h"
 #include "texture.h"
-#include "modelmanager.h"
-#include "outline.h"
+#include "renderer.h"
+#include "instancemodelmanager.h"
 #include "instancing.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
-CModel::CModel() :m_pParent(nullptr),
+CInstanceModel::CInstanceModel() : m_pParent(nullptr),
 m_pTexture(nullptr),
 m_nModelIdx(-1),
 m_pos(VECTOR3_NULL),
@@ -26,24 +26,36 @@ m_rot(VECTOR3_NULL),
 m_offPos(VECTOR3_NULL),
 m_offRot(VECTOR3_NULL),
 m_scale(INITSCALE),
-m_parttype(PARTTYPE_NONE),
 m_isShadow(false),
-m_Isinstancing(false),
 m_mtxworld{}
 {
-	// 値のクリア
 }
 //=========================================================
 // デストラクタ
 //=========================================================
-CModel::~CModel()
+CInstanceModel::~CInstanceModel()
 {
 	// 無し
 }
 //=========================================================
+// 生成処理
+//=========================================================
+CInstanceModel* CInstanceModel::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, const char* pFilename, const bool isShadow)
+{
+	// インスタンス生成
+	CInstanceModel* pModelinst = new CInstanceModel;
+	if (pModelinst == nullptr) return nullptr;
+
+	// 初期化失敗時
+	if (FAILED(pModelinst->Init(pos, rot, pFilename, isShadow))) return  nullptr;
+
+	// ポインタを返す
+	return pModelinst;
+}
+//=========================================================
 // 初期化処理
 //=========================================================
-HRESULT CModel::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot,const char * pFilename,const bool isShadow)
+HRESULT CInstanceModel::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot, const char* pFilename, const bool isShadow)
 {
 	// モデルセット
 	SetModelPass(pFilename);
@@ -63,40 +75,86 @@ HRESULT CModel::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot,const char * pFilename,con
 	return S_OK;
 }
 //=========================================================
-// 生成処理
-//=========================================================
-CModel* CModel::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, const char* pFilename,const bool isShadow)
-{
-	// インスタンス生成
-	CModel* pModel = new CModel;
-	if (pModel == nullptr) return nullptr;
-
-	// 初期化失敗時
-	if (FAILED(pModel->Init(pos, rot, pFilename,isShadow))) return  nullptr;
-
-	// ポインタを返す
-	return pModel;
-}
-//=========================================================
 // 終了処理
 //=========================================================
-void CModel::Uninit(void)
+void CInstanceModel::Uninit(void)
 {
 	// 無し
 }
 //=========================================================
 // 更新処理
 //=========================================================
-void CModel::Update(void)
+void CInstanceModel::Update(void)
 {
+	// インデックスが-1なら
+	if (m_nModelIdx == -1)
+		return;
 
+	// デバイスポインタを宣言
+	auto Rendere = CManager::GetInstance()->GetRenderer();
+	LPDIRECT3DDEVICE9 pDevice = Rendere->GetDevice();
+
+	// ファイルマネージャー取得
+	CInstanceModelManager* pIMgr = CManager::GetInstance()->GetInstanceModelM();
+	if (!pIMgr) return;
+
+	// 配列情報
+	auto& fileData = pIMgr->GetList();
+	if (m_nModelIdx >= static_cast<int>(fileData.size())) return;
+
+	// 配列取得
+	auto& model = fileData[m_nModelIdx];
+	if (!model.pMesh) return;
+
+	// 計算用のマトリックスを宣言
+	D3DXMATRIX mtxScale, mtxRot, mtxTrans;
+
+	// ワールドマトリックスの初期化
+	D3DXMatrixIdentity(&m_mtxworld);
+
+	// 拡大率を反映
+	D3DXMatrixScaling(&mtxScale, m_scale.x, m_scale.y, m_scale.z);
+	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxScale);
+
+	// 向きを反映
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y + m_offRot.y, m_rot.x + m_offRot.x, m_rot.z + m_offRot.z);
+	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxRot);
+
+	// 位置を反映
+	D3DXMatrixTranslation(&mtxTrans, m_pos.x + m_offPos.x, m_pos.y + m_offPos.y, m_pos.z + m_offPos.z);
+	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxTrans);
+
+	// 親のペアネント格納用変数
+	D3DXMATRIX mtxParent;
+
+	if (m_pParent != nullptr)
+	{// 親が存在する
+		// ワールドマトリックス取得
+		mtxParent = m_pParent->GetMtxWorld();
+	}
+	else
+	{// 親が存在しない
+		// マトリックス取得
+		pDevice->GetTransform(D3DTS_WORLD, &mtxParent);
+	}
+
+	// 親のマトリックスとかけ合わせる
+	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxParent);
+	// ワールドマトリックスの設定
+	pDevice->SetTransform(D3DTS_WORLD, &m_mtxworld);
+
+	// インスタンシングに登録する
+	Rendere->AddInstanceObject(this);
 }
 //=========================================================
-// 描画処理
+// 描画処理 ( インスタンシングに任せる )
 //=========================================================
-void CModel::Draw(void)
+void CInstanceModel::Draw(void)
 {
-#if 1
+#if 0
+	//// インスタンシングするなら
+	//if (m_Isinstancing == true)
+	//	return;
 	// インデックスが-1なら
 	if (m_nModelIdx == -1)
 		return;
@@ -112,6 +170,9 @@ void CModel::Draw(void)
 	// 配列情報
 	auto& fileData = pXMgr->GetList();
 	if (m_nModelIdx >= static_cast<int>(fileData.size())) return;
+
+	// 取得
+	//m_Isinstancing = fileData[m_nModelIdx].isInstancing;
 
 	// 配列
 	auto& model = fileData[m_nModelIdx];
@@ -188,157 +249,44 @@ void CModel::Draw(void)
 
 	// マテリアルを戻す
 	pDevice->SetMaterial(&matDef);
-#endif
 	// 有効なら
 	if (m_isShadow) DrawMtxShadow();
+#endif
 }
 //=========================================================
-// マトリックスシャドウ描画処理
+// モデルパス設定
 //=========================================================
-void CModel::DrawMtxShadow(void)
-{
-	// デバイス取得
-	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
-	if (!pDevice) return;
-
-	// Xファイルマネージャー取得
-	CModelManager* pMgr = CManager::GetInstance()->GetModelManagere();
-	if (!pMgr) return;
-
-	// 配列情報の取得
-	auto& fileData = pMgr->GetList();
-	if (m_nModelIdx < NULL || m_nModelIdx >= static_cast<int>(fileData.size())) return;
-
-	// モデル要素を取得
-	auto& model = fileData[m_nModelIdx];
-	if (!model.pMesh) return;
-
-	// ライト方向
-	D3DXVECTOR4 lightDir(0.0f, -0.63f, -0.02f, 0.0f);
-
-	// 平面投影座標を設定
-	D3DXPLANE plane;
-	D3DXVECTOR3 point = D3DXVECTOR3(0.0f, 0.7f, 0.0f);
-	D3DXVECTOR3 normal = D3DXVECTOR3(0.0f, -0.7f, 0.0f);
-	D3DXPlaneFromPointNormal(&plane, &point, &normal);
-
-	// 影マトリックス生成
-	D3DXMATRIX mtxShadow;
-	D3DXMatrixShadow(&mtxShadow, &lightDir, &plane);
-
-	// 影をモデルの位置に合わせる
-	D3DXMATRIX mtxWorldShadow;
-	D3DXMatrixMultiply(&mtxWorldShadow, &m_mtxworld, &mtxShadow);
-
-	// ワールドマトリックスの設定
-	pDevice->SetTransform(D3DTS_WORLD, &mtxWorldShadow);
-
-	// 半透明に設定
-	D3DMATERIAL9 shadowMat = {};
-	shadowMat.Diffuse = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.35f);
-	shadowMat.Ambient = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.35f);
-
-	// マテリアルセット
-	pDevice->SetMaterial(&shadowMat);
-
-	// メッシュ描画
-	for (int nCnt = 0; nCnt < static_cast<int>(model.dwNumMat); nCnt++)
-	{
-		model.pMesh->DrawSubset(nCnt);
-	}
-
-	// マテリアルを戻す
-	pDevice->SetMaterial(&shadowMat);
-}
-//=========================================================
-// アウトライン描画設定関数
-//=========================================================
-void CModel::DrawOutLine(const D3DXVECTOR4& color,const float fOutLinewidth)
-{
-	// インデックスが-1なら
-	if (m_nModelIdx == -1)
-		return;
-
-	// ファイルマネージャー取得
-	CModelManager* pXMgr = CManager::GetInstance()->GetModelManagere();
-	if (!pXMgr) return;
-
-	// 配列情報
-	auto& fileData = pXMgr->GetList();
-	if (m_nModelIdx >= static_cast<int>(fileData.size())) return;
-
-	// 配列
-	auto& model = fileData[m_nModelIdx];
-	if (!model.pMesh) return;
-
-	// デバイスポインタを宣言
-	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
-
-	// 計算用のマトリックスを宣言
-	D3DXMATRIX mtxScale, mtxRot, mtxTrans;
-
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxworld);
-
-	// 拡大率を反映
-	D3DXMatrixScaling(&mtxScale, m_scale.x, m_scale.y, m_scale.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxScale);
-
-	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y + m_offRot.y, m_rot.x + m_offRot.x, m_rot.z + m_offRot.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxRot);
-
-	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_pos.x + m_offPos.x, m_pos.y + m_offPos.y, m_pos.z + m_offPos.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxTrans);
-
-	// 親のペアネント格納用変数
-	D3DXMATRIX mtxParent;
-
-	if (m_pParent != nullptr)
-	{// 親が存在する
-		// ワールドマトリックス取得
-		mtxParent = m_pParent->GetMtxWorld();
-	}
-	else
-	{// 親が存在しない
-		// マトリックス取得
-		pDevice->GetTransform(D3DTS_WORLD, &mtxParent);
-	}
-
-	// 親のマトリックスとかけ合わせる
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxParent);
-
-	// マテリアルが取得できたら
-	if (model.pBuffMat)
-	{
-		for (int nCnt = 0; nCnt < static_cast<int>(model.dwNumMat); nCnt++)
-		{
-			// シェーダーパラメーター設定
-			COutLine::GetInstance()->SetParameter(fOutLinewidth, color, m_mtxworld);
-
-			// モデルの描画
-			model.pMesh->DrawSubset(nCnt);
-		}
-	}
-}
-//=========================================================
-// モデルインデックス登録
-//=========================================================
-void CModel::SetModelPass(const char* pModelName)
+void CInstanceModel::SetModelPass(const char* pModelName)
 {
 	// マネージャーから取得
-	auto ModelManager = CManager::GetInstance()->GetModelManagere();
-	if (ModelManager == nullptr) return;
+	auto InstModelManager = CManager::GetInstance()->GetInstanceModelM();
+	if (InstModelManager == nullptr) return;
 
 	// インデックスセット
-	m_nModelIdx = ModelManager->Register(pModelName);
+	m_nModelIdx = InstModelManager->Register(pModelName);
 }
 //=========================================================
-// 親パーツ設定処理
+// 親設定
 //=========================================================
-void CModel::SetParent(CModel* pModel)
+void CInstanceModel::SetParent(CInstanceModel* pModel)
 {
-	// 設定
+	// 親モデルを設定する
 	m_pParent = pModel;
 }
+
+#if 0
+//=========================================================
+// マトリックスシャドウ描画
+//=========================================================
+void CInstanceModel::DrawMtxShadow(void)
+{
+
+}
+//=========================================================
+// アウトライン描画
+//=========================================================
+void CInstanceModel::DrawOutLine(const D3DXVECTOR4& color, const float fOutLinewidth)
+{
+
+}
+#endif

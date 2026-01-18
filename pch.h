@@ -117,4 +117,5 @@ struct MODEL_3D
 	D3DXVECTOR3 pos;	// 座標
 	DWORD		color;	// カラー
 	D3DXVECTOR3 normal;	// 法線
+	D3DMATRIX mtxworld;
 };

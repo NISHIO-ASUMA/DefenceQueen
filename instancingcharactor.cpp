@@ -1,26 +1,27 @@
-//=========================================================
+//===================================================================
 //
-// 動くキャラクタークラス処理 [ movecharactor.cpp ]
+// インスタンシングして動くキャラクタークラス [ instancingcharactor.cpp ]
 // Author: Asuma Nishio
-//
-//=========================================================
+// 
+//===================================================================
 
-//*********************************************************
+//*******************************************************************
 // インクルードファイル
-//*********************************************************
-#include "movecharactor.h"
-#include "model.h"
+//*******************************************************************
+#include "instancingcharactor.h"
 #include "shadowS.h"
 #include "manager.h"
 #include "blackboard.h"
 #include "node.h"
 #include "motionmanager.h"
 #include "outline.h"
+#include "motioninstancing.h"
+#include "instancemodel.h"
 
-//=========================================================
+//===================================================================
 // コンストラクタ
-//=========================================================
-CMoveCharactor::CMoveCharactor(int nPriority) : CObject(nPriority),
+//===================================================================
+CInstancingCharactor::CInstancingCharactor(int nPriority) : CObject(nPriority),
 m_pos(VECTOR3_NULL),
 m_posOld(VECTOR3_NULL),
 m_move(VECTOR3_NULL),
@@ -39,19 +40,27 @@ m_isInstancing(false)
 	// 値のクリア
 	D3DXMatrixIdentity(&m_mtxworld);
 }
-//=========================================================
+//===================================================================
 // デストラクタ
-//=========================================================
-CMoveCharactor::~CMoveCharactor()
+//===================================================================
+CInstancingCharactor::~CInstancingCharactor()
 {
-
+	// 無し
 }
-//=========================================================
-// 初期化処理
-//=========================================================
-HRESULT CMoveCharactor::Init(void)
+//===================================================================
+// モーションスクリプト読み込み処理
+//===================================================================
+void CInstancingCharactor::MotionLoad(const char* pScriptName, int nDestMotions, const bool isShadow)
 {
-	// 変数の初期化
+	// モーションのポインタを取得する
+	m_pMotion = CMotionInstancing::Load(pScriptName, m_pModel, nDestMotions, isShadow);
+}
+//===================================================================
+// 初期化処理
+//===================================================================
+HRESULT CInstancingCharactor::Init(void)
+{
+	// モデル配列の初期化
 	m_pModel.clear();
 
 	// 有効時
@@ -63,10 +72,10 @@ HRESULT CMoveCharactor::Init(void)
 
 	return S_OK;
 }
-//=========================================================
+//===================================================================
 // 終了処理
-//=========================================================
-void CMoveCharactor::Uninit(void)
+//===================================================================
+void CInstancingCharactor::Uninit(void)
 {
 	// 動的確保分のモデルの破棄
 	for (auto iter = m_pModel.begin(); iter != m_pModel.end(); iter++)
@@ -90,7 +99,7 @@ void CMoveCharactor::Uninit(void)
 
 	// ポインタ破棄
 	m_pMotion.reset();
-	
+
 	// ノードクラスツリーの破棄
 	if (m_pBehaviorTree)
 	{
@@ -109,10 +118,10 @@ void CMoveCharactor::Uninit(void)
 	// 自身の破棄
 	CObject::Release();
 }
-//=========================================================
+//===================================================================
 // 更新処理
-//=========================================================
-void CMoveCharactor::Update(void)
+//===================================================================
+void CInstancingCharactor::Update(void)
 {
 	// 移動量の減衰
 	m_move.x += (0.0f - m_move.x) * 0.75f;
@@ -159,72 +168,36 @@ void CMoveCharactor::Update(void)
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
 	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxTrans);
 
-	////for (auto& model : m_pModel)
-	//{
-	//	model->Update();
-	//}
-
-#ifdef NDEBUG
+#ifdef _DEBUG
 	// release時だけ
-	if (m_pMotion) m_pMotion->Update(m_pModel);
+	//if (m_pMotion) m_pMotion->Update(m_pModel);
 #endif
+
+	// モデルの更新処理
+	for (auto & Model : m_pModel )
+	{
+		Model->Update();
+	}
 }
-//=========================================================
+//===================================================================
 // 描画処理
-//=========================================================
-void CMoveCharactor::Draw(void)
+//===================================================================
+void CInstancingCharactor::Draw(void)
 {
 #if 1
 	// デバイス取得
 	auto Rendere = CManager::GetInstance()->GetRenderer();
 	LPDIRECT3DDEVICE9 pDevice = Rendere->GetDevice();
+
+	// デバイスのワールドマトリックスに設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxworld);
-
-	for (auto& model : m_pModel)
-	{
-		model->Draw();
-	}
-
-	// falseなら
-	if (!m_isOutLine) return;
-
-	// ワールドマトリックスの設定
-	pDevice->SetTransform(D3DTS_WORLD, &m_mtxworld);
-
-	// カリングを切る
-	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
-
-	// シェーダー開始
-	COutLine::GetInstance()->Begin();
-	COutLine::GetInstance()->BeginPass();
-
-	// アウトラインシェーダー関数
-	for (auto& model : m_pModel)
-	{
-		model->DrawOutLine(D3DXVECTOR4(0.0f,0.0f,0.0f,1.0f),0.45f);
-	}
-
-	// シェーダー終了
-	COutLine::GetInstance()->EndPass();
-	COutLine::GetInstance()->End();
-
-	// カリングを戻す
-	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 #endif
 }
-//=========================================================
-// 位置情報の更新
-//=========================================================
-void CMoveCharactor::UpdatePosition(void)
+//===================================================================
+// 座標のみの更新処理
+//===================================================================
+void CInstancingCharactor::UpdatePosition(void)
 {
 	m_posOld = m_pos;
 	m_pos += m_move;
-}
-//=========================================================
-// モーションロード処理
-//=========================================================
-void CMoveCharactor::MotionLoad(const char* pScriptName, int nDestMotions, const bool isShadow)
-{
-	// モーションのポインタを取得する
-	m_pMotion = CMotion::Load(pScriptName, m_pModel, nDestMotions, isShadow);
 }

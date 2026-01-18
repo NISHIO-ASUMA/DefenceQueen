@@ -1,32 +1,32 @@
-//=========================================================
+//===================================================================
 //
-// モーションファイル管理クラス [ motionmanager.h ]
+// インスタンシング用モーション管理クラス [ instancemotionmanager.h ]
 // Author: Asuma Nishio
 // 
-//=========================================================
+//===================================================================
 
-//*********************************************************
+//*******************************************************************
 // インクルードガード
-//*********************************************************
+//*******************************************************************
 #pragma once
 
-//*********************************************************
+//*******************************************************************
 // インクルードファイル
-//*********************************************************
+//*******************************************************************
 #include <string>
 #include <vector>
 #include <memory>
 
-//*********************************************************
+//*******************************************************************
 // 前方宣言
-//*********************************************************
-class CMotion;
-class CModel;
+//*******************************************************************
+class CMotionInstancing;
+class CInstanceModel;
 
-//*********************************************************
-// 管理クラスを定義
-//*********************************************************
-class CMotionManager
+//*******************************************************************
+// モーションファイル管理クラスを定義
+//*******************************************************************
+class CInstanceMotionManager
 {
 public:
 
@@ -68,7 +68,7 @@ public:
 	struct MOTIONFILE
 	{
 		std::string FilePath;	// ファイル名
-		std::vector<CModel*>apModel; // モデルインデックス
+		std::vector<CInstanceModel*>apModel; // モデルインデックス
 		std::vector<std::string>Modelpath; // モデルパス
 		std::vector<int>nParentId;			// idセット
 		std::vector<D3DXVECTOR3>offpos;		// オフセット座標
@@ -78,8 +78,8 @@ public:
 		std::vector<INFO> m_aMotionInfo;	// モーション情報
 	};
 
-	CMotionManager();
-	~CMotionManager();
+	CInstanceMotionManager();
+	~CInstanceMotionManager();
 
 	HRESULT Load(void);
 	void UnLoad(void);
@@ -92,8 +92,7 @@ public:
 	/// <param name="nDestMotion">モーション最大数</param>
 	/// <param name="isShadow">影の描画フラグ</param>
 	/// <returns></returns>
-	int Register(const char* pFileName,std::vector<CModel*>& pModel,int nDestMotion,bool isShadow);
-
+	int Register(const char* pFileName, std::vector<CInstanceModel*>& pModel, int nDestMotion, bool isShadow);
 
 	/// <summary>
 	/// 実際のモーションロードを行う
@@ -102,7 +101,7 @@ public:
 	/// <param name="pModel">参照モデル</param>
 	/// <param name="nDestMotion">モーション最大数</param>
 	/// <param name="isShadow">影の描画フラグ</param>
-	void LoadMotion(const char* pFileName, std::vector<CModel*>& pModel, int nDestMotion, bool isShadow);
+	void LoadMotion(const char* pFileName, std::vector<CInstanceModel*>& pModel, int nDestMotion, bool isShadow);
 
 	/// <summary>
 	/// 動的配列からデータを取得
@@ -116,7 +115,7 @@ public:
 	/// </summary>
 	/// <param name="nIdx">取得するモーション番号</param>
 	/// <returns></returns>
-	MOTIONFILE GetFileDataIdx(const int &nIdx) { return m_FileData[nIdx]; }
+	MOTIONFILE GetFileDataIdx(const int& nIdx) { return m_FileData[nIdx]; }
 
 private:
 
@@ -124,15 +123,15 @@ private:
 	// クラス内メンバ関数
 	//***********************************
 	int SetModels(std::istringstream& iss);
-	void SetModelFile(std::istringstream& iss, std::vector<CModel*>& pModel, int nCnt, const bool isShadow);
-	void SetParts(std::ifstream& file, std::vector<CModel*>& pModel);
+	void SetModelFile(std::istringstream& iss, std::vector<CInstanceModel*>& pModel, int nCnt, const bool isShadow);
+	void SetParts(std::ifstream& file, std::vector<CInstanceModel*>& pModel);
 	void SetPartsMotion(std::ifstream& file, int nCntMotion);
-	void SetKey(std::ifstream& file,int nCntMotion, int nCntKey);
+	void SetKey(std::ifstream& file, int nCntMotion, int nCntKey);
 	void SetKeyDate(std::istringstream& ss, const std::string& param, int nCntMotion, int nCntKey, int& posKeyIndex, int& rotKeyIndex);
 
-	// 静的変数
+	// 静的メンバ変数
 	static int m_nNumAll;
 
-	//　ファイルパスを保持しておく配列
+	//　ファイルパスを保持しておく動的配列
 	std::vector<MOTIONFILE>m_FileData;
 };

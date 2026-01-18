@@ -1,6 +1,6 @@
 //=========================================================
 //
-// キャラクターモデルファイル管理クラス [ modelmanager.cpp ]
+// インスタンシング適用モデル管理クラス [ instancemodelmanager.cpp ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -8,7 +8,7 @@
 //*********************************************************
 // インクルードファイル
 //*********************************************************
-#include "modelmanager.h"
+#include "instancemodelmanager.h"
 #include "json.hpp"
 #include "manager.h"
 #include "texture.h"
@@ -22,41 +22,40 @@ using json = nlohmann::json; // jsonファイルストリーム
 //*********************************************************
 // 静的メンバ変数宣言
 //*********************************************************
-int CModelManager::m_nNumAll = NULL; // 総数管理
+int CInstanceModelManager::m_nNumAll = NULL; // 総数管理
 
 //=========================================================
 // コンストラクタ
 //=========================================================
-CModelManager::CModelManager() : m_aModelData{}
+CInstanceModelManager::CInstanceModelManager()
 {
 
 }
 //=========================================================
 // デストラクタ
 //=========================================================
-CModelManager::~CModelManager()
+CInstanceModelManager::~CInstanceModelManager()
 {
 	// 全破棄
 	UnLoad();
 }
 //=========================================================
-// 全モデル読み込み処理
+// 読み込み処理
 //=========================================================
-HRESULT CModelManager::Load(void)
+HRESULT CInstanceModelManager::Load(void)
 {
-	// jsonファイルロード
+	// jsonファイル読み込み
 	LoadJson();
 
-	// 初期化結果を返す
 	return S_OK;
 }
 //=========================================================
-// 全モデル破棄処理
+// 全データ破棄処理
 //=========================================================
-void CModelManager::UnLoad(void)
+void CInstanceModelManager::UnLoad(void)
 {
 	// 格納情報の破棄
-	for (auto iter = m_aModelData.begin(); iter != m_aModelData.end(); iter++)
+	for (auto iter = m_aModelInstData.begin(); iter != m_aModelInstData.end(); iter++)
 	{
 		// メッシュの破棄
 		if ((*iter).pMesh != nullptr)
@@ -88,37 +87,37 @@ void CModelManager::UnLoad(void)
 		}
 
 		// 頂点バッファの破棄
-		if ((*iter).modelData.VtxBuffer != nullptr)
+		if ((*iter).InstanceData.VtxBuffer != nullptr)
 		{
-			(*iter).modelData.VtxBuffer->Release();
-			(*iter).modelData.VtxBuffer = nullptr;
+			(*iter).InstanceData.VtxBuffer->Release();
+			(*iter).InstanceData.VtxBuffer = nullptr;
 		}
 
 		// インデックスバッファの破棄
-		if ((*iter).modelData.IndexBuffer != nullptr)
+		if ((*iter).InstanceData.IndexBuffer != nullptr)
 		{
-			(*iter).modelData.IndexBuffer->Release();
-			(*iter).modelData.IndexBuffer = nullptr;
+			(*iter).InstanceData.IndexBuffer->Release();
+			(*iter).InstanceData.IndexBuffer = nullptr;
 		}
 	}
 
 	// 配列クリア
-	m_aModelData.clear();
+	m_aModelInstData.clear();
 }
 //=========================================================
 // モデル登録
 //=========================================================
-int CModelManager::Register(const char* pModelName)
+int CInstanceModelManager::Register(const char* pModelName)
 {
 	// すでに登録済みならそのインデックスを返す
-	for (int nCnt = 0; nCnt < static_cast<int>(m_aModelData.size()); nCnt++)
+	for (int nCnt = 0; nCnt < static_cast<int>(m_aModelInstData.size()); nCnt++)
 	{
-		if (m_aModelData[nCnt].FilePath == pModelName)
+		if (m_aModelInstData[nCnt].FilePath == pModelName)
 			return nCnt;
 	}
 
 	// ないなら新規登録処理
-	ModelManagerInfo NewModelInfo = {};
+	InstanceModelInfo NewModelInfo = {};
 	NewModelInfo.FilePath = pModelName;
 
 	//===============================================================
@@ -181,7 +180,7 @@ int CModelManager::Register(const char* pModelName)
 	}
 
 	// 配列に登録する
-	m_aModelData.push_back(NewModelInfo);
+	m_aModelInstData.push_back(NewModelInfo);
 
 	// 総数のインデックスを返す
 	return m_nNumAll++;
@@ -189,7 +188,7 @@ int CModelManager::Register(const char* pModelName)
 //=========================================================
 // json読み込み
 //=========================================================
-HRESULT CModelManager::LoadJson(void)
+HRESULT CInstanceModelManager::LoadJson(void)
 {
 	// ファイルオープン
 	std::ifstream openfile(LOAD_FILE);
@@ -214,7 +213,7 @@ HRESULT CModelManager::LoadJson(void)
 	}
 
 	// 配列クリア
-	m_aModelData.clear();
+	m_aModelInstData.clear();
 
 	// 情報をセットしていく
 	for (const auto& entry : loadjson)
@@ -247,10 +246,10 @@ HRESULT CModelManager::LoadJson(void)
 //=========================================================
 // 関数分け読み込み
 //=========================================================
-void CModelManager::LoadModel(const char* pModelName, bool& LoadFlags)
+void CInstanceModelManager::LoadModel(const char* pModelName, const bool LoadFlags)
 {
 	// 格納用変数
-	ModelManagerInfo NewModelInfo = {};
+	InstanceModelInfo NewModelInfo = {};
 	NewModelInfo.FilePath = pModelName;
 
 	//===============================================================
@@ -337,10 +336,10 @@ void CModelManager::LoadModel(const char* pModelName, bool& LoadFlags)
 	NewModelInfo.pMesh->GetIndexBuffer(&indexbuffer);
 
 	// インデックスと頂点数を設定
-	NewModelInfo.modelData.VtxBuffer = vtxbuffer;
-	NewModelInfo.modelData.IndexBuffer = indexbuffer;
-	NewModelInfo.modelData.vtxCount = NewModelInfo.pMesh->GetNumVertices();
-	NewModelInfo.modelData.PrimCount = NewModelInfo.pMesh->GetNumFaces();
+	NewModelInfo.InstanceData.VtxBuffer = vtxbuffer;
+	NewModelInfo.InstanceData.IndexBuffer = indexbuffer;
+	NewModelInfo.InstanceData.vtxCount = NewModelInfo.pMesh->GetNumVertices();
+	NewModelInfo.InstanceData.PrimCount = NewModelInfo.pMesh->GetNumFaces();
 
 	//===============================================================
 	// テクスチャ登録
@@ -372,9 +371,6 @@ void CModelManager::LoadModel(const char* pModelName, bool& LoadFlags)
 		}
 	}
 
-	// フラグ情報を格納
-	NewModelInfo.isInstancing = LoadFlags;
-
 	// 配列に登録する
-	m_aModelData.push_back(NewModelInfo);
+	m_aModelInstData.push_back(NewModelInfo);
 }

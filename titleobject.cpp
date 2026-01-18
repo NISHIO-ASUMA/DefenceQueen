@@ -50,10 +50,11 @@ HRESULT CTitleObject::Init(void)
 	// メッシュフィールド生成
 	CMeshField::Create(VECTOR3_NULL, 4000.0f, 2000.0f, 1, 1);
 
-	// 初期UI生成
-	CUi::Create(D3DXVECTOR3(HALFWIDTH, 650.0f, 0.0f), 30, 180.0f, 60.0f, "GameStart.png", true);
-	CUi::Create(D3DXVECTOR3(HALFWIDTH, 180.0f, 0.0f), 0, 300.0f, 150.0f, "TitleLogo.png", false);
+	//// 初期UI生成
+	//CUi::Create(D3DXVECTOR3(HALFWIDTH, 650.0f, 0.0f), 30, 180.0f, 60.0f, "GameStart.png", true);
+	//CUi::Create(D3DXVECTOR3(HALFWIDTH, 180.0f, 0.0f), 0, 300.0f, 150.0f, "TitleLogo.png", false);
 
+	CTitleAnt::Create(VECTOR3_NULL, VECTOR3_NULL, VECTOR3_NULL);
 	return S_OK;
 }
 //=========================================================
@@ -80,7 +81,7 @@ void CTitleObject::Uninit(void)
 void CTitleObject::Update(void)
 {
 	// メンバの更新
-	if (m_pTitleAntManager) m_pTitleAntManager->Update();
+	//if (m_pTitleAntManager) m_pTitleAntManager->Update();
 }
 //=========================================================
 // シングルトン取得処理

@@ -40,7 +40,6 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-	void UpdateCalcMtx(void);
 
 	void DrawMtxShadow(void);
 	void DrawOutLine(const D3DXVECTOR4& color = D3DXVECTOR4(0.0f,0.0f,0.0f,1.0f),const float fOutLinewidth = 0.44f); 
@@ -54,9 +53,12 @@ public:
 	inline void OffSetRot(const D3DXVECTOR3& offrot) { m_offRot = offrot; }
 	inline void SetPartType(PARTTYPE nDestPartType) { m_parttype = nDestPartType; }
 	inline void SetMtxShadow(bool isShadow) { m_isShadow = isShadow; }
+	inline void SetIsInstansing(const bool IsInstance) { m_Isinstancing = IsInstance; }
 
 	inline D3DXMATRIX GetMtxWorld(void) { return m_mtxworld; }
 	inline PARTTYPE GetPartType(void) const { return m_parttype; }
+	inline int GetModelIdx(void) const { return m_nModelIdx; }
+	inline bool GetIsInstansing(void) const { return m_Isinstancing; }
 
 	static CModel* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, const char* pFilename,const bool isShadow);
 
@@ -69,5 +71,6 @@ private:
 
 	int* m_pTexture;		// テクスチャポインタ
 	bool m_isShadow;		// 影を設定するかどうか
+	bool m_Isinstancing;	// インスタンシングするかどうか
 	int m_nModelIdx;		// モデルインデックス
 };

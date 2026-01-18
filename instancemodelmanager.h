@@ -1,6 +1,6 @@
 //=========================================================
 //
-// キャラクターモデルファイル管理クラス [ modelmanager.h ]
+// インスタンシング適用モデル管理クラス [ instancemodelmanager.h ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -17,16 +17,16 @@
 #include <vector>
 
 //*********************************************************
-// 管理クラスを定義
+// インスタンシング適用モデル管理クラスを定義
 //*********************************************************
-class CModelManager
+class CInstanceModelManager
 {
 public:
 
 	//*************************
 	// インスタンシングデータ構造体
 	//*************************
-	struct MODEL_DATA
+	struct INSTANCEDATA
 	{
 		LPDIRECT3DVERTEXBUFFER9 VtxBuffer;		// 頂点バッファ
 		LPDIRECT3DINDEXBUFFER9  IndexBuffer;	// インデックスバッファ
@@ -37,21 +37,19 @@ public:
 	//*************************
 	// 読み込み用構造体
 	//*************************
-	struct ModelManagerInfo
+	struct InstanceModelInfo
 	{
-		LPD3DXMESH pMesh;		// メッシュのポインタ
-		LPD3DXBUFFER pBuffMat;	// マテリアルのポインタ
-		DWORD dwNumMat;			// マテリアル数
-		std::vector<int>pTexture; // テクスチャの動的ポインタ
-		std::string FilePath;	// ファイル名
-		int nParnent;			// 親を持つ
-		bool isInstancing;		// インスタンシング判断
-		MODEL_DATA modelData;	// 構造体変数
+		LPD3DXMESH pMesh;			// メッシュのポインタ
+		LPD3DXBUFFER pBuffMat;		// マテリアルのポインタ
+		DWORD dwNumMat;				// マテリアル数
+		std::vector<int>pTexture;	// テクスチャの動的ポインタ
+		std::string FilePath;		// ファイル名
+		int nParnent;				// 親を持つ
+		INSTANCEDATA InstanceData;	// 構造体変数
 	};
 
-
-	CModelManager();
-	~CModelManager();
+	CInstanceModelManager();
+	~CInstanceModelManager();
 
 	HRESULT Load(void);
 	void UnLoad(void);
@@ -68,22 +66,22 @@ public:
 	/// </summary>
 	/// <param name="nIdx">取得するオブジェクトインデックス</param>
 	/// <returns>インデックス番号に応じたデータ</returns>
-	ModelManagerInfo GetInfo(const int nIdx) { return m_aModelData[nIdx]; }
+	InstanceModelInfo GetInfo(const int nIdx) { return m_aModelInstData[nIdx]; }
 
 	/// <summary>
 	/// 動的配列の取得
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>配列ポインタ</returns>
-	std::vector<ModelManagerInfo>& GetList(void) { return m_aModelData; }
+	std::vector<InstanceModelInfo>& GetList(void) { return m_aModelInstData; }
 
 private:
 
-	HRESULT LoadJson(void);					// jsonfile読み込み関数
-	void LoadModel(const char* pModelName,bool &LoadFlags); // モデル登録関数
+	HRESULT LoadJson(void);												// jsonfile読み込み関数
+	void LoadModel(const char* pModelName, const bool LoadFlags = true);// モデル登録関数
 
-	std::vector<ModelManagerInfo>m_aModelData;	// モデルデータ管理配列
-	static int m_nNumAll;						// モデルの総数
+	std::vector<InstanceModelInfo>m_aModelInstData;	// モデルデータ管理配列
+	static int m_nNumAll;							// モデルの総数
 
-	static constexpr const char* LOAD_FILE = "data/JSON/Model.json"; // 読み込み対象ファイル名
+	static constexpr const char* LOAD_FILE = "data/JSON/InstanceModel.json"; // 読み込み対象ファイル名
 };

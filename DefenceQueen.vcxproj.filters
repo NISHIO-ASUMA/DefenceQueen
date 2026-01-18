@@ -361,6 +361,15 @@
     <Filter Include="ヘッダー ファイル\Scenes\SceneObject">
       <UniqueIdentifier>{63bec1ac-da4d-4233-8b91-36ea81c6f4d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Charactor\Instancing">
+      <UniqueIdentifier>{8b894f1d-935c-4565-9ed0-8c7066cf7b85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charactor\Instancing\Base">
+      <UniqueIdentifier>{d5465938-f9cd-4cfc-bd0f-713597d52e62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charactor\Instancing\Manager">
+      <UniqueIdentifier>{c820e2be-6cc3-4343-94e8-4c186c0e2c6d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="object2D.cpp">
@@ -812,6 +821,21 @@
     </ClCompile>
     <ClCompile Include="instancing.cpp">
       <Filter>ソース ファイル\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="instancemodel.cpp">
+      <Filter>ソース ファイル\Charactor\Instancing\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="instancingcharactor.cpp">
+      <Filter>ソース ファイル\Charactor\Instancing\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="instancemodelmanager.cpp">
+      <Filter>ソース ファイル\Charactor\Instancing\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="motioninstancing.cpp">
+      <Filter>ソース ファイル\Charactor\Instancing\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="instancemotionmanager.cpp">
+      <Filter>ソース ファイル\Charactor\Instancing\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1318,6 +1342,21 @@
     </ClInclude>
     <ClInclude Include="instancing.h">
       <Filter>ヘッダー ファイル\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="instancingcharactor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="instancemodel.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="instancemodelmanager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="motioninstancing.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="instancemotionmanager.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

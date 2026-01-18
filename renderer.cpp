@@ -17,6 +17,8 @@
 #include "fade.h"
 #include "instancing.h"
 #include "modelmanager.h"
+#include "model.h"
+#include "instancemodel.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -252,7 +254,7 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 	// 最大インスタンス数
 	const UINT MAX_INSTANCE = 1024;
 
-	// インスタンシング頂点バッファ生成
+	// インスタンシング用頂点バッファ生成
 	HRESULT hr = m_pD3DDevice->CreateVertexBuffer
 	(
 		sizeof(InstanceData) * MAX_INSTANCE,
@@ -433,6 +435,11 @@ void CRenderer::Draw(void)
 		// 全オブジェクト描画
 		CObject::DrawAll();
 
+		//************************
+		// インスタンシングのDrawcall
+		//************************
+		DrawInstancingAll();
+
 		// シーン取得
 		CScene*pScene = CManager::GetInstance()->GetSceneRaw();
 
@@ -567,10 +574,13 @@ void CRenderer::GetFps(int nFps)
 //=========================================================
 // インスタンシングオブジェクト登録関数
 //=========================================================
-void CRenderer::AddInstanceObject(const int modelIdx, const D3DXMATRIX& world)
+void CRenderer::AddInstanceObject(CInstanceModel* pModel)
 {
-	// 対象オブジェクトを動的配列に追加
-	m_RegisterInstObject[modelIdx].push_back({ world });
+	// モデルインデックスを取得する
+	int modelIdx = pModel->GetModelIdx();
+
+	// 対象オブジェクトをインスタンシング配列に追加
+	m_RegisterInstObject[modelIdx].push_back(pModel);
 }
 //=========================================================
 // インスタンシング描画関数
@@ -584,11 +594,31 @@ void CRenderer::DrawInstancingAll(void)
 	for (auto& pair : m_RegisterInstObject)
 	{
 		// 最初と次
-		int modelIdx = pair.first;
+		int nModelIdx = pair.first;
 		auto& instances = pair.second;
 
-		// モデル配列
-		auto& model = models[modelIdx];
+		// 情報が無かったら
+		if (instances.empty())
+			continue;
+
+		//対象オブジェクトの情報を格納
+		auto& modelInfo = models[nModelIdx];
+		auto& modelData = modelInfo.modelData;
+
+		// InstanceDataをVBに詰める
+		InstanceData* pInst = nullptr;
+
+		// ロックする
+		m_instanceVB->Lock(0, 0, (void**)&pInst, D3DLOCK_DISCARD);
+
+		// データを詰める
+		for (int nCnt = 0; nCnt < static_cast<int>(instances.size()); nCnt++)
+		{
+			pInst[nCnt].mtxworld = instances[nCnt]->GetMtxWorld();
+		}
+
+		// アンロック
+		m_instanceVB->Unlock();
 
 		// インスタンシング開始
 		CInstancing::GetInstance()->Begin();
@@ -601,9 +631,9 @@ void CRenderer::DrawInstancingAll(void)
 		CInstancing::GetInstance()->BeginInstancing
 		(
 			instances.size(),
-			model.modelData.VtxBuffer,
+			modelData.VtxBuffer,
 			sizeof(VERTEX_3D),
-			model.modelData.IndexBuffer,
+			modelData.IndexBuffer,
 			m_instanceVB,
 			sizeof(InstanceData)
 		);
@@ -611,12 +641,12 @@ void CRenderer::DrawInstancingAll(void)
 		// プリミティブ描画
 		m_pD3DDevice->DrawIndexedPrimitive
 		(
-			D3DPT_TRIANGLESTRIP,
+			D3DPT_TRIANGLELIST,
 			0,
 			0,
-			model.modelData.vtxCount,
+			modelData.vtxCount,
 			0,
-			model.modelData.PrimCount
+			modelData.PrimCount
 		);
 
 		// インスタンシングパラメーターリセット

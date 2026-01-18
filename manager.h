@@ -26,6 +26,8 @@ class CScene;
 class CMotionManager;
 class CModelManager;
 class CNetWork;
+class CInstanceModelManager;
+class CInstanceMotionManager;
 
 //*********************************************************
 // インクルードファイル
@@ -46,6 +48,8 @@ public:
 	void Update(void);
 	void Draw(void);
 
+	CInstanceMotionManager* GetInstMotionM(void) { return m_pInstMotionManager.get(); }
+	CInstanceModelManager* GetInstanceModelM(void) { return m_pInstanceModel.get(); }
 	CInputKeyboard* GetInputKeyboard(void) { return m_pInputKeyboard.get(); }
 	CMotionManager* GetMotionManager(void) { return m_pMotionManager.get(); }
 	CModelManager* GetModelManagere(void) { return m_pModelManager.get(); }
@@ -90,4 +94,6 @@ private:
 	std::unique_ptr<CMotionManager>m_pMotionManager;// モーションマネージャークラス
 	std::unique_ptr<CModelManager>m_pModelManager;	// キャラクターモデル管理クラス
 	std::unique_ptr<CNetWork>m_pNetWork;			// ネットワーククラスのポインタ
+	std::unique_ptr<CInstanceModelManager>m_pInstanceModel; // インスタンシング適用モデル管理クラス
+	std::unique_ptr<CInstanceMotionManager>m_pInstMotionManager; // インスタンシングモデルのモーション管理クラス
 };

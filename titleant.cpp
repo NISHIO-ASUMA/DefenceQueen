@@ -15,11 +15,12 @@
 #include "gamewallmodel.h"
 #include "titleobject.h"
 #include "spherecollider.h"
+#include "motioninstancing.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
-CTitleAnt::CTitleAnt(int nPriority) : CMoveCharactor(nPriority),m_pCollider(nullptr)
+CTitleAnt::CTitleAnt(int nPriority) : CInstancingCharactor(nPriority),m_pCollider(nullptr)
 {
 
 }
@@ -56,7 +57,7 @@ CTitleAnt* CTitleAnt::Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& destpos,
 HRESULT CTitleAnt::Init(void)
 {
 	// 親クラスの初期化
-	CMoveCharactor::Init();
+	CInstancingCharactor::Init();
 
 	// モーションセット
 	MotionLoad("data/MOTION/Array/Title_Array.txt",MOTION_MAX,false);
@@ -78,7 +79,7 @@ void CTitleAnt::Uninit(void)
 	}
 
 	// 親クラスの終了
-	CMoveCharactor::Uninit();
+	CInstancingCharactor::Uninit();
 }
 //=========================================================
 // 更新処理
@@ -112,7 +113,7 @@ void CTitleAnt::Update(void)
 	GetMotion()->SetMotion(MOTION_MOVE);
 
 	// 座標の更新
-	CMoveCharactor::UpdatePosition();
+	CInstancingCharactor::UpdatePosition();
 
 	// 更新後の座標
 	D3DXVECTOR3 UpdatePos = GetPos();
@@ -141,7 +142,7 @@ void CTitleAnt::Update(void)
 	}
 
 	// 親クラスの更新
-	CMoveCharactor::Update();
+	CInstancingCharactor::Update();
 }
 //=========================================================
 // 描画処理
@@ -149,7 +150,7 @@ void CTitleAnt::Update(void)
 void CTitleAnt::Draw(void)
 {
 	// 親クラスの描画
-	CMoveCharactor::Draw();
+	CInstancingCharactor::Draw();
 }
 //=========================================================
 // 当たり判定処理

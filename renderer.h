@@ -14,8 +14,14 @@
 // インクルードファイル
 //*********************************************************
 #include "debugproc.h"
-#include <map>
+#include <unordered_map>
 #include <vector>
+#include <string>
+
+//*********************************************************
+// 前方宣言
+//*********************************************************
+class CInstanceModel;
 
 //*********************************************************
 // レンダラークラスを定義
@@ -23,6 +29,14 @@
 class CRenderer
 {
 public:
+
+	//****************************
+	// インスタンシング
+	//****************************
+	struct InstanceData
+	{
+		D3DXMATRIX mtxworld; // ワールドマトリックス
+	};
 
 	CRenderer();
 	~CRenderer();
@@ -47,9 +61,8 @@ public:
 	/// <summary>
 	/// インスタンシングオブジェクト登録関数
 	/// </summary>
-	/// <param name="modelIdx">モデルのインデックス番号</param>
-	/// <param name="world">ワールドマトリックス</param>
-	void AddInstanceObject(const int modelIdx, const D3DXMATRIX& world);
+	/// <param name="world">モデルのポインタ</param>
+	void AddInstanceObject(CInstanceModel* pModel);
 
 	/// <summary>
 	/// 全インスタンシングオブジェクト描画関数
@@ -80,17 +93,8 @@ private:
 	LPDIRECT3DSURFACE9 m_apRenderMT[NUM_FEEDBACKPOLYGON];	 // テクスチャレンダリング用インターフェース
 	LPDIRECT3DSURFACE9 m_pZBuffMT;	 // テクスチャレンダリング用Zバッファ
 	D3DVIEWPORT9 m_viewportMT;		 // テクスチャレンダリング用ビューポート
-
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxMT;  // ポリゴン用頂点バッファ
 
-	//*****************************
-	// 実験用構造体
-	//*****************************
-	struct InstanceData
-	{
-		D3DXMATRIX world; // マトリックス
-	};
-
 	LPDIRECT3DVERTEXBUFFER9 m_instanceVB; // インスタンシング用頂点バッファ
-	std::map<int, std::vector<InstanceData>> m_RegisterInstObject = {}; // 登録配列
+	std::unordered_map<int, std::vector<CInstanceModel*>> m_RegisterInstObject = {}; // インスタンシング登録配列
 };

@@ -22,7 +22,6 @@
 #include "texture.h"
 #include "camera.h"
 #include "light.h"
-#include "collision.h"
 #include "fade.h"
 #include "xfilemanager.h"
 #include "motionmanager.h"
@@ -31,6 +30,8 @@
 #include "network.h"
 #include "startexescene.h"
 #include "instancing.h"
+#include "instancemodelmanager.h"
+#include "instancemotionmanager.h"
 
 //=========================================================
 // コンストラクタ
@@ -104,10 +105,18 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	m_pModelManager = std::make_unique<CModelManager>();
 	if (FAILED(m_pModelManager->Load())) return E_FAIL;
 
+	// インスタンスモデル管理クラスの生成処理
+	m_pInstanceModel = std::make_unique<CInstanceModelManager>();
+	if (FAILED(m_pInstanceModel->Load())) return E_FAIL;
+
 	// モーションマネジャーの生成処理
 	m_pMotionManager = std::make_unique<CMotionManager>();
 	if (FAILED(m_pMotionManager->Load())) return E_FAIL;
-	
+
+	// モーションマネジャーの生成処理
+	m_pInstMotionManager = std::make_unique<CInstanceMotionManager>();
+	if (FAILED(m_pInstMotionManager->Load())) return E_FAIL;
+
 	// アウトラインクラス生成
 	COutLine::GetInstance()->Init("data/SHADER/Out_Line.hlsl");
 
@@ -168,8 +177,14 @@ void CManager::Uninit(void)
 	// キャラクターモデルの破棄
 	m_pModelManager.reset();
 
+	// インスタンシング管理クラスの破棄
+	m_pInstanceModel.reset();
+
 	// モーションマネージャーの破棄
 	m_pMotionManager.reset();
+
+	// 管理クラスの破棄
+	m_pInstMotionManager.reset();
 
 	// アウトラインの破棄
 	COutLine::GetInstance()->Uninit();

@@ -14,6 +14,7 @@
 // インクルードファイル
 //*********************************************************
 #include "movecharactor.h"
+#include "instancingcharactor.h"
 #include <memory>
 
 //*********************************************************
@@ -25,7 +26,7 @@ class CBoxCollider;
 //*********************************************************
 // タイトルのアリのクラスを定義
 //*********************************************************
-class CTitleAnt : public CMoveCharactor
+class CTitleAnt : public CInstancingCharactor
 {
 public:
 

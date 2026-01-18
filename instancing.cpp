@@ -38,7 +38,7 @@ HRESULT CInstancing::Init(const char* pShaderFile)
 		// ストリーム0
 		{ 0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },	// 座標
 		{ 0, 12, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_COLOR, 0 },	// カラー
-		{ 0, 24, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL,  0},	// 法線
+		{ 0, 16, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL,  0},	// 法線
 
 		// ストリーム1
 		{ 1, 0,  D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0 },	// ワールド位置
@@ -144,6 +144,7 @@ void CInstancing::SetInstancingParam(void)
 	m_pInstancing->SetMatrix("g_mtxview", &mtxView); // ビュー
 	m_pInstancing->SetMatrix("g_mtxprojection", &mtxProj); // プロジェクション
 
+	// コミット切り替え
 	m_pInstancing->CommitChanges();
 }
 //=========================================================

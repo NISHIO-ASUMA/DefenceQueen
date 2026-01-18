@@ -1,58 +1,47 @@
-//=========================================================
+//===================================================================
 //
-// 動くキャラクタークラス処理 [ movecharactor.h ]
+// インスタンシングして動くキャラクタークラス [ instancingcharactor.h ]
 // Author: Asuma Nishio
 //
-//=========================================================
+//===================================================================
 
-//*********************************************************
+//*******************************************************************
 // インクルードガード
-//*********************************************************
+//*******************************************************************
 #pragma once
 
-//*********************************************************
+//*******************************************************************
 // インクルードファイル
-//*********************************************************
+//*******************************************************************
 #include "object.h"
 #include "motion.h"
 #include <memory>
 #include <vector>
 
-//*********************************************************
+//*******************************************************************
 // 前方宣言
-//*********************************************************
+//*******************************************************************
 class CShadowS;
-class CModel;
 class CBlackBoard;
 class CNode;
+class CInstanceModel;
+class CMotionInstancing;
 
-//*********************************************************
-// 動くキャラクタークラスを定義
-//*********************************************************
-class CMoveCharactor : public CObject
+//*******************************************************************
+// インスタンシング適用のキャラクタークラスを定義
+//*******************************************************************
+class CInstancingCharactor : public CObject
 {
 public:
 
-	//****************************
-	// キャラクターの種類定義
-	//****************************
-	enum TYPE
-	{
-		TYPE_NONE,
-		TYPE_PLAYER,
-		TYPE_BUDDY,
-		TYPE_ENEMY,
-		TYPE_MAX
-	};
-
-	CMoveCharactor(int nPriority = static_cast<int>(CObject::PRIORITY::CHARACTOR));
-	~CMoveCharactor();
+	CInstancingCharactor(int nPriority = static_cast<int>(CObject::PRIORITY::CHARACTOR));
+	~CInstancingCharactor();
 
 	virtual HRESULT Init(void) override;
 	virtual void Uninit(void) override;
 	virtual void Update(void) override;
 	virtual void Draw(void) override;
-	void MotionLoad(const char* pScriptName, int nDestMotions,const bool isShadow);
+	void MotionLoad(const char* pScriptName, int nDestMotions, const bool isShadow);
 	void UpdatePosition(void);
 
 	inline void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
@@ -66,7 +55,6 @@ public:
 	inline void SetUseStencil(const bool isUse) { m_isStencilUse = isUse; }
 	inline void SetUseOutLine(const bool isUse = false) { m_isOutLine = isUse; }
 	inline void SetUseInstancing(const bool isInstance = false) { m_isInstancing = isInstance; }
-
 	inline 	void SetCharactor(TYPE type) { m_type = type; }
 
 	inline D3DXVECTOR3 GetPos(void) const { return m_pos; }
@@ -74,32 +62,24 @@ public:
 	inline D3DXVECTOR3 GetRot(void) const { return m_rot; }
 	inline D3DXVECTOR3 GetMove(void) const { return m_move; }
 	inline D3DXVECTOR3 GetRotDest(void) const { return m_rotDest; }
-
-	/// <summary>
-	/// モーションのポインタを返す
-	/// </summary>
-	/// <param name=""></param>
-	/// <returns>
-	inline CMotion* GetMotion(void) { return m_pMotion.get(); }
+	inline CMotionInstancing* GetMotion(void) { return m_pMotion.get(); }
 
 protected:
-
-	CBlackBoard* m_pBlackBoard = nullptr; // 共通ブラックボード
-	CNode* m_pBehaviorTree = nullptr;	  // ツリーノード
-
+	CBlackBoard* m_pBlackBoard = nullptr;	// 共通ブラックボード
+	CNode* m_pBehaviorTree = nullptr;		// ツリーノード
 private:
 
 	D3DXVECTOR3 m_pos;		// 座標
 	D3DXVECTOR3 m_posOld;	// 過去座標
 	D3DXVECTOR3 m_rot;		// 角度
-	D3DXVECTOR3 m_rotDest;  // 目的角
+	D3DXVECTOR3 m_rotDest;	// 目的角
 	D3DXVECTOR3 m_move;		// 移動量
 	D3DXVECTOR3 m_scale;	// 拡大率
 	D3DXMATRIX m_mtxworld;	// ワールドマトリックス
 	TYPE m_type;			// 種類
 
-	std::unique_ptr<CMotion>m_pMotion;	// モーションクラスのユニークポインタ
-	std::vector<CModel*>m_pModel;		// モデルクラスの動的配列
+	std::unique_ptr<CMotionInstancing>m_pMotion;
+	std::vector<CInstanceModel*>m_pModel;		// モデルクラスの動的配列
 	CShadowS* m_pShadowS;				// ステンシルシャドウクラスのポインタ
 
 	float m_fMoveValue;		// 移動加算値
