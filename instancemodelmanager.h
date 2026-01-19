@@ -45,6 +45,7 @@ public:
 		std::vector<int>pTexture;	// テクスチャの動的ポインタ
 		std::string FilePath;		// ファイル名
 		int nParnent;				// 親を持つ
+		std::vector<D3DMATERIAL9> Materials; // マテリアルの動的確保配列
 		INSTANCEDATA InstanceData;	// 構造体変数
 	};
 

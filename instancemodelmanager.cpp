@@ -99,6 +99,9 @@ void CInstanceModelManager::UnLoad(void)
 			(*iter).InstanceData.IndexBuffer->Release();
 			(*iter).InstanceData.IndexBuffer = nullptr;
 		}
+
+		// 動的確保したマテリアルのクリア
+		(*iter).Materials.clear();
 	}
 
 	// 配列クリア
@@ -342,30 +345,43 @@ void CInstanceModelManager::LoadModel(const char* pModelName, const bool LoadFla
 	NewModelInfo.InstanceData.PrimCount = NewModelInfo.pMesh->GetNumFaces();
 
 	//===============================================================
-	// テクスチャ登録
+	// マテリアル情報の設定
 	//===============================================================
 	NewModelInfo.pTexture.clear();
-	NewModelInfo.pTexture.resize(NewModelInfo.dwNumMat);
+	NewModelInfo.Materials.clear();
+
+	NewModelInfo.pTexture.resize(NewModelInfo.dwNumMat); // テクスチャバッファサイズ
+	NewModelInfo.Materials.resize(NewModelInfo.dwNumMat);// マテリアルバッファサイズ
 
 	if (NewModelInfo.pBuffMat)
 	{
-		// マテリアルデータのポインタ
+		// マテリアルのポインタ
 		D3DXMATERIAL* pMat = (D3DXMATERIAL*)NewModelInfo.pBuffMat->GetBufferPointer();
 
-		// テクスチャポインタ取得
+		// テクスチャ管理クラス
 		CTexture* pTexture = CManager::GetInstance()->GetTexture();
 
-		for (int nCnt = 0; nCnt < static_cast<int>(NewModelInfo.dwNumMat); nCnt++)
+		// マテリアル配列で回す
+		for (DWORD nCnt = 0; nCnt < NewModelInfo.dwNumMat; nCnt++)
 		{
+			//=========================
+			// マテリアル本体コピー
+			//=========================
+			NewModelInfo.Materials[nCnt] = pMat[nCnt].MatD3D;
+
+			// カラー登録
+			NewModelInfo.Materials[nCnt].Ambient = NewModelInfo.Materials[nCnt].Diffuse;
+
+			//=========================
+			// テクスチャ登録
+			//=========================
 			if (pMat[nCnt].pTextureFilename)
 			{
-				// テクスチャID登録
 				int nTexID = pTexture->Register(pMat[nCnt].pTextureFilename);
 				NewModelInfo.pTexture[nCnt] = nTexID;
 			}
 			else
 			{
-				// 例外値をセット
 				NewModelInfo.pTexture[nCnt] = -1;
 			}
 		}

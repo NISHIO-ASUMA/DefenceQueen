@@ -19,6 +19,8 @@
 #include "modelmanager.h"
 #include "model.h"
 #include "instancemodel.h"
+#include "instancemodelmanager.h"
+#include "texture.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -588,7 +590,7 @@ void CRenderer::AddInstanceObject(CInstanceModel* pModel)
 void CRenderer::DrawInstancingAll(void)
 {
 	// モデルマネージャー取得
-	auto* modelMgr = CManager::GetInstance()->GetModelManagere();
+	auto* modelMgr = CManager::GetInstance()->GetInstanceModelM();
 	auto& models = modelMgr->GetList();
 
 	for (auto& pair : m_RegisterInstObject)
@@ -601,64 +603,95 @@ void CRenderer::DrawInstancingAll(void)
 		if (instances.empty())
 			continue;
 
-		//対象オブジェクトの情報を格納
+		// 対象オブジェクトの情報を格納
 		auto& modelInfo = models[nModelIdx];
-		auto& modelData = modelInfo.modelData;
+		auto& modelData = modelInfo.InstanceData;
 
-		// InstanceDataをVBに詰める
+		//============================
+		// インスタンシング頂点バッファ更新
+		//============================
 		InstanceData* pInst = nullptr;
 
-		// ロックする
+		// 頂点ロック
 		m_instanceVB->Lock(0, 0, (void**)&pInst, D3DLOCK_DISCARD);
 
-		// データを詰める
 		for (int nCnt = 0; nCnt < static_cast<int>(instances.size()); nCnt++)
 		{
+			// ワールドマトリックス設定
 			pInst[nCnt].mtxworld = instances[nCnt]->GetMtxWorld();
 		}
 
-		// アンロック
+		// 頂点アンロック
 		m_instanceVB->Unlock();
 
-		// インスタンシング開始
-		CInstancing::GetInstance()->Begin();
-		CInstancing::GetInstance()->BeginPass();
+		//=============================
+		// マテリアル単位ループ
+		//=============================
+		for (DWORD matID = 0; matID < modelInfo.dwNumMat; matID++)
+		{
+			//=========================
+			// マテリアルカラー取得
+			//=========================
+			D3DXVECTOR4 matColor = D3DXVECTOR4(0.0f,0.0f,0.0f,0.0f);
 
-		// パラメーター設定
-		CInstancing::GetInstance()->SetInstancingParam();
+			if (modelInfo.pBuffMat)
+			{
+				// モデルのマテリアルを取得する
+				auto& mat = modelInfo.Materials[matID];
 
-		// シェーダー開始
-		CInstancing::GetInstance()->BeginInstancing
-		(
-			instances.size(),
-			modelData.VtxBuffer,
-			sizeof(VERTEX_3D),
-			modelData.IndexBuffer,
-			m_instanceVB,
-			sizeof(InstanceData)
-		);
+				// D3DXVECTOR4に変換する
+				matColor = D3DXVECTOR4
+				(
+					mat.Diffuse.r,
+					mat.Diffuse.g,
+					mat.Diffuse.b,
+					mat.Diffuse.a
+				);
+			}
 
-		// プリミティブ描画
-		m_pD3DDevice->DrawIndexedPrimitive
-		(
-			D3DPT_TRIANGLELIST,
-			0,
-			0,
-			modelData.vtxCount,
-			0,
-			modelData.PrimCount
-		);
+			//=========================
+			// インスタンシング描画
+			//=========================
+			CInstancing::GetInstance()->Begin();
+			CInstancing::GetInstance()->BeginPass();
 
-		// インスタンシングパラメーターリセット
-		CInstancing::GetInstance()->EndInstancing();
+			// インスタンシング開始関数
+			CInstancing::GetInstance()->BeginInstancing
+			(
+				instances.size(),
+				modelData.VtxBuffer,
+				sizeof(MODEL_3D),
+				modelData.IndexBuffer,
+				m_instanceVB,
+				sizeof(InstanceData)
+			);
 
-		// シェーダー終了
-		CInstancing::GetInstance()->EndPass();
-		CInstancing::GetInstance()->End();
+			// シェーダーパラメーターセット
+			CInstancing::GetInstance()->SetInstancingParam(nullptr, matColor);
+
+			// ポリゴン描画
+			m_pD3DDevice->DrawIndexedPrimitive(
+				D3DPT_TRIANGLELIST,
+				0,
+				0,
+				modelData.vtxCount,
+				0,
+				modelData.PrimCount
+			);
+
+			// インスタンシングパラメーターリセット
+			CInstancing::GetInstance()->EndInstancing();
+
+			// インスタンシング終了
+			CInstancing::GetInstance()->EndPass();
+			CInstancing::GetInstance()->End();
+		}
 	}
 
-	// 配列をクリア
-	m_RegisterInstObject.clear();
+	for (auto& pair : m_RegisterInstObject)
+	{
+		pair.second.clear();
+	}
 }
 
 //=========================================================

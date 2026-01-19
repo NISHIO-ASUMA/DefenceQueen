@@ -36,6 +36,7 @@ public:
 	struct InstanceData
 	{
 		D3DXMATRIX mtxworld; // ワールドマトリックス
+		int materialID;		 // マテリアルID
 	};
 
 	CRenderer();
@@ -65,15 +66,22 @@ public:
 	void AddInstanceObject(CInstanceModel* pModel);
 
 	/// <summary>
+	/// インスタンシング更新関数
+	/// </summary>
+	void UpdateInstancing();
+	
+	/// <summary>
 	/// 全インスタンシングオブジェクト描画関数
 	/// </summary>
 	/// <param name=""></param>
 	void DrawInstancingAll(void);
 
 	static CDebugproc* GetDebug(void) { return m_pDebug; }
+
 private:
 
 	static inline constexpr int NUM_FEEDBACKPOLYGON = 2; // フィードバック用ポリゴン
+	static inline constexpr int MAX_MATERIAL = 512;
 
 	LPDIRECT3D9 m_pD3D;					// Direct3Dオブジェクトへのポインタ
 	LPDIRECT3DDEVICE9 m_pD3DDevice;		// Direct3Dデバイスへのポインタ
@@ -87,6 +95,10 @@ private:
 	UINT m_Width;						// 横幅
 	UINT m_Height;						// 高さ
 
+	LPDIRECT3DVERTEXBUFFER9 m_instanceVB;	// インスタンシング用頂点バッファ
+	std::unordered_map<int, std::vector<CInstanceModel*>> m_RegisterInstObject = {}; // インスタンシング登録配列
+	std::vector<InstanceData>m_MaterialID = {};					// マテリアルID配列
+
 	LPDIRECT3DSURFACE9 m_pRenderDef; // マルチターゲットレンダリング用インターフェース保存用
 	LPDIRECT3DSURFACE9 m_pZBuffDef;	 // マルチターゲットレンダリング用Zバッファ保存用
 	LPDIRECT3DTEXTURE9 m_apTextureMT[NUM_FEEDBACKPOLYGON]; // レンダリングターゲット用テクスチャ
@@ -94,7 +106,4 @@ private:
 	LPDIRECT3DSURFACE9 m_pZBuffMT;	 // テクスチャレンダリング用Zバッファ
 	D3DVIEWPORT9 m_viewportMT;		 // テクスチャレンダリング用ビューポート
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxMT;  // ポリゴン用頂点バッファ
-
-	LPDIRECT3DVERTEXBUFFER9 m_instanceVB; // インスタンシング用頂点バッファ
-	std::unordered_map<int, std::vector<CInstanceModel*>> m_RegisterInstObject = {}; // インスタンシング登録配列
 };

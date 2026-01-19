@@ -36,7 +36,13 @@ public:
 	void EndPass(void);
 	void End(void);
 
-	void SetInstancingParam(void);
+	/// <summary>
+	/// シェーダーパラメーター設定
+	/// </summary>
+	/// <param name="Texture"></param>
+	/// <param name="color"></param>
+	void SetInstancingParam(const LPDIRECT3DTEXTURE9 &Texture = nullptr,
+							const D3DXVECTOR4 &color = D3DXVECTOR4(1.0f,1.0f,1.0f,1.0f));
 
 	/// <summary>
 	/// インスタンス開始設定

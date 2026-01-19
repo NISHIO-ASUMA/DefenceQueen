@@ -37,14 +37,14 @@ HRESULT CInstancing::Init(const char* pShaderFile)
 	{
 		// ストリーム0
 		{ 0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },	// 座標
-		{ 0, 12, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_COLOR, 0 },	// カラー
-		{ 0, 16, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL,  0},	// 法線
+		{ 0, 12, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0 },	// uv
+		{ 0, 20, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL,  0},	// 法線
 
 		// ストリーム1
-		{ 1, 0,  D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0 },	// ワールド位置
-		{ 1, 16, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 1 },	// ワールド位置
-		{ 1, 32, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 2 },	// ワールド位置
-		{ 1, 48, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 3 },	// ワールド位置
+		{ 1, 0,  D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 1 },	// ワールド位置
+		{ 1, 16, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 2 },	// ワールド位置
+		{ 1, 32, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 3 },	// ワールド位置
+		{ 1, 48, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 4 },	// ワールド位置
 
 		D3DDECL_END()
 	};
@@ -73,7 +73,7 @@ HRESULT CInstancing::Init(const char* pShaderFile)
 			// エラーメッセージ表示
 			MessageBoxA(nullptr,
 				(char*)pErr->GetBufferPointer(),
-				"Instancing.hlslが読み込めません",
+				pShaderFile,
 				MB_OK);
 
 			// 解放
@@ -126,7 +126,7 @@ void CInstancing::BeginInstancing
 //=========================================================
 // インスタンシングパラメーター設定
 //=========================================================
-void CInstancing::SetInstancingParam(void)
+void CInstancing::SetInstancingParam(const LPDIRECT3DTEXTURE9 &Texture, const D3DXVECTOR4& color)
 {
 	// ポインタが無かったら
 	if (!m_pInstancing) return;
@@ -143,6 +143,8 @@ void CInstancing::SetInstancingParam(void)
 	// シェーダーパラメータを設定
 	m_pInstancing->SetMatrix("g_mtxview", &mtxView); // ビュー
 	m_pInstancing->SetMatrix("g_mtxprojection", &mtxProj); // プロジェクション
+	m_pInstancing->SetVector("g_MatColor", &color);		// マテリアル
+	m_pInstancing->SetTexture("g_TexCharactor", Texture); // テクス
 
 	// コミット切り替え
 	m_pInstancing->CommitChanges();

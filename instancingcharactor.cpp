@@ -176,7 +176,7 @@ void CInstancingCharactor::Update(void)
 	// モデルの更新処理
 	for (auto & Model : m_pModel )
 	{
-		Model->Update();
+		Model->Update(m_mtxworld);
 	}
 }
 //===================================================================
@@ -189,7 +189,7 @@ void CInstancingCharactor::Draw(void)
 	auto Rendere = CManager::GetInstance()->GetRenderer();
 	LPDIRECT3DDEVICE9 pDevice = Rendere->GetDevice();
 
-	// デバイスのワールドマトリックスに設定
+	// 自身のワールドマトリックスを設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxworld);
 #endif
 }

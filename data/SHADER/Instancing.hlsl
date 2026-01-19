@@ -14,19 +14,34 @@ float4x4 g_mtxprojection; // プロジェクションマトリックス
 float4 g_LightAmbient; // 環境光
 float3 g_LigthDirection; // ライトの向き
 
+float4 g_MatColor;      // マテリアル
+texture2D g_TexCharactor;   // テクスチャポインタ
+
+// テクスチャ2D作成
+sampler2D CharactorSampler = sampler_state
+{
+    Texture = <g_TexCharactor>;
+    MinFilter = LINEAR;
+    MagFilter = LINEAR;
+    MipFilter = LINEAR;
+    AddressU = CLAMP;
+    AddressV = CLAMP;
+    AddressW = CLAMP;
+};
+
 //*********************************************************
 // 頂点シェーダー入力構造体
 //*********************************************************
 struct VS_INPUT
 {
     float4 pos : POSITION; // 座標
-    float4 color : COLOR; // カラー変数
+    float2 uv : TEXCOORD;  // UV値
     float3 normal : NORMAL; // 法線
 
-    float4 world0 : TEXCOORD0;
-    float4 world1 : TEXCOORD1;
-    float4 world2 : TEXCOORD2;
-    float4 world3 : TEXCOORD3;
+    float4 world0 : TEXCOORD1;
+    float4 world1 : TEXCOORD2;
+    float4 world2 : TEXCOORD3;
+    float4 world3 : TEXCOORD4;
 };
 //*********************************************************
 // 頂点シェーダー出力構造体
@@ -34,7 +49,7 @@ struct VS_INPUT
 struct VS_OUT
 {
     float4 pos : POSITION; // 座標
-    float4 color : COLOR; // カラー変数
+    float2 uv : TEXCOORD; // UV値
     float3 normal : NORMAL; // 法線
 };
 
@@ -64,8 +79,8 @@ VS_OUT VS_Main(VS_INPUT input)
 	// 出力座標に変換
     output.pos = mul(viewPos, g_mtxprojection);
 	
-	// カラー設定
-    output.color = input.color;
+	// uv設定
+    output.uv = input.uv;
 	
 	// 法線設定
     output.normal = input.normal;
@@ -74,12 +89,20 @@ VS_OUT VS_Main(VS_INPUT input)
     return output;
 }
 //=========================================================
-// ピクセルシェーダーメインエントリーポイント関数
+// テクスチャピクセルシェーダーメインエントリーポイント関数
+//=========================================================
+float4 PS_TexMain(VS_OUT output) : COLOR
+{
+	// カラーを返す
+    return tex2D(CharactorSampler, output.uv);
+}
+//=========================================================
+// デフォルトカラーピクセルシェーダーメインエントリーポイント関数
 //=========================================================
 float4 PS_Main(VS_OUT output) : COLOR
 {
 	// カラーを返す
-    return output.color;
+    return g_MatColor;
 }
 
 //=========================================================
@@ -91,5 +114,11 @@ technique Instancing
     {
         VertexShader = compile vs_3_0 VS_Main();
         PixelShader = compile ps_3_0 PS_Main();
+    }
+
+    pass P1
+    {
+        VertexShader = compile vs_3_0 VS_Main();
+        PixelShader = compile ps_3_0 PS_TexMain();
     }
 }

@@ -115,7 +115,7 @@ struct VERTEX_3D_MULTI
 struct MODEL_3D
 {
 	D3DXVECTOR3 pos;	// 座標
-	DWORD		color;	// カラー
+	D3DXVECTOR2	tex;	// カラー
 	D3DXVECTOR3 normal;	// 法線
-	D3DMATRIX mtxworld;
+	//D3DMATRIX mtxworld;
 };

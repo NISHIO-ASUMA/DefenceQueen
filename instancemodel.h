@@ -22,7 +22,7 @@ public:
 
 	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot, const char* pFilename, const bool isShadow);
 	void Uninit(void);
-	void Update(void);
+	void Update(D3DXMATRIX mtx);
 	void Draw(void);
 
 	void DrawMtxShadow(void);
@@ -51,4 +51,5 @@ private:
 	int* m_pTexture;	// テクスチャポインタ
 	bool m_isShadow;	// 影を設定するかどうか
 	int m_nModelIdx;	// モデルインデックス
+	bool m_isInst;		
 };

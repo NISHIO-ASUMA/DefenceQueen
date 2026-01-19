@@ -27,6 +27,7 @@ m_offPos(VECTOR3_NULL),
 m_offRot(VECTOR3_NULL),
 m_scale(INITSCALE),
 m_isShadow(false),
+m_isInst(false),
 m_mtxworld{}
 {
 }
@@ -84,7 +85,7 @@ void CInstanceModel::Uninit(void)
 //=========================================================
 // 更新処理
 //=========================================================
-void CInstanceModel::Update(void)
+void CInstanceModel::Update(D3DXMATRIX mtx)
 {
 	// インデックスが-1なら
 	if (m_nModelIdx == -1)
@@ -135,13 +136,12 @@ void CInstanceModel::Update(void)
 	else
 	{// 親が存在しない
 		// マトリックス取得
-		pDevice->GetTransform(D3DTS_WORLD, &mtxParent);
+		//pDevice->GetTransform(D3DTS_WORLD, &mtxParent);
+		mtxParent = mtx;
 	}
 
 	// 親のマトリックスとかけ合わせる
 	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxParent);
-	// ワールドマトリックスの設定
-	pDevice->SetTransform(D3DTS_WORLD, &m_mtxworld);
 
 	// インスタンシングに登録する
 	Rendere->AddInstanceObject(this);
@@ -151,107 +151,7 @@ void CInstanceModel::Update(void)
 //=========================================================
 void CInstanceModel::Draw(void)
 {
-#if 0
-	//// インスタンシングするなら
-	//if (m_Isinstancing == true)
-	//	return;
-	// インデックスが-1なら
-	if (m_nModelIdx == -1)
-		return;
 
-	// デバイスポインタを宣言
-	auto Rendere = CManager::GetInstance()->GetRenderer();
-	LPDIRECT3DDEVICE9 pDevice = Rendere->GetDevice();
-
-	// ファイルマネージャー取得
-	CModelManager* pXMgr = CManager::GetInstance()->GetModelManagere();
-	if (!pXMgr) return;
-
-	// 配列情報
-	auto& fileData = pXMgr->GetList();
-	if (m_nModelIdx >= static_cast<int>(fileData.size())) return;
-
-	// 取得
-	//m_Isinstancing = fileData[m_nModelIdx].isInstancing;
-
-	// 配列
-	auto& model = fileData[m_nModelIdx];
-	if (!model.pMesh) return;
-
-	// 計算用のマトリックスを宣言
-	D3DXMATRIX mtxScale, mtxRot, mtxTrans;
-
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxworld);
-
-	// 拡大率を反映
-	D3DXMatrixScaling(&mtxScale, m_scale.x, m_scale.y, m_scale.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxScale);
-
-	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y + m_offRot.y, m_rot.x + m_offRot.x, m_rot.z + m_offRot.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxRot);
-
-	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_pos.x + m_offPos.x, m_pos.y + m_offPos.y, m_pos.z + m_offPos.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxTrans);
-
-	// 親のペアネント格納用変数
-	D3DXMATRIX mtxParent;
-
-	if (m_pParent != nullptr)
-	{// 親が存在する
-		// ワールドマトリックス取得
-		mtxParent = m_pParent->GetMtxWorld();
-	}
-	else
-	{// 親が存在しない
-		// マトリックス取得
-		pDevice->GetTransform(D3DTS_WORLD, &mtxParent);
-	}
-
-	// 親のマトリックスとかけ合わせる
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxParent);
-
-	// ワールドマトリックスの設定
-	pDevice->SetTransform(D3DTS_WORLD, &m_mtxworld);
-
-	// 現在のマテリアルを保存
-	D3DMATERIAL9 matDef;
-
-	// 現在のマテリアル
-	pDevice->GetMaterial(&matDef);
-
-	// マテリアルが取得できたら
-	if (model.pBuffMat)
-	{
-		// マテリアルデータのポインタ
-		D3DXMATERIAL* pMat = (D3DXMATERIAL*)model.pBuffMat->GetBufferPointer();
-
-		// テクスチャ取得
-		CTexture* pTex = CManager::GetInstance()->GetTexture();
-
-		for (int nCnt = 0; nCnt < static_cast<int>(model.dwNumMat); nCnt++)
-		{
-			// マテリアルのセット
-			pDevice->SetMaterial(&pMat[nCnt].MatD3D);
-
-			// テクスチャ取得
-			int texIdx = model.pTexture[nCnt];
-
-			// テクスチャセット
-			pDevice->SetTexture(0, (texIdx >= 0) ? pTex->GetAddress(texIdx) : nullptr);
-
-			// モデルの描画
-			model.pMesh->DrawSubset(nCnt);
-		}
-	}
-
-	// マテリアルを戻す
-	pDevice->SetMaterial(&matDef);
-	// 有効なら
-	if (m_isShadow) DrawMtxShadow();
-#endif
 }
 //=========================================================
 // モデルパス設定
@@ -273,20 +173,3 @@ void CInstanceModel::SetParent(CInstanceModel* pModel)
 	// 親モデルを設定する
 	m_pParent = pModel;
 }
-
-#if 0
-//=========================================================
-// マトリックスシャドウ描画
-//=========================================================
-void CInstanceModel::DrawMtxShadow(void)
-{
-
-}
-//=========================================================
-// アウトライン描画
-//=========================================================
-void CInstanceModel::DrawOutLine(const D3DXVECTOR4& color, const float fOutLinewidth)
-{
-
-}
-#endif

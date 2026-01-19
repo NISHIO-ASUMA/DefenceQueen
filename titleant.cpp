@@ -134,7 +134,7 @@ void CTitleAnt::Update(void)
 		if (Collision(wallobj->GetCollider()))
 		{
 			// ©g‚ğ”jŠü
-			Uninit();
+			//Uninit();
 
 			// ˆ—I—¹
 			return;
