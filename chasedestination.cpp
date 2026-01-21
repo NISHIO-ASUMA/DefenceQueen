@@ -75,6 +75,6 @@ void CChaseDestinationLeaf::Update()
 		DestObject->SetMove(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 		// モーションセット
-		DestObject->GetMotion()->SetMotion(CEnemy::MOTION_NEUTRAL,true,10);
+		//DestObject->GetMotion()->SetMotion(CEnemy::MOTION_NEUTRAL,true,10);
 	}
 }

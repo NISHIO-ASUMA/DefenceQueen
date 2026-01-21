@@ -76,36 +76,15 @@ void CTitleAntManager::Update(void)
 	// 配列に要素を追加していく
 	m_nCreateCount++;
 
+#if 1
 	if (m_nCreateCount >= SPAWNINFO::MAX_COUNT)
 	{
 		// 配列に追加する
 		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[0], SPAWNINFO::MoveDestPos[0], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[0], SPAWNINFO::MoveDestPos[0], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[0], SPAWNINFO::MoveDestPos[0], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[0], SPAWNINFO::MoveDestPos[0], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[0], SPAWNINFO::MoveDestPos[0], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[0], SPAWNINFO::MoveDestPos[0], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[0], SPAWNINFO::MoveDestPos[0], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[0], SPAWNINFO::MoveDestPos[0], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[0], SPAWNINFO::MoveDestPos[0], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[0], SPAWNINFO::MoveDestPos[0], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[0], SPAWNINFO::MoveDestPos[0], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[0], SPAWNINFO::MoveDestPos[0], VECTOR3_NULL));
-
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[1], SPAWNINFO::MoveDestPos[1], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[1], SPAWNINFO::MoveDestPos[1], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[1], SPAWNINFO::MoveDestPos[1], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[1], SPAWNINFO::MoveDestPos[1], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[1], SPAWNINFO::MoveDestPos[1], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[1], SPAWNINFO::MoveDestPos[1], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[1], SPAWNINFO::MoveDestPos[1], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[1], SPAWNINFO::MoveDestPos[1], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[1], SPAWNINFO::MoveDestPos[1], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[1], SPAWNINFO::MoveDestPos[1], VECTOR3_NULL));
-		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[1], SPAWNINFO::MoveDestPos[1], VECTOR3_NULL));
 		m_pAnts.push_back(CTitleAnt::Create(SPAWNINFO::ActivePos[1], SPAWNINFO::MoveDestPos[1], VECTOR3_NULL));
 
 		// カウント初期化
 		m_nCreateCount = 0;
 	}
+#endif
 }

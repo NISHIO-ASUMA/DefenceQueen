@@ -53,7 +53,7 @@ HRESULT CGameManager::Init(void)
 	if (pSound == nullptr) return E_FAIL;
 
 	// ƒTƒEƒ“ƒhÄ¶
-	pSound->Play(CSound::SOUND_LABEL_GAMEBGM);
+	//pSound->Play(CSound::SOUND_LABEL_GAMEBGM);
 
 	// ‰Šú‰»Œ‹‰Ê‚ğ•Ô‚·
 	return S_OK;

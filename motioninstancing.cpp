@@ -14,7 +14,6 @@
 #include "motionmanager.h"
 #include "manager.h"
 #include "instancemodel.h"
-#include "instancemotionmanager.h"
 
 //=========================================================
 // コンストラクタ
@@ -41,8 +40,10 @@ CMotionInstancing::CMotionInstancing()
 	m_isBlendMotion = false;
 	m_isFinishMotion = false;
 	m_isFirstMotion = false;
+	m_isDirty = false;
 
 	m_nMotionIdx = -1;
+	m_ResultData = {};
 }
 //=========================================================
 // デストラクタ
@@ -95,6 +96,8 @@ void CMotionInstancing::SetMotion(int motiontype)
 	m_nCounterMotion = 0;
 	m_nAllFrameCount = 0;
 	m_isFinishMotion = false;
+
+	m_isDirty = true; // 切り替えフラグを有効化
 }
 //=================================================================
 // モーションセット情報
@@ -107,6 +110,8 @@ void CMotionInstancing::SetMotion(int nMotionType, bool isBlend, int nBlendFrame
 		// 同じだったら
 		return;
 	}
+
+	m_isDirty = true; // 切り替えフラグを有効化
 
 	// ブレンドが有効化
 	if (isBlend == true)
@@ -141,30 +146,19 @@ void CMotionInstancing::SetMotion(int nMotionType, bool isBlend, int nBlendFrame
 		m_isFinishMotion = false;
 	}
 }
+#if 1
 //=========================================================
 // モーション全体更新処理
 //=========================================================
 void CMotionInstancing::Update(std::vector<CInstanceModel*> pModel)
-{// モーションタイプの番号で該当のモーション更新するだけにする
-
+{
 	// モーションマネージャーから情報を取得
 	auto Manager = CManager::GetInstance()->GetInstMotionM();
-	auto Info = Manager->GetFileDataIdx(m_nMotionIdx);
+	const auto& Info = Manager->GetFileDataIdx(m_nMotionIdx);
 
 	// 最大数情報
 	int nMotionNum = Info.nNumMotion;
 	int nModelNum = Info.nNumModel;
-
-#if 1
-	// 例外処理
-	if (nModelNum <= 0)
-	{
-		// 警告表示
-		MessageBox(GetActiveWindow(), "モデルが存在しません", "キャラクターエラー", MB_OK);
-
-		// 下の処理に入らないようにする
-		return;
-	}
 
 	// 現在モーションキー計算
 	m_motiontype = Clump(m_motiontype, 0, nMotionNum);
@@ -173,6 +167,14 @@ void CMotionInstancing::Update(std::vector<CInstanceModel*> pModel)
 	// 最後のキーとブレンドのキーを計算
 	int nLastKey = Info.m_aMotionInfo[m_motiontype].nNumKey - 1;
 
+	// 初回 or モデル数変更時
+	if (static_cast<int>(m_ResultData.pos.size()) != nModelNum)
+	{
+		// 配列の要素サイズをセットする
+		m_ResultData.Resize(nModelNum);
+		m_isDirty = true;
+	}
+
 	// 最大モデル数で回す
 	for (int nCnt = 0; nCnt < nModelNum; nCnt++)
 	{
@@ -180,13 +182,16 @@ void CMotionInstancing::Update(std::vector<CInstanceModel*> pModel)
 		if (m_isFirstMotion)
 		{
 			// ブレンドモーションの更新
-			UpdateBlend(Manager, pModel.data(), nCnt);
+			UpdateBlend(Manager, pModel.data(), nCnt, Info);
 		}
 		else
 		{
 			// 現在のモーション更新
-			UpdateCurrentMotion(Manager, pModel.data(), nCnt);
+			UpdateCurrentMotion(Manager, pModel.data(), nCnt, Info);
 		}
+
+		pModel[nCnt]->SetPos(m_ResultData.pos[nCnt]);
+		pModel[nCnt]->SetRot(m_ResultData.rot[nCnt]);
 	}
 
 	// フレーム進行処理
@@ -280,19 +285,14 @@ void CMotionInstancing::Update(std::vector<CInstanceModel*> pModel)
 
 	// 全体フレーム計算
 	m_nNumAllFrame = nFrame;
-#endif
 }
 //=================================================================
 // 現在のモーションの更新関数
 //=================================================================
-void CMotionInstancing::UpdateCurrentMotion(CInstanceMotionManager* pMption, CInstanceModel** ppModel, int nModelCount)
+void CMotionInstancing::UpdateCurrentMotion(CInstanceMotionManager* pMption, CInstanceModel** ppModel, int nModelCount, const CInstanceMotionManager::MOTIONFILE& info)
 {
-#if 1
-	// モーションリスト取得
-	const auto& motionList = pMption->GetFileDataIdx(m_nMotionIdx);
-
 	// 現在のモーション情報取得
-	const CInstanceMotionManager::INFO& motionInfo = motionList.m_aMotionInfo[m_motiontype];
+	const CInstanceMotionManager::INFO& motionInfo = info.m_aMotionInfo[m_motiontype];
 
 	// 現在と次のキー情報取得
 	const CInstanceMotionManager::KEY_INFO& keyInfoNow = motionInfo.aKeyInfo[m_nKey];
@@ -314,7 +314,7 @@ void CMotionInstancing::UpdateCurrentMotion(CInstanceMotionManager* pMption, CIn
 	rotMotion.y = NextKey.fRotY - NowKey.fRotY;
 	rotMotion.z = NextKey.fRotZ - NowKey.fRotZ;
 
-	// 正規化
+	// 計算した角度の正規化をする
 	rotMotion.x = NormalAngle(rotMotion.x);
 	rotMotion.y = NormalAngle(rotMotion.y);
 	rotMotion.z = NormalAngle(rotMotion.z);
@@ -335,23 +335,18 @@ void CMotionInstancing::UpdateCurrentMotion(CInstanceMotionManager* pMption, CIn
 	Rot.z = NowKey.fRotZ + rotMotion.z * fDis;
 
 	// モデルのパーツに設定
-	ppModel[nModelCount]->SetPos(Pos);
-	ppModel[nModelCount]->SetRot(Rot);
-
-#endif
+	m_ResultData.pos[nModelCount] = Pos;
+	m_ResultData.rot[nModelCount] = Rot;
 }
 
 //=================================================================
 // ブレンドモーションの更新関数
 //=================================================================
-void CMotionInstancing::UpdateBlend(CInstanceMotionManager* pMption, CInstanceModel** ppModel, int nModelCount)
+void CMotionInstancing::UpdateBlend(CInstanceMotionManager* pMption, CInstanceModel** ppModel, int nModelCount, const CInstanceMotionManager::MOTIONFILE& info)
 {
-	// モーション情報を取得
-	const auto& motionList = pMption->GetFileDataIdx(m_nMotionIdx);
-
 	// 現在のモーション情報取得
-	const CInstanceMotionManager::INFO& motionInfo = motionList.m_aMotionInfo[m_motiontype];
-	const CInstanceMotionManager::INFO& BlendInfo = motionList.m_aMotionInfo[m_motiontypeBlend];
+	const CInstanceMotionManager::INFO& motionInfo = info.m_aMotionInfo[m_motiontype];
+	const CInstanceMotionManager::INFO& BlendInfo = info.m_aMotionInfo[m_motiontypeBlend];
 
 	// ブレンド係数を計算
 	float fBlendFrame = static_cast<float>(m_nCounterBlend) / static_cast<float>(m_nFrameBlend);
@@ -449,10 +444,10 @@ void CMotionInstancing::UpdateBlend(CInstanceMotionManager* pMption, CInstanceMo
 	//==========================================================
 	// モデルにセット
 	//==========================================================
-	ppModel[nModelCount]->SetPos(LastPos);
-	ppModel[nModelCount]->SetRot(LastRot);
+	m_ResultData.pos[nModelCount] = LastPos;
+	m_ResultData.rot[nModelCount] = LastRot;
 }
-
+#endif
 //=================================================================
 // デバッグフォント関数
 //=================================================================

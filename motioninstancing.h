@@ -20,13 +20,13 @@
 #include <sstream>
 #include <vector>
 #include <memory>
+#include "instancemotionmanager.h"
 
 //*********************************************************
 // 前方宣言
 //*********************************************************
 class CMotionManager;
 class CInstanceModel;
-class CInstanceMotionManager;
 
 //*********************************************************
 // インスタンシングするモデルのモーションクラスを定義
@@ -35,12 +35,28 @@ class CMotionInstancing
 {
 public:
 
+	//*******************************
+	// 結果を保持する構造体
+	//*******************************
+	struct MOTION_RESULT
+	{
+		std::vector<D3DXVECTOR3> pos; // 座標
+		std::vector<D3DXVECTOR3> rot; // 角度
+
+		// 配列のサイズを決定する関数
+		void Resize(int nDataSize)
+		{
+			pos.resize(nDataSize);
+			rot.resize(nDataSize);
+		}
+	};
+
 	CMotionInstancing();
 	~CMotionInstancing();
 
 	void Update(std::vector<CInstanceModel*> pModel);
-	void UpdateCurrentMotion(CInstanceMotionManager* pMption, CInstanceModel** ppModel, int nModelCount);
-	void UpdateBlend(CInstanceMotionManager* pMption, CInstanceModel** ppModel, int nModelCount);
+	void UpdateCurrentMotion(CInstanceMotionManager* pMption, CInstanceModel** ppModel, int nModelCount, const CInstanceMotionManager::MOTIONFILE& info);
+	void UpdateBlend(CInstanceMotionManager* pMption, CInstanceModel** ppModel, int nModelCount, const CInstanceMotionManager::MOTIONFILE& info);
 	void Debug(void);
 	bool CheckFrame(int nStartMotion, int nEndMotion, int nMotionType);
 
@@ -94,4 +110,7 @@ private:
 	bool m_isLoopMotion;	// ループするかどうか
 
 	static constexpr int NEUTRAL = 0; // ニュートラル番号
+
+	MOTION_RESULT m_ResultData; // モーション計算結果
+	bool m_isDirty; // 再計算が必要か
 };

@@ -76,7 +76,7 @@ void CCamera::Update(void)
 	// タイトル用に配置
 	if (SceneMode == CScene::MODE_TITLE)
 	{
-		//SetTitleCamara();
+		SetTitleCamara();
 	}
 	else if (SceneMode == CScene::MODE_RESULT)
 	{
@@ -84,7 +84,7 @@ void CCamera::Update(void)
 	}
 
 
-//#ifdef NDEBUG
+#ifdef _DEBUG
 	// カメラ更新
 	MouseView(CManager::GetInstance()->GetMouse());
 
@@ -106,7 +106,7 @@ void CCamera::Update(void)
 		m_pCamera.rot.y += CAMERAINFO::NorRot;
 	}
 
-//#endif
+#endif
 }
 //=========================================================
 // カメラをセット

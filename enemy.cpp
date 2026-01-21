@@ -30,6 +30,7 @@
 #include "gamewallmanager.h"
 #include "boxtospherecollision.h"
 #include "gamewallmodel.h"
+#include "motioninstancing.h"
 
 //*********************************************************
 // 定数宣言空間
@@ -45,7 +46,7 @@ namespace EnemyInfo
 //=========================================================
 // コンストラクタ
 //=========================================================
-CEnemy::CEnemy(int nPriority) : CMoveCharactor(nPriority),
+CEnemy::CEnemy(int nPriority) : CInstancingCharactor(nPriority),
 m_pMotion(nullptr),
 m_pParameter(nullptr),
 m_pSphereCollider(nullptr),
@@ -98,7 +99,7 @@ CEnemy* CEnemy::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife)
 HRESULT CEnemy::Init(void)
 {
 	// キャラクタ―の初期化
-	CMoveCharactor::Init();
+	CInstancingCharactor::Init();
 
 	// オブジェクトの種類をセット
 	SetObjType(CObject::TYPE_ENEMY);
@@ -144,7 +145,7 @@ void CEnemy::Uninit(void)
 	m_pSphereCollider.reset();
 
 	// キャラクターの破棄
-	CMoveCharactor::Uninit();
+	CInstancingCharactor::Uninit();
 }
 //=========================================================
 // 更新処理
@@ -169,7 +170,7 @@ void CEnemy::Update(void)
 	if (m_isDestFeed) MoveToFeed();
 
 	// 座標のみの更新
-	CMoveCharactor::UpdatePosition();
+	CInstancingCharactor::UpdatePosition();
 
 	// 更新後の座標
 	D3DXVECTOR3 UpdatePos = GetPos();
@@ -193,7 +194,7 @@ void CEnemy::Update(void)
 	if (m_pSphereCollider) m_pSphereCollider->SetPos(UpdatePos);
 
 	// キャラクターの更新処理
-	CMoveCharactor::Update();
+	CInstancingCharactor::Update();
 }
 //=========================================================
 // 描画処理
@@ -204,7 +205,7 @@ void CEnemy::Draw(void)
 	if (!m_isActive) return;
 
 	// キャラクターの描画処理
-	CMoveCharactor::Draw();
+	//CInstancingCharactor::Draw();
 }
 //=========================================================
 // 餌に向かう処理

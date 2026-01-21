@@ -32,11 +32,12 @@
 #include "score.h"
 #include "enemymanager.h"
 #include "enemy.h"
+#include "motioninstancing.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
-CArray::CArray(int nPriority) : CMoveCharactor(nPriority),
+CArray::CArray(int nPriority) : CInstancingCharactor(nPriority),
 m_pSphereCollider(nullptr),
 m_pMotion(nullptr),
 m_pParameter(nullptr),
@@ -96,7 +97,7 @@ CArray* CArray::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,const int nL
 HRESULT CArray::Init(void)
 {
 	// 親クラスの初期化
-	CMoveCharactor::Init();
+	CInstancingCharactor::Init();
 
 	// オブジェクトの種類をセット
 	SetObjType(CObject::TYPE_ARRAY);
@@ -108,7 +109,7 @@ HRESULT CArray::Init(void)
 	m_pSphereCollider = CSphereCollider::Create(GetPos(), Arrayinfo::SphereRange);
 
 	// モーション取得
-	m_pMotion = CMoveCharactor::GetMotion();
+	m_pMotion = CInstancingCharactor::GetMotion();
 
 	// ノードセット
 	// NodeSetting();
@@ -135,7 +136,7 @@ void CArray::Uninit(void)
 	}
 
 	// キャラクターの破棄
-	CMoveCharactor::Uninit();
+	CInstancingCharactor::Uninit();
 }
 //=========================================================
 // 更新処理
@@ -145,6 +146,7 @@ void CArray::Update(void)
 	// falseなら通さない
 	if (!m_isActive) return;
 
+#if 0
 	// 巣にもどる状態が有効時
 	if (m_isReturn)
 	{
@@ -155,7 +157,7 @@ void CArray::Update(void)
 	FollowDestination(m_MoveDestPos);
 
 	// 座標のみの更新処理
-	CMoveCharactor::UpdatePosition();
+	CInstancingCharactor::UpdatePosition();
 
 	// 座標取得
 	D3DXVECTOR3 UpdatePos = GetPos();
@@ -178,9 +180,9 @@ void CArray::Update(void)
 		// 下の処理を通さない
 		return;
 	}
-
+#endif
 	// キャラクターの更新
-	CMoveCharactor::Update();
+	CInstancingCharactor::Update();
 }
 //=========================================================
 // 描画処理
@@ -191,7 +193,7 @@ void CArray::Draw(void)
 	if (!m_isActive) return;
 
 	// キャラクターの描画
-	CMoveCharactor::Draw();
+	//CInstancingCharactor::Draw();
 }
 //=========================================================
 // パラメータ再設定処理
@@ -240,17 +242,17 @@ void CArray::Moving(void)
 
 		// 計算角度
 		float angleY = atan2(-movevec.x, -movevec.z);
-		D3DXVECTOR3 rotDest = CMoveCharactor::GetRotDest();
+		D3DXVECTOR3 rotDest = CInstancingCharactor::GetRotDest();
 		rotDest.y = angleY;
 
 		// 正規化する
 		rotDest.y = NormalAngle(rotDest.y);
 
 		// 目的角を更新
-		CMoveCharactor::SetRotDest(rotDest);
+		CInstancingCharactor::SetRotDest(rotDest);
 
 		// 移動量をセット
-		CMoveCharactor::SetMove(movevec);
+		CInstancingCharactor::SetMove(movevec);
 
 		// モーション変更
 		m_pMotion->SetMotion(CArray::MOTION_MOVE);

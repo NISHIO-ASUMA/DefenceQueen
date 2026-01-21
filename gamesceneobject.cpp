@@ -187,7 +187,7 @@ void CGameSceneObject::Update(void)
 
 	if (m_pSendNumber)
 	{
-		m_pSendNumber->SetDestScore(m_pPlayer->GetSendNum());
+		//m_pSendNumber->SetDestScore(m_pPlayer->GetSendNum());
 	}
 
 #ifdef _DEBUG
@@ -281,12 +281,12 @@ void CGameSceneObject::CreatePointer(void)
 	m_pArraySpawn = std::make_unique<CArraySpawnManager>();
 	m_pArraySpawn->Init(m_pArrayManager.get());
 
-	// 司令塔アリ管理生成
-	m_pWorkerManager = std::make_unique<CWorkerManager>();
-	m_pWorkerManager->Init();
+	//// 司令塔アリ管理生成
+	//m_pWorkerManager = std::make_unique<CWorkerManager>();
+	//m_pWorkerManager->Init();
 
 	// プレイヤー生成
-	m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -800.0f), VECTOR3_NULL);
+	//m_pPlayer = CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -800.0f), VECTOR3_NULL);
 
 	// 防衛対象のクイーン生成
 	m_pQueen = CQueen::Create(D3DXVECTOR3(0.0f, 55.0f, -5.0f), VECTOR3_NULL);

@@ -137,17 +137,15 @@ void CQueen::Draw(void)
 	CNoMoveCharactor::Draw();
 
 #ifdef _DEBUG
-
 	// デバッグ表示
 	CDebugproc::Print("女王の体力値 [ %d / %d ]", m_pParameter->GetHp(), QueenInfo::Hp);
 	CDebugproc::Draw(0, 340);
-
 #endif // _DEBUG
 }
 //=========================================================
 // ダメージ処理
 //=========================================================
-void CQueen::Hit(const int& nDamage)
+void CQueen::Hit(const int nDamage)
 {
 	// 体力値を減らす
 	int nHp = m_pParameter->GetHp();
@@ -165,25 +163,25 @@ void CQueen::Hit(const int& nDamage)
 		return;
 	}
 
-
 	// 現在の体力値をセット
 	m_pParameter->SetHp(nHp);
 
 	// パーティクル生成
-	CParticlePiler::Create(D3DXVECTOR3(GetPos().x, 120.0f, GetPos().z), COLOR_GREEN, 60, 200, 400, 15, 0.0f);
+	CParticlePiler::Create(D3DXVECTOR3(GetPos().x, 120.0f, GetPos().z), COLOR_GREEN, 15, 150, 350, 5, 0.0f);
 
 	// サウンド取得
 	auto Sound = CManager::GetInstance()->GetSound();
 	if (Sound == nullptr) return;
 
 	// 再生する
-	Sound->Play(CSound::SOUND_LABEL_QUEEN);
+	//Sound->Play(CSound::SOUND_LABEL_QUEEN);
 }
 //=========================================================
 // 体力情報の外部書き出し
 //=========================================================
 void CQueen::SaveHp(void)
 {
+	// 数値をバイナリ書き出しする
 	m_pLoad->SaveInt("data/SCORE/QueenLastHp.bin", m_pParameter->GetHp());
 }
 //=========================================================

@@ -15,6 +15,7 @@
 //*********************************************************
 #include "movecharactor.h"
 #include <memory>
+#include "instancingcharactor.h"
 
 //*********************************************************
 // 前方宣言
@@ -27,11 +28,12 @@ class CMotion;
 class CSphereCollider;
 class CBoxCollider;
 class CTopAnt;
+class CMotionInstancing;
 
 //*********************************************************
 // アリ一匹に対するクラスを定義
 //*********************************************************
-class CArray : public CMoveCharactor
+class CArray : public CInstancingCharactor
 {
 public:
 
@@ -112,7 +114,7 @@ private:
 
 	D3DXVECTOR3 m_MoveDestPos;			// 目的の座標
 	D3DXVECTOR3 m_ActivePos;			// 出現時の座標
-	CMotion* m_pMotion;					// モーションポインタ
+	CMotionInstancing* m_pMotion;					// モーションポインタ
 	CSphereCollider* m_pSphereCollider;	// 球形のコライダー
 	CBoxCollider* m_pBoxCollider;		// 矩形のコライダー
 	CArray* m_pFollowTarget;			// 一個前の自身のポインタ

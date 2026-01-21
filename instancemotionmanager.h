@@ -67,15 +67,15 @@ public:
 	//*********************************
 	struct MOTIONFILE
 	{
-		std::string FilePath;	// ファイル名
+		std::string FilePath;				// ファイル名
 		std::vector<CInstanceModel*>apModel; // モデルインデックス
 		std::vector<std::string>Modelpath; // モデルパス
 		std::vector<int>nParentId;			// idセット
 		std::vector<D3DXVECTOR3>offpos;		// オフセット座標
 		std::vector<D3DXVECTOR3>offrot;		// オフセット角度
+		std::vector<INFO> m_aMotionInfo;	// モーション情報
 		int nNumModel;						// 最大モデル数
 		int nNumMotion;						// 最大モーション数
-		std::vector<INFO> m_aMotionInfo;	// モーション情報
 	};
 
 	CInstanceMotionManager();
@@ -115,7 +115,7 @@ public:
 	/// </summary>
 	/// <param name="nIdx">取得するモーション番号</param>
 	/// <returns></returns>
-	MOTIONFILE GetFileDataIdx(const int& nIdx) { return m_FileData[nIdx]; }
+	const MOTIONFILE& GetFileDataIdx(const int nIdx) { return m_FileData[nIdx]; }
 
 private:
 

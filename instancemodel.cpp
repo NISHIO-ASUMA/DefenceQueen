@@ -91,8 +91,8 @@ void CInstanceModel::Update(D3DXMATRIX mtx)
 	if (m_nModelIdx == -1)
 		return;
 
-	// デバイスポインタを宣言
-	auto Rendere = CManager::GetInstance()->GetRenderer();
+	// デバイスポインタを取得
+	const auto& Rendere = CManager::GetInstance()->GetRenderer();
 	LPDIRECT3DDEVICE9 pDevice = Rendere->GetDevice();
 
 	// ファイルマネージャー取得
@@ -100,11 +100,11 @@ void CInstanceModel::Update(D3DXMATRIX mtx)
 	if (!pIMgr) return;
 
 	// 配列情報
-	auto& fileData = pIMgr->GetList();
+	const auto& fileData = pIMgr->GetList();
 	if (m_nModelIdx >= static_cast<int>(fileData.size())) return;
 
 	// 配列取得
-	auto& model = fileData[m_nModelIdx];
+	const auto& model = fileData[m_nModelIdx];
 	if (!model.pMesh) return;
 
 	// 計算用のマトリックスを宣言
@@ -135,19 +135,18 @@ void CInstanceModel::Update(D3DXMATRIX mtx)
 	}
 	else
 	{// 親が存在しない
-		// マトリックス取得
-		//pDevice->GetTransform(D3DTS_WORLD, &mtxParent);
+		// マトリックスを取得
 		mtxParent = mtx;
 	}
 
 	// 親のマトリックスとかけ合わせる
 	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxParent);
 
-	// インスタンシングに登録する
+	// レンダラー登録
 	Rendere->AddInstanceObject(this);
 }
 //=========================================================
-// 描画処理 ( インスタンシングに任せる )
+// 描画処理
 //=========================================================
 void CInstanceModel::Draw(void)
 {

@@ -17,6 +17,7 @@
 #include "motion.h"
 #include "movecharactor.h"
 #include <memory>
+#include "instancingcharactor.h"
 
 //*********************************************************
 // 前方宣言
@@ -26,11 +27,12 @@ class CShadowS;
 class CSphereCollider;
 class CFeed;
 class CBoxCollider;
+class CMotionInstancing;
 
 //*********************************************************
 // 敵1体関するクラスを定義
 //*********************************************************
-class CEnemy : public CMoveCharactor
+class CEnemy : public CInstancingCharactor
 {
 public:
 
@@ -81,7 +83,7 @@ private:
 	bool m_isDestFeed;		// 餌のフラグ
 	bool m_isDestQueen;		// 女王へのフラグ
 
-	CMotion * m_pMotion;				// モーションクラス
+	CMotionInstancing* m_pMotion;				// モーションクラス
 	CFeed* m_pTargetFeed;				// ターゲットの餌
 
 	std::unique_ptr<CSphereCollider>m_pSphereCollider; // 球形コライダー

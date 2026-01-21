@@ -169,12 +169,12 @@ void CInstancingCharactor::Update(void)
 	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxTrans);
 
 #ifdef _DEBUG
-	// release時だけ
-	//if (m_pMotion) m_pMotion->Update(m_pModel);
+	// モーションの更新
+	if (m_pMotion) m_pMotion->Update(m_pModel);
 #endif
 
 	// モデルの更新処理
-	for (auto & Model : m_pModel )
+	for (auto & Model : m_pModel)
 	{
 		Model->Update(m_mtxworld);
 	}
@@ -186,7 +186,7 @@ void CInstancingCharactor::Draw(void)
 {
 #if 1
 	// デバイス取得
-	auto Rendere = CManager::GetInstance()->GetRenderer();
+	const auto& Rendere = CManager::GetInstance()->GetRenderer();
 	LPDIRECT3DDEVICE9 pDevice = Rendere->GetDevice();
 
 	// 自身のワールドマトリックスを設定

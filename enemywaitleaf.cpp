@@ -20,5 +20,5 @@ void CEnemyWaitLeaf::Update()
 	auto* Enemy = m_pBlackBoard->GetValue<CEnemy*>("Enemy");
 
 	// モーションセット
-	Enemy->GetMotion()->SetMotion(CEnemy::MOTION_NEUTRAL,true,10);
+	//Enemy->GetMotion()->SetMotion(CEnemy::MOTION_NEUTRAL,true,10);
 }

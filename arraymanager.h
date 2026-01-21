@@ -100,7 +100,7 @@ private:
 	struct ArrayConfig
 	{
 		static constexpr int LIFE = 1; // 体力値
-		static constexpr int ALLARRAYS = 150; // 最大使用数
+		static constexpr int ALLARRAYS = 90; // 最大使用数
 	};
 
 	std::vector<CArray*>m_pArrays;		// 動的配列

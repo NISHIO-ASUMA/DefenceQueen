@@ -148,7 +148,7 @@ void CMotion::Update(std::vector<CModel*> pModel)
 
 	// モーションマネージャーから情報を取得
 	auto Manager = CManager::GetInstance()->GetMotionManager();
-	auto Info = Manager->GetFileDataIdx(m_nMotionIdx);
+	const auto& Info = Manager->GetFileDataIdx(m_nMotionIdx);
 
 	// 最大数情報
 	int nMotionNum = Info.nNumMotion;
