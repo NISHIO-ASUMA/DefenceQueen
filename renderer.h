@@ -60,15 +60,11 @@ public:
 	void GetFps(int nFps);
 
 	/// <summary>
-	/// インスタンシングオブジェクト登録関数
+	/// インスタンシング登録関数
 	/// </summary>
-	/// <param name="world">モデルのポインタ</param>
-	void AddInstanceObject(CInstanceModel* pModel);
-
-	/// <summary>
-	/// インスタンシング更新関数
-	/// </summary>
-	void UpdateInstancing();
+	/// <param name="nIdxModel">モデルインデックス</param>
+	/// <param name="pModel">モデルポインタ</param>
+	void AddInstanceObject(const int nIdxModel,CInstanceModel* pModel);
 	
 	/// <summary>
 	/// 全インスタンシングオブジェクト描画関数

@@ -16,7 +16,13 @@
 //=========================================================
 // オーバーロードコンストラクタ
 //=========================================================
-CUi::CUi(int nPriority) : CObject2D(nPriority), m_isAlphaEnable(false), m_isFlash(false), m_nAlphaCnt(NULL), m_nAlphaFrame(NULL), m_nFlashFrame(NULL)
+CUi::CUi(int nPriority) : CObject2D(nPriority),
+m_isAlphaEnable(false), 
+m_isFlash(false),
+m_isAlphaTest(false),
+m_nAlphaCnt(NULL), 
+m_nAlphaFrame(NULL),
+m_nFlashFrame(NULL)
 {
 
 }
@@ -30,7 +36,7 @@ CUi::~CUi()
 //=========================================================
 // 生成処理
 //=========================================================
-CUi* CUi::Create(D3DXVECTOR3 pos, int nFlashFrame, float fWidth, float fHeight, const char* Filename, bool isUse, bool isAlphaEnable, int nAlphaFrame)
+CUi* CUi::Create(D3DXVECTOR3 pos, int nFlashFrame, float fWidth, float fHeight, const char* Filename, bool isUse, bool isAlphaEnable, int nAlphaFrame, bool isAlphaTest)
 {
 	// インスタンス生成
 	CUi* pUi = new CUi;
@@ -53,6 +59,7 @@ CUi* CUi::Create(D3DXVECTOR3 pos, int nFlashFrame, float fWidth, float fHeight, 
 	pUi->m_isFlash = isUse;
 	pUi->m_isAlphaEnable = isAlphaEnable;
 	pUi->m_nAlphaFrame = nAlphaFrame;
+	pUi->m_isAlphaTest = isAlphaTest;
 
 	// 生成されたポインタを返す
 	return pUi;
@@ -102,8 +109,25 @@ void CUi::Update(void)
 //=========================================================
 void CUi::Draw(void)
 {
+	// デバイス取得
+	const auto& Device = CManager::GetInstance()->GetRenderer()->GetDevice();
+
+	if (m_isAlphaTest)
+	{
+		// αテスト実行
+		Device->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+		Device->SetRenderState(D3DRS_ALPHAREF, 0);
+		Device->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+	}
+	
 	// オブジェクトの描画
 	CObject2D::Draw();
+
+	if (m_isAlphaTest)
+	{
+		// 設定を元に戻す
+		Device->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+	}
 }
 //=========================================================
 // フェード点滅更新関数

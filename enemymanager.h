@@ -68,7 +68,7 @@ private:
 	//*******************************
 	struct Config
 	{
-		static constexpr int NUM_ENEMY = 50; // 最大数
+		static constexpr int NUM_ENEMY = 150; // 最大数
 		static constexpr int LIFE = 1;		 // 体力値
 		static constexpr int SPAWM_INTERBAL = 15; // 生成インターバル
 	};

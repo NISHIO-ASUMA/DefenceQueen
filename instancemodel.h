@@ -33,6 +33,9 @@ public:
 	inline void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
 	inline void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
 	inline void SetScale(const D3DXVECTOR3& scale = INITSCALE) { m_scale = scale; }
+	inline void SetMtxWorld(const D3DXMATRIX& mtx) { m_mtxworld = mtx; }
+	inline void setLocalMtx(const D3DXMATRIX& mtxlocal) { m_Locla = mtxlocal; }
+
 	inline void OffSetPos(const D3DXVECTOR3& offpos) { m_offPos = offpos; }
 	inline void OffSetRot(const D3DXVECTOR3& offrot) { m_offRot = offrot; }
 	inline void SetMtxShadow(bool isShadow) { m_isShadow = isShadow; }
@@ -46,6 +49,7 @@ private:
 
 	D3DXVECTOR3 m_pos, m_rot, m_offPos, m_offRot, m_scale; // 座標,角度,大きさ
 	D3DXMATRIX m_mtxworld;			// ワールドマトリックス
+	D3DXMATRIX m_Locla;				// ローカルマトリックス
 	CInstanceModel* m_pParent;		// 親モデル
 
 	int* m_pTexture;	// テクスチャポインタ

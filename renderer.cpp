@@ -576,13 +576,10 @@ void CRenderer::GetFps(int nFps)
 //=========================================================
 // インスタンシングオブジェクト登録関数
 //=========================================================
-void CRenderer::AddInstanceObject(CInstanceModel* pModel)
+void CRenderer::AddInstanceObject(const int nIdxModel,CInstanceModel* pModel)
 {
-	// モデルインデックスを取得する
-	int modelIdx = pModel->GetModelIdx();
-
 	// 対象オブジェクトをインスタンシング配列に追加
-	m_RegisterInstObject[modelIdx].push_back(pModel);
+	m_RegisterInstObject[nIdxModel].push_back(pModel);
 }
 //=========================================================
 // インスタンシング描画関数

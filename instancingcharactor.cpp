@@ -158,19 +158,19 @@ void CInstancingCharactor::Update(void)
 
 	// 大きさを反映
 	D3DXMatrixScaling(&mtxScal, m_scale.x, m_scale.y, m_scale.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxScal);
 
 	// 向きを反映
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxRot);
 
 	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxTrans);
+
+	// マトリックスの掛け算
+	m_mtxworld = mtxScal * mtxRot * mtxTrans;
 
 #ifdef _DEBUG
 	// モーションの更新
-	if (m_pMotion) m_pMotion->Update(m_pModel);
+	//if (m_pMotion) m_pMotion->Update(m_pModel);
 #endif
 
 	// モデルの更新処理

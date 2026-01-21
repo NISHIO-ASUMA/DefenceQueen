@@ -113,4 +113,59 @@ private:
 
 	MOTION_RESULT m_ResultData; // モーション計算結果
 	bool m_isDirty; // 再計算が必要か
+
+	struct MOTION_CACHE_FRAME
+	{
+		std::vector<D3DXVECTOR3> pos;
+		std::vector<D3DXVECTOR3> rot;
+	};
+
+	struct MOTION_CACHE
+	{
+		int motionType;
+		int key;
+		int counter;
+		bool isBlend;
+
+		MOTION_CACHE_FRAME frame;
+	};
+
+	MOTION_CACHE m_cache = {};
+	bool m_cacheDirty = true;
+
+	void MathMotionFrame(const CInstanceMotionManager::MOTIONFILE& info, CInstanceMotionManager* pManager);
+	void UpdateFrameOnce(const CInstanceMotionManager::MOTIONFILE& info, CInstanceMotionManager* pManager);
+	void ApplyCache(std::vector<CInstanceModel*>& pModel, const CInstanceMotionManager::MOTIONFILE& info);
+
+	void CalcCurrent(CInstanceMotionManager* pManager,int nModelCount,const CInstanceMotionManager::MOTIONFILE& info);
+	void CalcBlend(CInstanceMotionManager* pManager,int nModelCount, const CInstanceMotionManager::MOTIONFILE& info);
+
+	/// <summary>
+	/// 座標補完の計算関数
+	/// </summary>
+	/// <param name="nowKey">現在キー</param>
+	/// <param name="nextKey">次のキ―</param>
+	/// <param name="fDis">補完係数</param>
+	/// <returns></returns>
+	inline D3DXVECTOR3 LerpPosVec3
+	(
+		const CInstanceMotionManager::KEY& nowKey,
+		const CInstanceMotionManager::KEY& nextKey,
+		float fDis
+	);
+
+	/// <summary>
+	/// 回転補完の計算関数
+	/// </summary>
+	/// <param name="nowKey">現在キー</param>
+	/// <param name="nextKey">次のキ</param>
+	/// <param name="fDis">補完係数</param>
+	/// <returns></returns>
+	inline D3DXVECTOR3 LerpRotVec3
+	(
+		const CInstanceMotionManager::KEY& nowKey,
+		const CInstanceMotionManager::KEY& nextKey,
+		float fDis
+	);
+
 };

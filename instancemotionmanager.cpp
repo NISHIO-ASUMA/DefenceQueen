@@ -15,6 +15,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "template.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -111,6 +112,9 @@ int CInstanceMotionManager::Register(const char* pFileName, std::vector<CInstanc
 
 	// モーションスクリプトファイルの読み込み
 	LoadMotion(pFileName, pModel, nDestMotion, isShadow);
+
+	// モーション情報計算関数
+	BuildMotionCache(m_FileData.back());
 
 	// 加算してインデックスを返す
 	return m_nNumAll++;
@@ -525,5 +529,81 @@ void CInstanceMotionManager::SetKeyDate(std::istringstream& ss, const std::strin
 
 		// 角度キー情報カウントを加算
 		rotKeyIndex++;
+	}
+}
+//=================================================================
+// モーションキャッシュ計算関数
+//=================================================================
+void CInstanceMotionManager::BuildMotionCache(MOTIONFILE& file)
+{
+	// 配列サイズを設定する
+	file.cache.resize(file.nNumMotion);
+
+	// モーション種類数の配列で決める
+	for (int nCountMotion = 0; nCountMotion < file.nNumMotion; nCountMotion++)
+	{
+		// 参照元情報を格納
+		const auto& motion = file.m_aMotionInfo[nCountMotion];
+
+		// 計算フレーム
+		int nTotalFrame = 0;
+
+		// そのモーションの最大フレーム数を計算
+		for (auto& allframe : motion.aKeyInfo) nTotalFrame += allframe.nFrame;
+
+		// キャッシュ内のデータ
+		auto& motioncache = file.cache[nCountMotion];
+
+		// 最大フレームとサイズを設定する
+		motioncache.totalFrame = nTotalFrame;
+		motioncache.Frames.resize(nTotalFrame);
+
+		// フレームカウントインデックス
+		int nFrameIdx = 0;
+
+		for (int nCnt = 0; nCnt < motion.nNumKey; nCnt++)
+		{
+			// 次のキーを計算
+			int nextKey = (nCnt + 1) % motion.nNumKey;
+
+			// そのキーのフレーム
+			for (int nCntFrame = 0; nCntFrame < motion.aKeyInfo[nCnt].nFrame; nCntFrame++)
+			{
+				// 補完係数を設定する
+				float fDis = static_cast<float>(nCntFrame) / motion.aKeyInfo[nCnt].nFrame;
+
+				// キャッシュ対象配列に追加
+				auto& outdata = motioncache.Frames[nFrameIdx++];
+
+				// 座標キーと角度キーの要素を決定
+				outdata.pos.resize(file.nNumModel);
+				outdata.rot.resize(file.nNumModel);
+				outdata.local.resize(file.nNumModel);
+
+				// モデル数で回す
+				for (int nSetModel = 0; nSetModel < file.nNumModel; nSetModel++)
+				{
+					// キーごとの情報を格納
+					auto& keyFirst = motion.aKeyInfo[nCnt].aKey[nSetModel];
+					auto& keySecond = motion.aKeyInfo[nextKey].aKey[nSetModel];
+
+					// 座標を計算
+					outdata.pos[nSetModel] =
+					{
+						Lerp(keyFirst.fPosX, keySecond.fPosX, fDis),
+						Lerp(keyFirst.fPosY, keySecond.fPosY, fDis),
+						Lerp(keyFirst.fPosZ, keySecond.fPosZ, fDis)
+					};
+
+					// 角度を計算
+					outdata.rot[nSetModel] =
+					{
+						Lerp(keyFirst.fRotX, keySecond.fRotX, fDis),
+						Lerp(keyFirst.fRotY, keySecond.fRotY, fDis),
+						Lerp(keyFirst.fRotZ, keySecond.fRotZ, fDis)
+					};
+				}
+			}
+		}
 	}
 }

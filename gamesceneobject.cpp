@@ -63,7 +63,6 @@ m_pEnemySpawnManager(nullptr),
 m_pEnemyManager(nullptr),
 m_pWallManager(nullptr)
 {
-	// 値のクリア
 }
 //=========================================================
 // デストラクタ
@@ -90,10 +89,6 @@ HRESULT CGameSceneObject::Init(void)
 	CUi::Create(D3DXVECTOR3(1125.0f, 60.0f, 0.0f), 0, 15.0f, 30.0f, "coron.png", false);
 	CUi::Create(D3DXVECTOR3(1125.0f, 55.0f, 0.0f), 0, 140.0f, 55.0f, "Time_frame.png", false);
 	CUi::Create(D3DXVECTOR3(105.0f, 35.0f, 0.0f), 0, 100.0f, 30.0f, "SendNum.png", false);
-
-#ifdef _DEBUG
-	// CUi::Create(D3DXVECTOR3(1160.0f, 280.0f, 0.0f), 0, 120.0f, 300.0f, "backboard.png", false);
-#endif // _DEBUG
 
 	// 各種ポインタクラスの生成
 	CreatePointer();
@@ -273,13 +268,13 @@ void CGameSceneObject::CreatePointer(void)
 	m_pFeed = std::make_unique<CFeedManager>();
 	m_pFeed->Init();
 
-	// 仲間アリの大軍を生成
-	m_pArrayManager = std::make_unique<CArrayManager>();
-	m_pArrayManager->Init();
+	//// 仲間アリの大軍を生成
+	//m_pArrayManager = std::make_unique<CArrayManager>();
+	//m_pArrayManager->Init();
 
-	// 出現場所生成
-	m_pArraySpawn = std::make_unique<CArraySpawnManager>();
-	m_pArraySpawn->Init(m_pArrayManager.get());
+	//// 出現場所生成
+	//m_pArraySpawn = std::make_unique<CArraySpawnManager>();
+	//m_pArraySpawn->Init(m_pArrayManager.get());
 
 	//// 司令塔アリ管理生成
 	//m_pWorkerManager = std::make_unique<CWorkerManager>();

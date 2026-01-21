@@ -31,7 +31,7 @@ public:
 	void Draw(void);
 
 	static CUi* Create(D3DXVECTOR3 pos, int nFlashFrame,float fWidth, float fHeight,const char * Filename,bool isUse = false,bool isAlphaEnable = false,
-					   int nAlphaFrame = 0);
+					   int nAlphaFrame = 0,bool isAlphaTest = false);
 
 private:
 
@@ -42,5 +42,6 @@ private:
 	int m_nAlphaCnt;		// 現在のフレーム
 
 	bool m_isFlash;			// 点滅するかどうか
-	bool m_isAlphaEnable; // 描画開始から透明度を触るかどうか
+	bool m_isAlphaEnable;	// 描画開始から透明度を触るかどうか
+	bool m_isAlphaTest;		// αテストするかどうか
 };

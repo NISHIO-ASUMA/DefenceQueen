@@ -28,7 +28,8 @@ m_offRot(VECTOR3_NULL),
 m_scale(INITSCALE),
 m_isShadow(false),
 m_isInst(false),
-m_mtxworld{}
+m_mtxworld{},
+m_Locla{}
 {
 }
 //=========================================================
@@ -94,7 +95,7 @@ void CInstanceModel::Update(D3DXMATRIX mtx)
 	// デバイスポインタを取得
 	const auto& Rendere = CManager::GetInstance()->GetRenderer();
 	LPDIRECT3DDEVICE9 pDevice = Rendere->GetDevice();
-
+#if 1
 	// ファイルマネージャー取得
 	CInstanceModelManager* pIMgr = CManager::GetInstance()->GetInstanceModelM();
 	if (!pIMgr) return;
@@ -113,17 +114,17 @@ void CInstanceModel::Update(D3DXMATRIX mtx)
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxworld);
 
+#if 1
 	// 拡大率を反映
 	D3DXMatrixScaling(&mtxScale, m_scale.x, m_scale.y, m_scale.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxScale);
-
+#endif
 	// 向きを反映
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y + m_offRot.y, m_rot.x + m_offRot.x, m_rot.z + m_offRot.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxRot);
 
 	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x + m_offPos.x, m_pos.y + m_offPos.y, m_pos.z + m_offPos.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxTrans);
+
+	m_mtxworld = mtxScale * mtxRot * mtxTrans;
 
 	// 親のペアネント格納用変数
 	D3DXMATRIX mtxParent;
@@ -142,8 +143,9 @@ void CInstanceModel::Update(D3DXMATRIX mtx)
 	// 親のマトリックスとかけ合わせる
 	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxParent);
 
-	// レンダラー登録
-	Rendere->AddInstanceObject(this);
+	// インスタンシングに登録(これは関係ない)
+	Rendere->AddInstanceObject(m_nModelIdx,this);
+#endif
 }
 //=========================================================
 // 描画処理

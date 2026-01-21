@@ -24,7 +24,7 @@ class CMotionInstancing;
 class CInstanceModel;
 
 //*******************************************************************
-// モーションファイル管理クラスを定義
+// インスタンシングモデルのモーションファイル管理クラスを定義
 //*******************************************************************
 class CInstanceMotionManager
 {
@@ -63,6 +63,26 @@ public:
 	};
 
 	//*********************************
+	// フレーム間結果を保持する構造体
+	//*********************************
+	struct MATH_MOTIONFRAME
+	{
+		std::vector<D3DXVECTOR3> pos; // 座標
+		std::vector<D3DXVECTOR3> rot; // 角度
+		std::vector<D3DXMATRIX> local; // ローカル
+		std::vector<D3DXMATRIX> world; //
+	};
+
+	//*********************************
+	// モーション一個分の情報
+	//*********************************
+	struct MOTION_CACHEDATA
+	{
+		int totalFrame = 0;						// 合計フレーム
+		std::vector<MATH_MOTIONFRAME> Frames;	// 保持構造体
+	};
+
+	//*********************************
 	// モーション情報を保存する構造体
 	//*********************************
 	struct MOTIONFILE
@@ -74,6 +94,7 @@ public:
 		std::vector<D3DXVECTOR3>offpos;		// オフセット座標
 		std::vector<D3DXVECTOR3>offrot;		// オフセット角度
 		std::vector<INFO> m_aMotionInfo;	// モーション情報
+		std::vector<MOTION_CACHEDATA> cache; // モーションキャッシュ用データ配列
 		int nNumModel;						// 最大モデル数
 		int nNumMotion;						// 最大モーション数
 	};
@@ -128,10 +149,11 @@ private:
 	void SetPartsMotion(std::ifstream& file, int nCntMotion);
 	void SetKey(std::ifstream& file, int nCntMotion, int nCntKey);
 	void SetKeyDate(std::istringstream& ss, const std::string& param, int nCntMotion, int nCntKey, int& posKeyIndex, int& rotKeyIndex);
+	void BuildMotionCache(MOTIONFILE& file);
 
 	// 静的メンバ変数
 	static int m_nNumAll;
 
-	//　ファイルパスを保持しておく動的配列
+	// 構造体の動的配列
 	std::vector<MOTIONFILE>m_FileData;
 };

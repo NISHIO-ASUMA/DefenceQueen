@@ -114,15 +114,14 @@ void CObjectX::Draw(void)
 
 	// Šg‘å—¦‚ð”½‰f
 	D3DXMatrixScaling(&mtxScale, m_Scale.x, m_Scale.y, m_Scale.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxScale);
 
 	// Œü‚«‚ð”½‰f
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 	
 	// ˆÊ’u‚ð”½‰f
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+
+	m_mtxWorld = mtxScale * mtxRot * mtxTrans;
 
 	// ƒ[ƒ‹ƒhƒ}ƒgƒŠƒbƒNƒX‚ÌÝ’è
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);

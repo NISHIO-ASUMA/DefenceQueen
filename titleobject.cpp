@@ -52,7 +52,7 @@ HRESULT CTitleObject::Init(void)
 
 	// èâä˙UIê∂ê¨
 	CUi::Create(D3DXVECTOR3(HALFWIDTH, 650.0f, 0.0f), 30, 180.0f, 60.0f, "GameStart.png", true);
-	//CUi::Create(D3DXVECTOR3(HALFWIDTH, 180.0f, 0.0f), 0, 300.0f, 150.0f, "TitleLogo.png", false);
+	CUi::Create(D3DXVECTOR3(HALFWIDTH, 180.0f, 0.0f), 0, 300.0f, 150.0f, "TitleLogo.png", false,false,0,true);
 
 	return S_OK;
 }

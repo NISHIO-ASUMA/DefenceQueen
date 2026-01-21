@@ -152,140 +152,113 @@ void CMotionInstancing::SetMotion(int nMotionType, bool isBlend, int nBlendFrame
 //=========================================================
 void CMotionInstancing::Update(std::vector<CInstanceModel*> pModel)
 {
-	// モーションマネージャーから情報を取得
-	auto Manager = CManager::GetInstance()->GetInstMotionM();
-	const auto& Info = Manager->GetFileDataIdx(m_nMotionIdx);
+	const auto& manager = CManager::GetInstance()->GetInstMotionM();
+	const auto& info = manager->GetFileDataIdx(m_nMotionIdx);
 
-	// 最大数情報
-	int nMotionNum = Info.nNumMotion;
-	int nModelNum = Info.nNumModel;
+#if 1
+	// モーションフレーム計算処理
+	MathMotionFrame(info,manager);
 
-	// 現在モーションキー計算
-	m_motiontype = Clump(m_motiontype, 0, nMotionNum);
-	m_nNextKey = Wrap(m_nKey + 1, 0, Info.m_aMotionInfo[m_motiontype].nNumKey - 1);
-
-	// 最後のキーとブレンドのキーを計算
-	int nLastKey = Info.m_aMotionInfo[m_motiontype].nNumKey - 1;
-
-	// 初回 or モデル数変更時
-	if (static_cast<int>(m_ResultData.pos.size()) != nModelNum)
-	{
-		// 配列の要素サイズをセットする
-		m_ResultData.Resize(nModelNum);
-		m_isDirty = true;
-	}
-
-	// 最大モデル数で回す
-	for (int nCnt = 0; nCnt < nModelNum; nCnt++)
-	{
-		// ブレンド開始なら
-		if (m_isFirstMotion)
-		{
-			// ブレンドモーションの更新
-			UpdateBlend(Manager, pModel.data(), nCnt, Info);
-		}
-		else
-		{
-			// 現在のモーション更新
-			UpdateCurrentMotion(Manager, pModel.data(), nCnt, Info);
-		}
-
-		pModel[nCnt]->SetPos(m_ResultData.pos[nCnt]);
-		pModel[nCnt]->SetRot(m_ResultData.rot[nCnt]);
-	}
-
-	// フレーム進行処理
-	if (m_nCounterMotion >= Info.m_aMotionInfo[m_motiontype].aKeyInfo[m_nKey].nFrame)
-	{
-		// カウンターをリセット
-		m_nCounterMotion = 0;
-
-		// キー数が上限より一個下
-		if (m_nKey < Info.m_aMotionInfo[m_motiontype].nNumKey - 1)
-		{
-			// キー数加算
-			m_nKey++;
-		}
-		else if (m_nKey >= Info.m_aMotionInfo[m_motiontype].nNumKey)
-		{
-			// キーをリセット
-			m_nKey = 0;
-
-			// フレームをリセット
-			m_nCounterMotion = 0;
-		}
-		else
-		{
-			// 通常ループ
-			m_nKey = Wrap(m_nKey + 1, 0, Info.m_aMotionInfo[m_motiontype].nNumKey - 1);
-		}
-	}
-	else
-	{
-		// ブレンドが開始していなかったら
-		if (!m_isFirstMotion)
-		{
-			// カウンターを加算
-			m_nCounterMotion++;
-		}
-
-		// 全体フレームカウント
-		m_nAllFrameCount++;
-	}
-
-	// ブレンドモーションが始まったら
-	if (m_isFirstMotion == true)
-	{
-		// ブレンドモーションカウントをインクリメント
-		m_nCounterBlend++;
-	}
-
-	// モーションの出だしのブレンドが終了した
-	if (m_isFirstMotion == true && m_nCounterBlend >= m_nFrameBlend)
-	{
-		m_nFrameBlend = 0;
-
-		// フラグをもとに戻す
-		m_isFirstMotion = false;
-
-		// モーションをブレンドしたモーションにする
-		m_motiontype = m_motiontypeBlend;
-
-		// キーをリセット
-		m_nKey = 0;
-
-		// ブレンドしたフレームから開始
-		m_nCounterMotion = 0;
-
-		// ブレンドフレーム初期化
-		m_nCounterBlend = 0;
-	}
-
-	// 着地モーションの終了判定
-	if (m_nKey >= nLastKey - 1 && m_nCounterMotion >= Info.m_aMotionInfo[m_motiontype].aKeyInfo[m_nKey].nFrame)
-	{// 最後のキーに達していて、カウンターも終了フレームを超えていたら
-		m_isFinishMotion = true;
-	}
-
-	// 全体フレームカウント計算用
-	int nFrame = 0;
-
-	// キーごとのフレームで回す
-	for (int nCnt = 0; nCnt < Info.m_aMotionInfo[m_motiontype].nNumKey; nCnt++)
-	{
-		// 全体計算用に加算
-		nFrame += Info.m_aMotionInfo[m_motiontype].aKeyInfo[nCnt].nFrame;
-	}
-
-	// 最大値よりもカウントがオーバーしたら
-	if (m_nAllFrameCount >= m_nNumAllFrame)
-	{
-		m_nAllFrameCount = 0;
-	}
-
-	// 全体フレーム計算
-	m_nNumAllFrame = nFrame;
+	// モデルに適用
+	ApplyCache(pModel,info);
+#endif
 }
+//=================================================================
+// フレーム計算
+//=================================================================
+void CMotionInstancing::MathMotionFrame(const CInstanceMotionManager::MOTIONFILE& info, CInstanceMotionManager* pManager)
+{
+	// モーションキャッシュ情報を取得
+	const auto& motioncache = info.cache[m_motiontype];
+
+	// モーションカウンターを加算
+	m_nAllFrameCount++;
+
+	// 最大カウントに達したら
+	if (m_nAllFrameCount >= motioncache.totalFrame)
+		m_nAllFrameCount = 0;
+}
+//=========================================================
+// 結果の適用
+//=========================================================
+void CMotionInstancing::ApplyCache(std::vector<CInstanceModel*>& pModel, const CInstanceMotionManager::MOTIONFILE& info)
+{
+	// フレーム取得
+	const auto& frame = info.cache[m_motiontype].Frames[m_nAllFrameCount];
+
+	// モデルに適用
+	for (int nModelCount = 0; nModelCount < info.nNumModel; ++nModelCount)
+	{
+		pModel[nModelCount]->SetPos(frame.pos[nModelCount]);
+		pModel[nModelCount]->SetRot(frame.rot[nModelCount]);
+	}
+}
+
+//=========================================================
+// 座標補完計算関数
+//=========================================================
+inline D3DXVECTOR3 CMotionInstancing::LerpPosVec3(const CInstanceMotionManager::KEY& nowKey, const CInstanceMotionManager::KEY& nextKey, float fDis)
+{
+	// 計算用変数
+	D3DXVECTOR3 outpos = VECTOR3_NULL;
+
+	// 座標を計算する
+	outpos.x = nowKey.fPosX + (nextKey.fPosX - nowKey.fPosX) * fDis;
+	outpos.y = nowKey.fPosY + (nextKey.fPosY - nowKey.fPosY) * fDis;
+	outpos.z = nowKey.fPosZ + (nextKey.fPosZ - nowKey.fPosZ) * fDis;
+
+	// 計算された座標を返す
+	return outpos;
+}
+//=========================================================
+// 回転補完計算関数
+//=========================================================
+inline D3DXVECTOR3 CMotionInstancing::LerpRotVec3(const CInstanceMotionManager::KEY& nowKey, const CInstanceMotionManager::KEY& nextKey, float fDis)
+{
+	// 計算用変数
+	D3DXVECTOR3 outrot;
+
+	// 角度を正規化する
+	float NorX = NormalAngle(nextKey.fRotX - nowKey.fRotX);
+	float NorY = NormalAngle(nextKey.fRotY - nowKey.fRotY);
+	float NorZ = NormalAngle(nextKey.fRotZ - nowKey.fRotZ);
+
+	// 最終角度を計算する
+	outrot.x = nowKey.fRotX + NorX * fDis;
+	outrot.y = nowKey.fRotY + NorY * fDis;
+	outrot.z = nowKey.fRotZ + NorZ * fDis;
+
+	// 計算された角度を返す
+	return outrot;
+}
+#endif
+//=================================================================
+// デバッグフォント関数
+//=================================================================
+void CMotionInstancing::Debug(void)
+{
+#ifdef _DEBUG
+	CDebugproc::Print("[現在フレームカウント] %d /  [ 最大モーションフレーム ] %d", m_nAllFrameCount, m_nNumAllFrame);
+	CDebugproc::Draw(800, 320);
+
+	CDebugproc::Print("[ブレンドフレーム] %d / [ブレンドカウント] %d", m_nFrameBlend, m_nCounterBlend);
+	CDebugproc::Draw(800, 340);
+#endif // _DEBUG
+
+}
+//=================================================================
+// モーションフレーム判定
+//=================================================================
+bool CMotionInstancing::CheckFrame(int nStartMotion, int nEndMotion, int nMotionType)
+{
+	// StartとEndの範囲内なら
+	if (m_nAllFrameCount >= nStartMotion && m_nAllFrameCount <= nEndMotion && m_motiontype == nMotionType)
+		return true;
+
+	// それ以外の時
+	return false;
+}
+
 //=================================================================
 // 現在のモーションの更新関数
 //=================================================================
@@ -298,45 +271,16 @@ void CMotionInstancing::UpdateCurrentMotion(CInstanceMotionManager* pMption, CIn
 	const CInstanceMotionManager::KEY_INFO& keyInfoNow = motionInfo.aKeyInfo[m_nKey];
 	const CInstanceMotionManager::KEY_INFO& keyInfoNext = motionInfo.aKeyInfo[m_nNextKey];
 
-	// 現在の KEY
+	// キーごとの情報
 	const CInstanceMotionManager::KEY& NowKey = keyInfoNow.aKey[nModelCount];
 	const CInstanceMotionManager::KEY& NextKey = keyInfoNext.aKey[nModelCount];
-
-	// キー情報から位置と向きを算出
-	D3DXVECTOR3 posMotion, rotMotion;
-
-	// 角度と座標の差分を計算
-	posMotion.x = NextKey.fPosX - NowKey.fPosX;
-	posMotion.y = NextKey.fPosY - NowKey.fPosY;
-	posMotion.z = NextKey.fPosZ - NowKey.fPosZ;
-
-	rotMotion.x = NextKey.fRotX - NowKey.fRotX;
-	rotMotion.y = NextKey.fRotY - NowKey.fRotY;
-	rotMotion.z = NextKey.fRotZ - NowKey.fRotZ;
-
-	// 計算した角度の正規化をする
-	rotMotion.x = NormalAngle(rotMotion.x);
-	rotMotion.y = NormalAngle(rotMotion.y);
-	rotMotion.z = NormalAngle(rotMotion.z);
-
-	// 求める値を保存する変数を宣言
-	D3DXVECTOR3 Pos, Rot;
 
 	// 補間係数を計算
 	float fDis = static_cast<float>(m_nCounterMotion) / keyInfoNow.nFrame;
 
-	// 補間結果を算出
-	Pos.x = NowKey.fPosX + posMotion.x * fDis;
-	Pos.y = NowKey.fPosY + posMotion.y * fDis;
-	Pos.z = NowKey.fPosZ + posMotion.z * fDis;
-
-	Rot.x = NowKey.fRotX + rotMotion.x * fDis;
-	Rot.y = NowKey.fRotY + rotMotion.y * fDis;
-	Rot.z = NowKey.fRotZ + rotMotion.z * fDis;
-
-	// モデルのパーツに設定
-	m_ResultData.pos[nModelCount] = Pos;
-	m_ResultData.rot[nModelCount] = Rot;
+	// 補完座標と角度を計算する
+	m_cache.frame.pos[nModelCount] = LerpPosVec3(NowKey, NextKey, fDis);
+	m_cache.frame.rot[nModelCount] = LerpRotVec3(NowKey, NextKey, fDis);
 }
 
 //=================================================================
@@ -344,7 +288,7 @@ void CMotionInstancing::UpdateCurrentMotion(CInstanceMotionManager* pMption, CIn
 //=================================================================
 void CMotionInstancing::UpdateBlend(CInstanceMotionManager* pMption, CInstanceModel** ppModel, int nModelCount, const CInstanceMotionManager::MOTIONFILE& info)
 {
-	// 現在のモーション情報取得
+#if 0
 	const CInstanceMotionManager::INFO& motionInfo = info.m_aMotionInfo[m_motiontype];
 	const CInstanceMotionManager::INFO& BlendInfo = info.m_aMotionInfo[m_motiontypeBlend];
 
@@ -364,6 +308,10 @@ void CMotionInstancing::UpdateBlend(CInstanceMotionManager* pMption, CInstanceMo
 	//==========================
 	D3DXVECTOR3 DiffRot = VECTOR3_NULL; // 角度
 	D3DXVECTOR3	CurrentRot = VECTOR3_NULL; // 現在角度
+
+	// 計算関数に投げる
+	D3DXVECTOR3 currentPos = LerpPosVec3(nowKey, nextKey, fRateMotion);
+	D3DXVECTOR3 currentRot = LerpRotVec3(nowKey, nextKey, fRateMotion);
 
 	// 角度を計算する
 	DiffRot.x = nextKey.fRotX - nowKey.fRotX;
@@ -394,6 +342,9 @@ void CMotionInstancing::UpdateBlend(CInstanceMotionManager* pMption, CInstanceMo
 	//==========================================================
 	D3DXVECTOR3 DiffBlendRot = VECTOR3_NULL; // 角度
 	D3DXVECTOR3	BlendRot = VECTOR3_NULL;	 // ブレンド角度
+
+	D3DXVECTOR3 blendPos = LerpPosVec3(nowKeyBlend, nextKeyBlend, fBlendRate);
+	D3DXVECTOR3 blendRot = LerpRotVec3(nowKeyBlend, nextKeyBlend, fBlendRate);
 
 	// ブレンド角度を計算
 	DiffBlendRot.x = nextKeyBlend.fRotX - nowKeyBlend.fRotX;
@@ -446,31 +397,40 @@ void CMotionInstancing::UpdateBlend(CInstanceMotionManager* pMption, CInstanceMo
 	//==========================================================
 	m_ResultData.pos[nModelCount] = LastPos;
 	m_ResultData.rot[nModelCount] = LastRot;
-}
+	// 現在モーション情報
+	const auto& motionInfo = info.m_aMotionInfo[m_motiontype];
+	const auto& blendInfo = info.m_aMotionInfo[m_motiontypeBlend];
+
+	// 補間率
+	float fBlendRate = static_cast<float>(m_nCounterBlend) / static_cast<float>(m_nFrameBlend);
+	float fMotionRate = (static_cast<float>(m_nCounterMotion) / static_cast<float>(motionInfo.aKeyInfo[m_nKey].nFrame));
+
+	//==========================
+	// 現在モーション補間
+	//==========================
+	const auto& nowKey = motionInfo.aKeyInfo[m_nKey].aKey[nModelCount];
+	const auto& nextKey = motionInfo.aKeyInfo[m_nNextKey].aKey[nModelCount];
+
+	// 現在角度を計算
+	D3DXVECTOR3 currentPos = LerpPosVec3(nowKey, nextKey, fMotionRate);
+	D3DXVECTOR3 currentRot = LerpRotVec3(nowKey, nextKey, fMotionRate);
+
+	//==========================
+	// ブレンド先モーション補間
+	//==========================
+	const auto& nowKeyBlend = blendInfo.aKeyInfo[m_nKeyBlend].aKey[nModelCount];
+	const auto& nextKeyBlend = blendInfo.aKeyInfo[m_nNextKeyBlend].aKey[nModelCount];
+
+	// ブレンド計算
+	D3DXVECTOR3 blendPos = LerpPosVec3(nowKeyBlend, nextKeyBlend, fBlendRate);
+	D3DXVECTOR3 blendRot = LerpRotVec3(nowKeyBlend, nextKeyBlend, fBlendRate);
+
+	//==========================
+	// 最終入力値を設定
+	//==========================
+	m_cache.frame.pos[nModelCount] = currentPos + (blendPos - currentPos) * fBlendRate;
+	m_cache.frame.rot[nModelCount] = currentRot + (blendRot - currentRot) * fBlendRate;
+
+
 #endif
-//=================================================================
-// デバッグフォント関数
-//=================================================================
-void CMotionInstancing::Debug(void)
-{
-#ifdef _DEBUG
-	CDebugproc::Print("[現在フレームカウント] %d /  [ 最大モーションフレーム ] %d", m_nAllFrameCount, m_nNumAllFrame);
-	CDebugproc::Draw(800, 320);
-
-	CDebugproc::Print("[ブレンドフレーム] %d / [ブレンドカウント] %d", m_nFrameBlend, m_nCounterBlend);
-	CDebugproc::Draw(800, 340);
-#endif // _DEBUG
-
-}
-//=================================================================
-// モーションフレーム判定
-//=================================================================
-bool CMotionInstancing::CheckFrame(int nStartMotion, int nEndMotion, int nMotionType)
-{
-	// StartとEndの範囲内なら
-	if (m_nAllFrameCount >= nStartMotion && m_nAllFrameCount <= nEndMotion && m_motiontype == nMotionType)
-		return true;
-
-	// それ以外の時
-	return false;
 }
