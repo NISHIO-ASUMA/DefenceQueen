@@ -60,6 +60,9 @@ void CInstancingCharactor::MotionLoad(const char* pScriptName, int nDestMotions,
 //===================================================================
 HRESULT CInstancingCharactor::Init(void)
 {
+	// 対象オブジェクトに設定
+	SetObjType(CObject::TYPE_INSTANCE);
+
 	// モデル配列の初期化
 	m_pModel.clear();
 
@@ -153,9 +156,6 @@ void CInstancingCharactor::Update(void)
 	// 計算用のマトリックスを宣言
 	D3DXMATRIX mtxRot, mtxTrans, mtxScal;
 
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxworld);
-
 	// 大きさを反映
 	D3DXMatrixScaling(&mtxScal, m_scale.x, m_scale.y, m_scale.z);
 
@@ -170,7 +170,7 @@ void CInstancingCharactor::Update(void)
 
 #ifdef _DEBUG
 	// モーションの更新
-	//if (m_pMotion) m_pMotion->Update(m_pModel);
+	if (m_pMotion) m_pMotion->Update(m_pModel);
 #endif
 
 	// モデルの更新処理
@@ -191,6 +191,15 @@ void CInstancingCharactor::Draw(void)
 
 	// 自身のワールドマトリックスを設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxworld);
+
+	// モデルの更新処理
+	for (auto& Model : m_pModel)
+	{
+		Model->Draw(m_mtxworld);
+	}
+
+	CDebugproc::Print("位置 : %.2f,%.2f,%.2f", GetPos().x, GetPos().y, GetPos().z);
+	CDebugproc::Draw(600, 500);
 #endif
 }
 //===================================================================

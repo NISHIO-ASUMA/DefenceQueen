@@ -196,10 +196,10 @@ void CFeed::DecLife(const int& nDecValue)
 		m_pParam->SetHp(nHp);
 
 		// パーティクル生成
-		CParticlePiler::Create(D3DXVECTOR3(GetPos().x,120.0f,GetPos().z), COLOR_PURPLE,15,150,350,5,0.0f);
+		//CParticlePiler::Create(D3DXVECTOR3(GetPos().x,120.0f,GetPos().z), COLOR_PURPLE,15,150,350,5,0.0f);
 		
 		// サウンド取得
-		auto Sound = CManager::GetInstance()->GetSound();
+		const auto& Sound = CManager::GetInstance()->GetSound();
 		if (Sound != nullptr)
 		{
 			//Sound->Play(CSound::SOUND_LABEL_DAMAGE);

@@ -167,7 +167,7 @@ void CQueen::Hit(const int nDamage)
 	m_pParameter->SetHp(nHp);
 
 	// パーティクル生成
-	CParticlePiler::Create(D3DXVECTOR3(GetPos().x, 120.0f, GetPos().z), COLOR_GREEN, 15, 150, 350, 5, 0.0f);
+	//CParticlePiler::Create(D3DXVECTOR3(GetPos().x, 120.0f, GetPos().z), COLOR_GREEN, 15, 150, 350, 5, 0.0f);
 
 	// サウンド取得
 	auto Sound = CManager::GetInstance()->GetSound();

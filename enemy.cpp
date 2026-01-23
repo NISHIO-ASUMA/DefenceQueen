@@ -205,7 +205,7 @@ void CEnemy::Draw(void)
 	if (!m_isActive) return;
 
 	// キャラクターの描画処理
-	//CInstancingCharactor::Draw();
+	CInstancingCharactor::Draw();
 }
 //=========================================================
 // 餌に向かう処理

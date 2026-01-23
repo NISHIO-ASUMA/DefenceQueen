@@ -33,6 +33,7 @@ public:
 		TYPE_BLOCK,		// ブロック
 		TYPE_PAUSE,		// ポーズ
 		TYPE_ITEM,		// アイテム
+		TYPE_INSTANCE,	// インスタンシング
 		TYPE_MAX
 	};
 

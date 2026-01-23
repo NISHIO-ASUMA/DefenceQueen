@@ -195,7 +195,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	// メインプロセス変数
 	CMainProc pProc = {};
 
-	// 定数
+	// 終了メッセージ定数
 	constexpr int EXIT_MESSAGE = 999;
 
 	switch (uMsg)

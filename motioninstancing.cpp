@@ -159,7 +159,7 @@ void CMotionInstancing::Update(std::vector<CInstanceModel*> pModel)
 	// モーションフレーム計算処理
 	MathMotionFrame(info,manager);
 
-	// モデルに適用
+	// モデルに適用する
 	ApplyCache(pModel,info);
 #endif
 }
@@ -174,7 +174,7 @@ void CMotionInstancing::MathMotionFrame(const CInstanceMotionManager::MOTIONFILE
 	// モーションカウンターを加算
 	m_nAllFrameCount++;
 
-	// 最大カウントに達したら
+	// 最大カウントに達したらリセット
 	if (m_nAllFrameCount >= motioncache.totalFrame)
 		m_nAllFrameCount = 0;
 }
@@ -183,7 +183,7 @@ void CMotionInstancing::MathMotionFrame(const CInstanceMotionManager::MOTIONFILE
 //=========================================================
 void CMotionInstancing::ApplyCache(std::vector<CInstanceModel*>& pModel, const CInstanceMotionManager::MOTIONFILE& info)
 {
-	// フレーム取得
+	// モーションの種類のフレーム取得
 	const auto& frame = info.cache[m_motiontype].Frames[m_nAllFrameCount];
 
 	// モデルに適用

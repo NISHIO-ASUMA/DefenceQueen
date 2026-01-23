@@ -23,7 +23,7 @@ public:
 	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot, const char* pFilename, const bool isShadow);
 	void Uninit(void);
 	void Update(D3DXMATRIX mtx);
-	void Draw(void);
+	void Draw(D3DXMATRIX mtx);
 
 	void DrawMtxShadow(void);
 	void DrawOutLine(const D3DXVECTOR4& color = D3DXVECTOR4(0.0f, 0.0f, 0.0f, 1.0f), const float fOutLinewidth = 0.44f);
@@ -56,4 +56,8 @@ private:
 	bool m_isShadow;	// 影を設定するかどうか
 	int m_nModelIdx;	// モデルインデックス
 	bool m_isInst;		
+
+	int m_nUpdateCount; // 更新フレームカウント
+
+	static constexpr int MAX_UPDATECOUNT = 3;
 };

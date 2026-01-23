@@ -72,6 +72,15 @@ public:
 	/// <param name=""></param>
 	void DrawInstancingAll(void);
 
+	/// <summary>
+	/// インスタンス配列内オブジェクトクリア関数
+	/// </summary>
+	/// <param name=""></param>
+	void ClearDrawInstance(void)
+	{
+		m_RegisterInstObject.clear();
+	};
+
 	static CDebugproc* GetDebug(void) { return m_pDebug; }
 
 private:

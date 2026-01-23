@@ -141,6 +141,11 @@ void CObject::UpdateAll(void)
 					// ‘ÎÛXV
 					pObject->Update();
 				}
+
+				if (pObject->GetObjType() == TYPE_INSTANCE)
+				{
+					int n = 0;
+				}
 			}
 			else
 			{

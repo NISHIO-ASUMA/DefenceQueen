@@ -278,6 +278,9 @@ void CManager::SetScene(std::unique_ptr<CScene> pNewScene)
 		// 全オブジェクト破棄
 		CObject::ReleaseAll();
 
+		// インスタンシング破棄
+		m_pRenderer->ClearDrawInstance();
+
 		// 古いシーンを破棄
 		m_pScene.reset();
 	}

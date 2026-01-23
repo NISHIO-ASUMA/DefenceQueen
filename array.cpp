@@ -115,8 +115,10 @@ HRESULT CArray::Init(void)
 	// NodeSetting();
 
 	// フラグ初期化
-	m_isActive = false;
+	//m_isActive = false;
 	m_isMove = false;
+
+	m_isActive = true;
 
 	return S_OK;
 }
@@ -144,7 +146,7 @@ void CArray::Uninit(void)
 void CArray::Update(void)
 {
 	// falseなら通さない
-	if (!m_isActive) return;
+	//if (!m_isActive) return;
 
 #if 0
 	// 巣にもどる状態が有効時
@@ -189,11 +191,7 @@ void CArray::Update(void)
 //=========================================================
 void CArray::Draw(void)
 {
-	// falseなら通さない
-	if (!m_isActive) return;
-
-	// キャラクターの描画
-	//CInstancingCharactor::Draw();
+	CInstancingCharactor::Draw();
 }
 //=========================================================
 // パラメータ再設定処理

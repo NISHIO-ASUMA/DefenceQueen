@@ -90,6 +90,8 @@ HRESULT CGameSceneObject::Init(void)
 	CUi::Create(D3DXVECTOR3(1125.0f, 55.0f, 0.0f), 0, 140.0f, 55.0f, "Time_frame.png", false);
 	CUi::Create(D3DXVECTOR3(105.0f, 35.0f, 0.0f), 0, 100.0f, 30.0f, "SendNum.png", false);
 
+	CArray::Create(D3DXVECTOR3(0.0f, 0.0f, -450.0f), VECTOR3_NULL, 10);
+
 	// 各種ポインタクラスの生成
 	CreatePointer();
 
@@ -268,7 +270,7 @@ void CGameSceneObject::CreatePointer(void)
 	m_pFeed = std::make_unique<CFeedManager>();
 	m_pFeed->Init();
 
-	//// 仲間アリの大軍を生成
+	// 仲間アリの大軍を生成
 	//m_pArrayManager = std::make_unique<CArrayManager>();
 	//m_pArrayManager->Init();
 
