@@ -22,7 +22,7 @@ public:
 	//******************************
 	struct INSTANCE_DATA
 	{
-		D3DXVECTOR4 color; // カラー
+		D3DXVECTOR4 color;	 // カラー
 		D3DXMATRIX mtxWorld; // ワールドマトリックス
 	};
 
@@ -77,9 +77,9 @@ public:
 
 private:
 
-	CInstancing();							// 格納コンストラクタ
+	CInstancing();								 // 格納コンストラクタ
 
-	LPDIRECT3DVERTEXDECLARATION9 m_pDeclaration; // デクレーション
-	LPD3DXEFFECT m_pInstancing;				// エフェクトハンドル
-	LPDIRECT3DDEVICE9 m_pInstanceDevice;	// デバイスポインタ
+	LPDIRECT3DVERTEXDECLARATION9 m_pDeclaration; // デクレーションバッファ
+	LPD3DXEFFECT m_pInstancing;					 // シェーダーエフェクトハンドル
+	LPDIRECT3DDEVICE9 m_pInstanceDevice;		 // インスタンシングデバイスポインタ
 };

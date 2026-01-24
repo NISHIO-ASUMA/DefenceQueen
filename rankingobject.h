@@ -37,7 +37,7 @@ public:
 
 private:
 
-	CRankingObject(); // コンストラクタ
+	CRankingObject(); // 格納コンストラクタ
 
 	static CRankingObject* m_pInstance; // シングルトン変数
 };

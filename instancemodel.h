@@ -26,7 +26,6 @@ public:
 	void Draw(D3DXMATRIX mtx);
 
 	void DrawMtxShadow(void);
-	void DrawOutLine(const D3DXVECTOR4& color = D3DXVECTOR4(0.0f, 0.0f, 0.0f, 1.0f), const float fOutLinewidth = 0.44f);
 	void SetModelPass(const char* pModelName);
 	void SetParent(CInstanceModel* pModel);
 
@@ -45,6 +44,20 @@ public:
 
 	static CInstanceModel* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, const char* pFilename, const bool isShadow);
 
+	void SetTargetPos(const D3DXVECTOR3& pos)
+	{
+		m_prevPos = m_nextPos;
+		m_nextPos = pos;
+		m_interp = 0.0f;
+	}
+
+	void SetTargetRot(const D3DXVECTOR3& rot)
+	{
+		m_prevRot = m_nextRot;
+		m_nextRot = rot;
+		m_interp = 0.0f;
+	}
+
 private:
 
 	D3DXVECTOR3 m_pos, m_rot, m_offPos, m_offRot, m_scale; // 座標,角度,大きさ
@@ -59,5 +72,9 @@ private:
 
 	int m_nUpdateCount; // 更新フレームカウント
 
-	static constexpr int MAX_UPDATECOUNT = 3;
+	static constexpr int MAX_UPDATECOUNT = 2;
+
+	D3DXVECTOR3 m_prevPos, m_nextPos = {VECTOR3_NULL};
+	D3DXVECTOR3 m_prevRot, m_nextRot = { VECTOR3_NULL };
+	float m_interp = 0.0f;
 };

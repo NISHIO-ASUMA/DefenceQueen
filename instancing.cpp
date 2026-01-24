@@ -131,7 +131,6 @@ void CInstancing::SetInstancingParam(const LPDIRECT3DTEXTURE9 &Texture, const D3
 	// ポインタが無かったら
 	if (!m_pInstancing) return;
 
-	// 行列を取得する
 	D3DXMATRIX mtxProj, mtxView;
 	m_pInstanceDevice->GetTransform(D3DTS_PROJECTION, &mtxProj);	// プロジェクションマトリックス
 	m_pInstanceDevice->GetTransform(D3DTS_VIEW, &mtxView);			// ビューマトリックス
@@ -141,10 +140,10 @@ void CInstancing::SetInstancingParam(const LPDIRECT3DTEXTURE9 &Texture, const D3
 	m_pInstancing->SetTechnique(hTech);
 
 	// シェーダーパラメータを設定
-	m_pInstancing->SetMatrix("g_mtxview", &mtxView); // ビュー
-	m_pInstancing->SetMatrix("g_mtxprojection", &mtxProj); // プロジェクション
-	m_pInstancing->SetVector("g_MatColor", &color);		// マテリアル
-	m_pInstancing->SetTexture("g_TexCharactor", Texture); // テクス
+	m_pInstancing->SetMatrix("g_mtxview", &mtxView);		// ビューマトリックス
+	m_pInstancing->SetMatrix("g_mtxprojection", &mtxProj);	// プロジェクションマトリックス
+	m_pInstancing->SetVector("g_MatColor", &color);			// マテリアル
+	m_pInstancing->SetTexture("g_TexCharactor", Texture);	// テクス
 
 	// コミット切り替え
 	m_pInstancing->CommitChanges();

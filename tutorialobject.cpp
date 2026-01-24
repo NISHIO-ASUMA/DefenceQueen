@@ -52,9 +52,6 @@ HRESULT CTutorialObject::Init(void)
 	// 各種キャラクターの生成
 	CQueen::Create(D3DXVECTOR3(0.0f, 30.0f, -5.0f), VECTOR3_NULL);
 	
-	// ui生成
-	//CUi::Create(CENTERPOS,0,HALFWIDTH,HALFHEIGHT,"tuto.jpg");
-
 	return S_OK;
 }
 //=========================================================

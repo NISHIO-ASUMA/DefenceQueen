@@ -17,6 +17,7 @@
 #include "outline.h"
 #include "motioninstancing.h"
 #include "instancemodel.h"
+#include "pausemanager.h"
 
 //===================================================================
 // コンストラクタ
@@ -168,7 +169,7 @@ void CInstancingCharactor::Update(void)
 	// マトリックスの掛け算
 	m_mtxworld = mtxScal * mtxRot * mtxTrans;
 
-#ifdef _DEBUG
+#ifdef NDEBUG
 	// モーションの更新
 	if (m_pMotion) m_pMotion->Update(m_pModel);
 #endif
@@ -184,7 +185,6 @@ void CInstancingCharactor::Update(void)
 //===================================================================
 void CInstancingCharactor::Draw(void)
 {
-#if 1
 	// デバイス取得
 	const auto& Rendere = CManager::GetInstance()->GetRenderer();
 	LPDIRECT3DDEVICE9 pDevice = Rendere->GetDevice();
@@ -192,15 +192,14 @@ void CInstancingCharactor::Draw(void)
 	// 自身のワールドマトリックスを設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxworld);
 
+	// ポーズ中じゃなかったら
+	if (!CPauseManager::GetPause()) return;
+
 	// モデルの更新処理
 	for (auto& Model : m_pModel)
 	{
 		Model->Draw(m_mtxworld);
 	}
-
-	CDebugproc::Print("位置 : %.2f,%.2f,%.2f", GetPos().x, GetPos().y, GetPos().z);
-	CDebugproc::Draw(600, 500);
-#endif
 }
 //===================================================================
 // 座標のみの更新処理

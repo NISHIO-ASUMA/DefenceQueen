@@ -1,6 +1,6 @@
 //=========================================================
 //
-// インスタンシング [ Instancing.hlsl ]
+// 3Dモデルインスタンシング [ Instancing.hlsl ]
 // Author : Asuma Nishio
 //
 //=========================================================
@@ -8,17 +8,13 @@
 //*********************************************************
 // シェーダー内グローバル宣言空間
 //*********************************************************
-float4x4 g_mtxview; // ビューマトリックス
-float4x4 g_mtxprojection; // プロジェクションマトリックス
+float4x4 g_mtxview;         // ビューマトリックス
+float4x4 g_mtxprojection;   // プロジェクションマトリックス
 
-float4 g_LightAmbient; // 環境光
-float3 g_LigthDirection; // ライトの向き
-
-float4 g_MatColor;      // マテリアル
+float4 g_MatColor;          // マテリアルカラー
 texture2D g_TexCharactor;   // テクスチャポインタ
 
-// テクスチャ2D作成
-sampler2D CharactorSampler = sampler_state
+sampler2D CharactorSampler = sampler_state // サンプラーテクスチャ
 {
     Texture = <g_TexCharactor>;
     MinFilter = LINEAR;
@@ -88,6 +84,7 @@ VS_OUT VS_Main(VS_INPUT input)
 	// 最終出力変数を返す
     return output;
 }
+
 //=========================================================
 // テクスチャピクセルシェーダーメインエントリーポイント関数
 //=========================================================
@@ -101,7 +98,7 @@ float4 PS_TexMain(VS_OUT output) : COLOR
 //=========================================================
 float4 PS_Main(VS_OUT output) : COLOR
 {
-	// カラーを返す
+	// カラーそのままを返す
     return g_MatColor;
 }
 

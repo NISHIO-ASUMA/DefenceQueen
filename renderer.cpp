@@ -438,7 +438,7 @@ void CRenderer::Draw(void)
 		CObject::DrawAll();
 
 		//************************
-		// インスタンシングのDrawcall
+		// インスタンシングのDrawCall
 		//************************
 		DrawInstancingAll();
 
@@ -667,7 +667,8 @@ void CRenderer::DrawInstancingAll(void)
 			CInstancing::GetInstance()->SetInstancingParam(nullptr, matColor);
 
 			// ポリゴン描画
-			m_pD3DDevice->DrawIndexedPrimitive(
+			m_pD3DDevice->DrawIndexedPrimitive
+			(
 				D3DPT_TRIANGLELIST,
 				0,
 				0,
@@ -685,6 +686,7 @@ void CRenderer::DrawInstancingAll(void)
 		}
 	}
 
+	// セカンドの配列クリア
 	for (auto& pair : m_RegisterInstObject)
 	{
 		pair.second.clear();

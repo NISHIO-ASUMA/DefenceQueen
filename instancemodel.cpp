@@ -14,7 +14,6 @@
 #include "renderer.h"
 #include "instancemodelmanager.h"
 #include "instancing.h"
-#include "pausemanager.h"
 
 //=========================================================
 // コンストラクタ
@@ -90,6 +89,7 @@ void CInstanceModel::Uninit(void)
 //=========================================================
 void CInstanceModel::Update(D3DXMATRIX mtx)
 {
+#ifdef NDEBUG
 	// インデックスが-1なら
 	if (m_nModelIdx == -1)
 		return;
@@ -97,19 +97,6 @@ void CInstanceModel::Update(D3DXMATRIX mtx)
 	// デバイスポインタを取得
 	const auto& Rendere = CManager::GetInstance()->GetRenderer();
 	LPDIRECT3DDEVICE9 pDevice = Rendere->GetDevice();
-
-	// カウント加算
-	m_nUpdateCount++;
-
-	if (m_nUpdateCount < MAX_UPDATECOUNT)
-	{
-		// インスタンシングに登録
-		Rendere->AddInstanceObject(m_nModelIdx, this);
-		return;
-	}
-
-	// 更新カウントを初期化する
-	m_nUpdateCount = 0;
 	
 	// ファイルマネージャー取得
 	CInstanceModelManager* pIMgr = CManager::GetInstance()->GetInstanceModelM();
@@ -157,17 +144,61 @@ void CInstanceModel::Update(D3DXMATRIX mtx)
 
 	// インスタンシングに登録
 	Rendere->AddInstanceObject(m_nModelIdx,this);
+#else
+	if (m_nModelIdx == -1) return;
+
+	const auto& Rendere = CManager::GetInstance()->GetRenderer();
+
+	// 30fps更新
+	if (++m_nUpdateCount >= MAX_UPDATECOUNT)
+	{
+		m_nUpdateCount = 0;
+
+		m_prevPos = m_nextPos;
+		m_prevRot = m_nextRot;
+
+		m_nextPos = m_pos;
+		m_nextRot = m_rot;
+
+		m_interp = 0.0f;
+	}
+
+	// 毎フレーム補間
+	m_interp = min(m_interp + 1.0f / MAX_UPDATECOUNT, 1.0f);
+	float t = m_interp;
+
+	D3DXVECTOR3 ipos = m_prevPos + (m_nextPos - m_prevPos) * t;
+	D3DXVECTOR3 irot = m_prevRot + (m_nextRot - m_prevRot) * t;
+
+	// 行列生成
+	D3DXMATRIX mtxScale, mtxRot, mtxTrans;
+	D3DXMatrixScaling(&mtxScale, m_scale.x, m_scale.y, m_scale.z);
+	D3DXMatrixRotationYawPitchRoll(&mtxRot,
+		irot.y + m_offRot.y,
+		irot.x + m_offRot.x,
+		irot.z + m_offRot.z);
+
+	D3DXMatrixTranslation(&mtxTrans,
+		ipos.x + m_offPos.x,
+		ipos.y + m_offPos.y,
+		ipos.z + m_offPos.z);
+
+	m_mtxworld = mtxScale * mtxRot * mtxTrans;
+
+	D3DXMATRIX mtxParent = (m_pParent)
+		? m_pParent->GetMtxWorld()
+		: mtx;
+
+	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxParent);
+
+	Rendere->AddInstanceObject(m_nModelIdx, this);
+#endif
 }
 //=========================================================
 // 描画処理
 //=========================================================
 void CInstanceModel::Draw(D3DXMATRIX mtx)
 {
-	if (!CPauseManager::GetPause())
-	{
-		return;
-	}
-
 	// デバイスポインタを取得
 	const auto& Rendere = CManager::GetInstance()->GetRenderer();
 	LPDIRECT3DDEVICE9 pDevice = Rendere->GetDevice();
