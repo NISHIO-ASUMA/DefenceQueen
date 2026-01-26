@@ -56,6 +56,7 @@ public:
 
 	inline void SetRadius(const float fRadius) { m_fRadius = fRadius; }
 	inline void SetAssigned(const bool isAssing) { m_isAssing = isAssing; }
+	inline void SetLife(const int nLife) { m_nLife = nLife; }
 
 	inline bool IsAssigned() const { return m_isAssing; }
 	inline float GetRadius(void) const { return m_fRadius; }
@@ -64,7 +65,7 @@ public:
 	CBoxCollider* GetBoxCollider(void) const { return m_pBoxCollider; }
 	CParameter* GetParam(void) { return m_pParam.get(); }
 
-	static CFeed* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const char* pModelName,const float fRadius);
+	static CFeed* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const char* pModelName, const float fRadius, const int nLife = 25);
 
 private:
 
@@ -80,6 +81,7 @@ private:
 	COLTYPE m_ColType;			// カラー状態
 
 	int m_ColorFrameCnt;		// カラー変更からの経過フレーム
+	int m_nLife;				// 体力値
 	float m_fRadius;			// 半径
 	bool m_isAssing;			// 割り当てられたかどうか
 };

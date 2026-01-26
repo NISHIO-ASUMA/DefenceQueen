@@ -34,7 +34,7 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	CBlockManager* GetBlockManager(void) const { return m_pBlockManager.get(); }
+	inline CBlockManager* GetBlockManager(void) const { return m_pBlockManager.get(); }
 
 	static CTutorialObject* GetInstance(void);
 

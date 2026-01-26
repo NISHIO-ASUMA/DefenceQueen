@@ -25,7 +25,6 @@
 //*********************************************************
 // 前方宣言
 //*********************************************************
-class CMotionManager;
 class CInstanceModel;
 
 //*********************************************************
@@ -38,25 +37,28 @@ public:
 	//*******************************
 	// 結果を保持する構造体
 	//*******************************
-	struct MOTION_RESULT
+	struct MOTION_CACHE_FRAME
 	{
 		std::vector<D3DXVECTOR3> pos; // 座標
 		std::vector<D3DXVECTOR3> rot; // 角度
+	};
 
-		// 配列のサイズを決定する関数
-		void Resize(int nDataSize)
-		{
-			pos.resize(nDataSize);
-			rot.resize(nDataSize);
-		}
+	//*******************************
+	// 反映先の構造体情報
+	//*******************************
+	struct MOTION_CACHE
+	{
+		int motionType; // モーションの種類
+		int key;		// モーションキー情報
+		int counter;	// フレームカウンター
+		bool isBlend;	// ブレンドフラグ
+		MOTION_CACHE_FRAME frame; // 構造体変数
 	};
 
 	CMotionInstancing();
 	~CMotionInstancing();
 
 	void Update(std::vector<CInstanceModel*> pModel);
-	void UpdateCurrentMotion(CInstanceMotionManager* pMption, CInstanceModel** ppModel, int nModelCount, const CInstanceMotionManager::MOTIONFILE& info);
-	void UpdateBlend(CInstanceMotionManager* pMption, CInstanceModel** ppModel, int nModelCount, const CInstanceMotionManager::MOTIONFILE& info);
 	void Debug(void);
 	bool CheckFrame(int nStartMotion, int nEndMotion, int nMotionType);
 
@@ -64,8 +66,8 @@ public:
 	void SetMotion(int nMotionType, bool isBlend, int nBlendFrame);
 	inline void SetResetFrame(int nFrame) { m_nCounterMotion = nFrame; }
 
-	inline int GetMotionType(void) { return m_motiontype; }
-	inline bool GetFinishMotion(void) { return m_isFinishMotion; }
+	inline int GetMotionType(void) const { return m_motiontype; }
+	inline bool GetFinishMotion(void) const { return m_isFinishMotion; }
 
 	/// <summary>
 	/// インデックス登録処理
@@ -88,6 +90,8 @@ public:
 
 private:
 
+	static constexpr int NEUTRAL = 0; // ニュートラル番号
+
 	int m_nNumModels;		// モデル総数
 	int m_nNumKey;			// キーの総数
 	int m_nKey;				// 現在のキーNo
@@ -109,63 +113,9 @@ private:
 	bool m_isFirstMotion;	// モーションが始まったフラグ
 	bool m_isLoopMotion;	// ループするかどうか
 
-	static constexpr int NEUTRAL = 0; // ニュートラル番号
+	MOTION_CACHE m_cache;	// 構造体変数
+	bool m_cacheDirty;		// キャッシュフラグ
 
-	MOTION_RESULT m_ResultData; // モーション計算結果
-	bool m_isDirty; // 再計算が必要か
-
-	struct MOTION_CACHE_FRAME
-	{
-		std::vector<D3DXVECTOR3> pos;
-		std::vector<D3DXVECTOR3> rot;
-	};
-
-	struct MOTION_CACHE
-	{
-		int motionType;
-		int key;
-		int counter;
-		bool isBlend;
-
-		MOTION_CACHE_FRAME frame;
-	};
-
-	MOTION_CACHE m_cache = {};
-	bool m_cacheDirty = true;
-
-	void MathMotionFrame(const CInstanceMotionManager::MOTIONFILE& info, CInstanceMotionManager* pManager);
-	void UpdateFrameOnce(const CInstanceMotionManager::MOTIONFILE& info, CInstanceMotionManager* pManager);
+	void MathMotionFrame(const CInstanceMotionManager::MOTIONFILE& info);
 	void ApplyCache(std::vector<CInstanceModel*>& pModel, const CInstanceMotionManager::MOTIONFILE& info);
-
-	void CalcCurrent(CInstanceMotionManager* pManager,int nModelCount,const CInstanceMotionManager::MOTIONFILE& info);
-	void CalcBlend(CInstanceMotionManager* pManager,int nModelCount, const CInstanceMotionManager::MOTIONFILE& info);
-
-	/// <summary>
-	/// 座標補完の計算関数
-	/// </summary>
-	/// <param name="nowKey">現在キー</param>
-	/// <param name="nextKey">次のキ―</param>
-	/// <param name="fDis">補完係数</param>
-	/// <returns></returns>
-	inline D3DXVECTOR3 LerpPosVec3
-	(
-		const CInstanceMotionManager::KEY& nowKey,
-		const CInstanceMotionManager::KEY& nextKey,
-		float fDis
-	);
-
-	/// <summary>
-	/// 回転補完の計算関数
-	/// </summary>
-	/// <param name="nowKey">現在キー</param>
-	/// <param name="nextKey">次のキ</param>
-	/// <param name="fDis">補完係数</param>
-	/// <returns></returns>
-	inline D3DXVECTOR3 LerpRotVec3
-	(
-		const CInstanceMotionManager::KEY& nowKey,
-		const CInstanceMotionManager::KEY& nextKey,
-		float fDis
-	);
-
 };

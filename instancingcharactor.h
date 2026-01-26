@@ -41,6 +41,7 @@ public:
 	virtual void Uninit(void) override;
 	virtual void Update(void) override;
 	virtual void Draw(void) override;
+
 	void MotionLoad(const char* pScriptName, int nDestMotions, const bool isShadow);
 	void UpdatePosition(void);
 
@@ -78,9 +79,9 @@ private:
 	D3DXMATRIX m_mtxworld;	// ワールドマトリックス
 	TYPE m_type;			// 種類
 
-	std::unique_ptr<CMotionInstancing>m_pMotion;
-	std::vector<CInstanceModel*>m_pModel;		// モデルクラスの動的配列
-	CShadowS* m_pShadowS;				// ステンシルシャドウクラスのポインタ
+	std::unique_ptr<CMotionInstancing>m_pMotion;	// モーションポインタ
+	std::vector<CInstanceModel*>m_pModel;			// モデルクラスの動的配列
+	CShadowS* m_pShadowS;							// ステンシルシャドウクラスのポインタ
 
 	float m_fMoveValue;		// 移動加算値
 	bool m_isStencilUse;	// ステンシルシャドウを使うか

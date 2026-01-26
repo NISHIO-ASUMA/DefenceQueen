@@ -15,16 +15,17 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CParticlePiler::CParticlePiler(int nPriority) : CObject(nPriority)
+CParticlePiler::CParticlePiler(int nPriority) : CObject(nPriority),
+m_pos(VECTOR3_NULL),
+m_nLife(NULL),
+m_col(COLOR_WHITE),
+m_nLength(NULL),
+m_nMaxParticle(NULL),
+m_nRadius(NULL),
+m_fAngle(NULL),
+m_pEffect{}
 {
 	// 値のクリア
-	m_pos = VECTOR3_NULL;
-	m_col = COLOR_WHITE;
-	m_nMaxParticle = NULL;
-	m_nLife = NULL;
-	m_nLength = NULL;
-	m_nRadius = NULL;
-	m_fAngle = NULL;
 }
 //=========================================================
 // デストラクタ
@@ -40,16 +41,10 @@ CParticlePiler* CParticlePiler::Create(D3DXVECTOR3 pos, D3DXCOLOR col, int nMaxP
 {
 	// パーティクルのポインタを宣言
 	CParticlePiler* pParticle = new CParticlePiler;
-
-	// nullだったら
 	if (pParticle == nullptr) return nullptr;
 
 	// 初期化失敗時
-	if (FAILED(pParticle->Init()))
-	{
-		// nullポインタを返す
-		return nullptr;
-	}
+	if (FAILED(pParticle->Init())) return nullptr;
 
 	// オブジェクト設定
 	pParticle->m_pos = pos;

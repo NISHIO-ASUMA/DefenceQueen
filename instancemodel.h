@@ -22,8 +22,8 @@ public:
 
 	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot, const char* pFilename, const bool isShadow);
 	void Uninit(void);
-	void Update(D3DXMATRIX mtx);
-	void Draw(D3DXMATRIX mtx);
+	void Update(const D3DXMATRIX& mtx);
+	void Draw(const D3DXMATRIX& mtx);
 
 	void DrawMtxShadow(void);
 	void SetModelPass(const char* pModelName);
@@ -74,7 +74,7 @@ private:
 
 	static constexpr int MAX_UPDATECOUNT = 2;
 
-	D3DXVECTOR3 m_prevPos, m_nextPos = {VECTOR3_NULL};
+	D3DXVECTOR3 m_prevPos, m_nextPos = { VECTOR3_NULL };
 	D3DXVECTOR3 m_prevRot, m_nextRot = { VECTOR3_NULL };
 	float m_interp = 0.0f;
 };

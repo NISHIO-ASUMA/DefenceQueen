@@ -48,7 +48,7 @@ public:
 	void Draw(void);
 
 	void SetTexture(void);
-	void SetType(int nType) { m_nPauseType = nType; }
+	inline void SetType(int nType) { m_nPauseType = nType; }
 
 	static CPause* Create(D3DXVECTOR3 pos, float fWidth, float fHeight, D3DXCOLOR col, int nType);
 

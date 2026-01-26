@@ -28,7 +28,7 @@ class CFade
 public:
 
 	//**********************
-	// 状態列挙型
+	// フェード状態列挙型
 	//**********************
 	enum FADE
 	{
@@ -52,15 +52,15 @@ public:
 	/// <param name="pNewScene">フェード先のインスタンス</param>
 	void SetFade(std::unique_ptr<CScene> pNewScene);
 
-	FADE GetFade(void) { return m_fade; }
+	inline FADE GetFade(void) const { return m_fade; }
 
 private:
 
 	static constexpr float AlphaFade = 0.025f; // フェードで加算する値
 
-	LPDIRECT3DVERTEXBUFFER9 m_pVtx; // 頂点バッファ
-	D3DXCOLOR m_col;				// ポリゴンカラー
-	FADE m_fade;					// フェードの列挙型変数
+	LPDIRECT3DVERTEXBUFFER9 m_pVtx;		// 頂点バッファ
+	D3DXCOLOR m_col;					// ポリゴンカラー
+	FADE m_fade;						// フェードの列挙型変数
 
 	std::unique_ptr<CScene> m_pScene; 	// シーンクラスポインタ
 };

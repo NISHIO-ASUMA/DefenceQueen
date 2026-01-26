@@ -1,6 +1,6 @@
 //=========================================================
 //
-// 入力関数 [ input.cpp ]
+// 入力処理関数 [ input.cpp ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -31,7 +31,7 @@ LPDIRECTINPUT8 CInput::m_pInput = nullptr; // 入力情報
 CInput::CInput() : m_pDevice(nullptr)
 {
 	// 値のクリア
-	m_pInput = NULL;
+	m_pInput = nullptr;
 }
 //=========================================================
 // デストラクタ
@@ -46,7 +46,7 @@ CInput::~CInput()
 HRESULT CInput::Init(HINSTANCE hInstance, HWND hWnd)
 {
 	// NULLチェック
-	if (m_pInput == NULL)
+	if (m_pInput == nullptr)
 	{
 		// DirectInputオブジェクトの生成
 		if (FAILED(DirectInput8Create(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&m_pInput, NULL)))

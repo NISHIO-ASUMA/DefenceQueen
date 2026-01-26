@@ -45,6 +45,7 @@ m_pBoxCollider(nullptr),
 m_pParam(nullptr),
 m_fRadius(NULL),
 m_ColorFrameCnt(NULL),
+m_nLife(NULL),
 m_isAssing(false),
 m_ColType(COLTYPE_NONE)
 {
@@ -60,7 +61,7 @@ CFeed::~CFeed()
 //=========================================================
 // 生成処理
 //=========================================================
-CFeed* CFeed::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const char* pModelName, const float fRadius)
+CFeed* CFeed::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const char* pModelName, const float fRadius, const int nLife)
 {
 	// インスタンス生成
 	CFeed* pFeed = new CFeed;
@@ -72,6 +73,7 @@ CFeed* CFeed::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const 
 	pFeed->SetScale(scale);
 	pFeed->SetFilePass(pModelName);
 	pFeed->SetRadius(fRadius);
+	pFeed->SetLife(nLife);
 
 	// 初期化失敗時
 	if (FAILED(pFeed->Init())) 	return nullptr;
@@ -102,7 +104,7 @@ HRESULT CFeed::Init(void)
 
 	// パラメーター設定
 	m_pParam = std::make_unique<CParameter>();
-	m_pParam->SetHp(FEEDINFO::LIFE);
+	m_pParam->SetHp(m_nLife);
 
 	// 影をoffにする
 	SetShadow(false);

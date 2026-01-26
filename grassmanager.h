@@ -55,7 +55,7 @@ public:
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
-	int GetSize(void) const { return static_cast<int>(m_pGrass.size()); }
+	inline int GetSize(void) const { return static_cast<int>(m_pGrass.size()); }
 
 	CGrass* CreateManager(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const float fWidth, const float fHeight);
 

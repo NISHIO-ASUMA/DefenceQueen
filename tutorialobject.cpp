@@ -49,7 +49,7 @@ HRESULT CTutorialObject::Init(void)
 	// メッシュドーム生成
 	CMeshDome::Create(D3DXVECTOR3(0.0f, -20.0f, 0.0f), 60.0f);
 
-	// 各種キャラクターの生成
+	// キャラクターの生成
 	CQueen::Create(D3DXVECTOR3(0.0f, 30.0f, -5.0f), VECTOR3_NULL);
 	
 	return S_OK;
@@ -88,9 +88,10 @@ void CTutorialObject::Draw(void)
 //=========================================================
 CTutorialObject* CTutorialObject::GetInstance(void)
 {
-	// インスタンス生成
+	// nullなら
 	if (m_pInstance == nullptr)
 	{
+		// インスタンス生成
 		m_pInstance = new CTutorialObject;
 	}
 

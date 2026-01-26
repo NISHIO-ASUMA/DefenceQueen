@@ -175,10 +175,12 @@ HRESULT CTexture::LoadJson(void)
 	for (int nCnt = 0; nCnt < m_nNumAll; nCnt++)
 	{
 		// テクスチャを生成
-		HRESULT hr = D3DXCreateTextureFromFile(
+		HRESULT hr = D3DXCreateTextureFromFile
+		(
 			pDevice,
 			m_pTextureData[nCnt].TexName.c_str(),
-			&m_pTextureData[nCnt].TexData);
+			&m_pTextureData[nCnt].TexData
+		);
 
 		// 作成失敗
 		if (FAILED(hr))

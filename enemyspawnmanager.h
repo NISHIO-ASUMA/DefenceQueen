@@ -2,7 +2,6 @@
 //
 // 敵のスポナー複数管理処理 [ enemyspawnmanager.h ]
 // Author: Asuma Nishio
-// NOTE : ここら辺のオブジェクトの配置も外部ファイルで読み込む バイナリとかで
 // 
 //=========================================================
 
@@ -61,7 +60,7 @@ public:
 	/// </summary>
 	/// <param name="nIdx">取得するスポナーのインデックス番号</param>
 	/// <returns></returns>
-	CEnemySpawner* GetSpawner(const int& nIdx) { return m_pSpawners[nIdx]; }
+	inline CEnemySpawner* GetSpawner(const int& nIdx) { return m_pSpawners[nIdx]; }
 
 private:
 

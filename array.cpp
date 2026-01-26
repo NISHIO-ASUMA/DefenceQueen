@@ -397,6 +397,7 @@ void CArray::ArrayFollow(void)
 //=========================================================
 void CArray::SpawnReturn(void)
 {
+#if 0
 	// ターゲット座標を取得
 	auto idx = CGameSceneObject::GetInstance()->GetPlayer()->GetSelectIndex();
 	auto targetPos = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(idx)->GetPos();
@@ -450,6 +451,7 @@ void CArray::SpawnReturn(void)
 		// この時にグループの要素をクリアする
 		CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(idx)->GetSeparationAnt()->ClearListGroup(m_nListGroupId, this);
 	}
+#endif
 }
 //=========================================================
 // ノードを設定する

@@ -32,11 +32,11 @@ public:
 	CCollision(TYPE Type);
 	~CCollision();
 
-	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
-	void SetType(TYPE Type) { m_Type = Type; }
+	inline void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
+	inline void SetType(TYPE Type) { m_Type = Type; }
 
-	D3DXVECTOR3 GetPos(void) const { return m_pos; }
-	TYPE GetType(void) const { return m_Type; }
+	inline D3DXVECTOR3 GetPos(void) const { return m_pos; }
+	inline TYPE GetType(void) const { return m_Type; }
 
 	static CCollision* Create(D3DXVECTOR3 pos, TYPE Type);
 

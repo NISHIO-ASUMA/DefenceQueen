@@ -57,7 +57,6 @@ private:
 		LPDIRECT3DTEXTURE9 TexData; // テクスチャポインタ
 	};
 
-
 	TEXDATA m_pTextureData[NUM_TEXTURE]; // テクスチャ管理配列
 	static int m_nNumAll;				 // テクスチャカウント変数
 };

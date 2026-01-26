@@ -41,7 +41,7 @@ private:
 	//******************************
 	struct Config
 	{
-		static constexpr int MAX_CHANGECOUNT = 180; // 画面を切り替えるカウント
+		static constexpr int MAX_CHANGECOUNT = 170; // 画面を切り替えるカウント
 	};
 
 	CStartSceneManager();	// 格納コンストラクタ

@@ -14,6 +14,7 @@
 #include "renderer.h"
 #include "instancemodelmanager.h"
 #include "instancing.h"
+#include "pausemanager.h"
 
 //=========================================================
 // コンストラクタ
@@ -87,7 +88,7 @@ void CInstanceModel::Uninit(void)
 //=========================================================
 // 更新処理
 //=========================================================
-void CInstanceModel::Update(D3DXMATRIX mtx)
+void CInstanceModel::Update(const D3DXMATRIX& mtx)
 {
 #ifdef NDEBUG
 	// インデックスが-1なら
@@ -147,58 +148,69 @@ void CInstanceModel::Update(D3DXMATRIX mtx)
 #else
 	if (m_nModelIdx == -1) return;
 
+	// レンダラーからデバイス取得
 	const auto& Rendere = CManager::GetInstance()->GetRenderer();
 
 	// 30fps更新
 	if (++m_nUpdateCount >= MAX_UPDATECOUNT)
 	{
+		// カウントを初期化
 		m_nUpdateCount = 0;
 
+		// 前回の座標と角度を入れ替え
 		m_prevPos = m_nextPos;
 		m_prevRot = m_nextRot;
 
+		// 現在の座標と角度を設定する
 		m_nextPos = m_pos;
 		m_nextRot = m_rot;
 
+		// 補完値を0にする
 		m_interp = 0.0f;
 	}
 
-	// 毎フレーム補間
+	// 毎フレーム補間する
 	m_interp = min(m_interp + 1.0f / MAX_UPDATECOUNT, 1.0f);
-	float t = m_interp;
+	float fDis = m_interp;
 
-	D3DXVECTOR3 ipos = m_prevPos + (m_nextPos - m_prevPos) * t;
-	D3DXVECTOR3 irot = m_prevRot + (m_nextRot - m_prevRot) * t;
+	D3DXVECTOR3 ipos = m_prevPos + (m_nextPos - m_prevPos) * fDis;
+	D3DXVECTOR3 irot = m_prevRot + (m_nextRot - m_prevRot) * fDis;
 
-	// 行列生成
+	// 計算用のローカルマトリックスを宣言
 	D3DXMATRIX mtxScale, mtxRot, mtxTrans;
+
+	// 拡大率を設定
 	D3DXMatrixScaling(&mtxScale, m_scale.x, m_scale.y, m_scale.z);
-	D3DXMatrixRotationYawPitchRoll(&mtxRot,
-		irot.y + m_offRot.y,
-		irot.x + m_offRot.x,
-		irot.z + m_offRot.z);
 
-	D3DXMatrixTranslation(&mtxTrans,
-		ipos.x + m_offPos.x,
-		ipos.y + m_offPos.y,
-		ipos.z + m_offPos.z);
+	// 向きを反映
+	D3DXMatrixRotationYawPitchRoll(&mtxRot,irot.y + m_offRot.y,irot.x + m_offRot.x,irot.z + m_offRot.z);
 
+	// 位置を設定
+	D3DXMatrixTranslation(&mtxTrans,ipos.x + m_offPos.x,ipos.y + m_offPos.y,ipos.z + m_offPos.z);
+
+	// 行列同士をかけ合わせる
 	m_mtxworld = mtxScale * mtxRot * mtxTrans;
 
-	D3DXMATRIX mtxParent = (m_pParent)
-		? m_pParent->GetMtxWorld()
-		: mtx;
+	// 親モデルを設定する
+	D3DXMATRIX mtxParent = (m_pParent)? m_pParent->GetMtxWorld(): mtx;
 
+	// ワールドマトリックスを設定する
 	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxParent);
 
+	// インスタンシング描画のオブジェクトに設定
 	Rendere->AddInstanceObject(m_nModelIdx, this);
 #endif
 }
 //=========================================================
 // 描画処理
 //=========================================================
-void CInstanceModel::Draw(D3DXMATRIX mtx)
+void CInstanceModel::Draw(const D3DXMATRIX& mtx)
 {
+	// マトリックスシャドウを描画する
+
+	// ポーズ中以外ならここで処理を返す
+	if (!CPauseManager::GetPause()) return;
+
 	// デバイスポインタを取得
 	const auto& Rendere = CManager::GetInstance()->GetRenderer();
 	LPDIRECT3DDEVICE9 pDevice = Rendere->GetDevice();
@@ -218,20 +230,17 @@ void CInstanceModel::Draw(D3DXMATRIX mtx)
 	// 計算用のマトリックスを宣言
 	D3DXMATRIX mtxScale, mtxRot, mtxTrans;
 
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxworld);
-
 	// 拡大率を反映
 	D3DXMatrixScaling(&mtxScale, m_scale.x, m_scale.y, m_scale.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxScale);
 
 	// 向きを反映
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y + m_offRot.y, m_rot.x + m_offRot.x, m_rot.z + m_offRot.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxRot);
 
 	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x + m_offPos.x, m_pos.y + m_offPos.y, m_pos.z + m_offPos.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxTrans);
+
+	// 行列同士をかけ合わせる
+	m_mtxworld = mtxScale * mtxRot * mtxTrans;
 
 	// 親のペアネント格納用変数
 	D3DXMATRIX mtxParent;

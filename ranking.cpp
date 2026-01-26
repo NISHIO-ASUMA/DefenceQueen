@@ -80,7 +80,9 @@ void CRanking::Update(void)
 	CRankingObject::GetInstance()->Update();
 
 	// 決定キー入力
-	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN) || CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_A) || CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_START))
+	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN) || 
+		CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_A) || 
+		CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_START))
 	{
 		// フェード取得
 		CFade* pFade = CManager::GetInstance()->GetFade();

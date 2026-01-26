@@ -230,14 +230,11 @@ HRESULT CInstanceModelManager::LoadJson(void)
 
 		if (!entry.contains("Instancing"))continue;
 
-		// インスタンスフラグ
-		bool isInstancing = entry["Instancing"].get<bool>();
-
 		if (filePath.empty())
 			continue;
 
 		// モデル読み込み
-		LoadModel(filePath.c_str(), isInstancing);
+		LoadModel(filePath.c_str());
 
 		// 総数加算
 		m_nNumAll++;
@@ -249,7 +246,7 @@ HRESULT CInstanceModelManager::LoadJson(void)
 //=========================================================
 // 関数分け読み込み
 //=========================================================
-void CInstanceModelManager::LoadModel(const char* pModelName, const bool LoadFlags)
+void CInstanceModelManager::LoadModel(const char* pModelName)
 {
 	// 格納用変数
 	InstanceModelInfo NewModelInfo = {};

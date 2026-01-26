@@ -16,6 +16,7 @@
 class CScene
 {
 public:
+
 	//*************************
 	// ƒV[ƒ“‚Ìí—Ş—ñ‹“Œ^
 	//*************************
@@ -40,7 +41,7 @@ public:
 	virtual void Update(void) = 0;
 	virtual void Draw(void) = 0;
 
-	MODE GetScene(void) const { return m_Scene; }
+	inline MODE GetScene(void) const { return m_Scene; }
 
 private:
 

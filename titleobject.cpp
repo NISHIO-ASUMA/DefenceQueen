@@ -87,10 +87,13 @@ void CTitleObject::Update(void)
 //=========================================================
 CTitleObject* CTitleObject::GetInstance(void)
 {
+	// nullなら
 	if (m_pInstance == nullptr)
 	{
+		// インスタンス生成
 		m_pInstance = new CTitleObject;
 	}
 
+	// シングルトンを返す
 	return m_pInstance;
 }

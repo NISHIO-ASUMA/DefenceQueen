@@ -77,6 +77,9 @@ void CPause::Uninit(void)
 //=========================================================
 void CPause::Update(void)
 {
+	// ポーズが有効なら
+	if (!CPauseManager::GetPause()) return;
+
 	// オブジェクトの更新処理
 	CObject2D::Update();
 }

@@ -117,18 +117,22 @@ void CRankingScore::Uninit(void)
 		{
 			if (m_apNumber[nRankData][nCnt] != nullptr)
 			{
-				// ナンバーの破棄
+				// ナンバークラスの終了処理
 				m_apNumber[nRankData][nCnt]->Uninit();
+
+				// 各配列のポインタの破棄
 				delete m_apNumber[nRankData][nCnt];
+
+				// null初期化
 				m_apNumber[nRankData][nCnt] = nullptr;
 			}
 		}
 	}
 
-	// ポインタの破棄
+	// ロードクラスのポインタの破棄
 	m_pLoad.reset();
 
-	// 自身の破棄
+	// オブジェクト自身の破棄
 	CObject::Release();
 }
 //=========================================================
@@ -139,15 +143,16 @@ void CRankingScore::Update(void)
 	// スコアの桁数更新
 	for (int rank = 0; rank < RANKING_MAX; rank++)
 	{
-		int score = m_aRankData[rank];
+		// 現在のスコアを格納
+		int nScore = m_aRankData[rank];
 
 		for (int digit = 0; digit < RANKSCOREDIGIT; digit++)
 		{
-			int num = score % 10;  // 1桁取り出す
-			score /= 10;
+			int nNum = nScore % 10;  // 1桁ずつ取り出す
+			nScore /= 10;
 
 			// 桁更新
-			m_apNumber[rank][digit]->SetDigit(num);
+			m_apNumber[rank][digit]->SetDigit(nNum);
 		}
 	}
 }
@@ -171,7 +176,7 @@ void CRankingScore::Draw(void)
 //=========================================================
 void CRankingScore::Load(void)
 {
-	// Network取得
+	// Networkクラス取得
 	CNetWork* pNet = CManager::GetInstance()->GetNetWork();
 	if (!pNet) return;
 
@@ -197,13 +202,3 @@ void CRankingScore::Load(void)
 		}
 	}
 }
-
-#if 0
-
-//=================================
-// サーバー失敗時はローカル読み込み
-//=================================
-//m_pLoad = std::make_unique<CLoad>();
-//m_aRankData = m_pLoad->LoadIntToFixedArray("data/SCORE/Ranking.bin");
-
-#endif

@@ -11,7 +11,7 @@
 #pragma once 
 
 //*********************************************************
-// インクルードファイル宣言
+// インクルードファイル
 //*********************************************************
 #include <winsock2.h>
 #include <ws2tcpip.h>
@@ -73,7 +73,7 @@
 #define V_COLOR_RED (D3DCOLORVALUE(1.0f, 0.0f, 0.0f, 1.0f))		// 赤
 
 #define BASEVERTEX (4)		// 基準頂点
-#define MAX_WORD (256)
+#define MAX_WORD (256)		// 最大文字列数
 
 //*********************************************************
 // 頂点情報[2D]の構造体
@@ -117,5 +117,4 @@ struct MODEL_3D
 	D3DXVECTOR3 pos;	// 座標
 	D3DXVECTOR2	tex;	// カラー
 	D3DXVECTOR3 normal;	// 法線
-	//D3DMATRIX mtxworld;
 };

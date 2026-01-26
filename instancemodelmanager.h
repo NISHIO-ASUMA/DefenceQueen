@@ -67,19 +67,19 @@ public:
 	/// </summary>
 	/// <param name="nIdx">取得するオブジェクトインデックス</param>
 	/// <returns>インデックス番号に応じたデータ</returns>
-	InstanceModelInfo GetInfo(const int nIdx) { return m_aModelInstData[nIdx]; }
+	const InstanceModelInfo& GetInfo(int nIdx) const { return m_aModelInstData[nIdx]; }
 
 	/// <summary>
 	/// 動的配列の取得
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>配列ポインタ</returns>
-	std::vector<InstanceModelInfo>& GetList(void) { return m_aModelInstData; }
+	const std::vector<InstanceModelInfo>& GetList(void) const { return m_aModelInstData; }
 
 private:
 
-	HRESULT LoadJson(void);												// jsonfile読み込み関数
-	void LoadModel(const char* pModelName, const bool LoadFlags = true);// モデル登録関数
+	HRESULT LoadJson(void);					// jsonfile読み込み関数
+	void LoadModel(const char* pModelName);	// モデル登録関数
 
 	std::vector<InstanceModelInfo>m_aModelInstData;	// モデルデータ管理配列
 	static int m_nNumAll;							// モデルの総数

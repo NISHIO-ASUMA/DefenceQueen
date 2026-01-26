@@ -1,6 +1,6 @@
 //=========================================================
 //
-// 入力関数 [ input.h ]
+// 入力処理関数 [ input.h ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -109,7 +109,7 @@ public:
 	bool GetPressRT(void);
 	bool GetLeftStick(void);
 
-	XINPUT_STATE* GetStickAngle(void) { return &m_joyKeyState; }
+	inline XINPUT_STATE* GetStickAngle(void) { return &m_joyKeyState; }
 
 	/// <summary>
 	/// コントローラーの振動処理
@@ -121,9 +121,9 @@ public:
 
 private:
 
-	XINPUT_STATE m_joyKeyState;		   // ジョイパッドのプレス情報
-	XINPUT_STATE m_OldKeyState;		   // 過去のジョイパッド入力情報
-	XINPUT_STATE m_joyKeyStateTrigger; // ジョイパッドのトリガー情報
+	XINPUT_STATE m_joyKeyState;			// ジョイパッドのプレス情報
+	XINPUT_STATE m_OldKeyState;			// 過去のジョイパッド入力情報
+	XINPUT_STATE m_joyKeyStateTrigger;	// ジョイパッドのトリガー情報
 
 	int m_nPressCount;					// 入力カウント
 	int m_leftMotor;					// 左モーターの強さ
@@ -139,9 +139,9 @@ class CInputMouse : public CInput
 {
 public:
 
-	//********************
+	//**************************
 	// ボタンキー種類
-	//********************
+	//**************************
 	enum MOUSE
 	{
 		MOUSE_LEFT,
@@ -157,18 +157,19 @@ public:
 	void Update(void);
 
 	void SetCursorVisibility(bool visible);
+	void GetRay(D3DXVECTOR3* pOutOrigin, D3DXVECTOR3* pOutDir);
 
 	bool GetTriggerDown(int button_type);
 	bool GetTriggerUp(int button_type);
 	bool GetPress(int button_type);
 	bool GetState(DIMOUSESTATE* mouseState);
-	int GetMouseX(void) const { return m_CurrentMouseState.lX; }
-	int GetMouseY(void) const { return m_CurrentMouseState.lY; }
 
-	D3DXVECTOR2 GetMouseVelocity() { return D3DXVECTOR2((float)m_CurrentMouseState.lX, (float)m_CurrentMouseState.lY); }
-	D3DXVECTOR2 GetMouseOldVelocity() { return D3DXVECTOR2((float)m_PrevState.lX, (float)m_PrevState.lY); }
-	BOOL IsMouseWheelPresent(void) { return (GetSystemMetrics(SM_MOUSEWHEELPRESENT) != 0); }
-	void GetRay(D3DXVECTOR3* pOutOrigin, D3DXVECTOR3* pOutDir);
+	inline int GetMouseX(void) const { return m_CurrentMouseState.lX; }
+	inline int GetMouseY(void) const { return m_CurrentMouseState.lY; }
+	inline D3DXVECTOR2 GetMouseVelocity() { return D3DXVECTOR2((float)m_CurrentMouseState.lX, (float)m_CurrentMouseState.lY); }
+	inline D3DXVECTOR2 GetMouseOldVelocity() { return D3DXVECTOR2((float)m_PrevState.lX, (float)m_PrevState.lY); }
+	inline BOOL IsMouseWheelPresent(void) { return (GetSystemMetrics(SM_MOUSEWHEELPRESENT) != 0); }
+
 
 private:
 	DIMOUSESTATE m_PrevState;			// マウス状態

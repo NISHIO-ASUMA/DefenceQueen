@@ -64,11 +64,11 @@ public:
 	void SetMode(int nMode) { m_pCamera.nMode = nMode; }
 	void SetRot(D3DXVECTOR3 rot) { m_pCamera.rot = rot; }
 
-	D3DXVECTOR3 GetRot(void) { return m_pCamera.rot; }
-	D3DXVECTOR3 GetPos(void) { return m_pCamera.posV; }
-	D3DXVECTOR3 GetPosR(void) { return m_pCamera.posR; }
-	D3DXMATRIX GetMtxProjection(void) { return m_pCamera.mtxprojection; }
-	D3DXMATRIX GetView(void) { return m_pCamera.mtxView; }
+	inline D3DXVECTOR3 GetRot(void) { return m_pCamera.rot; }
+	inline D3DXVECTOR3 GetPos(void) { return m_pCamera.posV; }
+	inline D3DXVECTOR3 GetPosR(void) { return m_pCamera.posR; }
+	inline D3DXMATRIX GetMtxProjection(void) { return m_pCamera.mtxprojection; }
+	inline D3DXMATRIX GetView(void) { return m_pCamera.mtxView; }
 
 	int GetMode(void) { return m_pCamera.nMode; }
 

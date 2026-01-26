@@ -192,9 +192,6 @@ void CInstancingCharactor::Draw(void)
 	// 自身のワールドマトリックスを設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxworld);
 
-	// ポーズ中じゃなかったら
-	if (!CPauseManager::GetPause()) return;
-
 	// モデルの更新処理
 	for (auto& Model : m_pModel)
 	{

@@ -68,14 +68,14 @@ public:
 	/// </summary>
 	/// <param name="nIdx">取得するオブジェクトインデックス</param>
 	/// <returns>インデックス番号に応じたデータ</returns>
-	ModelManagerInfo GetInfo(const int nIdx) { return m_aModelData[nIdx]; }
+	inline const ModelManagerInfo GetInfo(int nIdx) const { return m_aModelData[nIdx]; }
 
 	/// <summary>
 	/// 動的配列の取得
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>配列ポインタ</returns>
-	std::vector<ModelManagerInfo>& GetList(void) { return m_aModelData; }
+	inline const std::vector<ModelManagerInfo>& GetList(void) const { return m_aModelData; }
 
 private:
 

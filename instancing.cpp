@@ -46,6 +46,7 @@ HRESULT CInstancing::Init(const char* pShaderFile)
 		{ 1, 32, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 3 },	// ワールド位置
 		{ 1, 48, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 4 },	// ワールド位置
 
+		// 終了
 		D3DDECL_END()
 	};
 
@@ -143,7 +144,7 @@ void CInstancing::SetInstancingParam(const LPDIRECT3DTEXTURE9 &Texture, const D3
 	m_pInstancing->SetMatrix("g_mtxview", &mtxView);		// ビューマトリックス
 	m_pInstancing->SetMatrix("g_mtxprojection", &mtxProj);	// プロジェクションマトリックス
 	m_pInstancing->SetVector("g_MatColor", &color);			// マテリアル
-	m_pInstancing->SetTexture("g_TexCharactor", Texture);	// テクス
+	m_pInstancing->SetTexture("g_TexCharactor", Texture);	// テクスチャ
 
 	// コミット切り替え
 	m_pInstancing->CommitChanges();

@@ -170,6 +170,6 @@ void CGame::Update(void)
 //=========================================================
 void CGame::Draw(void)
 {
-	// オブジェクトの描画
+	// ゲームオブジェクトの描画
 	CGameSceneObject::GetInstance()->Draw();
 }
