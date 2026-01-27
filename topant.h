@@ -27,14 +27,16 @@ class CCollisionBox;
 class CBoxToSphereCollision;
 class CSelectPoint;
 class CFeedSignal;
+class CSepalationSign;
 
 //******************************************************************
 // TODOリスト
-// ・こいつを一体だけゲームに出す
+// ・こいつを一体だけゲームに出す ok
 // ・そうさを1.隊列から切り離し/自身に追従して目的に向かわせるに変更する
 // ・スポナー概念はあるが管理は一個のManagerから設定する
 // ・切り離した物は切り離した先のスポナーに役目を終えたら戻るように設定してあげる
-// ・ これを1/26中に行う
+// 
+// ・					これを1/26中に行う
 // 
 //******************************************************************
 
@@ -72,12 +74,10 @@ public:
 	bool CollisonT(CSphereCollider* pOther);
 	
 	void SetDestMovePos(const D3DXVECTOR3& pos) { m_DestPos = pos; }
-	void SetIsActive(const bool& isActive) { m_isActive = isActive; }
 	void SetSeparationRadius(const float& Radius) { m_fSeparationRadius = Radius; }
 	void SetIsReturnPos(const bool& isflags) { m_isReturnNumber = isflags; }
 
 	D3DXVECTOR3 GetDestPos(void) { return m_DestPos; }
-	bool GetIsActive(void) const { return m_isActive; }
 	bool GetIsReturnPos(void) const { return m_isReturnNumber; }
 	float GetSeparationRadius(void) { return m_fSeparationRadius; }
 
@@ -93,7 +93,7 @@ private:
 		static constexpr float SPEED = 3.0f;					 // 移動速度
 		static constexpr float MAX_RADIUS = 90.0f;				 // 最大範囲
 		static constexpr float NorRot = D3DX_PI * 2.0f;			 // 回転補正
-		static constexpr float Separation = 3.0f;				 // 範囲拡大
+		static constexpr float Separation = 5.0f;				 // 範囲拡大
 		static constexpr float AddPosY = 180.0f;				 // 高さのオフセット
 		static constexpr const char* MOTION_NAME = "data/MOTION/Top/Top_Motion.txt";	 // モーションパス
 	};
@@ -102,9 +102,9 @@ private:
 	CBoxCollider* m_pColliderBox;		// 矩形コライダー
 	CSelectPoint* m_pCircleObj;			// 円形オブジェクト
 	CFeedSignal* m_pFeedSignal;			// 獲得可能サイン
+	CSepalationSign* m_pSeparationSign; // 切り離し表示サイン
 
 	D3DXVECTOR3 m_DestPos;				// 座標設置用
-	bool m_isActive;					// アクティブフラグ
 	bool m_isBranchSet;					// 切り離し中かどうか
 	bool m_isHPressing;					// キーを押している間
 	bool m_isReturnNumber;				// 数字を設定できるかどうか

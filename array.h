@@ -64,21 +64,24 @@ public:
 	bool Colision(CSphereCollider* other);
 	void CollsionAll(const D3DXVECTOR3& pos);
 
-	void SetDestPos(const D3DXVECTOR3 pos) { m_MoveDestPos = pos; }
-	void SetPrevAnt(CArray* pPrev) { m_pFollowTarget = pPrev;}
-	void SetMyListId(const int& nIdx) { m_nListGroupId = nIdx; }
-	void SetActive(bool isFlags) { m_isActive = isFlags; }
-	void SetIsMove(bool isMove) { m_isMove = isMove; }
-	void SetTopFollow(bool isFollow) { m_isTopAntFollow = isFollow; }
-	void SetReturnSpawn(const bool& isReturn) { m_isReturn = isReturn; }
-	void SetAtBase(const bool& isBase) { m_isAtBase = isBase; }
-	void SetIsStop(const bool& isStop) { m_isStop = isStop; }
+	inline void SetActivePos(const D3DXVECTOR3& pos) { m_ActivePos = pos; }
+	inline void SetDestPos(const D3DXVECTOR3& pos) { m_MoveDestPos = pos; }
+	inline void SetPrevAnt(CArray* pPrev) { m_pFollowTarget = pPrev;}
+	inline void SetMyListId(const int& nIdx) { m_nListGroupId = nIdx; }
+	inline void SetActive(bool isFlags) { m_isActive = isFlags; }
+	inline void SetIsMove(bool isMove) { m_isMove = isMove; }
+	inline void SetTopFollow(bool isFollow) { m_isTopAntFollow = isFollow; }
+	inline void SetReturnSpawn(const bool& isReturn) { m_isReturn = isReturn; }
+	inline void SetAtBase(const bool& isBase) { m_isAtBase = isBase; }
+	inline void SetIsStop(const bool& isStop) { m_isStop = isStop; }
+	inline void SetIsTopOrder(const bool& isToporder) { m_isGettingTopOrder = isToporder; }
 
-	bool GetActive(void) { return m_isActive; }
-	bool GetMove(void) { return m_isMove; }
-	bool GetReturn(void) { return m_isReturn; }
-	bool GetIsAtBase(void) { return m_isAtBase; }
-	bool GetisStop(void) { return m_isStop; }
+	inline bool GetActive(void) { return m_isActive; }
+	inline bool GetMove(void) { return m_isMove; }
+	inline bool GetReturn(void) { return m_isReturn; }
+	inline bool GetIsAtBase(void) { return m_isAtBase; }
+	inline bool GetisStop(void) { return m_isStop; }
+	inline bool GetIsTopOrder(void) { return m_isGettingTopOrder; }
 
 	static CArray* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,const int nLife);
 
@@ -98,6 +101,7 @@ private:
 
 		static constexpr int SCORE_UP = 15000;	// スコアの加算量
 		static constexpr int Damage = 1;		// ダメージ値
+		static constexpr const char* SCRIPT = "data/MOTION/Array/Array_Motion.txt"; // モーションスクリプトファイル
 	};
 
 	void NodeSetting(void);				// ノード生成
@@ -112,9 +116,11 @@ private:
 	bool m_isAtBase;					// スポナーにいるか
 	bool m_isStop;						// 停止フラグ
 
+	bool m_isGettingTopOrder;			// トップからの命令を取得したか
+
 	D3DXVECTOR3 m_MoveDestPos;			// 目的の座標
 	D3DXVECTOR3 m_ActivePos;			// 出現時の座標
-	CMotionInstancing* m_pMotion;					// モーションポインタ
+	CMotionInstancing* m_pMotion;		// モーションポインタ
 	CSphereCollider* m_pSphereCollider;	// 球形のコライダー
 	CBoxCollider* m_pBoxCollider;		// 矩形のコライダー
 	CArray* m_pFollowTarget;			// 一個前の自身のポインタ

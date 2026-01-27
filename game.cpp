@@ -156,7 +156,7 @@ void CGame::Update(void)
 
 #ifdef _DEBUG
 	// 画面遷移デバッグキー
-	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_SPACE))
+	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_F4))
 	{
 		// 画面遷移
 		auto fade = CManager::GetInstance()->GetFade();

@@ -24,8 +24,8 @@ namespace SPAWNINFO
 	// 出現座標
 	const D3DXVECTOR3 ActivePos[NUM_POS]
 	{
-		{-1000.0f,0.0f,200.0f},
-		{970.0f,0.0f,-200.0f}
+		{-1015.0f,0.0f,200.0f},
+		{1000.0f,0.0f,-200.0f}
 	};
 
 	// 目的地の座標

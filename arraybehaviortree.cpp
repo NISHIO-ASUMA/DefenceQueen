@@ -16,31 +16,62 @@
 #include "alwayssuccess.h"
 #include "alwaysfail.h"
 #include "selector.h"
+#include "hastoporderleaf.h"
 
 //*******************************************************************
 // 実際の仲間を動かすツリーノードを設定する
 //*******************************************************************
 CNode* ArrayTree::CArrayBehaviorTree::SetArrayTreeNode(CBlackBoard* blackboard)
 {
+	// TOPのシーケンスノードを作成する (ツリー構造の一番トップ)
+	auto TopRootNode = new CSequence(blackboard);
+
+	// トップアリからの命令を受けたか判別するSelectorノードを作成し挙動を分岐させる
+	auto IsGettingTopOrder = new CSelector(blackboard);
+
+	//-----------------------------
+	// Topの命令がtrueの時に走るノード
+	//-----------------------------
+	{
+		// Trueノードのシーケンスノードを作成する
+		auto TopSequence = new CSequence(blackboard);
+		
+		// 判別用のフラグノードを作成する
+		auto HasOrder = new CHasTopOrderLeaf(blackboard);
+
+		// トップアリを追従するノードを作成する
+		//auto FollowTop = new 
+		
+		// 停止命令を待つノードを作成する
+		// auto WaitorderTop = new
+		
+		// 命令後、自身で起こすアクションノードを作成する
+		// auto ActionSetNode = new 
+	}
+
+	//-----------------------------
+	// Topの命令がfalseの時に走るノード
+	//-----------------------------
+	{
+		// falseノードのシーケンスノードを作成する
+		auto ChainAntSequence = new CSequence(blackboard);
+
+		// 追従して歩くノードを作成する
+		// auto TagetFollow = new 
+	}
 #if 0
-	// インバーターを作成する
-	auto chaseinverter = new CInverter(blackboard, new CEnemyChaseLeaf(blackboard));
-
-	// シーケンスノードを作成する
-	auto Sequence = new CSequence(blackboard);
-
-	// 近いかどうかチェックするノード作成
-	Sequence->AddNode(new CEnemyCheckNear(blackboard, new CAlwaysSuccessLeaf(blackboard), chaseinverter, 100.0f));
+	// 
+	Sequence->AddNode(new CArrayCheckNear(blackboard, new CAlwaysSuccessLeaf(blackboard), chaseinverter, 100.0f));
 
 	// 追従をするノードをシーケンスノードに追加
 	Sequence->AddNode(new CEnemyChaseLeaf(blackboard));
 
-	// 攻撃継続ノードを生成
-	auto attackLoop = new CEnemyAttackLeaf(blackboard);
+	// 敵を攻撃するノードを生成
+	auto attackLoop = new CArrayAttackLeaf(blackboard);
 
 	// 餌を取得するノードを生成
-	auto getFood = new CEnemyGetFeedLeaf(blackboard);
-	auto returnToNest = new CEnemyReturnLeaf(blackboard);
+	auto getFood = new CArrayGetFeedLeaf(blackboard);
+	auto returnToNest = new CArrayReturnLeaf(blackboard);
 
 	// 食料取得後は巣へ戻るためのSequenceノードを作成
 	auto foodSequence = new CSequence(blackboard);
@@ -62,5 +93,5 @@ CNode* ArrayTree::CArrayBehaviorTree::SetArrayTreeNode(CBlackBoard* blackboard)
 	// 作成されたシーケンスノードを返す
 	return Sequence;
 #endif
-	return nullptr;
+	return TopRootNode;
 }

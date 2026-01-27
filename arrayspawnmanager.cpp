@@ -85,16 +85,11 @@ void CArraySpawnManager::Update(void)
 //=========================================================
 void CArraySpawnManager::Draw(void)
 {
-#ifdef _DEBUG
+#ifdef NDEBUG
 	// デバッグ情報表示処理
 	CDebugproc::Print("各スポナーのアリ情報\n[0]番目 : ストック数 [ %d ]\n[1]番目 : ストック数 [ %d ]\n[2]番目 : ストック数 [ %d ]\n",
 		m_pArraySpawner[0]->GetStockArray(), m_pArraySpawner[1]->GetStockArray(), m_pArraySpawner[2]->GetStockArray());
 	CDebugproc::Draw(1050, 20, COLOR_WHITE);
-
-	// アリの状態表示
-	CDebugproc::Print("各スポナーの先頭アリ情報\n[0]番目 : アクティブ =  %d\n[1]番目 : アクティブ =  %d\n[2]番目 : アクティブ =  %d\n",
-		m_pArraySpawner[0]->GetTopAnt()->GetIsActive(), m_pArraySpawner[1]->GetTopAnt()->GetIsActive(), m_pArraySpawner[2]->GetTopAnt()->GetIsActive());
-	CDebugproc::Draw(1050, 100, COLOR_WHITE);
 
 	// インデックス情報の管理
 	CDebugproc::Print("各スポナーのIDX情報\n[0]番目 : %d\n[1]番目 : %d\n[2]番目 : %d\n",

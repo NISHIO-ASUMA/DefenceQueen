@@ -82,7 +82,7 @@ void CArrayManager::Draw(void)
 #endif // _DEBUG
 }
 //=========================================================
-// スポナーに渡す関数
+// 各スポナーに渡す関数
 //=========================================================
 std::vector<CArray*> CArrayManager::Allocate(const int& nStock)
 {
@@ -121,6 +121,7 @@ void CArrayManager::ApplySeparation(const D3DXVECTOR3& center, float radius)
 
 	for (auto pArray : m_pArrays)
 	{
+		// nullなら
 		if (!pArray) continue;
 
 		// 座標を取得
@@ -130,6 +131,7 @@ void CArrayManager::ApplySeparation(const D3DXVECTOR3& center, float radius)
 
 		if (fDis < radius)
 		{
+			// TODO : ここで当たったアリはノード切り替えを走らせる処理に変更する
 			pArray->OnSeparation(); // アリに伝える
 		}
 	}
@@ -148,6 +150,9 @@ void CArrayManager::SetActiveAll(void)
 {
 	for (int nCnt = 0; nCnt < m_nActiveAll; nCnt++)
 	{
+		// すでにアクティブなら
+		if (m_pArrays[nCnt]->GetActive()) continue;
+
 		// 指定数だけアクティブ数に設定する
 		m_pArrays[nCnt]->SetActive(true);
 	}

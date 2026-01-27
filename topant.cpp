@@ -28,13 +28,21 @@
 #include "boxtospherecollision.h"
 #include "selectpoint.h"
 #include "feedsignal.h"
+#include "sepalationsign.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
-CTopAnt::CTopAnt(int nPriority) : CMoveCharactor(nPriority),m_pColliderBox(nullptr),m_isActive(false), m_isBranchSet(false),
-m_fSeparationRadius(NULL), m_isHPressing(false),m_pColliderSphere(nullptr), m_DestPos(VECTOR3_NULL), m_pCircleObj(nullptr),
-m_pFeedSignal(nullptr)
+CTopAnt::CTopAnt(int nPriority) : CMoveCharactor(nPriority),
+m_isBranchSet(false),
+m_isHPressing(false),
+m_fSeparationRadius(NULL), 
+m_DestPos(VECTOR3_NULL), 
+m_pColliderSphere(nullptr), 
+m_pColliderBox(nullptr),
+m_pCircleObj(nullptr),
+m_pFeedSignal(nullptr),
+m_pSeparationSign(nullptr)
 {
 	
 }
@@ -88,6 +96,9 @@ HRESULT CTopAnt::Init(void)
 	// サインUI生成
 	m_pFeedSignal = CFeedSignal::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::AddPosY, GetPos().z), VECTOR3_NULL, 90.0f, 90.0f);
 
+	// 切り離しui生成
+	m_pSeparationSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 240.0f, GetPos().z));
+
 	return S_OK;
 }
 //=========================================================
@@ -113,7 +124,7 @@ void CTopAnt::Uninit(void)
 	CMoveCharactor::Uninit();
 }
 //=========================================================
-// トップアリの更新処理
+// 更新処理
 //=========================================================
 void CTopAnt::Update(void)
 {
@@ -126,53 +137,45 @@ void CTopAnt::Update(void)
 	CInputKeyboard* pKey = CManager::GetInstance()->GetInputKeyboard();
 
 	// キー入力での移動関数
-	if (m_isActive)
+	Moving(pPad, pKey);
+	MovePad(pPad);
+
+	// Spaceキー入力 or Xボタン入力
+	if (pKey->GetPress(DIK_SPACE) || pPad->GetPress(CJoyPad::JOYKEY_X))
 	{
-		// 移動関数
-		Moving(pPad, pKey);
-		MovePad(pPad);
-
-		// キー入力で検証
-		if (pKey->GetPress(DIK_B) || pPad->GetPress(CJoyPad::JOYKEY_A))
+		// キー入力がされていなかったら
+		if (!m_isHPressing)
 		{
-			// 切り離しの加算
-			if (!m_isHPressing)
-			{
-				m_isHPressing = true;
-				m_fSeparationRadius = NULL; // 1回押すごとに距離初期化
-			}
-
-			// 押している間
-			Separation();
+			m_isHPressing = true;
+			m_fSeparationRadius = NULL;
 		}
-		else
-		{
-			// 離した瞬間
-			if (m_isHPressing)
-			{
-				// 無効化
-				m_isHPressing = false;
 
-				// サイズ初期化
-				m_pCircleObj->SetSize(0.0f, 3.0f);
+		// 描画オン
+		m_pSeparationSign->SetIsDraw(true);
 
-				// 管理クラスにに通知
-				auto pManager = CGameSceneObject::GetInstance()->GetArrayManager();
-
-				if (pManager)
-				{
-					// 管理通知
-					pManager->ApplySeparation(GetPos(), m_fSeparationRadius);
-				}
-			}
-		}
+		// 切り離し計算関数
+		Separation();
 	}
 	else
 	{
-		// モーションを元に戻す
-		GetMotion()->SetMotion(NEUTRAL, true, 10);
-	}
+		// 離した瞬間
+		if (m_isHPressing)
+		{
+			// 入力フラグを無効化
+			m_isHPressing = false;
 
+			// 描画オフ
+			m_pSeparationSign->SetIsDraw(false);
+
+			// サイズ初期化
+			m_pCircleObj->SetSize(0.0f, 3.0f);
+
+			// 管理クラスにに通知
+			auto pManager = CGameSceneObject::GetInstance()->GetArrayManager();
+			if (pManager) pManager->ApplySeparation(GetPos(), m_fSeparationRadius);
+		}
+	}
+	
 	// オブジェクトの座標更新
 	CMoveCharactor::UpdatePosition();
 
@@ -183,10 +186,7 @@ void CTopAnt::Update(void)
 	m_pFeedSignal->SetPos(D3DXVECTOR3(UpdatePos.x, UpdatePos.y + Config::AddPosY, UpdatePos.z));
 
 	// 球形コライダーの位置更新
-	if (m_pColliderSphere)
-	{
-		m_pColliderSphere->SetPos(UpdatePos);
-	}
+	if (m_pColliderSphere) m_pColliderSphere->SetPos(UpdatePos);
 
 	// 矩形コライダーの位置更新
 	if (m_pColliderBox)
@@ -196,7 +196,7 @@ void CTopAnt::Update(void)
 	}
 
 	// 配置されているブロックを取得
-	auto Block = CGameSceneObject::GetInstance()->GetBlockManager();
+	const auto& Block = CGameSceneObject::GetInstance()->GetBlockManager();
 	if (Block == nullptr) return;
 
 	// ブロックオブジェクトとの当たり判定
@@ -219,42 +219,31 @@ void CTopAnt::Update(void)
 
 	// 餌クラスのポインタ取得
 	CFeedManager* pManager = CGameSceneObject::GetInstance()->GetFeedManager();
+	if (pManager->GetSize() < 0) return;
 
 	// サイズがnull値じゃなかったら
-	if (pManager->GetSize() > 0)
+	for (int nCnt = 0; nCnt < pManager->GetSize(); nCnt++)
 	{
-		for (int nCnt = 0; nCnt < pManager->GetSize(); nCnt++)
+		if (CollisonT(pManager->GetFeed(nCnt)->GetCollider()))
 		{
-			if (CollisonT(pManager->GetFeed(nCnt)->GetCollider()))
-			{
-				// 当たった点の座標セット
-				SetPos(UpdatePos);
+			// 当たった点の座標セット
+			SetPos(UpdatePos);
 
-				// 矩形コライダー座標更新
-				m_pColliderBox->SetPos(UpdatePos);
+			// 矩形コライダー座標更新
+			m_pColliderBox->SetPos(UpdatePos);
 
-				// サインの表示命令
-				m_pFeedSignal->SetIsDraw(true);
+			// 伝令フラグを有効化
+			SetIsReturnPos(true);
 
-				// 伝令フラグを有効化
-				SetIsReturnPos(true);
-
-				break;
-			}
-			else
-			{
-				// サインの表示命令
-				m_pFeedSignal->SetIsDraw(false);
-
-				// 伝令フラグを無効化
-				SetIsReturnPos(false);
-			}
+			break;
+		}
+		else
+		{
+			// 伝令フラグを無効化
+			SetIsReturnPos(false);
 		}
 	}
-
-	// 目的地の座標をセットする
-	SetDestMovePos(UpdatePos);
-
+	
 	// 親クラスの更新
 	CMoveCharactor::Update();
 }
@@ -497,21 +486,25 @@ void CTopAnt::MovePad(CJoyPad * pPad)
 //=========================================================
 void CTopAnt::Separation(void)
 {
-	// 自身の体から半径を作成
+	// 現在座標を取得
 	D3DXVECTOR3 pos = GetPos();
 
 	// 半径加算処理
 	m_fSeparationRadius += Config::Separation;
 
+	// 最大値超過時
 	if (m_fSeparationRadius >= Config::MAX_RADIUS)
 		m_fSeparationRadius = Config::MAX_RADIUS;
 
-	// 設定する
+	// 拡大されたサイズに設定する
 	SetSeparationRadius(m_fSeparationRadius);
 
 	// オブジェクトのサイズ更新
 	m_pCircleObj->SetPos(pos);
 	m_pCircleObj->SetSize(m_fSeparationRadius, 3.0f);
+
+	// サインの座標設定
+	m_pSeparationSign->SetPos(D3DXVECTOR3(pos.x,pos.y + 240.0f,pos.z));
 }
 //=========================================================
 // 矩形の当たり判定処理

@@ -70,7 +70,7 @@ CSelectPoint* CSelectPoint::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,
 	pSelect->SetSize(fWidth, fHeight);
 	pSelect->SetTexture("Circle.png");
 	pSelect->SetfRange(fRadius);
-	pSelect->SetCol(COLOR_RED);
+	pSelect->SetCol(COLOR_GREEN);
 
 	return pSelect;
 }

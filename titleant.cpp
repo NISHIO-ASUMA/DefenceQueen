@@ -60,7 +60,7 @@ HRESULT CTitleAnt::Init(void)
 	CInstancingCharactor::Init();
 
 	// モーションセット
-	MotionLoad("data/MOTION/Array/Title_Array.txt",MOTION_MAX,false);
+	MotionLoad(Config::SCRIPT,MOTION_MAX,false);
 
 	// コライダー生成
 	m_pCollider = CSphereCollider::Create(GetPos(), 30.0f);

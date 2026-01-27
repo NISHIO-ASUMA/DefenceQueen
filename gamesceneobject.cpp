@@ -89,6 +89,9 @@ HRESULT CGameSceneObject::Init(void)
 	CUi::Create(D3DXVECTOR3(1125.0f, 60.0f, 0.0f), 0, 15.0f, 30.0f, "coron.png", false);
 	CUi::Create(D3DXVECTOR3(1125.0f, 55.0f, 0.0f), 0, 140.0f, 55.0f, "Time_frame.png", false);
 
+	// テスト用生成
+	CTopAnt::Create(D3DXVECTOR3(0.0f, 0.0f, -450.0f), VECTOR3_NULL);
+
 	// 各種ポインタクラスの生成
 	CreatePointer();
 
@@ -268,12 +271,12 @@ void CGameSceneObject::CreatePointer(void)
 	m_pFeed->Init();
 
 	// 仲間アリの大軍を生成
-	//m_pArrayManager = std::make_unique<CArrayManager>();
-	//m_pArrayManager->Init();
+	m_pArrayManager = std::make_unique<CArrayManager>();
+	m_pArrayManager->Init();
 
-	//// 出現場所生成
-	//m_pArraySpawn = std::make_unique<CArraySpawnManager>();
-	//m_pArraySpawn->Init(m_pArrayManager.get());
+	// 出現場所生成
+	m_pArraySpawn = std::make_unique<CArraySpawnManager>();
+	m_pArraySpawn->Init(m_pArrayManager.get());
 
 	//// 司令塔アリ管理生成
 	//m_pWorkerManager = std::make_unique<CWorkerManager>();

@@ -203,6 +203,7 @@
     <ClCompile Include="gimmicksuction.cpp" />
     <ClCompile Include="grass.cpp" />
     <ClCompile Include="grassmanager.cpp" />
+    <ClCompile Include="hastoporderleaf.cpp" />
     <ClCompile Include="instancemodel.cpp" />
     <ClCompile Include="instancemodelmanager.cpp" />
     <ClCompile Include="instancemotionmanager.cpp" />
@@ -285,6 +286,7 @@
     <ClCompile Include="score.cpp" />
     <ClCompile Include="selectpoint.cpp" />
     <ClCompile Include="sendnumber.cpp" />
+    <ClCompile Include="sepalationsign.cpp" />
     <ClCompile Include="separationant.cpp" />
     <ClCompile Include="shadow.cpp" />
     <ClCompile Include="shadowS.cpp" />
@@ -369,6 +371,7 @@
     <ClInclude Include="gimmicksuction.h" />
     <ClInclude Include="grass.h" />
     <ClInclude Include="grassmanager.h" />
+    <ClInclude Include="hastoporderleaf.h" />
     <ClInclude Include="instancemodel.h" />
     <ClInclude Include="instancemodelmanager.h" />
     <ClInclude Include="instancemotionmanager.h" />
@@ -456,6 +459,7 @@
     <ClInclude Include="selector.h" />
     <ClInclude Include="selectpoint.h" />
     <ClInclude Include="sendnumber.h" />
+    <ClInclude Include="sepalationsign.h" />
     <ClInclude Include="separationant.h" />
     <ClInclude Include="sepuence.h" />
     <ClInclude Include="shadow.h" />

@@ -19,12 +19,11 @@
 // コンストラクタ
 //=========================================================
 CArraySpawner::CArraySpawner() :
-	m_SpawnBasePos(VECTOR3_NULL),
-	m_nStockArrays(NULL), 
-	m_AssignedArrays{},
-	m_ReturnAntList{},
-	m_pTopAnts(nullptr),
-	m_nMySpawnIndexList(-1)
+m_SpawnBasePos(VECTOR3_NULL),
+m_nStockArrays(NULL), 
+m_AssignedArrays{},
+m_ReturnAntList{},
+m_nMySpawnIndexList(-1)
 {
 
 }
@@ -42,9 +41,6 @@ HRESULT CArraySpawner::Init(CArrayManager* pManager)
 {
 	// Managerから渡された最大配列のうちのストック数分だけ持つ
 	m_AssignedArrays = pManager->Allocate(m_nStockArrays);
-
-	// トップのアリを生成
-	m_pTopAnts = CTopAnt::Create(m_SpawnBasePos + D3DXVECTOR3(0.0f, 0.0f, 50.0f), VECTOR3_NULL);
 
 	// 隊列の追従関係変数
 	CArray* pPrev = nullptr;

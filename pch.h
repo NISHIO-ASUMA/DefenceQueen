@@ -55,13 +55,13 @@
 #define VECTOR3_NULL (D3DXVECTOR3(0.0f, 0.0f, 0.0f))		// 座標初期化
 #define INITSCALE (D3DXVECTOR3(1.0f, 1.0f, 1.0f))			// 初期拡大率
 #define CENTERPOS (D3DXVECTOR3(640.0f, 360.0f, 0.0f))		// 中心
-#define HALFWIDTH (SCREEN_WIDTH * 0.5f)
-#define HALFHEIGHT (SCREEN_HEIGHT * 0.5f)
+#define HALFWIDTH (SCREEN_WIDTH * 0.5f)						// スクリーンの横幅の半分
+#define HALFHEIGHT (SCREEN_HEIGHT * 0.5f)					// スクリーンの高さの半分
 
 #define COLOR_BLACK (D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f))		// 黒
 #define COLOR_WHITE (D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f))		// 白
 #define COLOR_RED	(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f))		// 赤
-#define COLOR_GREEN (D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f))		// 緑
+#define COLOR_GREEN (D3DXCOLOR(0.0f, 1.0f, 0.0f, 0.75f))	// 緑
 #define COLOR_YERROW (D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f))	// 黄色
 #define COLOR_BLUE	 (D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f))	// 青
 #define COLOR_PURPLE (D3DXCOLOR(1.0f, 0.0f, 1.0f, 1.0f))	// 紫
@@ -81,7 +81,7 @@
 struct VERTEX_2D
 {
 	D3DXVECTOR3 pos;	// 頂点座標
-	float rhw;			// 座標変換用係数(1.0fで固定)
+	float rhw;			// 座標変換用係数
 	D3DCOLOR col;		// 頂点カラー
 	D3DXVECTOR2 tex;	// テクスチャ座標
 };

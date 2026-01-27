@@ -36,7 +36,7 @@ public:
 
 	inline void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
 	inline void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
-	inline void SetCol(D3DXCOLOR col) { m_col = col; }
+	inline void SetCol(D3DXCOLOR col = COLOR_WHITE) { m_col = col; }
 	inline void SetSize(float fWidth, float fHeight) { m_fWidth = fWidth, m_fHeight = fHeight; }
 	inline void SetEnableZtest(bool isflags) { m_isTests = isflags; }
 

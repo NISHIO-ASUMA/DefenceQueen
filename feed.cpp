@@ -119,21 +119,21 @@ HRESULT CFeed::Init(void)
 //=========================================================
 void CFeed::Uninit(void)
 {
-	// コライダーの破棄
+	// 球形コライダーの破棄
 	if (m_pSphere)
 	{
 		delete m_pSphere;
 		m_pSphere = nullptr;
 	}
 
-	// コライダーの破棄
+	// 矩形コライダーの破棄
 	if (m_pBoxCollider)
 	{
 		delete m_pBoxCollider;
 		m_pBoxCollider = nullptr;
 	}
 
-	// 破棄
+	// パラメーターポインタの破棄
 	m_pParam.reset();
 
 	// 親クラスの終了
@@ -184,7 +184,7 @@ void CFeed::DecLife(const int& nDecValue)
 		// イベント起動
 		if (m_event) m_event();
 
-		// 要素の削除
+		// 動的配列内の要素を削除する
 		CGameSceneObject::GetInstance()->GetFeedManager()->Erase(this);
 
 		// 自身の破棄
@@ -197,13 +197,16 @@ void CFeed::DecLife(const int& nDecValue)
 		// 現在の体力にセット
 		m_pParam->SetHp(nHp);
 
-		// パーティクル生成
-		//CParticlePiler::Create(D3DXVECTOR3(GetPos().x,120.0f,GetPos().z), COLOR_PURPLE,15,150,350,5,0.0f);
-		
+#ifdef NDEBUG
+		//パーティクル生成
+		CParticlePiler::Create(D3DXVECTOR3(GetPos().x,120.0f,GetPos().z), COLOR_PURPLE,15,150,350,5,0.0f);
+#endif // NDEBUG
+
 		// サウンド取得
 		const auto& Sound = CManager::GetInstance()->GetSound();
 		if (Sound != nullptr)
 		{
+			// ヒット音SE再生
 			//Sound->Play(CSound::SOUND_LABEL_DAMAGE);
 		}
 
@@ -235,13 +238,13 @@ void CFeed::ColorCheck(void)
 		m_ColorFrameCnt++;
 
 		// サイン波
-		float angle = m_ColorFrameCnt * FEEDINFO::BLINK_SPEED;
+		float fAngle = m_ColorFrameCnt * FEEDINFO::BLINK_SPEED;
 
 		// 振動係数
-		float blink = (sinf(angle) + 1.0f) * 0.5f;
+		float fBlink = (sinf(fAngle) + 1.0f) * 0.5f;
 
 		// カラーを設定
-		D3DCOLORVALUE col =LerpColor(V_COLOR_WHITE, V_COLOR_RED, blink);
+		D3DCOLORVALUE col = LerpColor(V_COLOR_WHITE, V_COLOR_RED, fBlink);
 		SetCol(col);
 
 		// 一定フレームで終了

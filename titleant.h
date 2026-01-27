@@ -62,6 +62,7 @@ private:
 	struct Config
 	{
 		static constexpr float MOVE = 3.0f; // ˆÚ“®—Ê
+		static constexpr const char* SCRIPT = "data/MOTION/Array/Title_Array.txt";
 	};
 
 	D3DXVECTOR3 m_DestPos;			// –Ú“IÀ•W

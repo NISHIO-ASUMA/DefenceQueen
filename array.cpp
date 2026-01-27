@@ -49,6 +49,7 @@ m_isTopAntFollow(false),
 m_isReturn(false),
 m_isAtBase(true),
 m_isStop(false),
+m_isGettingTopOrder(false),
 m_MoveDestPos(VECTOR3_NULL),
 m_ActivePos(VECTOR3_NULL),
 m_nListGroupId(NULL)
@@ -75,6 +76,7 @@ CArray* CArray::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,const int nL
 	pArray->SetPos(pos);
 	pArray->SetRot(rot);
 	pArray->SetUseStencil(false);
+
 	pArray->m_pParameter = std::make_unique<CParameter>();
 	pArray->m_ActivePos = pos;
 
@@ -103,7 +105,7 @@ HRESULT CArray::Init(void)
 	SetObjType(CObject::TYPE_ARRAY);
 
 	// モーションセット
-	MotionLoad("data/MOTION/Array/Array_Motion.txt", MOTION_MAX,true);
+	MotionLoad(Arrayinfo::SCRIPT, MOTION_MAX,true);
 
 	// スフィアコライダー生成
 	m_pSphereCollider = CSphereCollider::Create(GetPos(), Arrayinfo::SphereRange);
@@ -115,10 +117,10 @@ HRESULT CArray::Init(void)
 	// NodeSetting();
 
 	// フラグ初期化
-	//m_isActive = false;
+	m_isActive = false;
 	m_isMove = false;
 
-	m_isActive = true;
+	//m_isActive = true;
 
 	return S_OK;
 }
@@ -466,15 +468,15 @@ void CArray::NodeSetting(void)
 
 	// ブラックボードに情報をセットする
 	auto pos = GetPos();
-	m_pBlackBoard->SetValue<CArray*>("Array", this);			// 自身
-	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayPos", pos);		// 自身の座標
+	m_pBlackBoard->SetValue<CArray*>("Array", this);					 // 自身
+	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayPos", pos);				 // 自身の座標
 	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayDestPos", m_MoveDestPos); // 目的座標
-	m_pBlackBoard->SetValue<bool>("ReturnSpawn", m_isReturn);	// 基地に帰るフラグ
+	m_pBlackBoard->SetValue<bool>("ReturnSpawn", m_isReturn);			 // 基地に帰るフラグ
+	m_pBlackBoard->SetValue<bool>("GetTopOrder", m_isGettingTopOrder);   // トップからの命令取得
 
 	// 仲間に使用するツリーノードにセットする
-	//m_pBehaviorTree = CArrayBehaviorTree::SetArrayTreeNode(m_pBlackBoard);
-	//m_pBehaviorTree->Init();
-
+	m_pBehaviorTree = CArrayBehaviorTree::SetArrayTreeNode(m_pBlackBoard);
+	m_pBehaviorTree->Init();
 }
 //=========================================================
 // 球の当たり判定処理
@@ -489,7 +491,9 @@ bool CArray::Colision(CSphereCollider* other)
 //=========================================================
 void CArray::CollsionAll(const D3DXVECTOR3& pos)
 {
+	//**************************
 	// マップ内の餌の当たり判定
+	//**************************
 	CFeedManager* pFeed = CGameSceneObject::GetInstance()->GetFeedManager();
 
 	// nullじゃないとき

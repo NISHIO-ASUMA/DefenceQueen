@@ -104,22 +104,6 @@ HRESULT CPlayer::Init(void)
 	auto spawn = pArraySpawn->GetIndexSpawner(m_nSelectSpawn);
 	if (spawn == nullptr) return E_FAIL;
 
-	// 存在しているなら
-	if (spawn)
-	{
-		// 取得
-		auto topant = spawn->GetTopAnt();
-
-		if (topant)
-		{
-			// 最初からONになる
-			topant->SetIsActive(true);	
-		}
-
-		// 選択インデックス変更
-		m_nPrevSelectSpawn = m_nSelectSpawn;
-	}
-
 	// 結果を返す
 	return S_OK;
 }
@@ -148,23 +132,6 @@ void CPlayer::Update(void)
 
 	// アクションキー
 	InputAction(pKeyboard, pJoyPad);
-
-	// null値チェック
-	if (m_nSelectSpawn != -1)
-	{
-		auto pArraySpawn = CGameSceneObject::GetInstance()->GetArraySpawn();
-		auto pSpawn = pArraySpawn->GetIndexSpawner(m_nSelectSpawn);
-
-		if (pSpawn)
-		{
-			auto pTop = pSpawn->GetTopAnt();
-
-			if (pTop)
-			{
-				m_pPointObj->SetPos(D3DXVECTOR3(pTop->GetPos().x, Config::POINT_VALUE, pTop->GetPos().z));
-			}
-		}
-	}
 
 	// キャラクターの全体更新処理
 	CNoMoveCharactor::Update();
@@ -195,6 +162,7 @@ void CPlayer::Draw(void)
 //===========================================================
 void CPlayer::InputAction(CInputKeyboard* pKey, CJoyPad* pPad)
 {
+#if 0
 	// アリスポナー配列取得
 	auto pArraySpawn = CGameSceneObject::GetInstance()->GetArraySpawn();
 
@@ -275,12 +243,14 @@ void CPlayer::InputAction(CInputKeyboard* pKey, CJoyPad* pPad)
 		// 指令アリの当たったポイントで判断する
 		OrderToArray(PointPos);
 	}
+#endif
 }
 //===================================================================
 // 指示を出して特定数のアリを送る処理
 //===================================================================
 void CPlayer::OrderToArray(const D3DXVECTOR3& destpos)
 {
+#if 0
 	// スポナーマネージャ取得
 	auto pSpawnMgr = CGameSceneObject::GetInstance()->GetArraySpawn();
 	if (!pSpawnMgr) return;
@@ -308,6 +278,8 @@ void CPlayer::OrderToArray(const D3DXVECTOR3& destpos)
 		// 値をクリア
 		m_pSpawnData[nCnt] = 0;
 	}
+
+#endif
 }
 //===================================================================
 // 設定を保存しておく関数

@@ -42,35 +42,28 @@ public:
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
-	int GetArraysActive(void) { return m_nActiveAll; }
-
-	/// <summary>
-	/// 現在のアクティブな数を取得する
-	/// </summary>
-	/// <param name=""></param>
-	/// <returns></returns>
-	int GetUseArray(void) { return m_nActiveAll; }
+	inline int GetArraysActive(void) const { return m_nActiveAll; }
 
 	/// <summary>
 	/// 配列の要素数を取得する
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
-	int GetAll(void) { return static_cast<int>(m_pArrays.size()); }
+	inline int GetAll(void) const { return static_cast<int>(m_pArrays.size()); }
 
 	/// <summary>
 	/// 配列の要素番号から取得
 	/// </summary>
 	/// <param name="nIdx">取得したい番号</param>
 	/// <returns></returns>
-	CArray* GetArrays(const int nIdx) { return m_pArrays[nIdx]; }
+	inline CArray* GetArrays(const int nIdx) { return m_pArrays[nIdx]; }
 
 	/// <summary>
 	/// 動的配列全体を取得する
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
-	std::vector<CArray*>& GetArray(void) { return m_pArrays; }
+	const std::vector<CArray*>& GetArray(void) { return m_pArrays; }
 
 	/// <summary>
 	/// スポナー用に確保する関数

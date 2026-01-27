@@ -24,7 +24,6 @@
 //*********************************************************
 class CArray;
 class CArrayManager;
-class CTopAnt;
 class CSeparationAnt;
 
 //*********************************************************
@@ -58,13 +57,6 @@ public:
 	/// </summary>
 	/// <param name=""></param>
 	void IncrementIdx(void) { m_nMySpawnIndexList++; }
-
-	/// <summary>
-	/// トップアリを取得する関数
-	/// </summary>
-	/// <param name=""></param>
-	/// <returns></returns>
-	CTopAnt* GetTopAnt(void) { return m_pTopAnts; }
 
 	/// <summary>
 	/// アリのインデックスを設定する
@@ -161,7 +153,6 @@ private:
 	};
 
 	D3DXVECTOR3 m_SpawnBasePos;				// スポーンのベース座標
-	CTopAnt * m_pTopAnts;					// トップアリのポインタ
 	std::vector<CArray*> m_AssignedArrays;	// 自分の担当アリ
 	std::vector<CArray*>m_ReturnAntList;	// 帰ってきたアリたちの配列
 	std::unique_ptr<CSeparationAnt>m_pSeparationListAnt;	// 分隊を管理するポインタ

@@ -26,5 +26,7 @@
   { "Texture": "data/TEXTURE/Ranking_PosNumber.png" },
   { "Texture": "data/TEXTURE/underbar.png" },
   { "Texture": "data/TEXTURE/time.png" },
-  { "Texture": "data/TEXTURE/result_logo.png" }
+  { "Texture": "data/TEXTURE/result_logo.png" },
+  { "Texture": "data/TEXTURE/EventFeed.png" },
+  { "Texture": "data/TEXTURE/Sepalation.png" }
 ]
