@@ -14,6 +14,8 @@
 #include "input.h"
 #include "template.h"
 #include "debugproc.h"
+#include "topant.h"
+#include "gamesceneobject.h"
 
 //=========================================================
 // コンストラクタ
@@ -32,7 +34,7 @@ CArrayManager::~CArrayManager()
 //=========================================================
 // 初期化処理
 //=========================================================
-HRESULT CArrayManager::Init(void)
+HRESULT CArrayManager::Init(CTopAnt* pTop)
 {
 	// 配列初期化
 	m_pArrays.clear();
@@ -48,6 +50,12 @@ HRESULT CArrayManager::Init(void)
 	{
 		// インスタンス生成
 		auto pArray = CArray::Create(VECTOR3_NULL,VECTOR3_NULL, config.LIFE);
+
+		// 操作可能なトップアリをセット
+		pArray->SetTopAntPointer(pTop);
+
+		// ノードを設定
+		pArray->NodeSetting();
 
 		// 配列に追加
 		m_pArrays.push_back(pArray);

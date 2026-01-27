@@ -171,6 +171,7 @@
     <ClCompile Include="arrayspawner.cpp" />
     <ClCompile Include="arrayspawnmanager.cpp" />
     <ClCompile Include="arraywaitleaf.cpp" />
+    <ClCompile Include="attackenemyleaf.cpp" />
     <ClCompile Include="behaviortree.cpp" />
     <ClCompile Include="billboard.cpp" />
     <ClCompile Include="block.cpp" />
@@ -197,6 +198,7 @@
     <ClCompile Include="enemyspawnmanager.cpp" />
     <ClCompile Include="enemywaitleaf.cpp" />
     <ClCompile Include="feedsignal.cpp" />
+    <ClCompile Include="folllowtopleaf.cpp" />
     <ClCompile Include="gamewallmanager.cpp" />
     <ClCompile Include="gamewallmodel.cpp" />
     <ClCompile Include="gimmickmanager.cpp" />
@@ -314,6 +316,7 @@
     <ClCompile Include="tutorialtopant.cpp" />
     <ClCompile Include="tutorialui.cpp" />
     <ClCompile Include="ui.cpp" />
+    <ClCompile Include="waitorderleaf.cpp" />
     <ClCompile Include="worker.cpp" />
     <ClCompile Include="workermanager.cpp" />
     <ClCompile Include="workerstatebase.cpp" />
@@ -335,6 +338,7 @@
     <ClInclude Include="arrayspawner.h" />
     <ClInclude Include="arrayspawnmanager.h" />
     <ClInclude Include="arraywaitleaf.h" />
+    <ClInclude Include="attackenemyleaf.h" />
     <ClInclude Include="behaviortree.h" />
     <ClInclude Include="billboard.h" />
     <ClInclude Include="blackboard.h" />
@@ -365,6 +369,7 @@
     <ClInclude Include="enemyspawnmanager.h" />
     <ClInclude Include="enemywaitleaf.h" />
     <ClInclude Include="feedsignal.h" />
+    <ClInclude Include="folllowtopleaf.h" />
     <ClInclude Include="gamewallmanager.h" />
     <ClInclude Include="gamewallmodel.h" />
     <ClInclude Include="gimmickmanager.h" />
@@ -491,6 +496,7 @@
     <ClInclude Include="tutorialui.h" />
     <ClInclude Include="ui.h" />
     <ClInclude Include="waitleaf.h" />
+    <ClInclude Include="waitorderleaf.h" />
     <ClInclude Include="worker.h" />
     <ClInclude Include="workermanager.h" />
     <ClInclude Include="workerstatebase.h" />

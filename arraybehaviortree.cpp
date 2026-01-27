@@ -17,13 +17,16 @@
 #include "alwaysfail.h"
 #include "selector.h"
 #include "hastoporderleaf.h"
+#include "folllowtopleaf.h"
+#include "waitorderleaf.h"
+#include "attackenemyleaf.h"
 
 //*******************************************************************
 // 実際の仲間を動かすツリーノードを設定する
 //*******************************************************************
 CNode* ArrayTree::CArrayBehaviorTree::SetArrayTreeNode(CBlackBoard* blackboard)
 {
-	// TOPのシーケンスノードを作成する (ツリー構造の一番トップ)
+	// TOPのシーケンスノードを作成する
 	auto TopRootNode = new CSequence(blackboard);
 
 	// トップアリからの命令を受けたか判別するSelectorノードを作成し挙動を分岐させる
@@ -32,66 +35,57 @@ CNode* ArrayTree::CArrayBehaviorTree::SetArrayTreeNode(CBlackBoard* blackboard)
 	//-----------------------------
 	// Topの命令がtrueの時に走るノード
 	//-----------------------------
+	auto TopSequence = new CSequence(blackboard); // Trueノードのシーケンスノードを作成する
 	{
-		// Trueノードのシーケンスノードを作成する
-		auto TopSequence = new CSequence(blackboard);
 		
 		// 判別用のフラグノードを作成する
 		auto HasOrder = new CHasTopOrderLeaf(blackboard);
 
 		// トップアリを追従するノードを作成する
-		//auto FollowTop = new 
+		auto FollowTop = new CFolllowTopLeaf(blackboard);
 		
 		// 停止命令を待つノードを作成する
-		// auto WaitorderTop = new
+		auto WaitOrder = new CWaitOrderLeaf(blackboard);
 		
-		// 命令後、自身で起こすアクションノードを作成する
-		// auto ActionSetNode = new 
+		// 敵と戦うノードを作成する
+		auto AttackLeaf = new CAttackEnemyLeaf(blackboard);
+
+		// 末端ノードをシーケンスに追加する
+		TopSequence->AddNode(HasOrder);
+		TopSequence->AddNode(FollowTop);
+		TopSequence->AddNode(WaitOrder);
+		TopSequence->AddNode(AttackLeaf);
 	}
 
 	//-----------------------------
 	// Topの命令がfalseの時に走るノード
 	//-----------------------------
+	auto ChainAntSequence = new CSequence(blackboard); 	// falseノードのシーケンスノードを作成する
 	{
-		// falseノードのシーケンスノードを作成する
-		auto ChainAntSequence = new CSequence(blackboard);
 
-		// 追従して歩くノードを作成する
-		// auto TagetFollow = new 
+		// 結果を反転させるノードに設定
+		ChainAntSequence->AddNode(new CInverter(blackboard, new CHasTopOrderLeaf(blackboard)));
+
+		// 餌を取るシーケンスノードを作成
+		auto FoodSequence = new CSequence(blackboard);
+
+		// ブランチに追加する
+		//FoodSequence->AddNode(new CMoveToFoodLeaf(blackboard)); // 餌に向かう
+		//FoodSequence->AddNode(new CGetFoodLeaf(blackboard));    // 餌に当たって取得
+		//FoodSequence->AddNode(new CReturnNestLeaf(blackboard)); // 基地に帰る
+
+		// メインのシーケンスに追加する
+		ChainAntSequence->AddNode(FoodSequence);	
 	}
-#if 0
-	// 
-	Sequence->AddNode(new CArrayCheckNear(blackboard, new CAlwaysSuccessLeaf(blackboard), chaseinverter, 100.0f));
 
-	// 追従をするノードをシーケンスノードに追加
-	Sequence->AddNode(new CEnemyChaseLeaf(blackboard));
+	//-----------------------------
+	// 生成されたノードを組み合わせる
+	//-----------------------------
+	{
+		TopRootNode->AddNode(TopSequence); // trueノード
+		TopRootNode->AddNode(ChainAntSequence); // falseノード
+	}
 
-	// 敵を攻撃するノードを生成
-	auto attackLoop = new CArrayAttackLeaf(blackboard);
-
-	// 餌を取得するノードを生成
-	auto getFood = new CArrayGetFeedLeaf(blackboard);
-	auto returnToNest = new CArrayReturnLeaf(blackboard);
-
-	// 食料取得後は巣へ戻るためのSequenceノードを作成
-	auto foodSequence = new CSequence(blackboard);
-	foodSequence->AddNode(getFood);
-	foodSequence->AddNode(returnToNest);
-
-	// 攻撃するか餌を持ち帰るかのセレクター用のノードを生成する
-	auto Selector = new CSelector(blackboard);
-
-	Selector->AddNode(attackLoop);		// 成功したらずっと攻撃し続ける
-	Selector->AddNode(foodSequence);	//  失敗したら餌を持って帰る
-
-	// セレクターノードを根幹のシーケンスに追加する
-	Sequence->AddNode(Selector);
-
-	// 待機時用のノードをシーケンスノードに追加
-	Sequence->AddNode(new CEnemyWaitLeaf(blackboard));
-
-	// 作成されたシーケンスノードを返す
-	return Sequence;
-#endif
+	// 組み合わされたノードを返す
 	return TopRootNode;
 }

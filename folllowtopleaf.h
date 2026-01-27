@@ -1,6 +1,6 @@
 //===================================================================
 //
-// 実際に処理を動かす葉ノード基底クラス処理 [ leafnodebase.h ]
+// トップアリを追従する末端ノード処理 [ followtopleaf.h ]
 // Author: Asuma Nishio
 //
 //===================================================================
@@ -13,20 +13,24 @@
 //*******************************************************************
 // インクルードファイル
 //*******************************************************************
-#include "nodebase.h"
+#include "leafnodebase.h"
 
 //*******************************************************************
-// 前方宣言
+// トップアリを追従する末端ノードクラスを定義
 //*******************************************************************
-class CBlackBoard;
-
-//*******************************************************************
-// 基底クラスを定義する
-//*******************************************************************
-class CLeafNodeBase : public CNodeBase
+class CFolllowTopLeaf : public CLeafNodeBase
 {
-protected:
-	// 基底コンストラクタとデストラクタ
-	CLeafNodeBase(CBlackBoard* blackboard) : CNodeBase(blackboard) {};
-	virtual ~CLeafNodeBase() = default;
+public:
+
+	CFolllowTopLeaf(CBlackBoard* blackboard) : CLeafNodeBase(blackboard) {};
+	~CFolllowTopLeaf() = default;
+
+	void Update(void) override;
+
+	NodeInfo::NodeResult get_node_result() const override
+	{
+		return NodeInfo::NodeResult::Re_SUCCESS;
+	};
+
+private:
 };

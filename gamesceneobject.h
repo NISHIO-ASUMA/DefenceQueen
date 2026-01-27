@@ -36,6 +36,7 @@ class CEnemySpawnManager;
 class CEnemyManager;
 class CGameWallManager;
 class CSendNumber;
+class CTopAnt;
 
 //*********************************************************
 // ゲームシーンで使うオブジェクト管理クラスを定義
@@ -56,8 +57,9 @@ public:
 	CTime* GetTime(void) const { return m_pTimer; }
 	CScore* GetScore(void) const { return m_pScore; }
 	CQueen* GetQueen(void) const { return m_pQueen; }
-	CPlayer* GetPlayer(void) const { return m_pPlayer; }
 	CSelectPoint* GetPoint(void) const { return m_pSelectPoint; }
+	CTopAnt* GetTopAnt(void) const { return m_pTopAnt; }
+
 	CFeedManager* GetFeedManager(void) const { return m_pFeed.get(); }
 	CEnemySpawner* GetEnemySpawn(void) const { return m_pSpawn.get(); }
 	CWorkerUiManager* GetWorkUi(void) const { return m_pWorkUi.get(); }
@@ -82,8 +84,9 @@ private:
 	CTime* m_pTimer;	// タイマークラスのポインタ
 	CSelectPoint* m_pSelectPoint;	// 選択ポイントのクラス
 	CQueen* m_pQueen;	// 女王クラス
-	CPlayer* m_pPlayer; // プレイヤークラスのポインタ
 	CSendNumber* m_pSendNumber; // 送る数表示
+	CTopAnt* m_pTopAnt;	// 操作できるトップアリ
+
 
 	std::unique_ptr<CWorkerUiManager>m_pWorkUi;	// 表示uiクラスポインタ
 	std::unique_ptr<CFeedManager>m_pFeed;	// 餌管理クラスのポインタ

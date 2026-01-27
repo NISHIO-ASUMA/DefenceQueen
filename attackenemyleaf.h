@@ -1,6 +1,6 @@
 //===================================================================
 //
-// 実際に処理を動かす葉ノード基底クラス処理 [ leafnodebase.h ]
+// 敵を攻撃する末端ノード処理 [ attackenemyleaf.h ]
 // Author: Asuma Nishio
 //
 //===================================================================
@@ -13,20 +13,25 @@
 //*******************************************************************
 // インクルードファイル
 //*******************************************************************
-#include "nodebase.h"
+#include "leafnodebase.h"
 
 //*******************************************************************
-// 前方宣言
+// 敵を攻撃する末端ノード処理クラスを定義
 //*******************************************************************
-class CBlackBoard;
-
-//*******************************************************************
-// 基底クラスを定義する
-//*******************************************************************
-class CLeafNodeBase : public CNodeBase
+class CAttackEnemyLeaf : public CLeafNodeBase
 {
-protected:
-	// 基底コンストラクタとデストラクタ
-	CLeafNodeBase(CBlackBoard* blackboard) : CNodeBase(blackboard) {};
-	virtual ~CLeafNodeBase() = default;
+public:
+
+	CAttackEnemyLeaf(CBlackBoard* blackboard) : CLeafNodeBase(blackboard) {};
+	~CAttackEnemyLeaf() = default;
+
+	void Update(void);
+
+	NodeInfo::NodeResult get_node_result() const override
+	{
+		return NodeInfo::NodeResult::Re_SUCCESS;
+	};
+
+private:
+
 };

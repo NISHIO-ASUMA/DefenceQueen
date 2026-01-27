@@ -1,6 +1,6 @@
 //===================================================================
 //
-// 実際に処理を動かす葉ノード基底クラス処理 [ leafnodebase.h ]
+// 待機状態時で外部からの命令を待つ末端ノードの処理 [ waitorderleaf.h ]
 // Author: Asuma Nishio
 //
 //===================================================================
@@ -13,20 +13,25 @@
 //*******************************************************************
 // インクルードファイル
 //*******************************************************************
-#include "nodebase.h"
+#include "leafnodebase.h"
 
 //*******************************************************************
-// 前方宣言
+// 待機状態時で外部からの命令を待つ末端ノードクラスを定義
 //*******************************************************************
-class CBlackBoard;
-
-//*******************************************************************
-// 基底クラスを定義する
-//*******************************************************************
-class CLeafNodeBase : public CNodeBase
+class CWaitOrderLeaf : public CLeafNodeBase
 {
-protected:
-	// 基底コンストラクタとデストラクタ
-	CLeafNodeBase(CBlackBoard* blackboard) : CNodeBase(blackboard) {};
-	virtual ~CLeafNodeBase() = default;
+public:
+
+	CWaitOrderLeaf(CBlackBoard* blackboard) : CLeafNodeBase(blackboard), m_Result{}{};
+	~CWaitOrderLeaf() = default;
+
+	void Update(void) override;
+
+	NodeInfo::NodeResult get_node_result() const override
+	{
+		return m_Result;
+	};
+
+private:
+	NodeInfo::NodeResult m_Result; // ノードの判別結果
 };

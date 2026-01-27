@@ -60,9 +60,13 @@ public:
 	void FollowDestination(const D3DXVECTOR3& DestPos);
 	void ArrayFollow(void);
 	void SpawnReturn(void);
+	void NodeSetting(void);
 	
 	bool Colision(CSphereCollider* other);
 	void CollsionAll(const D3DXVECTOR3& pos);
+	void CollisionEnemy(void);
+
+	inline void SetTopAntPointer(CTopAnt* pAnt) { m_pTopAnt = pAnt; }
 
 	inline void SetActivePos(const D3DXVECTOR3& pos) { m_ActivePos = pos; }
 	inline void SetDestPos(const D3DXVECTOR3& pos) { m_MoveDestPos = pos; }
@@ -74,14 +78,17 @@ public:
 	inline void SetReturnSpawn(const bool& isReturn) { m_isReturn = isReturn; }
 	inline void SetAtBase(const bool& isBase) { m_isAtBase = isBase; }
 	inline void SetIsStop(const bool& isStop) { m_isStop = isStop; }
-	inline void SetIsTopOrder(const bool& isToporder) { m_isGettingTopOrder = isToporder; }
 
-	inline bool GetActive(void) { return m_isActive; }
-	inline bool GetMove(void) { return m_isMove; }
-	inline bool GetReturn(void) { return m_isReturn; }
-	inline bool GetIsAtBase(void) { return m_isAtBase; }
-	inline bool GetisStop(void) { return m_isStop; }
-	inline bool GetIsTopOrder(void) { return m_isGettingTopOrder; }
+	inline void SetIsTopOrder(const bool& isToporder) { m_isGettingTopOrder = isToporder; }
+	inline void SetIsAtackMode(const bool& isMode) { m_isAttackMode = isMode; }
+
+	inline bool GetActive(void) const { return m_isActive; }
+	inline bool GetMove(void) const { return m_isMove; }
+	inline bool GetReturn(void) const { return m_isReturn; }
+	inline bool GetIsAtBase(void) const { return m_isAtBase; }
+	inline bool GetisStop(void) const { return m_isStop; }
+	inline bool GetIsTopOrder(void) const { return m_isGettingTopOrder; }
+	inline bool GetIsAttackMode(void) const { return m_isAttackMode; }
 
 	static CArray* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,const int nLife);
 
@@ -97,14 +104,12 @@ private:
 		static constexpr float ARRAY_DISTANCE = 80.0f; // 仲間アリとの距離
 		static constexpr float TOP_DISTANCE = 30.0f; // 先頭のアリとの距離
 		static constexpr float PRIORITY_DISTANCE = 140.0f;
-		static constexpr float STOP_DISTANCE = 10.0f;
+		static constexpr float STOP_DISTANCE = 10.0f; // 停止距離
 
 		static constexpr int SCORE_UP = 15000;	// スコアの加算量
 		static constexpr int Damage = 1;		// ダメージ値
 		static constexpr const char* SCRIPT = "data/MOTION/Array/Array_Motion.txt"; // モーションスクリプトファイル
 	};
-
-	void NodeSetting(void);				// ノード生成
 
 	int m_nListGroupId;					// 自身が動いているidのリスト番号
 	int m_nStopCount;					// ストップカウント
@@ -115,6 +120,7 @@ private:
 	bool m_isReturn;					// 巣にもどるかどうか
 	bool m_isAtBase;					// スポナーにいるか
 	bool m_isStop;						// 停止フラグ
+	bool m_isAttackMode;				// 攻撃状態フラグ
 
 	bool m_isGettingTopOrder;			// トップからの命令を取得したか
 
@@ -123,6 +129,9 @@ private:
 	CMotionInstancing* m_pMotion;		// モーションポインタ
 	CSphereCollider* m_pSphereCollider;	// 球形のコライダー
 	CBoxCollider* m_pBoxCollider;		// 矩形のコライダー
+	
 	CArray* m_pFollowTarget;			// 一個前の自身のポインタ
+	CTopAnt* m_pTopAnt;					// 追従対象のトップアリのポインタ
+
 	std::unique_ptr<CParameter>m_pParameter;		// パラメータークラスポインタ
 };

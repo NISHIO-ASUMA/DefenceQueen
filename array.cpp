@@ -43,12 +43,14 @@ m_pMotion(nullptr),
 m_pParameter(nullptr),
 m_pBoxCollider(nullptr),
 m_pFollowTarget(nullptr),
+m_pTopAnt(nullptr),
 m_isActive(false),
 m_isMove(false),
 m_isTopAntFollow(false),
 m_isReturn(false),
 m_isAtBase(true),
 m_isStop(false),
+m_isAttackMode(false),
 m_isGettingTopOrder(false),
 m_MoveDestPos(VECTOR3_NULL),
 m_ActivePos(VECTOR3_NULL),
@@ -113,14 +115,9 @@ HRESULT CArray::Init(void)
 	// モーション取得
 	m_pMotion = CInstancingCharactor::GetMotion();
 
-	// ノードセット
-	// NodeSetting();
-
 	// フラグ初期化
 	m_isActive = false;
 	m_isMove = false;
-
-	//m_isActive = true;
 
 	return S_OK;
 }
@@ -159,6 +156,9 @@ void CArray::Update(void)
 
 	// 移動する関数
 	FollowDestination(m_MoveDestPos);
+
+	// ツリーノードの更新処理
+
 
 	// 座標のみの更新処理
 	CInstancingCharactor::UpdatePosition();
@@ -291,7 +291,7 @@ void CArray::FollowDestination(const D3DXVECTOR3& DestPos)
 	float distToDest = D3DXVec3Length(&moveVec);
 
 	// 目的地が近いなら隊列を切って直接目的地へ
-	if (distToDest < Arrayinfo::PRIORITY_DISTANCE)
+	if (distToDest < Arrayinfo::ARRAY_DISTANCE)
 	{
 		// 隊列フォロー解除
 		m_pFollowTarget = nullptr;
@@ -469,10 +469,12 @@ void CArray::NodeSetting(void)
 	// ブラックボードに情報をセットする
 	auto pos = GetPos();
 	m_pBlackBoard->SetValue<CArray*>("Array", this);					 // 自身
+	m_pBlackBoard->SetValue<CTopAnt*>("TopAnt",m_pTopAnt);				 // トップアリのポインタ
 	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayPos", pos);				 // 自身の座標
 	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayDestPos", m_MoveDestPos); // 目的座標
 	m_pBlackBoard->SetValue<bool>("ReturnSpawn", m_isReturn);			 // 基地に帰るフラグ
-	m_pBlackBoard->SetValue<bool>("GetTopOrder", m_isGettingTopOrder);   // トップからの命令取得
+	m_pBlackBoard->SetValue<bool>("GetTopOrder", m_isGettingTopOrder);	 // トップからの命令取得
+	m_pBlackBoard->SetValue<bool>("AttackMode", m_isAttackMode);		 // 攻撃状態フラグ
 
 	// 仲間に使用するツリーノードにセットする
 	m_pBehaviorTree = CArrayBehaviorTree::SetArrayTreeNode(m_pBlackBoard);
@@ -529,6 +531,12 @@ void CArray::CollsionAll(const D3DXVECTOR3& pos)
 	// 自分が移動状態じゃなかったら
 	if (!this->m_isMove) return;
 
+}
+//=========================================================
+// 敵との当たり判定関数
+//=========================================================
+void CArray::CollisionEnemy(void)
+{
 	// マップ内の敵の当たり判定
 	CEnemyManager* pEnemyManager = CGameSceneObject::GetInstance()->GetEnemyManager();
 	if (pEnemyManager == nullptr) return;
@@ -540,7 +548,7 @@ void CArray::CollsionAll(const D3DXVECTOR3& pos)
 		auto Enemy = pEnemyManager->GetEnemyIdx(nCnt);
 		if (!Enemy->GetIsActive()) continue;
 
-		// 衝突したら対象にダメージを与え,自身を未使用にする
+		// 球形同士の当たり判定を実行
 		if (Colision(Enemy->GetCollider()))
 		{
 			// 管理クラスの配列の要素を消す
@@ -554,6 +562,10 @@ void CArray::CollsionAll(const D3DXVECTOR3& pos)
 
 			// 自身の出てきたスポナーに戻る
 			SetPos(m_ActivePos);
+
+			// 念のためフラグ初期化
+			m_isGettingTopOrder = false;
+			m_isAttackMode = false;
 
 			return;
 		}
