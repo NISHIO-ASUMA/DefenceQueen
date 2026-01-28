@@ -197,6 +197,7 @@
     <ClCompile Include="enemyspawner.cpp" />
     <ClCompile Include="enemyspawnmanager.cpp" />
     <ClCompile Include="enemywaitleaf.cpp" />
+    <ClCompile Include="feedgetleaf.cpp" />
     <ClCompile Include="feedsignal.cpp" />
     <ClCompile Include="folllowtopleaf.cpp" />
     <ClCompile Include="gamewallmanager.cpp" />
@@ -215,6 +216,7 @@
     <ClCompile Include="motioninstancing.cpp" />
     <ClCompile Include="motionmanager.cpp" />
     <ClCompile Include="move3dobject.cpp" />
+    <ClCompile Include="movetofeedleaf.cpp" />
     <ClCompile Include="network.cpp" />
     <ClCompile Include="numberpanel.cpp" />
     <ClCompile Include="order.cpp" />
@@ -284,6 +286,7 @@
     <ClCompile Include="resultobject.cpp" />
     <ClCompile Include="resultscore.cpp" />
     <ClCompile Include="resultscoremanager.cpp" />
+    <ClCompile Include="returnnestleaf.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="selectpoint.cpp" />
@@ -368,6 +371,7 @@
     <ClInclude Include="enemyspawner.h" />
     <ClInclude Include="enemyspawnmanager.h" />
     <ClInclude Include="enemywaitleaf.h" />
+    <ClInclude Include="feedgetleaf.h" />
     <ClInclude Include="feedsignal.h" />
     <ClInclude Include="folllowtopleaf.h" />
     <ClInclude Include="gamewallmanager.h" />
@@ -389,6 +393,7 @@
     <ClInclude Include="motioninstancing.h" />
     <ClInclude Include="motionmanager.h" />
     <ClInclude Include="move3dobject.h" />
+    <ClInclude Include="movetofeedleaf.h" />
     <ClInclude Include="network.h" />
     <ClInclude Include="node.h" />
     <ClInclude Include="nodebase.h" />
@@ -459,6 +464,7 @@
     <ClInclude Include="resultobject.h" />
     <ClInclude Include="resultscore.h" />
     <ClInclude Include="resultscoremanager.h" />
+    <ClInclude Include="returnnestleaf.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="selector.h" />

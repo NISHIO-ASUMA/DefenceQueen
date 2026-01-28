@@ -88,7 +88,7 @@ void CDebugproc::Update(void)
 //=========================================================
 void CDebugproc::Draw(int PosX,int PosY, const D3DXCOLOR& color)
 {
-#ifdef _DEBUG
+#ifdef NDEBUG
 	if (m_isUse)
 	{
 		// ウィンドウレクト
@@ -107,11 +107,11 @@ void CDebugproc::Draw(int PosX,int PosY, const D3DXCOLOR& color)
 //=========================================================
 void CDebugproc::Print(const char* fmt, ...)
 {
-#ifdef NDEBUG
+#ifdef _DEBUG
 	fmt = nullptr;
 #endif // NDEBUG
 
-#ifdef _DEBUG
+#ifdef NDEBUG
 
 	// 変数宣言
 	va_list list;

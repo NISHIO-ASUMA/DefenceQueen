@@ -1,6 +1,6 @@
 //===================================================================
 //
-// 待機状態時で外部からの命令を待つ末端ノードの処理 [ waitorderleaf.h ]
+// 基地に帰還する末端ノード処理 [ returnnestleaf.h ]
 // Author: Asuma Nishio
 //
 //===================================================================
@@ -16,16 +16,16 @@
 #include "leafnodebase.h"
 
 //*******************************************************************
-// 待機状態時で外部からの命令を待つ末端ノードクラスを定義
+// 餌を取得して元の基地に帰還する行動ノードクラスを定義
 //*******************************************************************
-class CWaitOrderLeaf : public CLeafNodeBase
+class CReturnNestLeaf : public CLeafNodeBase
 {
 public:
 
-	CWaitOrderLeaf(CBlackBoard* blackboard) : CLeafNodeBase(blackboard), m_Result(NodeInfo::NodeResult::Re_RUNING){};
-	~CWaitOrderLeaf() = default;
+	CReturnNestLeaf(CBlackBoard* blackboard) : CLeafNodeBase(blackboard), m_Result(NodeInfo::NodeResult::Re_RUNING) {};
+	~CReturnNestLeaf() = default;
 
-	void Update(void) override;
+	void Update(void);
 
 	NodeInfo::NodeResult get_node_result() const override
 	{
@@ -33,5 +33,5 @@ public:
 	};
 
 private:
-	NodeInfo::NodeResult m_Result; // ノードの判別結果
+	NodeInfo::NodeResult m_Result; // 判別フラグ
 };

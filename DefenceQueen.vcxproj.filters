@@ -861,6 +861,15 @@
     <ClCompile Include="attackenemyleaf.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="feedgetleaf.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="returnnestleaf.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="movetofeedleaf.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blackboard.h">
@@ -1382,9 +1391,6 @@
     <ClInclude Include="instancemodelmanager.h">
       <Filter>ヘッダー ファイル\Instancing\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="sepalationsign.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="hastoporderleaf.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -1396,6 +1402,18 @@
     </ClInclude>
     <ClInclude Include="attackenemyleaf.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="feedgetleaf.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="returnnestleaf.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="movetofeedleaf.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="sepalationsign.h">
+      <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

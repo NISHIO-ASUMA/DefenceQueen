@@ -79,9 +79,10 @@ public:
 	inline void SetAtBase(const bool& isBase) { m_isAtBase = isBase; }
 	inline void SetIsStop(const bool& isStop) { m_isStop = isStop; }
 
-	inline void SetIsTopOrder(const bool& isToporder) { m_isGettingTopOrder = isToporder; }
+	inline void SetIsTopOrder(const bool& isToporder);
 	inline void SetIsAtackMode(const bool& isMode) { m_isAttackMode = isMode; }
 
+	inline D3DXVECTOR3 GetActivePos(void) const { return m_ActivePos; }
 	inline bool GetActive(void) const { return m_isActive; }
 	inline bool GetMove(void) const { return m_isMove; }
 	inline bool GetReturn(void) const { return m_isReturn; }
@@ -121,7 +122,7 @@ private:
 	bool m_isAtBase;					// スポナーにいるか
 	bool m_isStop;						// 停止フラグ
 	bool m_isAttackMode;				// 攻撃状態フラグ
-
+	bool m_isCheckNearFeed;				// 餌があるかフラグ
 	bool m_isGettingTopOrder;			// トップからの命令を取得したか
 
 	D3DXVECTOR3 m_MoveDestPos;			// 目的の座標

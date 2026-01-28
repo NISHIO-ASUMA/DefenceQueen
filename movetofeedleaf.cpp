@@ -1,6 +1,6 @@
 //===================================================================
 //
-// 敵を攻撃する末端ノード処理 [ attackenemyleaf.cpp ]
+// 餌に向かって進み続ける末端ノード処理 [ movetofeedleaf.cpp ]
 // Author: Asuma Nishio
 //
 //===================================================================
@@ -8,27 +8,29 @@
 //*******************************************************************
 // インクルードファイル
 //*******************************************************************
-#include "attackenemyleaf.h"
+#include "movetofeedleaf.h"
 #include "array.h"
 
 //===================================================================
-// 更新処理　TODO : ここの攻撃展開を考える(時間とか)
+// 更新関数
 //===================================================================
-void CAttackEnemyLeaf::Update(void)
+void CMoveToFeedLeaf::Update(void)
 {
 	// アリを取得
 	auto Array = m_pBlackBoard->GetValue<CArray*>("Array");
+	if (!Array) m_Result = NodeInfo::NodeResult::Re_FAIL;
 
-	// フラグ格納変数
-	bool IsAttack = false;
+	// 目的地の座標を取得
+	auto DestPos = m_pBlackBoard->GetValue<D3DXVECTOR3>("ArrayDestPos");
 
-	// キー情報が見つかったら
-	if (m_pBlackBoard->HasKeyData("AttackMode"))
-	{
-		// 判別フラグを取得
-		IsAttack = m_pBlackBoard->GetValue<bool>("AttackMode");
-	}
+	// 追従関数
+	Array->FollowDestination(DestPos);
 
-	// コリジョン関数実行
-	if (IsAttack) Array->CollisionEnemy();
+	// 判別フラグ取得
+	bool IsMove = m_pBlackBoard->GetValue<bool>("CheckNearFeed");
+
+	if (IsMove)
+		m_Result = NodeInfo::NodeResult::Re_SUCCESS;
+	else
+		m_Result = NodeInfo::NodeResult::Re_RUNING;
 }

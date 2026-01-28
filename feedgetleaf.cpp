@@ -1,6 +1,6 @@
 //===================================================================
 //
-// 敵を攻撃する末端ノード処理 [ attackenemyleaf.cpp ]
+// 餌取得に関する判別末端ノード処理 [ feedgetleaf.cpp ]
 // Author: Asuma Nishio
 //
 //===================================================================
@@ -8,27 +8,27 @@
 //*******************************************************************
 // インクルードファイル
 //*******************************************************************
-#include "attackenemyleaf.h"
+#include "feedgetleaf.h"
 #include "array.h"
 
 //===================================================================
-// 更新処理　TODO : ここの攻撃展開を考える(時間とか)
+// 更新処理
 //===================================================================
-void CAttackEnemyLeaf::Update(void)
+void CFeedGetLeaf::Update(void)
 {
-	// アリを取得
-	auto Array = m_pBlackBoard->GetValue<CArray*>("Array");
-
 	// フラグ格納変数
-	bool IsAttack = false;
+	bool IsReturn = false;
 
 	// キー情報が見つかったら
-	if (m_pBlackBoard->HasKeyData("AttackMode"))
+	if (m_pBlackBoard->HasKeyData("ReturnSpawn"))
 	{
 		// 判別フラグを取得
-		IsAttack = m_pBlackBoard->GetValue<bool>("AttackMode");
+		IsReturn = m_pBlackBoard->GetValue<bool>("ReturnSpawn");
 	}
 
-	// コリジョン関数実行
-	if (IsAttack) Array->CollisionEnemy();
+	// ノード結果を設定する
+	if (IsReturn)
+		m_Result = NodeInfo::NodeResult::Re_SUCCESS;
+	else
+		m_Result = NodeInfo::NodeResult::Re_RUNING;
 }

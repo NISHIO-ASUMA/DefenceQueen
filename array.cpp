@@ -50,6 +50,7 @@ m_isTopAntFollow(false),
 m_isReturn(false),
 m_isAtBase(true),
 m_isStop(false),
+m_isCheckNearFeed(false),
 m_isAttackMode(false),
 m_isGettingTopOrder(false),
 m_MoveDestPos(VECTOR3_NULL),
@@ -136,6 +137,22 @@ void CArray::Uninit(void)
 		m_pSphereCollider = nullptr;
 	}
 
+	// ビヘイビアツリーの破棄
+	if (m_pBehaviorTree)
+	{
+		m_pBehaviorTree->Exit();
+		delete m_pBehaviorTree;
+		m_pBehaviorTree = nullptr;
+	}
+
+	// ブラックボードの破棄
+	if (m_pBlackBoard)
+	{
+		m_pBlackBoard->Clear();
+		delete m_pBlackBoard;
+		m_pBlackBoard = nullptr;
+	}
+
 	// キャラクターの破棄
 	CInstancingCharactor::Uninit();
 }
@@ -145,7 +162,25 @@ void CArray::Uninit(void)
 void CArray::Update(void)
 {
 	// falseなら通さない
-	//if (!m_isActive) return;
+	if (!m_isActive) return;
+
+	// 座標の取得
+	auto pos = GetPos();
+
+	// ツリーノードの更新処理
+	//m_pBehaviorTree->Update();
+
+	// 座標のみの更新
+	CInstancingCharactor::UpdatePosition();
+
+	// 更新座標の取得
+	auto UpdatePos = GetPos();
+
+	// コライダー座標の更新
+	m_pSphereCollider->SetPos(UpdatePos);
+
+	// 全判定関数
+	CollsionAll(UpdatePos);
 
 #if 0
 	// 巣にもどる状態が有効時
@@ -157,7 +192,6 @@ void CArray::Update(void)
 	// 移動する関数
 	FollowDestination(m_MoveDestPos);
 
-	// ツリーノードの更新処理
 
 
 	// 座標のみの更新処理
@@ -193,6 +227,7 @@ void CArray::Update(void)
 //=========================================================
 void CArray::Draw(void)
 {
+	// キャラクターの描画
 	CInstancingCharactor::Draw();
 }
 //=========================================================
@@ -283,9 +318,6 @@ void CArray::OnSeparation(void)
 //=========================================================
 void CArray::FollowDestination(const D3DXVECTOR3& DestPos)
 {
-	// もし移動時状態じゃなかったら
-	if (!m_isMove) return;
-
 	// 目的地までの距離を算出
 	D3DXVECTOR3 moveVec = DestPos - GetPos();
 	float distToDest = D3DXVec3Length(&moveVec);
@@ -301,12 +333,13 @@ void CArray::FollowDestination(const D3DXVECTOR3& DestPos)
 		{
 			SetMove(VECTOR3_NULL);
 
+			// 待機モーションに設定
 			m_pMotion->SetMotion(CArray::MOTION_NEUTRAL);
 
 			// フラグを有効化
 			m_isMove = false;
 			m_isStop = true;
-
+			m_isCheckNearFeed = true;
 			return;
 		}
 
@@ -348,8 +381,10 @@ void CArray::FollowDestination(const D3DXVECTOR3& DestPos)
 	rotdest.y = NormalAngle(angle);
 	SetRotDest(rotdest);
 
+	// キャラクターの移動量に設定
 	SetMove(moveVec);
 
+	// 移動モーションに設定
 	m_pMotion->SetMotion(CArray::MOTION_MOVE);
 }
 //=========================================================
@@ -399,17 +434,13 @@ void CArray::ArrayFollow(void)
 //=========================================================
 void CArray::SpawnReturn(void)
 {
-#if 0
-	// ターゲット座標を取得
-	auto idx = CGameSceneObject::GetInstance()->GetPlayer()->GetSelectIndex();
-	auto targetPos = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(idx)->GetPos();
-
+#if 1
 	// ベクトルの成分計算
-	D3DXVECTOR3 followVec = targetPos - GetPos();
+	D3DXVECTOR3 followVec = m_ActivePos - GetPos();
 	float fDistance = D3DXVec3Length(&followVec);
 
 	// 距離が一定値以上の場合
-	if (fDistance > 10.0f)
+	if (fDistance > 5.0f)
 	{
 		// ベクトルを正規化
 		D3DXVec3Normalize(&followVec, &followVec);
@@ -446,12 +477,10 @@ void CArray::SpawnReturn(void)
 		// リセット
 		m_isMove = false;
 		m_pFollowTarget = nullptr;
+		m_isCheckNearFeed = false;
 
 		SetPrevAnt(nullptr);
 		SetIsStop(false);
-
-		// この時にグループの要素をクリアする
-		CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(idx)->GetSeparationAnt()->ClearListGroup(m_nListGroupId, this);
 	}
 #endif
 }
@@ -467,14 +496,13 @@ void CArray::NodeSetting(void)
 	m_pBlackBoard = new CBlackBoard;
 
 	// ブラックボードに情報をセットする
-	auto pos = GetPos();
-	m_pBlackBoard->SetValue<CArray*>("Array", this);					 // 自身
+	m_pBlackBoard->SetValue<CArray*>("Array", this);					 // 自身のポインタ
 	m_pBlackBoard->SetValue<CTopAnt*>("TopAnt",m_pTopAnt);				 // トップアリのポインタ
-	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayPos", pos);				 // 自身の座標
 	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayDestPos", m_MoveDestPos); // 目的座標
 	m_pBlackBoard->SetValue<bool>("ReturnSpawn", m_isReturn);			 // 基地に帰るフラグ
 	m_pBlackBoard->SetValue<bool>("GetTopOrder", m_isGettingTopOrder);	 // トップからの命令取得
 	m_pBlackBoard->SetValue<bool>("AttackMode", m_isAttackMode);		 // 攻撃状態フラグ
+	m_pBlackBoard->SetValue<bool>("CheckNearFeed", m_isCheckNearFeed);	 // 餌近くの判別フラグ
 
 	// 仲間に使用するツリーノードにセットする
 	m_pBehaviorTree = CArrayBehaviorTree::SetArrayTreeNode(m_pBlackBoard);
@@ -520,8 +548,8 @@ void CArray::CollsionAll(const D3DXVECTOR3& pos)
 				// コライダーの更新と指示変更
 				m_pSphereCollider->SetPos(pos);
 
-				// 基地に帰る
-				this->OnSeparation();
+				// 基地に帰るフラグを有効化
+				this->m_isReturn = true;
 
 				break;
 			}
@@ -530,7 +558,6 @@ void CArray::CollsionAll(const D3DXVECTOR3& pos)
 
 	// 自分が移動状態じゃなかったら
 	if (!this->m_isMove) return;
-
 }
 //=========================================================
 // 敵との当たり判定関数
@@ -570,4 +597,19 @@ void CArray::CollisionEnemy(void)
 			return;
 		}
 	}
+}
+//=========================================================
+// 命令設定関数
+//=========================================================
+inline void CArray::SetIsTopOrder(const bool& isToporder)
+{
+	// 一時格納
+	bool isSet = m_isGettingTopOrder;
+
+	// フラグ変更
+	m_isGettingTopOrder = isToporder;
+
+	// 格納状態から変更されていたら値を再設定
+	if (isSet != m_isGettingTopOrder)
+		m_pBlackBoard->SetValue("GetTopOrder", m_isGettingTopOrder);
 }

@@ -43,7 +43,7 @@ public:
 		{
 			// Ÿ‚Ìƒm[ƒh”Ô†‚Ì‚½‚ß‚É‰ÁZ‚·‚é
 			NodeIncrement();
-			return;
+			//return;
 		}
 
 		// Œ‹‰Ê‚ª"¬Œ÷"‚È‚ç

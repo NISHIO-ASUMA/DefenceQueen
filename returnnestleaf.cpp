@@ -1,6 +1,6 @@
 //===================================================================
 //
-// 敵を攻撃する末端ノード処理 [ attackenemyleaf.cpp ]
+// 基地に帰還する末端ノード処理 [ returnnestleaf.cpp ]
 // Author: Asuma Nishio
 //
 //===================================================================
@@ -8,27 +8,24 @@
 //*******************************************************************
 // インクルードファイル
 //*******************************************************************
-#include "attackenemyleaf.h"
+#include "returnnestleaf.h"
 #include "array.h"
 
 //===================================================================
-// 更新処理　TODO : ここの攻撃展開を考える(時間とか)
+// 更新処理
 //===================================================================
-void CAttackEnemyLeaf::Update(void)
+void CReturnNestLeaf::Update(void)
 {
 	// アリを取得
 	auto Array = m_pBlackBoard->GetValue<CArray*>("Array");
+	if (!Array) m_Result = NodeInfo::NodeResult::Re_FAIL;
+	
+	// 基地に帰る関数を設定
+	Array->SpawnReturn();
 
-	// フラグ格納変数
-	bool IsAttack = false;
-
-	// キー情報が見つかったら
-	if (m_pBlackBoard->HasKeyData("AttackMode"))
-	{
-		// 判別フラグを取得
-		IsAttack = m_pBlackBoard->GetValue<bool>("AttackMode");
-	}
-
-	// コリジョン関数実行
-	if (IsAttack) Array->CollisionEnemy();
+	// 到着判定
+	if (Array->GetIsAtBase())
+		m_Result = NodeInfo::NodeResult::Re_SUCCESS;
+	else
+		m_Result = NodeInfo::NodeResult::Re_RUNING;
 }

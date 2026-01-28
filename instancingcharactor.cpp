@@ -115,6 +115,7 @@ void CInstancingCharactor::Uninit(void)
 	// ブラックボードポインタの破棄
 	if (m_pBlackBoard)
 	{
+		m_pBlackBoard->Clear();
 		delete m_pBlackBoard;
 		m_pBlackBoard = nullptr;
 	}
@@ -175,7 +176,7 @@ void CInstancingCharactor::Update(void)
 #endif
 
 	// モデルの更新処理
-	for (auto & Model : m_pModel)
+	for (auto& Model : m_pModel)
 	{
 		Model->Update(m_mtxworld);
 	}

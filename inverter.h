@@ -52,6 +52,7 @@ public:
 		else if (result == NodeInfo::NodeResult::Re_FAIL)
 		{// ¸”s‚È‚ç¬Œ÷‚É‚µ‚Ä•Ô‚·
 			m_NodeResult = NodeInfo::NodeResult::Re_SUCCESS;
+			return;
 		}
 
 		// Às’†‚È‚ç‚»‚Ì‚Ü‚ÜÀs’†‚É‚·‚é

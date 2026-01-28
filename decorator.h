@@ -28,7 +28,11 @@ class CDecorator : public CNodeBase
 public:
 
 	CDecorator(CBlackBoard* blackboard) : CNodeBase(blackboard) {};
-	virtual ~CDecorator() = default;
+	virtual ~CDecorator()
+	{
+		delete m_ChildNode;
+		m_ChildNode = nullptr;
+	};
 
 	virtual void Init() override
 	{
