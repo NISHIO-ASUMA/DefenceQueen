@@ -29,8 +29,7 @@ namespace GAMESTATE
 //=========================================================
 // コンストラクタ
 //=========================================================
-CGameState::CGameState() : 
-m_pGame(nullptr),
+CGameState::CGameState() : m_pGame(nullptr),
 m_Progress(PROGRESS_NONE),
 m_nCount(NULL)
 {
@@ -64,7 +63,6 @@ void CGameState::OnUpdate()
 	if (pFade == nullptr) return;
 
 	// シーンオブジェクト取得
-
 	switch (m_Progress)
 	{
 	case CGameState::PROGRESS_NONE: // 何もない

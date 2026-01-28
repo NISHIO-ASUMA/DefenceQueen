@@ -214,7 +214,7 @@ void CObjectX::DrawShadow(void)
 	if (!model.pMesh) return;
 
 	// ƒ‰ƒCƒg•ûŒü
-	D3DXVECTOR4 lightDir(0.2f, -0.63f, 0.3f, 0.0f);
+	D3DXVECTOR4 lightDir(0.2f, -0.63f, 0.12f, 0.0f);
 
 	// •½–Ê“Š‰eÀ•W‚ğİ’è
 	D3DXPLANE plane;

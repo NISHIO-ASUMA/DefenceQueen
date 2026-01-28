@@ -65,7 +65,7 @@ private:
 	//***********************************
 	struct QueenInfo
 	{
-		static constexpr int Hp = 200;			 // 体力値
+		static constexpr int Hp = 100;			 // 体力値
 		static constexpr float HitRange = 80.0f; // コリジョン半径
 		static constexpr const char* SCRIPT = "data/MOTION/Queen/Queen_Motion.txt"; // ロードファイル名
 	};

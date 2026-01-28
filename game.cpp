@@ -89,11 +89,7 @@ void CGame::Uninit(void)
 	{
 		// 終了処理
 		m_pPausemanager->Uninit();
-
-		// ポインタの破棄
 		delete m_pPausemanager;
-
-		// nullptrにする
 		m_pPausemanager = nullptr;
 	}
 
@@ -102,11 +98,7 @@ void CGame::Uninit(void)
 	{
 		// 終了処理
 		m_pState->OnExit();
-
-		// ポインタ破棄
 		delete m_pState;
-
-		// null初期化
 		m_pState = nullptr;
 	}
 }
@@ -125,7 +117,7 @@ void CGame::Update(void)
 	// ポーズのキー入力判定
 	m_pPausemanager->SetEnablePause();
 	
-	// ポーズの更新処理
+	// ポーズ管理クラスの更新処理
 	m_pPausemanager->Update();
 	
 	// falseの時に更新
@@ -140,7 +132,7 @@ void CGame::Update(void)
 		// 時間が0になったら
 		if (CGameSceneObject::GetInstance()->GetTime()->GetToAll() <= 0)
 		{
-			// 状態変更
+			// ゲーム終了状態に設定
 			m_pState->SetProgress(CGameState::PROGRESS_END);
 			return;
 		}
@@ -148,7 +140,7 @@ void CGame::Update(void)
 		// ゲーム終了フラグが有効なら
 		if (CGameManager::GetInstance()->GetIsGameEnd() == true)
 		{
-			// 状態変更
+			// ゲーム敗北状態に設定
 			m_pState->SetProgress(CGameState::PROGRESS_LOSE);
 			return;
 		}

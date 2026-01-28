@@ -172,6 +172,7 @@
     <ClCompile Include="arrayspawnmanager.cpp" />
     <ClCompile Include="arraywaitleaf.cpp" />
     <ClCompile Include="attackenemyleaf.cpp" />
+    <ClCompile Include="basemapfeed.cpp" />
     <ClCompile Include="behaviortree.cpp" />
     <ClCompile Include="billboard.cpp" />
     <ClCompile Include="block.cpp" />
@@ -342,6 +343,7 @@
     <ClInclude Include="arrayspawnmanager.h" />
     <ClInclude Include="arraywaitleaf.h" />
     <ClInclude Include="attackenemyleaf.h" />
+    <ClInclude Include="basemapfeed.h" />
     <ClInclude Include="behaviortree.h" />
     <ClInclude Include="billboard.h" />
     <ClInclude Include="blackboard.h" />

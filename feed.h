@@ -74,12 +74,12 @@ private:
 	D3DCOLORVALUE LerpColor(const D3DCOLORVALUE& a,const D3DCOLORVALUE& b,float t);
 
 	std::function<void(void)>m_event;		// 死亡時に呼ばれる関数イベント
-	std::unique_ptr<CParameter>m_pParam;	// パラメーター
+	std::unique_ptr<CParameter>m_pParam;	// パラメータークラス
 
 	CSphereCollider* m_pSphere;		// 球形コライダー
 	CBoxCollider* m_pBoxCollider;	// 矩形コライダー
 	COLTYPE m_ColType;				// カラー状態
-									
+
 	int m_ColorFrameCnt;			// カラー変更からの経過フレーム
 	int m_nLife;					// 体力値
 	float m_fRadius;				// 半径

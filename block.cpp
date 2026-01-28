@@ -67,13 +67,16 @@ HRESULT CBlock::Init(void)
 	// モデルのパス取得
 	std::string str = pXManager->GetInfo(nModelIdx).FilePath;
 
-	// 葉っぱは当たらない
+	// コライダーの設定
 	if (str == "data/MODEL/STAGEOBJ/Reef.x") m_pCollider = nullptr;
 	else
 		m_pCollider = CBoxCollider::Create(GetPos(), GetPos(), Size);
 	
 	// マトリックスシャドウを有効化する
-	SetShadow(true);
+	if (str == "data/MODEL/STAGEOBJ/wallback.x")
+		SetShadow(false);
+	else
+		SetShadow(true);
 
 	return S_OK;
 }

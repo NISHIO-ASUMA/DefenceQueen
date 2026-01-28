@@ -48,7 +48,7 @@ HRESULT CArraySpawner::Init(CArrayManager* pManager)
 	// セットされた数だけアクティブにする
 	for (int nCnt = 0; nCnt < m_nStockArrays; nCnt++)
 	{
-		// ローカルポインタ
+		// ローカルポインタに格納
 		CArray* pArray = m_AssignedArrays[nCnt];
 
 		// 座標セット
@@ -57,7 +57,7 @@ HRESULT CArraySpawner::Init(CArrayManager* pManager)
 
 		if (nCnt == 0)
 		{
-			// 先頭は無し
+			// 先頭なら無し
 			pArray->SetPrevAnt(nullptr);
 		}
 		else
@@ -96,14 +96,14 @@ void CArraySpawner::Update(void)
 //=========================================================
 void CArraySpawner::Draw(void)
 {
-	// デバッグ表示
+	
 }
+
 //=========================================================
 // 移動先設定関数
 //=========================================================
 void CArraySpawner::OrderMove(int nNum, const D3DXVECTOR3& destPos)
-{// 毎回指定された座標に移動するときにそこに先頭のアリがいるかチェックするようにしないといけない
- 
+{
 	// カウント
 	int nSend = 0;
 

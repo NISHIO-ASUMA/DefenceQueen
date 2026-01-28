@@ -20,7 +20,6 @@
 //*********************************************************
 class CBlockManager;
 class CEnemyManager;
-class CSelectPoint;
 class CFeedManager;
 class CTime;
 class CEnemy;
@@ -31,12 +30,12 @@ class CQueen;
 class CEnemySpawner;
 class CArraySpawnManager;
 class CScore;
-class CPlayer;
 class CEnemySpawnManager;
 class CEnemyManager;
 class CGameWallManager;
 class CSendNumber;
 class CTopAnt;
+class CBaseMapFeed;
 
 //*********************************************************
 // ゲームシーンで使うオブジェクト管理クラスを定義
@@ -57,7 +56,6 @@ public:
 	CTime* GetTime(void) const { return m_pTimer; }
 	CScore* GetScore(void) const { return m_pScore; }
 	CQueen* GetQueen(void) const { return m_pQueen; }
-	CSelectPoint* GetPoint(void) const { return m_pSelectPoint; }
 	CTopAnt* GetTopAnt(void) const { return m_pTopAnt; }
 
 	CFeedManager* GetFeedManager(void) const { return m_pFeed.get(); }
@@ -70,9 +68,9 @@ public:
 	CEnemySpawnManager* GetEnemySpawnManager(void) const { return m_pEnemySpawnManager.get(); }
 	CEnemyManager* GetEnemyManager(void) const { return m_pEnemyManager.get(); }
 	CGameWallManager* GetGameWall(void) const { return m_pWallManager.get(); }
+	CBaseMapFeed* GetBaseMapFeed(void) const { return m_pBasemapFeed.get(); }
 
 	static CGameSceneObject* GetInstance(void);
-
 private:
 
 	static CGameSceneObject* m_pInstance;	// シングルトン変数
@@ -82,15 +80,14 @@ private:
 
 	CScore* m_pScore;	// スコアクラスのポインタ
 	CTime* m_pTimer;	// タイマークラスのポインタ
-	CSelectPoint* m_pSelectPoint;	// 選択ポイントのクラス
 	CQueen* m_pQueen;	// 女王クラス
 	CSendNumber* m_pSendNumber; // 送る数表示
 	CTopAnt* m_pTopAnt;	// 操作できるトップアリ
 
 
 	std::unique_ptr<CWorkerUiManager>m_pWorkUi;	// 表示uiクラスポインタ
-	std::unique_ptr<CFeedManager>m_pFeed;	// 餌管理クラスのポインタ
-	std::unique_ptr<CBlockManager>m_pBlocks; // ブロックマネージャークラスのポインタ
+	std::unique_ptr<CFeedManager>m_pFeed;		// 餌管理クラスのポインタ
+	std::unique_ptr<CBlockManager>m_pBlocks;	 // ブロックマネージャークラスのポインタ
 	std::unique_ptr<CWorkerManager>m_pWorkerManager;	// 司令塔アリ管理クラス
 	std::unique_ptr<CArrayManager>m_pArrayManager;	// 仲間アリ管理クラス
 	std::unique_ptr<CEnemySpawner>m_pSpawn;			// スポーン管理クラス
@@ -98,4 +95,5 @@ private:
 	std::unique_ptr<CEnemySpawnManager>m_pEnemySpawnManager; // 敵スポーン管理
 	std::unique_ptr<CEnemyManager>m_pEnemyManager;		// 敵管理クラス
 	std::unique_ptr<CGameWallManager>m_pWallManager;	// ゲームの壁管理
+	std::unique_ptr<CBaseMapFeed>m_pBasemapFeed;		// マップの標準の餌管理クラス
 };

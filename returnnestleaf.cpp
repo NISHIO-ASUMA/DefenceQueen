@@ -17,7 +17,7 @@
 void CReturnNestLeaf::Update(void)
 {
 	// ƒAƒŠ‚ğæ“¾
-	auto Array = m_pBlackBoard->GetValue<CArray*>("Array");
+	const auto& Array = m_pBlackBoard->GetValue<CArray*>("Array");
 	if (!Array) m_Result = NodeInfo::NodeResult::Re_FAIL;
 	
 	// Šî’n‚É‹A‚éŠÖ”‚ğİ’è

@@ -20,30 +20,32 @@
 //*********************************************************
 class CArraySpawner;
 class CArrayManager;
-class CTopAnt;
 
 //*********************************************************
 // 名前空間
 //*********************************************************
 namespace SpawnManager
 {
-	static constexpr int NUM_ARRAYSPAWNER = 3; // スポナーの数
+	static constexpr int NUM_CREATEARRAY = 20; // 一個のスポナーに渡すアリの数
+	static constexpr int NUM_ARRAYSPAWNER = 4; // スポナーの数
 
+	// 生成座標情報
 	const D3DXVECTOR3 POS[NUM_ARRAYSPAWNER] =
 	{
-		{800.0f,0.0f,480.0f},
-		{-800.0f,0.0f,480.0f},
-		{0.0f,0.0f,-550.0f}
+		{-555.0f,0.0f,-700.0f},	// 左手前
+		{885.0f,0.0f,-450.0f},	// 右手前
+		{665.0f,0.0f,540.0f},	// 右奥
+		{-890.0f,0.0f,325.0f}	// 左奥
 	};
 
-	const D3DXVECTOR3 TOP_POS[NUM_ARRAYSPAWNER] =
+	// 生成角度情報
+	const D3DXVECTOR3 ROTVALUE[NUM_ARRAYSPAWNER] =
 	{
-		{300.0f,0.0f,-200.0f},
-		{-300.0f,0.0f,200.0f},
-		{0.0f,0.0f,-350.0f}
+		{0.0f,-D3DX_PI * 0.5f,0.0f},// 左下手前
+		{0.0f,-D3DX_PI,0.0f}, // 右下手前
+		{0.0f,D3DX_PI * 0.5f,0.0f}, // 右奥
+		{VECTOR3_NULL}				// 左奥
 	};
-
-	static constexpr int NUM_CREATEARRAY = 20; // 一個のスポナーに渡す数
 };
 
 //*********************************************************

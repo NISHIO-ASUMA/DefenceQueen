@@ -254,6 +254,12 @@ void CTopAnt::Draw(void)
 {
 	// 親クラスの描画
 	CMoveCharactor::Draw();
+
+#ifdef _DEBUG
+	// デバッグ表示
+	CDebugproc::Print("トップアリの座標 { %.2f, %.2f, %.2f }", GetPos().x, GetPos().y, GetPos().z);
+	CDebugproc::Draw(0,560);
+#endif // _DEBUG
 }
 //=========================================================
 // キー入力移動

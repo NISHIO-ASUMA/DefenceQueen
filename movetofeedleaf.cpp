@@ -17,7 +17,7 @@
 void CMoveToFeedLeaf::Update(void)
 {
 	// アリを取得
-	auto Array = m_pBlackBoard->GetValue<CArray*>("Array");
+	const auto& Array = m_pBlackBoard->GetValue<CArray*>("Array");
 	if (!Array) m_Result = NodeInfo::NodeResult::Re_FAIL;
 
 	// 目的地の座標を取得

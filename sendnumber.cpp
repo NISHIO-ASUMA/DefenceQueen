@@ -131,10 +131,12 @@ void CSendNumber::Update(void)
 //=========================================================
 void CSendNumber::Draw(void)
 {
+#if 0
 	// 使っている桁数分の描画
 	for (int nCnt = 0; nCnt < NUM_SCORE; nCnt++)
 	{
 		// ナンバー描画
 		m_apNumber[nCnt]->Draw();
 	}
+#endif
 }

@@ -18,8 +18,8 @@
 void CFolllowTopLeaf::Update(void)
 {
 	// ƒAƒŠ‚ðŽæ“¾
-	auto Array = m_pBlackBoard->GetValue<CArray*>("Array");
-	auto Top = m_pBlackBoard->GetValue<CTopAnt*>("TopAnt");
+	const auto& Array = m_pBlackBoard->GetValue<CArray*>("Array");
+	const auto& Top = m_pBlackBoard->GetValue<CTopAnt*>("TopAnt");
 
 	// ’Ç]‚·‚éŠÖ”‚ðŽÀs‚·‚é
 	Array->FollowDestination(Top->GetPos());

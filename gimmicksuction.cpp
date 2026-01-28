@@ -72,6 +72,7 @@ void CGimmickSuction::Uninit(void)
 //=========================================================
 void CGimmickSuction::Update(void)
 {
+#if 0
 	// 取得
 	D3DXVECTOR3 pos = GetPos();
 	float fRadius = GetRadius();
@@ -115,6 +116,7 @@ void CGimmickSuction::Update(void)
 
 	// 親クラスの更新
 	CObjectX::Update();
+#endif
 }
 //=========================================================
 // 描画処理

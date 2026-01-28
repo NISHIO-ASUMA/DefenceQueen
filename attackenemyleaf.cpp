@@ -12,12 +12,12 @@
 #include "array.h"
 
 //===================================================================
-// 更新処理　TODO : ここの攻撃展開を考える(時間とか)
+// 更新処理　     ここの攻撃展開を考える(時間とか)
 //===================================================================
 void CAttackEnemyLeaf::Update(void)
 {
 	// アリを取得
-	auto Array = m_pBlackBoard->GetValue<CArray*>("Array");
+	const auto& Array = m_pBlackBoard->GetValue<CArray*>("Array");
 
 	// フラグ格納変数
 	bool IsAttack = false;

@@ -137,7 +137,7 @@ CNode* ArrayTree::CArrayBehaviorTree::SetArrayTreeNode(CBlackBoard* blackboard)
 	}
 
 	//------------------------------------
-	// ルートノードにセット
+	// ルートノードに追加する
 	//------------------------------------
 	TopRootNode->AddNode(TopSequence);
 	TopRootNode->AddNode(ChainAntSequence);

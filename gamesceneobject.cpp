@@ -14,7 +14,6 @@
 #include "meshfield.h"
 #include "blockmanager.h"
 #include "feedmanager.h"
-#include "selectpoint.h"
 #include "grass.h"
 #include "feed.h"
 #include "time.h"
@@ -39,6 +38,7 @@
 #include "gamewallmanager.h"
 #include "meshcylinder.h"
 #include "sendnumber.h"
+#include "basemapfeed.h"
 
 //*********************************************************
 // 静的メンバ変数
@@ -50,7 +50,6 @@ CGameSceneObject* CGameSceneObject::m_pInstance = nullptr; // 1つのインスタンス
 //=========================================================
 CGameSceneObject::CGameSceneObject() : 
 m_pBlocks(nullptr),
-m_pSelectPoint(nullptr),
 m_pTimer(nullptr),
 m_pScore(nullptr),
 m_pArrayManager(nullptr),
@@ -77,7 +76,7 @@ CGameSceneObject::~CGameSceneObject()
 HRESULT CGameSceneObject::Init(void)
 {
 	// メッシュフィールド生成
-	CMeshField::Create(VECTOR3_NULL,3200.0f,2000.0f,1,1);
+	CMeshField::Create(VECTOR3_NULL,3560.0f,2000.0f,1,1);
 
 	// メッシュドーム生成
 	CMeshDome::Create(D3DXVECTOR3(0.0f,-20.0f,0.0f), 80.0f);
@@ -132,6 +131,9 @@ void CGameSceneObject::Uninit(void)
 
 	// ui処理
 	m_pWorkUi.reset();
+
+	// マップの餌
+	m_pBasemapFeed.reset();
 #endif
 
 	// インスタンスの破棄
@@ -173,18 +175,13 @@ void CGameSceneObject::Update(void)
 	// 餌管理クラスの更新
 	if (m_pFeed)
 	{
-		m_pFeed->Update();
+		//m_pFeed->Update();
 	}
 
 	// 敵の更新
 	if (m_pEnemyManager)
 	{
-		m_pEnemyManager->Update();
-	}
-
-	if (m_pSendNumber)
-	{
-		
+		//m_pEnemyManager->Update();
 	}
 
 #ifdef _DEBUG
@@ -283,7 +280,7 @@ void CGameSceneObject::CreatePointer(void)
 	//m_pWorkerManager->Init();
 
 	// 防衛対象のクイーン生成
-	m_pQueen = CQueen::Create(D3DXVECTOR3(0.0f, 55.0f, -5.0f), VECTOR3_NULL);
+	m_pQueen = CQueen::Create(D3DXVECTOR3(0.0f, 55.0f, 0.0f), VECTOR3_NULL);
 
 	// 敵場所生成
 	m_pEnemySpawnManager = std::make_unique<CEnemySpawnManager>();
@@ -299,6 +296,10 @@ void CGameSceneObject::CreatePointer(void)
 	// 世界の壁管理クラスの生成
 	m_pWallManager = std::make_unique<CGameWallManager>();
 	m_pWallManager->Init();
+
+	// マップの標準の餌生成
+	m_pBasemapFeed = std::make_unique<CBaseMapFeed>();
+	m_pBasemapFeed->Init();
 
 	// ナンバー生成
 	m_pSendNumber = CSendNumber::Create(D3DXVECTOR3(280.0f, 30.0f, 0.0f), 40.0f, 30.0f);
