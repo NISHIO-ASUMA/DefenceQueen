@@ -43,8 +43,11 @@ HRESULT CArraySpawnManager::Init(CArrayManager* pManager)
 	// 配列の要素数分のスポナーを生成する
 	for (int nCnt = 0; nCnt < NUM_ARRAYSPAWNER; nCnt++)
 	{
+		int nSepalation = ALLARRAY / NUM_ARRAYSPAWNER;
+		int nIdx = nSepalation * nCnt;
+
 		// スポナーを生成 ( スポナー座標,仲間のストック数,アリ管理マネージャーポインタ )
-		m_pArraySpawner[nCnt] = CArraySpawner::Create(SpawnManager::POS[nCnt], NUM_CREATEARRAY, pManager);
+		m_pArraySpawner[nCnt] = CArraySpawner::Create(SpawnManager::POS[nCnt], NUM_CREATEARRAY, pManager, SpawnManager::BasePos[nCnt], nIdx);
 
 		// スポーンポイントのオブジェクト生成
 		CObjectX::Create("STAGEOBJ/SpawnBase.x", SpawnManager::POS[nCnt],SpawnManager::ROTVALUE[nCnt]);
@@ -52,9 +55,6 @@ HRESULT CArraySpawnManager::Init(CArrayManager* pManager)
 		// アクティブなアリを加算
 		pManager->CountActiveArrays(m_pArraySpawner[nCnt]->GetStockArray());
 	}
-
-	// 全体のアクティブ化
-	pManager->SetActiveAll();
 
 	return S_OK;
 }

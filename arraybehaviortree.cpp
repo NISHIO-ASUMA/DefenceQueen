@@ -115,10 +115,10 @@ CNode* ArrayTree::CArrayBehaviorTree::SetArrayTreeNode(CBlackBoard* blackboard)
 	//-----------------------------
 	auto TopSequence = new CSequence(blackboard);
 	{
-		TopSequence->AddNode(new CHasTopOrderLeaf(blackboard));
-		TopSequence->AddNode(new CFolllowTopLeaf(blackboard));
-		TopSequence->AddNode(new CWaitOrderLeaf(blackboard));
-		TopSequence->AddNode(new CAttackEnemyLeaf(blackboard));
+		TopSequence->AddNode(new CHasTopOrderLeaf(blackboard));	// 命令を受けたか判別する末端ノード
+		TopSequence->AddNode(new CFolllowTopLeaf(blackboard));	// トップを追従する末端ノード
+		TopSequence->AddNode(new CWaitOrderLeaf(blackboard));	// 命令を待つ末端ノード
+		TopSequence->AddNode(new CAttackEnemyLeaf(blackboard));	// 敵を攻撃する末端ノード
 	}
 
 	//-----------------------------
@@ -126,22 +126,26 @@ CNode* ArrayTree::CArrayBehaviorTree::SetArrayTreeNode(CBlackBoard* blackboard)
 	//-----------------------------
 	auto ChainAntSequence = new CSequence(blackboard);
 	{
+		// インバーターに判別ノードを設定
 		ChainAntSequence->AddNode(new CInverter(blackboard, new CHasTopOrderLeaf(blackboard)));
 
-		auto FoodSequence = new CSequence(blackboard);
-		FoodSequence->AddNode(new CMoveToFeedLeaf(blackboard));
-		FoodSequence->AddNode(new CFeedGetLeaf(blackboard));
-		FoodSequence->AddNode(new CReturnNestLeaf(blackboard));
+		auto FoodSequence = new CSequence(blackboard); // 餌獲得ループのシーケンスノードを作成
 
+		FoodSequence->AddNode(new CMoveToFeedLeaf(blackboard)); // 餌に向かって行く末端ノード
+		FoodSequence->AddNode(new CFeedGetLeaf(blackboard));	// 餌獲得を判別する末端ノード
+		FoodSequence->AddNode(new CReturnNestLeaf(blackboard));	// 基地に帰ってくる末端ノード
+
+		// falseノードに餌獲得ノードを追加
 		ChainAntSequence->AddNode(FoodSequence);
 	}
 
 	//------------------------------------
-	// ルートノードに追加する
+	// ツリーの一番上のルートノードに追加する
 	//------------------------------------
 	TopRootNode->AddNode(TopSequence);
 	TopRootNode->AddNode(ChainAntSequence);
 
+	// 生成されたツリーノードのポインタを返す
 	return TopRootNode;
 #endif
 }

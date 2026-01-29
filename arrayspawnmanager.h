@@ -26,14 +26,14 @@ class CArrayManager;
 //*********************************************************
 namespace SpawnManager
 {
-	static constexpr int NUM_CREATEARRAY = 20; // 一個のスポナーに渡すアリの数
+	static constexpr int NUM_CREATEARRAY = 25; // 一個のスポナーに渡すアリの数
 	static constexpr int NUM_ARRAYSPAWNER = 4; // スポナーの数
 
 	// 生成座標情報
 	const D3DXVECTOR3 POS[NUM_ARRAYSPAWNER] =
 	{
-		{-555.0f,0.0f,-700.0f},	// 左手前
-		{885.0f,0.0f,-450.0f},	// 右手前
+		{-555.0f,0.0f,-700.0f},	// 左下手前
+		{885.0f,0.0f,-450.0f},	// 右下手前
 		{665.0f,0.0f,540.0f},	// 右奥
 		{-890.0f,0.0f,325.0f}	// 左奥
 	};
@@ -42,10 +42,20 @@ namespace SpawnManager
 	const D3DXVECTOR3 ROTVALUE[NUM_ARRAYSPAWNER] =
 	{
 		{0.0f,-D3DX_PI * 0.5f,0.0f},// 左下手前
-		{0.0f,-D3DX_PI,0.0f}, // 右下手前
-		{0.0f,D3DX_PI * 0.5f,0.0f}, // 右奥
+		{0.0f,-D3DX_PI,0.0f},		// 右下手前
+		{0.0f,D3DX_PI * 0.5f,0.0f},	// 右奥
 		{VECTOR3_NULL}				// 左奥
 	};
+
+	// ターゲット座標
+	const D3DXVECTOR3 BasePos[NUM_ARRAYSPAWNER] =
+	{
+		{ 885.0f,0.0f,-680.0f}, // 右に向かう
+		{ 885.0f,0.0f, 545.0f}, // 奥側に向かう
+		{-885.0f,0.0f, 545.0f}, //左に向かう
+		{ -885.0f,0.0f, -700.0f}
+	};
+
 };
 
 //*********************************************************
@@ -74,4 +84,6 @@ private:
 
 	// 所持するスポナー配列
 	std::array<CArraySpawner*, SpawnManager::NUM_ARRAYSPAWNER>m_pArraySpawner; 
+
+	static constexpr int ALLARRAY = 80;
 };

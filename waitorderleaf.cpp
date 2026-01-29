@@ -15,6 +15,7 @@
 //===================================================================
 void CWaitOrderLeaf::Update(void)
 {
+#if 0 // TODO : ここのフラグ変数を変更する
 	// 現在のフラグ状態を取得
 	bool IsUseOrder = false;
 
@@ -26,4 +27,5 @@ void CWaitOrderLeaf::Update(void)
 		m_Result = NodeInfo::NodeResult::Re_SUCCESS; // 成功
 	else
 		m_Result = NodeInfo::NodeResult::Re_RUNING; // 継続中
+#endif
 }

@@ -169,7 +169,6 @@ void CObject3D::Update(void)
 	// ˆÊ’u‚ğ”½‰f
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
 	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
-
 }
 //=========================================================
 // •`‰æˆ—

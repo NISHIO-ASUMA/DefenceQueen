@@ -29,12 +29,14 @@
 #include "selectpoint.h"
 #include "feedsignal.h"
 #include "sepalationsign.h"
+#include "eventareamanager.h"
+#include "eventarea.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
 CTopAnt::CTopAnt(int nPriority) : CMoveCharactor(nPriority),
-m_isBranchSet(false),
+m_isSetPostion(false),
 m_isHPressing(false),
 m_fSeparationRadius(NULL), 
 m_DestPos(VECTOR3_NULL), 
@@ -106,14 +108,14 @@ HRESULT CTopAnt::Init(void)
 //=========================================================
 void CTopAnt::Uninit(void)
 {
-	// コライダー破棄
+	// 矩形コライダー破棄
 	if (m_pColliderBox)
 	{
 		delete m_pColliderBox;
 		m_pColliderBox = nullptr;
 	}
 
-	// コライダー破棄
+	// 球形コライダー破棄
 	if (m_pColliderSphere)
 	{
 		delete m_pColliderSphere;
@@ -140,7 +142,16 @@ void CTopAnt::Update(void)
 	Moving(pPad, pKey);
 	MovePad(pPad);
 
-	// Spaceキー入力 or Xボタン入力
+	// アリ管理クラスにに通知
+	const auto& pManager = CGameSceneObject::GetInstance()->GetArrayManager();
+	
+	// オブジェクトの座標更新
+	CMoveCharactor::UpdatePosition();
+
+	// 更新された座標を取得
+	D3DXVECTOR3 UpdatePos = GetPos();
+
+	// Spaceキー入力 or Xボタン入力で仲間を列から切り離す
 	if (pKey->GetPress(DIK_SPACE) || pPad->GetPress(CJoyPad::JOYKEY_X))
 	{
 		// キー入力がされていなかったら
@@ -170,17 +181,17 @@ void CTopAnt::Update(void)
 			// サイズ初期化
 			m_pCircleObj->SetSize(0.0f, 3.0f);
 
-			// 管理クラスにに通知
-			auto pManager = CGameSceneObject::GetInstance()->GetArrayManager();
-			if (pManager) pManager->ApplySeparation(GetPos(), m_fSeparationRadius);
+			// 切り離しを伝える
+			if (pManager)
+				pManager->ApplySeparation(pos, m_fSeparationRadius);
 		}
 	}
-	
-	// オブジェクトの座標更新
-	CMoveCharactor::UpdatePosition();
 
-	// 更新された座標を取得
-	D3DXVECTOR3 UpdatePos = GetPos();
+	// Enterキー入力 or Aボタン入力で仲間をポイントに置く
+	if (pKey->GetTrigger(DIK_RETURN) || pPad->GetPress(CJoyPad::JOYKEY_A) && m_isSetPostion)
+	{
+		// TODO : コリジョンしていたらその場所(座標)に置く,動いているやつのみ変更
+	}
 
 	// UIの座標を設定する
 	m_pFeedSignal->SetPos(D3DXVECTOR3(UpdatePos.x, UpdatePos.y + Config::AddPosY, UpdatePos.z));
@@ -193,6 +204,14 @@ void CTopAnt::Update(void)
 	{
 		m_pColliderBox->SetPos(UpdatePos);
 		m_pColliderBox->SetPosOld(oldPos);
+	}
+
+	// エリアとの当たり判定
+	bool IsAreaHit = CollisionArea();
+	if (IsAreaHit)
+	{
+		// コライダー更新
+		m_pColliderSphere->SetPos(UpdatePos);
 	}
 
 	// 配置されているブロックを取得
@@ -214,33 +233,6 @@ void CTopAnt::Update(void)
 
 			// 矩形コライダー座標更新
 			m_pColliderBox->SetPos(UpdatePos);
-		}
-	}
-
-	// 餌クラスのポインタ取得
-	CFeedManager* pManager = CGameSceneObject::GetInstance()->GetFeedManager();
-	if (pManager->GetSize() < 0) return;
-
-	// サイズがnull値じゃなかったら
-	for (int nCnt = 0; nCnt < pManager->GetSize(); nCnt++)
-	{
-		if (CollisonT(pManager->GetFeed(nCnt)->GetCollider()))
-		{
-			// 当たった点の座標セット
-			SetPos(UpdatePos);
-
-			// 矩形コライダー座標更新
-			m_pColliderBox->SetPos(UpdatePos);
-
-			// 伝令フラグを有効化
-			SetIsReturnPos(true);
-
-			break;
-		}
-		else
-		{
-			// 伝令フラグを無効化
-			SetIsReturnPos(false);
 		}
 	}
 	
@@ -532,4 +524,41 @@ bool CTopAnt::CollisionSphere(CSphereCollider* pOther)
 bool CTopAnt::CollisonT(CSphereCollider* pOther)
 {
 	return CBoxToSphereCollision::Collision(m_pColliderBox, pOther);
+}
+//=========================================================
+// エリアとの当たり判定
+//=========================================================
+bool CTopAnt::CollisionArea(void)
+{
+	// エリア判定を取得する
+	auto AreaManagere = CEventAreaManager::GetInstance();
+	if (AreaManagere->GetSize() <= NULL) return false;
+
+	// 最大数と判定をする
+	for (int nCnt = 0; nCnt < AreaManagere->GetSize(); nCnt++)
+	{
+		// 配列の各要素を取得
+		auto Area = AreaManagere->GetIdx(nCnt);
+
+		// 当たり判定関数
+		if (Area->Collision(m_pColliderSphere))
+		{
+			// UI表示をする
+
+			// アリ配置フラグを有効化する
+			m_isSetPostion = true;
+
+			return true;
+		}
+		else
+		{
+			// UI表示をオフにする
+
+			// フラグを未使用にする
+			m_isSetPostion = false;
+
+			return false;
+		}
+	}
+	return false;
 }

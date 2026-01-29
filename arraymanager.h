@@ -63,14 +63,14 @@ public:
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
-	const std::vector<CArray*>& GetArray(void) { return m_pArrays; }
+	const std::vector<CArray*>& GetArray(void) const { return m_pArrays; }
 
 	/// <summary>
 	/// スポナー用に確保する関数
 	/// </summary>
 	/// <param name="nStock">未使用数</param>
 	/// <returns></returns>
-	std::vector<CArray*> Allocate(const int& nStock);
+	std::vector<CArray*> Allocate(const int& nStock, const int& nSatrtIdx);
 
 	/// <summary>
 	/// 仲間のアリの切り離しを通知する
@@ -85,6 +85,8 @@ public:
 	/// <param name="nCountArrays">カウントする数</param>
 	void CountActiveArrays(const int& nCountArrays);
 
+	int GetIsFollowtopArrays(void);
+
 private:
 
 	//**********************
@@ -93,7 +95,7 @@ private:
 	struct ArrayConfig
 	{
 		static constexpr int LIFE = 1; // 体力値
-		static constexpr int ALLARRAYS = 80; // 最大使用数
+		static constexpr int ALLARRAYS = 100; // 最大使用数
 	};
 
 	std::vector<CArray*>m_pArrays;		// 動的配列

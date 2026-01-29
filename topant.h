@@ -72,7 +72,8 @@ public:
 	bool Collision(CBoxCollider* pOther, D3DXVECTOR3* pOutPos);
 	bool CollisionSphere(CSphereCollider* pOther);
 	bool CollisonT(CSphereCollider* pOther);
-	
+	bool CollisionArea(void);
+
 	void SetDestMovePos(const D3DXVECTOR3& pos) { m_DestPos = pos; }
 	void SetSeparationRadius(const float& Radius) { m_fSeparationRadius = Radius; }
 	void SetIsReturnPos(const bool& isflags) { m_isReturnNumber = isflags; }
@@ -105,7 +106,7 @@ private:
 	CSepalationSign* m_pSeparationSign; // 切り離し表示サイン
 
 	D3DXVECTOR3 m_DestPos;				// 座標設置用
-	bool m_isBranchSet;					// 切り離し中かどうか
+	bool m_isSetPostion;				// アリをおいていくかどうか
 	bool m_isHPressing;					// キーを押している間
 	bool m_isReturnNumber;				// 数字を設定できるかどうか
 	float m_fSeparationRadius;			// 切り離し範囲

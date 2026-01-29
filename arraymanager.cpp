@@ -92,35 +92,37 @@ void CArrayManager::Draw(void)
 //=========================================================
 // 各スポナーに渡す関数
 //=========================================================
-std::vector<CArray*> CArrayManager::Allocate(const int& nStock)
+std::vector<CArray*> CArrayManager::Allocate(const int& nStock,const int &nSatrtIdx)
 {
 	// ローカル配列
 	std::vector<CArray*> result;
 	result.reserve(nStock);
 
-	// カウント用変数
-	int nCnt = 0;
+	int nIdx = 0;
 
-	// 要素数
-	for (auto& pArray : m_pArrays)
+	// 要素の開始をインデックス参照にする
+	for (int nCnt = nSatrtIdx; nCnt < static_cast<int>(m_pArrays.size());nCnt++)
 	{
+		// 変数格納
+		auto pArray = m_pArrays[nCnt];
+
 		// 未使用なら
 		if (!pArray->GetActive())
 		{
 			// スポナー用に作成
-			result.push_back(pArray);
 			pArray->SetActive(true);
-			nCnt++;
+			result.push_back(pArray);
+			nIdx++;
 		}
 		
-		if (nCnt >= nStock) break;
+		if (nIdx >= nStock) break;
 	}
 
 	// 要素数を返す
 	return result;
 }
 //=========================================================
-// 仲間の切り離し設定関数
+// 仲間アリの切り離し設定関数
 //=========================================================
 void CArrayManager::ApplySeparation(const D3DXVECTOR3& center, float radius)
 {
@@ -139,8 +141,7 @@ void CArrayManager::ApplySeparation(const D3DXVECTOR3& center, float radius)
 
 		if (fDis < radius)
 		{
-			// TODO : ここで当たったアリはノード切り替えを走らせる処理に変更する
-			pArray->OnSeparation(); // アリに伝える
+			pArray->SetIsTopOrder(true); // 仲間アリに伝える
 		}
 	}
 }
@@ -150,6 +151,29 @@ void CArrayManager::ApplySeparation(const D3DXVECTOR3& center, float radius)
 void CArrayManager::CountActiveArrays(const int& nCountArrays)
 {
 	m_nActiveAll += nCountArrays;
+}
+//=========================================================
+// トップの命令を受けているアリの数を返す
+//=========================================================
+int CArrayManager::GetIsFollowtopArrays(void)
+{
+	// サイズカウント用変数
+	int nCnt = 0;
+
+	// 最大サイズから判別する
+	for (auto Ant : m_pArrays)
+	{
+		// アクティブじゃないなら
+		if (!Ant->GetActive()) continue;
+
+		// オーダーを受けていなかったら
+		if (!Ant->GetIsTopOrder()) continue;
+
+		// カウントを加算
+		nCnt++;
+	}
+
+	return nCnt;
 }
 //=========================================================
 // フラグをセットする

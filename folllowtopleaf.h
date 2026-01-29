@@ -22,15 +22,17 @@ class CFolllowTopLeaf : public CLeafNodeBase
 {
 public:
 
-	CFolllowTopLeaf(CBlackBoard* blackboard) : CLeafNodeBase(blackboard) {};
+	CFolllowTopLeaf(CBlackBoard* blackboard) : CLeafNodeBase(blackboard), m_Result(NodeInfo::NodeResult::Re_RUNING){};
 	~CFolllowTopLeaf() = default;
 
 	void Update(void) override;
 
 	NodeInfo::NodeResult get_node_result() const override
 	{
-		return NodeInfo::NodeResult::Re_SUCCESS;
+		return m_Result;
 	};
 
 private:
+
+	NodeInfo::NodeResult m_Result;
 };

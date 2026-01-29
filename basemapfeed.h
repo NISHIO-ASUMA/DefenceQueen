@@ -40,6 +40,13 @@ public:
 	/// <returns></returns>
 	inline CFeed* GetFeedIdx(const int& nIdx) const { return m_pBaseFeeds[nIdx]; }
 
+	/// <summary>
+	/// 配列の最大サイズを取得する
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
+	inline int GetFeedArraySize(void) const { return static_cast<int>(m_pBaseFeeds.max_size()); }
+
 private:
 
 	static constexpr int NUM_BASEFEED = 4; // 最大数

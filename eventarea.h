@@ -1,0 +1,56 @@
+//=========================================================
+//
+// イベントエリア表示処理 [ eventarea.h ]
+// Author: Asuma Nishio
+//
+//=========================================================
+
+//*********************************************************
+// インクルードガード
+//*********************************************************
+#pragma once 
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
+#include "object3D.h"
+
+//*********************************************************
+// 前方宣言
+//*********************************************************
+class CBoxCollider;
+class CSphereCollider;
+
+//*********************************************************
+// 一個のイベントエリアを表示するクラスを定義
+//*********************************************************
+class CEventArea : public CObject3D
+{
+public:
+
+	CEventArea(int nPriority = static_cast<int>(CObject::PRIORITY::MOVE3D));
+	~CEventArea();
+
+	HRESULT Init(void);
+	void Uninit(void);
+	void Update(void);
+	void Draw(void);
+
+	bool Collision(CSphereCollider* pOther);
+	static CEventArea* Create(const D3DXVECTOR3& pos);
+
+private:
+
+	//****************************
+	// 定数構造体
+	//****************************
+	struct Config
+	{
+		static constexpr float SIZE = 80.0f;	// コリジョンサイズ
+		static constexpr float WIDTH = 100.0f;	// 横幅
+		static constexpr float HEIGHT = 3.0f;	// 高さ
+	};
+
+	CBoxCollider* m_pBoxCollider;	// 矩形のコライダー
+	bool m_isDraw;					// 描画するかどうか
+};

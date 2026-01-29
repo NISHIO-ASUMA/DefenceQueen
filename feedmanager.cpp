@@ -19,8 +19,8 @@
 //*********************************************************
 namespace FEED_INFO
 {
-	constexpr int NUM_MODEL = 3;	 // 最大種類数
-	constexpr int NUM_ACTIVEPOS = 7; // 座標数
+	constexpr int NUM_MODEL = 3;	 // モデルの最大種類数
+	constexpr int NUM_ACTIVEPOS = 4; // 座標数
 
 	const char* MODEL_NAME[NUM_MODEL] // パス配列
 	{
@@ -35,9 +35,6 @@ namespace FEED_INFO
 		{ 750.0f, 0.0f, -190.0f},
 		{ 255.0f, 0.0f, -630.0f},
 		{ 935.0f, 0.0f, 10.0f},
-		{ 475.0f, 0.0f, 240.0f},
-		{ 150.0f, 0.0f, 180.0f},
-		{ 920.0f, 0.0f, 570.0f}
 	};
 };
 
@@ -65,9 +62,9 @@ HRESULT CFeedManager::Init(void)
 	m_pFeed.clear();
 
 	// 初期生成の餌
-	m_pFeed.push_back(CFeed::Create(D3DXVECTOR3(-700.0f, 0.0f,-600.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x",85.0f));
-	m_pFeed.push_back(CFeed::Create(D3DXVECTOR3(700.0f, 0.0f, -600.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x", 85.0f));
-	m_pFeed.push_back(CFeed::Create(D3DXVECTOR3(0.0f, 0.0f, 570.0f), VECTOR3_NULL, INITSCALE, "FEED/Lemon.x", 85.0f));
+	m_pFeed.push_back(CFeed::Create(D3DXVECTOR3(-1500.0f, 0.0f,-600.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x",85.0f));
+	//m_pFeed.push_back(CFeed::Create(D3DXVECTOR3(700.0f, 0.0f, -600.0f), VECTOR3_NULL, INITSCALE, "FEED/Suger.x", 85.0f));
+	//m_pFeed.push_back(CFeed::Create(D3DXVECTOR3(0.0f, 0.0f, 570.0f), VECTOR3_NULL, INITSCALE, "FEED/Lemon.x", 85.0f));
 
 	return S_OK;
 }

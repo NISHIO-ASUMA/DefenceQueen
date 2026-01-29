@@ -39,6 +39,8 @@
 #include "meshcylinder.h"
 #include "sendnumber.h"
 #include "basemapfeed.h"
+#include "eventarea.h"
+#include "eventareamanager.h"
 
 //*********************************************************
 // 静的メンバ変数
@@ -94,6 +96,9 @@ HRESULT CGameSceneObject::Init(void)
 	// 各種ポインタクラスの生成
 	CreatePointer();
 
+	// イベント生成
+	CEventAreaManager::GetInstance()->Init();
+
 	return S_OK;
 }
 //=========================================================
@@ -134,6 +139,9 @@ void CGameSceneObject::Uninit(void)
 
 	// マップの餌
 	m_pBasemapFeed.reset();
+
+	// イベント破棄
+	CEventAreaManager::GetInstance()->Uninit();
 #endif
 
 	// インスタンスの破棄
@@ -183,6 +191,9 @@ void CGameSceneObject::Update(void)
 	{
 		//m_pEnemyManager->Update();
 	}
+
+	// イベント更新
+	CEventAreaManager::GetInstance()->Update();
 
 #ifdef _DEBUG
 
@@ -263,17 +274,21 @@ void CGameSceneObject::CreatePointer(void)
 	// タイマー生成
 	m_pTimer = CTime::Create(D3DXVECTOR3(1020.0f,60.0f,0.0f),60.0f,40.0f);
 
+	// マップの標準の餌生成
+	m_pBasemapFeed = std::make_unique<CBaseMapFeed>();
+	m_pBasemapFeed->Init();
+
 	// 餌の管理クラスを生成
 	m_pFeed = std::make_unique<CFeedManager>();
 	m_pFeed->Init();
 
-	// 仲間アリの大軍を生成
-	m_pArrayManager = std::make_unique<CArrayManager>();
-	m_pArrayManager->Init(m_pTopAnt);
+	//// 仲間アリの大軍を生成
+	//m_pArrayManager = std::make_unique<CArrayManager>();
+	//m_pArrayManager->Init(m_pTopAnt);
 
 	// 出現場所生成
-	m_pArraySpawn = std::make_unique<CArraySpawnManager>();
-	m_pArraySpawn->Init(m_pArrayManager.get());
+	//m_pArraySpawn = std::make_unique<CArraySpawnManager>();
+	//m_pArraySpawn->Init(m_pArrayManager.get());
 
 	//// 司令塔アリ管理生成
 	//m_pWorkerManager = std::make_unique<CWorkerManager>();
@@ -296,10 +311,6 @@ void CGameSceneObject::CreatePointer(void)
 	// 世界の壁管理クラスの生成
 	m_pWallManager = std::make_unique<CGameWallManager>();
 	m_pWallManager->Init();
-
-	// マップの標準の餌生成
-	m_pBasemapFeed = std::make_unique<CBaseMapFeed>();
-	m_pBasemapFeed->Init();
 
 	// ナンバー生成
 	m_pSendNumber = CSendNumber::Create(D3DXVECTOR3(280.0f, 30.0f, 0.0f), 40.0f, 30.0f);

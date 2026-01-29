@@ -198,6 +198,8 @@
     <ClCompile Include="enemyspawner.cpp" />
     <ClCompile Include="enemyspawnmanager.cpp" />
     <ClCompile Include="enemywaitleaf.cpp" />
+    <ClCompile Include="eventarea.cpp" />
+    <ClCompile Include="eventareamanager.cpp" />
     <ClCompile Include="feedgetleaf.cpp" />
     <ClCompile Include="feedsignal.cpp" />
     <ClCompile Include="folllowtopleaf.cpp" />
@@ -373,6 +375,8 @@
     <ClInclude Include="enemyspawner.h" />
     <ClInclude Include="enemyspawnmanager.h" />
     <ClInclude Include="enemywaitleaf.h" />
+    <ClInclude Include="eventarea.h" />
+    <ClInclude Include="eventareamanager.h" />
     <ClInclude Include="feedgetleaf.h" />
     <ClInclude Include="feedsignal.h" />
     <ClInclude Include="folllowtopleaf.h" />

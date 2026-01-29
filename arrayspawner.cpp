@@ -21,6 +21,8 @@
 CArraySpawner::CArraySpawner() :
 m_SpawnBasePos(VECTOR3_NULL),
 m_nStockArrays(NULL), 
+m_nActiveCount(NULL),
+m_nGetSepaltioncnt(NULL),
 m_AssignedArrays{},
 m_ReturnAntList{},
 m_nMySpawnIndexList(-1)
@@ -35,15 +37,31 @@ CArraySpawner::~CArraySpawner()
 
 }
 //=========================================================
+// 生成関数
+//=========================================================
+CArraySpawner* CArraySpawner::Create(const D3DXVECTOR3& pos, const int nMaxArray, CArrayManager* pManager, const D3DXVECTOR3& MovePos,const int& nSepalations)
+{
+	// インスタンス生成
+	CArraySpawner* pSpawner = new CArraySpawner;
+	if (pSpawner == nullptr) return nullptr;
+
+	// 値のセット
+	pSpawner->SetMaxArray(nMaxArray);
+	pSpawner->SetPos(pos);
+	pSpawner->m_nGetSepaltioncnt = nSepalations;
+
+	// 初期化失敗時
+	if (FAILED(pSpawner->Init(pManager,MovePos))) return nullptr;
+
+	return pSpawner;
+}
+//=========================================================
 // 初期化処理
 //=========================================================
-HRESULT CArraySpawner::Init(CArrayManager* pManager)
+HRESULT CArraySpawner::Init(CArrayManager* pManager,const D3DXVECTOR3& MovePos)
 {
 	// Managerから渡された最大配列のうちのストック数分だけ持つ
-	m_AssignedArrays = pManager->Allocate(m_nStockArrays);
-
-	// 隊列の追従関係変数
-	CArray* pPrev = nullptr;
+	m_AssignedArrays = pManager->Allocate(m_nStockArrays, m_nGetSepaltioncnt);
 
 	// セットされた数だけアクティブにする
 	for (int nCnt = 0; nCnt < m_nStockArrays; nCnt++)
@@ -53,21 +71,15 @@ HRESULT CArraySpawner::Init(CArrayManager* pManager)
 
 		// 座標セット
 		pArray->SetPos(m_SpawnBasePos);
-		pArray->SetActive(true);
-
-		if (nCnt == 0)
+		pArray->SetActivePos(m_SpawnBasePos);
+		pArray->SetDestPos(MovePos);
+		pArray->SetSaveDestPos(MovePos);
+		
+		if (nCnt != 0)
 		{
-			// 先頭なら無し
-			pArray->SetPrevAnt(nullptr);
+			// 先頭以外を未使用状態にする
+			pArray->SetActive(false);
 		}
-		else
-		{
-			// 1つ前のアリを追従
-			pArray->SetPrevAnt(pPrev);
-		}
-
-		// 次の前のアリ用に保存
-		pPrev = pArray;
 	}
 	
 	// 分隊用リスト生成
@@ -89,7 +101,26 @@ void CArraySpawner::Uninit(void)
 //=========================================================
 void CArraySpawner::Update(void)
 {
+	// カウント加算
+	m_nActiveCount++;
 
+	// 一定カウント後に配列内のアリをアクティブに変更する
+	if (m_nActiveCount >= Config::ACTIVE_COUNT)
+	{
+		for (int nCnt = 0; nCnt < m_nStockArrays; nCnt++)
+		{
+			// ローカルポインタに格納
+			CArray* pArray = m_AssignedArrays[nCnt];
+			if (pArray->GetActive()) continue;
+
+			// 有効化する
+			pArray->SetActive(true);
+
+			// 開始初期値に変更する
+			m_nActiveCount = NULL;
+			break;
+		}
+	}
 }
 //=========================================================
 // 描画処理
@@ -119,7 +150,7 @@ void CArraySpawner::OrderMove(int nNum, const D3DXVECTOR3& destPos)
 		// 使われてない物はスキップ
 		if (!pArray->GetActive()) continue;
 		if (!pArray->GetIsAtBase()) continue;
-		if (pArray->GetMove())  continue;
+		if (pArray->GetMove()) continue;
 		if (pArray->GetisStop()) continue;
 
 		// 移動フラグをセット
@@ -154,24 +185,6 @@ void CArraySpawner::SetMaxArray(const int& nMaxArray)
 	{
 		m_nStockArrays = nMaxArray;
 	}
-}
-//=========================================================
-// 生成関数
-//=========================================================
-CArraySpawner* CArraySpawner::Create(const D3DXVECTOR3 pos, const int nMaxArray, CArrayManager* pManager)
-{
-	// インスタンス生成
-	CArraySpawner* pSpawner = new CArraySpawner;
-	if (pSpawner == nullptr) return nullptr;
-
-	// 値のセット
-	pSpawner->SetMaxArray(nMaxArray);
-	pSpawner->SetPos(pos);
-
-	// 初期化失敗時
-	if (FAILED(pSpawner->Init(pManager))) return nullptr;
-
-	return pSpawner;
 }
 
 //=========================================================

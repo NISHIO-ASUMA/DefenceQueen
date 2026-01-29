@@ -36,7 +36,7 @@ public:
 	CArraySpawner();
 	~CArraySpawner();
 
-	HRESULT Init(CArrayManager * pManager);
+	HRESULT Init(CArrayManager* pManager, const D3DXVECTOR3& MovePos);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
@@ -139,8 +139,10 @@ public:
 	/// <param name="pos">出現座標</param>
 	/// <param name="nMaxArray">最大保持数</param>
 	/// <param name="pManager">管理クラスのポインタ</param>
+	/// <param name="MovePos">アリの移動先座標</param>
 	/// <returns></returns>
-	static CArraySpawner* Create(const D3DXVECTOR3 pos,const int nMaxArray, CArrayManager* pManager);
+	static CArraySpawner* Create(const D3DXVECTOR3& pos,const int nMaxArray, CArrayManager* pManager, const D3DXVECTOR3& MovePos
+	, const int& nSepalations);
 
 private:
 
@@ -149,7 +151,8 @@ private:
 	//****************************************
 	struct Config
 	{
-		static constexpr int MAX_STOCK = 20; // 最大保持数
+		static constexpr int MAX_STOCK = 25; // 最大保持数
+		static constexpr int ACTIVE_COUNT = 40; // アリをアクティブにするカウント
 	};
 
 	D3DXVECTOR3 m_SpawnBasePos;				// スポーンのベース座標
@@ -158,4 +161,6 @@ private:
 	std::unique_ptr<CSeparationAnt>m_pSeparationListAnt;	// 分隊を管理するポインタ
 	int m_nStockArrays;						// 1スポナーが保持できるアリの数
 	int m_nMySpawnIndexList;				// 自分のスポナーのインデックス
+	int m_nActiveCount;						// アクティブになるカウント
+	int m_nGetSepaltioncnt;
 };

@@ -846,31 +846,37 @@
     <ClCompile Include="instancemotionmanager.cpp">
       <Filter>ソース ファイル\Charactor\Instancing\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="hastoporderleaf.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="folllowtopleaf.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="waitorderleaf.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="sepalationsign.cpp">
       <Filter>ソース ファイル\3D</Filter>
     </ClCompile>
+    <ClCompile Include="basemapfeed.cpp">
+      <Filter>ソース ファイル\BaseClass\3D</Filter>
+    </ClCompile>
     <ClCompile Include="attackenemyleaf.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Array_AI\Leaf</Filter>
     </ClCompile>
     <ClCompile Include="feedgetleaf.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Array_AI\Leaf</Filter>
     </ClCompile>
-    <ClCompile Include="returnnestleaf.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="folllowtopleaf.cpp">
+      <Filter>ソース ファイル\Array_AI\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="hastoporderleaf.cpp">
+      <Filter>ソース ファイル\Array_AI\Leaf</Filter>
     </ClCompile>
     <ClCompile Include="movetofeedleaf.cpp">
+      <Filter>ソース ファイル\Array_AI\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="returnnestleaf.cpp">
+      <Filter>ソース ファイル\Array_AI\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="waitorderleaf.cpp">
+      <Filter>ソース ファイル\Array_AI\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="eventarea.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="basemapfeed.cpp">
+    <ClCompile Include="eventareamanager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1419,6 +1425,12 @@
       <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
     <ClInclude Include="basemapfeed.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="eventarea.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="eventareamanager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
