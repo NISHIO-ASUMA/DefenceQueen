@@ -43,7 +43,7 @@ m_DestPos(VECTOR3_NULL),
 m_pColliderSphere(nullptr), 
 m_pColliderBox(nullptr),
 m_pCircleObj(nullptr),
-m_pFeedSignal(nullptr),
+m_pPutSign(nullptr),
 m_pSeparationSign(nullptr)
 {
 	
@@ -95,11 +95,11 @@ HRESULT CTopAnt::Init(void)
 	// 円形生成
 	m_pCircleObj = CSelectPoint::Create(GetPos(), VECTOR3_NULL, m_fSeparationRadius, 3.0f, 0.0f);
 
-	// サインUI生成
-	m_pFeedSignal = CFeedSignal::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::AddPosY, GetPos().z), VECTOR3_NULL, 90.0f, 90.0f);
-
 	// 切り離しui生成
-	m_pSeparationSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 240.0f, GetPos().z));
+	m_pSeparationSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 240.0f, GetPos().z),"Sepalation.png");
+
+	// 置き配置UI生成
+	m_pPutSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 240.0f, GetPos().z), "PutAnt.png");
 
 	return S_OK;
 }
@@ -186,16 +186,7 @@ void CTopAnt::Update(void)
 				pManager->ApplySeparation(pos, m_fSeparationRadius);
 		}
 	}
-
-	// Enterキー入力 or Aボタン入力で仲間をポイントに置く
-	if (pKey->GetTrigger(DIK_RETURN) || pPad->GetPress(CJoyPad::JOYKEY_A) && m_isSetPostion)
-	{
-		// TODO : コリジョンしていたらその場所(座標)に置く,動いているやつのみ変更
-	}
-
-	// UIの座標を設定する
-	m_pFeedSignal->SetPos(D3DXVECTOR3(UpdatePos.x, UpdatePos.y + Config::AddPosY, UpdatePos.z));
-
+	
 	// 球形コライダーの位置更新
 	if (m_pColliderSphere) m_pColliderSphere->SetPos(UpdatePos);
 
@@ -207,7 +198,7 @@ void CTopAnt::Update(void)
 	}
 
 	// エリアとの当たり判定
-	bool IsAreaHit = CollisionArea();
+	bool IsAreaHit = CollisionArea(pManager);
 	if (IsAreaHit)
 	{
 		// コライダー更新
@@ -528,11 +519,17 @@ bool CTopAnt::CollisonT(CSphereCollider* pOther)
 //=========================================================
 // エリアとの当たり判定
 //=========================================================
-bool CTopAnt::CollisionArea(void)
+bool CTopAnt::CollisionArea(CArrayManager * pManager)
 {
+	// 入力デバイス取得
+	CJoyPad* pPad = CManager::GetInstance()->GetJoyPad();
+	CInputKeyboard* pKey = CManager::GetInstance()->GetInputKeyboard();
+
 	// エリア判定を取得する
 	auto AreaManagere = CEventAreaManager::GetInstance();
 	if (AreaManagere->GetSize() <= NULL) return false;
+
+	bool isHit = false;
 
 	// 最大数と判定をする
 	for (int nCnt = 0; nCnt < AreaManagere->GetSize(); nCnt++)
@@ -544,21 +541,35 @@ bool CTopAnt::CollisionArea(void)
 		if (Area->Collision(m_pColliderSphere))
 		{
 			// UI表示をする
+			m_pPutSign->SetIsDraw(true);
 
 			// アリ配置フラグを有効化する
 			m_isSetPostion = true;
 
-			return true;
-		}
-		else
-		{
-			// UI表示をオフにする
+			// サインの座標設定
+			m_pPutSign->SetPos(D3DXVECTOR3(GetPos().x, GetPos().y + 240.0f, GetPos().z));
 
-			// フラグを未使用にする
-			m_isSetPostion = false;
+			// Enterキー入力 or Aボタン入力で仲間をポイントに置く
+			if (pKey->GetTrigger(DIK_RETURN) || pPad->GetPress(CJoyPad::JOYKEY_A))
+			{
+				// 味方をエリア内に配置
+				pManager->PuttingArea(Area->GetPos());
+			}
 
-			return false;
+			isHit = true;
+			break;
 		}
 	}
-	return false;
+
+	// 当たってないなら
+	if (!isHit)
+	{
+		// UI表示をオフにする
+		m_pPutSign->SetIsDraw(false);
+
+		// フラグを未使用にする
+		m_isSetPostion = false;
+	}
+
+	return isHit;
 }

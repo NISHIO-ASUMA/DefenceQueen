@@ -65,11 +65,13 @@ public:
 	bool Colision(CSphereCollider* other);
 	void CollsionAll(const D3DXVECTOR3& pos);
 	void CollisionEnemy(void);
+	void CollisionEventFeed(void);
 	void CollisionBase(void);
 
 	void SetDestPos(const D3DXVECTOR3& pos);
 	void SetIsTopOrder(const bool& isToporder);
 	void SetIsPointFlag(const bool& isSetpoint);
+	void SetIsAtackMode(const bool& isMode);
 
 	inline void SetTopAntPointer(CTopAnt* pAnt) { m_pTopAnt = pAnt; }
 	inline void SetSaveDestPos(const D3DXVECTOR3& pos) { m_SaveDestPos = pos; }
@@ -84,8 +86,6 @@ public:
 	inline void SetAtBase(const bool& isBase) { m_isAtBase = isBase; }
 	inline void SetIsStop(const bool& isStop) { m_isStop = isStop; }
 
-	inline void SetIsAtackMode(const bool& isMode) { m_isAttackMode = isMode; }
-
 	inline D3DXVECTOR3 GetActivePos(void) const { return m_ActivePos; }
 	inline bool GetActive(void) const { return m_isActive; }
 	inline bool GetMove(void) const { return m_isMove; }
@@ -94,6 +94,7 @@ public:
 	inline bool GetisStop(void) const { return m_isStop; }
 	inline bool GetIsTopOrder(void) const { return m_isGettingTopOrder; }
 	inline bool GetIsAttackMode(void) const { return m_isAttackMode; }
+	inline bool GetIsSetPoint(void) const { return m_isSetPoint; }
 
 	static CArray* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,const int nLife);
 
@@ -127,7 +128,7 @@ private:
 	bool m_isStop;						// 停止フラグ
 	bool m_isAttackMode;				// 攻撃状態フラグ
 	bool m_isCheckNearFeed;				// 餌があるかフラグ
-	bool m_isSetPoint;				// 餌があるかフラグ
+	bool m_isSetPoint;					// 餌があるかフラグ
 	bool m_isGettingTopOrder;			// トップからの命令を取得したか
 
 	D3DXVECTOR3 m_MoveDestPos;			// 目的の座標

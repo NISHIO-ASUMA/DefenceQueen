@@ -27,7 +27,7 @@ CSepalationSign::~CSepalationSign()
 //=========================================================
 // 生成処理
 //=========================================================
-CSepalationSign* CSepalationSign::Create(const D3DXVECTOR3& pos)
+CSepalationSign* CSepalationSign::Create(const D3DXVECTOR3& pos,const char * pTexName)
 {
 	// インスタンス生成
 	CSepalationSign* pSign = new CSepalationSign;
@@ -37,7 +37,7 @@ CSepalationSign* CSepalationSign::Create(const D3DXVECTOR3& pos)
 	pSign->SetPos(pos);
 	pSign->SetRot(VECTOR3_NULL);
 	pSign->SetSize(Config::SIZE, Config::SIZE);
-	pSign->SetTexture(Config::TEXNAME);
+	pSign->SetTexture(pTexName);
 
 	// 初期化失敗時
 	if (FAILED(pSign->Init())) return nullptr;

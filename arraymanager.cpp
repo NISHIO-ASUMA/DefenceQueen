@@ -16,6 +16,7 @@
 #include "debugproc.h"
 #include "topant.h"
 #include "gamesceneobject.h"
+#include "motioninstancing.h"
 
 //=========================================================
 // コンストラクタ
@@ -143,6 +144,26 @@ void CArrayManager::ApplySeparation(const D3DXVECTOR3& center, float radius)
 		{
 			pArray->SetIsTopOrder(true); // 仲間アリに伝える
 		}
+	}
+}
+//=========================================================
+// エリア内に配置する関数
+//=========================================================
+void CArrayManager::PuttingArea(const D3DXVECTOR3& putpos)
+{
+	// 有効 かつ セットフラグが有効なものに通知
+	for (auto pArray : m_pArrays)
+	{
+		// nullなら
+		if (!pArray) continue;
+		if (!pArray->GetIsTopOrder()) continue;
+		if (!pArray->GetMove()) continue;
+
+		// 対象のアリに命令を実行
+		pArray->SetIsPointFlag(true);
+		pArray->SetPos(putpos);
+		pArray->SetRot(VECTOR3_NULL);
+		pArray->SetIsMove(false);
 	}
 }
 //=========================================================

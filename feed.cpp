@@ -25,6 +25,7 @@
 #include "particle.h"
 #include "particlepiler.h"
 #include "sound.h"
+#include "eventareamanager.h"
 
 //*********************************************************
 // 定数宣言
@@ -42,6 +43,7 @@ namespace FEEDINFO
 CFeed::CFeed(int nPriority) : CObjectX(nPriority),
 m_pSphere(nullptr),
 m_pBoxCollider(nullptr),
+m_pOwnerArea(nullptr),
 m_pParam(nullptr),
 m_fRadius(NULL),
 m_ColorFrameCnt(NULL),
@@ -181,11 +183,14 @@ void CFeed::DecLife(const int& nDecValue)
 		// 体力を0にする
 		m_pParam->SetHp(NULL);
 
-		// イベント起動
-		if (m_event) m_event();
+		// ポインタ取得
+		auto area = m_pOwnerArea;
+
+		// 動的配列内の餌の要素を削除する
+		CEventAreaManager::GetInstance()->EraseFeed(this);
 
 		// 動的配列内の要素を削除する
-		CGameSceneObject::GetInstance()->GetFeedManager()->Erase(this);
+		CEventAreaManager::GetInstance()->Erase(area);
 
 		// 自身の破棄
 		Uninit();
@@ -207,7 +212,53 @@ void CFeed::DecLife(const int& nDecValue)
 		if (Sound != nullptr)
 		{
 			// ヒット音SE再生
-			//Sound->Play(CSound::SOUND_LABEL_DAMAGE);
+			Sound->Play(CSound::SOUND_LABEL_DAMAGE);
+		}
+
+		// カラー状態変更
+		m_ColType = COLTYPE_CHANGE;
+
+		// フレームカウンタ初期化
+		m_ColorFrameCnt = 0;
+
+		return;
+	}
+}
+//=========================================================
+// チュートリアル用ライフ減少
+//=========================================================
+void CFeed::DecLifeTuto(const int& nDecValue)
+{
+	// 引数の分減少
+	int nHp = m_pParam->GetHp();
+	nHp -= nDecValue;
+
+	if (nHp <= NULL)
+	{
+		// 体力を0にする
+		m_pParam->SetHp(NULL);
+
+		// 自身の破棄
+		Uninit();
+
+		return;
+	}
+	else
+	{
+		// 現在の体力にセット
+		m_pParam->SetHp(nHp);
+
+#ifdef NDEBUG
+		//パーティクル生成
+		CParticlePiler::Create(D3DXVECTOR3(GetPos().x, 120.0f, GetPos().z), COLOR_PURPLE, 15, 150, 350, 5, 0.0f);
+#endif // NDEBUG
+
+		// サウンド取得
+		const auto& Sound = CManager::GetInstance()->GetSound();
+		if (Sound != nullptr)
+		{
+			// ヒット音SE再生
+			Sound->Play(CSound::SOUND_LABEL_DAMAGE);
 		}
 
 		// カラー状態変更

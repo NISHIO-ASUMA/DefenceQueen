@@ -19,12 +19,19 @@
 #include "arraymanager.h"
 #include "boxtospherecollision.h"
 #include "tutorialobject.h"
+#include "fade.h"
+#include "game.h"
+#include "selectpoint.h"
+#include "tutoarrayant.h"
+#include "spherecollider.h"
+#include "eventarea.h"
+#include "sepalationsign.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
 CTutoTopAnt::CTutoTopAnt(int nPriority) : CMoveCharactor(nPriority),m_pColliderBox(nullptr),m_isBranchSet(false),
-m_fSeparationRadius(NULL), m_isHPressing(false), m_DestPos(VECTOR3_NULL)
+m_fSeparationRadius(NULL), m_isHPressing(false), m_DestPos(VECTOR3_NULL),m_pPutSign(nullptr),m_pSeparationSign(nullptr)
 {
 	
 }
@@ -67,7 +74,17 @@ HRESULT CTutoTopAnt::Init(void)
 	MotionLoad(Config::MOTION_NAME, MOTION_MAX, true);
 
 	// コライダー生成
-	m_pColliderBox = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(30.0f, 30.0f, 30.0f));
+	m_pColliderBox = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(20.0f, 20.0f, 20.0f));
+	m_pSphereCollider = CSphereCollider::Create(GetPos(), 80.0f);
+
+	// 円形生成
+	m_pCircleObj = CSelectPoint::Create(GetPos(), VECTOR3_NULL, m_fSeparationRadius, 3.0f, 0.0f);
+
+	// 切り離しui生成
+	m_pSeparationSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 240.0f, GetPos().z), "Sepalation.png");
+
+	// 置き配置UI生成
+	m_pPutSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 240.0f, GetPos().z), "PutAnt.png");
 
 	return S_OK;
 }
@@ -81,6 +98,13 @@ void CTutoTopAnt::Uninit(void)
 	{
 		delete m_pColliderBox;
 		m_pColliderBox = nullptr;
+	}
+
+	// 球形コライダ―の破棄
+	if (m_pSphereCollider)
+	{
+		delete m_pSphereCollider;
+		m_pSphereCollider = nullptr;
 	}
 
 	// 親クラスの終了処理
@@ -103,16 +127,18 @@ void CTutoTopAnt::Update(void)
 	Moving(pPad, pKey);
 	MovePad(pPad);
 
-	// TODO : ここから以下の処理を変更する必要あり
-	// キー入力で検証
-	if (pKey->GetPress(DIK_B) || pPad->GetPress(CJoyPad::JOYKEY_A))
+	// キー入力で選択範囲拡大
+	if (pKey->GetPress(DIK_SPACE) || pPad->GetPress(CJoyPad::JOYKEY_X))
 	{
 		// 切り離しの加算
 		if (!m_isHPressing)
 		{
 			m_isHPressing = true;
-			m_fSeparationRadius = NULL; // 1回押すごとに距離初期化
+			m_fSeparationRadius = NULL;
 		}
+
+		// 描画オン
+		m_pSeparationSign->SetIsDraw(true);
 
 		// 押している間
 		Separation();
@@ -125,14 +151,24 @@ void CTutoTopAnt::Update(void)
 			// 無効化
 			m_isHPressing = false;
 
-			//// 管理クラスにに通知
-			//auto pManager = CGameSceneObject::GetInstance()->GetArrayManager();
+			// 描画オフ
+			m_pSeparationSign->SetIsDraw(false);
 
-			//if (pManager)
-			//{
-			//	// 管理通知
-			//	pManager->ApplySeparation(GetPos(), m_fSeparationRadius);
-			//}
+			// サイズ初期化
+			m_pCircleObj->SetSize(0.0f, 3.0f);
+
+			// 仲間の黒アリを取得する
+			auto ArrayAnt = CTutorialObject::GetInstance()->GetArrayAnt();
+			auto ArrayPos = ArrayAnt->GetPos();
+
+			auto DestRage = ArrayAnt->GetPos() - pos;
+			float fDis = D3DXVec3Length(&DestRage);
+
+			// 円形範囲判定
+			if (fDis <= m_fSeparationRadius)
+			{
+				ArrayAnt->SetIsTopFollow(true);
+			}
 		}
 	}
 
@@ -141,12 +177,36 @@ void CTutoTopAnt::Update(void)
 
 	// 更新された座標を取得
 	D3DXVECTOR3 UpdatePos = GetPos();
+	
+	// 球形コライダーの位置更新
+	if (m_pSphereCollider) m_pSphereCollider->SetPos(UpdatePos);
 
 	// 矩形コライダーの位置更新
 	if (m_pColliderBox)
 	{
 		m_pColliderBox->SetPos(UpdatePos);
 		m_pColliderBox->SetPosOld(oldPos);
+	}
+
+	// 画面遷移ブロックを取得
+	auto block = CTutorialObject::GetInstance()->GetSceneChangeBlock();
+	if (block == nullptr) return;
+
+	// 矩形で当たる
+	if (Collision(block->GetCollider(), &UpdatePos))
+	{
+		// 当たった点の座標セット
+		SetPos(UpdatePos);
+
+		// キー入力で画面遷移
+		auto Fade = CManager::GetInstance()->GetFade();
+		if (Fade == nullptr) return;
+
+		if (pKey->GetTrigger(DIK_RETURN) || pPad->GetTrigger(CJoyPad::JOYKEY_A) || pPad->GetTrigger(CJoyPad::JOYKEY_START))
+		{
+			Fade->SetFade(std::make_unique<CGame>());
+			return;
+		}
 	}
 
 	// 配置されているブロックを取得
@@ -171,8 +231,35 @@ void CTutoTopAnt::Update(void)
 		}
 	}
 
-	// 目的地の座標をセットする
-	SetDestMovePos(UpdatePos);
+	// エリアと判定
+	auto Area = CTutorialObject::GetInstance()->GetEventArea();
+	if (!Area) return;
+
+	// 当たっていたら
+	if (Area->Collision(m_pSphereCollider))
+	{
+		// コライダー座標更新
+		m_pSphereCollider->SetPos(UpdatePos);
+
+		// UI表示をする
+		m_pPutSign->SetIsDraw(true);
+
+		// サインの座標設定
+		m_pPutSign->SetPos(D3DXVECTOR3(GetPos().x, GetPos().y + 240.0f, GetPos().z));
+
+		// 仲間アリの位置を変更
+		if (pKey->GetPress(DIK_RETURN) || pPad->GetPress(CJoyPad::JOYKEY_A))
+		{
+			auto ArrayAnt = CTutorialObject::GetInstance()->GetArrayAnt();
+			ArrayAnt->SetPos(Area->GetPos());
+			ArrayAnt->SetIsTopFollow(false);
+		}
+	}
+	else
+	{
+		// UI表示をしない
+		m_pPutSign->SetIsDraw(false);
+	}
 
 	// 親クラスの更新
 	CMoveCharactor::Update();
@@ -412,7 +499,7 @@ void CTutoTopAnt::MovePad(CJoyPad * pPad)
 	SetRotDest(rotdest);
 }
 //=========================================================
-// 切り離す範囲を決める関数
+// 指示を分ける関数
 //=========================================================
 void CTutoTopAnt::Separation(void)
 {
@@ -428,8 +515,12 @@ void CTutoTopAnt::Separation(void)
 	// 設定する
 	SetSeparationRadius(m_fSeparationRadius);
 
-	// 検証用でエフェクト生成
-	CEffect::Create(pos, COLOR_RED, VECTOR3_NULL, 6, m_fSeparationRadius);
+	// オブジェクトのサイズ更新
+	m_pCircleObj->SetPos(pos);
+	m_pCircleObj->SetSize(m_fSeparationRadius, 3.0f);
+
+	// サインの座標設定
+	m_pSeparationSign->SetPos(D3DXVECTOR3(pos.x, pos.y + 240.0f, pos.z));
 }
 //=========================================================
 // 矩形の当たり判定処理

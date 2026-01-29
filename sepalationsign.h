@@ -32,7 +32,7 @@ public:
 
 	inline void SetIsDraw(const bool isDraw) { m_isDraw = isDraw; }
 
-	static CSepalationSign* Create(const D3DXVECTOR3& pos);
+	static CSepalationSign* Create(const D3DXVECTOR3& pos, const char* pTexName);
 
 private:
 
@@ -41,7 +41,6 @@ private:
 	//******************************
 	struct Config
 	{
-		static constexpr const char* TEXNAME = "Sepalation.png"; // テクスチャファイル
 		static constexpr float SIZE = 70.0f; // 描画のサイズ
 	};
 

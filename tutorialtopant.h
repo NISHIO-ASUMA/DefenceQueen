@@ -22,6 +22,9 @@ class CInputKeyboard;
 class CJoyPad;
 class CBoxCollider;
 class CCollisionBox;
+class CSelectPoint;
+class CSphereCollider;
+class CSepalationSign;
 
 //*********************************************************
 // チュートリアルの指示アリのクラスを定義
@@ -76,6 +79,10 @@ private:
 	};
 
 	CBoxCollider* m_pColliderBox;		// 矩形コライダー
+	CSelectPoint* m_pCircleObj;			// 円形範囲選択オブジェクト
+	CSphereCollider* m_pSphereCollider; // 球形コライダー
+	CSepalationSign* m_pSeparationSign; // 切り離し表示サイン
+	CSepalationSign* m_pPutSign;		// 置いていく表示
 
 	D3DXVECTOR3 m_DestPos;				// 座標設置用
 	bool m_isBranchSet;					// 切り離し中かどうか

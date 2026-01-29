@@ -31,6 +31,7 @@
 #include "boxtospherecollision.h"
 #include "gamewallmodel.h"
 #include "motioninstancing.h"
+#include "eventareamanager.h"
 
 //*********************************************************
 // ’è”éŒ¾‹óŠÔ
@@ -112,11 +113,6 @@ HRESULT CEnemy::Init(void)
 	m_pSphereCollider->SetPos(GetPos());
 	m_pSphereCollider->SetRadius(EnemyInfo::HitRange);
 
-#if 0
-	// “G‚ÅŽg‚¤AIƒm[ƒh‚ðƒZƒbƒg‚·‚é
-	// NodeSetting();
-#endif
-
 	// ƒ‰ƒ“ƒ_ƒ€”
 	int nRand = rand() % 100;
 
@@ -157,11 +153,6 @@ void CEnemy::Update(void)
 
 	// À•WŽæ“¾
 	D3DXVECTOR3 pos = GetPos();
-
-#if 0
-	//// ƒcƒŠ[‚ÌXV
-	//m_pBehaviorTree->Update();
-#endif
 
 	// —‰¤ˆÚ“®
 	if (m_isDestQueen) MoveToQueen();
@@ -263,20 +254,6 @@ void CEnemy::MoveToFeed(void)
 	GetMotion()->SetMotion(MOTION_MOVE);
 }
 //=========================================================
-// ’‡ŠÔƒAƒŠ‚ðUŒ‚‚·‚éˆ—
-//=========================================================
-void CEnemy::AttackToAnt(void)
-{
-
-}
-//=========================================================
-// ‰a‚ð’D‚¤ˆ—
-//=========================================================
-void CEnemy::RobToFeed(void)
-{
-
-}
-//=========================================================
 // —‰¤ƒAƒŠ‚ÉŒü‚©‚¤ˆ—
 //=========================================================
 void CEnemy::MoveToQueen(void)
@@ -325,8 +302,9 @@ void CEnemy::MoveToQueen(void)
 CFeed* CEnemy::FindFeed(void)
 {
 	// ‰aŽæ“¾
-	CFeedManager* pFeed = CGameSceneObject::GetInstance()->GetFeedManager();
-	if (!pFeed || pFeed->GetSize() <= NULL) return nullptr;
+	auto Event = CEventAreaManager::GetInstance();
+	auto EventFeedSize = Event->GetFeedSize();
+	if (EventFeedSize <= NULL) return nullptr;
 
 	// Å‹ß“_‚ð¶¬
 	CFeed* pNearest = nullptr;
@@ -336,10 +314,10 @@ CFeed* CEnemy::FindFeed(void)
 	D3DXVECTOR3 myPos = GetPos();
 
 	// ƒ‰ƒ“ƒ_ƒ€‚È‰a‚É”ò‚Ô‚æ‚¤‚ÉÝ’è‚·‚é
-	int nRandomfeed = rand() % pFeed->GetSize();
+	int nRandomfeed = rand() % EventFeedSize;
 
 	// ‰aÝ’è
-	CFeed* feed = pFeed->GetFeed(nRandomfeed);
+	CFeed* feed = Event->GetFeedIdx(nRandomfeed);
 	if (!feed) return nullptr;
 
 	// ·•ªƒZƒbƒg
@@ -362,14 +340,15 @@ CFeed* CEnemy::FindFeed(void)
 void CEnemy::CollisionFeed(void)
 {
 	// ƒAƒŠ‚Æ‰a‚Ì“–‚½‚è”»’è
-	CFeedManager* pFeed = CGameSceneObject::GetInstance()->GetFeedManager();
-	if (pFeed == nullptr) return;
+	auto Event = CEventAreaManager::GetInstance();
+	auto EventFeedSize = Event->GetFeedSize();
+	if (EventFeedSize <= NULL) return;
 
 	// ”z—ñŽæ“¾
-	for (int nCnt = 0; nCnt < pFeed->GetSize(); nCnt++)
+	for (int nCnt = 0; nCnt < EventFeedSize; nCnt++)
 	{
 		// •Ï”Ši”[
-		auto feed = pFeed->GetFeed(nCnt);
+		auto feed = Event->GetFeedIdx(nCnt);
 		auto Collider = feed->GetCollider();
 
 		// “–‚½‚Á‚Ä‚¢‚½‚ç

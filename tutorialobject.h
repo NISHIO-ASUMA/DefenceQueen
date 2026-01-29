@@ -19,6 +19,11 @@
 // 前方宣言
 //*********************************************************
 class CBlockManager;
+class CTutoTopAnt;
+class CTutoArrayAnt;
+class CBlock;
+class CFeed;
+class CEventArea;
 
 //*********************************************************
 // チュートリアルで使うオブジェクトを管理するクラスを定義
@@ -35,15 +40,24 @@ public:
 	void Draw(void);
 
 	inline CBlockManager* GetBlockManager(void) const { return m_pBlockManager.get(); }
+	inline CBlock* GetSceneChangeBlock(void) const { return m_pBlock;}
+	inline CTutoArrayAnt* GetArrayAnt(void) { return m_pArrayAnt; }
+	inline CTutoTopAnt* GetTutoTopAnt(void) { return m_pTopAnt; }
+	inline CEventArea* GetEventArea(void) { return m_pEventArea; }
+	inline CFeed* GetTutoFeed(void) { return m_pFeed; }
 
 	static CTutorialObject* GetInstance(void);
 
 private:
 
-	CTutorialObject(); // コンストラクタ
+	CTutorialObject();								// コンストラクタ
 
-	static CTutorialObject* m_pInstance; // シングルトン変数
+	static CTutorialObject* m_pInstance;			// シングルトン変数
 
-	std::unique_ptr<CBlockManager>m_pBlockManager; // ブロック管理
+	std::unique_ptr<CBlockManager>m_pBlockManager;	// ブロック管理クラス
+	CTutoTopAnt* m_pTopAnt;			// トップアリ
+	CTutoArrayAnt* m_pArrayAnt;		// 仲間の黒アリ
+	CBlock* m_pBlock;				// 出口ブロック
+	CFeed* m_pFeed;					// 餌のポインタ
+	CEventArea* m_pEventArea;		// 餌取得用のエリア
 };
-

@@ -83,11 +83,11 @@ void CTutorialManager::Update(void)
 		CSound* pSound = CManager::GetInstance()->GetSound();
 		if (pSound == nullptr) return;
 
-		// チュートリアルシーンに遷移
-		pFade->SetFade(std::make_unique<CGame>());
+		// シーンに遷移
+		//pFade->SetFade(std::make_unique<CGame>());
 
-		// サウンド再生
-		pSound->Play(CSound::SOUND_LABEL_TITLEENTER);
+		//// サウンド再生
+		//pSound->Play(CSound::SOUND_LABEL_TITLEENTER);
 		return;
 	}
 }

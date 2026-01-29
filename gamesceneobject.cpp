@@ -90,9 +90,6 @@ HRESULT CGameSceneObject::Init(void)
 	CUi::Create(D3DXVECTOR3(1125.0f, 60.0f, 0.0f), 0, 15.0f, 30.0f, "coron.png", false);
 	CUi::Create(D3DXVECTOR3(1125.0f, 55.0f, 0.0f), 0, 140.0f, 55.0f, "Time_frame.png", false);
 
-	// トップアリ生成
-	m_pTopAnt = CTopAnt::Create(D3DXVECTOR3(0.0f, 0.0f, -450.0f), VECTOR3_NULL);
-
 	// 各種ポインタクラスの生成
 	CreatePointer();
 
@@ -189,7 +186,7 @@ void CGameSceneObject::Update(void)
 	// 敵の更新
 	if (m_pEnemyManager)
 	{
-		//m_pEnemyManager->Update();
+		m_pEnemyManager->Update();
 	}
 
 	// イベント更新
@@ -267,6 +264,9 @@ CGameSceneObject* CGameSceneObject::GetInstance(void)
 //=========================================================
 void CGameSceneObject::CreatePointer(void)
 {
+	// トップアリ生成
+	m_pTopAnt = CTopAnt::Create(D3DXVECTOR3(0.0f, 0.0f, -450.0f), VECTOR3_NULL);
+
 	// ブロックマネージャー生成
 	m_pBlocks = std::make_unique<CBlockManager>();
 	m_pBlocks->Init();
@@ -282,13 +282,13 @@ void CGameSceneObject::CreatePointer(void)
 	m_pFeed = std::make_unique<CFeedManager>();
 	m_pFeed->Init();
 
-	//// 仲間アリの大軍を生成
-	//m_pArrayManager = std::make_unique<CArrayManager>();
-	//m_pArrayManager->Init(m_pTopAnt);
+	// 仲間アリの大軍を生成
+	m_pArrayManager = std::make_unique<CArrayManager>();
+	m_pArrayManager->Init(m_pTopAnt);
 
 	// 出現場所生成
-	//m_pArraySpawn = std::make_unique<CArraySpawnManager>();
-	//m_pArraySpawn->Init(m_pArrayManager.get());
+	m_pArraySpawn = std::make_unique<CArraySpawnManager>();
+	m_pArraySpawn->Init(m_pArrayManager.get());
 
 	//// 司令塔アリ管理生成
 	//m_pWorkerManager = std::make_unique<CWorkerManager>();

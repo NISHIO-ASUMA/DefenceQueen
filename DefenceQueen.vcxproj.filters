@@ -874,10 +874,10 @@
       <Filter>ソース ファイル\Array_AI\Leaf</Filter>
     </ClCompile>
     <ClCompile Include="eventarea.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\3D</Filter>
     </ClCompile>
     <ClCompile Include="eventareamanager.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1400,38 +1400,38 @@
     <ClInclude Include="instancemodelmanager.h">
       <Filter>ヘッダー ファイル\Instancing\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="hastoporderleaf.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="folllowtopleaf.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="waitorderleaf.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="attackenemyleaf.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="feedgetleaf.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="returnnestleaf.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="movetofeedleaf.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="sepalationsign.h">
       <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
-    <ClInclude Include="basemapfeed.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="eventarea.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
     <ClInclude Include="eventareamanager.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="attackenemyleaf.h">
+      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="basemapfeed.h">
+      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="feedgetleaf.h">
+      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="folllowtopleaf.h">
+      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="hastoporderleaf.h">
+      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="movetofeedleaf.h">
+      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="returnnestleaf.h">
+      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="waitorderleaf.h">
+      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

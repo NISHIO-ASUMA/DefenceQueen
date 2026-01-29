@@ -79,6 +79,8 @@ public:
 	/// <param name="radius">半径</param>
 	void ApplySeparation(const D3DXVECTOR3& center, float radius);
 
+	void PuttingArea(const D3DXVECTOR3& putpos);
+
 	/// <summary>
 	/// アクティブな物をカウントする
 	/// </summary>

@@ -77,13 +77,6 @@ void CTutorial::Update(void)
 {
 	// マネージャー更新
 	CTutorialManager::GetInstance()->Update();
-
-	// キー入力で遷移
-	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN))
-	{
-		// ゲーム開始
-		CManager::GetInstance()->GetFade()->SetFade(std::make_unique<CGame>());
-	}
 }
 //=========================================================
 // 描画処理

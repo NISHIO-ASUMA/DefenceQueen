@@ -33,7 +33,7 @@ void CFolllowTopLeaf::Update(void)
 	bool IsSetPoint = m_pBlackBoard->GetValue<bool>("SetPoint");
 
 	if (IsSetPoint)
-		m_Result = NodeInfo::NodeResult::Re_SUCCESS; // 次のノードへ移動
+		m_Result = NodeInfo::NodeResult::Re_FAIL; // 次のノードへ移動
 	else
 		m_Result = NodeInfo::NodeResult::Re_RUNING; // 処理を継続
 }

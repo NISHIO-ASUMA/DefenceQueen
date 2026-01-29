@@ -23,6 +23,7 @@
 class CSphereCollider;
 class CBoxCollider;
 class CParameter;
+class CEventArea;
 
 //*********************************************************
 // 餌クラスを定義
@@ -49,6 +50,7 @@ public:
 	void Update(void);
 	void Draw(void);
 	void DecLife(const int& nDecValue);
+	void DecLifeTuto(const int& nDecValue);
 	bool Collision(CSphereCollider* other);
 	bool CollisionBox(CBoxCollider* pOther, D3DXVECTOR3* OutPos);
 
@@ -64,6 +66,9 @@ public:
 	inline CSphereCollider* GetCollider(void) const { return m_pSphere; }
 	inline CBoxCollider* GetBoxCollider(void) const { return m_pBoxCollider; }
 	inline CParameter* GetParam(void) { return m_pParam.get(); }
+	
+	void SetOwnerArea(CEventArea* pEvent) { m_pOwnerArea = pEvent; }
+	CEventArea* GetOwnerArea() { return m_pOwnerArea; }
 
 	static CFeed* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const char* pModelName, const float fRadius, const int nLife = 25);
 
@@ -79,6 +84,7 @@ private:
 	CSphereCollider* m_pSphere;		// 球形コライダー
 	CBoxCollider* m_pBoxCollider;	// 矩形コライダー
 	COLTYPE m_ColType;				// カラー状態
+	CEventArea* m_pOwnerArea;
 
 	int m_ColorFrameCnt;			// カラー変更からの経過フレーム
 	int m_nLife;					// 体力値

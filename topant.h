@@ -26,19 +26,8 @@ class CCollisionSphere;
 class CCollisionBox;
 class CBoxToSphereCollision;
 class CSelectPoint;
-class CFeedSignal;
 class CSepalationSign;
-
-//******************************************************************
-// TODOリスト
-// ・こいつを一体だけゲームに出す ok
-// ・そうさを1.隊列から切り離し/自身に追従して目的に向かわせるに変更する
-// ・スポナー概念はあるが管理は一個のManagerから設定する
-// ・切り離した物は切り離した先のスポナーに役目を終えたら戻るように設定してあげる
-// 
-// ・					これを1/26中に行う
-// 
-//******************************************************************
+class CArrayManager;
 
 //*********************************************************
 // 各スポナーのトップのアリのクラスを定義
@@ -72,7 +61,7 @@ public:
 	bool Collision(CBoxCollider* pOther, D3DXVECTOR3* pOutPos);
 	bool CollisionSphere(CSphereCollider* pOther);
 	bool CollisonT(CSphereCollider* pOther);
-	bool CollisionArea(void);
+	bool CollisionArea(CArrayManager* pManager);
 
 	void SetDestMovePos(const D3DXVECTOR3& pos) { m_DestPos = pos; }
 	void SetSeparationRadius(const float& Radius) { m_fSeparationRadius = Radius; }
@@ -92,7 +81,7 @@ private:
 	struct Config
 	{
 		static constexpr float SPEED = 3.0f;					 // 移動速度
-		static constexpr float MAX_RADIUS = 90.0f;				 // 最大範囲
+		static constexpr float MAX_RADIUS = 150.0f;				 // 最大範囲
 		static constexpr float NorRot = D3DX_PI * 2.0f;			 // 回転補正
 		static constexpr float Separation = 5.0f;				 // 範囲拡大
 		static constexpr float AddPosY = 180.0f;				 // 高さのオフセット
@@ -102,8 +91,8 @@ private:
 	CSphereCollider* m_pColliderSphere; // 球形コライダー
 	CBoxCollider* m_pColliderBox;		// 矩形コライダー
 	CSelectPoint* m_pCircleObj;			// 円形オブジェクト
-	CFeedSignal* m_pFeedSignal;			// 獲得可能サイン
 	CSepalationSign* m_pSeparationSign; // 切り離し表示サイン
+	CSepalationSign* m_pPutSign;		// 置いていく表示
 
 	D3DXVECTOR3 m_DestPos;				// 座標設置用
 	bool m_isSetPostion;				// アリをおいていくかどうか
