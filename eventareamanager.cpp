@@ -102,7 +102,7 @@ void CEventAreaManager::Update(void)
 	int nPathRand = rand() % NUMPATH;
 
 	// 総ゲーム時間から計算
-	if (nTime % 15 == 0 && nTime != m_nLastEventTime)
+	if (nTime % 12 == 0 && nTime != m_nLastEventTime)
 	{
 		// ランダムな座標
 		D3DXVECTOR3 ActivePos = EventPos[nRand];

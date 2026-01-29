@@ -362,7 +362,7 @@ void CRenderer::Update(void)
 		m_isbuller = false;
 	}
 
-#ifdef NDEBUG
+#ifdef _DEBUG
 
 	// ƒL[“ü—Íî•ñŽæ“¾
 	CInputKeyboard* pInput = CManager::GetInstance()->GetInputKeyboard();

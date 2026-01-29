@@ -26,6 +26,7 @@
 #include "spherecollider.h"
 #include "eventarea.h"
 #include "sepalationsign.h"
+#include "sound.h"
 
 //=========================================================
 // コンストラクタ
@@ -204,7 +205,13 @@ void CTutoTopAnt::Update(void)
 
 		if (pKey->GetTrigger(DIK_RETURN) || pPad->GetTrigger(CJoyPad::JOYKEY_A) || pPad->GetTrigger(CJoyPad::JOYKEY_START))
 		{
+			// ゲームシーンへ
 			Fade->SetFade(std::make_unique<CGame>());
+
+			// サウンド再生
+			auto pSound = CManager::GetInstance()->GetSound();
+			pSound->Play(CSound::SOUND_LABEL_TITLEENTER);
+
 			return;
 		}
 	}
