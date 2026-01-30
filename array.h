@@ -110,8 +110,8 @@ private:
 		static constexpr float TOP_DISTANCE = 60.0f;	// 先頭のアリとの距離
 		static constexpr float STOP_DISTANCE = 10.0f;	// 停止距離
 
-		static constexpr int SCORE_UP = 15000;			// スコアの加算量
-		static constexpr int BASESCORE_UP = 100;		// スコアの加算量
+		static constexpr int SCORE_UP = 1500;			// スコアの加算量
+		static constexpr int BASESCORE_UP = 10;			// スコアの加算量
 		static constexpr int Damage = 1;				// ダメージ値
 		static constexpr const char* SCRIPT = "data/MOTION/Array/Array_Motion.txt"; // モーションスクリプトファイル
 	};

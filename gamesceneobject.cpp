@@ -96,6 +96,9 @@ HRESULT CGameSceneObject::Init(void)
 	// イベント生成
 	CEventAreaManager::GetInstance()->Init();
 
+	// スコア初期化
+	m_pScore->DeleteScore();
+
 	return S_OK;
 }
 //=========================================================
@@ -289,10 +292,6 @@ void CGameSceneObject::CreatePointer(void)
 	// 出現場所生成
 	m_pArraySpawn = std::make_unique<CArraySpawnManager>();
 	m_pArraySpawn->Init(m_pArrayManager.get());
-
-	//// 司令塔アリ管理生成
-	//m_pWorkerManager = std::make_unique<CWorkerManager>();
-	//m_pWorkerManager->Init();
 
 	// 防衛対象のクイーン生成
 	m_pQueen = CQueen::Create(D3DXVECTOR3(0.0f, 55.0f, 0.0f), VECTOR3_NULL);

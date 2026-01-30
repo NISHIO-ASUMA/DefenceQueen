@@ -442,6 +442,7 @@ void CArray::SpawnReturn(void)
 		m_isSetPoint = false;
 		m_isAttackMode = false;
 		m_isCheckNearFeed = false;
+		m_isHit = false;
 
 		// Blackboardもリセット
 		m_pBlackBoard->SetValue("GetTopOrder", false);
@@ -551,18 +552,13 @@ void CArray::CollisionEventFeed(void)
 		auto Feed = CEventAreaManager::GetInstance()->GetFeedIdx(nCnt);
 
 		// 有効なら
-		if (!m_isHit && Colision(Feed->GetCollider()))
+		if (Colision(Feed->GetCollider()) && !m_isHit)
 		{
-			m_isHit = true;
-
 			// 体力を減らす
 			Feed->DecLife(1);
 
 			// スコアを加算
 			CGameSceneObject::GetInstance()->GetScore()->AddScore(Arrayinfo::SCORE_UP);
-
-			//パーティクル生成
-			CParticlePiler::Create(D3DXVECTOR3(GetPos().x, 120.0f, GetPos().z), COLOR_GREEN, 15, 150, 350, 15, 0.0f);
 
 			// 通常行動は停止
 			m_isGettingTopOrder = false;
@@ -572,6 +568,8 @@ void CArray::CollisionEventFeed(void)
 			
 			// 移動は許可
 			m_isMove = true;
+
+			m_isHit = true;
 
 			// モーション変更
 			m_pMotion->SetMotion(MOTION_MOVE);
@@ -597,9 +595,6 @@ void CArray::CollisionBase(void)
 		// 有効なら
 		if (Colision(Feed->GetCollider()))
 		{
-			// スコアを加算
-			CGameSceneObject::GetInstance()->GetScore()->AddScore(Arrayinfo::BASESCORE_UP);
-
 			// 基地に帰るフラグを有効化し、ブラックボードを更新する
 			if (!m_isReturn)
 			{
