@@ -70,7 +70,7 @@ private:
 	{
 		static constexpr int NUM_ENEMY = 100; // 最大数
 		static constexpr int LIFE = 1;		 // 体力値
-		static constexpr int SPAWM_INTERBAL = 20; // 生成インターバル
+		static constexpr int SPAWM_INTERBAL = 10; // 生成インターバル
 	};
 
 	std::vector<CEnemy*>m_pEnemys; // 敵の動的配列

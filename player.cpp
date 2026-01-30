@@ -130,9 +130,6 @@ void CPlayer::Update(void)
 	// 更新された座標を取得
 	D3DXVECTOR3 UpdatePos = GetPos();
 
-	// アクションキー
-	InputAction(pKeyboard, pJoyPad);
-
 	// キャラクターの全体更新処理
 	CNoMoveCharactor::Update();
 }
@@ -156,94 +153,6 @@ void CPlayer::Draw(void)
 	CDebugproc::Print("設定するアリの数 : [ %d ]", m_nSendNum);
 	CDebugproc::Draw(0, 220);
 #endif // _DEBUG
-}
-//===========================================================
-// プレイヤーが操作する情報関数
-//===========================================================
-void CPlayer::InputAction(CInputKeyboard* pKey, CJoyPad* pPad)
-{
-#if 0
-	// アリスポナー配列取得
-	auto pArraySpawn = CGameSceneObject::GetInstance()->GetArraySpawn();
-
-	// スポナーの指示アリを切り替える処理
-	if (pKey->GetTrigger(DIK_L) || pPad->GetTrigger(CJoyPad::JOYKEY_LEFT_B) || pPad->GetTrigger(CJoyPad::JOYKEY_RIGHT_B))
-	{
-		// インデックスを変更
-		m_nSelectSpawn = Wrap(m_nSelectSpawn + 1, 0, Config::NUM_SPAWN - 1);
-
-		// トップアリをoffにする
-		if (m_nPrevSelectSpawn != -1)
-		{
-			// 前のスポナーのトップアリを取得
-			auto prevSpawn = pArraySpawn->GetIndexSpawner(m_nPrevSelectSpawn);
-			if (prevSpawn)
-			{
-				// アリ取得
-				auto prevTop = prevSpawn->GetTopAnt();
-
-				// 取得できたらoffにする
-				if (prevTop)
-				{
-					prevTop->SetIsActive(false);
-				}
-			}
-		}
-
-		// トップアリをonにする
-		auto currentSpawn = pArraySpawn->GetIndexSpawner(m_nSelectSpawn);
-
-		// 取得できたら
-		if (currentSpawn)
-		{
-			// 現在インデックスのトップ取得
-			auto currentTop = currentSpawn->GetTopAnt();
-
-			if (currentTop)
-			{
-				// 有効化
-				currentTop->SetIsActive(true);
-
-				// ここで矢印の座標をセットする
-				m_pPointObj->SetPos(D3DXVECTOR3(currentTop->GetPos().x, Config::POINT_VALUE, currentTop->GetPos().z));
-			}
-		}
-
-		// 選択インデックスを更新
-		m_nPrevSelectSpawn = m_nSelectSpawn;
-	}
-
-	// 送る数を加算する
-	if (pKey->GetTrigger(DIK_UP) || pPad->GetTriggerLT())
-	{
-		m_nSendNum += Config::VALUE_ANT;
-		m_nSendNum = Clump(m_nSendNum, 0, Config::MAX_VALUE);
-	}
-
-	// 送る数を減算する
-	if (pKey->GetTrigger(DIK_DOWN) || pPad->GetTriggerRT())
-	{
-		m_nSendNum -= Config::VALUE_ANT;
-		m_nSendNum = Clump(m_nSendNum, 0, Config::MAX_VALUE);
-	}
-
-	// トップアリ取得
-	auto TopS = pArraySpawn->GetIndexSpawner(m_nSelectSpawn)->GetTopAnt();
-	if (TopS == nullptr) return;
-
-	// 移動命令を送る処理
-	if (pKey->GetTrigger(DIK_V) || pPad->GetTrigger(CJoyPad::JOYKEY_X))
-	{
-		// 指定座標
-		D3DXVECTOR3 PointPos = CGameSceneObject::GetInstance()->GetArraySpawn()->GetIndexSpawner(m_nSelectSpawn)->GetTopAnt()->GetDestPos();
-
-		// 数を保存
-		SetSendArrayMoving(m_nSelectSpawn, m_nSendNum);
-
-		// 指令アリの当たったポイントで判断する
-		OrderToArray(PointPos);
-	}
-#endif
 }
 //===================================================================
 // 指示を出して特定数のアリを送る処理

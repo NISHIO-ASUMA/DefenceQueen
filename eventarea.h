@@ -28,7 +28,7 @@ class CEventArea : public CObject3D
 {
 public:
 
-	CEventArea(int nPriority = static_cast<int>(CObject::PRIORITY::MOVE3D));
+	CEventArea(int nPriority = static_cast<int>(CObject::PRIORITY::BASENUMBER));
 	~CEventArea();
 
 	HRESULT Init(void);

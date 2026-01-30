@@ -25,6 +25,7 @@ class CCollisionBox;
 class CSelectPoint;
 class CSphereCollider;
 class CSepalationSign;
+class CPointObj;
 
 //*********************************************************
 // チュートリアルの指示アリのクラスを定義
@@ -75,6 +76,7 @@ private:
 		static constexpr float MAX_RADIUS = 100.0f;										 // 最大範囲
 		static constexpr float NorRot = D3DX_PI * 2.0f;									 // 回転補正
 		static constexpr float Separation = 3.0f;										 // 範囲拡大
+		static constexpr float OffPosY = 240.0f;										// オフセット
 		static constexpr const char* MOTION_NAME = "data/MOTION/Top/Top_Motion.txt";	 // モーションパス
 	};
 
@@ -83,6 +85,7 @@ private:
 	CSphereCollider* m_pSphereCollider; // 球形コライダー
 	CSepalationSign* m_pSeparationSign; // 切り離し表示サイン
 	CSepalationSign* m_pPutSign;		// 置いていく表示
+	CPointObj* m_pPoint;				// 矢印オブジェクト
 
 	D3DXVECTOR3 m_DestPos;				// 座標設置用
 	bool m_isBranchSet;					// 切り離し中かどうか

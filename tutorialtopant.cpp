@@ -27,12 +27,14 @@
 #include "eventarea.h"
 #include "sepalationsign.h"
 #include "sound.h"
+#include "pointobj.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
 CTutoTopAnt::CTutoTopAnt(int nPriority) : CMoveCharactor(nPriority),m_pColliderBox(nullptr),m_isBranchSet(false),
-m_fSeparationRadius(NULL), m_isHPressing(false), m_DestPos(VECTOR3_NULL),m_pPutSign(nullptr),m_pSeparationSign(nullptr)
+m_fSeparationRadius(NULL), m_isHPressing(false), m_DestPos(VECTOR3_NULL),m_pPutSign(nullptr),m_pSeparationSign(nullptr),
+m_pPoint(nullptr)
 {
 	
 }
@@ -86,6 +88,9 @@ HRESULT CTutoTopAnt::Init(void)
 
 	// 置き配置UI生成
 	m_pPutSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 240.0f, GetPos().z), "PutAnt.png");
+
+	// 矢印生成
+	m_pPoint = CPointObj::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::OffPosY, GetPos().z), D3DXVECTOR3(-90.0f, 0.0f, 0.0f));
 
 	return S_OK;
 }
@@ -179,6 +184,9 @@ void CTutoTopAnt::Update(void)
 	// 更新された座標を取得
 	D3DXVECTOR3 UpdatePos = GetPos();
 	
+	// 矢印の座標の更新
+	m_pPoint->SetPos(D3DXVECTOR3(UpdatePos.x, UpdatePos.y + Config::OffPosY, UpdatePos.z));
+
 	// 球形コライダーの位置更新
 	if (m_pSphereCollider) m_pSphereCollider->SetPos(UpdatePos);
 

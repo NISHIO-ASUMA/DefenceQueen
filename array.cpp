@@ -35,6 +35,7 @@
 #include "motioninstancing.h"
 #include "basemapfeed.h"
 #include "eventareamanager.h"
+#include "particlepiler.h"
 
 //=========================================================
 // コンストラクタ
@@ -49,6 +50,7 @@ m_pTopAnt(nullptr),
 m_isActive(false),
 m_isMove(true),
 m_isTopAntFollow(false),
+m_isHit(false),
 m_isReturn(false),
 m_isAtBase(true),
 m_isStop(false),
@@ -172,6 +174,9 @@ void CArray::Update(void)
 	// 基地に帰る
 	if (m_isReturn)
 	{
+		// 判定フラグ初期化
+		m_isHit = false;
+
 		// モーション変更
 		m_pMotion->SetMotion(MOTION_MOVE);
 
@@ -192,7 +197,7 @@ void CArray::Update(void)
 	m_pSphereCollider->SetPos(UpdatePos);
 
 	// 全判定関数
-	CollsionAll(UpdatePos);
+	CollsionAll();
 
 	// キャラクターの更新
 	CInstancingCharactor::Update();
@@ -485,45 +490,10 @@ bool CArray::Colision(CSphereCollider* other)
 //=========================================================
 // 当たり判定格納関数
 //=========================================================
-void CArray::CollsionAll(const D3DXVECTOR3& pos)
+void CArray::CollsionAll(void)
 {
-	CollisionEventFeed();
-
 	CollisionEnemy();
-
-#if 0
-	CFeedManager* pFeed = CGameSceneObject::GetInstance()->GetFeedManager();
-
-	// nullじゃないとき
-	if (pFeed != nullptr)
-	{
-		// 配列取得
-		for (int nCnt = 0; nCnt < pFeed->GetSize(); nCnt++)
-		{
-			// 変数格納
-			auto feed = pFeed->GetFeed(nCnt);
-			auto Collider = feed->GetCollider();
-
-			// 当たっていたら
-			if (Colision(Collider))
-			{
-				// 当たった対象物の体力値を減らす
-				feed->DecLife(Arrayinfo::Damage);
-
-				// スコアを加算
-				CGameSceneObject::GetInstance()->GetScore()->AddScore(Arrayinfo::SCORE_UP);
-
-				// コライダーの更新と指示変更
-				m_pSphereCollider->SetPos(pos);
-
-				// 基地に帰るフラグを有効化
-				this->m_isReturn = true;
-
-				break;
-			}
-		}
-	}
-#endif
+	CollisionEventFeed();
 }
 //=========================================================
 // 敵との当たり判定関数
@@ -546,6 +516,9 @@ void CArray::CollisionEnemy(void)
 		{
 			// 管理クラスの配列の要素を消す
 			CGameSceneObject::GetInstance()->GetEnemyManager()->Erase(Enemy);
+
+			// パーティクル生成
+			CParticlePiler::Create(D3DXVECTOR3(GetPos().x, 120.0f, GetPos().z), COLOR_RED, 15, 150, 350, 15, 0.0f);
 
 			// 敵の終了
 			Enemy->Uninit();
@@ -578,13 +551,18 @@ void CArray::CollisionEventFeed(void)
 		auto Feed = CEventAreaManager::GetInstance()->GetFeedIdx(nCnt);
 
 		// 有効なら
-		if (Colision(Feed->GetCollider()))
+		if (!m_isHit && Colision(Feed->GetCollider()))
 		{
+			m_isHit = true;
+
 			// 体力を減らす
 			Feed->DecLife(1);
 
 			// スコアを加算
 			CGameSceneObject::GetInstance()->GetScore()->AddScore(Arrayinfo::SCORE_UP);
+
+			//パーティクル生成
+			CParticlePiler::Create(D3DXVECTOR3(GetPos().x, 120.0f, GetPos().z), COLOR_GREEN, 15, 150, 350, 15, 0.0f);
 
 			// 通常行動は停止
 			m_isGettingTopOrder = false;
@@ -597,6 +575,8 @@ void CArray::CollisionEventFeed(void)
 
 			// モーション変更
 			m_pMotion->SetMotion(MOTION_MOVE);
+
+			break;
 		}
 	}
 }
@@ -627,7 +607,7 @@ void CArray::CollisionBase(void)
 				m_pBlackBoard->SetValue("ReturnSpawn", m_isReturn);
 			}
 
-			return;
+			break;
 		}
 	}
 }

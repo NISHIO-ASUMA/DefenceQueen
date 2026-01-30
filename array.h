@@ -54,7 +54,6 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-	void Moving(void);
 	void OnSeparation(void);
 	void FollowDestination(const D3DXVECTOR3& DestPos);
 	void FollowTop(D3DXVECTOR3 vpos);
@@ -63,7 +62,7 @@ public:
 	void NodeSetting(void);
 	
 	bool Colision(CSphereCollider* other);
-	void CollsionAll(const D3DXVECTOR3& pos);
+	void CollsionAll(void);
 	void CollisionEnemy(void);
 	void CollisionEventFeed(void);
 	void CollisionBase(void);
@@ -112,7 +111,7 @@ private:
 		static constexpr float STOP_DISTANCE = 10.0f;	// 停止距離
 
 		static constexpr int SCORE_UP = 15000;			// スコアの加算量
-		static constexpr int BASESCORE_UP = 50;			// スコアの加算量
+		static constexpr int BASESCORE_UP = 100;		// スコアの加算量
 		static constexpr int Damage = 1;				// ダメージ値
 		static constexpr const char* SCRIPT = "data/MOTION/Array/Array_Motion.txt"; // モーションスクリプトファイル
 	};
@@ -122,6 +121,7 @@ private:
 
 	bool m_isActive;					// 使用状態かどうか
 	bool m_isMove;						// 移動するかどうか
+	bool m_isHit;						// コリジョンフラグ
 	bool m_isTopAntFollow;				// トップアリについて行くかどうか
 	bool m_isReturn;					// 巣にもどるかどうか
 	bool m_isAtBase;					// スポナーにいるか

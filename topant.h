@@ -28,6 +28,7 @@ class CBoxToSphereCollision;
 class CSelectPoint;
 class CSepalationSign;
 class CArrayManager;
+class CPointObj;
 
 //*********************************************************
 // 各スポナーのトップのアリのクラスを定義
@@ -85,6 +86,7 @@ private:
 		static constexpr float NorRot = D3DX_PI * 2.0f;			 // 回転補正
 		static constexpr float Separation = 5.0f;				 // 範囲拡大
 		static constexpr float AddPosY = 180.0f;				 // 高さのオフセット
+		static constexpr float OffPosY = 240.0f;				 // 矢印の高さのオフセット
 		static constexpr const char* MOTION_NAME = "data/MOTION/Top/Top_Motion.txt";	 // モーションパス
 	};
 
@@ -93,6 +95,7 @@ private:
 	CSelectPoint* m_pCircleObj;			// 円形オブジェクト
 	CSepalationSign* m_pSeparationSign; // 切り離し表示サイン
 	CSepalationSign* m_pPutSign;		// 置いていく表示
+	CPointObj* m_pPoint;				// 矢印オブジェクト
 
 	D3DXVECTOR3 m_DestPos;				// 座標設置用
 	bool m_isSetPostion;				// アリをおいていくかどうか

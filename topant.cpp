@@ -31,6 +31,7 @@
 #include "sepalationsign.h"
 #include "eventareamanager.h"
 #include "eventarea.h"
+#include "pointobj.h"
 
 //=========================================================
 // コンストラクタ
@@ -44,7 +45,8 @@ m_pColliderSphere(nullptr),
 m_pColliderBox(nullptr),
 m_pCircleObj(nullptr),
 m_pPutSign(nullptr),
-m_pSeparationSign(nullptr)
+m_pSeparationSign(nullptr),
+m_pPoint(nullptr)
 {
 	
 }
@@ -96,10 +98,13 @@ HRESULT CTopAnt::Init(void)
 	m_pCircleObj = CSelectPoint::Create(GetPos(), VECTOR3_NULL, m_fSeparationRadius, 3.0f, 0.0f);
 
 	// 切り離しui生成
-	m_pSeparationSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 240.0f, GetPos().z),"Sepalation.png");
+	m_pSeparationSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::OffPosY, GetPos().z),"Sepalation.png");
 
 	// 置き配置UI生成
-	m_pPutSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 240.0f, GetPos().z), "PutAnt.png");
+	m_pPutSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::OffPosY, GetPos().z), "PutAnt.png");
+
+	// 矢印生成
+	m_pPoint = CPointObj::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::OffPosY, GetPos().z), D3DXVECTOR3(-90.0f,0.0f,0.0f));
 
 	return S_OK;
 }
@@ -150,6 +155,9 @@ void CTopAnt::Update(void)
 
 	// 更新された座標を取得
 	D3DXVECTOR3 UpdatePos = GetPos();
+
+	// ポイント座標の更新
+	m_pPoint->SetPos(D3DXVECTOR3(UpdatePos.x, UpdatePos.y + Config::OffPosY, UpdatePos.z));
 
 	// Spaceキー入力 or Xボタン入力で仲間を列から切り離す
 	if (pKey->GetPress(DIK_SPACE) || pPad->GetPress(CJoyPad::JOYKEY_X))
@@ -527,8 +535,17 @@ bool CTopAnt::CollisionArea(CArrayManager * pManager)
 
 	// エリア判定を取得する
 	auto AreaManagere = CEventAreaManager::GetInstance();
-	if (AreaManagere->GetSize() <= NULL) return false;
+	if (AreaManagere->GetSize() <= NULL)
+	{
+		// UI表示をオフにする
+		m_pPutSign->SetIsDraw(false);
 
+		// フラグを未使用にする
+		m_isSetPostion = false;
+		return false;
+	}
+
+	// 判別用フラグ
 	bool isHit = false;
 
 	// 最大数と判定をする

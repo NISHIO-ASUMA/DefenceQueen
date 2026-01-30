@@ -54,8 +54,6 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 
-	void InputAction(CInputKeyboard* pKey,CJoyPad * pPad);
-
 	void OrderToArray(const D3DXVECTOR3& destpos);
 	void SetSendArrayMoving(int nIdx,int nNum);
 

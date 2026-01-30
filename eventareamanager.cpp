@@ -102,12 +102,12 @@ void CEventAreaManager::Update(void)
 	int nPathRand = rand() % NUMPATH;
 
 	// 総ゲーム時間から計算
-	if (nTime % 12 == 0 && nTime != m_nLastEventTime)
+	if (nTime % 5 == 0 && nTime != m_nLastEventTime)
 	{
 		// ランダムな座標
 		D3DXVECTOR3 ActivePos = EventPos[nRand];
 
-		// 生成
+		// 判定エリアと餌を生成
 		auto area = CEventArea::Create(ActivePos);
 		auto feed = CFeed::Create(EventFeedPos[nRand], VECTOR3_NULL, INITSCALE, MODEL_NAME[nPathRand], 70.0f, RANDOMHP[nRand]);
 

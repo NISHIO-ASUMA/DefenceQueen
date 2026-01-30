@@ -93,7 +93,10 @@ void CEnemyManager::Update(void)
 			// nullチェック
 			if (pEnemy)
 			{
+				// 有効化状態に設定
 				pEnemy->SetIsActive(true);
+
+				// 配列追加
 				m_pEnemys.push_back(pEnemy);
 			}
 		}
