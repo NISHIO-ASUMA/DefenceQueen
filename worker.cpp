@@ -90,16 +90,10 @@ HRESULT CWorker::Init(void)
 	MotionLoad("data/MOTION/Work/Worker_Motion.txt", MOTION_MAX,true);
 
 	// コライダー生成
-	m_pSphereCollider = CSphereCollider::Create(GetPos(), 50.0f);
+	//m_pSphereCollider = CSphereCollider::Create(GetPos(), 50.0f);
 
 	// シグナルui生成
 	m_pSignal = CSignalUi::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::Add_PosY, GetPos().z), VECTOR3_NULL, 60.0f, 40.0f);
-
-#if 0
-	// ステートマシン生成
-	//m_pStateMachine = std::make_unique<CStateMachine>();
-	//ChangeState(new CWorkerStateNeutral, CWorkerStateBase::ID_NEUTRAL);
-#endif
 
 	return S_OK;
 }
@@ -347,7 +341,7 @@ bool CWorker::Collision(CSphereCollider* other)
 //=========================================================
 // 状態切り替え関数
 //=========================================================
-void CWorker::ChangeState(CWorkerStateBase* pState, int nId)
+void CWorker::ChangeState(CWorkerStateBase* pState)
 {
 	// 自分自身を代入
 	pState->SetOwner(this);

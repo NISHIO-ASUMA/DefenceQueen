@@ -78,11 +78,7 @@ HRESULT CGameWallModel::Init(void)
 void CGameWallModel::Uninit(void)
 {
 	// nullチェック
-	if (m_pCollider)
-	{
-		delete m_pCollider;
-		m_pCollider = nullptr;
-	}
+	m_pCollider.reset();
 
 	// 親クラスの終了処理
 	CObjectX::Uninit();
@@ -111,8 +107,9 @@ void CGameWallModel::Draw(void)
 //=========================================================
 bool CGameWallModel::Collision(CSphereCollider* pOther)
 {
-	if (pOther == nullptr) return false;
+	// nullなら
+	if (m_pCollider == nullptr) return false;
 
 	// 矩形と球のヒット関数
-	return CBoxToSphereCollision::Collision(m_pCollider,pOther);
+	return CBoxToSphereCollision::Collision(m_pCollider.get(),pOther);
 }

@@ -71,12 +71,8 @@ HRESULT CTitleAnt::Init(void)
 //=========================================================
 void CTitleAnt::Uninit(void)
 {
-	// コライダーの破棄
-	if (m_pCollider)
-	{
-		delete m_pCollider;
-		m_pCollider = nullptr;
-	}
+	// 球形コライダーの破棄
+	m_pCollider.reset();
 
 	// 親クラスの終了
 	CInstancingCharactor::Uninit();
@@ -157,5 +153,8 @@ void CTitleAnt::Draw(void)
 //=========================================================
 bool CTitleAnt::Collision(CBoxCollider* pOther)
 {
-	return CBoxToSphereCollision::Collision(pOther,m_pCollider);
+	// nullなら
+	if (m_pCollider == nullptr) return false;
+
+	return CBoxToSphereCollision::Collision(pOther,m_pCollider.get());
 }

@@ -80,11 +80,7 @@ HRESULT CTutoArrayAnt::Init(void)
 void CTutoArrayAnt::Uninit(void)
 {
 	// コライダーポインタの破棄
-	if (m_pSphereCollider)
-	{
-		delete m_pSphereCollider;
-		m_pSphereCollider = nullptr;
-	}
+	m_pSphereCollider.reset();
 
 	// 親クラスの終了処理
 	CMoveCharactor::Uninit();
@@ -153,8 +149,11 @@ void CTutoArrayAnt::Draw(void)
 //=========================================================
 bool CTutoArrayAnt::Collision(CSphereCollider* other)
 {
+	// nullなら
+	if (m_pSphereCollider == nullptr) return false;
+
 	// 球形クラスの判定関数を返す
-	return CCollisionSphere::Collision(m_pSphereCollider,other);
+	return CCollisionSphere::Collision(m_pSphereCollider.get(),other);
 }
 //=========================================================
 // トップアリ追従関数

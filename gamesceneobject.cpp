@@ -194,24 +194,6 @@ void CGameSceneObject::Update(void)
 
 	// イベント更新
 	CEventAreaManager::GetInstance()->Update();
-
-#ifdef _DEBUG
-
-	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_F9))
-	{
-		// スコア加算テスト
-		m_pScore->AddScore(12000);
-	}
-
-	//
-	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_F8))
-	{
-		// 書き出しテスト
-		m_pScore->SaveScore();
-		m_pQueen->SaveHp();
-	}
-
-#endif // _DEBUG
 }
 //=========================================================
 // 描画処理

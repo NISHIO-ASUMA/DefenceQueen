@@ -66,11 +66,7 @@ HRESULT CEventArea::Init(void)
 void CEventArea::Uninit(void)
 {
 	// コライダーポインタの破棄
-	if (m_pBoxCollider)
-	{
-		delete m_pBoxCollider;
-		m_pBoxCollider = nullptr;
-	}
+	m_pBoxCollider.reset();
 
 	// 親クラスの終了処理
 	CObject3D::Uninit();
@@ -102,5 +98,8 @@ void CEventArea::Draw(void)
 //=========================================================
 bool CEventArea::Collision(CSphereCollider* pOther)
 {
-	return CBoxToSphereCollision::Collision(m_pBoxCollider,pOther);
+	// nullチェック
+	if (m_pBoxCollider == nullptr) return false;
+
+	return CBoxToSphereCollision::Collision(m_pBoxCollider.get(),pOther);
 }

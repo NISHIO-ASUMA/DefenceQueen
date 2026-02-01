@@ -13,7 +13,6 @@
 #include "texture.h"
 #include "modelmanager.h"
 #include "outline.h"
-#include "instancing.h"
 
 //=========================================================
 // コンストラクタ

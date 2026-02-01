@@ -108,8 +108,8 @@ void CEventAreaManager::Update(void)
 		D3DXVECTOR3 ActivePos = EventPos[nRand];
 
 		// 判定エリアと餌を生成
-		auto area = CEventArea::Create(ActivePos);
-		auto feed = CFeed::Create(EventFeedPos[nRand], VECTOR3_NULL, INITSCALE, MODEL_NAME[nPathRand], 70.0f, RANDOMHP[nRand]);
+		CEventArea * area = CEventArea::Create(ActivePos);
+		CFeed * feed = CFeed::Create(EventFeedPos[nRand], VECTOR3_NULL, INITSCALE, MODEL_NAME[nPathRand], 70.0f, RANDOMHP[nRand]);
 
 		// オーナーに設定
 		feed->SetOwnerArea(area);

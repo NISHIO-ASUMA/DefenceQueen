@@ -14,6 +14,7 @@
 // インクルードファイル
 //*********************************************************
 #include "collider.h"
+#include <memory>
 
 //*********************************************************
 // 球形コライダークラスを定義
@@ -28,7 +29,7 @@ public:
 	void SetRadius(float fRadius) { m_fRadius = fRadius; }
 	float GetRadius(void) { return m_fRadius; }
 
-	static CSphereCollider* Create(D3DXVECTOR3 pos, float fRadius);
+	static std::unique_ptr<CSphereCollider>Create(D3DXVECTOR3 pos, float fRadius);
 
 private:
 

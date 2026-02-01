@@ -85,12 +85,8 @@ HRESULT CBlock::Init(void)
 //=========================================================
 void CBlock::Uninit(void)
 {
-	// nullチェック
-	if (m_pCollider)
-	{
-		delete m_pCollider;
-		m_pCollider = nullptr;
-	}
+	// 矩形コライダーの破棄
+	m_pCollider.reset();
 
 	// 親クラスの終了処理
 	CObjectX::Uninit();
@@ -119,6 +115,9 @@ void CBlock::Draw(void)
 //=========================================================
 bool CBlock::Collision(CBoxCollider* pOther, D3DXVECTOR3* OutPos)
 {
+	// nullチェック
+	if (m_pCollider == nullptr) return false;
+
 	// 矩形同士の当たり判定を返す
-	return CCollisionBox::Collision(m_pCollider, pOther, OutPos);
+	return CCollisionBox::Collision(m_pCollider.get(), pOther, OutPos);
 }

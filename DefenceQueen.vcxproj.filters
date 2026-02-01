@@ -849,9 +849,6 @@
     <ClCompile Include="sepalationsign.cpp">
       <Filter>ソース ファイル\3D</Filter>
     </ClCompile>
-    <ClCompile Include="basemapfeed.cpp">
-      <Filter>ソース ファイル\BaseClass\3D</Filter>
-    </ClCompile>
     <ClCompile Include="attackenemyleaf.cpp">
       <Filter>ソース ファイル\Array_AI\Leaf</Filter>
     </ClCompile>
@@ -878,6 +875,9 @@
     </ClCompile>
     <ClCompile Include="eventareamanager.cpp">
       <Filter>ソース ファイル\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="basemapfeed.cpp">
+      <Filter>ソース ファイル\Support</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

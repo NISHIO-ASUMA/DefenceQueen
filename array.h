@@ -14,8 +14,8 @@
 // インクルードファイル
 //*********************************************************
 #include "movecharactor.h"
-#include <memory>
 #include "instancingcharactor.h"
+#include <memory>
 
 //*********************************************************
 // 前方宣言
@@ -135,7 +135,8 @@ private:
 	D3DXVECTOR3 m_ActivePos;			// 出現時の座標
 	D3DXVECTOR3 m_SaveDestPos;			// 保存しておく目的座標
 	CMotionInstancing* m_pMotion;		// モーションポインタ
-	CSphereCollider* m_pSphereCollider;	// 球形のコライダー
+
+	std::unique_ptr<CSphereCollider>m_pSphereCollider;	// 球形のコライダー
 	CBoxCollider* m_pBoxCollider;		// 矩形のコライダー
 	
 	CArray* m_pFollowTarget;			// 一個前の自身のポインタ

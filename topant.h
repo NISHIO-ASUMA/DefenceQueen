@@ -14,6 +14,7 @@
 // インクルードファイル
 //*********************************************************
 #include "movecharactor.h"
+#include <memory>
 
 //*********************************************************
 // 前方宣言
@@ -90,8 +91,9 @@ private:
 		static constexpr const char* MOTION_NAME = "data/MOTION/Top/Top_Motion.txt";	 // モーションパス
 	};
 
-	CSphereCollider* m_pColliderSphere; // 球形コライダー
-	CBoxCollider* m_pColliderBox;		// 矩形コライダー
+	std::unique_ptr<CSphereCollider>m_pColliderSphere; // 球形コライダー
+	std::unique_ptr<CBoxCollider>m_pColliderBox;	   // 矩形コライダー
+
 	CSelectPoint* m_pCircleObj;			// 円形オブジェクト
 	CSepalationSign* m_pSeparationSign; // 切り離し表示サイン
 	CSepalationSign* m_pPutSign;		// 置いていく表示

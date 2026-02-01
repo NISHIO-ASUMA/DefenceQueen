@@ -14,6 +14,7 @@
 // インクルードファイル
 //*********************************************************
 #include "movecharactor.h"
+#include <memory>
 
 //*********************************************************
 // 前方宣言
@@ -68,7 +69,7 @@ private:
 		static constexpr const char* MOTION_NAME = "data/MOTION/Array/Array_Motion.txt"; // モーションパス
 	};
 
-	CSphereCollider* m_pSphereCollider; // 球形コライダー
+	std::unique_ptr<CSphereCollider>m_pSphereCollider; // 球形コライダー
 	D3DXVECTOR3 m_DestPos;				// 座標設置用
 
 	bool m_isTopFollow;					// トップを追従するかどうか

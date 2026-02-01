@@ -124,7 +124,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	CInstancing::GetInstance()->SetDeviceToInstancing(m_pRenderer->GetDevice());
 	CInstancing::GetInstance()->Init("data/SHADER/Instancing.hlsl");
 
-	// ネットワーククラスの生成
+	// ネットワーククラスの生成 ( ここでオンライン通信作成している )
 	m_pNetWork = std::make_unique<CNetWork>();
 	if (FAILED(m_pNetWork->Init())) return E_FAIL;
 

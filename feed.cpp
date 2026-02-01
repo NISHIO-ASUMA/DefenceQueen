@@ -99,7 +99,9 @@ HRESULT CFeed::Init(void)
 	D3DXVECTOR3 Size = pXManager->GetInfo(nModelIdx).Size;
 
 	// 球形コライダー生成
-	m_pSphere = CSphereCollider::Create(GetPos(), m_fRadius);
+	m_pSphere = std::make_unique<CSphereCollider>();
+	m_pSphere->SetPos(GetPos());
+	m_pSphere->SetRadius(m_fRadius);
 
 	// 矩形コライダー生成
 	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetPos(), Size * 0.9f);
@@ -122,18 +124,10 @@ HRESULT CFeed::Init(void)
 void CFeed::Uninit(void)
 {
 	// 球形コライダーの破棄
-	if (m_pSphere)
-	{
-		delete m_pSphere;
-		m_pSphere = nullptr;
-	}
+	m_pSphere.reset();
 
 	// 矩形コライダーの破棄
-	if (m_pBoxCollider)
-	{
-		delete m_pBoxCollider;
-		m_pBoxCollider = nullptr;
-	}
+	m_pBoxCollider.reset();
 
 	// パラメーターポインタの破棄
 	m_pParam.reset();
@@ -283,7 +277,7 @@ void CFeed::ColorCheck(void)
 		// フレーム加算
 		m_ColorFrameCnt++;
 
-		// サイン波
+		// 角度を設定
 		float fAngle = m_ColorFrameCnt * FEEDINFO::BLINK_SPEED;
 
 		// 振動係数
@@ -331,12 +325,18 @@ D3DCOLORVALUE CFeed::LerpColor(const D3DCOLORVALUE& a, const D3DCOLORVALUE& b, f
 //=========================================================
 bool CFeed::Collision(CSphereCollider* other)
 {
-	return CCollisionSphere::Collision(m_pSphere,other);
+	// nullなら
+	if (m_pSphere == nullptr) return false;
+
+	return CCollisionSphere::Collision(m_pSphere.get(),other);
 }
 //=========================================================
 // 矩形の当たり判定処理
 //=========================================================
 bool CFeed::CollisionBox(CBoxCollider* pOther, D3DXVECTOR3* OutPos)
 {
-	return CCollisionBox::Collision(m_pBoxCollider,pOther,OutPos);
+	// nullなら
+	if (m_pBoxCollider == nullptr) return false;
+
+	return CCollisionBox::Collision(m_pBoxCollider.get(),pOther,OutPos);
 }

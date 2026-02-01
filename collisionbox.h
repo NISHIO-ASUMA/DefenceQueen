@@ -26,6 +26,7 @@ class CBoxCollider;
 class CCollisionBox : public CCollision
 {
 public:
+
 	CCollisionBox();
 	~CCollisionBox();
 

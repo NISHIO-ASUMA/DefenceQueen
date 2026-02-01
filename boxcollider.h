@@ -14,6 +14,7 @@
 // インクルードファイル
 //*********************************************************
 #include "collider.h"
+#include <memory>
 
 //*********************************************************
 // 矩形のコライダー設定処理
@@ -37,7 +38,7 @@ public:
 	void SetPosOld(const D3DXVECTOR3 posold) { m_BoxInfo.posOld = posold; }
 	BoxColliderInfo GetInfo(void) const { return m_BoxInfo; }
 
-	static CBoxCollider* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 posold, const D3DXVECTOR3 size);
+	static std::unique_ptr<CBoxCollider>Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 posold, const D3DXVECTOR3 size);
 
 private:
 

@@ -78,7 +78,7 @@ public:
 	void AssignFeed(CFeed* pFeed);
 	int RequiredNumber(void);
 
-	void ChangeState(CWorkerStateBase* pState, int nId);
+	void ChangeState(CWorkerStateBase* pState);
 	bool Collision(CSphereCollider* other);
 
 	inline void SetDestPos(const D3DXVECTOR3 pos) { m_DestPos = pos; }

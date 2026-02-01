@@ -94,10 +94,6 @@ void CInstanceModel::Update(const D3DXMATRIX& mtx)
 	// インデックスが-1なら
 	if (m_nModelIdx == -1)
 		return;
-
-	// デバイスポインタを取得
-	const auto& Rendere = CManager::GetInstance()->GetRenderer();
-	LPDIRECT3DDEVICE9 pDevice = Rendere->GetDevice();
 	
 	// ファイルマネージャー取得
 	CInstanceModelManager* pIMgr = CManager::GetInstance()->GetInstanceModelM();
@@ -144,7 +140,9 @@ void CInstanceModel::Update(const D3DXMATRIX& mtx)
 	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxParent);
 
 	// インスタンシングに登録
-	Rendere->AddInstanceObject(m_nModelIdx,this);
+	const auto& Rendere = CManager::GetInstance()->GetRenderer();
+	Rendere->AddInstanceObject(m_nModelIdx, this);
+
 #else
 	if (m_nModelIdx == -1) return;
 
@@ -206,8 +204,6 @@ void CInstanceModel::Update(const D3DXMATRIX& mtx)
 //=========================================================
 void CInstanceModel::Draw(const D3DXMATRIX& mtx)
 {
-	// マトリックスシャドウを描画する
-
 	// ポーズ中以外ならここで処理を返す
 	if (!CPauseManager::GetPause()) return;
 

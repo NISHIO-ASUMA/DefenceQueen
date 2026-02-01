@@ -66,5 +66,5 @@ private:
 	};
 
 	D3DXVECTOR3 m_DestPos;			// 目的座標
-	CSphereCollider* m_pCollider;	// 球コライダー
+	std::unique_ptr<CSphereCollider>m_pCollider;	// 球形コライダー
 };

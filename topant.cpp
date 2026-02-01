@@ -114,18 +114,10 @@ HRESULT CTopAnt::Init(void)
 void CTopAnt::Uninit(void)
 {
 	// 矩形コライダー破棄
-	if (m_pColliderBox)
-	{
-		delete m_pColliderBox;
-		m_pColliderBox = nullptr;
-	}
+	m_pColliderBox.reset();
 
 	// 球形コライダー破棄
-	if (m_pColliderSphere)
-	{
-		delete m_pColliderSphere;
-		m_pColliderSphere = nullptr;
-	}
+	m_pColliderSphere.reset();
 
 	// 親クラスの終了処理
 	CMoveCharactor::Uninit();
@@ -508,21 +500,30 @@ void CTopAnt::Separation(void)
 //=========================================================
 bool CTopAnt::Collision(CBoxCollider* pOther, D3DXVECTOR3* pOutPos)
 {
-	return CCollisionBox::Collision(m_pColliderBox, pOther, pOutPos);
+	// nullチェック
+	if (m_pColliderBox == nullptr) return false;
+
+	return CCollisionBox::Collision(m_pColliderBox.get(), pOther, pOutPos);
 }
 //=========================================================
 // 球形の当たり判定処理
 //=========================================================
 bool CTopAnt::CollisionSphere(CSphereCollider* pOther)
 {
-	return CCollisionSphere::Collision(m_pColliderSphere, pOther);
+	// nullなら
+	if (m_pColliderSphere == nullptr) return false;
+	
+	return CCollisionSphere::Collision(m_pColliderSphere.get(), pOther);
 }
 //=========================================================
 // 球と矩形の当たり判定処理
 //=========================================================
 bool CTopAnt::CollisonT(CSphereCollider* pOther)
 {
-	return CBoxToSphereCollision::Collision(m_pColliderBox, pOther);
+	// nullなら
+	if (m_pColliderBox == nullptr) return false;
+
+	return CBoxToSphereCollision::Collision(m_pColliderBox.get(), pOther);
 }
 //=========================================================
 // エリアとの当たり判定
@@ -551,11 +552,14 @@ bool CTopAnt::CollisionArea(CArrayManager * pManager)
 	// 最大数と判定をする
 	for (int nCnt = 0; nCnt < AreaManagere->GetSize(); nCnt++)
 	{
+		// 生成されて無かったら
+		if (m_pColliderSphere == nullptr) continue;
+
 		// 配列の各要素を取得
 		auto Area = AreaManagere->GetIdx(nCnt);
 
 		// 当たり判定関数
-		if (Area->Collision(m_pColliderSphere))
+		if (Area->Collision(m_pColliderSphere.get()))
 		{
 			// UI表示をする
 			m_pPutSign->SetIsDraw(true);

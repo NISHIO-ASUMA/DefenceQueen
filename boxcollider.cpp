@@ -25,12 +25,12 @@ CBoxCollider::~CBoxCollider()
 	// 無し
 }
 //=========================================================
-// 矩形生成処理
+// 生成処理
 //=========================================================
-CBoxCollider* CBoxCollider::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 posold, const D3DXVECTOR3 size)
+std::unique_ptr<CBoxCollider> CBoxCollider::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 posold, const D3DXVECTOR3 size)
 {
 	// インスタンス生成
-	CBoxCollider* pCollider = new CBoxCollider;
+	auto pCollider = std::make_unique<CBoxCollider>();
 	if (pCollider == nullptr) return nullptr;
 
 	// 値をセット

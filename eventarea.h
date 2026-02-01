@@ -14,6 +14,7 @@
 // インクルードファイル
 //*********************************************************
 #include "object3D.h"
+#include <memory>
 
 //*********************************************************
 // 前方宣言
@@ -51,6 +52,6 @@ private:
 		static constexpr float HEIGHT = 3.0f;	// 高さ
 	};
 
-	CBoxCollider* m_pBoxCollider;	// 矩形のコライダー
+	std::unique_ptr<CBoxCollider>m_pBoxCollider;	// 矩形のコライダー
 	bool m_isDraw;					// 描画するかどうか
 };

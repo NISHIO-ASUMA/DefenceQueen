@@ -183,11 +183,10 @@ void CRankingScore::Load(void)
 	// サーバー接続チェック
 	if (pNet->GetIsConnect())
 	{
-#if 1
-		// ランキング送信コマンド
-		int nDummy = 20;
-		pNet->SendInt(nDummy);
-#endif
+		//// ランキング送信コマンド
+		//int nDummy = 512;
+		//pNet->SendInt(nDummy);
+
 		// 受信用配列
 		int recvData[RANKING_MAX] = {};
 

@@ -135,11 +135,7 @@ void CArray::Uninit(void)
 	m_pParameter.reset();
 
 	// コライダー破棄
-	if (m_pSphereCollider)
-	{
-		delete m_pSphereCollider;
-		m_pSphereCollider = nullptr;
-	}
+	m_pSphereCollider.reset();
 
 	// ビヘイビアツリーの破棄
 	if (m_pBehaviorTree)
@@ -486,7 +482,7 @@ void CArray::NodeSetting(void)
 bool CArray::Colision(CSphereCollider* other)
 {
 	// 球同士の当たり判定の関数を返す
-	return CCollisionSphere::Collision(m_pSphereCollider,other);
+	return CCollisionSphere::Collision(m_pSphereCollider.get(),other);
 }
 //=========================================================
 // 当たり判定格納関数
@@ -569,6 +565,7 @@ void CArray::CollisionEventFeed(void)
 			// 移動は許可
 			m_isMove = true;
 
+			// ヒット判定
 			m_isHit = true;
 
 			// モーション変更

@@ -63,8 +63,8 @@ public:
 	inline bool IsAssigned() const { return m_isAssing; }
 	inline float GetRadius(void) const { return m_fRadius; }
 
-	inline CSphereCollider* GetCollider(void) const { return m_pSphere; }
-	inline CBoxCollider* GetBoxCollider(void) const { return m_pBoxCollider; }
+	inline CSphereCollider* GetCollider(void) const { return m_pSphere.get(); }
+	inline CBoxCollider* GetBoxCollider(void) const { return m_pBoxCollider.get(); }
 	inline CParameter* GetParam(void) { return m_pParam.get(); }
 	
 	void SetOwnerArea(CEventArea* pEvent) { m_pOwnerArea = pEvent; }
@@ -81,10 +81,11 @@ private:
 	std::function<void(void)>m_event;		// 死亡時に呼ばれる関数イベント
 	std::unique_ptr<CParameter>m_pParam;	// パラメータークラス
 
-	CSphereCollider* m_pSphere;		// 球形コライダー
-	CBoxCollider* m_pBoxCollider;	// 矩形コライダー
+	std::unique_ptr<CSphereCollider>m_pSphere;		// 球形コライダー
+	std::unique_ptr<CBoxCollider>m_pBoxCollider;	// 矩形コライダー
+
 	COLTYPE m_ColType;				// カラー状態
-	CEventArea* m_pOwnerArea;
+	CEventArea* m_pOwnerArea;		// 自身のエリア
 
 	int m_ColorFrameCnt;			// カラー変更からの経過フレーム
 	int m_nLife;					// 体力値

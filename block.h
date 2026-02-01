@@ -14,6 +14,7 @@
 // インクルードファイル
 //*********************************************************
 #include "objectX.h"
+#include <memory>
 
 //*********************************************************
 // 前方宣言
@@ -36,11 +37,11 @@ public:
 	void Draw(void);
 	bool Collision(CBoxCollider * pOther,D3DXVECTOR3 * OutPos);
 
-	inline CBoxCollider* GetCollider(void) { return m_pCollider; }
+	inline CBoxCollider* GetCollider(void) { return m_pCollider.get(); }
 
 	static CBlock* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const D3DXVECTOR3 scale, const char* pModelName);
 
 private:
-	CBoxCollider* m_pCollider;	// 矩形のコライダー
+	std::unique_ptr<CBoxCollider> m_pCollider;	// 矩形のコライダー
 };
 

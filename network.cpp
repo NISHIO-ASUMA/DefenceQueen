@@ -183,7 +183,7 @@ bool CNetWork::RecvInt(int* pOutData)
 		nReceived += nRecvData;
 	}
 
-	m_isConnected = false;
+	//m_isConnected = false;
 
 	return true;
 }

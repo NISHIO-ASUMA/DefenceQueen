@@ -100,18 +100,10 @@ HRESULT CTutoTopAnt::Init(void)
 void CTutoTopAnt::Uninit(void)
 {
 	// 矩形コライダー破棄
-	if (m_pColliderBox)
-	{
-		delete m_pColliderBox;
-		m_pColliderBox = nullptr;
-	}
+	m_pColliderBox.reset();
 
 	// 球形コライダ―の破棄
-	if (m_pSphereCollider)
-	{
-		delete m_pSphereCollider;
-		m_pSphereCollider = nullptr;
-	}
+	m_pSphereCollider.reset();
 
 	// 親クラスの終了処理
 	CMoveCharactor::Uninit();
@@ -251,7 +243,7 @@ void CTutoTopAnt::Update(void)
 	if (!Area) return;
 
 	// 当たっていたら
-	if (Area->Collision(m_pSphereCollider))
+	if (Area->Collision(m_pSphereCollider.get()))
 	{
 		// コライダー座標更新
 		m_pSphereCollider->SetPos(UpdatePos);
@@ -542,5 +534,8 @@ void CTutoTopAnt::Separation(void)
 //=========================================================
 bool CTutoTopAnt::Collision(CBoxCollider* pOther, D3DXVECTOR3* pOutPos)
 {
-	return CCollisionBox::Collision(m_pColliderBox, pOther, pOutPos);
+	// nullなら
+	if (m_pColliderBox == nullptr) return false;
+
+	return CCollisionBox::Collision(m_pColliderBox.get(), pOther, pOutPos);
 }
