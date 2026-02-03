@@ -18,7 +18,7 @@
 #include "camera.h"
 #include "result.h"
 #include "fade.h"
-#include "time.h"
+#include "gametime.h"
 #include "queen.h"
 
 //*********************************************************

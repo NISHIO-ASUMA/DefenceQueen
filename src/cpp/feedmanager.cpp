@@ -12,7 +12,7 @@
 #include "feed.h"
 #include "meshcylinder.h"
 #include "gamesceneobject.h"
-#include "time.h"
+#include "gametime.h"
 
 //*********************************************************
 // –¼‘O‹óŠÔ

@@ -10,7 +10,7 @@
 //*********************************************************
 #include "eventareamanager.h"
 #include "gamesceneobject.h"
-#include "time.h"
+#include "gametime.h"
 #include "eventarea.h"
 #include "feed.h"
 

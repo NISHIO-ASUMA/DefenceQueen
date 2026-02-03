@@ -16,7 +16,7 @@
 #include "feedmanager.h"
 #include "grass.h"
 #include "feed.h"
-#include "time.h"
+#include "gametime.h"
 #include "enemy.h"
 #include "array.h"
 #include "workeruimanager.h"

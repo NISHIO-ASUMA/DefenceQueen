@@ -22,7 +22,6 @@
 #include "dinput.h"					// 入力処理に必要
 #include "Xinput.h"					// ジョイパッド処理に必要
 #include "xaudio2.h"
-#include <time.h>
 #include <Shlwapi.h>
 #include <assert.h>					// アサート関数ヘッダー
 #include <stdlib.h>
