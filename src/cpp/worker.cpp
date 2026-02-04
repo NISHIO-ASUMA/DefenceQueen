@@ -17,7 +17,6 @@
 #include "selectpoint.h"
 #include "workerstateneutral.h"
 #include "template.h"
-#include "numberpanel.h"
 #include "feed.h"
 #include "feedmanager.h"
 #include "parameter.h"

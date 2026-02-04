@@ -32,7 +32,7 @@ CPause::~CPause()
 //=========================================================
 // 生成処理
 //=========================================================
-CPause* CPause::Create(D3DXVECTOR3 pos, float fWidth, float fHeight, D3DXCOLOR col,int nType)
+CPause* CPause::Create(const D3DXVECTOR3& pos, float fWidth, float fHeight, const D3DXCOLOR& col,int nType)
 {
 	// インスタンス生成
 	CPause* pPause = new CPause;
@@ -96,8 +96,6 @@ void CPause::Draw(void)
 
 	// テクスチャ取得
 	CTexture* pTexture = CManager::GetInstance()->GetTexture();
-
-	// nullだったらここで処理終了
 	if (pTexture == nullptr) return;
 
 	// テクスチャセット

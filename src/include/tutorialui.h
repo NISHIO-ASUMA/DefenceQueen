@@ -25,18 +25,20 @@ public:
 	CTutorialUi(int nPriority = static_cast<int>(CObject::PRIORITY::UI));
 	~CTutorialUi();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 
-	void SetState(int nState) { m_nState = nState; }
-	bool IsFinished() const { return (m_fAlpha <= 0.0f); }
-
-	static CTutorialUi* Create(D3DXVECTOR3 pos, float fWidth, float fHeight,const char * pFileName,int nState);
+	/// <summary>
+	/// ポインタ生成処理
+	/// </summary>
+	/// <param name="pos">生成座標</param>
+	/// <param name="fWidth">横幅</param>
+	/// <param name="fHeight">高さ</param>
+	/// <param name="pFileName">テクスチャファイル名</param>
+	/// <returns></returns>
+	static CTutorialUi* Create(const D3DXVECTOR3& pos, const float& fWidth, const float& fHeight,const char * pFileName);
 
 private:
-
-	int m_nState;		// UIの状態
-	float m_fAlpha;		// 透明度
 };

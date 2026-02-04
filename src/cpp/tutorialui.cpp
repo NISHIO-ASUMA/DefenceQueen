@@ -16,8 +16,7 @@
 //=========================================================
 CTutorialUi::CTutorialUi(int nPriority) : CObject2D(nPriority)
 {
-	// 値のクリア
-	m_fAlpha = 1.0f;
+
 }
 //=========================================================
 // デストラクタ
@@ -30,25 +29,19 @@ CTutorialUi::~CTutorialUi()
 //=========================================================
 // 生成処理
 //=========================================================
-CTutorialUi* CTutorialUi::Create(D3DXVECTOR3 pos, float fWidth, float fHeight,const char * pFileName,int nState)
+CTutorialUi* CTutorialUi::Create(const D3DXVECTOR3& pos, const float& fWidth, const float& fHeight, const char* pFileName)
 {
 	// インスタンス生成
 	CTutorialUi* pTutoUi = new CTutorialUi;
-
-	// インスタンス生成失敗時
 	if (pTutoUi == nullptr) return nullptr;
 
 	// 初期化失敗時
-	if (FAILED(pTutoUi->Init()))
-	{
-		return nullptr;
-	}
+	if (FAILED(pTutoUi->Init())) return nullptr;
 
 	// オブジェクト2Dの基本設定
 	pTutoUi->SetPos(pos);
 	pTutoUi->SetSize(fWidth, fHeight);
 	pTutoUi->SetTexture(pFileName);
-	pTutoUi->SetState(nState);
 
 	// 生成されたポインタを返す
 	return pTutoUi;
@@ -60,9 +53,6 @@ HRESULT CTutorialUi::Init(void)
 {
 	// オブジェクト2Dの初期化処理
 	CObject2D::Init();
-
-	// 頂点生成タイプを設定
-	SetAnchor(CObject2D::ANCHORTYPE_CENTER);
 
 	// 初期化結果を返す
 	return S_OK;

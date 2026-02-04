@@ -36,8 +36,13 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-
 	bool Collision(CSphereCollider* pOther);
+
+	/// <summary>
+	/// ポインタ生成処理
+	/// </summary>
+	/// <param name="pos">生成座標</param>
+	/// <returns></returns>
 	static CEventArea* Create(const D3DXVECTOR3& pos);
 
 private:

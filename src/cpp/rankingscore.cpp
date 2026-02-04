@@ -46,13 +46,14 @@ CRankingScore::~CRankingScore()
 //=========================================================
 // 生成処理
 //=========================================================
-CRankingScore* CRankingScore::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
+CRankingScore* CRankingScore::Create(const D3DXVECTOR3& pos, float fWidth, float fHeight)
 {
 	// インスタンス生成
 	CRankingScore* pRankScore = new CRankingScore;
 	if (pRankScore == nullptr) return nullptr;
 
-	pRankScore->m_pos = pos; // 目的の座標
+	// オブジェクト設定
+	pRankScore->m_pos = pos; 
 	pRankScore->m_fWidth = fWidth;
 	pRankScore->m_fHeight = fHeight;
 
@@ -148,7 +149,8 @@ void CRankingScore::Update(void)
 
 		for (int digit = 0; digit < RANKSCOREDIGIT; digit++)
 		{
-			int nNum = nScore % 10;  // 1桁ずつ取り出す
+			// 1桁ずつ取り出す
+			int nNum = nScore % 10; 
 			nScore /= 10;
 
 			// 桁更新
@@ -183,10 +185,6 @@ void CRankingScore::Load(void)
 	// サーバー接続チェック
 	if (pNet->GetIsConnect())
 	{
-		//// ランキング送信コマンド
-		//int nDummy = 512;
-		//pNet->SendInt(nDummy);
-
 		// 受信用配列
 		int recvData[RANKING_MAX] = {};
 

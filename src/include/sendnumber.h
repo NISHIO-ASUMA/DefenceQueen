@@ -27,10 +27,10 @@ public:
 	CSendNumber(int nPriority = static_cast<int>(CObject::PRIORITY::UI));
 	~CSendNumber();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 	void SetDestScore(int nDestScore) { m_nScore = nDestScore; }
 
 	inline D3DXVECTOR3 GetPos(void) const { return m_pos; }

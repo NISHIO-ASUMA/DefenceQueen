@@ -21,7 +21,7 @@
 class CBlockManager;
 class CEnemyManager;
 class CFeedManager;
-class CTime;
+class CGameTime;
 class CEnemy;
 class CWorkerUiManager;
 class CWorkerManager;
@@ -53,7 +53,7 @@ public:
 
 	void DeleteQueen(void);
 	
-	CTime* GetTime(void) const { return m_pTimer; }
+	CGameTime* GetTime(void) const { return m_pTimer; }
 	CScore* GetScore(void) const { return m_pScore; }
 	CQueen* GetQueen(void) const { return m_pQueen; }
 	CTopAnt* GetTopAnt(void) const { return m_pTopAnt; }
@@ -79,11 +79,10 @@ private:
 	void CreatePointer(void); // 初期化処理関数分け
 
 	CScore* m_pScore;	// スコアクラスのポインタ
-	CTime* m_pTimer;	// タイマークラスのポインタ
+	CGameTime* m_pTimer;	// タイマークラスのポインタ
 	CQueen* m_pQueen;	// 女王クラス
 	CSendNumber* m_pSendNumber; // 送る数表示
 	CTopAnt* m_pTopAnt;	// 操作できるトップアリ
-
 
 	std::unique_ptr<CWorkerUiManager>m_pWorkUi;	// 表示uiクラスポインタ
 	std::unique_ptr<CFeedManager>m_pFeed;		// 餌管理クラスのポインタ

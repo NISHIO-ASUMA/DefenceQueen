@@ -28,16 +28,14 @@ public:
 	void SetTexture(const char * pTexName);
 	void SetSize(float fWidth, float fHeight);
 	void SetDigit(int nDigit);
+	void SetCol(const D3DXCOLOR& col);
+	void SetFlash(const int& nStartFrame, const int& nEndFrame, const D3DXCOLOR& col);
+	inline void SetIsUse(const bool isuse) { m_isUse = isuse; }
+	inline void SetPos(const D3DXVECTOR3& pos) { m_pos = pos;}
 
-	void SetPos(D3DXVECTOR3 pos) { m_pos = pos;}
-	void SetCol(D3DXCOLOR col);
-	void SetFlash(const int nStartFrame, const int nEndFrame, D3DXCOLOR col);
-
-	float GetWidth(void) { return m_fWidth; }
-	float GetHeight(void) { return m_fHeight; }
-
-	bool GetIsUse(void) { return m_isUse; }
-	void SetIsUse(bool is) { m_isUse = is; }
+	inline float GetWidth(void) const { return m_fWidth; }
+	inline float GetHeight(void) const { return m_fHeight; }
+	inline bool GetIsUse(void) const { return m_isUse; }
 
 private:
 

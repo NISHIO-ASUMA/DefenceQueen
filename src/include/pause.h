@@ -42,15 +42,24 @@ public:
 	CPause(int nPriority = static_cast<int>(CObject::PRIORITY::PAUSE));
 	~CPause();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
-
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 	void SetTexture(void);
-	inline void SetType(int nType) { m_nPauseType = nType; }
 
-	static CPause* Create(D3DXVECTOR3 pos, float fWidth, float fHeight, D3DXCOLOR col, int nType);
+	inline void SetType(const int& nType) { m_nPauseType = nType; }
+
+	/// <summary>
+	/// 生成処理
+	/// </summary>
+	/// <param name="pos">生成座標</param>
+	/// <param name="fWidth">横幅</param>
+	/// <param name="fHeight">高さ</param>
+	/// <param name="col">カラー</param>
+	/// <param name="nType">メニューの種類</param>
+	/// <returns></returns>
+	static CPause* Create(const D3DXVECTOR3& pos, float fWidth, float fHeight, const D3DXCOLOR& col, int nType);
 
 private:
 	int m_nIdxTexture;	// テクスチャインデックス番号

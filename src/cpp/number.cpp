@@ -172,7 +172,7 @@ void CNumber::SetSize(float fWidth, float fHeight)
 //===========================================================
 // カラー設定
 //===========================================================
-void CNumber::SetCol(D3DXCOLOR col)
+void CNumber::SetCol(const D3DXCOLOR& col)
 {
 	m_col = col;
 
@@ -194,7 +194,7 @@ void CNumber::SetCol(D3DXCOLOR col)
 //==========================================================
 // 点滅処理
 //==========================================================
-void CNumber::SetFlash(const int nStartFrame, const int nEndFrame, D3DXCOLOR col)
+void CNumber::SetFlash(const int& nStartFrame, const int& nEndFrame, const D3DXCOLOR& col)
 {
 	// 頂点情報のポインタ
 	VERTEX_2D* pVtx = nullptr;

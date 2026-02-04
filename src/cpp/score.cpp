@@ -41,13 +41,13 @@ CScore::~CScore()
 //=========================================================
 // 生成処理
 //=========================================================
-CScore* CScore::Create(D3DXVECTOR3 pos,float fWidth,float fHeight)
+CScore* CScore::Create(const D3DXVECTOR3& pos, const float& fWidth, const float& fHeight)
 {
 	// スコアインスタンス生成
 	CScore* pScore = new CScore;
 	if (pScore == nullptr) return nullptr;
 
-	// 座標,サイズ設定
+	// オブジェクト設定
 	pScore->m_pos = pos;
 	pScore->m_fWidth = fWidth;
 	pScore->m_fHeight = fHeight;
@@ -55,6 +55,7 @@ CScore* CScore::Create(D3DXVECTOR3 pos,float fWidth,float fHeight)
 	// 初期化失敗時
 	if (FAILED(pScore->Init())) return nullptr;
 	
+	// 生成されたポインタを返す
 	return pScore;
 }
 //=========================================================
@@ -126,7 +127,6 @@ void CScore::Update(void)
 	{
 		// 桁数ごとに分割する値を計算
 		int nDigit = nScore % NUM_DIGIT;
-
 		nScore /= NUM_DIGIT;
 
 		// ナンバー更新
@@ -141,7 +141,7 @@ void CScore::Update(void)
 //=========================================================
 void CScore::Draw(void)
 {
-#if 0
+#ifdef _DEBUG
 	// 使っている桁数分の描画
 	for (int nCnt = 0; nCnt < NUM_SCORE; nCnt++)
 	{

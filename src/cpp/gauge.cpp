@@ -28,7 +28,7 @@ CGauge::~CGauge()
 //=========================================================
 // 生成処理
 //=========================================================
-CGauge* CGauge::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
+CGauge* CGauge::Create(const D3DXVECTOR3& pos, float fWidth, float fHeight)
 {
 	// インスタンス生成
 	CGauge* pGage = new CGauge;

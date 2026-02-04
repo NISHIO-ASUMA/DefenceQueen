@@ -1,6 +1,6 @@
 //=========================================================
 //
-// タイマー処理 [ gametime.h ]
+// ゲームタイマー処理 [ gametime.h ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -23,22 +23,29 @@ class CNumber;
 //*********************************************************
 // タイムクラスを定義
 //*********************************************************
-class CTime : public CObject
+class CGameTime : public CObject
 {
 public:
 
-	CTime(int nPriority = static_cast<int>(CObject::PRIORITY::UI));
-	~CTime();
+	CGameTime(int nPriority = static_cast<int>(CObject::PRIORITY::UI));
+	~CGameTime();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 
-	int GetToAll(void) { return m_nAllTime; }
-	int GetToCurrent(void) { return m_nSecond; }
+	inline int GetToAll(void) const { return m_nAllTime; }
+	inline int GetToCurrent(void) const { return m_nSecond; }
 
-	static CTime* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
+	/// <summary>
+	/// ポインタ生成処理
+	/// </summary>
+	/// <param name="pos">生成座標</param>
+	/// <param name="fWidth">横幅</param>
+	/// <param name="fHeight">高さ</param>
+	/// <returns></returns>
+	static CGameTime* Create(const D3DXVECTOR3& pos, float fWidth, float fHeight);
 
 private:
 
@@ -57,11 +64,10 @@ private:
 	int m_nMinute;		// 現在時間 ( 分 )
 	int m_nDecTime;		// 減った時間量
 	int m_nCount;		// 時間カウンター
-	float m_fHeight;// 横幅
-	float m_fWidth;	// 高さ
+	float m_fHeight;	// 横幅
+	float m_fWidth;		// 高さ
 
-	CNumber* m_pNumberMinute[DIGIT_TIME];	// 分
-	CNumber* m_pNumberSecond[DIGIT_TIME];	// 秒
-
+	CNumber* m_pNumberMinute[DIGIT_TIME];	// ナンバークラスの分表示ポインタ
+	CNumber* m_pNumberSecond[DIGIT_TIME];	// ナンバークラスの秒表示ポインタ
 	D3DXVECTOR3 m_pos;		// 座標
 };

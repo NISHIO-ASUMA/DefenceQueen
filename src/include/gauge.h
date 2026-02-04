@@ -25,10 +25,10 @@ public:
 	CGauge(int nPriority = static_cast<int>(CObject::PRIORITY::UI));
 	~CGauge();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 
 	/// <summary>
 	/// int型のパラメータのゲージの長さを設定する関数
@@ -46,7 +46,14 @@ public:
 	/// <param name="fMaxWidth">最大時の横幅</param>
 	void SetLengthParamFloat(const float fMax, const float fCurrent, const float fMaxWidth);
 
-	static CGauge* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
+	/// <summary>
+	/// ポインタ生成処理
+	/// </summary>
+	/// <param name="pos">出現座標</param>
+	/// <param name="fWidth">横幅</param>
+	/// <param name="fHeight">高さ</param>
+	/// <returns></returns>
+	static CGauge* Create(const D3DXVECTOR3& pos, float fWidth, float fHeight);
 
 private:
 };

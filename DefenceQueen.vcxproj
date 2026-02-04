@@ -227,8 +227,6 @@
     <ClCompile Include="src\cpp\gauge.cpp" />
     <ClCompile Include="src\cpp\gimmickmanager.cpp" />
     <ClCompile Include="src\cpp\gimmicksuction.cpp" />
-    <ClCompile Include="src\cpp\grass.cpp" />
-    <ClCompile Include="src\cpp\grassmanager.cpp" />
     <ClCompile Include="src\cpp\hastoporderleaf.cpp" />
     <ClCompile Include="src\cpp\input.cpp" />
     <ClCompile Include="src\cpp\instancemodel.cpp" />
@@ -257,7 +255,6 @@
     <ClCompile Include="src\cpp\network.cpp" />
     <ClCompile Include="src\cpp\nomovecharactor.cpp" />
     <ClCompile Include="src\cpp\number.cpp" />
-    <ClCompile Include="src\cpp\numberpanel.cpp" />
     <ClCompile Include="src\cpp\object.cpp" />
     <ClCompile Include="src\cpp\object2D.cpp" />
     <ClCompile Include="src\cpp\object3D.cpp" />
@@ -274,7 +271,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\cpp\player.cpp" />
-    <ClCompile Include="src\cpp\playerlifegage.cpp" />
     <ClCompile Include="src\cpp\playerstatebase.cpp" />
     <ClCompile Include="src\cpp\playerstatemove.cpp" />
     <ClCompile Include="src\cpp\playerstateneutral.cpp" />
@@ -405,8 +401,6 @@
     <ClInclude Include="src\include\gauge.h" />
     <ClInclude Include="src\include\gimmickmanager.h" />
     <ClInclude Include="src\include\gimmicksuction.h" />
-    <ClInclude Include="src\include\grass.h" />
-    <ClInclude Include="src\include\grassmanager.h" />
     <ClInclude Include="src\include\hastoporderleaf.h" />
     <ClInclude Include="src\include\input.h" />
     <ClInclude Include="src\include\instancemodel.h" />
@@ -440,7 +434,6 @@
     <ClInclude Include="src\include\nodebase.h" />
     <ClInclude Include="src\include\nomovecharactor.h" />
     <ClInclude Include="src\include\number.h" />
-    <ClInclude Include="src\include\numberpanel.h" />
     <ClInclude Include="src\include\object.h" />
     <ClInclude Include="src\include\object2D.h" />
     <ClInclude Include="src\include\object3D.h" />
@@ -454,7 +447,6 @@
     <ClInclude Include="src\include\pausemanager.h" />
     <ClInclude Include="src\include\pch.h" />
     <ClInclude Include="src\include\player.h" />
-    <ClInclude Include="src\include\playerlifegage.h" />
     <ClInclude Include="src\include\playerstatebase.h" />
     <ClInclude Include="src\include\playerstatemove.h" />
     <ClInclude Include="src\include\playerstateneutral.h" />

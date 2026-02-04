@@ -14,6 +14,7 @@
 #include "titleant.h"
 #include "titlewallmanager.h"
 #include "titleantmanager.h"
+#include "titleui.h"
 
 //*********************************************************
 // Ã“Iƒƒ“ƒo•Ï”éŒ¾
@@ -51,7 +52,7 @@ HRESULT CTitleObject::Init(void)
 	CMeshField::Create(VECTOR3_NULL, 4000.0f, 2000.0f, 1, 1);
 
 	// ‰ŠúUI¶¬
-	CUi::Create(D3DXVECTOR3(HALFWIDTH, 650.0f, 0.0f), 30, 180.0f, 60.0f, "GameStart.png", true);
+	CTitleUi::Create(D3DXVECTOR3(HALFWIDTH, 650.0f, 0.0f), COLOR_WHITE, 180.0f, 60.0f, "GameStart.png");
 	CUi::Create(D3DXVECTOR3(HALFWIDTH, 180.0f, 0.0f), 0, 300.0f, 150.0f, "TitleLogo.png", false,false,0,true);
 
 	return S_OK;

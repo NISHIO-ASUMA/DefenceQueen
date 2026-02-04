@@ -33,20 +33,25 @@ public:
 	CResultScore(int nPriority = static_cast<int>(CObject::PRIORITY::UI));
 	~CResultScore();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 	void Save(void);
+	void SetAnimScore(const int& nDestScore);
 
-	void SetAnimScore(const int nDestScore);
-
-	static CResultScore* Create(const D3DXVECTOR3 pos, const float fWidth, const float fHeight);
+	/// <summary>
+	/// ポインタ生成処理
+	/// </summary>
+	/// <param name="pos">生成座標</param>
+	/// <param name="fWidth">横幅</param>
+	/// <param name="fHeight">高さ</param>
+	/// <returns></returns>
+	static CResultScore* Create(const D3DXVECTOR3& pos, const float fWidth, const float fHeight);
 
 private:
 
 	void UpdateAnimScore(void); // アニメーションスコア更新関数
-	void ResetScore(void);		// 配列情報を初期化
 
 	//********************************
 	// 定数構造体宣言
@@ -59,8 +64,8 @@ private:
 		static constexpr int MAX_ANIMTIME = 180; // 最大継続時間
 	};
 
-	std::array<CNumber*,Config::NUM_SCORE>m_pNumber;	// 桁数分のナンバーのポインタ
-	std::unique_ptr<CLoad>m_pLoad; // ユニークポインタ
+	std::array<CNumber*,Config::NUM_SCORE>m_pNumber;	// 桁数分のナンバーのポインタ配列
+	std::unique_ptr<CLoad>m_pLoad;						// 読み込みクラスのユニークポインタ
 
 	D3DXVECTOR3 m_pos;	// 座標
 	float m_fWidth;		// 横幅
@@ -72,6 +77,5 @@ private:
 	int m_nTargetScore;	// ゴールのスコア
 	int m_nTimer;		// 経過フレーム
 	int m_nDuration;	// 目的の時間
-
 	bool m_isUse;		// 使用しているかどうか
 };

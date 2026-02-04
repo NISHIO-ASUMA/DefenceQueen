@@ -46,7 +46,7 @@ CResultScore::~CResultScore()
 //=========================================================
 // 生成処理
 //=========================================================
-CResultScore* CResultScore::Create(const D3DXVECTOR3 pos, const float fWidth, const float fHeight)
+CResultScore* CResultScore::Create(const D3DXVECTOR3& pos, const float fWidth, const float fHeight)
 {
 	// インスタンス生成
 	CResultScore* pscore = new CResultScore;
@@ -91,9 +91,6 @@ HRESULT CResultScore::Init(void)
 
 	// ポインタ生成
 	m_pLoad = std::make_unique<CLoad>();
-
-	// ファイル初期化
-	ResetScore();
 
 	return S_OK;
 }
@@ -154,7 +151,6 @@ void CResultScore::Save(void)
 	// 既存ランキング(5件)を読む
 	//==============================
 	std::array<int, Config::WRITE_SCORE> scores = { 0 };
-
 	{
 		std::ifstream file(filename, std::ios::binary);
 
@@ -234,45 +230,12 @@ void CResultScore::UpdateAnimScore(void)
 	}
 }
 //=========================================================
-// ファイルの情報をリセットする関数
-//=========================================================
-void CResultScore::ResetScore(void)
-{
-	// ファイル設定
-	const char* scoreFile = "data/SCORE/Ranking.bin";
-	const char* initFlag = "data/SCORE/initialized.flag";
-
-	// すでに初期化済みなら何もしない
-	std::ifstream flag(initFlag);
-	if (flag)
-	{
-		return;
-	}
-
-	//==============================
-	// ランキングを0で初期化
-	//==============================
-	std::array<int, Config::WRITE_SCORE> scores = { 0 };
-
-	std::ofstream file(scoreFile, std::ios::binary | std::ios::trunc);
-	if (file)
-	{
-		file.write((char*)scores.data(), sizeof(int) * Config::WRITE_SCORE);
-	}
-
-	//==============================
-	// 初期化済みフラグ作成
-	//==============================
-	std::ofstream flagOut(initFlag);
-	flagOut << "initialized";
-}
-//=========================================================
 // アニメーションするスコアをセットする関数
 //=========================================================
-void CResultScore::SetAnimScore(const int nDestScore)
+void CResultScore::SetAnimScore(const int& nDestScore)
 {
-	m_nStartScore = 0;			// 初期値
-	m_nLoadScore = nDestScore;  // 目的のスコア
+	m_nStartScore = 0;			// 初期化
+	m_nLoadScore = nDestScore;  // 目的のスコアを設定
 	m_nCurrentScore = 0;		// 現在の値
 
 	m_nTimer = 0;				// カウントタイマー

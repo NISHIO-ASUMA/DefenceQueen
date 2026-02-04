@@ -387,9 +387,6 @@
     <ClCompile Include="src\cpp\pause.cpp">
       <Filter>ソース ファイル\2DUI</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\playerlifegage.cpp">
-      <Filter>ソース ファイル\2DUI</Filter>
-    </ClCompile>
     <ClCompile Include="src\cpp\rankingscore.cpp">
       <Filter>ソース ファイル\2DUI</Filter>
     </ClCompile>
@@ -421,12 +418,6 @@
       <Filter>ソース ファイル\3D</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\feedsignal.cpp">
-      <Filter>ソース ファイル\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\grass.cpp">
-      <Filter>ソース ファイル\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\numberpanel.cpp">
       <Filter>ソース ファイル\3D</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\popupnumber.cpp">
@@ -664,9 +655,6 @@
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\gimmickmanager.cpp">
-      <Filter>ソース ファイル\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\grassmanager.cpp">
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\modelmanager.cpp">
@@ -1319,9 +1307,6 @@
     <ClInclude Include="src\include\popupnumber.h">
       <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\numberpanel.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\selectpoint.h">
       <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
@@ -1341,9 +1326,6 @@
       <Filter>ヘッダー ファイル\2DUI</Filter>
     </ClInclude>
     <ClInclude Include="src\include\eventarea.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\grass.h">
       <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
     <ClInclude Include="src\include\behaviortree.h">
@@ -1396,12 +1378,6 @@
     </ClInclude>
     <ClInclude Include="src\include\sepalationsign.h">
       <Filter>ヘッダー ファイル\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\grassmanager.h">
-      <Filter>ヘッダー ファイル\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\playerlifegage.h">
-      <Filter>ヘッダー ファイル\2DUI</Filter>
     </ClInclude>
     <ClInclude Include="src\include\returnnestleaf.h">
       <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>

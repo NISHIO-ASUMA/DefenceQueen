@@ -36,18 +36,25 @@ CUi::~CUi()
 //=========================================================
 // 生成処理
 //=========================================================
-CUi* CUi::Create(D3DXVECTOR3 pos, int nFlashFrame, float fWidth, float fHeight, const char* Filename, bool isUse, bool isAlphaEnable, int nAlphaFrame, bool isAlphaTest)
+CUi* CUi::Create
+(
+	const D3DXVECTOR3& pos,
+	const int& nFlashFrame,
+	const float& fWidth,
+	const float& fHeight,
+	const char* Filename,
+	bool isUseFlash,
+	bool isAlphaEnable,
+	int nAlphaFrame,
+	bool isAlphaTest
+)
 {
 	// インスタンス生成
 	CUi* pUi = new CUi;
 	if (pUi == nullptr) return nullptr;
 
 	// 初期化失敗時
-	if (FAILED(pUi->Init()))
-	{
-		// nullポインタを返す
-		return nullptr;
-	}
+	if (FAILED(pUi->Init())) return nullptr;
 
 	// オブジェクト設定
 	pUi->SetPos(pos);
@@ -56,7 +63,7 @@ CUi* CUi::Create(D3DXVECTOR3 pos, int nFlashFrame, float fWidth, float fHeight, 
 	pUi->SetTexture(Filename);
 
 	pUi->m_nFlashFrame = nFlashFrame;
-	pUi->m_isFlash = isUse;
+	pUi->m_isFlash = isUseFlash;
 	pUi->m_isAlphaEnable = isAlphaEnable;
 	pUi->m_nAlphaFrame = nAlphaFrame;
 	pUi->m_isAlphaTest = isAlphaTest;

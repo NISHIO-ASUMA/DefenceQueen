@@ -15,7 +15,7 @@
 //=========================================================
 // オーバーロードコンストラクタ
 //=========================================================
-CTime::CTime(int nPriority) : CObject(nPriority),
+CGameTime::CGameTime(int nPriority) : CObject(nPriority),
 m_pos(VECTOR3_NULL),
 m_fHeight(NULL),
 m_fWidth(NULL),
@@ -35,20 +35,20 @@ m_nSecond(NULL)
 //=========================================================
 // デストラクタ
 //=========================================================
-CTime::~CTime()
+CGameTime::~CGameTime()
 {
 	// 無し
 }
 //=========================================================
 // 生成処理
 //=========================================================
-CTime* CTime::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
+CGameTime* CGameTime::Create(const D3DXVECTOR3& pos, float fWidth, float fHeight)
 {
 	// インスタンス生成
-	CTime* pTime = new CTime;
+	CGameTime* pTime = new CGameTime;
 	if (pTime == nullptr) return nullptr;
 
-	// メンバ変数にセット
+	// オブジェクト設定
 	pTime->m_fHeight = fHeight;
 	pTime->m_fWidth = fWidth;
 	pTime->m_pos = pos;
@@ -62,7 +62,7 @@ CTime* CTime::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
 //=========================================================
 // 初期化処理
 //=========================================================
-HRESULT CTime::Init(void)
+HRESULT CGameTime::Init(void)
 {
 	// 最大時間をセット
 	m_nAllTime = NUMTIME;
@@ -111,7 +111,7 @@ HRESULT CTime::Init(void)
 //=========================================================
 // 終了処理
 //=========================================================
-void CTime::Uninit(void)
+void CGameTime::Uninit(void)
 {
 	// 使った分破棄
 	for (int nCnt = 0; nCnt < DIGIT_TIME; nCnt++)
@@ -149,7 +149,7 @@ void CTime::Uninit(void)
 //=========================================================
 // 更新処理
 //=========================================================
-void CTime::Update(void)
+void CGameTime::Update(void)
 {
 	if (m_nAllTime <= 0)
 	{
@@ -192,7 +192,7 @@ void CTime::Update(void)
 //=========================================================
 // 描画処理
 //=========================================================
-void CTime::Draw(void)
+void CGameTime::Draw(void)
 {
 	// 桁数分描画
 	for (int nCnt = 0; nCnt < DIGIT_TIME; nCnt++)
@@ -204,7 +204,7 @@ void CTime::Draw(void)
 //=========================================================
 // 秒計算
 //=========================================================
-void CTime::Second(void)
+void CGameTime::Second(void)
 {
 	int aData = DIVIDE * DIVIDE;
 	int aData2 = DIVIDE;
@@ -228,7 +228,7 @@ void CTime::Second(void)
 //=========================================================
 // 分計算
 //=========================================================
-void CTime::Minute(void)
+void CGameTime::Minute(void)
 {
 	int aData = DIVIDE * DIVIDE;
 	int aData2 = DIVIDE;

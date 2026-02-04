@@ -64,7 +64,14 @@ void CTitleUi::Draw(void)
 //=========================================================
 // 生成処理
 //=========================================================
-CTitleUi* CTitleUi::Create(D3DXVECTOR3 pos, D3DXCOLOR col, float fWidth, float fHeight, int nType)
+CTitleUi* CTitleUi::Create
+(
+	const D3DXVECTOR3& pos, 
+	const D3DXCOLOR& col, 
+	const float& fWidth, 
+	const float& fHeight,
+	const char * pTexName
+)
 {
 	// インスタンス生成
 	CTitleUi* pTitleui = new CTitleUi;
@@ -77,43 +84,8 @@ CTitleUi* CTitleUi::Create(D3DXVECTOR3 pos, D3DXCOLOR col, float fWidth, float f
 	pTitleui->SetPos(pos);
 	pTitleui->SetCol(col);
 	pTitleui->SetSize(fWidth, fHeight);
-	pTitleui->SetTexture(nType);
+	pTitleui->SetTexture(pTexName);
 
 	// 生成されたポインタを返す
 	return pTitleui;
-}
-//=========================================================
-// テクスチャ割り当て処理
-//=========================================================
-void CTitleUi::SetTexture(int nType)
-{
-	// ファイル名を決定
-	const char* szFileName = nullptr;
-
-	switch (nType)
-	{
-	case MENU_GAME:			// ゲームメニュー
-		szFileName = "menu_start.png";
-		break;
-
-	case MENU_EXIT:			// 終了メニュー
-		szFileName = "menu_exit.png";
-		break;
-
-	default:
-		szFileName = nullptr;
-		break;
-	}
-
-	// ファイル名が決まっていれば設定
-	if (szFileName)
-	{
-		// パスセット
-		CObject2D::SetTexture(szFileName);
-	}
-	else
-	{
-		// 無し
-		CObject2D::SetTexture(nullptr);
-	}
 }

@@ -14,7 +14,6 @@
 #include "meshfield.h"
 #include "blockmanager.h"
 #include "feedmanager.h"
-#include "grass.h"
 #include "feed.h"
 #include "gametime.h"
 #include "enemy.h"
@@ -257,7 +256,7 @@ void CGameSceneObject::CreatePointer(void)
 	m_pBlocks->Init();
 
 	// タイマー生成
-	m_pTimer = CTime::Create(D3DXVECTOR3(1020.0f,60.0f,0.0f),60.0f,40.0f);
+	m_pTimer = CGameTime::Create(D3DXVECTOR3(1020.0f,60.0f,0.0f),60.0f,40.0f);
 
 	// マップの標準の餌生成
 	m_pBasemapFeed = std::make_unique<CBaseMapFeed>();

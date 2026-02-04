@@ -33,21 +33,26 @@ public:
 	CScore(int nPriority = static_cast<int>(CObject::PRIORITY::UI));
 	~CScore();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
-
-	D3DXVECTOR3 GetPos(void) { return m_pos; }
-
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 	void AddScore(int nValue);
 	void DeleteScore(void);
 	void SaveScore(void);
-	void SetScore(int nDestScore) { m_nScore = nDestScore; }
+	inline void SetScore(const int& nDestScore) { m_nScore = nDestScore; }
 
-	static CScore* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
+	inline int GetScore(void) const { return m_nScore; }
+	inline D3DXVECTOR3 GetPos(void) const { return m_pos; }
 
-	int GetScore(void) { return m_nScore; }
+	/// <summary>
+	/// ポインタ生成処理
+	/// </summary>
+	/// <param name="pos">座標</param>
+	/// <param name="fWidth">横幅</param>
+	/// <param name="fHeight">高さ</param>
+	/// <returns></returns>
+	static CScore* Create(const D3DXVECTOR3& pos, const float& fWidth, const float& fHeight);
 
 private: 
 
