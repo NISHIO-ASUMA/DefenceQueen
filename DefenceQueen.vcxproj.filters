@@ -145,12 +145,6 @@
     <Filter Include="ヘッダー ファイル\AI_System\LeafNode\Base">
       <UniqueIdentifier>{33062f8d-57d1-4b17-b998-1e596186f966}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\AI_System\LeafNode\State_Node">
-      <UniqueIdentifier>{6f3f2930-d70f-40c0-83d3-c54e02c7abfa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\AI_System\LeafNode\Move_Node">
-      <UniqueIdentifier>{734ae186-2441-4328-a38d-3e280fd24ea7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\AI_System\Branch\Base">
       <UniqueIdentifier>{65b918f8-1991-437b-a63a-c7f96f2feafa}</UniqueIdentifier>
     </Filter>
@@ -199,9 +193,6 @@
     <Filter Include="ヘッダー ファイル\Enemy_AI\Leaf">
       <UniqueIdentifier>{2fd508ab-e5cf-4399-9fb5-21966f172f2d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Enemy_AI\Base">
-      <UniqueIdentifier>{b5a0725d-42bd-4d9a-b7a7-36b117fe6467}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\State">
       <UniqueIdentifier>{9207398d-9bb6-4640-9862-45f87e392869}</UniqueIdentifier>
     </Filter>
@@ -249,9 +240,6 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\OutSide">
       <UniqueIdentifier>{f29b6f84-2531-47de-bffa-a1708bb6b2fb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Util">
-      <UniqueIdentifier>{11ba8d1e-ae84-4a37-b8bb-db91cd294e75}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Manager">
       <UniqueIdentifier>{44585164-acba-401d-9071-9f0bb9a36bb5}</UniqueIdentifier>
@@ -370,14 +358,23 @@
     <Filter Include="ソース ファイル\Charactor\Instancing\Manager">
       <UniqueIdentifier>{c820e2be-6cc3-4343-94e8-4c186c0e2c6d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Instancing">
+    <Filter Include="ヘッダー ファイル\Util">
+      <UniqueIdentifier>{11ba8d1e-ae84-4a37-b8bb-db91cd294e75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Charactor\Instancing">
       <UniqueIdentifier>{e29527c9-94f7-4a1a-bead-5f8a72b0b85a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Instancing\Base">
+    <Filter Include="ヘッダー ファイル\Charactor\Instancing\Base">
       <UniqueIdentifier>{6cd24ec6-f472-4f66-8fe0-7f5eb3b86157}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Instancing\Manager">
+    <Filter Include="ヘッダー ファイル\Charactor\Instancing\Manager">
       <UniqueIdentifier>{cd355818-bb21-47a8-bbc5-dc8a9e80ccc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Charactor\Spawn\Array_Spawn">
+      <UniqueIdentifier>{34769566-09db-4eb5-adfe-b9b026f494a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Charactor\Spawn\Enemy_Spawn">
+      <UniqueIdentifier>{0494d56f-f12f-4a83-8cc2-e30433f014ad}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -884,35 +881,161 @@
     <ClInclude Include="BS_thread_pool.hpp">
       <Filter>ヘッダー ファイル\Util</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\gauge.h">
-      <Filter>ヘッダー ファイル\2DUI</Filter>
+    <ClInclude Include="src\include\outline.h">
+      <Filter>ヘッダー ファイル\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\number.h">
-      <Filter>ヘッダー ファイル\2DUI</Filter>
+    <ClInclude Include="src\include\instancing.h">
+      <Filter>ヘッダー ファイル\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\pause.h">
-      <Filter>ヘッダー ファイル\2DUI</Filter>
+    <ClInclude Include="src\include\alwaysfail.h">
+      <Filter>ヘッダー ファイル\AI_System\LeafNode\Base</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\playerlifegage.h">
-      <Filter>ヘッダー ファイル\2DUI</Filter>
+    <ClInclude Include="src\include\alwayssuccess.h">
+      <Filter>ヘッダー ファイル\AI_System\LeafNode\Base</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\rankingscore.h">
-      <Filter>ヘッダー ファイル\2DUI</Filter>
+    <ClInclude Include="src\include\block.h">
+      <Filter>ヘッダー ファイル\XFile</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\resultscore.h">
-      <Filter>ヘッダー ファイル\2DUI</Filter>
+    <ClInclude Include="src\include\feed.h">
+      <Filter>ヘッダー ファイル\XFile</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\score.h">
-      <Filter>ヘッダー ファイル\2DUI</Filter>
+    <ClInclude Include="src\include\pointobj.h">
+      <Filter>ヘッダー ファイル\XFile</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\sendnumber.h">
-      <Filter>ヘッダー ファイル\2DUI</Filter>
+    <ClInclude Include="src\include\shadowS.h">
+      <Filter>ヘッダー ファイル\XFile</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\gametime.h">
-      <Filter>ヘッダー ファイル\2DUI</Filter>
+    <ClInclude Include="src\include\gamewallmodel.h">
+      <Filter>ヘッダー ファイル\XFile</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\titleui.h">
-      <Filter>ヘッダー ファイル\2DUI</Filter>
+    <ClInclude Include="src\include\gimmicksuction.h">
+      <Filter>ヘッダー ファイル\XFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\template.h">
+      <Filter>ヘッダー ファイル\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tutorial.h">
+      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\title.h">
+      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\scene.h">
+      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\result.h">
+      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\ranking.h">
+      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\loseresult.h">
+      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\startexescene.h">
+      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tutorialmanager.h">
+      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\titlemanager.h">
+      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\startscenemanager.h">
+      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\resultmanager.h">
+      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tutorialobject.h">
+      <Filter>ヘッダー ファイル\Scenes\SceneObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\titleobject.h">
+      <Filter>ヘッダー ファイル\Scenes\SceneObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\resultobject.h">
+      <Filter>ヘッダー ファイル\Scenes\SceneObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\rankingobject.h">
+      <Filter>ヘッダー ファイル\Scenes\SceneObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\rankingmanager.h">
+      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\gamemanager.h">
+      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\gamesceneobject.h">
+      <Filter>ヘッダー ファイル\Scenes\SceneObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\network.h">
+      <Filter>ヘッダー ファイル\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\easing.h">
+      <Filter>ヘッダー ファイル\OutSide</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\load.h">
+      <Filter>ヘッダー ファイル\OutSide</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\fade.h">
+      <Filter>ヘッダー ファイル\OutSide</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\input.h">
+      <Filter>ヘッダー ファイル\OutSide</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\camera.h">
+      <Filter>ヘッダー ファイル\OutSide</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\debugproc.h">
+      <Filter>ヘッダー ファイル\OutSide</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\texture.h">
+      <Filter>ヘッダー ファイル\OutSide</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\sound.h">
+      <Filter>ヘッダー ファイル\OutSide</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\particle.h">
+      <Filter>ヘッダー ファイル\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\particlepiler.h">
+      <Filter>ヘッダー ファイル\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\collider.h">
+      <Filter>ヘッダー ファイル\Physics\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\boxcollider.h">
+      <Filter>ヘッダー ファイル\Physics\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\spherecollider.h">
+      <Filter>ヘッダー ファイル\Physics\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\boxtospherecollision.h">
+      <Filter>ヘッダー ファイル\Physics\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\collision.h">
+      <Filter>ヘッダー ファイル\Physics\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\collisionbox.h">
+      <Filter>ヘッダー ファイル\Physics\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\collisionsphere.h">
+      <Filter>ヘッダー ファイル\Physics\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\light.h">
+      <Filter>ヘッダー ファイル\OutSide</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\main.h">
+      <Filter>ヘッダー ファイル\MainLoop</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\manager.h">
+      <Filter>ヘッダー ファイル\MainLoop</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pch.h">
+      <Filter>ヘッダー ファイル\MainLoop</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\renderer.h">
+      <Filter>ヘッダー ファイル\MainLoop</Filter>
     </ClInclude>
     <ClInclude Include="src\include\tutorialui.h">
       <Filter>ヘッダー ファイル\2DUI</Filter>
@@ -923,8 +1046,176 @@
     <ClInclude Include="src\include\workerui.h">
       <Filter>ヘッダー ファイル\2DUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\workeruimanager.h">
+    <ClInclude Include="src\include\score.h">
       <Filter>ヘッダー ファイル\2DUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pause.h">
+      <Filter>ヘッダー ファイル\2DUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\instancemodel.h">
+      <Filter>ヘッダー ファイル\Charactor\Instancing\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\instancemodelmanager.h">
+      <Filter>ヘッダー ファイル\Charactor\Instancing\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\instancemotionmanager.h">
+      <Filter>ヘッダー ファイル\Charactor\Instancing\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\instancingcharactor.h">
+      <Filter>ヘッダー ファイル\Charactor\Instancing\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game.h">
+      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\effect.h">
+      <Filter>ヘッダー ファイル\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\effectlaser.h">
+      <Filter>ヘッダー ファイル\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\effectpiler.h">
+      <Filter>ヘッダー ファイル\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\effectsmoke.h">
+      <Filter>ヘッダー ファイル\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\enemywaitleaf.h">
+      <Filter>ヘッダー ファイル\Enemy_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\enemybehaviortree.h">
+      <Filter>ヘッダー ファイル\Enemy_AI\Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\enemygetfeedleaf.h">
+      <Filter>ヘッダー ファイル\Enemy_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\enemyattackleaf.h">
+      <Filter>ヘッダー ファイル\Enemy_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\enemychaseleaf.h">
+      <Filter>ヘッダー ファイル\Enemy_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\enemychecknear.h">
+      <Filter>ヘッダー ファイル\Enemy_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\enemymanager.h">
+      <Filter>ヘッダー ファイル\Charactor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\enemyreturnleaf.h">
+      <Filter>ヘッダー ファイル\Enemy_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\meshcylinder.h">
+      <Filter>ヘッダー ファイル\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\meshdome.h">
+      <Filter>ヘッダー ファイル\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\meshfield.h">
+      <Filter>ヘッダー ファイル\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\meshimpact.h">
+      <Filter>ヘッダー ファイル\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\meshpiler.h">
+      <Filter>ヘッダー ファイル\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\titleui.h">
+      <Filter>ヘッダー ファイル\2DUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\rankingscore.h">
+      <Filter>ヘッダー ファイル\2DUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\resultscore.h">
+      <Filter>ヘッダー ファイル\2DUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\number.h">
+      <Filter>ヘッダー ファイル\2DUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\xfilemanager.h">
+      <Filter>ヘッダー ファイル\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\workeruimanager.h">
+      <Filter>ヘッダー ファイル\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\titlewallmanager.h">
+      <Filter>ヘッダー ファイル\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\resultscoremanager.h">
+      <Filter>ヘッダー ファイル\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\gamewallmanager.h">
+      <Filter>ヘッダー ファイル\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\gimmickmanager.h">
+      <Filter>ヘッダー ファイル\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\eventareamanager.h">
+      <Filter>ヘッダー ファイル\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\billboard.h">
+      <Filter>ヘッダー ファイル\BaseClass\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\animationobject2d.h">
+      <Filter>ヘッダー ファイル\BaseClass\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\movecharactor.h">
+      <Filter>ヘッダー ファイル\BaseClass\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\object.h">
+      <Filter>ヘッダー ファイル\BaseClass\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\nomovecharactor.h">
+      <Filter>ヘッダー ファイル\BaseClass\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\object2D.h">
+      <Filter>ヘッダー ファイル\BaseClass\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\object3D.h">
+      <Filter>ヘッダー ファイル\BaseClass\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\objectX.h">
+      <Filter>ヘッダー ファイル\BaseClass\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\move3dobject.h">
+      <Filter>ヘッダー ファイル\BaseClass\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\workerstatebase.h">
+      <Filter>ヘッダー ファイル\State\Worker</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\workerstateneutral.h">
+      <Filter>ヘッダー ファイル\State\Worker</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\statemachine.h">
+      <Filter>ヘッダー ファイル\State\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\state.h">
+      <Filter>ヘッダー ファイル\State\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\gamestate.h">
+      <Filter>ヘッダー ファイル\State\Child</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\model.h">
+      <Filter>ヘッダー ファイル\Charactor\Motion</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\motion.h">
+      <Filter>ヘッダー ファイル\Charactor\Motion</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\motiondata.h">
+      <Filter>ヘッダー ファイル\Charactor\Motion</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\motionmanager.h">
+      <Filter>ヘッダー ファイル\Charactor\Motion</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\motioninstancing.h">
+      <Filter>ヘッダー ファイル\Charactor\Instancing\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\modelmanager.h">
+      <Filter>ヘッダー ファイル\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\feedmanager.h">
+      <Filter>ヘッダー ファイル\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\arraybehaviortree.h">
+      <Filter>ヘッダー ファイル\Array_AI\Base_tree</Filter>
     </ClInclude>
     <ClInclude Include="src\include\arrayattackleaf.h">
       <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
@@ -941,134 +1232,26 @@
     <ClInclude Include="src\include\attackenemyleaf.h">
       <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\feedgetleaf.h">
-      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    <ClInclude Include="src\include\enemystateneutral.h">
+      <Filter>ヘッダー ファイル\State\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\folllowtopleaf.h">
-      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    <ClInclude Include="src\include\enemystatebase.h">
+      <Filter>ヘッダー ファイル\State\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\hastoporderleaf.h">
-      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    <ClInclude Include="src\include\enemystatemove.h">
+      <Filter>ヘッダー ファイル\State\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\movetofeedleaf.h">
-      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    <ClInclude Include="src\include\playerstatebase.h">
+      <Filter>ヘッダー ファイル\State\Player</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\returnnestleaf.h">
-      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    <ClInclude Include="src\include\playerstatemove.h">
+      <Filter>ヘッダー ファイル\State\Player</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\waitorderleaf.h">
-      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    <ClInclude Include="src\include\playerstateneutral.h">
+      <Filter>ヘッダー ファイル\State\Player</Filter>
     </ClInclude>
     <ClInclude Include="src\include\basemapfeed.h">
-      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\eventarea.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\feedsignal.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\grass.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\numberpanel.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\popupnumber.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\selectpoint.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\sepalationsign.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\shadow.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\signalui.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\blackboard.h">
-      <Filter>ヘッダー ファイル\AI_System\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\node.h">
-      <Filter>ヘッダー ファイル\AI_System\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\nodebase.h">
-      <Filter>ヘッダー ファイル\AI_System\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\behaviortree.h">
-      <Filter>ヘッダー ファイル\AI_System\Base_Tree</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\branchnodebase.h">
-      <Filter>ヘッダー ファイル\AI_System\Branch\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\checkneardestination.h">
-      <Filter>ヘッダー ファイル\AI_System\Branch\CheckBranch</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\compositenodebase.h">
-      <Filter>ヘッダー ファイル\AI_System\Composite</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\decorator.h">
-      <Filter>ヘッダー ファイル\AI_System\Decorator</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\inverter.h">
-      <Filter>ヘッダー ファイル\AI_System\Inverter</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\leafnodebase.h">
-      <Filter>ヘッダー ファイル\AI_System\LeafNode\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\chasedestination.h">
-      <Filter>ヘッダー ファイル\AI_System\LeafNode\Samples</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\waitleaf.h">
-      <Filter>ヘッダー ファイル\AI_System\LeafNode\Samples</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\alwaysfail.h">
-      <Filter>ヘッダー ファイル\AI_System\LeafNode\State_Node</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\alwayssuccess.h">
-      <Filter>ヘッダー ファイル\AI_System\LeafNode\State_Node</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\selector.h">
-      <Filter>ヘッダー ファイル\AI_System\Selector</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\targetselector.h">
-      <Filter>ヘッダー ファイル\AI_System\Selector</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\sepuence.h">
-      <Filter>ヘッダー ファイル\AI_System\Sequence</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\arraybehaviortree.h">
-      <Filter>ヘッダー ファイル\Array_AI\Base_tree</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\animationobject2d.h">
-      <Filter>ヘッダー ファイル\BaseClass\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\object2D.h">
-      <Filter>ヘッダー ファイル\BaseClass\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\billboard.h">
-      <Filter>ヘッダー ファイル\BaseClass\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\object3D.h">
-      <Filter>ヘッダー ファイル\BaseClass\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\objectX.h">
-      <Filter>ヘッダー ファイル\BaseClass\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\move3dobject.h">
-      <Filter>ヘッダー ファイル\BaseClass\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\movecharactor.h">
-      <Filter>ヘッダー ファイル\BaseClass\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\nomovecharactor.h">
-      <Filter>ヘッダー ファイル\BaseClass\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\object.h">
-      <Filter>ヘッダー ファイル\BaseClass\Object</Filter>
+      <Filter>ヘッダー ファイル\XFile</Filter>
     </ClInclude>
     <ClInclude Include="src\include\array.h">
       <Filter>ヘッダー ファイル\Charactor\Array</Filter>
@@ -1088,41 +1271,26 @@
     <ClInclude Include="src\include\enemy.h">
       <Filter>ヘッダー ファイル\Charactor\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\enemymanager.h">
-      <Filter>ヘッダー ファイル\Charactor\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\motiondata.h">
-      <Filter>ヘッダー ファイル\Charactor\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\motionmanager.h">
-      <Filter>ヘッダー ファイル\Charactor\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\model.h">
-      <Filter>ヘッダー ファイル\Charactor\Motion</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\motion.h">
-      <Filter>ヘッダー ファイル\Charactor\Motion</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\charactorparam.h">
-      <Filter>ヘッダー ファイル\Charactor\Param</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\parameter.h">
       <Filter>ヘッダー ファイル\Charactor\Param</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\order.h">
-      <Filter>ヘッダー ファイル\Charactor\Player</Filter>
+    <ClInclude Include="src\include\charactorparam.h">
+      <Filter>ヘッダー ファイル\Charactor\Param</Filter>
     </ClInclude>
     <ClInclude Include="src\include\player.h">
       <Filter>ヘッダー ファイル\Charactor\Player</Filter>
     </ClInclude>
     <ClInclude Include="src\include\arrayspawner.h">
-      <Filter>ヘッダー ファイル\Charactor\Spawn</Filter>
+      <Filter>ヘッダー ファイル\Charactor\Spawn\Array_Spawn</Filter>
     </ClInclude>
     <ClInclude Include="src\include\arrayspawnmanager.h">
-      <Filter>ヘッダー ファイル\Charactor\Spawn</Filter>
+      <Filter>ヘッダー ファイル\Charactor\Spawn\Array_Spawn</Filter>
     </ClInclude>
     <ClInclude Include="src\include\enemyspawner.h">
-      <Filter>ヘッダー ファイル\Charactor\Spawn</Filter>
+      <Filter>ヘッダー ファイル\Charactor\Spawn\Enemy_Spawn</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\enemyspawnmanager.h">
+      <Filter>ヘッダー ファイル\Charactor\Spawn\Enemy_Spawn</Filter>
     </ClInclude>
     <ClInclude Include="src\include\titleant.h">
       <Filter>ヘッダー ファイル\Charactor\TitleCharactor</Filter>
@@ -1142,293 +1310,119 @@
     <ClInclude Include="src\include\workermanager.h">
       <Filter>ヘッダー ファイル\Charactor\Worker</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\effect.h">
-      <Filter>ヘッダー ファイル\Effect</Filter>
+    <ClInclude Include="src\include\signalui.h">
+      <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\effectlaser.h">
-      <Filter>ヘッダー ファイル\Effect</Filter>
+    <ClInclude Include="src\include\shadow.h">
+      <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\effectpiler.h">
-      <Filter>ヘッダー ファイル\Effect</Filter>
+    <ClInclude Include="src\include\popupnumber.h">
+      <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\effectsmoke.h">
-      <Filter>ヘッダー ファイル\Effect</Filter>
+    <ClInclude Include="src\include\numberpanel.h">
+      <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\enemyattackleaf.h">
-      <Filter>ヘッダー ファイル\Enemy_AI\Leaf</Filter>
+    <ClInclude Include="src\include\selectpoint.h">
+      <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\enemychaseleaf.h">
-      <Filter>ヘッダー ファイル\Enemy_AI\Leaf</Filter>
+    <ClInclude Include="src\include\sendnumber.h">
+      <Filter>ヘッダー ファイル\2DUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\enemychecknear.h">
-      <Filter>ヘッダー ファイル\Enemy_AI\Leaf</Filter>
+    <ClInclude Include="src\include\gauge.h">
+      <Filter>ヘッダー ファイル\2DUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\enemygetfeedleaf.h">
-      <Filter>ヘッダー ファイル\Enemy_AI\Leaf</Filter>
+    <ClInclude Include="src\include\feedgetleaf.h">
+      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\enemyreturnleaf.h">
-      <Filter>ヘッダー ファイル\Enemy_AI\Leaf</Filter>
+    <ClInclude Include="src\include\feedsignal.h">
+      <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\enemywaitleaf.h">
-      <Filter>ヘッダー ファイル\Enemy_AI\Leaf</Filter>
+    <ClInclude Include="src\include\gametime.h">
+      <Filter>ヘッダー ファイル\2DUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\enemybehaviortree.h">
-      <Filter>ヘッダー ファイル\Enemy_AI\Tree</Filter>
+    <ClInclude Include="src\include\eventarea.h">
+      <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\instancemodel.h">
-      <Filter>ヘッダー ファイル\Instancing\Base</Filter>
+    <ClInclude Include="src\include\grass.h">
+      <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\instancingcharactor.h">
-      <Filter>ヘッダー ファイル\Instancing\Base</Filter>
+    <ClInclude Include="src\include\behaviortree.h">
+      <Filter>ヘッダー ファイル\AI_System\Base_Tree</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\motioninstancing.h">
-      <Filter>ヘッダー ファイル\Instancing\Base</Filter>
+    <ClInclude Include="src\include\folllowtopleaf.h">
+      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\instancemodelmanager.h">
-      <Filter>ヘッダー ファイル\Instancing\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\instancemotionmanager.h">
-      <Filter>ヘッダー ファイル\Instancing\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\main.h">
-      <Filter>ヘッダー ファイル\MainLoop</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\manager.h">
-      <Filter>ヘッダー ファイル\MainLoop</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\pch.h">
-      <Filter>ヘッダー ファイル\MainLoop</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\renderer.h">
-      <Filter>ヘッダー ファイル\MainLoop</Filter>
+    <ClInclude Include="src\include\blackboard.h">
+      <Filter>ヘッダー ファイル\AI_System\Base</Filter>
     </ClInclude>
     <ClInclude Include="src\include\blockmanager.h">
       <Filter>ヘッダー ファイル\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\enemyspawnmanager.h">
-      <Filter>ヘッダー ファイル\Manager</Filter>
+    <ClInclude Include="src\include\node.h">
+      <Filter>ヘッダー ファイル\AI_System\Base</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\eventareamanager.h">
-      <Filter>ヘッダー ファイル\Manager</Filter>
+    <ClInclude Include="src\include\nodebase.h">
+      <Filter>ヘッダー ファイル\AI_System\Base</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\feedmanager.h">
-      <Filter>ヘッダー ファイル\Manager</Filter>
+    <ClInclude Include="src\include\selector.h">
+      <Filter>ヘッダー ファイル\AI_System\Selector</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\gamewallmanager.h">
-      <Filter>ヘッダー ファイル\Manager</Filter>
+    <ClInclude Include="src\include\sepuence.h">
+      <Filter>ヘッダー ファイル\AI_System\Sequence</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\gimmickmanager.h">
-      <Filter>ヘッダー ファイル\Manager</Filter>
+    <ClInclude Include="src\include\inverter.h">
+      <Filter>ヘッダー ファイル\AI_System\Inverter</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\grassmanager.h">
-      <Filter>ヘッダー ファイル\Manager</Filter>
+    <ClInclude Include="src\include\leafnodebase.h">
+      <Filter>ヘッダー ファイル\AI_System\LeafNode\Base</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\modelmanager.h">
-      <Filter>ヘッダー ファイル\Manager</Filter>
+    <ClInclude Include="src\include\branchnodebase.h">
+      <Filter>ヘッダー ファイル\AI_System\Branch\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\compositenodebase.h">
+      <Filter>ヘッダー ファイル\AI_System\Composite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\order.h">
+      <Filter>ヘッダー ファイル\Charactor\Array</Filter>
     </ClInclude>
     <ClInclude Include="src\include\pausemanager.h">
       <Filter>ヘッダー ファイル\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\resultscoremanager.h">
+    <ClInclude Include="src\include\decorator.h">
+      <Filter>ヘッダー ファイル\AI_System\Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\hastoporderleaf.h">
+      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\sepalationsign.h">
+      <Filter>ヘッダー ファイル\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\grassmanager.h">
       <Filter>ヘッダー ファイル\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\titlewallmanager.h">
-      <Filter>ヘッダー ファイル\Manager</Filter>
+    <ClInclude Include="src\include\playerlifegage.h">
+      <Filter>ヘッダー ファイル\2DUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\xfilemanager.h">
-      <Filter>ヘッダー ファイル\Manager</Filter>
+    <ClInclude Include="src\include\returnnestleaf.h">
+      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\meshfield.h">
-      <Filter>ヘッダー ファイル\Mesh</Filter>
+    <ClInclude Include="src\include\movetofeedleaf.h">
+      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\meshimpact.h">
-      <Filter>ヘッダー ファイル\Mesh</Filter>
+    <ClInclude Include="src\include\targetselector.h">
+      <Filter>ヘッダー ファイル\AI_System\Selector</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\meshpiler.h">
-      <Filter>ヘッダー ファイル\Mesh</Filter>
+    <ClInclude Include="src\include\chasedestination.h">
+      <Filter>ヘッダー ファイル\AI_System\LeafNode\Samples</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\meshcylinder.h">
-      <Filter>ヘッダー ファイル\Mesh</Filter>
+    <ClInclude Include="src\include\waitorderleaf.h">
+      <Filter>ヘッダー ファイル\AI_System\LeafNode\Samples</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\meshdome.h">
-      <Filter>ヘッダー ファイル\Mesh</Filter>
+    <ClInclude Include="src\include\waitleaf.h">
+      <Filter>ヘッダー ファイル\AI_System\LeafNode\Samples</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\network.h">
-      <Filter>ヘッダー ファイル\NetWork</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\camera.h">
-      <Filter>ヘッダー ファイル\OutSide</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\debugproc.h">
-      <Filter>ヘッダー ファイル\OutSide</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\easing.h">
-      <Filter>ヘッダー ファイル\OutSide</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\input.h">
-      <Filter>ヘッダー ファイル\OutSide</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\light.h">
-      <Filter>ヘッダー ファイル\OutSide</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\load.h">
-      <Filter>ヘッダー ファイル\OutSide</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\sound.h">
-      <Filter>ヘッダー ファイル\OutSide</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\texture.h">
-      <Filter>ヘッダー ファイル\OutSide</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\particle.h">
-      <Filter>ヘッダー ファイル\Particle</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\particlepiler.h">
-      <Filter>ヘッダー ファイル\Particle</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\boxcollider.h">
-      <Filter>ヘッダー ファイル\Physics\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\collider.h">
-      <Filter>ヘッダー ファイル\Physics\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\spherecollider.h">
-      <Filter>ヘッダー ファイル\Physics\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\boxtospherecollision.h">
-      <Filter>ヘッダー ファイル\Physics\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\collision.h">
-      <Filter>ヘッダー ファイル\Physics\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\collisionbox.h">
-      <Filter>ヘッダー ファイル\Physics\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\collisionsphere.h">
-      <Filter>ヘッダー ファイル\Physics\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\fade.h">
-      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\game.h">
-      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\loseresult.h">
-      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\ranking.h">
-      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\result.h">
-      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\scene.h">
-      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\startexescene.h">
-      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\title.h">
-      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\tutorial.h">
-      <Filter>ヘッダー ファイル\Scenes\BaseScene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\gamemanager.h">
-      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\rankingmanager.h">
-      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\resultmanager.h">
-      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\startscenemanager.h">
-      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\tutorialmanager.h">
-      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\titlemanager.h">
-      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\gamesceneobject.h">
-      <Filter>ヘッダー ファイル\Scenes\SceneObject</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\rankingobject.h">
-      <Filter>ヘッダー ファイル\Scenes\SceneObject</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\resultobject.h">
-      <Filter>ヘッダー ファイル\Scenes\SceneObject</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\titleobject.h">
-      <Filter>ヘッダー ファイル\Scenes\SceneObject</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\tutorialobject.h">
-      <Filter>ヘッダー ファイル\Scenes\SceneObject</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\instancing.h">
-      <Filter>ヘッダー ファイル\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\outline.h">
-      <Filter>ヘッダー ファイル\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\enemystatebase.h">
-      <Filter>ヘッダー ファイル\State\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\playerstatebase.h">
-      <Filter>ヘッダー ファイル\State\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\state.h">
-      <Filter>ヘッダー ファイル\State\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\statemachine.h">
-      <Filter>ヘッダー ファイル\State\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\workerstatebase.h">
-      <Filter>ヘッダー ファイル\State\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\gamestate.h">
-      <Filter>ヘッダー ファイル\State\Child</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\enemystatemove.h">
-      <Filter>ヘッダー ファイル\State\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\enemystateneutral.h">
-      <Filter>ヘッダー ファイル\State\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\playerstatemove.h">
-      <Filter>ヘッダー ファイル\State\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\playerstateneutral.h">
-      <Filter>ヘッダー ファイル\State\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\workerstateneutral.h">
-      <Filter>ヘッダー ファイル\State\Worker</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\template.h">
-      <Filter>ヘッダー ファイル\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\shadowS.h">
-      <Filter>ヘッダー ファイル\XFile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\block.h">
-      <Filter>ヘッダー ファイル\XFile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\feed.h">
-      <Filter>ヘッダー ファイル\XFile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\gamewallmodel.h">
-      <Filter>ヘッダー ファイル\XFile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\gimmicksuction.h">
-      <Filter>ヘッダー ファイル\XFile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\pointobj.h">
-      <Filter>ヘッダー ファイル\XFile</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="src\include\checkneardestination.h">
+      <Filter>ヘッダー ファイル\AI_System\LeafNode\Samples</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
