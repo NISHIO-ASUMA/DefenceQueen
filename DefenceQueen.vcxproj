@@ -335,6 +335,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BS_thread_pool.hpp" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="src\h\alwaysfail.h" />
     <ClInclude Include="src\h\alwayssuccess.h" />
     <ClInclude Include="src\h\animationobject2d.h" />
@@ -538,6 +539,9 @@
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS_Main</EntryPointName>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">3.0</ShaderModel>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DefenceQueen.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
