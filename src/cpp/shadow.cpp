@@ -36,12 +36,10 @@ CShadow::~CShadow()
 //==========================================================
 // 生成処理
 //==========================================================
-CShadow* CShadow::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+CShadow* CShadow::Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
 {
 	// インスタンス生成
 	CShadow* pShadow = new CShadow;
-
-	// nullptrだったら
 	if (pShadow == nullptr) return nullptr;
 
 	// オブジェクト設定
@@ -51,11 +49,7 @@ CShadow* CShadow::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 	pShadow->SetTexture("shadow000.jpg");
 
 	// 初期化失敗時
-	if (FAILED(pShadow->Init()))
-	{
-		// 処理を返す
-		return nullptr;
-	}
+	if (FAILED(pShadow->Init())) return nullptr;
 
 	// 影のポインタを返す
 	return pShadow;

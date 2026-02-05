@@ -28,7 +28,7 @@ class CSequence : public CCompositeNodeBase
 public:
 
 	CSequence(CBlackBoard* blackboard) : CCompositeNodeBase(blackboard) {};
-	~CSequence() override = default; // Œp³Œ³ƒNƒ‰ƒX‚Å”jŠü
+	~CSequence() override = default; 
 
 	void Update() override
 	{

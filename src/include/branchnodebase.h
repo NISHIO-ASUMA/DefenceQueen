@@ -38,6 +38,12 @@ public:
 		BRANCH_NUM_MAX
 	};
 
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	/// <param name="blackboard">ブラックボードのポインタ</param>
+	/// <param name="TrueNode">true結果を返すノード</param>
+	/// <param name="FalseNode">false結果を返すノード</param>
 	CBranchNodeBase(CBlackBoard* blackboard, CNode* TrueNode, CNode* FalseNode) : CNodeBase(blackboard)
 	{
 		m_pBranchNode[0] = TrueNode;

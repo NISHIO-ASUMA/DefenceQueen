@@ -23,7 +23,6 @@
 #include "workermanager.h"
 #include "arraymanager.h"
 #include "enemyspawner.h"
-#include "gimmicksuction.h"
 #include "arrayspawnmanager.h"
 #include "topant.h"
 #include "score.h"

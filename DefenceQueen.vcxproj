@@ -226,7 +226,6 @@
     <ClCompile Include="src\cpp\gamewallmodel.cpp" />
     <ClCompile Include="src\cpp\gauge.cpp" />
     <ClCompile Include="src\cpp\gimmickmanager.cpp" />
-    <ClCompile Include="src\cpp\gimmicksuction.cpp" />
     <ClCompile Include="src\cpp\hastoporderleaf.cpp" />
     <ClCompile Include="src\cpp\input.cpp" />
     <ClCompile Include="src\cpp\instancemodel.cpp" />
@@ -271,9 +270,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\cpp\playerstatebase.cpp" />
     <ClCompile Include="src\cpp\pointobj.cpp" />
-    <ClCompile Include="src\cpp\popupnumber.cpp" />
     <ClCompile Include="src\cpp\queen.cpp" />
     <ClCompile Include="src\cpp\ranking.cpp" />
     <ClCompile Include="src\cpp\rankingmanager.cpp" />
@@ -398,7 +395,6 @@
     <ClInclude Include="src\include\gamewallmodel.h" />
     <ClInclude Include="src\include\gauge.h" />
     <ClInclude Include="src\include\gimmickmanager.h" />
-    <ClInclude Include="src\include\gimmicksuction.h" />
     <ClInclude Include="src\include\hastoporderleaf.h" />
     <ClInclude Include="src\include\input.h" />
     <ClInclude Include="src\include\instancemodel.h" />
@@ -446,7 +442,6 @@
     <ClInclude Include="src\include\pausemanager.h" />
     <ClInclude Include="src\include\pch.h" />
     <ClInclude Include="src\include\pointobj.h" />
-    <ClInclude Include="src\include\popupnumber.h" />
     <ClInclude Include="src\include\queen.h" />
     <ClInclude Include="src\include\ranking.h" />
     <ClInclude Include="src\include\rankingmanager.h" />

@@ -33,8 +33,23 @@ public:
 	inline void SetIsDraw(const bool isDraw) { m_isDraw = isDraw; }
 	inline bool GetIsDraw(void) const { return m_isDraw; }
 
-	static CSignalUi* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot,
-		const float fWidth,const float fHeight,const D3DXCOLOR& color = COLOR_WHITE);
+	/// <summary>
+	/// ポインタ生成処理
+	/// </summary>
+	/// <param name="pos">生成座標</param>
+	/// <param name="rot">角度</param>
+	/// <param name="fWidth">横幅</param>
+	/// <param name="fHeight">高さ</param>
+	/// <param name="color">カラー</param>
+	/// <returns></returns>
+	static CSignalUi* Create
+	(
+		const D3DXVECTOR3& pos, 
+		const D3DXVECTOR3& rot,
+		const float fWidth,
+		const float fHeight,
+		const D3DXCOLOR& color = COLOR_WHITE
+	);
 
 private:
 

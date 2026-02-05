@@ -1,6 +1,6 @@
 //=========================================================
 //
-// ステンシルシャドウ処理 [ shadowS.h ]
+// ステンシルシャドウ処理 [ shadowstencil.h ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -30,7 +30,7 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	static CShadowStencil* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot);
+	static CShadowStencil* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
 
 private:
 

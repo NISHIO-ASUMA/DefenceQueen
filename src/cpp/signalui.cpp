@@ -27,7 +27,14 @@ CSignalUi::~CSignalUi()
 //=========================================================
 // 生成処理
 //=========================================================
-CSignalUi* CSignalUi::Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, const float fWidth, const float fHeight, const D3DXCOLOR& color)
+CSignalUi* CSignalUi::Create
+(
+	const D3DXVECTOR3& pos, 
+	const D3DXVECTOR3& rot, 
+	const float fWidth, 
+	const float fHeight, 
+	const D3DXCOLOR& color
+)
 {
 	// インスタンス生成
 	CSignalUi* pSignal = new CSignalUi;

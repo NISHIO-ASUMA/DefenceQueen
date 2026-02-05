@@ -28,6 +28,7 @@ class CDecorator : public CNodeBase
 public:
 
 	CDecorator(CBlackBoard* blackboard) : CNodeBase(blackboard) {};
+
 	virtual ~CDecorator()
 	{
 		delete m_ChildNode;

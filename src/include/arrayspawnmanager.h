@@ -26,7 +26,7 @@ class CArrayManager;
 //*********************************************************
 namespace SpawnManager
 {
-	static constexpr int NUM_CREATEARRAY = 25; // 一個のスポナーに渡すアリの数
+	static constexpr int NUM_CREATEARRAY = 50; // 一個のスポナーに渡すアリの数
 	static constexpr int NUM_ARRAYSPAWNER = 4; // スポナーの数
 
 	// 生成座標情報
@@ -85,5 +85,5 @@ private:
 	// 所持するスポナー配列
 	std::array<CArraySpawner*, SpawnManager::NUM_ARRAYSPAWNER>m_pArraySpawner; 
 
-	static constexpr int ALLARRAY = 80;
+	static constexpr int ALLARRAY = 200;
 };

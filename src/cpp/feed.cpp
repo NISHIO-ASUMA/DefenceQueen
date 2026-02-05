@@ -63,7 +63,15 @@ CFeed::~CFeed()
 //=========================================================
 // 生成処理
 //=========================================================
-CFeed* CFeed::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const char* pModelName, const float fRadius, const int nLife)
+CFeed* CFeed::Create
+(
+	const D3DXVECTOR3& pos, 
+	const D3DXVECTOR3& rot,
+	const D3DXVECTOR3& scale, 
+	const char* pModelName, 
+	const float fRadius, 
+	const int nLife
+)
 {
 	// インスタンス生成
 	CFeed* pFeed = new CFeed;

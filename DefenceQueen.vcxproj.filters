@@ -408,9 +408,6 @@
     <ClCompile Include="src\cpp\feedsignal.cpp">
       <Filter>ソース ファイル\3D</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\popupnumber.cpp">
-      <Filter>ソース ファイル\3D</Filter>
-    </ClCompile>
     <ClCompile Include="src\cpp\selectpoint.cpp">
       <Filter>ソース ファイル\3D</Filter>
     </ClCompile>
@@ -786,9 +783,6 @@
     <ClCompile Include="src\cpp\enemystatebase.cpp">
       <Filter>ソース ファイル\State\Base</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\playerstatebase.cpp">
-      <Filter>ソース ファイル\State\Base</Filter>
-    </ClCompile>
     <ClCompile Include="src\cpp\state.cpp">
       <Filter>ソース ファイル\State\Base</Filter>
     </ClCompile>
@@ -820,9 +814,6 @@
       <Filter>ソース ファイル\XFile</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\gamewallmodel.cpp">
-      <Filter>ソース ファイル\XFile</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\gimmicksuction.cpp">
       <Filter>ソース ファイル\XFile</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\pointobj.cpp">
@@ -876,9 +867,6 @@
       <Filter>ヘッダー ファイル\XFile</Filter>
     </ClInclude>
     <ClInclude Include="src\include\gamewallmodel.h">
-      <Filter>ヘッダー ファイル\XFile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\gimmicksuction.h">
       <Filter>ヘッダー ファイル\XFile</Filter>
     </ClInclude>
     <ClInclude Include="src\include\template.h">
@@ -1272,9 +1260,6 @@
       <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
     <ClInclude Include="src\include\shadow.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\popupnumber.h">
       <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
     <ClInclude Include="src\include\selectpoint.h">

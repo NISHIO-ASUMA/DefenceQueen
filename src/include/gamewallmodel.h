@@ -37,9 +37,23 @@ public:
 	void Update(void);
 	void Draw(void);
 	bool Collision(CSphereCollider* pOther);
-
 	inline CBoxCollider* GetCollider(void) const { return m_pCollider.get(); }
-	static CGameWallModel* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, const D3DXVECTOR3& scale, const char* pModelName);
+
+	/// <summary>
+	/// ポインタ生成処理
+	/// </summary>
+	/// <param name="pos">生成座標</param>
+	/// <param name="rot">角度</param>
+	/// <param name="scale">拡大率</param>
+	/// <param name="pModelName">モデルパス</param>
+	/// <returns></returns>
+	static CGameWallModel* Create
+	(
+		const D3DXVECTOR3& pos, 
+		const D3DXVECTOR3& rot, 
+		const D3DXVECTOR3& scale, 
+		const char* pModelName
+	);
 
 private:
 	std::unique_ptr<CBoxCollider>m_pCollider;	// 矩形のコライダー

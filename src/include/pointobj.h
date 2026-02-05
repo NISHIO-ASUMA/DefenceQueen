@@ -30,6 +30,12 @@ public:
 	void Update(void);
 	void Draw(void);
 
+	/// <summary>
+	/// ポインタ生成処理
+	/// </summary>
+	/// <param name="pos">生成座標</param>
+	/// <param name="rot">角度</param>
+	/// <returns></returns>
 	static CPointObj* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
 
 private:

@@ -31,7 +31,13 @@ CGameWallModel::~CGameWallModel()
 //=========================================================
 // 生成処理
 //=========================================================
-CGameWallModel* CGameWallModel::Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, const D3DXVECTOR3& scale, const char* pModelName)
+CGameWallModel* CGameWallModel::Create
+(
+	const D3DXVECTOR3& pos, 
+	const D3DXVECTOR3& rot, 
+	const D3DXVECTOR3& scale, 
+	const char* pModelName
+)
 {
 	// インスタンス生成
 	CGameWallModel* pWall = new CGameWallModel;

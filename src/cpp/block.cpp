@@ -31,7 +31,7 @@ CBlock::~CBlock()
 //=========================================================
 // 生成処理
 //=========================================================
-CBlock* CBlock::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const D3DXVECTOR3 scale, const char* pModelName)
+CBlock* CBlock::Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, const D3DXVECTOR3& scale, const char* pModelName)
 {
 	// インスタンス生成
 	CBlock* pBlock = new CBlock;

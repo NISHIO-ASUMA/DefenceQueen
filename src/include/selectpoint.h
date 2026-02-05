@@ -40,14 +40,30 @@ public:
 	bool Collision(CSphereCollider* other);
 	bool CollisionBox(CBoxCollider* pothere, D3DXVECTOR3* pOutPos);
 
-	void SetfRange(float fRange) { m_fHitRange = fRange; }
-	void SetIsHit(const bool isHit) { m_isHit = isHit; }
+	inline void SetfRange(float fRange) { m_fHitRange = fRange; }
+	inline void SetIsHit(const bool isHit) { m_isHit = isHit; }
 
-	CSphereCollider* GetSphere(void) const { return m_pSphere; }
-	float GetfRange(void) const { return m_fHitRange; }
-	bool GetIsHit(void) const { return m_isHit; }
+	inline CSphereCollider* GetSphere(void) const { return m_pSphere; }
+	inline float GetfRange(void) const { return m_fHitRange; }
+	inline bool GetIsHit(void) const { return m_isHit; }
 
-	static CSelectPoint* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const float fWidth, const float fHeight, const float fRadius);
+	/// <summary>
+	/// ポインタ生成処理
+	/// </summary>
+	/// <param name="pos">生成座標</param>
+	/// <param name="rot">角度</param>
+	/// <param name="fWidth">横幅</param>
+	/// <param name="fHeight">高さ</param>
+	/// <param name="fRadius">判定半径</param>
+	/// <returns></returns>
+	static CSelectPoint* Create
+	(
+		const D3DXVECTOR3& pos, 
+		const D3DXVECTOR3& rot, 
+		const float fWidth, 
+		const float fHeight, 
+		const float fRadius
+	);
 
 private:
 

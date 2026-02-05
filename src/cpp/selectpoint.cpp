@@ -55,7 +55,14 @@ CSelectPoint::~CSelectPoint()
 //=========================================================
 // 生成処理
 //=========================================================
-CSelectPoint* CSelectPoint::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const float fWidth,const float fHeight,const float fRadius)
+CSelectPoint* CSelectPoint::Create
+(
+	const D3DXVECTOR3& pos, 
+	const D3DXVECTOR3& rot, 
+	const float fWidth,
+	const float fHeight,
+	const float fRadius
+)
 {
 	// インスタンス生成
 	CSelectPoint* pSelect = new CSelectPoint;

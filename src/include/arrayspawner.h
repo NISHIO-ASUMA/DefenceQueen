@@ -151,7 +151,7 @@ private:
 	//****************************************
 	struct Config
 	{
-		static constexpr int MAX_STOCK = 25; // 最大保持数
+		static constexpr int MAX_STOCK = 50; // 最大保持数
 		static constexpr int ACTIVE_COUNT = 40; // アリをアクティブにするカウント
 	};
 

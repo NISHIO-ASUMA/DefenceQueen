@@ -66,21 +66,36 @@ public:
 	inline CSphereCollider* GetCollider(void) const { return m_pSphere.get(); }
 	inline CBoxCollider* GetBoxCollider(void) const { return m_pBoxCollider.get(); }
 	inline CParameter* GetParam(void) { return m_pParam.get(); }
-	
-	void SetOwnerArea(CEventArea* pEvent) { m_pOwnerArea = pEvent; }
-	CEventArea* GetOwnerArea() { return m_pOwnerArea; }
+	inline void SetOwnerArea(CEventArea* pEvent) { m_pOwnerArea = pEvent; }
+	inline CEventArea* GetOwnerArea() const { return m_pOwnerArea; }
 
-	static CFeed* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const char* pModelName, const float fRadius, const int nLife = 25);
+	/// <summary>
+	/// ポインタ生成処理
+	/// </summary>
+	/// <param name="pos">生成座標</param>
+	/// <param name="rot">角度</param>
+	/// <param name="scale">拡大率</param>
+	/// <param name="pModelName">モデルパス</param>
+	/// <param name="fRadius">判定半径</param>
+	/// <param name="nLife">寿命</param>
+	/// <returns></returns>
+	static CFeed* Create
+	(
+		const D3DXVECTOR3& pos, 
+		const D3DXVECTOR3& rot, 
+		const D3DXVECTOR3& scale, 
+		const char* pModelName, 
+		const float fRadius, 
+		const int nLife = 25
+	);
 
 private:
 
-	// メンバ関数
 	void ColorCheck(void);
 	D3DCOLORVALUE LerpColor(const D3DCOLORVALUE& a,const D3DCOLORVALUE& b,float t);
 
 	std::function<void(void)>m_event;		// 死亡時に呼ばれる関数イベント
 	std::unique_ptr<CParameter>m_pParam;	// パラメータークラス
-
 	std::unique_ptr<CSphereCollider>m_pSphere;		// 球形コライダー
 	std::unique_ptr<CBoxCollider>m_pBoxCollider;	// 矩形コライダー
 
