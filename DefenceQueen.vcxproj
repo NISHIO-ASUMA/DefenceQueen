@@ -186,10 +186,12 @@
     <ClCompile Include="src\cpp\charactorparam.cpp" />
     <ClCompile Include="src\cpp\chasedestination.cpp" />
     <ClCompile Include="src\cpp\checkneardestination.cpp" />
+    <ClCompile Include="src\cpp\classdete.cpp" />
     <ClCompile Include="src\cpp\collider.cpp" />
     <ClCompile Include="src\cpp\collision.cpp" />
     <ClCompile Include="src\cpp\collisionbox.cpp" />
     <ClCompile Include="src\cpp\collisionsphere.cpp" />
+    <ClCompile Include="src\cpp\comand.cpp" />
     <ClCompile Include="src\cpp\debugproc.cpp" />
     <ClCompile Include="src\cpp\easing.cpp" />
     <ClCompile Include="src\cpp\effect.cpp" />
@@ -355,10 +357,12 @@
     <ClInclude Include="src\include\charactorparam.h" />
     <ClInclude Include="src\include\chasedestination.h" />
     <ClInclude Include="src\include\checkneardestination.h" />
+    <ClInclude Include="src\include\classdete.h" />
     <ClInclude Include="src\include\collider.h" />
     <ClInclude Include="src\include\collision.h" />
     <ClInclude Include="src\include\collisionbox.h" />
     <ClInclude Include="src\include\collisionsphere.h" />
+    <ClInclude Include="src\include\comand.h" />
     <ClInclude Include="src\include\compositenodebase.h" />
     <ClInclude Include="src\include\debugproc.h" />
     <ClInclude Include="src\include\decorator.h" />
