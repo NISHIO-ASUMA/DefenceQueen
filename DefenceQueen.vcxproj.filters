@@ -37,9 +37,6 @@
     <Filter Include="ソース ファイル\Charactor">
       <UniqueIdentifier>{eeefe4b7-0ce5-474e-afa2-eac34acc7f75}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Charactor\Player">
-      <UniqueIdentifier>{5711bbc8-c959-422b-89ea-4e22759abd09}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Charactor\Enemy">
       <UniqueIdentifier>{a64579a3-0b9b-459c-a0d0-46847cc88c3e}</UniqueIdentifier>
     </Filter>
@@ -106,9 +103,6 @@
     <Filter Include="ソース ファイル\Charactor\Param">
       <UniqueIdentifier>{a746d536-8fe7-407a-9621-7dc31edd5376}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\State\Player">
-      <UniqueIdentifier>{5d77f927-e4d1-4d8e-a8a6-b245a924ddf8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\State\Enemy">
       <UniqueIdentifier>{765cd623-4322-44d8-a0b2-79d4772ef6b9}</UniqueIdentifier>
     </Filter>
@@ -169,9 +163,6 @@
     <Filter Include="ヘッダー ファイル\Charactor\Enemy">
       <UniqueIdentifier>{269d1ed9-83e9-40d3-a76a-9947ed5e437e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Charactor\Player">
-      <UniqueIdentifier>{2bb25b01-8d3e-4e49-b6fd-b00a0c5aecb1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Charactor\Defence">
       <UniqueIdentifier>{7803c19c-70fd-44e0-b5ff-833bbf2dbf98}</UniqueIdentifier>
     </Filter>
@@ -195,9 +186,6 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\State">
       <UniqueIdentifier>{9207398d-9bb6-4640-9862-45f87e392869}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\State\Player">
-      <UniqueIdentifier>{090ee7a8-307a-446b-80dc-21400bb99641}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\State\Base">
       <UniqueIdentifier>{abfbe380-0fca-4fe9-a8c2-f9f3935bae45}</UniqueIdentifier>
@@ -564,9 +552,6 @@
     <ClCompile Include="src\cpp\parameter.cpp">
       <Filter>ソース ファイル\Charactor\Param</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\player.cpp">
-      <Filter>ソース ファイル\Charactor\Player</Filter>
-    </ClCompile>
     <ClCompile Include="src\cpp\arrayspawner.cpp">
       <Filter>ソース ファイル\Charactor\Spawn\Array_Spawn</Filter>
     </ClCompile>
@@ -822,12 +807,6 @@
     <ClCompile Include="src\cpp\enemystateneutral.cpp">
       <Filter>ソース ファイル\State\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\playerstatemove.cpp">
-      <Filter>ソース ファイル\State\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\playerstateneutral.cpp">
-      <Filter>ソース ファイル\State\Player</Filter>
-    </ClCompile>
     <ClCompile Include="src\cpp\workerstateneutral.cpp">
       <Filter>ソース ファイル\State\Worker</Filter>
     </ClCompile>
@@ -849,7 +828,7 @@
     <ClCompile Include="src\cpp\pointobj.cpp">
       <Filter>ソース ファイル\XFile</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\shadowS.cpp">
+    <ClCompile Include="src\cpp\shadowstencil.cpp">
       <Filter>ソース ファイル\XFile</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\boxtospherecollision.cpp">
@@ -863,6 +842,9 @@
     </ClCompile>
     <ClCompile Include="src\cpp\collisionbox.cpp">
       <Filter>ソース ファイル\Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="loseresultobject.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -890,7 +872,7 @@
     <ClInclude Include="src\include\pointobj.h">
       <Filter>ヘッダー ファイル\XFile</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\shadowS.h">
+    <ClInclude Include="src\include\shadowstencil.h">
       <Filter>ヘッダー ファイル\XFile</Filter>
     </ClInclude>
     <ClInclude Include="src\include\gamewallmodel.h">
@@ -1229,15 +1211,6 @@
     <ClInclude Include="src\include\enemystatemove.h">
       <Filter>ヘッダー ファイル\State\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\playerstatebase.h">
-      <Filter>ヘッダー ファイル\State\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\playerstatemove.h">
-      <Filter>ヘッダー ファイル\State\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\playerstateneutral.h">
-      <Filter>ヘッダー ファイル\State\Player</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\basemapfeed.h">
       <Filter>ヘッダー ファイル\XFile</Filter>
     </ClInclude>
@@ -1264,9 +1237,6 @@
     </ClInclude>
     <ClInclude Include="src\include\charactorparam.h">
       <Filter>ヘッダー ファイル\Charactor\Param</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\player.h">
-      <Filter>ヘッダー ファイル\Charactor\Player</Filter>
     </ClInclude>
     <ClInclude Include="src\include\arrayspawner.h">
       <Filter>ヘッダー ファイル\Charactor\Spawn\Array_Spawn</Filter>
@@ -1399,6 +1369,9 @@
     </ClInclude>
     <ClInclude Include="src\include\checkneardestination.h">
       <Filter>ヘッダー ファイル\AI_System\LeafNode\Samples</Filter>
+    </ClInclude>
+    <ClInclude Include="loseresultobject.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -51,21 +51,21 @@ public:
 	void ChangeTarget(D3DXVECTOR3 posV, D3DXVECTOR3 posR, D3DXVECTOR3 vecU);
 	void SetSize(UINT uWidth, UINT uHeight) { m_Width = uWidth, m_Height = uHeight; }
 	void SetBuller(bool isBuller, const int nMaxbullerTime);
+	void GetFps(const int& nFps) { m_fps = nFps; }
 
-	LPDIRECT3DDEVICE9 GetDevice(void);
+	LPDIRECT3DDEVICE9 GetDevice(void) { return m_pD3DDevice; }
 	UINT GetWidth(void) { return m_Width; }
 	UINT GetHeight(void) { return m_Height; }
-	LPDIRECT3DTEXTURE9 GetTextureFeedMT(void) { return m_apTextureMT[0]; }
 	bool GetBuller(void) { return m_isbuller; }
-	void GetFps(int nFps);
+	static CDebugproc* GetDebug(void) { return m_pDebug; }
 
 	/// <summary>
 	/// インスタンシング登録関数
 	/// </summary>
 	/// <param name="nIdxModel">モデルインデックス</param>
 	/// <param name="pModel">モデルポインタ</param>
-	void AddInstanceObject(const int nIdxModel,CInstanceModel* pModel);
-	
+	void AddInstanceObject(const int nIdxModel, CInstanceModel* pModel);
+
 	/// <summary>
 	/// 全インスタンシングオブジェクト描画関数
 	/// </summary>
@@ -76,17 +76,12 @@ public:
 	/// インスタンス配列内オブジェクトクリア関数
 	/// </summary>
 	/// <param name=""></param>
-	void ClearDrawInstance(void)
-	{
-		m_RegisterInstObject.clear();
-	};
-
-	static CDebugproc* GetDebug(void) { return m_pDebug; }
+	void ClearDrawInstance(void) { m_RegisterInstObject.clear(); };
 
 private:
 
 	static inline constexpr int NUM_FEEDBACKPOLYGON = 2; // フィードバック用ポリゴン
-	static inline constexpr int MAX_MATERIAL = 512;
+	static inline constexpr int MAX_MATERIAL = 512;		 // 最大マテリアル数
 
 	LPDIRECT3D9 m_pD3D;					// Direct3Dオブジェクトへのポインタ
 	LPDIRECT3DDEVICE9 m_pD3DDevice;		// Direct3Dデバイスへのポインタ

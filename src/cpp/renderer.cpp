@@ -254,7 +254,7 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 	m_nBullerTime = NULL;
 
 	// 最大インスタンス数
-	const UINT MAX_INSTANCE = 1024;
+	const UINT MAX_INSTANCE = 2048;
 
 	// インスタンシング用頂点バッファ生成
 	HRESULT hr = m_pD3DDevice->CreateVertexBuffer
@@ -556,22 +556,6 @@ void CRenderer::SetBuller(bool isBuller, const int nMaxbullerTime)
 	m_nBullerTime = nMaxbullerTime;
 }
 
-//=========================================================
-// デバイス取得処理
-//=========================================================
-LPDIRECT3DDEVICE9 CRenderer::GetDevice(void)
-{
-	// デバイスを返す
-	return m_pD3DDevice;
-}
-//=========================================================
-// FPS表示
-//=========================================================
-void CRenderer::GetFps(int nFps)
-{
-	// 代入
-	m_fps = nFps;
-}
 
 //=========================================================
 // インスタンシングオブジェクト登録関数
@@ -609,7 +593,7 @@ void CRenderer::DrawInstancingAll(void)
 		//============================
 		InstanceData* pInst = nullptr;
 
-		// 頂点ロック
+		// 頂点バッファをロック
 		m_instanceVB->Lock(0, 0, (void**)&pInst, D3DLOCK_DISCARD);
 
 		for (int nCnt = 0; nCnt < static_cast<int>(instances.size()); nCnt++)
@@ -618,7 +602,7 @@ void CRenderer::DrawInstancingAll(void)
 			pInst[nCnt].mtxworld = instances[nCnt]->GetMtxWorld();
 		}
 
-		// 頂点アンロック
+		// 頂点バッファをアンロック
 		m_instanceVB->Unlock();
 
 		//=============================
@@ -629,7 +613,7 @@ void CRenderer::DrawInstancingAll(void)
 			//=========================
 			// マテリアルカラー取得
 			//=========================
-			D3DXVECTOR4 matColor = D3DXVECTOR4(0.0f,0.0f,0.0f,0.0f);
+			D3DXVECTOR4 matColor = VECTOR4_NULL;
 
 			if (modelInfo.pBuffMat)
 			{

@@ -9,7 +9,6 @@
 // インクルードファイル
 //*******************************************************************
 #include "instancingcharactor.h"
-#include "shadowS.h"
 #include "manager.h"
 #include "blackboard.h"
 #include "node.h"
@@ -18,6 +17,7 @@
 #include "motioninstancing.h"
 #include "instancemodel.h"
 #include "pausemanager.h"
+#include "shadowstencil.h"
 
 //===================================================================
 // コンストラクタ
@@ -71,7 +71,7 @@ HRESULT CInstancingCharactor::Init(void)
 	if (m_isStencilUse)
 	{
 		// 影モデル生成
-		m_pShadowS = CShadowS::Create(m_pos, m_rot);
+		m_pShadowS = CShadowStencil::Create(m_pos, m_rot);
 	}
 
 	return S_OK;

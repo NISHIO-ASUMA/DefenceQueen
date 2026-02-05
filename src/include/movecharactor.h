@@ -21,7 +21,7 @@
 //*********************************************************
 // 前方宣言
 //*********************************************************
-class CShadowS;
+class CShadowStencil;
 class CModel;
 class CBlackBoard;
 class CNode;
@@ -100,7 +100,7 @@ private:
 
 	std::unique_ptr<CMotion>m_pMotion;	// モーションクラスのユニークポインタ
 	std::vector<CModel*>m_pModel;		// モデルクラスの動的配列
-	CShadowS* m_pShadowS;				// ステンシルシャドウクラスのポインタ
+	CShadowStencil* m_pShadowS;				// ステンシルシャドウクラスのポインタ
 
 	float m_fMoveValue;		// 移動加算値
 	bool m_isStencilUse;	// ステンシルシャドウを使うか

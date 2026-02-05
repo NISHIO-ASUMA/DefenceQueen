@@ -11,7 +11,7 @@
 #include "enemy.h"
 #include "parameter.h"
 #include "motion.h"
-#include "shadowS.h"
+#include "shadowstencil.h"
 #include "manager.h"
 #include "spherecollider.h"
 #include "collisionsphere.h"

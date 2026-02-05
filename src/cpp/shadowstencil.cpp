@@ -8,28 +8,28 @@
 //**********************
 // インクルードファイル
 //**********************
-#include "shadowS.h"
+#include "shadowstencil.h"
 #include "Manager.h"
 #include "xfilemanager.h"
 
 //==================================
 // オーバーロードコンストラクタ
 //==================================
-CShadowS::CShadowS(int nPriority) : CObjectX(nPriority), m_pVtx{}
+CShadowStencil::CShadowStencil(int nPriority) : CObjectX(nPriority), m_pVtx{}
 {
 	// 値のクリア
 }
 //==================================
 // デストラクタ
 //==================================
-CShadowS::~CShadowS()
+CShadowStencil::~CShadowStencil()
 {
 	// 無し
 }
 //==================================
 // 初期化処理
 //==================================
-HRESULT CShadowS::Init()
+HRESULT CShadowStencil::Init()
 {
 	// 親クラスの初期化処理
 	CObjectX::Init();
@@ -84,7 +84,7 @@ HRESULT CShadowS::Init()
 //==================================
 // 終了処理
 //==================================
-void CShadowS::Uninit(void)
+void CShadowStencil::Uninit(void)
 {
 	// 親クラスの終了処理
 	CObjectX::Uninit();
@@ -92,14 +92,14 @@ void CShadowS::Uninit(void)
 //==================================
 // 更新処理
 //==================================
-void CShadowS::Update(void)
+void CShadowStencil::Update(void)
 {
 	// 無し
 }
 //==================================
 // 描画処理
 //==================================
-void CShadowS::Draw(void)
+void CShadowStencil::Draw(void)
 {
 	// デバイス取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
@@ -192,10 +192,10 @@ void CShadowS::Draw(void)
 //==================================
 // 生成処理
 //==================================
-CShadowS* CShadowS::Create(D3DXVECTOR3 pos,D3DXVECTOR3 rot)
+CShadowStencil* CShadowStencil::Create(D3DXVECTOR3 pos,D3DXVECTOR3 rot)
 {
 	// インスタンス生成
-	CShadowS* pShadowS = new CShadowS;
+	CShadowStencil* pShadowS = new CShadowStencil;
 
 	// オブジェクトX設定
 	pShadowS->SetFilePass("STAGEOBJ/Shadowmodel.x");

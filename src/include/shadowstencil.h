@@ -18,19 +18,19 @@
 //*********************************************************
 // シャドウステンシルクラスを定義
 //*********************************************************
-class CShadowS :public CObjectX
+class CShadowStencil :public CObjectX
 {
 public:
 
-	CShadowS(int nPriority = static_cast<int>(CObject::PRIORITY::SHADOW));
-	~CShadowS();
+	CShadowStencil(int nPriority = static_cast<int>(CObject::PRIORITY::SHADOW));
+	~CShadowStencil();
 
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 
-	static CShadowS* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot);
+	static CShadowStencil* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot);
 
 private:
 

@@ -21,7 +21,7 @@
 //*********************************************************
 // 前方宣言
 //*********************************************************
-class CShadowS;
+class CShadowStencil;
 class CMotion;
 
 //*********************************************************
@@ -73,7 +73,7 @@ private:
 
 	std::unique_ptr<CMotion>m_pMotion;	// モーションクラスのユニークポインタ
 	std::vector<CModel*>m_pModel;		// モデルクラスの動的配列
-	CShadowS* m_pShadowS;				// ステンシルシャドウクラスのポインタ
+	CShadowStencil* m_pShadowS;			// ステンシルシャドウクラスのポインタ
 
 	bool m_isStencilUse;				// ステンシルを使うかどうか
 	bool m_isOutLine;					// アウトラインを入れるかどうか

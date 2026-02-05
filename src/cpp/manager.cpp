@@ -113,7 +113,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	m_pMotionManager = std::make_unique<CMotionManager>();
 	if (FAILED(m_pMotionManager->Load())) return E_FAIL;
 
-	// モーションマネジャーの生成処理
+	// インスタンシンモーションマネジャーの生成処理
 	m_pInstMotionManager = std::make_unique<CInstanceMotionManager>();
 	if (FAILED(m_pInstMotionManager->Load())) return E_FAIL;
 
@@ -124,7 +124,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	CInstancing::GetInstance()->SetDeviceToInstancing(m_pRenderer->GetDevice());
 	CInstancing::GetInstance()->Init("data/SHADER/Instancing.hlsl");
 
-	// ネットワーククラスの生成 ( ここでオンライン通信作成している )
+	// ネットワーククラスの生成
 	m_pNetWork = std::make_unique<CNetWork>();
 	if (FAILED(m_pNetWork->Init())) return E_FAIL;
 

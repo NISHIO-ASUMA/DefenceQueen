@@ -47,6 +47,8 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+	void SetScene(std::unique_ptr<CScene> pNewScene);
+	CScene::MODE GetScene(void);
 
 	CInstanceMotionManager* GetInstMotionM(void) { return m_pInstMotionManager.get(); }
 	CInstanceModelManager* GetInstanceModelM(void) { return m_pInstanceModel.get(); }
@@ -57,16 +59,13 @@ public:
 	CRenderer* GetRenderer(void) { return m_pRenderer.get(); }
 	CInputMouse* GetMouse(void) { return m_pInputMouse.get(); }
 	CTexture* GetTexture(void) { return m_pTexture.get(); }
+	CNetWork* GetNetWork(void) { return m_pNetWork.get(); }
 	CJoyPad* GetJoyPad(void) { return m_pJoyPad.get(); }
 	CCamera* GetCamera(void) { return m_pCamera.get(); }
 	CSound* GetSound(void) { return m_pSound.get(); }
 	CLight* GetLight(void) { return m_pLight.get(); }
 	CFade* GetFade(void) { return m_pFade.get(); }
-	CNetWork* GetNetWork(void) { return m_pNetWork.get(); }
-
-	CScene* GetSceneRaw(void) { return m_pScene.get(); }	// 生ポインタを返す
-	void SetScene(std::unique_ptr<CScene> pNewScene);		// unique_ptrで受け取る
-	CScene::MODE GetScene(void);							// 現在モードを返す
+	CScene* GetSceneRaw(void) { return m_pScene.get(); }
 
 	// マネージャークラスのインスタンス取得
 	static CManager* GetInstance(void)

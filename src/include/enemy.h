@@ -55,8 +55,6 @@ public:
 	void Draw(void) override;
 	
 	void MoveToFeed(void);
-	void AttackToAnt(void);
-	void RobToFeed(void);
 	void MoveToQueen(void);
 	CFeed* FindFeed(void);
 

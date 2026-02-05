@@ -10,7 +10,7 @@
 //*********************************************************
 #include "nomovecharactor.h"
 #include "motion.h"
-#include "shadowS.h"
+#include "shadowstencil.h"
 #include "manager.h"
 #include "blackboard.h"
 #include "outline.h"
@@ -50,7 +50,8 @@ HRESULT CNoMoveCharactor::Init(void)
 	m_pModel.clear();
 
 	// Žg—p‰Â”\Žž
-	if (m_isStencilUse) m_pShadowS = CShadowS::Create(m_pos, m_rot);
+	if (m_isStencilUse)
+		m_pShadowS = CShadowStencil::Create(m_pos, m_rot);
 
 	return S_OK;
 }

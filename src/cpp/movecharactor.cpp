@@ -10,7 +10,7 @@
 //*********************************************************
 #include "movecharactor.h"
 #include "model.h"
-#include "shadowS.h"
+#include "shadowstencil.h"
 #include "manager.h"
 #include "blackboard.h"
 #include "node.h"
@@ -58,7 +58,7 @@ HRESULT CMoveCharactor::Init(void)
 	if (m_isStencilUse)
 	{
 		// âeÉÇÉfÉãê∂ê¨
-		m_pShadowS = CShadowS::Create(m_pos, m_rot);
+		m_pShadowS = CShadowStencil::Create(m_pos, m_rot);
 	}
 
 	return S_OK;
