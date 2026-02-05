@@ -846,12 +846,6 @@
     <ClCompile Include="src\cpp\loseresultobject.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\comand.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\classdete.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BS_thread_pool.hpp">
@@ -1377,12 +1371,6 @@
       <Filter>ヘッダー ファイル\AI_System\LeafNode\Samples</Filter>
     </ClInclude>
     <ClInclude Include="src\include\loseresultobject.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\comand.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\classdete.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
