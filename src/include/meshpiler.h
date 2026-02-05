@@ -39,7 +39,7 @@ public:
 		float fNowHeight;	// åªç›ÇÃçÇÇ≥
 	};
 
-	CMeshPiler(int nPrio = static_cast<int>(CObject::PRIORITY::MESH));
+	CMeshPiler(int nPriority = static_cast<int>(CObject::PRIORITY::MESH));
 	~CMeshPiler();
 
 	HRESULT Init(void);

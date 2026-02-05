@@ -27,7 +27,7 @@ namespace MESHFIELD
 //=========================================================
 // コンストラクタ
 //=========================================================
-CMeshField::CMeshField(int nPrio) : CObject(nPrio),
+CMeshField::CMeshField(int nPriority) : CObject(nPriority),
 m_pIdx(nullptr),
 m_pVtx(nullptr),
 m_pos(VECTOR3_NULL),

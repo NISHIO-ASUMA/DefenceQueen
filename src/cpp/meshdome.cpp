@@ -15,7 +15,7 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CMeshDome::CMeshDome(int nPrio) : CObject(nPrio),
+CMeshDome::CMeshDome(int nPriority) : CObject(nPriority),
 m_pIdx(nullptr),
 m_pVtx(nullptr),
 m_pos(VECTOR3_NULL),

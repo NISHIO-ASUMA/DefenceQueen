@@ -29,7 +29,7 @@ namespace PILERINFO
 //=========================================================
 // オーバーロードコンストラクタ
 //=========================================================
-CMeshPiler::CMeshPiler(int nPrio) : CObject(nPrio),
+CMeshPiler::CMeshPiler(int nPriority) : CObject(nPriority),
 m_pIdx(nullptr),
 m_pVtx(nullptr),
 m_pos(VECTOR3_NULL),

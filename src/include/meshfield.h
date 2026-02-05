@@ -37,7 +37,7 @@ public:
 		int nTexIdx;		// テクスチャインデックス
 	};
 
-	CMeshField(int nPrio = static_cast<int>(CObject::PRIORITY::MESH));
+	CMeshField(int nPriority = static_cast<int>(CObject::PRIORITY::MESH));
 	~CMeshField();
 
 	HRESULT Init(void);

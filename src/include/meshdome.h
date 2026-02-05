@@ -22,7 +22,7 @@ class CMeshDome : public CObject
 {
 public:
 
-	CMeshDome(int nPrio = static_cast<int>(CObject::PRIORITY::MESH));
+	CMeshDome(int nPriority = static_cast<int>(CObject::PRIORITY::MESH));
 	~CMeshDome();
 
 	HRESULT Init(void);

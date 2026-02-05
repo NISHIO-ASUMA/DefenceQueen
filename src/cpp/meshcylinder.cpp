@@ -16,7 +16,7 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CMeshCylinder::CMeshCylinder(int nPrio) : CObject(nPrio),
+CMeshCylinder::CMeshCylinder(int nPriority) : CObject(nPriority),
 m_pIdx(nullptr),
 m_pVtx(nullptr),
 m_pos(VECTOR3_NULL),

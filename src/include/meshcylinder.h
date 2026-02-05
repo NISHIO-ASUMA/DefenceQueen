@@ -36,7 +36,7 @@ public:
 		float fRadius;		// ”¼Œa
 	};
 
-	CMeshCylinder(int nPrio = static_cast<int>(CObject::PRIORITY::BILLBOARD));
+	CMeshCylinder(int nPriority = static_cast<int>(CObject::PRIORITY::BILLBOARD));
 	~CMeshCylinder();
 
 	HRESULT Init(void);
