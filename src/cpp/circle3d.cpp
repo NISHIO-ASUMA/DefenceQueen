@@ -87,9 +87,6 @@ void CCircle3D::Uninit(void)
 //=========================================================
 void CCircle3D::Update(void)
 {
-	// 描画フラグがoffなら
-	if (!m_isHit) return;
-
 	// 座標取得
 	auto pos = GetPos();
 
@@ -104,9 +101,6 @@ void CCircle3D::Update(void)
 //=========================================================
 void CCircle3D::Draw(void)
 {
-	// 描画フラグがoffなら
-	if (!m_isHit) return;
-
 	// 親クラスの描画処理
 	CObject3D::Draw();
 }

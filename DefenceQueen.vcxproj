@@ -260,7 +260,6 @@
     <ClCompile Include="src\cpp\object2D.cpp" />
     <ClCompile Include="src\cpp\object3D.cpp" />
     <ClCompile Include="src\cpp\objectX.cpp" />
-    <ClCompile Include="src\cpp\order.cpp" />
     <ClCompile Include="src\cpp\outline.cpp" />
     <ClCompile Include="src\cpp\parameter.cpp" />
     <ClCompile Include="src\cpp\particle.cpp" />
@@ -286,7 +285,6 @@
     <ClCompile Include="src\cpp\returnnestleaf.cpp" />
     <ClCompile Include="src\cpp\scene.cpp" />
     <ClCompile Include="src\cpp\score.cpp" />
-    <ClCompile Include="src\cpp\selectpoint.cpp" />
     <ClCompile Include="src\cpp\sendnumber.cpp" />
     <ClCompile Include="src\cpp\sepalationsign.cpp" />
     <ClCompile Include="src\cpp\separationant.cpp" />
@@ -457,7 +455,6 @@
     <ClInclude Include="src\include\scene.h" />
     <ClInclude Include="src\include\score.h" />
     <ClInclude Include="src\include\selector.h" />
-    <ClInclude Include="src\include\selectpoint.h" />
     <ClInclude Include="src\include\sendnumber.h" />
     <ClInclude Include="src\include\sepalationsign.h" />
     <ClInclude Include="src\include\separationant.h" />

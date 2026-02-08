@@ -69,7 +69,7 @@ public:
 	/// </summary>
 	/// <param name="nCount"></param>
 	/// <returns></returns>
-	int SetSepaltionCount(const int& nCount) { m_nGetSepaltioncnt = nCount; }
+	void SetSepaltionCount(const int& nCount) { m_nGetSepaltioncnt = nCount; }
 
 	/// <summary>
 	/// スポナーに格納されているアリをindexで取得

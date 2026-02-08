@@ -402,9 +402,6 @@
     <ClCompile Include="src\cpp\feedsignal.cpp">
       <Filter>ソース ファイル\3D</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\selectpoint.cpp">
-      <Filter>ソース ファイル\3D</Filter>
-    </ClCompile>
     <ClCompile Include="src\cpp\sepalationsign.cpp">
       <Filter>ソース ファイル\3D</Filter>
     </ClCompile>
@@ -535,9 +532,6 @@
       <Filter>ソース ファイル\Charactor\Motion</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\charactorparam.cpp">
-      <Filter>ソース ファイル\Charactor\Param</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\order.cpp">
       <Filter>ソース ファイル\Charactor\Param</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\parameter.cpp">
@@ -832,7 +826,7 @@
       <Filter>ソース ファイル\XFile</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\circle3d.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1256,9 +1250,6 @@
     <ClInclude Include="src\include\shadow.h">
       <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\selectpoint.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\sendnumber.h">
       <Filter>ヘッダー ファイル\2DUI</Filter>
     </ClInclude>
@@ -1350,7 +1341,7 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\include\circle3d.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
