@@ -325,7 +325,6 @@
     <ClCompile Include="src\cpp\xfilemanager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BS_thread_pool.hpp" />
     <ClInclude Include="src\include\alwaysfail.h" />
     <ClInclude Include="src\include\alwayssuccess.h" />
     <ClInclude Include="src\include\animationobject2d.h" />
@@ -433,7 +432,6 @@
     <ClInclude Include="src\include\object2D.h" />
     <ClInclude Include="src\include\object3D.h" />
     <ClInclude Include="src\include\objectX.h" />
-    <ClInclude Include="src\include\order.h" />
     <ClInclude Include="src\include\outline.h" />
     <ClInclude Include="src\include\parameter.h" />
     <ClInclude Include="src\include\particle.h" />

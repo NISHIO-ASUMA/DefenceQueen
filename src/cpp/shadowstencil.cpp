@@ -15,7 +15,8 @@
 //=========================================================
 // オーバーロードコンストラクタ
 //=========================================================
-CShadowStencil::CShadowStencil(int nPriority) : CObjectX(nPriority), m_pVtx{}
+CShadowStencil::CShadowStencil(int nPriority) : CObjectX(nPriority), 
+m_pVtx{}
 {
 	// 値のクリア
 }

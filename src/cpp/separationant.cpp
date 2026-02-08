@@ -15,7 +15,8 @@
 //===================================================================
 // コンストラクタ
 //===================================================================
-CSeparationAnt::CSeparationAnt() : m_pAntList{}, m_pAntGroup{}
+CSeparationAnt::CSeparationAnt() : m_pAntList{},
+m_pAntGroup{}
 {
 
 }
@@ -55,7 +56,7 @@ void CSeparationAnt::Update(void)
 //===================================================================
 void CSeparationAnt::Draw(void)
 {
-	// デバッグ情報
+	
 }
 //===================================================================
 // リストに隊列アリを追加する関数
@@ -131,12 +132,12 @@ void CSeparationAnt::ClearListGroup(const int& nGroup, CArray* pAnt)
 	// 再設定する
 	CArray* prev = nullptr;
 
-	for (auto* ant : listRef)
+	for (auto* Ant : listRef)
 	{
 		// 追従対象をセット
-		ant->SetPrevAnt(prev);
+		Ant->SetPrevAnt(prev);
 
 		// 変更
-		prev = ant;
+		prev = Ant;
 	}
 }

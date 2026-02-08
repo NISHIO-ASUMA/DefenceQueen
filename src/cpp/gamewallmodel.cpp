@@ -1,6 +1,6 @@
 //=========================================================
 //
-// 世界の壁オブジェクト処理 [ gamewallmodel.cpp ]
+// 世界の透明な壁オブジェクト処理 [ gamewallmodel.cpp ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -17,7 +17,8 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CGameWallModel::CGameWallModel(int nPriority) : CObjectX(nPriority), m_pCollider(nullptr)
+CGameWallModel::CGameWallModel(int nPriority) : CObjectX(nPriority), 
+m_pCollider(nullptr)
 {
 
 }

@@ -17,7 +17,8 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CEnemyManager::CEnemyManager() : m_pEnemys{}, m_nCreateLastTime(-1)
+CEnemyManager::CEnemyManager() : m_pEnemys{},
+m_nCreateLastTime(-1)
 {
 
 }
@@ -59,7 +60,7 @@ void CEnemyManager::Update(void)
 	int time = GameSceneObject->GetTime()->GetToAll();
 
 	// 使用名前空間
-	using namespace SET_INFO;
+	using namespace Enemy_Spawn;
 
 	// サイズオーバーチェック
 	if (m_pEnemys.size() >= Config::NUM_ENEMY) return;
@@ -78,16 +79,17 @@ void CEnemyManager::Update(void)
 			D3DXVECTOR3 pos = SpawnPos[index];
 
 			// オフセットとして値を作成
-			D3DXVECTOR3 offset(
-				(rand() % 50 - 25) * 3.0f,
+			D3DXVECTOR3 offset
+			(
+				(rand() % Config::RANDOM_VALUE_MAX - Config::RANDOM_VALUE_MIN) * 3.0f,
 				0.0f,
-				(rand() % 50 - 25) * 3.0f
+				(rand() % Config::RANDOM_VALUE_MAX - Config::RANDOM_VALUE_MIN) * 3.0f
 			);
 
 			// 座標と合わせて少しずらす
 			pos += offset;
 
-			// 敵を実際に生成
+			// 敵を生成
 			CEnemy* pEnemy = CEnemy::Create(pos, VECTOR3_NULL, Config::LIFE);
 
 			// nullチェック
@@ -95,8 +97,6 @@ void CEnemyManager::Update(void)
 			{
 				// 有効化状態に設定
 				pEnemy->SetIsActive(true);
-
-				// 配列追加
 				m_pEnemys.push_back(pEnemy);
 			}
 		}

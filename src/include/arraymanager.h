@@ -89,6 +89,8 @@ public:
 
 	int GetIsFollowtopArrays(void);
 
+	inline int GetAllUseArrays(void) const { return ArrayConfig::ALLARRAYS; }
+
 private:
 
 	//**********************

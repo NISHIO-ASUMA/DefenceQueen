@@ -35,5 +35,4 @@ public:
 private:
 
 	LPDIRECT3DVERTEXBUFFER9 m_pVtx;		// 頂点バッファ
-
 };

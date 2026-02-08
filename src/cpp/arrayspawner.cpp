@@ -48,7 +48,7 @@ CArraySpawner* CArraySpawner::Create(const D3DXVECTOR3& pos, const int nMaxArray
 	// 値のセット
 	pSpawner->SetMaxArray(nMaxArray);
 	pSpawner->SetPos(pos);
-	pSpawner->m_nGetSepaltioncnt = nSepalations;
+	pSpawner->SetSepaltionCount(nSepalations);
 
 	// 初期化失敗時
 	if (FAILED(pSpawner->Init(pManager,MovePos))) return nullptr;
@@ -123,14 +123,6 @@ void CArraySpawner::Update(void)
 	}
 }
 //=========================================================
-// 描画処理
-//=========================================================
-void CArraySpawner::Draw(void)
-{
-	
-}
-
-//=========================================================
 // 移動先設定関数
 //=========================================================
 void CArraySpawner::OrderMove(int nNum, const D3DXVECTOR3& destPos)
@@ -176,15 +168,8 @@ void CArraySpawner::OrderMove(int nNum, const D3DXVECTOR3& destPos)
 //=========================================================
 void CArraySpawner::SetMaxArray(const int& nMaxArray)
 {
-	// 最大数をセットする
-	if (nMaxArray > Config::MAX_STOCK)
-	{
-		m_nStockArrays = Config::MAX_STOCK;
-	}
-	else
-	{
-		m_nStockArrays = nMaxArray;
-	}
+	// スポナー一個の要素数をセットする
+	m_nStockArrays = nMaxArray;
 }
 
 //=========================================================

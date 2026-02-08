@@ -39,9 +39,8 @@ public:
 	HRESULT Init(CArrayManager* pManager, const D3DXVECTOR3& MovePos);
 	void Uninit(void);
 	void Update(void);
-	void Draw(void);
-	void SetMaxArray(const int& nMaxArray);
 	
+	void SetMaxArray(const int& nMaxArray);
 	inline void SetPos(const D3DXVECTOR3& pos) { m_SpawnBasePos = pos; }
 	inline D3DXVECTOR3 GetPos(void) const { return m_SpawnBasePos; }
 
@@ -64,6 +63,13 @@ public:
 	/// <param name="pArray">仲間アリのポインタ</param>
 	/// <returns></returns>
 	int GetArrayIndex(CArray* pArray);
+
+	/// <summary>
+	/// 配列を分割する切れ目のカウントを設定する
+	/// </summary>
+	/// <param name="nCount"></param>
+	/// <returns></returns>
+	int SetSepaltionCount(const int& nCount) { m_nGetSepaltioncnt = nCount; }
 
 	/// <summary>
 	/// スポナーに格納されているアリをindexで取得
@@ -134,25 +140,30 @@ public:
 	inline CSeparationAnt* GetSeparationAnt(void) { return m_pSeparationListAnt.get(); }
 
 	/// <summary>
-	/// 生成関数
+	/// ポインタ生成関数
 	/// </summary>
 	/// <param name="pos">出現座標</param>
 	/// <param name="nMaxArray">最大保持数</param>
 	/// <param name="pManager">管理クラスのポインタ</param>
 	/// <param name="MovePos">アリの移動先座標</param>
 	/// <returns></returns>
-	static CArraySpawner* Create(const D3DXVECTOR3& pos,const int nMaxArray, CArrayManager* pManager, const D3DXVECTOR3& MovePos
-	, const int& nSepalations);
+	static CArraySpawner* Create
+	(
+		const D3DXVECTOR3& pos,
+		const int nMaxArray,
+		CArrayManager* pManager,
+		const D3DXVECTOR3& MovePos,
+		const int& nSepalations
+	);
 
 private:
 
-	//****************************************
+	//*****************************
 	// 定数構造体宣言
-	//****************************************
+	//*****************************
 	struct Config
 	{
-		static constexpr int MAX_STOCK = 50; // 最大保持数
-		static constexpr int ACTIVE_COUNT = 40; // アリをアクティブにするカウント
+		static constexpr int ACTIVE_COUNT = 40; // アリをアクティブにする更新カウント
 	};
 
 	D3DXVECTOR3 m_SpawnBasePos;				// スポーンのベース座標
@@ -162,5 +173,5 @@ private:
 	int m_nStockArrays;						// 1スポナーが保持できるアリの数
 	int m_nMySpawnIndexList;				// 自分のスポナーのインデックス
 	int m_nActiveCount;						// アクティブになるカウント
-	int m_nGetSepaltioncnt;
+	int m_nGetSepaltioncnt;					// 配列分割カウント
 };

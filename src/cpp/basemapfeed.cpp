@@ -17,7 +17,7 @@
 namespace BaseFeedInfo
 {
 	// 生成する座標の設定
-	const D3DXVECTOR3 CreateBasePos[4]
+	const D3DXVECTOR3 CreateBasePos[NUM_BASEFEED]
 	{
 		{-885.0f,0.0f,-700.0f},
 		{-885.0f,0.0f, 545.0f},
@@ -25,8 +25,11 @@ namespace BaseFeedInfo
 		{ 885.0f,0.0f,-680.0f}
 	};
 
+	// モデルの種類数
+	constexpr int MODELTYPE = 3;
+
 	// 生成するモデルのパス
-	const char * CreatePathName[3]
+	const char * CreatePathName[MODELTYPE]
 	{
 		"FEED/Lemon.x",		// レモンモデル
 		"FEED/Solt.x",		// 塩モデル
@@ -62,10 +65,10 @@ HRESULT CBaseMapFeed::Init(void)
 	// マップのベースの餌を生成する
 	for (int nCnt = 0; nCnt < NUM_BASEFEED; nCnt++)
 	{
-		// ランダムモデルに設定
-		int nRand = rand() % 3;
+		// ランダムパスを設定する
+		int nRand = rand() % MODELTYPE;
 
-		// 実際のマップに配置する餌を生成
+		// マップに配置する餌を生成
 		m_pBaseFeeds[nCnt] = CFeed::Create(CreateBasePos[nCnt],VECTOR3_NULL,INITSCALE, CreatePathName[nRand], HitRange,LIFE);
 	}
 

@@ -32,13 +32,12 @@ CEnemySpawnManager::~CEnemySpawnManager()
 HRESULT CEnemySpawnManager::Init(void)
 {
 	// 名前空間使用
-	using namespace SET_INFO;
+	using namespace Enemy_Spawn;
 
 	for (int nCnt = 0; nCnt < CREATE_NUM; nCnt++)
 	{
-		// 初期スポナー生成
-		m_pSpawners[nCnt] = new CEnemySpawner;
-		m_pSpawners[nCnt]->SetPos(SpawnPos[nCnt]);
+		// スポナー生成
+		m_pSpawners[nCnt] = CEnemySpawner::Create(SpawnPos[nCnt]);
 
 		// オブジェクト配置
 		CBlock::Create(SpawnPos[nCnt], VECTOR3_NULL, INITSCALE, "STAGEOBJ/EnemySpawn.x");
@@ -51,7 +50,7 @@ HRESULT CEnemySpawnManager::Init(void)
 //=========================================================
 void CEnemySpawnManager::Uninit(void)
 {
-	// 配列の破棄
+	// 生成されたスポナーの破棄
 	for (auto Spawn : m_pSpawners)
 	{
 		if (Spawn)
@@ -61,18 +60,4 @@ void CEnemySpawnManager::Uninit(void)
 			Spawn = nullptr;
 		}
 	}
-}
-//=========================================================
-// 更新処理
-//=========================================================
-void CEnemySpawnManager::Update(void)
-{
-
-}
-//=========================================================
-// 描画処理
-//=========================================================
-void CEnemySpawnManager::Draw(void)
-{
-	
 }

@@ -49,7 +49,6 @@ public:
 
 private:
 
-	static constexpr int NUM_BASEFEED = 4; // 最大数
-
-	std::array<CFeed*, NUM_BASEFEED>m_pBaseFeeds; // 餌の配列
+	static constexpr int NUM_BASEFEED = 4;			// 配置最大数
+	std::array<CFeed*, NUM_BASEFEED>m_pBaseFeeds;	// 餌の配列
 };

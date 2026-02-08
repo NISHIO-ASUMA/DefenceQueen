@@ -66,7 +66,7 @@ void CPointObj::Uninit(void)
 //===================================================================
 void CPointObj::Update(void)
 {
-	// 角度取得
+	// オブジェクトの角度取得
 	D3DXVECTOR3 rot = GetRot();
 
 	// 角度加算

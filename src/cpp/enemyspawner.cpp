@@ -28,6 +28,23 @@ CEnemySpawner::~CEnemySpawner()
 	Uninit();
 }
 //=========================================================
+// 生成処理
+//========================================================
+CEnemySpawner* CEnemySpawner::Create(const D3DXVECTOR3& Activepos)
+{
+	// インスタンス生成
+	CEnemySpawner* pSpawn = new CEnemySpawner;
+	if (pSpawn == nullptr) return nullptr;
+
+	// 引数設定
+	pSpawn->SetPos(Activepos);
+
+	// 初期化失敗時
+	if (pSpawn->Init()) return nullptr;
+
+	return pSpawn;
+}
+//=========================================================
 // 初期化処理
 //========================================================
 HRESULT CEnemySpawner::Init(void)
@@ -38,13 +55,6 @@ HRESULT CEnemySpawner::Init(void)
 // 終了処理
 //========================================================
 void CEnemySpawner::Uninit(void)
-{
-
-}
-//=========================================================
-// 更新処理
-//========================================================
-void CEnemySpawner::Update(void)
 {
 
 }

@@ -316,9 +316,6 @@
     <Filter Include="ヘッダー ファイル\NetWork">
       <UniqueIdentifier>{4ad8d88f-9169-4ba4-aaf7-d42c10960707}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\RC">
-      <UniqueIdentifier>{5cb73d9a-d1fe-4bb8-a848-620fcfc587f3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Charactor\TitleCharactor">
       <UniqueIdentifier>{3658480b-5f83-4224-aa4d-95f3514e52ea}</UniqueIdentifier>
     </Filter>
@@ -839,9 +836,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BS_thread_pool.hpp">
-      <Filter>ヘッダー ファイル\Util</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\outline.h">
       <Filter>ヘッダー ファイル\Shader</Filter>
     </ClInclude>
@@ -1318,9 +1312,6 @@
     </ClInclude>
     <ClInclude Include="src\include\compositenodebase.h">
       <Filter>ヘッダー ファイル\AI_System\Composite</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\order.h">
-      <Filter>ヘッダー ファイル\Charactor\Array</Filter>
     </ClInclude>
     <ClInclude Include="src\include\pausemanager.h">
       <Filter>ヘッダー ファイル\Manager</Filter>

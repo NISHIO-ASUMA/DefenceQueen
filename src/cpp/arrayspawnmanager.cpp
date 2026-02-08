@@ -40,10 +40,14 @@ CArraySpawnManager::~CArraySpawnManager()
 //=========================================================
 HRESULT CArraySpawnManager::Init(CArrayManager* pManager)
 {
+	// 生成されたアリの最大数を取得
+	int nUseAnt = pManager->GetAllUseArrays();
+
 	// 配列の要素数分のスポナーを生成する
 	for (int nCnt = 0; nCnt < NUM_ARRAYSPAWNER; nCnt++)
 	{
-		int nSepalation = ALLARRAY / NUM_ARRAYSPAWNER;
+		// 動かせる最大数から分割計算する
+		int nSepalation = nUseAnt / NUM_ARRAYSPAWNER;
 		int nIdx = nSepalation * nCnt;
 
 		// スポナーを生成 ( スポナー座標,仲間のストック数,アリ管理マネージャーポインタ )

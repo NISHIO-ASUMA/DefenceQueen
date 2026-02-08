@@ -33,9 +33,15 @@ public:
 
 	HRESULT Init(void);
 	void Uninit(void);
-	void Update(void);
 
 	inline void SetPos(const D3DXVECTOR3& pos) { m_Activepos = pos; }
+
+	/// <summary>
+	/// ポインタ生成関数
+	/// </summary>
+	/// <param name="pos">アクティブ座標</param>
+	/// <returns></returns>
+	static CEnemySpawner* Create(const D3DXVECTOR3& Activepos);
 
 private:
 

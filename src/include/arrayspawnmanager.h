@@ -84,6 +84,4 @@ private:
 
 	// 所持するスポナー配列
 	std::array<CArraySpawner*, SpawnManager::NUM_ARRAYSPAWNER>m_pArraySpawner; 
-
-	static constexpr int ALLARRAY = 200;
 };
