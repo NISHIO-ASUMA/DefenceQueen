@@ -39,11 +39,9 @@ public:
 	bool Collision(CSphereCollider* other);
 
 	inline void SetHitRange(float fRange) { m_fHitRange = fRange; }
-	inline void SetIsHit(const bool isHit) { m_isHit = isHit; }
 
 	inline CSphereCollider* GetSphereCollider(void) const { return m_pSphere.get(); }
 	inline float GetfRange(void) const { return m_fHitRange; }
-	inline bool GetIsHit(void) const { return m_isHit; }
 
 	/// <summary>
 	/// ポインタ生成処理
@@ -71,9 +69,9 @@ private:
 	struct Config
 	{
 		static constexpr float HIT_RANGE = 80.0f; // 判定範囲
+		static constexpr const char* TEXNAME = "Circle.png"; // テクスチャ名
 	};
 
 	std::unique_ptr<CSphereCollider>m_pSphere; // 球形コライダー
 	float m_fHitRange;			// 判定半径
-	bool m_isHit;				// 当たっているかどうか
 };

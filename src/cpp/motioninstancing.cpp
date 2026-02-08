@@ -18,29 +18,21 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CMotionInstancing::CMotionInstancing() : m_cache{},m_cacheDirty(true)
+CMotionInstancing::CMotionInstancing() : m_cache{},
+m_cacheDirty(true),
+m_nCounterMotion(NULL),
+m_nKey(NULL),
+m_motiontype(NULL),
+m_nAllFrameCount(NULL),
+m_motiontypeBlend(NULL),
+m_nFrameBlend(NULL),
+m_nCounterBlend(NULL),
+m_nKeyBlend(NULL),
+m_isBlendMotion(false),
+m_isFinishMotion(false),
+m_nMotionIdx(-1)
 {
 	// 値のクリア
-	m_nCounterMotion = NULL;
-	m_nKey = NULL;
-	m_nNumKey = NULL;
-	m_motiontype = NULL;
-	m_nNextKey = NULL;
-	m_nNumModels = NULL;
-	m_nAllFrameCount = NULL;
-	m_nNumAllFrame = NULL;
-
-	m_motiontypeBlend = NULL;
-	m_nFrameBlend = NULL;
-	m_nCounterBlend = NULL;
-	m_nKeyBlend = NULL;
-	m_nNextKeyBlend = NULL;
-
-	m_isLoopMotion = false;
-	m_isBlendMotion = false;
-	m_isFinishMotion = false;
-	m_isFirstMotion = false;
-	m_nMotionIdx = -1;
 }
 //=========================================================
 // デストラクタ
@@ -57,7 +49,7 @@ std::unique_ptr<CMotionInstancing> CMotionInstancing::Load(const char* pFilename
 	// モーションのユニークポインタ生成
 	auto pMotionInst = std::make_unique<CMotionInstancing>();
 
-	// 登録処理
+	// モーション情報の登録処理
 	pMotionInst->RegisterPath(pFilename, pModel, nDestMotions, isShadow);
 
 	// 生成されたポインタを返す
@@ -69,7 +61,7 @@ std::unique_ptr<CMotionInstancing> CMotionInstancing::Load(const char* pFilename
 void CMotionInstancing::RegisterPath(const char* pMotionName, std::vector<CInstanceModel*>& pModel, int nDestMotions, const bool isShadow)
 {
 	// モーションマネージャーを取得する
-	auto MotionManager = CManager::GetInstance()->GetInstMotionM();
+	auto MotionManager = CManager::GetInstance()->GetInstMotionManager();
 	if (MotionManager == nullptr) return;
 
 	// インデックスに登録し,その情報を取得する
@@ -87,7 +79,7 @@ void CMotionInstancing::SetMotion(int motiontype)
 		return;
 	}
 
-	// 代入
+	// 値をセットする
 	m_motiontype = motiontype;
 	m_nKey = 0;
 	m_nCounterMotion = 0;
@@ -139,22 +131,20 @@ void CMotionInstancing::SetMotion(int nMotionType, bool isBlend, int nBlendFrame
 		m_isFinishMotion = false;
 	}
 }
-#if 1
 //=========================================================
 // モーション全体更新処理
 //=========================================================
 void CMotionInstancing::Update(std::vector<CInstanceModel*> pModel)
 {
-	const auto& manager = CManager::GetInstance()->GetInstMotionM();
+	// モーションマネージャークラスからモーションデータ取得
+	const auto& manager = CManager::GetInstance()->GetInstMotionManager();
 	const auto& info = manager->GetFileDataIdx(m_nMotionIdx);
 
-#if 1
 	// モーションフレーム計算処理
 	MathMotionFrame(info);
 
 	// モデルに適用する
 	ApplyCache(pModel,info);
-#endif
 }
 //=================================================================
 // フレーム計算
@@ -164,6 +154,7 @@ void CMotionInstancing::MathMotionFrame(const CInstanceMotionManager::MOTIONFILE
 	// モーションキャッシュ情報を取得
 	const auto& motioncache = info.cache[m_motiontype];
 
+	// フレームを加算
 	m_nAllFrameCount++;
 
 	// 最大カウントに達したらリセット
@@ -194,8 +185,6 @@ void CMotionInstancing::ApplyCache(std::vector<CInstanceModel*>& pModel, const C
 	}
 #endif // _DEBUG
 }
-
-#endif
 //=================================================================
 // デバッグフォント関数
 //=================================================================

@@ -69,8 +69,9 @@
 #define LASER		 (D3DXCOLOR(0.05f, 0.05f, 1.0f, 1.0f))	// レーザーエフェクト
 #define COLOR_NULL	 (D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f))	// 完全透明
 
-#define V_COLOR_WHITE (D3DCOLORVALUE(1.0f, 1.0f, 1.0f, 1.0f))	// 白
-#define V_COLOR_RED (D3DCOLORVALUE(1.0f, 0.0f, 0.0f, 1.0f))		// 赤
+#define V_COLOR_WHITE (D3DCOLORVALUE(1.0f, 1.0f, 1.0f, 1.0f))	// モデルのカラー白
+#define V_COLOR_RED (D3DCOLORVALUE(1.0f, 0.0f, 0.0f, 1.0f))		// モデルのカラー赤
+#define OUTLINE_COLOR (D3DXVECTOR4(0.0f, 0.0f, 0.0f, 1.0f))	// アウトライン基準カラー
 
 #define BASEVERTEX (4)		// 基準頂点
 #define MAX_WORD (256)		// 最大文字列数

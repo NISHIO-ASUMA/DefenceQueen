@@ -32,6 +32,6 @@ public:
 
 private:
 
-	const bool IsCondition() override; // ”»•ÊŠÖ”
-	float m_fDistance = NULL; // ‹——£”»•Ê—p
+	const bool IsCondition() override;	// ”»•ÊŠÖ”
+	float m_fDistance = NULL;			// ‹——£”»•Ê—p
 };

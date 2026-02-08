@@ -68,14 +68,14 @@ private:
 	//*******************************
 	struct Config
 	{
-		static constexpr int NUM_ENEMY = 100; // 最大数
-		static constexpr int LIFE = 1;		 // 体力値
-		static constexpr int SPAWM_INTERBAL = 10; // 生成インターバル
+		static constexpr int NUM_ENEMY = 100;		// 最大数
+		static constexpr int LIFE = 1;				// 体力値
+		static constexpr int SPAWM_INTERBAL = 10;	// 生成インターバル
 		static constexpr int RANDOM_VALUE_MAX = 50; // 生成ランダム最大値
 		static constexpr int RANDOM_VALUE_MIN = 10; // 生成ランダム最小値
-
+		static constexpr float SPEED = 3.0f;		// 移動速度
 	};
 
-	std::vector<CEnemy*>m_pEnemys; // 敵の動的配列
-	int m_nCreateLastTime;
+	std::vector<CEnemy*>m_pEnemys;	// 敵の動的配列
+	int m_nCreateLastTime;			// 最後に生成した時間
 };

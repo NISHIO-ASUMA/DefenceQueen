@@ -37,6 +37,7 @@ public:
 	void Uninit(void) override;
 	void Update(void) override;
 	void Draw(void) override;
+
 	void AddScore(int nValue);
 	void DeleteScore(void);
 	void SaveScore(void);

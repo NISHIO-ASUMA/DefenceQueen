@@ -29,7 +29,13 @@ CFeedSignal::~CFeedSignal()
 //=========================================================
 // 生成処理
 //=========================================================
-CFeedSignal* CFeedSignal::Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, const float fWidth, const float fHeight, const D3DXCOLOR& color)
+CFeedSignal* CFeedSignal::Create
+(
+	const D3DXVECTOR3& pos,
+	const D3DXVECTOR3& rot,
+	const float fWidth,
+	const float fHeight,
+	const D3DXCOLOR& color)
 {
 	// インスタンス生成
 	CFeedSignal* pSignal = new CFeedSignal;

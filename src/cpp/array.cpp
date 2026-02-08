@@ -165,7 +165,7 @@ void CArray::Update(void)
 	if (!m_isActive) return;
 	
 	// ブラックボードの毎フレーム更新
-	SyncBlackBoard();
+	m_pBlackBoard->SetValue("TopPos", m_pTopAnt->GetPos());
 
 	// 基地に帰る
 	if (m_isReturn)
@@ -225,6 +225,7 @@ void CArray::FollowDestination(const D3DXVECTOR3& DestPos)
 {
 	if (!m_isMove)
 	{
+		// 待機モーションに設定
 		m_pMotion->SetMotion(MOTION_NEUTRAL);
 		return;
 	}
@@ -466,6 +467,7 @@ void CArray::NodeSetting(void)
 	m_pBlackBoard->SetValue<CTopAnt*>("TopAnt",m_pTopAnt);				 // トップアリのポインタ
 	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayDestPos", m_MoveDestPos); // 目的座標
 	m_pBlackBoard->SetValue<D3DXVECTOR3>("TopPos", m_pTopAnt->GetPos()); // 目的座標
+
 	m_pBlackBoard->SetValue<bool>("ReturnSpawn", m_isReturn);			 // 基地に帰るフラグ
 	m_pBlackBoard->SetValue<bool>("GetTopOrder", m_isGettingTopOrder);	 // トップからの命令取得
 	m_pBlackBoard->SetValue<bool>("AttackMode", m_isAttackMode);		 // 攻撃状態フラグ
@@ -477,10 +479,13 @@ void CArray::NodeSetting(void)
 	m_pBehaviorTree->Init();
 }
 //=========================================================
-// 球の当たり判定処理
+// 球の当たり判定処理 TODO : ここ修正してイベントモードの時の当たり判定に設定する
 //=========================================================
 bool CArray::Colision(CSphereCollider* other)
 {
+	// nullなら
+	if (m_pSphereCollider == nullptr) return false;
+
 	// 球同士の当たり判定の関数を返す
 	return CCollisionSphere::Collision(m_pSphereCollider.get(),other);
 }
@@ -489,7 +494,9 @@ bool CArray::Colision(CSphereCollider* other)
 //=========================================================
 void CArray::CollsionAll(void)
 {
-	CollisionEnemy();
+	if (m_isGettingTopOrder)
+		CollisionEnemy();
+
 	CollisionEventFeed();
 }
 //=========================================================
@@ -515,7 +522,7 @@ void CArray::CollisionEnemy(void)
 			CGameSceneObject::GetInstance()->GetEnemyManager()->Erase(Enemy);
 
 			// パーティクル生成
-			CParticlePiler::Create(D3DXVECTOR3(GetPos().x, 120.0f, GetPos().z), COLOR_RED, 15, 150, 350, 15, 0.0f);
+			//CParticlePiler::Create(D3DXVECTOR3(GetPos().x, 120.0f, GetPos().z), COLOR_RED, 15, 150, 350, 15, 0.0f);
 
 			// 敵の終了
 			Enemy->Uninit();
@@ -551,7 +558,7 @@ void CArray::CollisionEventFeed(void)
 		if (Colision(Feed->GetCollider()) && !m_isHit)
 		{
 			// 体力を減らす
-			Feed->DecLife(1);
+			Feed->DecLife(Arrayinfo::Damage);
 
 			// スコアを加算
 			CGameSceneObject::GetInstance()->GetScore()->AddScore(Arrayinfo::SCORE_UP);
@@ -598,7 +605,6 @@ void CArray::CollisionBase(void)
 				m_isReturn = true;
 				m_pBlackBoard->SetValue("ReturnSpawn", m_isReturn);
 			}
-
 			break;
 		}
 	}
@@ -649,11 +655,4 @@ void CArray::SetIsAtackMode(const bool& isMode)
 
 	// 値を再設定
 	m_pBlackBoard->SetValue("AttackMode", m_isAttackMode);
-}
-//=========================================================
-// ブラックボード更新関数
-//=========================================================
-void CArray::SyncBlackBoard(void)
-{
-	m_pBlackBoard->SetValue("TopPos", m_pTopAnt->GetPos());
 }

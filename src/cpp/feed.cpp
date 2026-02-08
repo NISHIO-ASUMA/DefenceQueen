@@ -241,7 +241,6 @@ void CFeed::DecLifeTuto(const int& nDecValue)
 
 		// ©g‚Ì”jŠü
 		Uninit();
-
 		return;
 	}
 	else

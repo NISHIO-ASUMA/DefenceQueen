@@ -1,6 +1,6 @@
 //=========================================================
 //
-// 切り離し可能を合図するUI処理 [ sepalationsign.h ]
+// 仲間アリの分割可能UI表示処理 [ extractantsignal.h ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -16,39 +16,40 @@
 #include "billboard.h"
 
 //*********************************************************
-// 切り離し可能を合図するUI表示クラスを定義
+// 分割可能UIを表示するクラスを定義
 //*********************************************************
-class CSepalationSign : public CBillboard
+class CExtractAntSignal : public CBillboard
 {
 public:
 
-	CSepalationSign(int nPriority = static_cast<int>(CObject::PRIORITY::BILLBOARD));
-	~CSepalationSign();
+	CExtractAntSignal(int nPriority = static_cast<int>(CObject::PRIORITY::BILLBOARD));
+	~CExtractAntSignal();
 
 	HRESULT Init(void) override;
 	void Uninit(void) override;
 	void Update(void) override;
 	void Draw(void) override;
 
-	inline void SetIsDraw(const bool& isDraw) { m_isDraw = isDraw; }
+	inline void SetisDraw(const bool& isDrawFlag) { m_isDraw = isDrawFlag; }
 
 	/// <summary>
 	/// ポインタ生成処理
 	/// </summary>
 	/// <param name="pos">生成座標</param>
-	/// <param name="pTexName">テクスチャ名</param>
 	/// <returns></returns>
-	static CSepalationSign* Create(const D3DXVECTOR3& pos, const char* pTexName);
+	static CExtractAntSignal* Create(const D3DXVECTOR3& pos);
 
 private:
 
-	//******************************
-	// 定数構造体
-	//******************************
+	//*****************************
+	// 定数構造体宣言
+	//*****************************
 	struct Config
 	{
-		static constexpr float SIZE = 70.0f; // 描画のサイズ
+		static constexpr float WIDTH = 60.0f;	// 横幅
+		static constexpr float HEIGHT = 40.0f;	// 高さ
+		static constexpr const char* TEXNAME = "Signal.png"; // テクスチャ名
 	};
 
-	bool m_isDraw;		// 描画フラグ
+	bool m_isDraw;	// 描画するかどうか
 };

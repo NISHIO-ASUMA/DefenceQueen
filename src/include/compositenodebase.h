@@ -88,7 +88,7 @@ protected:
 	virtual const int GetNextIdx() const = 0;
 
 	/// <summary>
-	/// ノードの加算処理
+	/// ノードインデックスの加算処理
 	/// </summary>
 	void NodeIncrement()
 	{
@@ -111,5 +111,5 @@ protected:
 	};
 
 	std::vector<CNode*>m_ChildeNode; // 複数の子ノードを管理する動的配列
-	int m_RanningIndex = 0; // 現在ノードのインデックス
+	int m_RanningIndex = 0;			 // 現在ノードのインデックス
 };

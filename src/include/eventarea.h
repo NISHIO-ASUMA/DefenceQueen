@@ -32,10 +32,11 @@ public:
 	CEventArea(int nPriority = static_cast<int>(CObject::PRIORITY::BASENUMBER));
 	~CEventArea();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
+
 	bool Collision(CSphereCollider* pOther);
 
 	/// <summary>
@@ -55,6 +56,7 @@ private:
 		static constexpr float SIZE = 80.0f;	// コリジョンサイズ
 		static constexpr float WIDTH = 100.0f;	// 横幅
 		static constexpr float HEIGHT = 3.0f;	// 高さ
+		static constexpr const char* TEXNAME = "Circle.png"; // テクスチャ名
 	};
 
 	std::unique_ptr<CBoxCollider>m_pBoxCollider;	// 矩形のコライダー

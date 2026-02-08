@@ -31,6 +31,7 @@ public:
 	void Uninit(void) override;
 	void Update(void) override;
 	void Draw(void) override;
+
 	void SetDestScore(int nDestScore) { m_nScore = nDestScore; }
 
 	inline D3DXVECTOR3 GetPos(void) const { return m_pos; }

@@ -145,9 +145,6 @@
     <Filter Include="ヘッダー ファイル\AI_System\LeafNode\Samples">
       <UniqueIdentifier>{77874f6c-146d-4f5a-9097-f9f3ae5eff9e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\AI_System\Branch\CheckBranch">
-      <UniqueIdentifier>{6a4b0afb-f8b4-48af-92fd-4d745a57493f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\AI_System">
       <UniqueIdentifier>{efd565b5-8c37-4df0-a2c6-c3b420a5a3cb}</UniqueIdentifier>
     </Filter>
@@ -819,14 +816,17 @@
     <ClCompile Include="src\cpp\collisionbox.cpp">
       <Filter>ソース ファイル\Physics\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\loseresultobject.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\cpp\basemapfeed.cpp">
       <Filter>ソース ファイル\XFile</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\circle3d.cpp">
       <Filter>ソース ファイル\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\extractantsignal.cpp">
+      <Filter>ソース ファイル\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\loseresultobject.cpp">
+      <Filter>ソース ファイル\Scenes\SceneObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1337,11 +1337,14 @@
     <ClInclude Include="src\include\checkneardestination.h">
       <Filter>ヘッダー ファイル\AI_System\LeafNode\Samples</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\loseresultobject.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\circle3d.h">
       <Filter>ヘッダー ファイル\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\extractantsignal.h">
+      <Filter>ヘッダー ファイル\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\loseresultobject.h">
+      <Filter>ヘッダー ファイル\Scenes\SceneObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

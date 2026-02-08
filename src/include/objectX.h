@@ -41,7 +41,7 @@ public:
 	inline void SetModelIdx(const int nIdx) { m_nIdxModel = nIdx; }
 	inline void SetShadow(const bool &isFlags) { m_isShadow = isFlags; }
 	inline void SetIsOutLine(const bool& isOutLine) { m_isOutLine = isOutLine; }
-
+	inline void SetOutLineColor(const D3DXVECTOR4& color = D3DXVECTOR4(0.0f, 0.0f, 0.0f, 1.0f));
 	inline D3DXVECTOR3 GetPos(void) const { return m_pos; };
 	inline D3DXVECTOR3 GetRot(void) const { return m_rot; };
 	inline D3DXMATRIX GetMtxWorld(void) const { return m_mtxWorld; }
@@ -56,9 +56,12 @@ private:
 	D3DXVECTOR3 m_rot;		// 角度
 	D3DXVECTOR3 m_Scale;	// 拡大率
 	D3DXMATRIX m_mtxWorld;	// ワールドマトリックス
+	D3DXVECTOR4 m_OutLineColor; // アウトラインカラー
 	D3DCOLORVALUE m_col;	// モデルカラー
 
 	int m_nIdxModel;		// モデルインデックス
 	bool m_isShadow;		// 影を出すかどうか
 	bool m_isOutLine;		// アウトライン適用かどうか
+
+	static constexpr float OUTLINE_SIZE = 1.5f;
 };

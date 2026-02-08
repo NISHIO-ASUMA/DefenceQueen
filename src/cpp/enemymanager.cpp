@@ -81,9 +81,9 @@ void CEnemyManager::Update(void)
 			// オフセットとして値を作成
 			D3DXVECTOR3 offset
 			(
-				(rand() % Config::RANDOM_VALUE_MAX - Config::RANDOM_VALUE_MIN) * 3.0f,
+				(rand() % Config::RANDOM_VALUE_MAX - Config::RANDOM_VALUE_MIN) * Config::SPEED,
 				0.0f,
-				(rand() % Config::RANDOM_VALUE_MAX - Config::RANDOM_VALUE_MIN) * 3.0f
+				(rand() % Config::RANDOM_VALUE_MAX - Config::RANDOM_VALUE_MIN) * Config::SPEED
 			);
 
 			// 座標と合わせて少しずらす
@@ -95,7 +95,7 @@ void CEnemyManager::Update(void)
 			// nullチェック
 			if (pEnemy)
 			{
-				// 有効化状態に設定
+				// 有効状態に設定
 				pEnemy->SetIsActive(true);
 				m_pEnemys.push_back(pEnemy);
 			}
@@ -113,11 +113,8 @@ void CEnemyManager::Erase(CEnemy* pEnemy)
 	// 削除処理
 	auto DeleteDestObj = std::find(m_pEnemys.begin(), m_pEnemys.end(), pEnemy);
 
-	// もし最後尾なら
-	if (DeleteDestObj == m_pEnemys.end())
-	{
-		return;
-	}
+	// もし要素の最後尾なら
+	if (DeleteDestObj == m_pEnemys.end()) return;
 
 	// 削除
 	(*DeleteDestObj)->Uninit();

@@ -45,10 +45,11 @@ public:
 	CFeed(int nPriority = static_cast<int>(CObject::PRIORITY::MODELOBJECT));
 	~CFeed();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
+
 	void DecLife(const int& nDecValue);
 	void DecLifeTuto(const int& nDecValue);
 	bool Collision(CSphereCollider* other);

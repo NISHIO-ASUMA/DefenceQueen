@@ -26,6 +26,7 @@ class CBlackBoard;
 class CLeafNodeBase : public CNodeBase
 {
 protected:
+
 	// 基底コンストラクタとデストラクタ
 	CLeafNodeBase(CBlackBoard* blackboard) : CNodeBase(blackboard) {};
 	virtual ~CLeafNodeBase() = default;

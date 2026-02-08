@@ -14,13 +14,13 @@
 // インクルードファイル
 //*********************************************************
 #include "model.h"
+#include "instancemotionmanager.h"
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <vector>
 #include <memory>
-#include "instancemotionmanager.h"
 
 //*********************************************************
 // 前方宣言

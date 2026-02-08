@@ -164,6 +164,10 @@ void CTopAnt::Update(void)
 		// 描画オン
 		m_pSeparationSign->SetIsDraw(true);
 
+		// 範囲内に入っている仲間のアリのシグナルを有効化する
+		if (pManager)
+			pManager->MessageSepalation(UpdatePos, m_fSeparationRadius);
+
 		// 切り離し計算関数
 		Separation();
 	}
@@ -183,7 +187,7 @@ void CTopAnt::Update(void)
 
 			// 切り離しを伝える
 			if (pManager)
-				pManager->ApplySeparation(pos, m_fSeparationRadius);
+				pManager->ApplySeparation(UpdatePos, m_fSeparationRadius);
 		}
 	}
 	

@@ -44,7 +44,7 @@ CEventArea* CEventArea::Create(const D3DXVECTOR3& pos)
 	pArea->SetPos(pos);
 	pArea->SetCol(COLOR_RED);
 	pArea->SetSize(Config::WIDTH, Config::HEIGHT);
-	pArea->SetTexture("Circle.png");
+	pArea->SetTexture(Config::TEXNAME);
 
 	// ƒ|ƒCƒ“ƒ^‚ð•Ô‚·
 	return pArea;

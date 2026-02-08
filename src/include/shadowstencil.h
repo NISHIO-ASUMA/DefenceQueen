@@ -16,7 +16,7 @@
 #include "objectX.h"
 
 //*********************************************************
-// シャドウステンシルクラスを定義
+// ステンシルシャドウクラスを定義
 //*********************************************************
 class CShadowStencil :public CObjectX
 {
@@ -25,10 +25,10 @@ public:
 	CShadowStencil(int nPriority = static_cast<int>(CObject::PRIORITY::SHADOW));
 	~CShadowStencil();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 
 	static CShadowStencil* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
 

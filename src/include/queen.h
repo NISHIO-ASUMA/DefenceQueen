@@ -44,13 +44,14 @@ public:
 	CQueen(int nPriority = static_cast<int>(CObject::PRIORITY::CHARACTOR));
 	~CQueen();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
+
+	bool Collision(CSphereCollider * pOther);
 	void Hit(const int nDamage);
 	void SaveHp(void);
-	bool Collision(CSphereCollider * pOther);
 
 	inline void SetIsUse(const bool isUse) { m_isUse = isUse; }
 	inline bool GetIsUse(void) { return m_isUse; }

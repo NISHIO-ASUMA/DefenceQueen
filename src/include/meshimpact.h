@@ -37,10 +37,10 @@ public:
 	CMeshImpact(int nPriority = static_cast<int>(CObject::PRIORITY::MESH));
 	~CMeshImpact();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 	bool Collision(D3DXVECTOR3* pPos);
 
 	void SetCol(D3DXCOLOR col) { m_col = col; }

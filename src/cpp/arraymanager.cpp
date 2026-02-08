@@ -24,7 +24,7 @@
 CArrayManager::CArrayManager() : m_pArrays{},
 m_nActiveAll(NULL)
 {
-	//
+	
 }
 //=========================================================
 // デストラクタ
@@ -50,10 +50,10 @@ HRESULT CArrayManager::Init(CTopAnt* pTop)
 	// ポインタのセット
 	for (int nCnt = 0; nCnt < config.ALLARRAYS; nCnt++)
 	{
-		// インスタンス生成
+		// 仲間のアリを生成
 		auto pArray = CArray::Create(VECTOR3_NULL,VECTOR3_NULL, config.LIFE);
 
-		// 操作可能なトップアリをセット
+		// トップアリのポインタをセット
 		pArray->SetTopAntPointer(pTop);
 
 		// ノードを設定
@@ -100,7 +100,8 @@ std::vector<CArray*> CArrayManager::Allocate(const int& nStock,const int &nSatrt
 	std::vector<CArray*> result;
 	result.reserve(nStock);
 
-	int nIdx = 0;
+	// 生成カウント数
+	int nCreateNum = 0;
 
 	// 要素の開始をインデックス参照にする
 	for (int nCnt = nSatrtIdx; nCnt < static_cast<int>(m_pArrays.size());nCnt++)
@@ -111,25 +112,26 @@ std::vector<CArray*> CArrayManager::Allocate(const int& nStock,const int &nSatrt
 		// 未使用なら
 		if (!pArray->GetActive())
 		{
-			// スポナー用に作成
+			// スポナーに割り当てる
 			pArray->SetActive(true);
 			result.push_back(pArray);
-			nIdx++;
+			nCreateNum++;
 		}
 		
-		if (nIdx >= nStock) break;
+		// 一致したら抜ける
+		if (nCreateNum >= nStock) break;
 	}
 
 	// 要素数を返す
 	return result;
 }
 //=========================================================
-// 仲間アリの切り離し設定関数
+// 切り離し可能を通知する
 //=========================================================
-void CArrayManager::ApplySeparation(const D3DXVECTOR3& center, float radius)
+void CArrayManager::MessageSepalation(const D3DXVECTOR3& CenterPos, float fRadius)
 {
 	// 0以下なら
-	if (radius <= 0.0f) return;
+	if (fRadius <= 0.0f) return;
 
 	for (auto pArray : m_pArrays)
 	{
@@ -138,12 +140,42 @@ void CArrayManager::ApplySeparation(const D3DXVECTOR3& center, float radius)
 
 		// 座標を取得
 		D3DXVECTOR3 pos = pArray->GetPos();
-		D3DXVECTOR3 diff =  center - pos;
-		float fDis = D3DXVec3Length(&diff);
+		D3DXVECTOR3 posdiff = CenterPos - pos;
 
-		if (fDis < radius)
+		// 長さを取得
+		float fDistance = D3DXVec3Length(&posdiff);
+
+		if (fDistance < fRadius)
 		{
-			pArray->SetIsTopOrder(true); // 仲間アリに伝える
+			// 描画フラグを有効化する
+			//pArray->SetIsTopOrder(true);
+		}
+	}
+}
+//=========================================================
+// 仲間アリの切り離しを実行する
+//=========================================================
+void CArrayManager::ApplySeparation(const D3DXVECTOR3& CenterPos, float fRadius)
+{
+	// 0以下なら
+	if (fRadius <= 0.0f) return;
+
+	for (auto pArray : m_pArrays)
+	{
+		// nullなら
+		if (!pArray) continue;
+
+		// 座標を取得
+		D3DXVECTOR3 pos = pArray->GetPos();
+		D3DXVECTOR3 posdiff = CenterPos - pos;
+
+		// 長さを取得
+		float fDis = D3DXVec3Length(&posdiff);
+
+		if (fDis < fRadius)
+		{
+			// 仲間アリに伝える
+			pArray->SetIsTopOrder(true);
 		}
 	}
 }

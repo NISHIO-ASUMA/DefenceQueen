@@ -42,28 +42,15 @@ HRESULT CSeparationAnt::Init(const int& nSeparetionNum)
 //===================================================================
 void CSeparationAnt::Uninit(void)
 {
+	// 配列のクリア
 	m_pAntList.clear();
-}
-//===================================================================
-// 更新処理
-//===================================================================
-void CSeparationAnt::Update(void)
-{
-
-}
-//===================================================================
-// 描画処理
-//===================================================================
-void CSeparationAnt::Draw(void)
-{
-	
 }
 //===================================================================
 // リストに隊列アリを追加する関数
 //===================================================================
 void CSeparationAnt::AddListAnt(const int& nSquadIndex, CArray* pAnt)
 {
-	// もし0以下 または 配列オーバーなら
+	// 0以下 または 配列オーバーなら
 	if (nSquadIndex < 0 || nSquadIndex >= static_cast<int>(m_pAntList.size())) return;
 
 	// リスト要素を格納
@@ -79,7 +66,7 @@ void CSeparationAnt::AddListAnt(const int& nSquadIndex, CArray* pAnt)
 	}
 	else
 	{
-		// prevなし
+		// 先頭のアリなし
 		pAnt->SetPrevAnt(nullptr);
 	}
 

@@ -17,7 +17,6 @@
 //=========================================================
 CCircle3D::CCircle3D(int nPriority) : CObject3D(nPriority),
 m_pSphere(nullptr),
-m_isHit(false),
 m_fHitRange(NULL)
 {
 
@@ -51,9 +50,9 @@ CCircle3D* CCircle3D::Create
 	// オブジェクト設定
 	pCircle->SetPos(pos);
 	pCircle->SetRot(rot);
-	pCircle->SetCol(COLOR_RED);
+	pCircle->SetCol(COLOR_GREEN);
 	pCircle->SetSize(fWidth, fHeight);
-	pCircle->SetTexture("Circle.png");
+	pCircle->SetTexture(Config::TEXNAME);
 	pCircle->SetHitRange(fRadius);
 
 	return pCircle;

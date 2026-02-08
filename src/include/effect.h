@@ -25,10 +25,10 @@ public:
 	CEffect(int nPriority = static_cast<int>(CObject::PRIORITY::EFFECT));
 	~CEffect();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 
 	void SetLife(int nLife) { m_nLife = nLife; }
 	int GetLife(void) { return m_nLife; }

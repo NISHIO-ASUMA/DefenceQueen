@@ -25,10 +25,11 @@ public:
 	CShadow(int nPriority = static_cast<int>(CObject::PRIORITY::SHADOW));
 	~CShadow();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
+
 	void UpdatePos(const D3DXVECTOR3& pos) { SetPos(pos); }
 
 	/// <summary>
@@ -40,4 +41,13 @@ public:
 	static CShadow* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
 
 private:
+
+	//*****************************
+	// 定数構造体
+	//*****************************
+	struct Config
+	{
+		static constexpr float SIZE = 30.0f; // 大きさ
+		static constexpr const char* TEXNAME = "shadow00.jpg"; // テクスチャ名
+	};
 };

@@ -25,7 +25,8 @@ m_Scale(INITSCALE),
 m_isShadow(false),
 m_isOutLine(false),
 m_col(V_COLOR_WHITE),
-m_nIdxModel(-1)
+m_nIdxModel(-1),
+m_OutLineColor(OUTLINE_COLOR)
 {
 	// 値のクリア
 }
@@ -35,6 +36,13 @@ m_nIdxModel(-1)
 CObjectX::~CObjectX()
 {
 	// 無し
+}
+//=========================================================
+// アウトラインカラー設定関数
+//=========================================================
+inline void CObjectX::SetOutLineColor(const D3DXVECTOR4& color)
+{
+	m_OutLineColor = color;
 }
 //=========================================================
 // 生成処理
@@ -121,6 +129,7 @@ void CObjectX::Draw(void)
 	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
 
+	// マトリックスの行列計算
 	m_mtxWorld = mtxScale * mtxRot * mtxTrans;
 
 	// ワールドマトリックスの設定
@@ -172,9 +181,6 @@ void CObjectX::Draw(void)
 	// アウトラインがないなら
 	if (!m_isOutLine) return;
 
-	// ワールドマトリックスの設定
-	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
-
 	// カリング切る
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
 
@@ -183,7 +189,7 @@ void CObjectX::Draw(void)
 	COutLine::GetInstance()->BeginPass();
 
 	// アウトラインを描画する
-	DrawOutLine(D3DXVECTOR4(0.0f, 0.0f, 0.0f, 1.0f));
+	DrawOutLine(m_OutLineColor);
 
 	// 終了
 	COutLine::GetInstance()->EndPass();
@@ -300,7 +306,7 @@ void CObjectX::DrawOutLine(const D3DXVECTOR4& color)
 		for (int nCnt = 0; nCnt < static_cast<int>(model.dwNumMat); nCnt++)
 		{
 			// シェーダーパラメーター設定
-			COutLine::GetInstance()->SetParameter(0.75f, color, m_mtxWorld);
+			COutLine::GetInstance()->SetParameter(OUTLINE_SIZE, color, m_mtxWorld);
 
 			// モデルの描画
 			model.pMesh->DrawSubset(nCnt);

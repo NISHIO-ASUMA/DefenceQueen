@@ -13,7 +13,8 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CSignalUi::CSignalUi(int nPriority) : CBillboard(nPriority), m_isDraw(true)
+CSignalUi::CSignalUi(int nPriority) : CBillboard(nPriority),
+m_isDraw(true)
 {
 
 }

@@ -50,7 +50,7 @@ public:
 	void SetScene(std::unique_ptr<CScene> pNewScene);
 	CScene::MODE GetScene(void);
 
-	CInstanceMotionManager* GetInstMotionM(void) { return m_pInstMotionManager.get(); }
+	CInstanceMotionManager* GetInstMotionManager(void) { return m_pInstMotionManager.get(); }
 	CInstanceModelManager* GetInstanceModelM(void) { return m_pInstanceModel.get(); }
 	CInputKeyboard* GetInputKeyboard(void) { return m_pInputKeyboard.get(); }
 	CMotionManager* GetMotionManager(void) { return m_pMotionManager.get(); }

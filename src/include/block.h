@@ -31,10 +31,10 @@ public:
 	CBlock(int nPriority = static_cast<int>(CObject::PRIORITY::MODELOBJECT));
 	~CBlock();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 	bool Collision(CBoxCollider * pOther,D3DXVECTOR3 * OutPos);
 	inline CBoxCollider* GetCollider(void) { return m_pCollider.get(); }
 

@@ -43,10 +43,10 @@ public:
 	CTitleAnt(int nPriority = static_cast<int>(CObject::PRIORITY::CHARACTOR));
 	~CTitleAnt();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 	bool Collision(CBoxCollider* pOther);
 
 	static CTitleAnt* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& destpos,const D3DXVECTOR3& rot);

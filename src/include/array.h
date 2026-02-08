@@ -29,6 +29,7 @@ class CSphereCollider;
 class CBoxCollider;
 class CTopAnt;
 class CMotionInstancing;
+class CSepalationSignal;
 
 //*********************************************************
 // アリ一匹に対するクラスを定義
@@ -50,10 +51,11 @@ public:
 	CArray(int nPriority = static_cast<int>(CObject::PRIORITY::CHARACTOR));
 	~CArray();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
+
 	void OnSeparation(void);
 	void FollowDestination(const D3DXVECTOR3& DestPos);
 	void FollowTop(D3DXVECTOR3 vpos);
@@ -104,8 +106,8 @@ private:
 	//***********************
 	struct Arrayinfo
 	{
-		static constexpr float MoveSpeed = 2.0;			// 移動速度
-		static constexpr float SphereRange = 40.0f;		// 球形範囲
+		static constexpr float MoveSpeed = 3.0f;		// 移動速度
+		static constexpr float SphereRange = 60.0f;		// 球形範囲
 		static constexpr float ARRAY_DISTANCE = 80.0f;	// 仲間アリとの距離
 		static constexpr float TOP_DISTANCE = 60.0f;	// 先頭のアリとの距離
 		static constexpr float STOP_DISTANCE = 10.0f;	// 停止距離
@@ -143,6 +145,4 @@ private:
 	CTopAnt* m_pTopAnt;					// 追従対象のトップアリのポインタ
 
 	std::unique_ptr<CParameter>m_pParameter;	// パラメータークラスポインタ
-
-	void SyncBlackBoard(void);
 };

@@ -1,6 +1,6 @@
 //=========================================================
 //
-// 切り離し可能を合図するUI処理 [ sepalationsign.cpp ]
+// 仲間アリの分割可能UI表示処理 [ extractantsignal.cpp ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -8,12 +8,12 @@
 //*********************************************************
 // インクルードファイル
 //*********************************************************
-#include "sepalationsign.h"
+#include "extractantsignal.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
-CSepalationSign::CSepalationSign(int nPriority) : CBillboard(nPriority),
+CExtractAntSignal::CExtractAntSignal(int nPriority) : CBillboard(nPriority),
 m_isDraw(false)
 {
 
@@ -21,36 +21,35 @@ m_isDraw(false)
 //=========================================================
 // デストラクタ
 //=========================================================
-CSepalationSign::~CSepalationSign()
+CExtractAntSignal::~CExtractAntSignal()
 {
 
 }
 //=========================================================
 // 生成処理
 //=========================================================
-CSepalationSign* CSepalationSign::Create(const D3DXVECTOR3& pos,const char * pTexName)
+CExtractAntSignal* CExtractAntSignal::Create(const D3DXVECTOR3& pos)
 {
 	// インスタンス生成
-	CSepalationSign* pSign = new CSepalationSign;
-	if (pSign == nullptr) return nullptr;
+	CExtractAntSignal* pAntSignal = new CExtractAntSignal;
+	if (pAntSignal == nullptr) return nullptr;
 
 	// オブジェクト設定
-	pSign->SetPos(pos);
-	pSign->SetRot(VECTOR3_NULL);
-	pSign->SetSize(Config::SIZE, Config::SIZE);
-	pSign->SetTexture(pTexName);
+	pAntSignal->SetPos(pos);
+	pAntSignal->SetSize(Config::WIDTH, Config::HEIGHT);
+	pAntSignal->SetTexture(Config::TEXNAME);
 
 	// 初期化失敗時
-	if (FAILED(pSign->Init())) return nullptr;
+	if (FAILED(pAntSignal->Init())) return nullptr;
 
-	return pSign;
+	return pAntSignal;
 }
 //=========================================================
 // 初期化処理
 //=========================================================
-HRESULT CSepalationSign::Init(void)
+HRESULT CExtractAntSignal::Init(void)
 {
-	// 親クラスの初期化
+	// 親クラスの初期化処理
 	CBillboard::Init();
 
 	return S_OK;
@@ -58,30 +57,30 @@ HRESULT CSepalationSign::Init(void)
 //=========================================================
 // 終了処理
 //=========================================================
-void CSepalationSign::Uninit(void)
+void CExtractAntSignal::Uninit(void)
 {
-	// 親クラスの終了
+	// 親クラスの終了処理
 	CBillboard::Uninit();
 }
 //=========================================================
 // 更新処理
 //=========================================================
-void CSepalationSign::Update(void)
+void CExtractAntSignal::Update(void)
 {
-	// 描画フラグがoffなら
+	// 描画フラグがfalseなら
 	if (!m_isDraw) return;
 
-	// 親クラスの更新
+	// 親クラスの更新処理
 	CBillboard::Update();
 }
 //=========================================================
 // 描画処理
 //=========================================================
-void CSepalationSign::Draw(void)
+void CExtractAntSignal::Draw(void)
 {
-	// 描画フラグがoffなら
+	// 描画フラグがfalseなら
 	if (!m_isDraw) return;
 
-	// 親クラスの描画
+	// 親クラスの描画処理
 	CBillboard::Draw();
 }

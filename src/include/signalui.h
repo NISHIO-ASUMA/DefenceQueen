@@ -25,10 +25,10 @@ public:
 	CSignalUi(int nPriority = static_cast<int>(CObject::PRIORITY::BILLBOARD));
 	~CSignalUi();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 
 	inline void SetIsDraw(const bool isDraw) { m_isDraw = isDraw; }
 	inline bool GetIsDraw(void) const { return m_isDraw; }

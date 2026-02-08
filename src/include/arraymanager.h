@@ -73,12 +73,23 @@ public:
 	std::vector<CArray*> Allocate(const int& nStock, const int& nSatrtIdx);
 
 	/// <summary>
-	/// 仲間のアリの切り離しを通知する
+	/// 切り離し可能状態を通知する
+	/// </summary>
+	/// <param name="center"></param>
+	/// <param name="radius"></param>
+	void MessageSepalation(const D3DXVECTOR3& CenterPos, float fRadius);
+
+	/// <summary>
+	/// 仲間のアリの切り離しを実行する
 	/// </summary>
 	/// <param name="center">中心座標</param>
 	/// <param name="radius">半径</param>
-	void ApplySeparation(const D3DXVECTOR3& center, float radius);
+	void ApplySeparation(const D3DXVECTOR3& CenterPos, float fRadius);
 
+	/// <summary>
+	/// エリア内に配置する関数
+	/// </summary>
+	/// <param name="putpos">配置先の座標</param>
 	void PuttingArea(const D3DXVECTOR3& putpos);
 
 	/// <summary>

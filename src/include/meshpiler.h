@@ -42,10 +42,10 @@ public:
 	CMeshPiler(int nPriority = static_cast<int>(CObject::PRIORITY::MESH));
 	~CMeshPiler();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 	void SetTexture(void);
 	bool Collision(D3DXVECTOR3* CollisionPos);
 

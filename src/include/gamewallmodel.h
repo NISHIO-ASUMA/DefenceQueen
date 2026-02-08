@@ -32,10 +32,10 @@ public:
 	CGameWallModel(int nPriority = static_cast<int>(CObject::PRIORITY::MODELOBJECT));
 	~CGameWallModel();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 	bool Collision(CSphereCollider* pOther);
 	inline CBoxCollider* GetCollider(void) const { return m_pCollider.get(); }
 

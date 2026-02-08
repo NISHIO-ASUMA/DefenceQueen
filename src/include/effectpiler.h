@@ -25,10 +25,10 @@ public:
 	CEffectPiler(int nPriority = static_cast<int>(CObject::PRIORITY::EFFECT));
 	~CEffectPiler();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 
 	static CEffectPiler* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fRadius, int nLife);
 
