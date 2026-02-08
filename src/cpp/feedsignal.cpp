@@ -14,7 +14,8 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CFeedSignal::CFeedSignal(int nPriority) : CBillboard(nPriority),m_isDraw(false)
+CFeedSignal::CFeedSignal(int nPriority) : CBillboard(nPriority),
+m_isDraw(false)
 {
 
 }

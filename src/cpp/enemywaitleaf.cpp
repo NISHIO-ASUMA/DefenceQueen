@@ -16,9 +16,5 @@
 //=========================================================
 void CEnemyWaitLeaf::Update()
 {
-	// 敵のポインタ
-	auto* Enemy = m_pBlackBoard->GetValue<CEnemy*>("Enemy");
 
-	// モーションセット
-	//Enemy->GetMotion()->SetMotion(CEnemy::MOTION_NEUTRAL,true,10);
 }

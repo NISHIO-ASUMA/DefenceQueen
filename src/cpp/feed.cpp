@@ -13,7 +13,6 @@
 #include "collisionsphere.h"
 #include "parameter.h"
 #include "gamemanager.h"
-#include "selectpoint.h"
 #include "gamesceneobject.h"
 #include "manager.h"
 #include "xfilemanager.h"

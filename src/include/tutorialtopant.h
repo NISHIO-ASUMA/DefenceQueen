@@ -22,10 +22,10 @@ class CInputKeyboard;
 class CJoyPad;
 class CBoxCollider;
 class CCollisionBox;
-class CSelectPoint;
 class CSphereCollider;
 class CSepalationSign;
 class CPointObj;
+class CCircle3D;
 
 //*********************************************************
 // チュートリアルの指示アリのクラスを定義
@@ -83,7 +83,7 @@ private:
 	std::unique_ptr<CSphereCollider>m_pSphereCollider; // 球形コライダー
 	std::unique_ptr<CBoxCollider>m_pColliderBox;		// 矩形コライダー
 
-	CSelectPoint* m_pCircleObj;			// 円形範囲選択オブジェクト
+	CCircle3D* m_pCircleObj;			// 円形範囲選択オブジェクト
 	CSepalationSign* m_pSeparationSign; // 切り離し表示サイン
 	CSepalationSign* m_pPutSign;		// 置いていく表示
 	CPointObj* m_pPoint;				// 矢印オブジェクト

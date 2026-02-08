@@ -144,8 +144,7 @@ void CMotion::SetMotion(int nMotionType, bool isBlend, int nBlendFrame)
 // モーション全体更新処理
 //=========================================================
 void CMotion::Update(std::vector<CModel*> pModel)
-{// モーションタイプの番号で該当のモーション更新するだけにする
-
+{
 	// モーションマネージャーから情報を取得
 	auto Manager = CManager::GetInstance()->GetMotionManager();
 	const auto& Info = Manager->GetFileDataIdx(m_nMotionIdx);
@@ -154,7 +153,6 @@ void CMotion::Update(std::vector<CModel*> pModel)
 	int nMotionNum = Info.nNumMotion;
 	int nModelNum = Info.nNumModel;
 
-#if 1
 	// 例外処理
 	if (nModelNum <= 0)
 	{
@@ -282,14 +280,12 @@ void CMotion::Update(std::vector<CModel*> pModel)
 
 	// 全体フレーム計算
 	m_nNumAllFrame = nFrame;
-#endif
 }
 //=================================================================
 // 現在のモーションの更新関数
 //=================================================================
 void CMotion::UpdateCurrentMotion(CMotionManager* pMption,CModel** ppModel, int nModelCount)
 {
-#if 1
 	// モーションリスト取得
 	const auto& motionList = pMption->GetFileDataIdx(m_nMotionIdx);
 
@@ -339,8 +335,6 @@ void CMotion::UpdateCurrentMotion(CMotionManager* pMption,CModel** ppModel, int 
 	// モデルのパーツに設定
 	ppModel[nModelCount]->SetPos(Pos);
 	ppModel[nModelCount]->SetRot(Rot);
-
-#endif
 }
 
 //=================================================================
@@ -467,7 +461,6 @@ void CMotion::Debug(void)
 	CDebugproc::Print("[ブレンドフレーム] %d / [ブレンドカウント] %d", m_nFrameBlend, m_nCounterBlend);
 	CDebugproc::Draw(800, 340);
 #endif // _DEBUG
-
 }
 //=================================================================
 // モーションフレーム判定

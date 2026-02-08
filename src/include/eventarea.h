@@ -58,5 +58,5 @@ private:
 	};
 
 	std::unique_ptr<CBoxCollider>m_pBoxCollider;	// 矩形のコライダー
-	bool m_isDraw;					// 描画するかどうか
+	bool m_isDraw;									// 描画するかどうか
 };

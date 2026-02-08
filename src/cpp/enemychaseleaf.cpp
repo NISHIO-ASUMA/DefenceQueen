@@ -10,7 +10,6 @@
 //*********************************************************
 #include "enemychaseleaf.h"
 #include "enemy.h"
-#include "selectpoint.h"
 #include "template.h"
 
 //=========================================================

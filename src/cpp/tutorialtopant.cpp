@@ -21,13 +21,13 @@
 #include "tutorialobject.h"
 #include "fade.h"
 #include "game.h"
-#include "selectpoint.h"
 #include "tutoarrayant.h"
 #include "spherecollider.h"
 #include "eventarea.h"
 #include "sepalationsign.h"
 #include "sound.h"
 #include "pointobj.h"
+#include "circle3d.h"
 
 //=========================================================
 // コンストラクタ
@@ -81,7 +81,7 @@ HRESULT CTutoTopAnt::Init(void)
 	m_pSphereCollider = CSphereCollider::Create(GetPos(), 80.0f);
 
 	// 円形生成
-	m_pCircleObj = CSelectPoint::Create(GetPos(), VECTOR3_NULL, m_fSeparationRadius, 3.0f, 0.0f);
+	m_pCircleObj = CCircle3D::Create(GetPos(), VECTOR3_NULL, m_fSeparationRadius, 3.0f, 0.0f);
 
 	// 切り離しui生成
 	m_pSeparationSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 240.0f, GetPos().z), "Sepalation.png");

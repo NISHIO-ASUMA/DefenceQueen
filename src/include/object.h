@@ -8,7 +8,7 @@
 //*********************************************************
 // インクルードガード
 //*********************************************************
-#pragma once 
+#pragma once
 
 //*********************************************************
 // オブジェクトクラスを定義
@@ -42,19 +42,19 @@ public:
 	//*************************
 	enum PRIORITY
 	{
-		NONE,		// 初期状態
-		MESH,		// メッシュ
-		BASENUMBER, // 基準番号
-		MODELOBJECT,// モデル
-		MOVE3D,		// 動く3Dオブジェクト
-		SHADOW,		// 影
-		IMPACT,		// 衝撃波
-		CHARACTOR,	// プレイヤー
-		BILLBOARD,	// ビルボード
-		EFFECT,		// エフェクト
-		UI,			// 2DUI
-		PAUSE,		// ポーズ
-		PRIORITY_MAX // 最大数
+		NONE,			// 初期状態
+		MESH,			// メッシュ
+		BASENUMBER,		// 基準番号
+		MODELOBJECT,	// モデル
+		MOVE3D,			// 3Dオブジェクト
+		SHADOW,			// 影
+		IMPACT,			// 衝撃波
+		CHARACTOR,		// プレイヤー
+		BILLBOARD,		// ビルボード
+		EFFECT,			// エフェクト
+		UI,				// 2DUI
+		PAUSE,			// ポーズ
+		PRIORITY_MAX	// 最大数
 	};
 
 	CObject(int nPriority = NONE);
@@ -82,7 +82,7 @@ protected:
 
 private:
 
-	static int m_nNumAll;	// オブジェクトの総数
+	static int m_nNumAll;					// オブジェクトの総数
 	static CObject* m_pTop[PRIORITY_MAX];	// 先頭オブジェクト
 	static CObject* m_pCur[PRIORITY_MAX];	// 最後尾オブジェクト
 

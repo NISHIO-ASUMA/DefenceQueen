@@ -91,9 +91,6 @@
     <Filter Include="ソース ファイル\State\child">
       <UniqueIdentifier>{f5e176f6-e840-4106-81a2-d1bd87b7d873}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Support">
-      <UniqueIdentifier>{726420a0-37fd-4834-8583-040ef8627d36}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\OutSide">
       <UniqueIdentifier>{6ada1189-bc7e-4c8d-ab7c-2eb187f3ce55}</UniqueIdentifier>
     </Filter>
@@ -801,9 +798,6 @@
     <ClCompile Include="src\cpp\workerstateneutral.cpp">
       <Filter>ソース ファイル\State\Worker</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\basemapfeed.cpp">
-      <Filter>ソース ファイル\Support</Filter>
-    </ClCompile>
     <ClCompile Include="src\cpp\block.cpp">
       <Filter>ソース ファイル\XFile</Filter>
     </ClCompile>
@@ -832,6 +826,12 @@
       <Filter>ソース ファイル\Physics\Collision</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\loseresultobject.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\basemapfeed.cpp">
+      <Filter>ソース ファイル\XFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\circle3d.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1347,6 +1347,9 @@
       <Filter>ヘッダー ファイル\AI_System\LeafNode\Samples</Filter>
     </ClInclude>
     <ClInclude Include="src\include\loseresultobject.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\circle3d.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

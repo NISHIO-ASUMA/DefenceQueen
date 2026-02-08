@@ -186,6 +186,7 @@
     <ClCompile Include="src\cpp\charactorparam.cpp" />
     <ClCompile Include="src\cpp\chasedestination.cpp" />
     <ClCompile Include="src\cpp\checkneardestination.cpp" />
+    <ClCompile Include="src\cpp\circle3d.cpp" />
     <ClCompile Include="src\cpp\collider.cpp" />
     <ClCompile Include="src\cpp\collision.cpp" />
     <ClCompile Include="src\cpp\collisionbox.cpp" />
@@ -351,6 +352,7 @@
     <ClInclude Include="src\include\charactorparam.h" />
     <ClInclude Include="src\include\chasedestination.h" />
     <ClInclude Include="src\include\checkneardestination.h" />
+    <ClInclude Include="src\include\circle3d.h" />
     <ClInclude Include="src\include\collider.h" />
     <ClInclude Include="src\include\collision.h" />
     <ClInclude Include="src\include\collisionbox.h" />

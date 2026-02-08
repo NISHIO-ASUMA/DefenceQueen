@@ -27,17 +27,16 @@ m_move(VECTOR3_NULL),
 m_rot(VECTOR3_NULL),
 m_rotDest(VECTOR3_NULL),
 m_scale(INITSCALE),
-m_type(TYPE_NONE),
 m_pModel{},
 m_pMotion{},
 m_pShadowS{},
 m_fMoveValue(NULL),
 m_isStencilUse(false),
 m_isOutLine(false),
-m_isInstancing(false)
+m_isInstancing(false),
+m_mtxworld{}
 {
 	// 値のクリア
-	D3DXMatrixIdentity(&m_mtxworld);
 }
 //=========================================================
 // デストラクタ
@@ -51,13 +50,13 @@ CMoveCharactor::~CMoveCharactor()
 //=========================================================
 HRESULT CMoveCharactor::Init(void)
 {
-	// 変数の初期化
+	// モデル配列のクリア
 	m_pModel.clear();
 
-	// 有効時
+	// ステンシルフラグ有効時
 	if (m_isStencilUse)
 	{
-		// 影モデル生成
+		// ステンシル影モデル生成
 		m_pShadowS = CShadowStencil::Create(m_pos, m_rot);
 	}
 
@@ -74,13 +73,8 @@ void CMoveCharactor::Uninit(void)
 		// nullチェック
 		if ((*iter) != nullptr)
 		{
-			// 終了処理
 			(*iter)->Uninit();
-
-			// ポインタの破棄
 			delete (*iter);
-
-			// null初期化
 			(*iter) = nullptr;
 		}
 	}
@@ -149,24 +143,20 @@ void CMoveCharactor::Update(void)
 
 	// 大きさを反映
 	D3DXMatrixScaling(&mtxScal, m_scale.x, m_scale.y, m_scale.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxScal);
 
 	// 向きを反映
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxRot);
 
 	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxTrans);
 
-	////for (auto& model : m_pModel)
-	//{
-	//	model->Update();
-	//}
+	// ワールド行列を計算する
+	m_mtxworld = mtxScal * mtxRot * mtxTrans;
 
 #ifdef NDEBUG
-	// release時だけ
-	if (m_pMotion) m_pMotion->Update(m_pModel);
+	// モーションとモデルの更新
+	if (m_pMotion) 
+		m_pMotion->Update(m_pModel);
 #endif
 }
 //=========================================================

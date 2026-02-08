@@ -16,8 +16,10 @@
 //*********************************************************
 namespace BaseFeedInfo
 {
+	constexpr int Create_Pos = 4;
+
 	// ê∂ê¨Ç∑ÇÈç¿ïWÇÃê›íË
-	const D3DXVECTOR3 CreateBasePos[NUM_BASEFEED]
+	const D3DXVECTOR3 CreateBasePos[Create_Pos]
 	{
 		{-885.0f,0.0f,-700.0f},
 		{-885.0f,0.0f, 545.0f},

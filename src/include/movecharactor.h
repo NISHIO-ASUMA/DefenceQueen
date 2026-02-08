@@ -33,18 +33,6 @@ class CMoveCharactor : public CObject
 {
 public:
 
-	//****************************
-	// キャラクターの種類定義
-	//****************************
-	enum TYPE
-	{
-		TYPE_NONE,
-		TYPE_PLAYER,
-		TYPE_BUDDY,
-		TYPE_ENEMY,
-		TYPE_MAX
-	};
-
 	CMoveCharactor(int nPriority = static_cast<int>(CObject::PRIORITY::CHARACTOR));
 	~CMoveCharactor();
 
@@ -62,12 +50,8 @@ public:
 	inline void SetScale(const D3DXVECTOR3& scale = INITSCALE) { m_scale = scale; }
 	inline void SetMove(const D3DXVECTOR3& move) { m_move = move; }
 	inline void SetMoveValue(const float fValue) { m_fMoveValue = fValue; }
-	inline void SetType(TYPE Type) { m_type = Type; }
-	inline void SetUseStencil(const bool isUse) { m_isStencilUse = isUse; }
+	inline void SetUseStencil(const bool isUse = false) { m_isStencilUse = isUse; }
 	inline void SetUseOutLine(const bool isUse = false) { m_isOutLine = isUse; }
-	inline void SetUseInstancing(const bool isInstance = false) { m_isInstancing = isInstance; }
-
-	inline 	void SetCharactor(TYPE type) { m_type = type; }
 
 	inline D3DXVECTOR3 GetPos(void) const { return m_pos; }
 	inline D3DXVECTOR3 GetOldPos(void) const { return m_posOld; }
@@ -96,11 +80,10 @@ private:
 	D3DXVECTOR3 m_move;		// 移動量
 	D3DXVECTOR3 m_scale;	// 拡大率
 	D3DXMATRIX m_mtxworld;	// ワールドマトリックス
-	TYPE m_type;			// 種類
 
 	std::unique_ptr<CMotion>m_pMotion;	// モーションクラスのユニークポインタ
 	std::vector<CModel*>m_pModel;		// モデルクラスの動的配列
-	CShadowStencil* m_pShadowS;				// ステンシルシャドウクラスのポインタ
+	CShadowStencil* m_pShadowS;			// ステンシルシャドウクラスのポインタ
 
 	float m_fMoveValue;		// 移動加算値
 	bool m_isStencilUse;	// ステンシルシャドウを使うか

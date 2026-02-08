@@ -19,7 +19,6 @@
 #include "node.h"
 #include "behaviortree.h"
 #include "gamesceneobject.h"
-#include "selectpoint.h"
 #include "enemybehaviortree.h"
 #include "queen.h"
 #include "template.h"

@@ -26,12 +26,12 @@
 #include "feedmanager.h"
 #include "feed.h"
 #include "boxtospherecollision.h"
-#include "selectpoint.h"
 #include "feedsignal.h"
 #include "sepalationsign.h"
 #include "eventareamanager.h"
 #include "eventarea.h"
 #include "pointobj.h"
+#include "circle3d.h"
 
 //=========================================================
 // コンストラクタ
@@ -95,7 +95,7 @@ HRESULT CTopAnt::Init(void)
 	m_pColliderSphere = CSphereCollider::Create(GetPos(),Config::MAX_RADIUS);
 
 	// 円形生成
-	m_pCircleObj = CSelectPoint::Create(GetPos(), VECTOR3_NULL, m_fSeparationRadius, 3.0f, 0.0f);
+	m_pCircleObj = CCircle3D::Create(GetPos(), VECTOR3_NULL, m_fSeparationRadius, 3.0f, 0.0f);
 
 	// 切り離しui生成
 	m_pSeparationSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::OffPosY, GetPos().z),"Sepalation.png");

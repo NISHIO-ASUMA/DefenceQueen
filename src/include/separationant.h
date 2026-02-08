@@ -77,5 +77,4 @@ private:
 
 	std::vector<std::list<CArray*>>m_pAntList;	// 全体を見る動的リスト
 	std::vector<std::list<CArray*>>m_pAntGroup;	// 分隊ごと動的リスト
-
 };

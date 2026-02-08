@@ -1,6 +1,6 @@
 //=========================================================
 //
-// 各スポナーの仲間に指示を出すアリのクラス [ topant.h ]
+// 仲間に指示を出すアリのクラス [ topant.h ]
 // Author: Asuma Nishio
 // 
 //=========================================================
@@ -26,10 +26,10 @@ class CBoxCollider;
 class CCollisionSphere;
 class CCollisionBox;
 class CBoxToSphereCollision;
-class CSelectPoint;
 class CSepalationSign;
 class CArrayManager;
 class CPointObj;
+class CCircle3D;
 
 //*********************************************************
 // 各スポナーのトップのアリのクラスを定義
@@ -94,7 +94,7 @@ private:
 	std::unique_ptr<CSphereCollider>m_pColliderSphere; // 球形コライダー
 	std::unique_ptr<CBoxCollider>m_pColliderBox;	   // 矩形コライダー
 
-	CSelectPoint* m_pCircleObj;			// 円形オブジェクト
+	CCircle3D* m_pCircleObj;			// 円形オブジェクト
 	CSepalationSign* m_pSeparationSign; // 切り離し表示サイン
 	CSepalationSign* m_pPutSign;		// 置いていく表示
 	CPointObj* m_pPoint;				// 矢印オブジェクト

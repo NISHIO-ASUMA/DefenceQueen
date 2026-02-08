@@ -1,6 +1,6 @@
 //=========================================================
 //
-// イベントエリア表示処理 [ eventarea.h ]
+// 円形3Dオブジェクト処理 [ circle3d.cpp ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -8,67 +8,76 @@
 //*********************************************************
 // インクルードファイル
 //*********************************************************
-#include "eventarea.h"
-#include "boxcollider.h"
-#include "boxtospherecollision.h"
+#include "circle3d.h"
+#include "spherecollider.h"
+#include "collisionsphere.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
-CEventArea::CEventArea(int nPriority) : CObject3D(nPriority),
-m_isDraw(false),
-m_pBoxCollider(nullptr)
+CCircle3D::CCircle3D(int nPriority) : CObject3D(nPriority),
+m_pSphere(nullptr),
+m_isHit(false),
+m_fHitRange(NULL)
 {
 
 }
 //=========================================================
 // デストラクタ
 //=========================================================
-CEventArea::~CEventArea()
+CCircle3D::~CCircle3D()
 {
 
 }
 //=========================================================
-// 生成関数
+// 生成処理
 //=========================================================
-CEventArea* CEventArea::Create(const D3DXVECTOR3& pos)
+CCircle3D* CCircle3D::Create
+(
+	const D3DXVECTOR3& pos,
+	const D3DXVECTOR3& rot,
+	const float fWidth,
+	const float fHeight,
+	const float fRadius
+)
 {
 	// インスタンス生成
-	CEventArea* pArea = new CEventArea;
-	if (pArea == nullptr) return nullptr;
+	CCircle3D* pCircle = new CCircle3D;
+	if (pCircle == nullptr) return nullptr;
 
 	// 初期化失敗時
-	if (FAILED(pArea->Init())) return nullptr;
+	if (FAILED(pCircle->Init())) return nullptr;
 
 	// オブジェクト設定
-	pArea->SetPos(pos);
-	pArea->SetCol(COLOR_RED);
-	pArea->SetSize(Config::WIDTH, Config::HEIGHT);
-	pArea->SetTexture("Circle.png");
+	pCircle->SetPos(pos);
+	pCircle->SetRot(rot);
+	pCircle->SetCol(COLOR_RED);
+	pCircle->SetSize(fWidth, fHeight);
+	pCircle->SetTexture("Circle.png");
+	pCircle->SetHitRange(fRadius);
 
-	// ポインタを返す
-	return pArea;
+	return pCircle;
 }
 //=========================================================
 // 初期化処理
 //=========================================================
-HRESULT CEventArea::Init(void)
+HRESULT CCircle3D::Init(void)
 {
 	// 親クラスの初期化処理
 	CObject3D::Init();
 
-	// 矩形コライダー生成
-	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetPos(), D3DXVECTOR3(Config::SIZE, Config::SIZE, Config::SIZE));
+	// 球形コライダー生成
+	m_pSphere = CSphereCollider::Create(GetPos(), Config::HIT_RANGE);
 
 	return S_OK;
 }
 //=========================================================
 // 終了処理
 //=========================================================
-void CEventArea::Uninit(void)
+void CCircle3D::Uninit(void)
 {
-	// コライダーポインタの破棄
-	m_pBoxCollider.reset();
+	// 球形コライダーの破棄
+	m_pSphere.reset();
 
 	// 親クラスの終了処理
 	CObject3D::Uninit();
@@ -76,13 +85,16 @@ void CEventArea::Uninit(void)
 //=========================================================
 // 更新処理
 //=========================================================
-void CEventArea::Update(void)
+void CCircle3D::Update(void)
 {
-	// 座標を取得
+	// 描画フラグがoffなら
+	if (!m_isHit) return;
+
+	// 座標取得
 	auto pos = GetPos();
 
-	// コライダー更新
-	m_pBoxCollider->SetPos(pos);
+	// 球形コライダーの座標更新
+	m_pSphere->SetPos(pos);
 
 	// 親クラスの更新処理
 	CObject3D::Update();
@@ -90,18 +102,21 @@ void CEventArea::Update(void)
 //=========================================================
 // 描画処理
 //=========================================================
-void CEventArea::Draw(void)
+void CCircle3D::Draw(void)
 {
+	// 描画フラグがoffなら
+	if (!m_isHit) return;
+
 	// 親クラスの描画処理
 	CObject3D::Draw();
 }
 //=========================================================
-// 球コライダーと矩形コライダーの当たり判定
+// 球形同士の当たり判定処理
 //=========================================================
-bool CEventArea::Collision(CSphereCollider* pOther)
+bool CCircle3D::Collision(CSphereCollider* other)
 {
-	// nullチェック
-	if (m_pBoxCollider == nullptr) return false;
+	//nullなら
+	if (m_pSphere == nullptr) return false;
 
-	return CBoxToSphereCollision::Collision(m_pBoxCollider.get(),pOther);
+	return CCollisionSphere::Collision(m_pSphere.get(),other);
 }

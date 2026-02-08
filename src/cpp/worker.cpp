@@ -14,7 +14,6 @@
 #include "motion.h"
 #include "statemachine.h"
 #include "gamesceneobject.h"
-#include "selectpoint.h"
 #include "workerstateneutral.h"
 #include "template.h"
 #include "feed.h"
