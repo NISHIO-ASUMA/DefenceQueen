@@ -43,7 +43,7 @@
 //*********************************************************
 // 静的メンバ変数
 //*********************************************************
-CGameSceneObject* CGameSceneObject::m_pInstance = nullptr; // 1つのインスタンス
+CGameSceneObject* CGameSceneObject::m_pInstance = nullptr; // シングルトン変数
 
 //=========================================================
 // コンストラクタ
@@ -104,7 +104,6 @@ HRESULT CGameSceneObject::Init(void)
 //=========================================================
 void CGameSceneObject::Uninit(void)
 {
-#if 1
 	// 餌管理クラスの破棄
 	m_pFeed.reset();
 
@@ -140,7 +139,6 @@ void CGameSceneObject::Uninit(void)
 
 	// イベント破棄
 	CEventAreaManager::GetInstance()->Uninit();
-#endif
 
 	// インスタンスの破棄
 	if (m_pInstance)
@@ -178,11 +176,11 @@ void CGameSceneObject::Update(void)
 		m_pWorkerManager->Update();
 	}
 
-	// 餌管理クラスの更新
-	if (m_pFeed)
-	{
-		//m_pFeed->Update();
-	}
+	//// 餌管理クラスの更新
+	//if (m_pFeed)
+	//{
+	//	//m_pFeed->Update();
+	//}
 
 	// 敵の更新
 	if (m_pEnemyManager)
@@ -199,7 +197,6 @@ void CGameSceneObject::Update(void)
 void CGameSceneObject::Draw(void)
 {
 #ifdef _DEBUG
-
 	// アリ管理クラスのデバッグ情報
 	if (m_pArrayManager)
 	{

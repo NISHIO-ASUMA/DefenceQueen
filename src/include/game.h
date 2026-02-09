@@ -11,7 +11,7 @@
 #pragma once
 
 //*********************************************************
-// インクルードファイル宣言
+// インクルードファイル
 //*********************************************************
 #include "scene.h"
 #include "pausemanager.h"
@@ -38,7 +38,7 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	CGameState* GetState(void) { return m_pState; }
+	inline CGameState* GetState(void) { return m_pState; }
 
 	static CPauseManager* GetPause(void) { return m_pPausemanager; }
 

@@ -14,7 +14,7 @@ float4x4 g_mtxprojection;   // プロジェクションマトリックス
 float4 g_MatColor;          // マテリアルカラー
 texture2D g_TexCharactor;   // テクスチャポインタ
 
-sampler2D CharactorSampler = sampler_state // サンプラーテクスチャ
+sampler2D CharactorSampler = sampler_state // テクスチャサンプラー
 {
     Texture = <g_TexCharactor>;
     MinFilter = LINEAR;
@@ -34,10 +34,10 @@ struct VS_INPUT
     float2 uv : TEXCOORD;  // UV値
     float3 normal : NORMAL; // 法線
 
-    float4 world0 : TEXCOORD1;
-    float4 world1 : TEXCOORD2;
-    float4 world2 : TEXCOORD3;
-    float4 world3 : TEXCOORD4;
+    float4 world0 : TEXCOORD1; // ワールド行列
+    float4 world1 : TEXCOORD2; // ワールド行列
+    float4 world2 : TEXCOORD3; // ワールド行列
+    float4 world3 : TEXCOORD4; // ワールド行列
 };
 //*********************************************************
 // 頂点シェーダー出力構造体
@@ -90,7 +90,7 @@ VS_OUT VS_Main(VS_INPUT input)
 //=========================================================
 float4 PS_TexMain(VS_OUT output) : COLOR
 {
-	// カラーを返す
+	// テクスチャを返す
     return tex2D(CharactorSampler, output.uv);
 }
 //=========================================================

@@ -58,7 +58,7 @@ void CSeparationAnt::AddListAnt(const int& nSquadIndex, CArray* pAnt)
 
 	if (!listRef.empty())
 	{
-		// 最後尾のアリをフォロー対象にする
+		// 最後尾のアリを追従対象にする
 		CArray* prev = listRef.back();
 
 		// 前のアリを設定

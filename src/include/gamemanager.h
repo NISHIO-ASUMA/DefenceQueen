@@ -36,7 +36,7 @@ public:
 
 private:
 
-	CGameManager();
+	CGameManager();		// 格納コンストラクタ
 
 	bool m_isGameEnd; // ゲーム進行管理を終わらせるフラグ
 };

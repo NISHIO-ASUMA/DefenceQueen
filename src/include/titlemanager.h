@@ -38,5 +38,5 @@ public:
 
 private:
 
-	CTitleManager();
+	CTitleManager();	// 格納コンストラクタ
 };

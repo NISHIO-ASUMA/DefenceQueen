@@ -338,6 +338,8 @@ void CInstanceModelManager::LoadModel(const char* pModelName)
 	// インデックスと頂点数を設定
 	NewModelInfo.InstanceData.VtxBuffer = vtxbuffer;
 	NewModelInfo.InstanceData.IndexBuffer = indexbuffer;
+
+	// 頂点数とポリゴン数を設定
 	NewModelInfo.InstanceData.vtxCount = NewModelInfo.pMesh->GetNumVertices();
 	NewModelInfo.InstanceData.PrimCount = NewModelInfo.pMesh->GetNumFaces();
 

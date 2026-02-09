@@ -17,6 +17,7 @@
 #include "topant.h"
 #include "gamesceneobject.h"
 #include "motioninstancing.h"
+#include "extractantsignal.h"
 
 //=========================================================
 // コンストラクタ
@@ -118,7 +119,7 @@ std::vector<CArray*> CArrayManager::Allocate(const int& nStock,const int &nSatrt
 			nCreateNum++;
 		}
 		
-		// 一致したら抜ける
+		// 一定数生成したら抜ける
 		if (nCreateNum >= nStock) break;
 	}
 
@@ -147,8 +148,18 @@ void CArrayManager::MessageSepalation(const D3DXVECTOR3& CenterPos, float fRadiu
 
 		if (fDistance < fRadius)
 		{
+			if (pArray->GetIsTopOrder()) continue;
+
+			// 座標設定	
+			pArray->GetSignal()->SetPos(D3DXVECTOR3(pArray->GetPos().x, pArray->GetPos().y + 120.0f, pArray->GetPos().z));
+
 			// 描画フラグを有効化する
-			//pArray->SetIsTopOrder(true);
+			pArray->GetSignal()->SetisDraw(true);
+		}
+		else
+		{
+			// 描画フラグを無効化する
+			pArray->GetSignal()->SetisDraw(false);
 		}
 	}
 }
@@ -176,6 +187,9 @@ void CArrayManager::ApplySeparation(const D3DXVECTOR3& CenterPos, float fRadius)
 		{
 			// 仲間アリに伝える
 			pArray->SetIsTopOrder(true);
+
+			// 描画をoffにする
+			pArray->GetSignal()->SetisDraw(false);
 		}
 	}
 }

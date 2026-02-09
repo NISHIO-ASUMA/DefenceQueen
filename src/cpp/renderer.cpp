@@ -74,7 +74,7 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 	}
 
 	// デバイスのプレゼンテーションのパラメーターを設定
-	ZeroMemory(&m_d3dpp, sizeof(m_d3dpp));//パラメーターの0クリア
+	ZeroMemory(&m_d3dpp, sizeof(m_d3dpp));						//パラメーターの0クリア
 
 	m_d3dpp.BackBufferWidth = SCREEN_WIDTH;						// ゲーム画面サイズ(幅)
 	m_d3dpp.BackBufferHeight = SCREEN_HEIGHT;					// ゲーム画面サイズ(高さ)
@@ -576,7 +576,7 @@ void CRenderer::DrawInstancingAll(void)
 
 	for (auto& pair : m_RegisterInstObject)
 	{
-		// 最初と次
+		// 配列の最初と次を取得
 		int nModelIdx = pair.first;
 		auto& instances = pair.second;
 

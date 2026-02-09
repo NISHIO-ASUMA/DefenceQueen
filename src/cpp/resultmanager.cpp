@@ -12,10 +12,10 @@
 #include "manager.h"
 #include "sound.h"
 #include "input.h"
-#include "title.h"
 #include "ranking.h"
 #include "fade.h"
 #include <fstream>
+#include <memory>
 
 //=========================================================
 // コンストラクタ
@@ -59,7 +59,7 @@ HRESULT CResultManager::Init(void)
 //=========================================================
 void CResultManager::Uninit(void)
 {
-	// nullチェック
+	
 }
 //=========================================================
 // 更新処理
@@ -70,7 +70,6 @@ void CResultManager::Update(void)
 	CInputKeyboard* pInput = CManager::GetInstance()->GetInputKeyboard();
 	CJoyPad* pJyoPad = CManager::GetInstance()->GetJoyPad();
 
-	// 取得失敗時
 	if (pInput == nullptr) return;
 	if (pJyoPad == nullptr) return;
 
@@ -83,9 +82,8 @@ void CResultManager::Update(void)
 		// nullじゃないとき
 		if (pFade != nullptr)
 		{
-			// シーン遷移
+			// ランキングシーン遷移
 			pFade->SetFade(std::make_unique <CRanking>());
-
 			return;
 		}
 	}

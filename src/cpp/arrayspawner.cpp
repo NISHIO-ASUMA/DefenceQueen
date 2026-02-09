@@ -66,7 +66,6 @@ HRESULT CArraySpawner::Init(CArrayManager* pManager,const D3DXVECTOR3& MovePos)
 	// セットされた数だけアクティブにする
 	for (int nCnt = 0; nCnt < m_nStockArrays; nCnt++)
 	{
-		// ローカルポインタに格納
 		CArray* pArray = m_AssignedArrays[nCnt];
 
 		// 座標セット
@@ -84,7 +83,7 @@ HRESULT CArraySpawner::Init(CArrayManager* pManager,const D3DXVECTOR3& MovePos)
 	
 	// 分隊用リスト生成
 	m_pSeparationListAnt = std::make_unique<CSeparationAnt>();
-	m_pSeparationListAnt->Init(m_nStockArrays);
+	m_pSeparationListAnt->Init(200);
 
 	return S_OK;
 }
@@ -127,7 +126,6 @@ void CArraySpawner::Update(void)
 //=========================================================
 void CArraySpawner::OrderMove(int nNum, const D3DXVECTOR3& destPos)
 {
-	// カウント
 	int nSend = 0;
 
 	for (int nCnt = 0; nCnt < static_cast<int>(m_AssignedArrays.size()); nCnt++)

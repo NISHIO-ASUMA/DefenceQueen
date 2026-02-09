@@ -31,6 +31,14 @@ CStartSceneManager::~CStartSceneManager()
 	Uninit();
 }
 //=========================================================
+// ƒVƒ“ƒOƒ‹ƒgƒ“æ“¾
+//=========================================================
+CStartSceneManager* CStartSceneManager::GetInstance()
+{
+	static CStartSceneManager Instance;
+	return &Instance;
+};
+//=========================================================
 // ‰Šú‰»ˆ—
 //=========================================================
 HRESULT CStartSceneManager::Init(void)

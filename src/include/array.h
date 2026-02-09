@@ -29,7 +29,7 @@ class CSphereCollider;
 class CBoxCollider;
 class CTopAnt;
 class CMotionInstancing;
-class CSepalationSignal;
+class CExtractAntSignal;
 
 //*********************************************************
 // アリ一匹に対するクラスを定義
@@ -39,7 +39,7 @@ class CArray : public CInstancingCharactor
 public:
 
 	//************************
-	// モーション列挙型
+	// モーションの種類列挙型
 	//************************
 	enum MOTION
 	{
@@ -88,6 +88,8 @@ public:
 	inline void SetIsStop(const bool& isStop) { m_isStop = isStop; }
 
 	inline D3DXVECTOR3 GetActivePos(void) const { return m_ActivePos; }
+	inline CExtractAntSignal* GetSignal(void) { return m_pAntSignal; }
+
 	inline bool GetActive(void) const { return m_isActive; }
 	inline bool GetMove(void) const { return m_isMove; }
 	inline bool GetReturn(void) const { return m_isReturn; }
@@ -106,7 +108,7 @@ private:
 	//***********************
 	struct Arrayinfo
 	{
-		static constexpr float MoveSpeed = 3.0f;		// 移動速度
+		static constexpr float MoveSpeed = 2.5f;		// 移動速度
 		static constexpr float SphereRange = 60.0f;		// 球形範囲
 		static constexpr float ARRAY_DISTANCE = 80.0f;	// 仲間アリとの距離
 		static constexpr float TOP_DISTANCE = 60.0f;	// 先頭のアリとの距離
@@ -137,6 +139,7 @@ private:
 	D3DXVECTOR3 m_ActivePos;			// 出現時の座標
 	D3DXVECTOR3 m_SaveDestPos;			// 保存しておく目的座標
 	CMotionInstancing* m_pMotion;		// モーションポインタ
+	CExtractAntSignal* m_pAntSignal;	// ターゲット変更サインオブジェクト
 
 	std::unique_ptr<CSphereCollider>m_pSphereCollider;	// 球形のコライダー
 	CBoxCollider* m_pBoxCollider;		// 矩形のコライダー

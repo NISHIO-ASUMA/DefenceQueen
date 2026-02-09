@@ -42,19 +42,19 @@
 //*********************************************************
 // マクロ定義
 //*********************************************************
-#define SCREEN_WIDTH (1280)		// ウインドウの幅
-#define SCREEN_HEIGHT (720)		// ウインドウの高さ
+#define SCREEN_WIDTH (1280)				// ウインドウの幅
+#define SCREEN_HEIGHT (720)				// ウインドウの高さ
 #define CLASS_NAME "WindowClass"		// ウインドウクラスの名前
 #define WINDOW_NAME "Defence Queen"		// ウインドウの名前
 
-#define FVF_VERTEX_2D (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)				// 頂点フォーマット[2D]
-#define FVF_VERTEX_3D (D3DFVF_XYZ | D3DFVF_NORMAL |  D3DFVF_DIFFUSE | D3DFVF_TEX1)  // 座標,法線,カラー,テクスチャ
-#define FVF_VERTEX_3D_MULTI (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX2) // 座標,法線,カラー,マルチテクスチャ
+#define FVF_VERTEX_2D (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)					// [2D]頂点フォーマット
+#define FVF_VERTEX_3D (D3DFVF_XYZ | D3DFVF_NORMAL |  D3DFVF_DIFFUSE | D3DFVF_TEX1)		// [3D]頂点フォーマット
+#define FVF_VERTEX_3D_MULTI (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX2) // [3Dマルチ]頂点フォーマット
 
-#define VECTOR3_NULL (D3DXVECTOR3(0.0f, 0.0f, 0.0f))		// 座標初期化
-#define VECTOR4_NULL (D3DXVECTOR4(0.0f, 0.0f, 0.0f,0.0f))	// 座標初期化
+#define VECTOR3_NULL (D3DXVECTOR3(0.0f, 0.0f, 0.0f))		// VECTOR3座標初期化
+#define VECTOR4_NULL (D3DXVECTOR4(0.0f, 0.0f, 0.0f,0.0f))	// VECTOR4座標初期化
 #define INITSCALE (D3DXVECTOR3(1.0f, 1.0f, 1.0f))			// 初期拡大率
-#define CENTERPOS (D3DXVECTOR3(640.0f, 360.0f, 0.0f))		// 中心
+#define CENTERPOS (D3DXVECTOR3(640.0f, 360.0f, 0.0f))		// 画面の中心座標
 #define HALFWIDTH (SCREEN_WIDTH * 0.5f)						// スクリーンの横幅の半分
 #define HALFHEIGHT (SCREEN_HEIGHT * 0.5f)					// スクリーンの高さの半分
 
@@ -66,14 +66,14 @@
 #define COLOR_BLUE	 (D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f))	// 青
 #define COLOR_PURPLE (D3DXCOLOR(1.0f, 0.0f, 1.0f, 1.0f))	// 紫
 #define COLOR_GLAY	 (D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.7f))	// グレー
-#define LASER		 (D3DXCOLOR(0.05f, 0.05f, 1.0f, 1.0f))	// レーザーエフェクト
+#define LASER		 (D3DXCOLOR(0.05f, 0.05f, 1.0f, 1.0f))	// レーザーカラー
 #define COLOR_NULL	 (D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f))	// 完全透明
 
 #define V_COLOR_WHITE (D3DCOLORVALUE(1.0f, 1.0f, 1.0f, 1.0f))	// モデルのカラー白
 #define V_COLOR_RED (D3DCOLORVALUE(1.0f, 0.0f, 0.0f, 1.0f))		// モデルのカラー赤
-#define OUTLINE_COLOR (D3DXVECTOR4(0.0f, 0.0f, 0.0f, 1.0f))	// アウトライン基準カラー
+#define OUTLINE_COLOR (D3DXVECTOR4(0.0f, 0.0f, 0.0f, 1.0f))		// アウトライン基準カラー
 
-#define BASEVERTEX (4)		// 基準頂点
+#define BASEVERTEX (4)		// 基準頂点数
 #define MAX_WORD (256)		// 最大文字列数
 
 //*********************************************************
@@ -116,6 +116,6 @@ struct VERTEX_3D_MULTI
 struct MODEL_3D
 {
 	D3DXVECTOR3 pos;	// 座標
-	D3DXVECTOR2	tex;	// カラー
+	D3DXVECTOR2	tex;	// テクスチャ
 	D3DXVECTOR3 normal;	// 法線
 };

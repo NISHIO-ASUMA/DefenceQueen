@@ -36,6 +36,7 @@
 #include "basemapfeed.h"
 #include "eventareamanager.h"
 #include "particlepiler.h"
+#include "extractantsignal.h"
 
 //=========================================================
 // コンストラクタ
@@ -47,6 +48,7 @@ m_pParameter(nullptr),
 m_pBoxCollider(nullptr),
 m_pFollowTarget(nullptr),
 m_pTopAnt(nullptr),
+m_pAntSignal(nullptr),
 m_isActive(false),
 m_isMove(true),
 m_isTopAntFollow(false),
@@ -121,6 +123,8 @@ HRESULT CArray::Init(void)
 
 	// モーション取得
 	m_pMotion = CInstancingCharactor::GetMotion();
+
+	m_pAntSignal = CExtractAntSignal::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 120.0f, GetPos().z));
 
 	// フラグ初期化
 	m_isActive = false;

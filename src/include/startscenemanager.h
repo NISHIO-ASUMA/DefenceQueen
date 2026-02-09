@@ -23,16 +23,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 
-	/// <summary>
-	/// ƒVƒ“ƒOƒ‹ƒgƒ“Žæ“¾
-	/// </summary>
-	/// <param name=""></param>
-	/// <returns></returns>
-	static CStartSceneManager* GetInstance(void)
-	{
-		static CStartSceneManager Instance;
-		return &Instance;
-	};
+	static CStartSceneManager* GetInstance(void);
 
 private:
 

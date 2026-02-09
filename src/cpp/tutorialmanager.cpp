@@ -14,8 +14,6 @@
 #include "fade.h"
 #include "game.h"
 #include "ui.h"
-#include "meshfield.h"
-#include "meshdome.h"
 #include "sound.h"
 #include "input.h"
 #include "game.h"

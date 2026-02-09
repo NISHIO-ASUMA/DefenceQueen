@@ -15,7 +15,8 @@
 #include "input.h"
 #include "fade.h"
 #include "resultobject.h"
-#include  "sound.h"
+#include "sound.h"
+#include <memory>
 
 //=========================================================
 // オーバーロードコンストラクタ

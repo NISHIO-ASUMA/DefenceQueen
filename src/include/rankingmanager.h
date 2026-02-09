@@ -28,5 +28,5 @@ public:
 
 private:
 
-	CRankingManager();
+	CRankingManager();	  // 格納コンストラクタ
 };

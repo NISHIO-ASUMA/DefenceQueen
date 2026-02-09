@@ -19,8 +19,9 @@
 //*********************************************************
 namespace EventManager
 {
-	constexpr int NUMPATH = 3;		 // パス配列
-	constexpr int NUM_ACTIVEPOS = 4; // イベントが起きる場所の数
+	constexpr int NUMPATH = 3;				// パス配列
+	constexpr int NUM_ACTIVEPOS = 4;		// イベントが起きる場所の数
+	constexpr float COLLISIONRANGE = 80.0f; // 餌の衝突判定半径
 
 	const char* MODEL_NAME[NUMPATH] // モデルパス配列	
 	{
@@ -58,7 +59,10 @@ namespace EventManager
 //=========================================================
 // コンストラクタ
 //=========================================================
-CEventAreaManager::CEventAreaManager() : m_pAreas{}, m_nLastEventTime(NULL), m_nCreateidx(NULL)
+CEventAreaManager::CEventAreaManager() : m_pAreas{}, 
+m_pFeeds{},
+m_nLastEventTime(NULL), 
+m_nCreateidx(NULL)
 {
 
 }
@@ -75,6 +79,8 @@ CEventAreaManager::~CEventAreaManager()
 HRESULT CEventAreaManager::Init(void)
 {
 	m_pAreas.clear();
+	m_pFeeds.clear();
+
 	return S_OK;
 }
 //=========================================================
@@ -84,6 +90,8 @@ void CEventAreaManager::Uninit(void)
 {
 	// 配列をクリア
 	m_pAreas.clear();
+
+	m_pFeeds.clear();
 }
 //=========================================================
 // 更新処理
@@ -109,7 +117,7 @@ void CEventAreaManager::Update(void)
 
 		// 判定エリアと餌を生成
 		CEventArea * area = CEventArea::Create(ActivePos);
-		CFeed * feed = CFeed::Create(EventFeedPos[nRand], VECTOR3_NULL, INITSCALE, MODEL_NAME[nPathRand], 70.0f, RANDOMHP[nRand]);
+		CFeed * feed = CFeed::Create(EventFeedPos[nRand], VECTOR3_NULL, INITSCALE, MODEL_NAME[nPathRand], COLLISIONRANGE, RANDOMHP[nRand]);
 
 		// オーナーに設定
 		feed->SetOwnerArea(area);
@@ -125,7 +133,7 @@ void CEventAreaManager::Update(void)
 	}
 }
 //=========================================================
-// 配列の要素をクリアする関数
+// エリア配列の要素をクリアする関数
 //=========================================================
 void CEventAreaManager::Erase(CEventArea* pArea)
 {
@@ -145,7 +153,7 @@ void CEventAreaManager::Erase(CEventArea* pArea)
 	DeleteDestObj = m_pAreas.erase(DeleteDestObj);
 }
 //=========================================================
-// 配列の要素をクリアする関数
+// 餌配列の要素をクリアする関数
 //=========================================================
 void CEventAreaManager::EraseFeed(CFeed* pFeed)
 {
