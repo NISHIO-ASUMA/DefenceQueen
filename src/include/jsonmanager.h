@@ -14,7 +14,13 @@
 // インクルードファイル
 //*********************************************************
 #include <string>
-#include <vector>
+#include <memory>
+#include <unordered_map>
+
+//*********************************************************
+// 前方宣言
+//*********************************************************
+class CJsonCreator;
 
 //*********************************************************
 // jsonを一括管理するクラスを定義
@@ -27,8 +33,10 @@ public:
 	~CJsonManager();
 
 	HRESULT Load(const char* LoadFileName);
+	HRESULT Init(void);
+	void Uninit(void);
 
 private:
 
-	std::vector<std::string>TagName; // 読み込んだタグ名
+	std::unordered_map<std::string, std::unique_ptr<CJsonCreator>> m_Creator; // 生成するオブジェクトのマップ配列
 };

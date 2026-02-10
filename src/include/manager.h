@@ -28,6 +28,7 @@ class CModelManager;
 class CNetWork;
 class CInstanceModelManager;
 class CInstanceMotionManager;
+class CJsonManager;
 
 //*********************************************************
 // インクルードファイル
@@ -67,6 +68,8 @@ public:
 	CFade* GetFade(void) { return m_pFade.get(); }
 	CScene* GetSceneRaw(void) { return m_pScene.get(); }
 
+	CJsonManager* GetJsonManager(void) { return m_pJsonManager.get(); }
+
 	// マネージャークラスのインスタンス取得
 	static CManager* GetInstance(void)
 	{
@@ -95,4 +98,6 @@ private:
 	std::unique_ptr<CNetWork>m_pNetWork;			// ネットワーククラスのポインタ
 	std::unique_ptr<CInstanceModelManager>m_pInstanceModel; // インスタンシング適用モデル管理クラス
 	std::unique_ptr<CInstanceMotionManager>m_pInstMotionManager; // インスタンシングモデルのモーション管理クラス
+	std::unique_ptr<CJsonManager>m_pJsonManager;
+
 };

@@ -14,7 +14,8 @@
 #include "titleant.h"
 #include "titlewallmanager.h"
 #include "titleantmanager.h"
-#include "titleui.h"
+#include "jsonmanager.h"
+#include "manager.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -49,12 +50,9 @@ HRESULT CTitleObject::Init(void)
 	m_pTitleAntManager = std::make_unique<CTitleAntManager>();
 	m_pTitleAntManager->Init();
 
-	// メッシュフィールド生成
-	CMeshField::Create(VECTOR3_NULL, 4000.0f, 2000.0f, 1, 1);
-
-	// 初期UI生成
-	CTitleUi::Create(D3DXVECTOR3(HALFWIDTH, 650.0f, 0.0f), COLOR_WHITE, 180.0f, 60.0f, "GameStart.png");
-	CUi::Create(D3DXVECTOR3(HALFWIDTH, 180.0f, 0.0f), 0, 300.0f, 150.0f, "TitleLogo.png");
+	// タイトルオブジェクトを外部ファイルから読み込む
+	auto jsonm = CManager::GetInstance()->GetJsonManager();
+	jsonm->Load("data/JSON/Titleobject.json");
 
 	return S_OK;
 }

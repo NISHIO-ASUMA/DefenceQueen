@@ -355,6 +355,24 @@
     <Filter Include="ヘッダー ファイル\Charactor\Spawn\Enemy_Spawn">
       <UniqueIdentifier>{0494d56f-f12f-4a83-8cc2-e30433f014ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\JsonUtilty">
+      <UniqueIdentifier>{95d08e9d-32c0-4c7f-ad5b-553a820fad1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\JsonUtilty\Base">
+      <UniqueIdentifier>{2c6769ce-9d06-499a-900f-028b97ed2608}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\JsonUtilty\Sepalationclass">
+      <UniqueIdentifier>{cefe9c15-ab8f-4716-87bc-659102577eff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\JsonUtility">
+      <UniqueIdentifier>{df83af51-7d4d-49fc-b92a-f411764d574b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\JsonUtility\Base">
+      <UniqueIdentifier>{a03f1672-c2ee-47f6-b807-20381f816521}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\JsonUtility\Sepalation">
+      <UniqueIdentifier>{fc747fc8-cf13-4c40-a7a8-aafe37f54782}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cpp\gauge.cpp">
@@ -379,9 +397,6 @@
       <Filter>ソース ファイル\2DUI</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\gametime.cpp">
-      <Filter>ソース ファイル\2DUI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\titleui.cpp">
       <Filter>ソース ファイル\2DUI</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\tutorialui.cpp">
@@ -829,6 +844,15 @@
       <Filter>ソース ファイル\Scenes\SceneObject</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\jsonmanager.cpp">
+      <Filter>ソース ファイル\JsonUtilty\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\createjsonui.cpp">
+      <Filter>ソース ファイル\JsonUtilty\Sepalationclass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\jsonconverter.cpp">
+      <Filter>ソース ファイル\JsonUtilty\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\createjsonmeshfield.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1066,9 +1090,6 @@
     </ClInclude>
     <ClInclude Include="src\include\meshpiler.h">
       <Filter>ヘッダー ファイル\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\titleui.h">
-      <Filter>ヘッダー ファイル\2DUI</Filter>
     </ClInclude>
     <ClInclude Include="src\include\rankingscore.h">
       <Filter>ヘッダー ファイル\2DUI</Filter>
@@ -1350,6 +1371,18 @@
       <Filter>ヘッダー ファイル\Scenes\SceneObject</Filter>
     </ClInclude>
     <ClInclude Include="src\include\jsonmanager.h">
+      <Filter>ヘッダー ファイル\JsonUtility\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\jsoncreator.h">
+      <Filter>ヘッダー ファイル\JsonUtility\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\createjsonui.h">
+      <Filter>ヘッダー ファイル\JsonUtility\Sepalation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\jsonconverter.h">
+      <Filter>ヘッダー ファイル\JsonUtility\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\createjsonmeshfield.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

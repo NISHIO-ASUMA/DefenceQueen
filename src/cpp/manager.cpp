@@ -32,6 +32,7 @@
 #include "instancing.h"
 #include "instancemodelmanager.h"
 #include "instancemotionmanager.h"
+#include "jsonmanager.h"
 
 //=========================================================
 // コンストラクタ
@@ -117,6 +118,10 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	m_pInstMotionManager = std::make_unique<CInstanceMotionManager>();
 	if (FAILED(m_pInstMotionManager->Load())) return E_FAIL;
 
+	// jsonマネージャークラスの生成
+	m_pJsonManager = std::make_unique<CJsonManager>();
+	if (FAILED(m_pJsonManager->Init())) return E_FAIL;
+
 	// アウトラインクラス生成
 	COutLine::GetInstance()->Init("data/SHADER/Out_Line.hlsl");
 
@@ -183,8 +188,11 @@ void CManager::Uninit(void)
 	// モーションマネージャーの破棄
 	m_pMotionManager.reset();
 
-	// 管理クラスの破棄
+	// インスタンシングモーション管理クラスの破棄
 	m_pInstMotionManager.reset();
+
+	// jsonマネージャーの破棄
+	m_pJsonManager.reset();
 
 	// アウトラインの破棄
 	COutLine::GetInstance()->Uninit();

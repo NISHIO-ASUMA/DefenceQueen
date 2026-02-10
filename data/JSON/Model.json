@@ -1,7 +1,8 @@
 [
   {
     "Model": "data/MODEL/ANT/ARRAY/Ant_Back_Long_Left.x",
-    "Instancing": true},
+    "Instancing": true
+  },
   {
     "Model": "data/MODEL/ANT/ARRAY/Ant_Back_Long_Right.x",
     "Instancing": true

@@ -9,7 +9,6 @@
 // インクルードファイル宣言
 //*********************************************************
 #include "titlemanager.h"
-#include "titleui.h"
 #include "manager.h"
 #include "tutorial.h"
 #include "input.h"

@@ -13,6 +13,8 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include "createjsonui.h"
+#include "createjsonmeshfield.h"
 
 //*********************************************************
 // json空間を使用
@@ -32,7 +34,7 @@ namespace PATH_TAGNAME
 //=========================================================
 // コンストラクタ
 //=========================================================
-CJsonManager::CJsonManager() : TagName{}
+CJsonManager::CJsonManager() : m_Creator{}
 {
 
 }
@@ -41,16 +43,31 @@ CJsonManager::CJsonManager() : TagName{}
 //=========================================================
 CJsonManager::~CJsonManager()
 {
+	Uninit();
+}
+//=========================================================
+// 初期化処理
+//=========================================================
+HRESULT CJsonManager::Init(void)
+{
+	// Ui生成関数
+	m_Creator[PATH_TAGNAME::UI] = std::make_unique<CJsonCreateUi>();
+	m_Creator[PATH_TAGNAME::MESHFIELD] = std::make_unique<CJsonCreateMeshField>();
 
+	return S_OK;
+}
+//=========================================================
+// 終了処理
+//=========================================================
+void CJsonManager::Uninit(void)
+{
+	m_Creator.clear();
 }
 //=========================================================
 // 実際のファイル読み込み処理
 //=========================================================
 HRESULT CJsonManager::Load(const char* LoadFileName)
 {
-	// 配列のクリア
-	TagName.clear();
-
 	// 開くファイル
 	std::ifstream file(LoadFileName);
 
@@ -59,19 +76,29 @@ HRESULT CJsonManager::Load(const char* LoadFileName)
 	{
 		// 例外メッセージ出力
 		MessageBox(GetActiveWindow(), "ファイルの読み込みに失敗しました", "エラー", MB_OK | MB_ICONERROR);
-
-		// 終了
 		return E_FAIL;
 	}
 
 	// jsonデータをセットする
 	json jsonfile;
 	file >> jsonfile;
-
-	// ファイルを閉じる
 	file.close();
 
-	// 識別タグを取得
-	
+	// 識別タグで生成関数を呼び出す
+	for (auto& Objectlist : jsonfile)
+	{
+		// オブジェクトのタグ取得
+		std::string tag = Objectlist["ObjectTag"];
+
+		// 該当タグを見つける
+		auto it = m_Creator.find(tag);
+
+		if (it != m_Creator.end())
+		{
+			// 生成関数
+			it->second->Create(Objectlist);
+		}
+	}
+
 	return S_OK;
 }

@@ -191,6 +191,8 @@
     <ClCompile Include="src\cpp\collision.cpp" />
     <ClCompile Include="src\cpp\collisionbox.cpp" />
     <ClCompile Include="src\cpp\collisionsphere.cpp" />
+    <ClCompile Include="src\cpp\createjsonmeshfield.cpp" />
+    <ClCompile Include="src\cpp\createjsonui.cpp" />
     <ClCompile Include="src\cpp\debugproc.cpp" />
     <ClCompile Include="src\cpp\easing.cpp" />
     <ClCompile Include="src\cpp\effect.cpp" />
@@ -235,6 +237,7 @@
     <ClCompile Include="src\cpp\instancemotionmanager.cpp" />
     <ClCompile Include="src\cpp\instancing.cpp" />
     <ClCompile Include="src\cpp\instancingcharactor.cpp" />
+    <ClCompile Include="src\cpp\jsonconverter.cpp" />
     <ClCompile Include="src\cpp\jsonmanager.cpp" />
     <ClCompile Include="src\cpp\light.cpp" />
     <ClCompile Include="src\cpp\load.cpp" />
@@ -306,7 +309,6 @@
     <ClCompile Include="src\cpp\titleantmanager.cpp" />
     <ClCompile Include="src\cpp\titlemanager.cpp" />
     <ClCompile Include="src\cpp\titleobject.cpp" />
-    <ClCompile Include="src\cpp\titleui.cpp" />
     <ClCompile Include="src\cpp\titlewallmanager.cpp" />
     <ClCompile Include="src\cpp\topant.cpp" />
     <ClCompile Include="src\cpp\tutoarrayant.cpp" />
@@ -358,6 +360,8 @@
     <ClInclude Include="src\include\collisionbox.h" />
     <ClInclude Include="src\include\collisionsphere.h" />
     <ClInclude Include="src\include\compositenodebase.h" />
+    <ClInclude Include="src\include\createjsonmeshfield.h" />
+    <ClInclude Include="src\include\createjsonui.h" />
     <ClInclude Include="src\include\debugproc.h" />
     <ClInclude Include="src\include\decorator.h" />
     <ClInclude Include="src\include\easing.h" />
@@ -405,6 +409,8 @@
     <ClInclude Include="src\include\instancing.h" />
     <ClInclude Include="src\include\instancingcharactor.h" />
     <ClInclude Include="src\include\inverter.h" />
+    <ClInclude Include="src\include\jsonconverter.h" />
+    <ClInclude Include="src\include\jsoncreator.h" />
     <ClInclude Include="src\include\jsonmanager.h" />
     <ClInclude Include="src\include\leafnodebase.h" />
     <ClInclude Include="src\include\light.h" />
@@ -480,7 +486,6 @@
     <ClInclude Include="src\include\titleantmanager.h" />
     <ClInclude Include="src\include\titlemanager.h" />
     <ClInclude Include="src\include\titleobject.h" />
-    <ClInclude Include="src\include\titleui.h" />
     <ClInclude Include="src\include\titlewallmanager.h" />
     <ClInclude Include="src\include\topant.h" />
     <ClInclude Include="src\include\tutoarrayant.h" />
