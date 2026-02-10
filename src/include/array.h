@@ -142,10 +142,8 @@ private:
 	CExtractAntSignal* m_pAntSignal;	// ターゲット変更サインオブジェクト
 
 	std::unique_ptr<CSphereCollider>m_pSphereCollider;	// 球形のコライダー
+	std::unique_ptr<CParameter>m_pParameter;	// パラメータークラスポインタ
 	CBoxCollider* m_pBoxCollider;		// 矩形のコライダー
-	
 	CArray* m_pFollowTarget;			// 一個前の自身のポインタ
 	CTopAnt* m_pTopAnt;					// 追従対象のトップアリのポインタ
-
-	std::unique_ptr<CParameter>m_pParameter;	// パラメータークラスポインタ
 };

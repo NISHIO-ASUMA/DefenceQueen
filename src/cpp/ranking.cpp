@@ -29,21 +29,7 @@ CRanking::CRanking() : CScene(CScene::MODE_RANKING)
 //=========================================================
 CRanking::~CRanking()
 {
-	// 無し
-}
-//=========================================================
-// 生成処理
-//=========================================================
-CRanking* CRanking::Create(void)
-{
-	// インスタンス生成
-	CRanking* pRanking = new CRanking;
-	if (pRanking == nullptr) return nullptr;
-
-	// 初期化失敗時
-	if (FAILED(pRanking->Init())) return nullptr;
-
-	return pRanking;
+	
 }
 //=========================================================
 // 初期化処理

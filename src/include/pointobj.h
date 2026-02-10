@@ -40,4 +40,5 @@ public:
 
 private:
 	static constexpr float ROT_VALUE = 0.06f; // ‰ñ“]—Ê
+	static constexpr const char* MODELNAME = "STAGEOBJ/yajirusi.x"; // ƒ‚ƒfƒ‹ƒpƒX
 };

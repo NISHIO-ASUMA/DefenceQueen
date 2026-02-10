@@ -222,16 +222,15 @@ HRESULT CInstanceModelManager::LoadJson(void)
 	for (const auto& entry : loadjson)
 	{
 		// 指定の文字がなかったら
-		if (!entry.contains("Model") || entry["Model"].is_null())
-			continue;
+		if (!entry.contains("Model") || entry["Model"].is_null()) continue;
 
 		// jsonからファイルパス取得
 		std::string filePath = entry["Model"].get<std::string>();
 
+		// 指定文字がなかったら
 		if (!entry.contains("Instancing"))continue;
 
-		if (filePath.empty())
-			continue;
+		if (filePath.empty()) continue;
 
 		// モデル読み込み
 		LoadModel(filePath.c_str());

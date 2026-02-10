@@ -16,10 +16,9 @@
 //=========================================================
 CEffectSmoke::CEffectSmoke(int nPriority) : CBillboard(nPriority),
 m_fRadius(NULL),
-m_nLife(NULL),
-m_move(VECTOR3_NULL)
+m_nLife(NULL)
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
@@ -31,12 +30,10 @@ CEffectSmoke::~CEffectSmoke()
 //=========================================================
 // 生成処理
 //=========================================================
-CEffectSmoke* CEffectSmoke::Create(D3DXVECTOR3 pos, D3DXCOLOR col, D3DXVECTOR3 move, int nLife, float fRadius)
+CEffectSmoke* CEffectSmoke::Create(const D3DXVECTOR3& pos, const D3DXCOLOR& col, int nLife, float fRadius)
 {
 	// インスタンス生成
 	CEffectSmoke* pEffect = new CEffectSmoke;
-
-	// nullなら
 	if (pEffect == nullptr) return nullptr;
 
 	// 初期化失敗時
@@ -48,7 +45,6 @@ CEffectSmoke* CEffectSmoke::Create(D3DXVECTOR3 pos, D3DXCOLOR col, D3DXVECTOR3 m
 	pEffect->SetCol(col);
 	pEffect->SetTexture("explosion000.png");
 	pEffect->m_fRadius = fRadius;
-	pEffect->m_move = move;
 	pEffect->m_nLife = nLife;
 
 	// 生成したポインタを返す

@@ -80,9 +80,6 @@ HRESULT CGameSceneObject::Init(void)
 
 	// メッシュドーム生成
 	CMeshDome::Create(D3DXVECTOR3(0.0f,-20.0f,0.0f), 80.0f);
-
-	// メッシュシリンダー生成
-	CMeshCylinder::Create(VECTOR3_NULL,80.0f);
 	
 	// コロン生成
 	CUi::Create(D3DXVECTOR3(1125.0f, 60.0f, 0.0f), 0, 15.0f, 30.0f, "coron.png", false);

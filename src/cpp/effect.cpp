@@ -35,16 +35,11 @@ CEffect* CEffect::Create(D3DXVECTOR3 pos, D3DXCOLOR col, D3DXVECTOR3 move, int n
 {
 	// エフェクトポインタ
 	CEffect* pEffect = new CEffect;
-
-	// nullptrだったら
 	if (pEffect == nullptr) return nullptr;
 
 	// 初期化に失敗したら
-	if (FAILED(pEffect->Init()))
-	{
-		return nullptr;
-	}
-
+	if (FAILED(pEffect->Init())) return nullptr;
+	
 	// 3Dオブジェクトセット
 	pEffect->SetSize(fRadius, fRadius);
 	pEffect->SetPos(pos);
@@ -52,9 +47,9 @@ CEffect* CEffect::Create(D3DXVECTOR3 pos, D3DXCOLOR col, D3DXVECTOR3 move, int n
 	pEffect->SetTexture("effect000.jpg");
 
 	// 半径を代入
+	pEffect->SetLife(nLife);
 	pEffect->m_fRadius = fRadius;
 	pEffect->m_move = move;
-	pEffect->SetLife(nLife);
 
 	// エフェクトポインタを返す
 	return pEffect;

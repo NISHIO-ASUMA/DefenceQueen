@@ -40,7 +40,7 @@ public:
 	
 private:
 
-	CTitleObject();	// コンストラクタ
+	CTitleObject();					  // コンストラクタ
 
 	static CTitleObject* m_pInstance; // シングルトン変数
 

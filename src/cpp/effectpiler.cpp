@@ -81,8 +81,6 @@ void CEffectPiler::Update(void)
 	float fHeight = GetHeight();
 
 	float maxHeight = 180.0f;	// Œõ’Œ‚ÌÅ‘å‚‚³
-
-	// c•ûŒü‚ÉL‚Î‚·
 	float growSpeed = 5.0f;	// c‚ÉL‚Ñ‚éƒXƒs[ƒh
 
 	if (fHeight < maxHeight)

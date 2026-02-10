@@ -1,38 +1,34 @@
 //=========================================================
 //
-// 煙エフェクト処理 [ effectsmoke.h ]
-// Author : Asuma Nishi
-//
+// jsonファイル読み込み管理処理 [ jsonmanager.h ]
+// Author: Asuma Nishio
+// 
 //=========================================================
 
 //*********************************************************
 // インクルードガード
 //*********************************************************
-#pragma once
+#pragma once 
 
 //*********************************************************
 // インクルードファイル
 //*********************************************************
-#include "billboard.h"
+#include <string>
+#include <vector>
 
 //*********************************************************
-// 煙エフェクトクラスを定義
+// jsonを一括管理するクラスを定義
 //*********************************************************
-class CEffectSmoke : public CBillboard
+class CJsonManager
 {
 public:
 
-	CEffectSmoke(int nPriority = static_cast<int>(CObject::PRIORITY::EFFECT));
-	~CEffectSmoke();
+	CJsonManager();
+	~CJsonManager();
 
-	HRESULT Init(void) override;
-	void Uninit(void) override;
-	void Update(void) override;
-	void Draw(void) override;
-
-	static CEffectSmoke* Create(const D3DXVECTOR3& pos, const D3DXCOLOR& col, int nLife, float fRadius);
+	HRESULT Load(const char* LoadFileName);
 
 private:
-	int m_nLife;		// 体力
-	float m_fRadius;	// 半径
+
+	std::vector<std::string>TagName; // 読み込んだタグ名
 };

@@ -39,9 +39,9 @@ public:
 
 private:
 
-	CResultObject(); // コンストラクタ
+	CResultObject();					// コンストラクタ
 
-	static CResultObject* m_pInstance; // シングルトン変数
+	static CResultObject* m_pInstance;	// シングルトン変数
 
 	std::unique_ptr<CResultScoreManager>m_pResultScoreManager; // スコア管理クラス
 	std::unique_ptr<CBlockManager>m_pBlock;		// ステージマップ

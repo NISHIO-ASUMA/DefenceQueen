@@ -828,6 +828,9 @@
     <ClCompile Include="src\cpp\loseresultobject.cpp">
       <Filter>ソース ファイル\Scenes\SceneObject</Filter>
     </ClCompile>
+    <ClCompile Include="src\cpp\jsonmanager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\outline.h">
@@ -1345,6 +1348,9 @@
     </ClInclude>
     <ClInclude Include="src\include\loseresultobject.h">
       <Filter>ヘッダー ファイル\Scenes\SceneObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\jsonmanager.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

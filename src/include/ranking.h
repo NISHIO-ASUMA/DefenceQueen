@@ -25,12 +25,10 @@ public:
 	CRanking();
 	~CRanking();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
-
-	static CRanking* Create(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 
 private:
 };

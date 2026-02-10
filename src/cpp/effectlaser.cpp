@@ -41,10 +41,7 @@ CEffectLaser* CEffectLaser::Create(D3DXVECTOR3 pos, D3DXVECTOR3 Endpos, D3DXCOLO
 	if (pLaser == nullptr) return nullptr;
 
 	// 初期化失敗時
-	if (FAILED(pLaser->Init()))
-	{
-		return nullptr;
-	}
+	if (FAILED(pLaser->Init())) return nullptr;
 
 	// オブジェクト設定
 	pLaser->SetPos(pos);

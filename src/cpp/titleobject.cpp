@@ -19,14 +19,15 @@
 //*********************************************************
 // 静的メンバ変数宣言
 //*********************************************************
-CTitleObject* CTitleObject::m_pInstance = nullptr; // ただ一つのインスタンス
+CTitleObject* CTitleObject::m_pInstance = nullptr; // シングルトン変数
 
 //=========================================================
 // コンストラクタ
 //=========================================================
-CTitleObject::CTitleObject() : m_pWallManager(nullptr)
+CTitleObject::CTitleObject() : m_pWallManager(nullptr),
+m_pTitleAntManager(nullptr)
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
@@ -40,11 +41,11 @@ CTitleObject::~CTitleObject()
 //=========================================================
 HRESULT CTitleObject::Init(void)
 {
-	// 壁生成
+	// 見えない壁生成
 	m_pWallManager = std::make_unique<CTitleWallManager>();
 	m_pWallManager->Init();
 
-	// アリ生成
+	// タイトルのアリ生成
 	m_pTitleAntManager = std::make_unique<CTitleAntManager>();
 	m_pTitleAntManager->Init();
 
@@ -53,7 +54,7 @@ HRESULT CTitleObject::Init(void)
 
 	// 初期UI生成
 	CTitleUi::Create(D3DXVECTOR3(HALFWIDTH, 650.0f, 0.0f), COLOR_WHITE, 180.0f, 60.0f, "GameStart.png");
-	CUi::Create(D3DXVECTOR3(HALFWIDTH, 180.0f, 0.0f), 0, 300.0f, 150.0f, "TitleLogo.png", false,false,0,true);
+	CUi::Create(D3DXVECTOR3(HALFWIDTH, 180.0f, 0.0f), 0, 300.0f, 150.0f, "TitleLogo.png");
 
 	return S_OK;
 }

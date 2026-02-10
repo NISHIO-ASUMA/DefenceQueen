@@ -37,7 +37,7 @@ CPointObj* CPointObj::Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
 	// オブジェクト設定
 	pPoint->SetPos(pos);
 	pPoint->SetRot(D3DXToRadian(rot));
-	pPoint->SetFilePass("STAGEOBJ/yajirusi.x");
+	pPoint->SetFilePass(MODELNAME);
 
 	// 初期化失敗時
 	if (FAILED(pPoint->Init())) return nullptr;

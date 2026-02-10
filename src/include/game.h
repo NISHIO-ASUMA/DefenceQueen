@@ -33,10 +33,10 @@ public:
 	CGame();
 	~CGame();
 
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init(void) override;
+	void Uninit(void) override;
+	void Update(void) override;
+	void Draw(void) override;
 
 	inline CGameState* GetState(void) { return m_pState; }
 

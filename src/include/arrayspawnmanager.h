@@ -82,6 +82,5 @@ public:
 
 private:
 
-	// 所持するスポナー配列
-	std::array<CArraySpawner*, SpawnManager::NUM_ARRAYSPAWNER>m_pArraySpawner; 
+	std::array<CArraySpawner*, SpawnManager::NUM_ARRAYSPAWNER>m_pArraySpawner; // 仲間アリのスポナー配列
 };
