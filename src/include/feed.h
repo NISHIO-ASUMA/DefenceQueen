@@ -85,8 +85,8 @@ public:
 		const D3DXVECTOR3& pos,
 		const D3DXVECTOR3& rot,
 		const D3DXVECTOR3& scale,
-		const char* pModelName,
-		const float fRadius,
+		const char* pModelName = "FEED/Lemon.x",
+		const float fRadius = 80.0f,
 		const int nLife = 25
 	);
 

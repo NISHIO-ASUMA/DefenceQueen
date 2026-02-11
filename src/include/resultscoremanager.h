@@ -42,7 +42,7 @@ public:
 	/// </summary>
 	/// <param name="nidx">æ“¾”Ô†</param>
 	/// <returns></returns>
-	CResultScore* GetIdx(const int nidx) { return m_pResultScore[nidx]; }
+	CResultScore* GetIdx(const int& nidx) { return m_pResultScore[nidx]; }
 
 private:
 

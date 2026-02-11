@@ -852,8 +852,11 @@
     <ClCompile Include="src\cpp\jsonconverter.cpp">
       <Filter>ソース ファイル\JsonUtilty\Base</Filter>
     </ClCompile>
+    <ClCompile Include="src\cpp\createjsonmeshdome.cpp">
+      <Filter>ソース ファイル\JsonUtilty\Sepalationclass</Filter>
+    </ClCompile>
     <ClCompile Include="src\cpp\createjsonmeshfield.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\JsonUtilty\Sepalationclass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1382,8 +1385,11 @@
     <ClInclude Include="src\include\jsonconverter.h">
       <Filter>ヘッダー ファイル\JsonUtility\Base</Filter>
     </ClInclude>
+    <ClInclude Include="src\include\createjsonmeshdome.h">
+      <Filter>ヘッダー ファイル\JsonUtility\Sepalation</Filter>
+    </ClInclude>
     <ClInclude Include="src\include\createjsonmeshfield.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\JsonUtility\Sepalation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

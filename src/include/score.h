@@ -53,21 +53,34 @@ public:
 	/// <param name="fWidth">横幅</param>
 	/// <param name="fHeight">高さ</param>
 	/// <returns></returns>
-	static CScore* Create(const D3DXVECTOR3& pos, const float& fWidth, const float& fHeight);
+	static CScore* Create
+	(
+		const D3DXVECTOR3& pos,
+		const float& fWidth = 100.0f,
+		const float& fHeight = 100.0f
+	);
 
 private: 
 
-	static constexpr int NUM_SCORE = 8; // 桁数
-	static constexpr int NUM_DIGIT = 10; // 表示する分割桁数の値
+	//*************************
+	// 定数構造体
+	//*************************
+	struct Config
+	{
+		static constexpr int NUM_SCORE = 8; // 桁数
+		static constexpr int NUM_DIGIT = 10; // 表示する分割桁数の値
+		static constexpr float DIGIT_VALUE = 2.0f; // 加算量
+		static constexpr const char* SAVE_NAME = "data/SCORE/GameScore.bin"; // 書き出しファイル名
+	};
 
-	D3DXCOLOR m_col;				// カラー
-	D3DXVECTOR3 m_pos;				// 座標
-	D3DXVECTOR3 m_rot;				// 角度
+	D3DXCOLOR m_col;	// カラー
+	D3DXVECTOR3 m_pos;	// 座標
+	D3DXVECTOR3 m_rot;	// 角度
 	
-	float m_fWidth;					// 横幅
-	float m_fHeight;				// 高さ
-	int m_nScore;					// スコア保持用
+	float m_fWidth;		// 横幅
+	float m_fHeight;	// 高さ
+	int m_nScore;		// スコア保持用
 
-	std::array<CNumber*,NUM_SCORE>m_apNumber;	// 桁数分のナンバーのポインタ
+	std::array<CNumber*, Config::NUM_SCORE>m_apNumber;	// 桁数分のナンバーのポインタ
 	std::unique_ptr<CLoad>m_pLoad;	// ユニークポインタ
 };

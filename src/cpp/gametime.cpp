@@ -42,7 +42,7 @@ CGameTime::~CGameTime()
 //=========================================================
 // 生成処理
 //=========================================================
-CGameTime* CGameTime::Create(const D3DXVECTOR3& pos, float fWidth, float fHeight)
+CGameTime* CGameTime::Create(const D3DXVECTOR3& pos, const float& fWidth, const float& fHeight)
 {
 	// インスタンス生成
 	CGameTime* pTime = new CGameTime;

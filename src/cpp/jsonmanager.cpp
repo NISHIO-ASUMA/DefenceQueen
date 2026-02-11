@@ -15,6 +15,7 @@
 #include <sstream>
 #include "createjsonui.h"
 #include "createjsonmeshfield.h"
+#include "createjsonmeshdome.h"
 
 //*********************************************************
 // json空間を使用
@@ -50,9 +51,10 @@ CJsonManager::~CJsonManager()
 //=========================================================
 HRESULT CJsonManager::Init(void)
 {
-	// Ui生成関数
+	// 関数生成を登録
 	m_Creator[PATH_TAGNAME::UI] = std::make_unique<CJsonCreateUi>();
 	m_Creator[PATH_TAGNAME::MESHFIELD] = std::make_unique<CJsonCreateMeshField>();
+	m_Creator[PATH_TAGNAME::MESHDOME] = std::make_unique<CJsonCreateMeshDome>();
 
 	return S_OK;
 }
@@ -68,7 +70,7 @@ void CJsonManager::Uninit(void)
 //=========================================================
 HRESULT CJsonManager::Load(const char* LoadFileName)
 {
-	// 開くファイル
+	// 開くファイルを設定
 	std::ifstream file(LoadFileName);
 
 	// ファイルがない場合
@@ -91,12 +93,12 @@ HRESULT CJsonManager::Load(const char* LoadFileName)
 		std::string tag = Objectlist["ObjectTag"];
 
 		// 該当タグを見つける
-		auto it = m_Creator.find(tag);
+		auto iter = m_Creator.find(tag);
 
-		if (it != m_Creator.end())
+		if (iter != m_Creator.end())
 		{
-			// 生成関数
-			it->second->Create(Objectlist);
+			// 生成関数を実行
+			iter->second->Create(Objectlist);
 		}
 	}
 

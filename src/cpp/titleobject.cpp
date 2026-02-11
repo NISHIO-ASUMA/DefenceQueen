@@ -51,8 +51,8 @@ HRESULT CTitleObject::Init(void)
 	m_pTitleAntManager->Init();
 
 	// タイトルオブジェクトを外部ファイルから読み込む
-	auto jsonm = CManager::GetInstance()->GetJsonManager();
-	jsonm->Load("data/JSON/Titleobject.json");
+	auto jsonmanager = CManager::GetInstance()->GetJsonManager();
+	jsonmanager->Load("data/JSON/Titleobject.json");
 
 	return S_OK;
 }

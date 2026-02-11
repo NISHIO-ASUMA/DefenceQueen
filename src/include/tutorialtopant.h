@@ -63,7 +63,7 @@ public:
 	D3DXVECTOR3 GetDestPos(void) { return m_DestPos; }
 	float GetSeparationRadius(void) { return m_fSeparationRadius; }
 
-	static CTutoTopAnt* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
+	static CTutoTopAnt* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot = VECTOR3_NULL);
 
 private:
 

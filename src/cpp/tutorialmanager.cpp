@@ -61,7 +61,16 @@ void CTutorialManager::Uninit(void)
 //=========================================================
 void CTutorialManager::Update(void)
 {
+#ifdef NDEBUG
+	// ‰æ–Ê‘JˆÚ
+	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_2))
+	{
+		// ‘JˆÚXV
+		CManager::GetInstance()->GetFade()->SetFade(std::make_unique<CGame>());
 
+		return;
+	}
+#endif
 }
 //=========================================================
 // •`‰æˆ—

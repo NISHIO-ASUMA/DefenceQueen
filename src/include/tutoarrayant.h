@@ -53,7 +53,7 @@ public:
 	inline void SetIsTopFollow(const bool& isFollow) { m_isTopFollow = isFollow; }
 	inline void SetDestPos(const D3DXVECTOR3& pos) { m_DestPos = pos; }
 
-	static CTutoArrayAnt* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
+	static CTutoArrayAnt* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot = VECTOR3_NULL);
 
 private:
 

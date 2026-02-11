@@ -10,7 +10,6 @@
 //*********************************************************
 #include "gamesceneobject.h"
 #include "ui.h"
-#include "player.h"
 #include "meshfield.h"
 #include "blockmanager.h"
 #include "feedmanager.h"
@@ -35,15 +34,25 @@
 #include "gamemanager.h"
 #include "gamewallmanager.h"
 #include "meshcylinder.h"
-#include "sendnumber.h"
 #include "basemapfeed.h"
 #include "eventarea.h"
 #include "eventareamanager.h"
+#include "jsonmanager.h"
 
 //*********************************************************
 // 静的メンバ変数
 //*********************************************************
 CGameSceneObject* CGameSceneObject::m_pInstance = nullptr; // シングルトン変数
+
+//*********************************************************
+// 定数名前空間
+//*********************************************************
+namespace GAMEOBJECT
+{
+	const D3DXVECTOR3 TimerPos = { 1020.0f,60.0f,0.0f };	// タイマーの座標
+	const D3DXVECTOR3 TopAntPos = { 0.0f, 0.0f, -450.0f };	// 操作アリの座標
+	const D3DXVECTOR3 QueenPos = { 0.0f, 55.0f, 0.0f };		// 女王アリの座標
+};
 
 //=========================================================
 // コンストラクタ
@@ -75,21 +84,15 @@ CGameSceneObject::~CGameSceneObject()
 //=========================================================
 HRESULT CGameSceneObject::Init(void)
 {
-	// メッシュフィールド生成
-	CMeshField::Create(VECTOR3_NULL,3560.0f,2000.0f,1,1);
-
-	// メッシュドーム生成
-	CMeshDome::Create(D3DXVECTOR3(0.0f,-20.0f,0.0f), 80.0f);
-	
-	// コロン生成
-	CUi::Create(D3DXVECTOR3(1125.0f, 60.0f, 0.0f), 0, 15.0f, 30.0f, "coron.png", false);
-	CUi::Create(D3DXVECTOR3(1125.0f, 55.0f, 0.0f), 0, 140.0f, 55.0f, "Time_frame.png", false);
-
-	// 各種ポインタクラスの生成
-	CreatePointer();
+	// jsonマネージャーを取得
+	auto jsonmanager = CManager::GetInstance()->GetJsonManager();
+	jsonmanager->Load("data/JSON/Gameobject.json");
 
 	// イベント生成
 	CEventAreaManager::GetInstance()->Init();
+
+	// 各種ポインタクラスの生成
+	CreatePointer();
 
 	// スコア初期化
 	m_pScore->DeleteScore();
@@ -173,12 +176,6 @@ void CGameSceneObject::Update(void)
 		m_pWorkerManager->Update();
 	}
 
-	//// 餌管理クラスの更新
-	//if (m_pFeed)
-	//{
-	//	//m_pFeed->Update();
-	//}
-
 	// 敵の更新
 	if (m_pEnemyManager)
 	{
@@ -242,14 +239,14 @@ CGameSceneObject* CGameSceneObject::GetInstance(void)
 void CGameSceneObject::CreatePointer(void)
 {
 	// トップアリ生成
-	m_pTopAnt = CTopAnt::Create(D3DXVECTOR3(0.0f, 0.0f, -450.0f), VECTOR3_NULL);
+	m_pTopAnt = CTopAnt::Create(GAMEOBJECT::TopAntPos, VECTOR3_NULL);
 
 	// ブロックマネージャー生成
 	m_pBlocks = std::make_unique<CBlockManager>();
 	m_pBlocks->Init();
 
 	// タイマー生成
-	m_pTimer = CGameTime::Create(D3DXVECTOR3(1020.0f,60.0f,0.0f),60.0f,40.0f);
+	m_pTimer = CGameTime::Create(GAMEOBJECT::TimerPos);
 
 	// マップの標準の餌生成
 	m_pBasemapFeed = std::make_unique<CBaseMapFeed>();
@@ -268,14 +265,14 @@ void CGameSceneObject::CreatePointer(void)
 	m_pArraySpawn->Init(m_pArrayManager.get());
 
 	// 防衛対象のクイーン生成
-	m_pQueen = CQueen::Create(D3DXVECTOR3(0.0f, 55.0f, 0.0f), VECTOR3_NULL);
+	m_pQueen = CQueen::Create(GAMEOBJECT::QueenPos, VECTOR3_NULL);
 
 	// 敵場所生成
 	m_pEnemySpawnManager = std::make_unique<CEnemySpawnManager>();
 	m_pEnemySpawnManager->Init();
 
 	// スコア生成
-	m_pScore = CScore::Create(D3DXVECTOR3(1220.0f, 620.0f, 0.0f), 100.0f, 60.0f);
+	m_pScore = CScore::Create(VECTOR3_NULL);
 
 	// 敵管理クラスの生成
 	m_pEnemyManager = std::make_unique<CEnemyManager>();
@@ -284,7 +281,4 @@ void CGameSceneObject::CreatePointer(void)
 	// 世界の壁管理クラスの生成
 	m_pWallManager = std::make_unique<CGameWallManager>();
 	m_pWallManager->Init();
-
-	// ナンバー生成
-	m_pSendNumber = CSendNumber::Create(D3DXVECTOR3(280.0f, 30.0f, 0.0f), 40.0f, 30.0f);
 }

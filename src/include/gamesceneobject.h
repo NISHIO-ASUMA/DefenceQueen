@@ -33,7 +33,6 @@ class CScore;
 class CEnemySpawnManager;
 class CEnemyManager;
 class CGameWallManager;
-class CSendNumber;
 class CTopAnt;
 class CBaseMapFeed;
 
@@ -71,6 +70,7 @@ public:
 	CBaseMapFeed* GetBaseMapFeed(void) const { return m_pBasemapFeed.get(); }
 
 	static CGameSceneObject* GetInstance(void);
+
 private:
 
 	static CGameSceneObject* m_pInstance;	// シングルトン変数
@@ -81,7 +81,6 @@ private:
 	CScore* m_pScore;	// スコアクラスのポインタ
 	CGameTime* m_pTimer;	// タイマークラスのポインタ
 	CQueen* m_pQueen;	// 女王クラス
-	CSendNumber* m_pSendNumber; // 送る数表示
 	CTopAnt* m_pTopAnt;	// 操作できるトップアリ
 
 	std::unique_ptr<CWorkerUiManager>m_pWorkUi;	// 表示uiクラスポインタ

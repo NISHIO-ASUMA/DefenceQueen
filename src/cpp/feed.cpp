@@ -85,7 +85,7 @@ CFeed* CFeed::Create
 	pFeed->SetLife(nLife);
 
 	// 初期化失敗時
-	if (FAILED(pFeed->Init())) 	return nullptr;
+	if (FAILED(pFeed->Init())) return nullptr;
 
 	return pFeed;
 }
@@ -111,7 +111,7 @@ HRESULT CFeed::Init(void)
 	m_pSphere->SetRadius(m_fRadius);
 
 	// 矩形コライダー生成
-	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetPos(), Size * 0.9f);
+	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetPos(), Size);
 
 	// パラメーター設定
 	m_pParam = std::make_unique<CParameter>();
@@ -260,7 +260,7 @@ void CFeed::DecLifeTuto(const int& nDecValue)
 		m_ColType = COLTYPE_CHANGE;
 
 		// フレームカウンタ初期化
-		m_ColorFrameCnt = 0;
+		m_ColorFrameCnt = NULL;
 
 		return;
 	}
@@ -297,7 +297,7 @@ void CFeed::ColorCheck(void)
 		if (m_ColorFrameCnt >= FEEDINFO::COL_COUNT_MAX)
 		{
 			m_ColType = COLTYPE_NONE;
-			m_ColorFrameCnt = 0;
+			m_ColorFrameCnt = NULL;
 			SetCol(V_COLOR_WHITE);
 		}
 		break;

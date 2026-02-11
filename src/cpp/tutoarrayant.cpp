@@ -124,10 +124,6 @@ void CTutoArrayAnt::Update(void)
 		// 餌にダメージ
 		TutoFeed->DecLifeTuto(1);
 
-		// ポイントも消去する
-		auto Area = CTutorialObject::GetInstance()->GetEventArea();
-		if (Area) Area->Uninit();
-
 		// 元居た場所にかえって来る
 		m_isReturnBase = true;
 		m_isTopFollow = false;

@@ -45,7 +45,11 @@ public:
 	/// <param name="fWidth">â°ïù</param>
 	/// <param name="fHeight">çÇÇ≥</param>
 	/// <returns></returns>
-	static CGameTime* Create(const D3DXVECTOR3& pos, float fWidth, float fHeight);
+	static CGameTime* Create
+	(
+		const D3DXVECTOR3& pos,
+		const float& fWidth = 60.0f,
+		const float& fHeight = 40.0f);
 
 private:
 

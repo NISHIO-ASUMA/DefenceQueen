@@ -64,16 +64,16 @@ CScore* CScore::Create(const D3DXVECTOR3& pos, const float& fWidth, const float&
 HRESULT CScore::Init(void)
 {
 	// 横幅計算
-	float fTexPos = m_fWidth / NUM_SCORE;
+	float fTexPos = m_fWidth / Config::NUM_SCORE;
 
 	// 桁数分
-	for (int nCnt = 0; nCnt < NUM_SCORE; nCnt++)
+	for (int nCnt = 0; nCnt < Config::NUM_SCORE; nCnt++)
 	{
 		// インスタンス生成
 		m_apNumber[nCnt] = new CNumber;
 
 		// 初期化処理
-		m_apNumber[nCnt]->Init(D3DXVECTOR3(m_pos.x - (fTexPos * 2.0f * nCnt), m_pos.y,0.0f), fTexPos, m_fHeight);
+		m_apNumber[nCnt]->Init(D3DXVECTOR3(m_pos.x - (fTexPos * Config::DIGIT_VALUE * nCnt), m_pos.y,0.0f), fTexPos, m_fHeight);
 
 		// ナンバー変数のサイズ
 		m_apNumber[nCnt]->SetSize(fTexPos, m_fHeight);
@@ -123,11 +123,11 @@ void CScore::Update(void)
 	int nScore = m_nScore;
 
 	// 八桁分
-	for (int nCntScore = 0; nCntScore < NUM_SCORE; nCntScore++)
+	for (int nCntScore = 0; nCntScore < Config::NUM_SCORE; nCntScore++)
 	{
 		// 桁数ごとに分割する値を計算
-		int nDigit = nScore % NUM_DIGIT;
-		nScore /= NUM_DIGIT;
+		int nDigit = nScore % Config::NUM_DIGIT;
+		nScore /= Config::NUM_DIGIT;
 
 		// ナンバー更新
 		m_apNumber[nCntScore]->Update();
@@ -141,14 +141,7 @@ void CScore::Update(void)
 //=========================================================
 void CScore::Draw(void)
 {
-#ifdef _DEBUG
-	// 使っている桁数分の描画
-	for (int nCnt = 0; nCnt < NUM_SCORE; nCnt++)
-	{
-		// ナンバー描画
-		m_apNumber[nCnt]->Draw();
-	}
-#endif
+	// 描画しない
 }
 //=========================================================
 // スコア加算処理
@@ -161,7 +154,7 @@ void CScore::AddScore(int nValue)
 //=========================================================
 // スコア初期化
 //=========================================================
-void CScore::DeleteScore()
+void CScore::DeleteScore(void)
 {
 	m_nScore = NULL;
 }
@@ -171,5 +164,5 @@ void CScore::DeleteScore()
 void CScore::SaveScore(void)
 {
 	// 一個の数値を書き出す
-	m_pLoad->SaveInt("data/SCORE/GameScore.bin", m_nScore);
+	m_pLoad->SaveInt(Config::SAVE_NAME, m_nScore);
 }

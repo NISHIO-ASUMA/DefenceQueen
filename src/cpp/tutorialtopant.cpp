@@ -189,33 +189,6 @@ void CTutoTopAnt::Update(void)
 		m_pColliderBox->SetPosOld(oldPos);
 	}
 
-	// 画面遷移ブロックを取得
-	auto block = CTutorialObject::GetInstance()->GetSceneChangeBlock();
-	if (block == nullptr) return;
-
-	// 矩形で当たる
-	if (Collision(block->GetCollider(), &UpdatePos))
-	{
-		// 当たった点の座標セット
-		SetPos(UpdatePos);
-
-		// キー入力で画面遷移
-		auto Fade = CManager::GetInstance()->GetFade();
-		if (Fade == nullptr) return;
-
-		if (pKey->GetTrigger(DIK_RETURN) || pPad->GetTrigger(CJoyPad::JOYKEY_A) || pPad->GetTrigger(CJoyPad::JOYKEY_START))
-		{
-			// ゲームシーンへ
-			Fade->SetFade(std::make_unique<CGame>());
-
-			// サウンド再生
-			auto pSound = CManager::GetInstance()->GetSound();
-			pSound->Play(CSound::SOUND_LABEL_TITLEENTER);
-
-			return;
-		}
-	}
-
 	// 配置されているブロックを取得
 	auto Block = CTutorialObject::GetInstance()->GetBlockManager();
 	if (Block == nullptr) return;
@@ -238,35 +211,35 @@ void CTutoTopAnt::Update(void)
 		}
 	}
 
-	// エリアと判定
-	auto Area = CTutorialObject::GetInstance()->GetEventArea();
-	if (!Area) return;
+	//// エリアと判定
+	//auto Area = CTutorialObject::GetInstance()->GetEventArea();
+	//if (!Area) return;
 
-	// 当たっていたら
-	if (Area->Collision(m_pSphereCollider.get()))
-	{
-		// コライダー座標更新
-		m_pSphereCollider->SetPos(UpdatePos);
+	//// 当たっていたら
+	//if (Area->Collision(m_pSphereCollider.get()))
+	//{
+	//	// コライダー座標更新
+	//	m_pSphereCollider->SetPos(UpdatePos);
 
-		// UI表示をする
-		m_pPutSign->SetIsDraw(true);
+	//	// UI表示をする
+	//	m_pPutSign->SetIsDraw(true);
 
-		// サインの座標設定
-		m_pPutSign->SetPos(D3DXVECTOR3(GetPos().x, GetPos().y + 240.0f, GetPos().z));
+	//	// サインの座標設定
+	//	m_pPutSign->SetPos(D3DXVECTOR3(GetPos().x, GetPos().y + 240.0f, GetPos().z));
 
-		// 仲間アリの位置を変更
-		if (pKey->GetPress(DIK_RETURN) || pPad->GetPress(CJoyPad::JOYKEY_A))
-		{
-			auto ArrayAnt = CTutorialObject::GetInstance()->GetArrayAnt();
-			ArrayAnt->SetPos(Area->GetPos());
-			ArrayAnt->SetIsTopFollow(false);
-		}
-	}
-	else
-	{
-		// UI表示をしない
-		m_pPutSign->SetIsDraw(false);
-	}
+	//	// 仲間アリの位置を変更
+	//	if (pKey->GetPress(DIK_RETURN) || pPad->GetPress(CJoyPad::JOYKEY_A))
+	//	{
+	//		auto ArrayAnt = CTutorialObject::GetInstance()->GetArrayAnt();
+	//		ArrayAnt->SetPos(Area->GetPos());
+	//		ArrayAnt->SetIsTopFollow(false);
+	//	}
+	//}
+	//else
+	//{
+	//	// UI表示をしない
+	//	m_pPutSign->SetIsDraw(false);
+	//}
 
 	// 親クラスの更新
 	CMoveCharactor::Update();
