@@ -1,6 +1,6 @@
 //=========================================================
 //
-// 負けリザルトシーン処理 [ loseresult.h ]
+// 負けリザルトシーン管理処理 [ loseresultmanager.h ]
 // Author: Asuma Nishio
 // 
 //=========================================================
@@ -11,24 +11,21 @@
 #pragma once 
 
 //*********************************************************
-// インクルードファイル
+// 負けリザルトシーン管理クラスを定義
 //*********************************************************
-#include "scene.h"
-
-//*********************************************************
-// 負けリザルトシーンクラスを定義
-//*********************************************************
-class CLoseResult : public CScene
+class CLoseResultManager
 {
 public:
 
-	CLoseResult();
-	~CLoseResult();
+	~CLoseResultManager();
 
-	HRESULT Init(void) override;
-	void Uninit(void) override;
-	void Update(void) override;
-	void Draw(void) override;
+	HRESULT Init(void);
+	void Uninit(void);
+	void Update(void);
+
+	static CLoseResultManager* GetInstance(void);
 
 private:
+
+	CLoseResultManager();	// 格納コンストラクタ
 };

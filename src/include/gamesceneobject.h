@@ -78,10 +78,10 @@ private:
 	CGameSceneObject();	// コンストラクタ
 	void CreatePointer(void); // 初期化処理関数分け
 
-	CScore* m_pScore;	// スコアクラスのポインタ
+	CScore* m_pScore;		// スコアクラスのポインタ
 	CGameTime* m_pTimer;	// タイマークラスのポインタ
-	CQueen* m_pQueen;	// 女王クラス
-	CTopAnt* m_pTopAnt;	// 操作できるトップアリ
+	CQueen* m_pQueen;		// 女王アリクラス
+	CTopAnt* m_pTopAnt;		// 操作できるトップアリ
 
 	std::unique_ptr<CWorkerUiManager>m_pWorkUi;	// 表示uiクラスポインタ
 	std::unique_ptr<CFeedManager>m_pFeed;		// 餌管理クラスのポインタ

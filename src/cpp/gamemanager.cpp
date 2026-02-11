@@ -33,7 +33,7 @@ CGameManager* CGameManager::GetInstance(void)
 //=========================================================
 CGameManager::CGameManager() : m_isGameEnd(false)
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
@@ -74,9 +74,8 @@ void CGameManager::Update(void)
 	// 画面遷移
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_2))
 	{
-		// 遷移更新
+		// リザルト画面に遷移
 		CManager::GetInstance()->GetFade()->SetFade(std::make_unique<CResult>());
-
 		return;
 	}
 #endif

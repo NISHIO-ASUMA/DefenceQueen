@@ -6,15 +6,15 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル宣言
+// インクルードファイル
 //*********************************************************
 #include "titlemanager.h"
 #include "manager.h"
 #include "tutorial.h"
 #include "input.h"
-#include "ui.h"
 #include "sound.h"
 #include "fade.h"
+#include <memory>
 
 //=========================================================
 // コンストラクタ
@@ -44,7 +44,6 @@ CTitleManager* CTitleManager::GetInstance(void)
 //=========================================================
 HRESULT CTitleManager::Init(void)
 {
-
 	// サウンド取得
 	CSound* pSound = CManager::GetInstance()->GetSound();
 	if (pSound == nullptr) return E_FAIL;

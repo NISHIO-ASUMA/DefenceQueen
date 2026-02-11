@@ -36,8 +36,6 @@ public:
 
 	HRESULT Init(void);
 	void Uninit(void);
-	void Update(void);
-	void Draw(void);
 
 	inline CBlockManager* GetBlockManager(void) const { return m_pBlockManager.get(); }
 	inline CTutoArrayAnt* GetArrayAnt(void) { return m_pArrayAnt; }

@@ -52,6 +52,7 @@ namespace GAMEOBJECT
 	const D3DXVECTOR3 TimerPos = { 1020.0f,60.0f,0.0f };	// タイマーの座標
 	const D3DXVECTOR3 TopAntPos = { 0.0f, 0.0f, -450.0f };	// 操作アリの座標
 	const D3DXVECTOR3 QueenPos = { 0.0f, 55.0f, 0.0f };		// 女王アリの座標
+	constexpr const char* LoadName = "data/JSON/Gameobject.json"; // 読み込みjsonファイル名
 };
 
 //=========================================================
@@ -84,9 +85,9 @@ CGameSceneObject::~CGameSceneObject()
 //=========================================================
 HRESULT CGameSceneObject::Init(void)
 {
-	// jsonマネージャーを取得
+	// ゲームで使うオブジェクトの読み込み
 	auto jsonmanager = CManager::GetInstance()->GetJsonManager();
-	jsonmanager->Load("data/JSON/Gameobject.json");
+	jsonmanager->Load(GAMEOBJECT::LoadName);
 
 	// イベント生成
 	CEventAreaManager::GetInstance()->Init();

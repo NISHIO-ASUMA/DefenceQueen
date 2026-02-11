@@ -22,6 +22,14 @@
 //*********************************************************
 CTitleObject* CTitleObject::m_pInstance = nullptr; // シングルトン変数
 
+//*********************************************************
+// 定数宣言空間
+//*********************************************************
+namespace TITLEOBJECT
+{
+	constexpr const char* LoadName = "data/JSON/Titleobject.json"; // 読み込むjsonファイル
+};
+
 //=========================================================
 // コンストラクタ
 //=========================================================
@@ -50,9 +58,9 @@ HRESULT CTitleObject::Init(void)
 	m_pTitleAntManager = std::make_unique<CTitleAntManager>();
 	m_pTitleAntManager->Init();
 
-	// タイトルオブジェクトを外部ファイルから読み込む
+	// タイトルで使うオブジェクトの読み込み
 	auto jsonmanager = CManager::GetInstance()->GetJsonManager();
-	jsonmanager->Load("data/JSON/Titleobject.json");
+	jsonmanager->Load(TITLEOBJECT::LoadName);
 
 	return S_OK;
 }

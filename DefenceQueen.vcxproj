@@ -243,6 +243,7 @@
     <ClCompile Include="src\cpp\light.cpp" />
     <ClCompile Include="src\cpp\load.cpp" />
     <ClCompile Include="src\cpp\loseresult.cpp" />
+    <ClCompile Include="src\cpp\loseresultmanager.cpp" />
     <ClCompile Include="src\cpp\loseresultobject.cpp" />
     <ClCompile Include="src\cpp\main.cpp" />
     <ClCompile Include="src\cpp\manager.cpp" />
@@ -418,6 +419,7 @@
     <ClInclude Include="src\include\light.h" />
     <ClInclude Include="src\include\load.h" />
     <ClInclude Include="src\include\loseresult.h" />
+    <ClInclude Include="src\include\loseresultmanager.h" />
     <ClInclude Include="src\include\loseresultobject.h" />
     <ClInclude Include="src\include\main.h" />
     <ClInclude Include="src\include\manager.h" />

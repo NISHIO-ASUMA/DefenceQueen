@@ -9,8 +9,11 @@
 // インクルードファイル
 //*********************************************************
 #include "rankingmanager.h"
-#include "rankingscore.h"
-#include "ui.h"
+#include "manager.h"
+#include "fade.h"
+#include "input.h"
+#include "sound.h"
+#include "title.h"
 
 //=========================================================
 // インスタンス取得
@@ -25,27 +28,27 @@ CRankingManager* CRankingManager::GetInstance(void)
 //=========================================================
 CRankingManager::CRankingManager()
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
 //=========================================================
 CRankingManager::~CRankingManager()
 {
-	// 無し
+	
 }
 //=========================================================
 // 初期化処理
 //=========================================================
 HRESULT CRankingManager::Init(void)
 {
-	// 背景生成
-	CUi::Create(CENTERPOS, 0, HALFWIDTH, HALFHEIGHT, "RankBack.jpg", false);
+	// サウンド取得
+	auto Sound = CManager::GetInstance()->GetSound();
+	if (Sound == nullptr)return E_FAIL;
 
-	// ランキングスコア生成
-	CRankingScore::Create(D3DXVECTOR3(900.0f, 200.0f, 0.0f), 250.0f, 40.0f);
+	// BGM再生
+	Sound->Play(CSound::SOUND_LABEL_RANKING);
 
-	// 初期化結果を返す
 	return S_OK;
 }
 //=========================================================
@@ -60,12 +63,17 @@ void CRankingManager::Uninit(void)
 //=========================================================
 void CRankingManager::Update(void)
 {
-	
-}
-//=========================================================
-// 描画処理
-//=========================================================
-void CRankingManager::Draw(void)
-{
+	// キー入力で画面遷移
+	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN) ||
+		CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_A) ||
+		CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_START))
+	{
+		// フェード取得
+		CFade* pFade = CManager::GetInstance()->GetFade();
+		if (pFade == nullptr) return;
 
+		// タイトルシーンに遷移
+		pFade->SetFade(std::make_unique<CTitle>());
+		return;
+	}
 }

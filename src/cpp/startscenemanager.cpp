@@ -77,7 +77,6 @@ void CStartSceneManager::Update(void)
 		{
 			// タイトルにシーンを切り替える
 			Fade->SetFade(std::make_unique<CTitle>());
-
 			return;
 		}
 	}

@@ -22,7 +22,6 @@ public:
 	HRESULT Init(void);
 	void Update(void);
 	void Uninit(void);
-	void Draw(void);
 
 	static CRankingManager* GetInstance(void);
 

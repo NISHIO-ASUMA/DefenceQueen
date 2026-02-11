@@ -9,20 +9,32 @@
 // インクルードファイル
 //*********************************************************
 #include "rankingobject.h"
-#include "ui.h"
 #include "rankingscore.h"
+#include "manager.h"
+#include "jsonmanager.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
 //*********************************************************
-CRankingObject* CRankingObject::m_pInstance = nullptr; // 1つのインスタンス
+CRankingObject* CRankingObject::m_pInstance = nullptr; // シングルトン変数
+
+//*********************************************************
+// 定数名前空間
+//*********************************************************
+namespace RANKINGOBJECT
+{
+	const D3DXVECTOR3 ScorePos = { 870.0f, 160.0f, 0.0f };	// ランキングスコアの座標
+	constexpr float ScoreWidth = 250.0f;					// ポリゴンの横幅
+	constexpr float ScoreHeight = 40.0f;					// ポリゴンの高さ
+	constexpr const char* LoadName = "data/JSON/Rankingobject.json"; // 読み込むjsonファイル
+};
 
 //=========================================================
 // コンストラクタ
 //=========================================================
 CRankingObject::CRankingObject()
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
@@ -35,15 +47,13 @@ CRankingObject::~CRankingObject()
 // 初期化処理
 //=========================================================
 HRESULT CRankingObject::Init(void)
-{// 各種オブジェクトの生成
-	
-	// ui生成
-	CUi::Create(D3DXVECTOR3(640.0f, 360.0f, 0.0f), 0, 640.0f, 360.0f, "result_back.jpg");
-	CUi::Create(D3DXVECTOR3(640.0f, 40.0f, 0.0f), 0, 200.0f, 50.0f, "Rank_Logo.png");
-	CUi::Create(D3DXVECTOR3(280.0f, 365.0f, 0.0f), 0, 60.0f, 240.0f, "Ranking_PosNumber.png");
+{
+	// ランキングで使うオブジェクトの読み込み
+	auto jsonmanager = CManager::GetInstance()->GetJsonManager();
+	jsonmanager->Load(RANKINGOBJECT::LoadName);
 
 	// ランキングスコア生成
-	CRankingScore::Create(D3DXVECTOR3(870.0f, 160.0f, 0.0f), 250.0f, 40.0f);
+	CRankingScore::Create(RANKINGOBJECT::ScorePos, RANKINGOBJECT::ScoreWidth, RANKINGOBJECT::ScoreHeight);
 
 	return S_OK;
 }
@@ -58,20 +68,6 @@ void CRankingObject::Uninit(void)
 		delete m_pInstance;
 		m_pInstance = nullptr;
 	}
-}
-//=========================================================
-// 更新処理
-//=========================================================
-void CRankingObject::Update(void)
-{
-
-}
-//=========================================================
-// 描画処理
-//=========================================================
-void CRankingObject::Draw(void)
-{
-
 }
 //=========================================================
 // インスタンス取得処理

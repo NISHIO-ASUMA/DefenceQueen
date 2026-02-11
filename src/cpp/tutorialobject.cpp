@@ -9,14 +9,11 @@
 // インクルードファイル
 //*********************************************************
 #include "tutorialobject.h"
-#include "ui.h"
-#include "block.h"
 #include "blockmanager.h"
 #include "queen.h"
 #include "tutoarrayant.h"
 #include "tutorialtopant.h"
 #include "feed.h"
-#include "eventarea.h"
 #include "jsonmanager.h"
 #include "manager.h"
 
@@ -59,7 +56,7 @@ CTutorialObject::~CTutorialObject()
 //=========================================================
 HRESULT CTutorialObject::Init(void)
 {
-	// シーンオブジェクト読み込み
+	// チュートリアルで使うオブジェクトの読み込み
 	auto jsonmanager = CManager::GetInstance()->GetJsonManager();
 	jsonmanager->Load(TUTORIALOBJECT::LoadName);
 
@@ -91,20 +88,6 @@ void CTutorialObject::Uninit(void)
 		delete m_pInstance;
 		m_pInstance = nullptr;
 	}
-}
-//=========================================================
-// 更新処理
-//=========================================================
-void CTutorialObject::Update(void)
-{
-
-}
-//=========================================================
-// 描画処理
-//=========================================================
-void CTutorialObject::Draw(void)
-{
-
 }
 //=========================================================
 // インスタンス取得

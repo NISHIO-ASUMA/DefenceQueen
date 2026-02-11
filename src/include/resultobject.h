@@ -32,8 +32,6 @@ public:
 
 	HRESULT Init(void);
 	void Uninit(void);
-	void Update(void);
-	void Draw(void);
 
 	static CResultObject* GetInstance(void);
 

@@ -858,6 +858,9 @@
     <ClCompile Include="src\cpp\createjsonmeshfield.cpp">
       <Filter>ソース ファイル\JsonUtilty\Sepalationclass</Filter>
     </ClCompile>
+    <ClCompile Include="src\cpp\loseresultmanager.cpp">
+      <Filter>ソース ファイル\Scenes\SceneManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\outline.h">
@@ -1390,6 +1393,9 @@
     </ClInclude>
     <ClInclude Include="src\include\createjsonmeshfield.h">
       <Filter>ヘッダー ファイル\JsonUtility\Sepalation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\loseresultmanager.h">
+      <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

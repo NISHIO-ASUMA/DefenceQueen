@@ -1,6 +1,6 @@
 //=========================================================
 //
-// 負けリザルトシーン処理 [ loseresult.cpp ]
+// 負けリザルトシーン管理処理 [ loseresultmanager.h ]
 // Author: Asuma Nishio
 // 
 //=========================================================
@@ -8,67 +8,76 @@
 //*********************************************************
 // インクルードファイル
 //*********************************************************
-#include "loseresult.h"
+#include "loseresultmanager.h"
 #include "manager.h"
 #include "title.h"
+#include "input.h"
 #include "sound.h"
 #include "fade.h"
-#include "input.h"
 #include <memory>
-#include "loseresultmanager.h"
-#include "loseresultobject.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
-CLoseResult::CLoseResult() : CScene(CScene::MODE_LOSERESULT)
+CLoseResultManager::CLoseResultManager()
 {
-	
+
 }
 //=========================================================
 // デストラクタ
 //=========================================================
-CLoseResult::~CLoseResult()
+CLoseResultManager::~CLoseResultManager()
 {
-	
+
 }
 //=========================================================
 // 初期化処理
 //=========================================================
-HRESULT CLoseResult::Init(void)
+HRESULT CLoseResultManager::Init(void)
 {
-	// 負けリザルトマネージャーの初期化処理
-	CLoseResultManager::GetInstance()->Init();
+	// サウンド取得
+	CSound* pSound = CManager::GetInstance()->GetSound();
+	if (pSound == nullptr) return E_FAIL;
 
-	// 負けリザルトオブジェクトの初期化処理
-	CLoseResultObject::GetInstance()->Init();
+	// サウンド再生
+	pSound->Play(CSound::SOUND_LABEL_LOSERESULTBGM);
 
-	// 初期化結果を返す
 	return S_OK;
 }
 //=========================================================
 // 終了処理
 //=========================================================
-void CLoseResult::Uninit(void)
+void CLoseResultManager::Uninit(void)
 {
-	// 負けリザルトマネージャーの終了処理
-	CLoseResultManager::GetInstance()->Uninit();
 
-	// 負けリザルトオブジェクトの終了処理
-	CLoseResultObject::GetInstance()->Uninit();
 }
 //=========================================================
 // 更新処理
 //=========================================================
-void CLoseResult::Update(void)
+void CLoseResultManager::Update(void)
 {
-	// 負けリザルトマネージャーの更新処理
-	CLoseResultManager::GetInstance()->Update();
+	// キー入力でタイトルに戻る
+	if ((CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN) ||
+		CManager::GetInstance()->GetJoyPad()->GetTrigger(CManager::GetInstance()->GetJoyPad()->JOYKEY_START) ||
+		CManager::GetInstance()->GetJoyPad()->GetTrigger(CManager::GetInstance()->GetJoyPad()->JOYKEY_A)))
+	{
+		// ポインタ取得
+		CFade* pFade = CManager::GetInstance()->GetFade();
+
+		// nullじゃないとき
+		if (pFade != nullptr)
+		{
+			// タイトルシーン遷移
+			pFade->SetFade(std::make_unique<CTitle>());
+			return;
+		}
+	}
 }
 //=========================================================
-// 描画処理
+// インスタンス取得処理
 //=========================================================
-void CLoseResult::Draw(void)
+CLoseResultManager* CLoseResultManager::GetInstance(void)
 {
-
+	static CLoseResultManager Instance;
+	return &Instance;
 }

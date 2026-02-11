@@ -24,6 +24,14 @@
 //*********************************************************
 CResultObject* CResultObject::m_pInstance = nullptr; // シングルトン変数
 
+//*********************************************************
+// 定数宣言空間
+//*********************************************************
+namespace RESULTOBJECT
+{
+	constexpr const char* LoadName = "data/JSON/Resultobject.json"; // 読み込むjsonファイル
+};
+
 //=========================================================
 // コンストラクタ
 //=========================================================
@@ -47,10 +55,11 @@ HRESULT CResultObject::Init(void)
 	m_pBlock = std::make_unique<CBlockManager>();
 	m_pBlock->Init();
 
+	// リザルトで使うオブジェクトの読み込み
 	auto jsonmanager = CManager::GetInstance()->GetJsonManager();
-	jsonmanager->Load("data/JSON/Resultobject.json");
+	jsonmanager->Load(RESULTOBJECT::LoadName);
 
-	// 女王生成
+	// 女王アリ生成
 	CQueen::Create(D3DXVECTOR3(0.0f, 30.0f, -5.0f), VECTOR3_NULL);
 
 	// リザルト表示スコア
@@ -76,20 +85,6 @@ void CResultObject::Uninit(void)
 		delete m_pInstance;
 		m_pInstance = nullptr;
 	}
-}
-//=========================================================
-// 更新処理
-//=========================================================
-void CResultObject::Update(void)
-{
-	
-}
-//=========================================================
-// 描画処理
-//=========================================================
-void CResultObject::Draw(void)
-{
-
 }
 //=========================================================
 // インスタンス取得処理
