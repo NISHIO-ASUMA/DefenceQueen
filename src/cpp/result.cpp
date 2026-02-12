@@ -63,9 +63,6 @@ void CResult::Uninit(void)
 //=========================================================
 void CResult::Update(void)
 {
-	// オブジェクト更新
-	CResultObject::GetInstance()->Update();
-
 	// キー入力時
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN) || 
 		CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_A) ||
@@ -82,5 +79,5 @@ void CResult::Update(void)
 //=========================================================
 void CResult::Draw(void)
 {
-	// 無し
+	
 }

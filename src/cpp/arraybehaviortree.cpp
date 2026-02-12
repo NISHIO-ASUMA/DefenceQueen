@@ -32,27 +32,33 @@ CNode* ArrayTree::CArrayBehaviorTree::SetArrayTreeNode(CBlackBoard* blackboard)
 	// トップをセレクターノードにする
 	auto TopRootNode = new CSelector(blackboard);
 
-	//-----------------------------
-	// Topの命令がfalseの時
-	//-----------------------------
+	// Topからの命令がfalseの時
 	auto ChainAntSequence = new CSequence(blackboard);
 	{
 		// インバーターに判別ノードを設定
-		ChainAntSequence->AddNode(new CInverter(blackboard, new CHasTopOrderLeaf(blackboard)));
+		ChainAntSequence->AddNode
+		(
+			new CInverter(blackboard, 
+			new CHasTopOrderLeaf(blackboard))
+		);
 
-		auto FoodSequence = new CSequence(blackboard);			// 餌獲得ループのシーケンスノードを作成
+		// 餌獲得ループのシーケンスノード
+		auto FoodSequence = new CSequence(blackboard);
 
-		FoodSequence->AddNode(new CMoveToFeedLeaf(blackboard)); // 餌に向かって行く末端ノード
-		FoodSequence->AddNode(new CFeedGetLeaf(blackboard));	// 餌獲得を判別する末端ノード
-		FoodSequence->AddNode(new CReturnNestLeaf(blackboard));	// 基地に帰ってくる末端ノード
+		// 餌に向かって行く末端ノード
+		FoodSequence->AddNode(new CMoveToFeedLeaf(blackboard));
+
+		// 餌獲得を判別する末端ノード
+		FoodSequence->AddNode(new CFeedGetLeaf(blackboard));
+
+		// 基地に帰ってくる末端ノード
+		FoodSequence->AddNode(new CReturnNestLeaf(blackboard));
 
 		// falseノードに餌獲得ノードを追加
 		ChainAntSequence->AddNode(FoodSequence);
 	}
 
-	//------------------------------------
 	// ツリーの一番上のルートノードに追加する
-	//------------------------------------
 	TopRootNode->AddNode(ChainAntSequence);
 
 	// 生成されたツリーノードのポインタを返す

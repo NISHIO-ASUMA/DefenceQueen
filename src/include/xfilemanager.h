@@ -54,14 +54,14 @@ public:
 	/// </summary>
 	/// <param name="nIdx">取得するオブジェクトインデックス</param>
 	/// <returns>インデックス番号に応じたデータ</returns>
-	XFILEDATA GetInfo(const int nIdx) { return m_aFileData[nIdx]; }
+	XFILEDATA GetInfo(const int& nIdx) { return m_aFileData[nIdx]; }
 
 	/// <summary>
 	/// 動的配列の取得
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>配列ポインタ</returns>
-	std::vector<XFILEDATA>& GetList(void) { return m_aFileData; }
+	const std::vector<XFILEDATA>& GetList(void) { return m_aFileData; }
 
 private:
 

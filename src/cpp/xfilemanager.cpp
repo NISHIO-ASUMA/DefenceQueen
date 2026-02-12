@@ -107,9 +107,9 @@ int CXfileManager::Register(const char* pFileName)
 	XFILEDATA newData = {};
 	newData.FilePath = pFileName;
 
-	//===============================================================
+	//=======================================
 	// モデル読み込み
-	//===============================================================
+	//=======================================
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 	if (!pDevice) return -1;
 
@@ -135,9 +135,9 @@ int CXfileManager::Register(const char* pFileName)
 		return -1;
 	}
 
-	//=========================================================
+	//=======================================
 	// スムース法線生成処理
-	//=========================================================
+	//=======================================
 	LPD3DXMESH pTempMesh = newData.pMesh; // 一時メッシュ
 	std::vector<DWORD> adjacency;
 
@@ -182,9 +182,9 @@ int CXfileManager::Register(const char* pFileName)
 	// メッシュを差し替え
 	newData.pMesh = pTempMesh;
 
-	//===============================================================
+	//=======================================
 	// モデルサイズ算出
-	//===============================================================
+	//=======================================
 	D3DXVECTOR3 Vtxmax = VECTOR3_NULL;
 	D3DXVECTOR3 Vtxmin = VECTOR3_NULL;
 
@@ -219,9 +219,9 @@ int CXfileManager::Register(const char* pFileName)
 	newData.Size.y = Vtxmax.y - Vtxmin.y;
 	newData.Size.z = Vtxmax.z - Vtxmin.z;
 
-	//===============================================================
+	//=======================================
 	// テクスチャ登録
-	//===============================================================
+	//=======================================
 	newData.pTexture.clear();
 	newData.pTexture.resize(newData.dwNumMat);
 
@@ -271,12 +271,12 @@ HRESULT CXfileManager::LoadJson(void)
 	}
 
 	// json読み込み
-	json j;
-	openfile >> j;
+	json jsonload;
+	openfile >> jsonload;
 	openfile.close();
 
 	// 情報がなかったら
-	if (j.is_null() || j.empty())
+	if (jsonload.is_null() || jsonload.empty())
 	{
 		MessageBox(GetActiveWindow(), "XFile.json にデータがありません", "xfilemanager", MB_OK);
 		return E_FAIL;
@@ -286,7 +286,7 @@ HRESULT CXfileManager::LoadJson(void)
 	m_aFileData.clear();
 
 	// 情報をセットしていく
-	for (const auto& entry : j)
+	for (const auto& entry : jsonload)
 	{
 		// 文字がなかったら
 		if (!entry.contains("XFile") || entry["XFile"].is_null())
@@ -317,15 +317,16 @@ void CXfileManager::LoadModel(const char* pModelName)
 	XFILEDATA newData = {};
 	newData.FilePath = pModelName;
 
-	//===============================================================
+	//=======================================
 	// モデル読み込み
-	//===============================================================
+	//=======================================
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 	if (!pDevice)
 		return;
 
 	// モデル読み込み
-	HRESULT hr = D3DXLoadMeshFromX(
+	HRESULT hr = D3DXLoadMeshFromX
+	(
 		pModelName,
 		D3DXMESH_SYSTEMMEM,
 		pDevice,
@@ -333,7 +334,8 @@ void CXfileManager::LoadModel(const char* pModelName)
 		&newData.pBuffMat,
 		NULL,
 		&newData.dwNumMat,
-		&newData.pMesh);
+		&newData.pMesh
+	);
 
 	// 例外設定
 	if (FAILED(hr))
@@ -344,9 +346,9 @@ void CXfileManager::LoadModel(const char* pModelName)
 		return;
 	}
 
-	//=========================================================
+	//=======================================
 	// スムース法線生成処理
-	//=========================================================
+	//=======================================
 	LPD3DXMESH pTempMesh = newData.pMesh; // 一時メッシュ
 	std::vector<DWORD> adjacency;
 
@@ -391,9 +393,9 @@ void CXfileManager::LoadModel(const char* pModelName)
 	// メッシュを差し替え
 	newData.pMesh = pTempMesh;
 
-	//===============================================================
+	//=======================================
 	// モデルサイズ算出
-	//===============================================================
+	//=======================================
 	D3DXVECTOR3 Vtxmax = VECTOR3_NULL;
 	D3DXVECTOR3 Vtxmin = VECTOR3_NULL;
 

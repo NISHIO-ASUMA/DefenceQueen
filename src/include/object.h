@@ -23,7 +23,6 @@ public:
 	enum TYPE
 	{
 		TYPE_NONE,
-		TYPE_PLAYER,	// プレイヤー
 		TYPE_ARRAY,		// 仲間
 		TYPE_ENEMY,		// 敵
 		TYPE_QUEEN,		// 防衛対象
@@ -32,7 +31,6 @@ public:
 		TYPE_MESH,		// メッシュオブジェクト
 		TYPE_BLOCK,		// ブロック
 		TYPE_PAUSE,		// ポーズ
-		TYPE_ITEM,		// アイテム
 		TYPE_INSTANCE,	// インスタンシング
 		TYPE_MAX
 	};

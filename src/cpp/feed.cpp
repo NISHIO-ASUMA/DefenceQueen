@@ -111,7 +111,7 @@ HRESULT CFeed::Init(void)
 	m_pSphere->SetRadius(m_fRadius);
 
 	// 矩形コライダー生成
-	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetPos(), Size);
+	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetPos(), Size * 0.88f);
 
 	// パラメーター設定
 	m_pParam = std::make_unique<CParameter>();

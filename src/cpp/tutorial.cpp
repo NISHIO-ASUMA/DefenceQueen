@@ -2,7 +2,6 @@
 //
 // チュートリアル処理 [ tutorial.cpp ]
 // Author: Asuma Nishio
-// TODO : 動かせる形に持っていく
 // 
 //=========================================================
 
@@ -42,10 +41,10 @@ HRESULT CTutorial::Init(void)
 	auto Camera = CManager::GetInstance()->GetCamera();
 	Camera->Init();
 
-	// マネージャー初期化
+	// チュートリアルマネージャー初期化
 	CTutorialManager::GetInstance()->Init();
 
-	// オブジェクト初期化
+	// チュートリアルオブジェクト初期化
 	CTutorialObject::GetInstance()->Init();
 
 	// サウンド取得
@@ -63,10 +62,10 @@ HRESULT CTutorial::Init(void)
 //=========================================================
 void CTutorial::Uninit(void)
 {
-	// マネージャー終了
+	// チュートリアルマネージャー終了
 	CTutorialManager::GetInstance()->Uninit();
 
-	// オブジェクト終了
+	// チュートリアルオブジェクト終了
 	CTutorialObject::GetInstance()->Uninit();
 }
 //=========================================================
@@ -74,7 +73,7 @@ void CTutorial::Uninit(void)
 //=========================================================
 void CTutorial::Update(void)
 {
-	// マネージャー更新
+	// チュートリアルマネージャー更新
 	CTutorialManager::GetInstance()->Update();
 }
 //=========================================================
@@ -82,5 +81,5 @@ void CTutorial::Update(void)
 //=========================================================
 void CTutorial::Draw(void)
 {
-	// 無し
+	
 }

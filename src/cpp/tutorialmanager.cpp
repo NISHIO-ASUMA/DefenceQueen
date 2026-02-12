@@ -32,21 +32,20 @@ CTutorialManager* CTutorialManager::GetInstance(void)
 //=========================================================
 CTutorialManager::CTutorialManager()
 {
-	// 値のクリア
+
 }
 //=========================================================
 // デストラクタ
 //=========================================================
 CTutorialManager::~CTutorialManager()
 {
-	// 無し
+	
 }
 //=========================================================
 // 初期化処理
 //=========================================================
 HRESULT CTutorialManager::Init(void)
 {
-	// 初期化結果を返す
 	return S_OK;
 }
 //=========================================================
@@ -54,23 +53,22 @@ HRESULT CTutorialManager::Init(void)
 //=========================================================
 void CTutorialManager::Uninit(void)
 {
-	// 破棄
+
 }
 //=========================================================
 // 更新処理
 //=========================================================
 void CTutorialManager::Update(void)
 {
-#ifdef NDEBUG
-	// 画面遷移
-	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_2))
+	// 画面遷移キー
+	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_TAB) || 
+		CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_START))
 	{
-		// 遷移更新
+		// ゲームシーンに遷移する
 		CManager::GetInstance()->GetFade()->SetFade(std::make_unique<CGame>());
 
 		return;
 	}
-#endif
 }
 //=========================================================
 // 描画処理
