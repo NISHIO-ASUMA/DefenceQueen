@@ -46,8 +46,8 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-	void OnWireFrame();
-	void OffWireFrame();
+	void OnWireFrame(void);
+	void OffWireFrame(void);
 	void SetSize(UINT uWidth, UINT uHeight) { m_Width = uWidth, m_Height = uHeight; }
 	void GetFps(const int& nFps) { m_fps = nFps; }
 

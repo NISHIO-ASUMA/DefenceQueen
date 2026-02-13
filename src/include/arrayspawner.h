@@ -2,8 +2,6 @@
 //
 // 各ポイントごとのスポーン処理 [ arrayspawner.h ]
 // Author: Asuma Nishio
-// 
-// TODO : トップをどう持つか考える
 //
 //=========================================================
 
@@ -163,7 +161,7 @@ private:
 	//*****************************
 	struct Config
 	{
-		static constexpr int ACTIVE_COUNT = 40; // アリをアクティブにする更新カウント
+		static constexpr int ACTIVE_COUNT = 600; // アリをアクティブにする更新カウント
 	};
 
 	D3DXVECTOR3 m_SpawnBasePos;				// スポーンのベース座標

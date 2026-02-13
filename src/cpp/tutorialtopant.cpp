@@ -211,36 +211,6 @@ void CTutoTopAnt::Update(void)
 		}
 	}
 
-	//// エリアと判定
-	//auto Area = CTutorialObject::GetInstance()->GetEventArea();
-	//if (!Area) return;
-
-	//// 当たっていたら
-	//if (Area->Collision(m_pSphereCollider.get()))
-	//{
-	//	// コライダー座標更新
-	//	m_pSphereCollider->SetPos(UpdatePos);
-
-	//	// UI表示をする
-	//	m_pPutSign->SetIsDraw(true);
-
-	//	// サインの座標設定
-	//	m_pPutSign->SetPos(D3DXVECTOR3(GetPos().x, GetPos().y + 240.0f, GetPos().z));
-
-	//	// 仲間アリの位置を変更
-	//	if (pKey->GetPress(DIK_RETURN) || pPad->GetPress(CJoyPad::JOYKEY_A))
-	//	{
-	//		auto ArrayAnt = CTutorialObject::GetInstance()->GetArrayAnt();
-	//		ArrayAnt->SetPos(Area->GetPos());
-	//		ArrayAnt->SetIsTopFollow(false);
-	//	}
-	//}
-	//else
-	//{
-	//	// UI表示をしない
-	//	m_pPutSign->SetIsDraw(false);
-	//}
-
 	// 親クラスの更新
 	CMoveCharactor::Update();
 }

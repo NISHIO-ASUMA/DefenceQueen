@@ -213,12 +213,6 @@ void CRenderer::Update(void)
 		OffWireFrame();
 	}
 
-	// ブラー起動
-	if (pInput->GetTrigger(DIK_F6))
-	{
-		SetBuller(true,300);
-	}
-
 #endif // _DEBUG
 }
 //=========================================================
@@ -388,14 +382,14 @@ void CRenderer::DrawInstancingAll(void)
 //=========================================================
 // ワイヤーフレーム起動
 //=========================================================
-void CRenderer::OnWireFrame()
+void CRenderer::OnWireFrame(void)
 {
 	m_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 }
 //=========================================================
 // ワイヤーフレーム終了
 //=========================================================
-void CRenderer::OffWireFrame()
+void CRenderer::OffWireFrame(void)
 {
 	m_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 }

@@ -29,14 +29,14 @@ namespace CAMERAINFO
 //=========================================================
 CCamera::CCamera() : m_pCamera(ClearDefault())
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
 //=========================================================
 CCamera::~CCamera()
 {
-	// 無し
+	
 }
 //=========================================================
 // 初期化処理
@@ -63,7 +63,7 @@ HRESULT CCamera::Init(void)
 //=========================================================
 void CCamera::Uninit(void)
 {
-	// 無し
+
 }
 //=========================================================
 // 更新処理
@@ -177,7 +177,6 @@ void CCamera::SetTitleCamara(void)
 //==============================================================
 void CCamera::SetResultCamara(void)
 {
-#if 1
 	// カメラ位置
 	m_pCamera.posV = D3DXVECTOR3(0.0f, 5.0f, -190.0f);
 
@@ -194,7 +193,6 @@ void CCamera::SetResultCamara(void)
 	float fPosz = m_pCamera.posV.z - m_pCamera.posR.z;
 
 	m_pCamera.fDistance = sqrtf(fPosx * fPosx + fPosy * fPosy + fPosz * fPosz);
-#endif
 }
 //==============================================================
 // マウス操作の視点移動
@@ -276,9 +274,9 @@ void CCamera::MouseView(CInputMouse * pMouse)
 		m_pCamera.rot.x += -CAMERAINFO::NorRot;
 	}
 }
-//==============================
+//==============================================================
 // マウスホイール処理
-//==============================
+//==============================================================
 void CCamera::WheelMouse(int nDelta)
 {
 	if (nDelta > 0)

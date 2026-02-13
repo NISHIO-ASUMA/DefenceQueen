@@ -50,6 +50,10 @@ CTitleObject::~CTitleObject()
 //=========================================================
 HRESULT CTitleObject::Init(void)
 {
+	// タイトルで使うオブジェクトの読み込み
+	auto jsonmanager = CManager::GetInstance()->GetJsonManager();
+	jsonmanager->Load(TITLEOBJECT::LoadName);
+
 	// 見えない壁生成
 	m_pWallManager = std::make_unique<CTitleWallManager>();
 	m_pWallManager->Init();
@@ -57,10 +61,6 @@ HRESULT CTitleObject::Init(void)
 	// タイトルのアリ生成
 	m_pTitleAntManager = std::make_unique<CTitleAntManager>();
 	m_pTitleAntManager->Init();
-
-	// タイトルで使うオブジェクトの読み込み
-	auto jsonmanager = CManager::GetInstance()->GetJsonManager();
-	jsonmanager->Load(TITLEOBJECT::LoadName);
 
 	return S_OK;
 }
