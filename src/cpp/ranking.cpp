@@ -11,7 +11,6 @@
 #include "ranking.h"
 #include "rankingobject.h"
 #include "rankingmanager.h"
-#include <memory>
 
 //=========================================================
 // コンストラクタ

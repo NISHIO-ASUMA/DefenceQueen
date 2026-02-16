@@ -23,10 +23,10 @@ m_rot(VECTOR3_NULL),
 m_col(COLOR_WHITE),
 m_nIdxTexture(-1),
 m_fWidth(NULL),
-m_fHeight(NULL)
+m_fHeight(NULL),
+m_mtxWorld{}
 {
-	// 値のクリア
-	D3DXMatrixIdentity(&m_mtxWorld);
+
 }
 //=========================================================
 // デストラクタ
@@ -188,7 +188,10 @@ void CObject3D::Draw(void)
 	pDevice->SetFVF(FVF_VERTEX_3D);
 
 	// テクスチャ割り当て
-	if (m_nIdxTexture == -1) pDevice->SetTexture(0, nullptr);
+	if (m_nIdxTexture == -1)
+	{
+		pDevice->SetTexture(0, nullptr);
+	}
 	else
 	{
 		// テクスチャクラス取得

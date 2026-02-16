@@ -21,7 +21,7 @@ bool CBoxToSphereCollision::Collision(CBoxCollider* pthis, CSphereCollider* poth
 
 	// 位置とサイズ
 	D3DXVECTOR3 thisPos = pthis->GetPos();
-	D3DXVECTOR3 thisSize = pthis->GetInfo().Size * 0.5f;
+	D3DXVECTOR3 thisSize = pthis->GetInfo().Size * HALF;
 	D3DXVECTOR3 spherePos = pother->GetPos();
 	float sphereRadius = pother->GetRadius();
 

@@ -18,7 +18,11 @@
     "FlashFrame": 0,
     "Width": 15.0,
     "Height": 30.0,
-    "Texture": "coron.png"
+    "Texture": "coron.png",
+    "AlphaTest": true,
+    "IsFlash": false,
+    "EnableAlpha": false,
+    "AlphaFrame": 0
   },
   {
     "ObjectTag": "Ui",
@@ -26,6 +30,10 @@
     "FlashFrame": 0,
     "Width": 140.0,
     "Height": 55.0,
-    "Texture": "Time_frame.png"
+    "Texture": "Time_frame.png",
+    "AlphaTest": true,
+    "IsFlash": false,
+    "EnableAlpha": false,
+    "AlphaFrame": 0
   }
 ]

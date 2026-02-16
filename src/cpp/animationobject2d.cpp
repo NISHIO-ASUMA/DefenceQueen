@@ -230,15 +230,15 @@ void CAnimationObject2D::SetFlash(const int nFirstcount, const int nEndcount, co
 	// 透明度を格納する
 	float alpha = NULL;
 
-	if (fProgress < 0.5f)
+	if (fProgress < HALF)
 	{
 		// 線形補間
-		alpha = Lerp(0.5f, 1.0f, fProgress * 2.0f);
+		alpha = Lerp(HALF, Config::LERP_MIN, fProgress * Config::LERP_MAX);
 	}
 	else
 	{
 		// 線形補間
-		alpha = Lerp(1.0f, 0.5f, (fProgress - 0.5f) * 2.0f);
+		alpha = Lerp(Config::LERP_MIN, HALF, (fProgress - HALF) * Config::LERP_MAX);
 	}
 
 	// カラー設定

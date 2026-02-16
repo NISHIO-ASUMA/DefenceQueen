@@ -161,7 +161,7 @@ void CMove3DObject::Update(void)
 //=========================================================
 void CMove3DObject::Draw(void)
 {
-	// デバイスポインタを宣言
+	// デバイスポインタを取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// ワールドマトリックスの設定

@@ -52,7 +52,7 @@ public:
 	CScene::MODE GetScene(void);
 
 	CInstanceMotionManager* GetInstMotionManager(void) { return m_pInstMotionManager.get(); }
-	CInstanceModelManager* GetInstanceModelM(void) { return m_pInstanceModel.get(); }
+	CInstanceModelManager* GetInstanceModelManager(void) { return m_pInstanceModel.get(); }
 	CInputKeyboard* GetInputKeyboard(void) { return m_pInputKeyboard.get(); }
 	CMotionManager* GetMotionManager(void) { return m_pMotionManager.get(); }
 	CModelManager* GetModelManagere(void) { return m_pModelManager.get(); }

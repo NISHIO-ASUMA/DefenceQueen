@@ -14,6 +14,7 @@
 // インクルードファイル
 //*********************************************************
 #include <string>
+#include <vector>
 
 //*********************************************************
 // テクスチャ管理クラスを定義
@@ -31,7 +32,7 @@ public:
 	/// <summary>
 	/// テクスチャを配列に登録する
 	/// </summary>
-	/// <param name="pFileName">登録名</param>
+	/// <param name="pFileName">登録テクスチャ名</param>
 	/// <returns></returns>
 	int Register(const char* pFileName);
 
@@ -44,10 +45,6 @@ public:
 
 private:
 
-	HRESULT LoadJson(void);		// json読み込み関数
-
-	static constexpr int NUM_TEXTURE = 128;	// 最大テクスチャ数
-	
 	//*************************
 	// テクスチャデータ構造体
 	//*************************
@@ -57,6 +54,15 @@ private:
 		LPDIRECT3DTEXTURE9 TexData; // テクスチャポインタ
 	};
 
-	TEXDATA m_pTextureData[NUM_TEXTURE]; // テクスチャ管理配列
-	static int m_nNumAll;				 // テクスチャカウント変数
+	//*************************
+	// 定数構造体宣言
+	//*************************
+	struct Config
+	{
+		static constexpr const char* LOAD_NAME = "data/JSON/Texture.json"; // 読み込むファイル名
+	};
+
+	HRESULT LoadJson(void);						 // json読み込み関数
+
+	std::vector<TEXDATA>m_pTextures; // テクスチャの動的配列
 };

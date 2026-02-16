@@ -30,6 +30,18 @@ void CJsonCreateUi::Create(const json& Jsondata)
 	// テクスチャ情報の設定
 	std::string Texture = CJsonConverter::ConverterPath(Jsondata, "Texture");
 
+	// 点滅フラグ
+	bool isFlash = CJsonConverter::ConverterBool(Jsondata, "IsFlash");
+
+	// 透明度有効フラグ
+	bool isEnableAlpha = CJsonConverter::ConverterBool(Jsondata, "EnableAlpha");
+
+	// 透明フレーム
+	int nAlphaFrame = CJsonConverter::ConverterInt(Jsondata, "AlphaFrame");
+
+	// αテストフラグ
+	bool isAlphaTest = CJsonConverter::ConverterBool(Jsondata, "AlphaTest");
+
 	// UIオブジェクトクラスの生成
-	CUi::Create(pos, nFrashFrame,fWidth,fHeight,Texture.c_str());
+	CUi::Create(pos, nFrashFrame,fWidth,fHeight,Texture.c_str(),isFlash,isEnableAlpha,nAlphaFrame,isAlphaTest);
 }

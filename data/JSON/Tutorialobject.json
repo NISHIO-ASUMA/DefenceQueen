@@ -18,7 +18,11 @@
     "FlashFrame": 0,
     "Width": 280.0,
     "Height": 720.0,
-    "Texture": "backboard.png"
+    "Texture": "backboard.png",
+    "AlphaTest": false,
+    "IsFlash": false,
+    "EnableAlpha": false,
+    "AlphaFrame": 0
   },
   {
     "ObjectTag": "Ui",
@@ -26,7 +30,11 @@
     "FlashFrame": 0,
     "Width": 180.0,
     "Height": 60.0,
-    "Texture": "Skip.png"
+    "Texture": "Skip.png",
+    "AlphaTest": false,
+    "IsFlash": false,
+    "EnableAlpha": false,
+    "AlphaFrame": 0
   },
   {
     "ObjectTag": "Ui",
@@ -34,6 +42,10 @@
     "FlashFrame": 0,
     "Width": 110.0,
     "Height": 300.0,
-    "Texture": "manual.png"
+    "Texture": "manual.png",
+    "AlphaTest": false,
+    "IsFlash": false,
+    "EnableAlpha": false,
+    "AlphaFrame": 0
   }
 ]

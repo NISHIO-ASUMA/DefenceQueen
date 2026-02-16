@@ -52,6 +52,14 @@ public:
 
 private:
 
+	//******************************
+	//　定数構造体宣言
+	//*******************************
+	struct Config
+	{
+		static constexpr float OUTLINE_SIZE = 1.5f; // アウトラインの幅
+	};
+
 	D3DXVECTOR3 m_pos;		// 座標
 	D3DXVECTOR3 m_rot;		// 角度
 	D3DXVECTOR3 m_Scale;	// 拡大率
@@ -63,5 +71,4 @@ private:
 	bool m_isShadow;		// 影を出すかどうか
 	bool m_isOutLine;		// アウトライン適用かどうか
 
-	static constexpr float OUTLINE_SIZE = 1.5f;
 };

@@ -29,46 +29,39 @@ D3DXVECTOR3 CJsonConverter::ConverterVec3(const JsonUtil::json& JsonData, const 
 //=========================================================
 int CJsonConverter::ConverterInt(const JsonUtil::json& JsonData, const char* KeyName)
 {
-	int nLocalint = NULL;
-
-	// jsonから読み取った値を反映
-	nLocalint = JsonData[KeyName];
-
-	return nLocalint;
+	// デフォルトで0を返す
+	return JsonData.value(KeyName, 0);
 }
 //=========================================================
 // float型の変数情報を返す
 //=========================================================
 float CJsonConverter::ConverterFloat(const JsonUtil::json& JsonData, const char* KeyName)
 {
-	float fLocalfloat = 0.0f;
-
-	// jsonから読み取った値を反映
-	fLocalfloat = JsonData[KeyName];
-
-	return fLocalfloat;
+	// デフォルトで0を返す
+	return JsonData.value(KeyName, 0.0f);
 }
 //=========================================================
 // bool型の変数情報を返す
 //=========================================================
 bool CJsonConverter::ConverterBool(const JsonUtil::json& JsonData, const char* KeyName)
 {
-	bool isLocalFlag = false;
-
-	// jsonから読み取った値を反映
-	isLocalFlag = JsonData[KeyName];
-
-	return isLocalFlag;
+	// デフォルトでfalseを返す
+	return JsonData.value(KeyName, false);
 }
 //=========================================================
 // std::string型の変数情報を返す
 //=========================================================
 std::string CJsonConverter::ConverterPath(const JsonUtil::json& JsonData, const char* KeyName)
 {
-	std::string localString = {};
+	if (!JsonData.contains(KeyName))
+	{
+		return "";
+	}
 
-	// jsonから読み取った値を反映
-	localString = JsonData[KeyName];
+	if (!JsonData[KeyName].is_string())
+	{
+		return "";
+	}
 
-	return localString;
+	return JsonData[KeyName].get<std::string>();
 }

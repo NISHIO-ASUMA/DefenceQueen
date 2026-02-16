@@ -60,7 +60,7 @@ HRESULT CResultObject::Init(void)
 	jsonmanager->Load(RESULTOBJECT::LoadName);
 
 	// 女王アリ生成
-	CQueen::Create(D3DXVECTOR3(0.0f, 30.0f, -5.0f), VECTOR3_NULL);
+	//CQueen::Create(D3DXVECTOR3(0.0f, 30.0f, -5.0f), VECTOR3_NULL);
 
 	// リザルト表示スコア
 	m_pResultScoreManager = std::make_unique<CResultScoreManager>();

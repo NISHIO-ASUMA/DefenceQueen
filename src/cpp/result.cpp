@@ -6,17 +6,11 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル宣言
+// インクルードファイル
 //*********************************************************
 #include "result.h"
 #include "resultmanager.h"
-#include "manager.h"
-#include "ranking.h"
-#include "input.h"
-#include "fade.h"
 #include "resultobject.h"
-#include "sound.h"
-#include <memory>
 
 //=========================================================
 // オーバーロードコンストラクタ
@@ -30,22 +24,18 @@ CResult::CResult() : CScene(CScene::MODE_RESULT)
 //=========================================================
 CResult::~CResult()
 {
-	// 無し
+	
 }
 //=========================================================
 // 初期化処理
 //=========================================================
 HRESULT CResult::Init(void)
 {
-	// オブジェクト初期化
+	// リザルトマネージャーの初期化
+	CResultManager::GetInstance()->Init();
+
+	// リザルトオブジェクトの初期化
 	CResultObject::GetInstance()->Init();
-
-	// サウンド取得
-	auto Sound = CManager::GetInstance()->GetSound();
-	if (Sound == nullptr) return E_FAIL;
-
-	// サウンド再生
-	Sound->Play(CSound::SOUND_LABEL_RESULTBGM);
 
 	// 初期化結果を返す
 	return S_OK;
@@ -55,24 +45,19 @@ HRESULT CResult::Init(void)
 //=========================================================
 void CResult::Uninit(void)
 {
-	// インスタンス破棄
+	// リザルトオブジェクトの破棄
 	CResultObject::GetInstance()->Uninit();
+
+	// リザルトマネージャーの終了処理
+	CResultManager::GetInstance()->Uninit();
 }
 //=========================================================
 // 更新処理
 //=========================================================
 void CResult::Update(void)
 {
-	// キー入力時
-	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN) || 
-		CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_A) ||
-		CManager::GetInstance()->GetJoyPad()->GetTrigger(CJoyPad::JOYKEY_START))
-	{
-		// ランキング画面遷移
-		auto fade = CManager::GetInstance()->GetFade();
-		fade->SetFade(std::make_unique<CRanking>());
-		return;
-	}
+	// リザルトマネージャーの更新処理
+	CResultManager::GetInstance()->Update();
 }
 //=========================================================
 // 描画処理

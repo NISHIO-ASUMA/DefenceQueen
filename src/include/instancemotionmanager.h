@@ -143,13 +143,13 @@ private:
 	//***********************************
 	// クラス内メンバ関数
 	//***********************************
-	int SetModels(std::istringstream& iss);
 	void SetModelFile(std::istringstream& iss, std::vector<CInstanceModel*>& pModel, int nCnt, const bool isShadow);
 	void SetParts(std::ifstream& file, std::vector<CInstanceModel*>& pModel);
 	void SetPartsMotion(std::ifstream& file, int nCntMotion);
 	void SetKey(std::ifstream& file, int nCntMotion, int nCntKey);
 	void SetKeyDate(std::istringstream& ss, const std::string& param, int nCntMotion, int nCntKey, int& posKeyIndex, int& rotKeyIndex);
 	void BuildMotionCache(MOTIONFILE& file);
+	int SetModels(std::istringstream& iss);
 
 	// 静的メンバ変数
 	static int m_nNumAll;

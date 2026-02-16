@@ -858,6 +858,12 @@
     <ClCompile Include="src\cpp\loseresultmanager.cpp">
       <Filter>ソース ファイル\Scenes\SceneManager</Filter>
     </ClCompile>
+    <ClCompile Include="src\cpp\createjsoncharactor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\createjsonnomove.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\outline.h">
@@ -1390,6 +1396,12 @@
     </ClInclude>
     <ClInclude Include="src\include\loseresultmanager.h">
       <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\createjsoncharactor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\createjsonnomove.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

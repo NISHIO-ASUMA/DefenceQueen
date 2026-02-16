@@ -1,6 +1,6 @@
 //=========================================================
 //
-// インスタンシング用モーション処理 [ motioninstancing.cpp ]
+// インスタンシングモーション処理 [ motioninstancing.cpp ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -32,7 +32,7 @@ m_isBlendMotion(false),
 m_isFinishMotion(false),
 m_nMotionIdx(-1)
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
@@ -197,7 +197,6 @@ void CMotionInstancing::Debug(void)
 	CDebugproc::Print("[ブレンドフレーム] %d / [ブレンドカウント] %d", m_nFrameBlend, m_nCounterBlend);
 	CDebugproc::Draw(800, 340);
 #endif // _DEBUG
-
 }
 //=================================================================
 // モーションフレーム判定

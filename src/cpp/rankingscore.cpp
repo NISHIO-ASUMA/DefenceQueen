@@ -10,19 +10,16 @@
 //*********************************************************
 #include "rankingscore.h"
 #include "number.h"
-#include <fstream>
-#include "load.h"
 #include "network.h"
 #include "manager.h"
 
 //=========================================================
-// オーバーロードコンストラクタ
+// コンストラクタ
 //=========================================================
 CRankingScore::CRankingScore(int nPriority) : CObject(nPriority),
 m_fHeight(NULL),
 m_fWidth(NULL),
-m_pos(VECTOR3_NULL),
-m_pLoad(nullptr)
+m_pos(VECTOR3_NULL)
 {
 	for (int nCntData = 0; nCntData < Config::RANKING_MAX; nCntData++)
 	{
@@ -100,7 +97,7 @@ HRESULT CRankingScore::Init(void)
 			m_apNumber[nRank][nDigit]->SetCol(SCORECOLOR);
 
 			// テクスチャ設定
-			m_apNumber[nRank][nDigit]->SetTexture("time.png");
+			m_apNumber[nRank][nDigit]->SetTexture(Config::TEXNAME);
 		}
 	}
 
@@ -120,18 +117,11 @@ void CRankingScore::Uninit(void)
 			{
 				// ナンバークラスの終了処理
 				m_apNumber[nRankData][nCnt]->Uninit();
-
-				// 各配列のポインタの破棄
 				delete m_apNumber[nRankData][nCnt];
-
-				// null初期化
 				m_apNumber[nRankData][nCnt] = nullptr;
 			}
 		}
 	}
-
-	// ロードクラスのポインタの破棄
-	m_pLoad.reset();
 
 	// オブジェクト自身の破棄
 	CObject::Release();
@@ -179,23 +169,21 @@ void CRankingScore::Draw(void)
 void CRankingScore::Load(void)
 {
 	// Networkクラス取得
-	CNetWork* pNet = CManager::GetInstance()->GetNetWork();
-	if (!pNet) return;
+	CNetWork* pNetWork = CManager::GetInstance()->GetNetWork();
+	if (!pNetWork) return;
 
 	// サーバー接続チェック
-	if (pNet->GetIsConnect())
-	{
-		// 受信用配列
-		int recvData[Config::RANKING_MAX] = {};
+	if (!pNetWork->GetIsConnect()) return;
 
-		// ランキングデータを受信
-		if (pNet->RecvInt(recvData))
-		{
-			// メンバ変数へコピー
-			for (int nRecvScore = 0; nRecvScore < Config::RANKING_MAX; nRecvScore++)
-			{
-				m_aRankData[nRecvScore] = recvData[nRecvScore];
-			}
-		}
+	// 受信用配列
+	int recvData[Config::RANKING_MAX] = {};
+
+	// ランキングデータを受信出来なかったら
+	if (!pNetWork->RecvInt(recvData)) return;
+
+	// メンバ変数へコピー
+	for (int nRecvScore = 0; nRecvScore < Config::RANKING_MAX; nRecvScore++)
+	{
+		m_aRankData[nRecvScore] = recvData[nRecvScore];
 	}
 }

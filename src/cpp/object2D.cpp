@@ -31,7 +31,7 @@ m_nDrawType(NULL),
 m_nIdxTexture(-1),
 m_nAnchorType(ANCHORTYPE_NONE)
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
@@ -233,9 +233,9 @@ void CObject2D::SetUV(float TexU, float TexV)
 	// アンロック
 	m_pVtxBuff->Unlock();
 }
-//==============================
-// オブジェクト点滅関数
-//==============================
+//===========================================================
+// 点滅関数
+//===========================================================
 void CObject2D::SetFlash(const int nFirstcount, const int nEndcount, const D3DXCOLOR col)
 {
 	// 頂点情報のポインタ

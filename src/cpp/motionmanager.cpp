@@ -138,7 +138,7 @@ void CMotionManager::LoadMotion(const char* pFileName, std::vector<CModel*>& pMo
 	int nIdx = 0;
 	int nCntMotion = 0;
 
-	// この引数に読み込むモーション総数を設定してこれの分だけm_amotionInfoでリサイズする
+	// この引数に読み込むモーション総数を設定してm_amotionInfoでリサイズする
 	m_FileData.back().m_aMotionInfo.resize(nDestMotion);
 
 	// 最大モーション数を保持する
@@ -399,7 +399,7 @@ void CMotionManager::SetPartsMotion(std::ifstream& file, int nCntMotion)
 			//	キー数の上限に達するまで
 			while (nCntKey < numKeys)
 			{
-				// aKeyInfoのサイズがわかったらキーごとにあるパーツの情報をakeyにサイズセットをして箱を確保してあげる
+				// aKeyInfoのサイズがわかったらキーごとにあるパーツの情報をakeyにサイズセットをしてメモリ確保
 				m_FileData.back().m_aMotionInfo[nCntMotion].aKeyInfo[nCntKey].aKey.resize(m_FileData.back().nNumModel);
 
 				// キー情報の設定

@@ -18,7 +18,11 @@
     "FlashFrame": 0,
     "Width": 360.0,
     "Height": 720.0,
-    "Texture": "backboard.png"
+    "Texture": "backboard.png",
+    "AlphaTest": false,
+    "IsFlash": false,
+    "EnableAlpha": false,
+    "AlphaFrame": 0
   },
   {
     "ObjectTag": "Ui",
@@ -26,7 +30,11 @@
     "FlashFrame": 0,
     "Width": 160.0,
     "Height": 40.0,
-    "Texture": "result_logo.png"
+    "Texture": "result_logo.png",
+    "AlphaTest": false,
+    "IsFlash": false,
+    "EnableAlpha": false,
+    "AlphaFrame": 0
   },
   {
     "ObjectTag": "Ui",
@@ -34,7 +42,11 @@
     "FlashFrame": 0,
     "Width": 120.0,
     "Height": 30.0,
-    "Texture": "result_feed.png"
+    "Texture": "result_feed.png",
+    "AlphaTest": false,
+    "IsFlash": false,
+    "EnableAlpha": false,
+    "AlphaFrame": 0
   },
   {
     "ObjectTag": "Ui",
@@ -42,7 +54,11 @@
     "FlashFrame": 0,
     "Width": 100.0,
     "Height": 30.0,
-    "Texture": "Defence_Late.png"
+    "Texture": "Defence_Late.png",
+    "AlphaTest": false,
+    "IsFlash": false,
+    "EnableAlpha": false,
+    "AlphaFrame": 0
   },
   {
     "ObjectTag": "Ui",
@@ -50,7 +66,11 @@
     "FlashFrame": 0,
     "Width": 130.0,
     "Height": 35.0,
-    "Texture": "Total_Logo.png"
+    "Texture": "Total_Logo.png",
+    "AlphaTest": false,
+    "IsFlash": false,
+    "EnableAlpha": false,
+    "AlphaFrame": 0
   },
   {
     "ObjectTag": "Ui",
@@ -58,7 +78,11 @@
     "FlashFrame": 0,
     "Width": 360.0,
     "Height": 5.0,
-    "Texture": "underbar.png"
+    "Texture": "underbar.png",
+    "AlphaTest": false,
+    "IsFlash": false,
+    "EnableAlpha": false,
+    "AlphaFrame": 0
   },
   {
     "ObjectTag": "Ui",
@@ -66,7 +90,11 @@
     "FlashFrame": 0,
     "Width": 360.0,
     "Height": 5.0,
-    "Texture": "underbar.png"
+    "Texture": "underbar.png",
+    "AlphaTest": false,
+    "IsFlash": false,
+    "EnableAlpha": false,
+    "AlphaFrame": 0
   },
   {
     "ObjectTag": "Ui",
@@ -74,6 +102,17 @@
     "FlashFrame": 0,
     "Width": 360.0,
     "Height": 5.0,
-    "Texture": "underbar.png"
+    "Texture": "underbar.png",
+    "AlphaTest": false,
+    "IsFlash": false,
+    "EnableAlpha": false,
+    "AlphaFrame": 0
+  },
+  {
+    "ObjectTag": "Charactor",
+    "Charactortag": "NoMove",
+    "CharactorName": "Queen",
+    "Pos": [ 0.0, 30.0, -5.0 ],
+    "Rot": [ 0.0, 0.0, 0.0 ]
   }
 ]

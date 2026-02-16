@@ -50,6 +50,15 @@ public:
 
 private:
 
+	//*******************************
+	// 定数構造体宣言
+	//*******************************
+	struct Config
+	{
+		static constexpr float LERP_MIN = 1.0f;
+		static constexpr float LERP_MAX = 2.0f;
+	};
+
 	LPDIRECT3DTEXTURE9 m_pTexture;		// テクスチャポインタ
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff; // 頂点バッファのポインタ
 

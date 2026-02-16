@@ -10,12 +10,6 @@
 //*********************************************************
 #include "tutorial.h"
 #include "tutorialmanager.h"
-#include "manager.h"
-#include "sound.h"
-#include "game.h"
-#include "input.h"
-#include "fade.h"
-#include "camera.h"
 #include "tutorialobject.h"
 
 //=========================================================
@@ -37,22 +31,11 @@ CTutorial::~CTutorial()
 //=========================================================
 HRESULT CTutorial::Init(void)
 {	
-	// カメラ初期化
-	auto Camera = CManager::GetInstance()->GetCamera();
-	Camera->Init();
-
 	// チュートリアルマネージャー初期化
 	CTutorialManager::GetInstance()->Init();
 
 	// チュートリアルオブジェクト初期化
 	CTutorialObject::GetInstance()->Init();
-
-	// サウンド取得
-	CSound* pSound = CManager::GetInstance()->GetSound();
-	if (pSound == nullptr) return E_FAIL;
-
-	// サウンド再生
-	pSound->Play(CSound::SOUND_LABEL_TUTORIALBGM);
 
 	// 初期化結果を返す
 	return S_OK;

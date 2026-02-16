@@ -31,6 +31,14 @@ CLoseResultManager::~CLoseResultManager()
 
 }
 //=========================================================
+// インスタンス取得処理
+//=========================================================
+CLoseResultManager* CLoseResultManager::GetInstance(void)
+{
+	static CLoseResultManager Instance;
+	return &Instance;
+}
+//=========================================================
 // 初期化処理
 //=========================================================
 HRESULT CLoseResultManager::Init(void)
@@ -72,12 +80,4 @@ void CLoseResultManager::Update(void)
 			return;
 		}
 	}
-}
-//=========================================================
-// インスタンス取得処理
-//=========================================================
-CLoseResultManager* CLoseResultManager::GetInstance(void)
-{
-	static CLoseResultManager Instance;
-	return &Instance;
 }

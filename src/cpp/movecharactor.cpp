@@ -36,7 +36,7 @@ m_isOutLine(false),
 m_isInstancing(false),
 m_mtxworld{}
 {
-	// 値のクリア
+
 }
 //=========================================================
 // デストラクタ
@@ -164,7 +164,6 @@ void CMoveCharactor::Update(void)
 //=========================================================
 void CMoveCharactor::Draw(void)
 {
-#if 1
 	// デバイス取得
 	auto Rendere = CManager::GetInstance()->GetRenderer();
 	LPDIRECT3DDEVICE9 pDevice = Rendere->GetDevice();
@@ -200,7 +199,6 @@ void CMoveCharactor::Draw(void)
 
 	// カリングを戻す
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-#endif
 }
 //=========================================================
 // 位置情報の更新

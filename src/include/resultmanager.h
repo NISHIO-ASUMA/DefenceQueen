@@ -27,11 +27,10 @@ public:
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
-	void Draw(void);
 
 	static CResultManager* GetInstance(void);
 
 private:
 
-	CResultManager();
+	CResultManager(); // 格納コンストラクタ
 };

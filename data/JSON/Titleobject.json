@@ -13,7 +13,11 @@
     "FlashFrame": 0,
     "Width": 180.0,
     "Height": 60.0,
-    "Texture": "GameStart.png"
+    "Texture": "GameStart.png",
+    "AlphaTest": false,
+    "IsFlash": false,
+    "EnableAlpha": false,
+    "AlphaFrame": 0
   },
   {
     "ObjectTag": "Ui",
@@ -21,6 +25,10 @@
     "FlashFrame": 0,
     "Width": 300.0,
     "Height": 150.0,
-    "Texture": "TitleLogo.png"
+    "Texture": "TitleLogo.png",
+    "AlphaTest": true,
+    "IsFlash": false,
+    "EnableAlpha": false,
+    "AlphaFrame": 0
   }
 ]

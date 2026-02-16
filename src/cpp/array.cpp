@@ -525,9 +525,6 @@ void CArray::CollisionEnemy(void)
 			// 管理クラスの配列の要素を消す
 			CGameSceneObject::GetInstance()->GetEnemyManager()->Erase(Enemy);
 
-			// パーティクル生成
-			//CParticlePiler::Create(D3DXVECTOR3(GetPos().x, 120.0f, GetPos().z), COLOR_RED, 15, 150, 350, 15, 0.0f);
-
 			// 敵の終了
 			Enemy->Uninit();
 

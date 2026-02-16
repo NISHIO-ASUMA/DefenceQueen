@@ -153,9 +153,9 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 //=========================================================
 void CRenderer::Uninit(void)
 {
+	// デバッグプロセスの終了処理
 	if (m_pDebug != nullptr)
 	{
-		// デバッグプロセスの終了
 		m_pDebug->Uninit();
 		delete m_pDebug;
 		m_pDebug = nullptr;
@@ -274,7 +274,7 @@ void CRenderer::AddInstanceObject(const int nIdxModel,CInstanceModel* pModel)
 void CRenderer::DrawInstancingAll(void)
 {
 	// モデルマネージャー取得
-	auto* modelMgr = CManager::GetInstance()->GetInstanceModelM();
+	auto* modelMgr = CManager::GetInstance()->GetInstanceModelManager();
 	auto& models = modelMgr->GetList();
 
 	for (auto& pair : m_RegisterInstObject)

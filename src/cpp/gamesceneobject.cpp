@@ -81,6 +81,20 @@ CGameSceneObject::~CGameSceneObject()
 
 }
 //=========================================================
+// インスタンス取得処理
+//=========================================================
+CGameSceneObject* CGameSceneObject::GetInstance(void)
+{
+	// nullなら
+	if (m_pInstance == nullptr)
+	{
+		m_pInstance = new CGameSceneObject;
+	}
+
+	// インスタンスを返す
+	return m_pInstance;
+}
+//=========================================================
 // 初期化処理
 //=========================================================
 HRESULT CGameSceneObject::Init(void)
@@ -219,20 +233,6 @@ void CGameSceneObject::DeleteQueen(void)
 
 	// ゲームフラグを有効化し、進行を停止する
 	CGameManager::GetInstance()->SetIsGameEnd(true);
-}
-//=========================================================
-// インスタンス取得処理
-//=========================================================
-CGameSceneObject* CGameSceneObject::GetInstance(void)
-{
-	// nullなら
-	if (m_pInstance == nullptr)
-	{
-		m_pInstance = new CGameSceneObject;
-	}
-
-	// インスタンスを返す
-	return m_pInstance;
 }
 //=========================================================
 // ポインタの生成を行う関数

@@ -96,7 +96,7 @@ void CInstanceModel::Update(const D3DXMATRIX& mtx)
 		return;
 	
 	// ファイルマネージャー取得
-	CInstanceModelManager* pIMgr = CManager::GetInstance()->GetInstanceModelM();
+	CInstanceModelManager* pIMgr = CManager::GetInstance()->GetInstanceModelManager();
 	if (!pIMgr) return;
 
 	// 配列情報
@@ -212,7 +212,7 @@ void CInstanceModel::Draw(const D3DXMATRIX& mtx)
 	LPDIRECT3DDEVICE9 pDevice = Rendere->GetDevice();
 
 	// ファイルマネージャー取得
-	CInstanceModelManager* pIMgr = CManager::GetInstance()->GetInstanceModelM();
+	CInstanceModelManager* pIMgr = CManager::GetInstance()->GetInstanceModelManager();
 	if (!pIMgr) return;
 
 	// 配列情報
@@ -298,7 +298,7 @@ void CInstanceModel::Draw(const D3DXMATRIX& mtx)
 void CInstanceModel::SetModelPass(const char* pModelName)
 {
 	// マネージャーから取得
-	const auto& InstModelManager = CManager::GetInstance()->GetInstanceModelM();
+	const auto& InstModelManager = CManager::GetInstance()->GetInstanceModelManager();
 	if (InstModelManager == nullptr) return;
 
 	// インデックスセット

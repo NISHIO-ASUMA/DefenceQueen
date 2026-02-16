@@ -23,7 +23,7 @@ public:
 	HRESULT Init(void);
 	void Uninit(void);
 
-	bool Connect(const char* ip, int port);
+	bool Connect(const char* ip = "127.0.0.1", int port = 22333);
 	void Disconnect(void);
 
 	bool SendInt(int nSendNumber);

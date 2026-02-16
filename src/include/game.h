@@ -38,7 +38,7 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 
-	inline CGameState* GetState(void) { return m_pState; }
+	inline CGameState* GetState(void) const { return m_pState; }
 
 	static CPauseManager* GetPause(void) { return m_pPausemanager; }
 

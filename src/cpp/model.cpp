@@ -95,7 +95,6 @@ void CModel::Update(void)
 //=========================================================
 void CModel::Draw(void)
 {
-#if 1
 	// インデックスが-1なら
 	if (m_nModelIdx == -1)
 		return;
@@ -187,7 +186,7 @@ void CModel::Draw(void)
 
 	// マテリアルを戻す
 	pDevice->SetMaterial(&matDef);
-#endif
+
 	// 有効なら
 	if (m_isShadow) DrawMtxShadow();
 }
@@ -270,7 +269,7 @@ void CModel::DrawOutLine(const D3DXVECTOR4& color,const float fOutLinewidth)
 	auto& model = fileData[m_nModelIdx];
 	if (!model.pMesh) return;
 
-	// デバイスポインタを宣言
+	// デバイスポインタを取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// 計算用のマトリックスを宣言
@@ -281,16 +280,16 @@ void CModel::DrawOutLine(const D3DXVECTOR4& color,const float fOutLinewidth)
 
 	// 拡大率を反映
 	D3DXMatrixScaling(&mtxScale, m_scale.x, m_scale.y, m_scale.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxScale);
 
 	// 向きを反映
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y + m_offRot.y, m_rot.x + m_offRot.x, m_rot.z + m_offRot.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxRot);
 
 	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x + m_offPos.x, m_pos.y + m_offPos.y, m_pos.z + m_offPos.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxTrans);
 
+	// 各行列の計算
+	m_mtxworld = mtxScale * mtxRot * mtxTrans;
+	
 	// 親のペアネント格納用変数
 	D3DXMATRIX mtxParent;
 
@@ -326,7 +325,7 @@ void CModel::DrawOutLine(const D3DXVECTOR4& color,const float fOutLinewidth)
 //=========================================================
 void CModel::SetModelPass(const char* pModelName)
 {
-	// マネージャーから取得
+	// モデルマネージャーからモデルの情報取得
 	auto ModelManager = CManager::GetInstance()->GetModelManagere();
 	if (ModelManager == nullptr) return;
 
@@ -338,6 +337,6 @@ void CModel::SetModelPass(const char* pModelName)
 //=========================================================
 void CModel::SetParent(CModel* pModel)
 {
-	// 設定
+	// 親モデルの設定
 	m_pParent = pModel;
 }

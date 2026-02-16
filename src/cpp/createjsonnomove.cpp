@@ -1,0 +1,34 @@
+//===================================================================
+//
+// 動かないキャラクターをJsonから生成する処理 [ createjsoncharactor.cpp ]
+// Author: Asuma Nishio
+//
+//===================================================================
+
+//*******************************************************************
+// インクルードファイル
+//*******************************************************************
+#include "createjsonnomove.h"
+#include "queen.h"
+#include "jsonconverter.h"
+
+//===================================================================
+// 生成処理
+//===================================================================
+void CJsonCreateNoMove::Create(const JsonNoMove::json& Jsondata)
+{
+	// タグの一致を見る
+	std::string type = Jsondata["CharactorName"];
+
+	// 座標情報の設定
+	D3DXVECTOR3 pos = CJsonConverter::ConverterVec3(Jsondata, "Pos");
+
+	// 角度情報の設定
+	D3DXVECTOR3 rot = CJsonConverter::ConverterVec3(Jsondata, "Rot");
+
+	// 実際の生成処理
+	if (type == "Queen")
+	{
+		CQueen::Create(pos, rot);
+	}
+}

@@ -59,7 +59,7 @@ HRESULT CTitleManager::Init(void)
 //=========================================================
 void CTitleManager::Uninit(void)
 {
-	// –³‚µ
+	
 }
 //=========================================================
 // XVˆ—
@@ -92,11 +92,4 @@ void CTitleManager::Update(void)
 		pSound->Play(CSound::SOUND_LABEL_TITLEENTER);
 		return;
 	}
-}
-//==========================================================
-// •`‰æˆ—
-//==========================================================
-void CTitleManager::Draw(void)
-{
-
 }

@@ -42,7 +42,7 @@ m_pTopAnt(nullptr),
 m_pArrayAnt(nullptr),
 m_pFeed(nullptr)
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ

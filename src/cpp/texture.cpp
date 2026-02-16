@@ -18,17 +18,12 @@
 //*********************************************************
 using json = nlohmann::json;
 
-//*********************************************************
-// 静的メンバ変数
-//*********************************************************
-int CTexture::m_nNumAll = NULL;	// 総数管理
-
 //=========================================================
 // コンストラクタ
 //=========================================================
-CTexture::CTexture() : m_pTextureData{}
+CTexture::CTexture() : m_pTextures{}
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
@@ -43,6 +38,9 @@ CTexture::~CTexture()
 //=========================================================
 HRESULT CTexture::Load(void)
 {
+	// 配列のクリア
+	m_pTextures.clear();
+
 	// json適用
 	LoadJson();
 
@@ -53,53 +51,52 @@ HRESULT CTexture::Load(void)
 //=========================================================
 void CTexture::UnLoad(void)
 {
-	// すべてのテクスチャの破棄
-	for (int nCnt = 0; nCnt < NUM_TEXTURE; nCnt++)
+	// 要素の破棄
+	for (auto& tex : m_pTextures)
 	{
-		// テクスチャの破棄
-		if (m_pTextureData[nCnt].TexData)
+		if (tex.TexData)
 		{
-			m_pTextureData[nCnt].TexData->Release();
-			m_pTextureData[nCnt].TexData = nullptr;
+			tex.TexData->Release();
+			tex.TexData = nullptr;
 		}
-
-		// 配列のクリア
-		m_pTextureData[nCnt].TexName.clear();
 	}
 
-	// 総数初期化
-	m_nNumAll = 0;
+	// 配列のクリア
+	m_pTextures.clear();
 }
 //=========================================================
 // テクスチャ番号を登録する
 //=========================================================
 int CTexture::Register(const char* pFileName)
 {
-	// もしテクスチャ名がnullなら
-	if (pFileName == nullptr) return -1;
+	// もしファイル名がないなら
+	if (!pFileName) return -1;
 
-	// すでに登録済みならその番号を返す
-	for (int nCnt = 0; nCnt < m_nNumAll; nCnt++)
+	// すでにあるかチェック
+	for (int nCnt = 0; nCnt < m_pTextures.size(); nCnt++)
 	{
-		if (m_pTextureData[nCnt].TexName == pFileName)
+		// 登録されているならインデックスを返す
+		if (m_pTextures[nCnt].TexName == pFileName)
 			return nCnt;
 	}
 
-	// なかった場合,新規登録
-	if (m_nNumAll < NUM_TEXTURE)
+	// デバイス取得
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
+
+	// 登録用の空の構造体変数
+	TEXDATA data = {};
+
+	// テクスチャの作成に成功したら
+	if (SUCCEEDED(D3DXCreateTextureFromFile(pDevice, pFileName, &data.TexData)))
 	{
-		// デバイス取得
-		LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
+		// テクスチャ名を設定
+		data.TexName = pFileName;
 
-		// テクスチャの作成に成功したら
-		if (SUCCEEDED(D3DXCreateTextureFromFile(pDevice, pFileName, &m_pTextureData[m_nNumAll].TexData)))
-		{
-			// 配列に保存
-			m_pTextureData[m_nNumAll].TexName = pFileName;
+		// 配列に追加
+		m_pTextures.push_back(data);
 
-			// 加算インデックスを返す
-			return m_nNumAll++;
-		}
+		// インデックス番号を返す
+		return static_cast<int>(m_pTextures.size())- 1;
 	}
 
 	return -1;
@@ -110,10 +107,10 @@ int CTexture::Register(const char* pFileName)
 LPDIRECT3DTEXTURE9 CTexture::GetAddress(int nIdx)
 {
 	// 例外処理
-	if (nIdx < NULL || nIdx >= NUM_TEXTURE) return nullptr;
+	if (nIdx < NULL || nIdx >= static_cast<int>(m_pTextures.size())) return nullptr;
 
 	// テクスチャ番号を取得
-	return m_pTextureData[nIdx].TexData;
+	return m_pTextures[nIdx].TexData;
 }
 //=========================================================
 // jsonファイル読み込み
@@ -121,73 +118,33 @@ LPDIRECT3DTEXTURE9 CTexture::GetAddress(int nIdx)
 HRESULT CTexture::LoadJson(void)
 {
 	// JSONファイルを開く
-	std::ifstream ifs("data/JSON/Texture.json");
+	std::ifstream ifs(Config::LOAD_NAME);
 
 	// ファイルが開けなかったら
 	if (!ifs.is_open())
 	{
 		MessageBox(GetActiveWindow(), "jsonファイルを開けません", "エラー", MB_OK);
-
 		return E_FAIL;
 	}
 
 	// JSON読み込み
-	json j;
-	ifs >> j;
+	json jsondata;
+	ifs >> jsondata;
 
-	// 文字列があるかチェック
-	if (j.is_null() || j.empty())
+	// 配列のクリア
+	m_pTextures.clear();
+
+	for (const auto& texture : jsondata)
 	{
-		MessageBox(GetActiveWindow(), "テクスチャファイルがありません", "エラー", MB_OK);
+		// "Texture"が見つからなかったら
+		if (!texture.contains("Texture")) continue;
 
-		return E_FAIL;
-	}
+		// 文字列を取得
+		std::string file = texture["Texture"].get<std::string>();
+		if (file.empty()) continue;
 
-	// 値の初期化
-	m_nNumAll = 0;
-
-	// テクスチャ読み込んで登録をする
-	for (const auto& tex : j)
-	{
-		// "Texture"キーが存在しない または nullならスキップ
-		if (!tex.contains("Texture") || tex["Texture"].is_null())
-			continue;
-
-		// ファイル名格納
-		std::string file = tex["Texture"].get<std::string>();
-
-		// 最大値を超えていたら または ファイル名がなかったら
-		if (file.empty() || m_nNumAll >= NUM_TEXTURE)
-			continue;
-
-		// テクスチャ名を配列のデータに格納
-		m_pTextureData[m_nNumAll].TexName = file;
-
-		// 総数を加算
-		m_nNumAll++;
-	}
-
-	// デバイス取得
-	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
-	if (!pDevice) return E_FAIL;
-
-	// 登録されたファイルを読み込む
-	for (int nCnt = 0; nCnt < m_nNumAll; nCnt++)
-	{
-		// テクスチャを生成
-		HRESULT hr = D3DXCreateTextureFromFile
-		(
-			pDevice,
-			m_pTextureData[nCnt].TexName.c_str(),
-			&m_pTextureData[nCnt].TexData
-		);
-
-		// 作成失敗
-		if (FAILED(hr))
-		{
-			// nullにする
-			m_pTextureData[nCnt].TexData = nullptr;
-		}
+		// 登録する
+		Register(file.c_str());
 	}
 
 	return S_OK;

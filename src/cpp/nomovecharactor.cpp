@@ -28,10 +28,9 @@ m_pModel{},
 m_pMotion{},
 m_pShadowS{},
 m_isStencilUse(false),
-m_isOutLine(false)
+m_isOutLine(false),
+m_mtxworld{}
 {
-	// 値のクリア
-	D3DXMatrixIdentity(&m_mtxworld);
 }
 //=========================================================
 // デストラクタ
@@ -65,13 +64,8 @@ void CNoMoveCharactor::Uninit(void)
 		// nullチェック
 		if ((*iter) != nullptr)
 		{
-			// 終了処理
 			(*iter)->Uninit();
-
-			// ポインタの破棄
 			delete (*iter);
-
-			// null初期化
 			(*iter) = nullptr;
 		}
 	}
@@ -106,15 +100,15 @@ void CNoMoveCharactor::Update(void)
 
 	// 大きさを反映
 	D3DXMatrixScaling(&mtxScal, m_scale.x, m_scale.y, m_scale.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxScal);
 
 	// 向きを反映
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxRot);
 
 	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxworld, &m_mtxworld, &mtxTrans);
+
+	// 行列計算
+	m_mtxworld = mtxScal * mtxRot * mtxTrans;
 
 #ifdef NDEBUG
 	// モーションの更新処理
@@ -147,16 +141,17 @@ void CNoMoveCharactor::Draw(void)
 	// カリング切る
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
 
-	// 開始
+	// シェーダー開始
 	COutLine::GetInstance()->Begin();
 	COutLine::GetInstance()->BeginPass();
 
+	// アウトラインの描画
 	for (auto& model : m_pModel)
 	{
 		model->DrawOutLine(D3DXVECTOR4(1.0f, 0.65f, 0.2f, 1.0f));
 	}
 
-	// 終了
+	// シェーダー終了
 	COutLine::GetInstance()->EndPass();
 	COutLine::GetInstance()->End();
 

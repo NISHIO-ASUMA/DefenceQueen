@@ -127,7 +127,7 @@ void CUi::Draw(void)
 		Device->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 	}
 	
-	// オブジェクトの描画
+	// 親クラスのの描画
 	CObject2D::Draw();
 
 	if (m_isAlphaTest)

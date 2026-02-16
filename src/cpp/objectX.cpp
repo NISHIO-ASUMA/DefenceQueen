@@ -14,6 +14,15 @@
 #include "texture.h"
 #include "outline.h"
 
+//*********************************************************
+// 定数宣言空間
+//*********************************************************
+namespace ObjectX
+{
+	const D3DXCOLOR SHADOW_COLOR = { 0.0f, 0.0f, 0.0f, 0.35f }; // シャドウマトリックスのカラー
+	const D3DXVECTOR4 LIGHT_DIR = { 0.2f, -0.63f, 0.12f, 0.0f }; // ライトの法線
+}
+
 //=========================================================
 // コンストラクタ
 //=========================================================
@@ -149,7 +158,7 @@ void CObjectX::Draw(void)
 
 		for (int nCnt = 0; nCnt < static_cast<int>(model.dwNumMat); nCnt++)
 		{
-			// カラー
+			// マテリアルカラー
 			D3DXMATERIAL Col = pMat[nCnt];
 
 			// カラーの乗算
@@ -184,14 +193,14 @@ void CObjectX::Draw(void)
 	// カリング切る
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
 
-	// 開始
+	// シェーダー開始
 	COutLine::GetInstance()->Begin();
 	COutLine::GetInstance()->BeginPass();
 
 	// アウトラインを描画する
 	DrawOutLine(m_OutLineColor);
 
-	// 終了
+	// シェーダー終了
 	COutLine::GetInstance()->EndPass();
 	COutLine::GetInstance()->End();
 
@@ -220,7 +229,7 @@ void CObjectX::DrawShadow(void)
 	if (!model.pMesh) return;
 
 	// ライト方向
-	D3DXVECTOR4 lightDir(0.2f, -0.63f, 0.12f, 0.0f);
+	D3DXVECTOR4 lightDir = ObjectX::LIGHT_DIR;
 
 	// 平面投影座標を設定
 	D3DXPLANE plane;
@@ -241,8 +250,7 @@ void CObjectX::DrawShadow(void)
 
 	// 半透明に設定
 	D3DMATERIAL9 shadowMat = {};
-	shadowMat.Diffuse = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.35f);
-	shadowMat.Ambient = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.35f);
+	shadowMat.Diffuse = shadowMat.Ambient = ObjectX::SHADOW_COLOR;
 
 	// マテリアルセット
 	pDevice->SetMaterial(&shadowMat);
@@ -306,7 +314,7 @@ void CObjectX::DrawOutLine(const D3DXVECTOR4& color)
 		for (int nCnt = 0; nCnt < static_cast<int>(model.dwNumMat); nCnt++)
 		{
 			// シェーダーパラメーター設定
-			COutLine::GetInstance()->SetParameter(OUTLINE_SIZE, color, m_mtxWorld);
+			COutLine::GetInstance()->SetParameter(Config::OUTLINE_SIZE, color, m_mtxWorld);
 
 			// モデルの描画
 			model.pMesh->DrawSubset(nCnt);

@@ -245,5 +245,4 @@ void CObject::DrawAll(void)
 	CDebugproc::Print("現在の総オブジェクト数 : %d", m_nNumAll);
 	CDebugproc::Draw(0, 60);
 #endif // _DEBUG
-
 }

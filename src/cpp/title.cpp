@@ -9,7 +9,6 @@
 // インクルードファイル宣言
 //*********************************************************
 #include "title.h"
-#include "manager.h"
 #include "titlemanager.h"
 #include "titleobject.h"
 
@@ -68,9 +67,5 @@ void CTitle::Update(void)
 //=========================================================
 void CTitle::Draw(void)
 {
-	// マネージャー描画処理
-	CTitleManager::GetInstance()->Draw();
 
-	// タイトルオブジェクト描画処理
-	CTitleObject::GetInstance()->Update();
 }

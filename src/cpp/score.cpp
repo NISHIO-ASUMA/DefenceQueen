@@ -29,14 +29,14 @@ m_fWidth(NULL),
 m_apNumber{},
 m_pLoad{}
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
 //=========================================================
 CScore::~CScore()
 {
-	// 無し
+	
 }
 //=========================================================
 // 生成処理
@@ -82,7 +82,7 @@ HRESULT CScore::Init(void)
 		m_apNumber[nCnt]->SetPos(m_pos);
 
 		// テクスチャセット
-		m_apNumber[nCnt]->SetTexture("number003.png");
+		m_apNumber[nCnt]->SetTexture(Config::TEX_NAME);
 	}
 
 	// 読み込み処理ポインタ生成
@@ -96,10 +96,9 @@ HRESULT CScore::Init(void)
 //=========================================================
 void CScore::Uninit(void)
 {
-	// 使った分破棄
+	// ナンバークラスの破棄
 	for (auto number : m_apNumber)
 	{
-		// nullptrチェック
 		if (number != nullptr)
 		{
 			number->Uninit();
@@ -108,7 +107,7 @@ void CScore::Uninit(void)
 		}
 	}
 
-	// ポインタ破棄
+	// ロードクラスのポインタ破棄
 	m_pLoad.reset();
 
 	// 自身の破棄
@@ -141,7 +140,7 @@ void CScore::Update(void)
 //=========================================================
 void CScore::Draw(void)
 {
-	// 描画しない
+	
 }
 //=========================================================
 // スコア加算処理

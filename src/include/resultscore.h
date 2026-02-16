@@ -64,6 +64,8 @@ private:
 		static constexpr int MAX_ANIMTIME = 180; // 最大継続時間
 		static constexpr float POSX_VALUE = 2.0f;// X座標加算値
 		static constexpr const char* SAVEFILE = "data/SCORE/ResultScore.bin"; // 書き出すファイル名
+		static constexpr const char* TEXNAME = "time.png"; // テクスチャ名
+
 	};
 
 	std::array<CNumber*,Config::NUM_SCORE>m_pNumber;	// 桁数分のナンバーのポインタ配列

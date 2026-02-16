@@ -27,7 +27,6 @@ public:
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
-	void Draw(void);
 
 	inline void SetIsGameEnd(const bool isEnd) { m_isGameEnd = isEnd; }
 	inline bool GetIsGameEnd(void) { return m_isGameEnd; }

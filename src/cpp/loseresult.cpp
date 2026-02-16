@@ -9,12 +9,6 @@
 // インクルードファイル
 //*********************************************************
 #include "loseresult.h"
-#include "manager.h"
-#include "title.h"
-#include "sound.h"
-#include "fade.h"
-#include "input.h"
-#include <memory>
 #include "loseresultmanager.h"
 #include "loseresultobject.h"
 

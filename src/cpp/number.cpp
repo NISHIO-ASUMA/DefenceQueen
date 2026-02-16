@@ -247,13 +247,13 @@ void CNumber::SetDigit(int nDigit)
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 	// テクスチャ座標の計算
-	float TexU = nDigit * Config::DIGIT_VALUE;
+	float fTexU = nDigit * Config::DIGIT_VALUE;
 
 	// テクスチャ座標の設定
-	pVtx[0].tex = D3DXVECTOR2(TexU, 0.0f);
-	pVtx[1].tex = D3DXVECTOR2(TexU + Config::DIGIT_VALUE, 0.0f);
-	pVtx[2].tex = D3DXVECTOR2(TexU, 1.0f);
-	pVtx[3].tex = D3DXVECTOR2(TexU + Config::DIGIT_VALUE, 1.0f);
+	pVtx[0].tex = D3DXVECTOR2(fTexU, 0.0f);
+	pVtx[1].tex = D3DXVECTOR2(fTexU + Config::DIGIT_VALUE, 0.0f);
+	pVtx[2].tex = D3DXVECTOR2(fTexU, 1.0f);
+	pVtx[3].tex = D3DXVECTOR2(fTexU + Config::DIGIT_VALUE, 1.0f);
 
 	// 頂点バッファのアンロック
 	m_pVtxBuff->Unlock();

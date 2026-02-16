@@ -49,18 +49,18 @@ CResultScore::~CResultScore()
 CResultScore* CResultScore::Create(const D3DXVECTOR3& pos, const float fWidth, const float fHeight)
 {
 	// インスタンス生成
-	CResultScore* pscore = new CResultScore;
-	if (pscore == nullptr) return nullptr;
+	CResultScore* pScore = new CResultScore;
+	if (pScore == nullptr) return nullptr;
 
 	// オブジェクト設定
-	pscore->m_pos = pos;
-	pscore->m_fWidth = fWidth;
-	pscore->m_fHeight = fHeight;
+	pScore->m_pos = pos;
+	pScore->m_fWidth = fWidth;
+	pScore->m_fHeight = fHeight;
 
 	// 初期化失敗時
-	if (FAILED(pscore->Init())) return nullptr;
+	if (FAILED(pScore->Init())) return nullptr;
 
-	return pscore;
+	return pScore;
 }
 //=========================================================
 // 初期化処理
@@ -77,7 +77,12 @@ HRESULT CResultScore::Init(void)
 		m_pNumber[nCnt] = new CNumber;
 
 		// 初期化処理
-		m_pNumber[nCnt]->Init(D3DXVECTOR3(m_pos.x - (fTexPos * Config::POSX_VALUE * nCnt), m_pos.y, 0.0f), fTexPos, m_fHeight);
+		m_pNumber[nCnt]->Init
+		(
+			D3DXVECTOR3(m_pos.x - (fTexPos * Config::POSX_VALUE * nCnt), m_pos.y, 0.0f), 
+			fTexPos, 
+			m_fHeight
+		);
 
 		// ナンバー変数のサイズ
 		m_pNumber[nCnt]->SetSize(fTexPos, m_fHeight);
@@ -86,7 +91,7 @@ HRESULT CResultScore::Init(void)
 		m_pNumber[nCnt]->SetPos(m_pos);
 
 		// テクスチャセット
-		m_pNumber[nCnt]->SetTexture("time.png");
+		m_pNumber[nCnt]->SetTexture(Config::TEXNAME);
 	}
 
 	// ポインタ生成
@@ -150,13 +155,15 @@ void CResultScore::Save(void)
 	//==============================
 	// 通信サーバー設定
 	//==============================
-	CNetWork* pNet = CManager::GetInstance()->GetNetWork();
-	if (!pNet) return;
+	CNetWork* pNetWork = CManager::GetInstance()->GetNetWork();
+	if (!pNetWork) return;
+
+	// 接続していなかったら
+	if (!pNetWork->Connect()) return;
 
 	// サーバーに送信する
-	if (pNet->Connect("127.0.0.1",22333))
 	{
-		pNet->SendInt(m_nLoadScore);
+		pNetWork->SendInt(m_nLoadScore);
 	}
 }
 //=========================================================

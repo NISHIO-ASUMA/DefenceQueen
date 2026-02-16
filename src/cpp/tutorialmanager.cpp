@@ -17,6 +17,7 @@
 #include "sound.h"
 #include "input.h"
 #include "game.h"
+#include "camera.h"
 
 //=========================================================
 // インスタンス取得
@@ -46,6 +47,17 @@ CTutorialManager::~CTutorialManager()
 //=========================================================
 HRESULT CTutorialManager::Init(void)
 {
+	// カメラ初期化
+	auto Camera = CManager::GetInstance()->GetCamera();
+	Camera->Init();
+
+	// サウンド取得
+	CSound* pSound = CManager::GetInstance()->GetSound();
+	if (pSound == nullptr) return E_FAIL;
+
+	// サウンド再生
+	pSound->Play(CSound::SOUND_LABEL_TUTORIALBGM);
+
 	return S_OK;
 }
 //=========================================================
@@ -69,11 +81,4 @@ void CTutorialManager::Update(void)
 
 		return;
 	}
-}
-//=========================================================
-// 描画処理
-//=========================================================
-void CTutorialManager::Draw(void)
-{
-
 }
