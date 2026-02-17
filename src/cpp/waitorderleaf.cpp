@@ -15,7 +15,6 @@
 //===================================================================
 void CWaitOrderLeaf::Update(void)
 {
-	//int n = 0;
 #if 0 // TODO : ここのフラグ変数を変更する
 	// 現在のフラグ状態を取得
 	bool IsUseOrder = false;

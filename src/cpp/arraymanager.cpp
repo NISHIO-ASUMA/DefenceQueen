@@ -171,25 +171,30 @@ void CArrayManager::ApplySeparation(const D3DXVECTOR3& CenterPos, float fRadius)
 	// 0以下なら
 	if (fRadius <= 0.0f) return;
 
+	// 隊列用の一時配列
+	std::vector<CArray*> topAnts;
+
 	for (auto pArray : m_pArrays)
 	{
-		// nullなら
 		if (!pArray) continue;
 
-		// 座標を取得
 		D3DXVECTOR3 pos = pArray->GetPos();
 		D3DXVECTOR3 posdiff = CenterPos - pos;
 
-		// 長さを取得
 		float fDis = D3DXVec3Length(&posdiff);
 
 		if (fDis < fRadius)
 		{
-			// 仲間アリに伝える
+			// 命令を有効化
 			pArray->SetIsTopOrder(true);
-
-			// 描画をoffにする
 			pArray->GetSignal()->SetisDraw(false);
+
+			// 隊列に追加
+			topAnts.push_back(pArray);
+		}
+		else
+		{
+			pArray->SetIsTopOrder(false);
 		}
 	}
 }
@@ -207,10 +212,8 @@ void CArrayManager::PuttingArea(const D3DXVECTOR3& putpos)
 		if (!pArray->GetMove()) continue;
 
 		// 対象のアリに命令を実行
-		pArray->SetIsPointFlag(true);
-		pArray->SetPos(putpos);
-		pArray->SetRot(VECTOR3_NULL);
-		pArray->SetIsMove(false);
+		pArray->SetIsTopOrder(false);
+		pArray->FollowDestination(putpos);
 	}
 }
 //=========================================================

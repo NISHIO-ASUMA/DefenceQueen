@@ -20,10 +20,7 @@
 //*********************************************************
 // ‘O•ûéŒ¾
 //*********************************************************
-class CCamera;
 class CParameter;
-class CShadowS;
-class CStateMachine;
 class CMotion;
 class CSphereCollider;
 class CBoxCollider;

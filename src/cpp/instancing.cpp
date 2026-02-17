@@ -13,7 +13,9 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CInstancing::CInstancing() : m_pInstanceDevice{}, m_pInstancing(nullptr), m_pDeclaration{}
+CInstancing::CInstancing() : m_pInstanceDevice{},
+m_pInstancing(nullptr), 
+m_pDeclaration{}
 {
 
 }

@@ -859,10 +859,10 @@
       <Filter>ソース ファイル\Scenes\SceneManager</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\createjsoncharactor.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\JsonUtilty\Sepalationclass</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\createjsonnomove.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\JsonUtilty\Sepalationclass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

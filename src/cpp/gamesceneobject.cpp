@@ -194,7 +194,7 @@ void CGameSceneObject::Update(void)
 	// 敵の更新
 	if (m_pEnemyManager)
 	{
-		m_pEnemyManager->Update();
+		//m_pEnemyManager->Update();
 	}
 
 	// イベント更新

@@ -124,6 +124,7 @@ HRESULT CArray::Init(void)
 	// モーション取得
 	m_pMotion = CInstancingCharactor::GetMotion();
 
+	// 命令変更可能UIクラスの生成
 	m_pAntSignal = CExtractAntSignal::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 120.0f, GetPos().z));
 
 	// フラグ初期化
@@ -314,6 +315,8 @@ void CArray::FollowDestination(const D3DXVECTOR3& DestPos)
 //=========================================================
 void CArray::FollowTop(D3DXVECTOR3 vpos)
 {
+	if (!m_isMove) return;
+
 	// 目的地までの距離を算出
 	D3DXVECTOR3 moveVec = vpos - GetPos();
 	float distToDest = D3DXVec3Length(&moveVec);
@@ -483,7 +486,7 @@ void CArray::NodeSetting(void)
 	m_pBehaviorTree->Init();
 }
 //=========================================================
-// 球の当たり判定処理 TODO : ここ修正してイベントモードの時の当たり判定に設定する
+// 球の当たり判定処理
 //=========================================================
 bool CArray::Colision(CSphereCollider* other)
 {

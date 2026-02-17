@@ -577,6 +577,8 @@ bool CTopAnt::CollisionArea(CArrayManager * pManager)
 			// Enterキー入力 or Aボタン入力で仲間をポイントに置く
 			if (pKey->GetTrigger(DIK_RETURN) || pPad->GetPress(CJoyPad::JOYKEY_A))
 			{
+				// アリの命令変更
+
 				// 味方をエリア内に配置
 				pManager->PuttingArea(Area->GetPos());
 			}
