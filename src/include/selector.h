@@ -38,22 +38,36 @@ public:
 		// ノードの状態取得
 		auto noderesult = m_ChildeNode[m_RanningIndex]->get_node_result();
 
-		// 結果が"失敗"なら
-		if (noderesult == NodeInfo::NodeResult::Re_FAIL)
-		{
-			// 次のノード番号のために加算する
-			NodeIncrement();
-		}
-
-		// 結果が"成功"なら
+		// 子が成功したら Selector 成功
 		if (noderesult == NodeInfo::NodeResult::Re_SUCCESS)
 		{
-			// ノードを終了する
+			m_NodeResult = NodeInfo::NodeResult::Re_SUCCESS;
 			Exit();
+			return;
 		}
 
-		// ノードの状態をセットする
-		m_NodeResult = noderesult;
+		// 子が失敗したら 次へ
+		if (noderesult == NodeInfo::NodeResult::Re_FAIL)
+		{
+			NodeIncrement();
+
+			// まだ子が残ってるなら RUNNING
+			if (m_RanningIndex < m_ChildeNode.size())
+			{
+				m_NodeResult = NodeInfo::NodeResult::Re_RUNING;
+				return;
+			}
+			else
+			{
+				// 全部失敗したら Selector 失敗
+				m_NodeResult = NodeInfo::NodeResult::Re_FAIL;
+				Exit();
+				return;
+			}
+		}
+
+		// RUNNINGはそのまま
+		m_NodeResult = NodeInfo::NodeResult::Re_RUNING;
 	}
 
 private:

@@ -23,11 +23,8 @@ void CFolllowTopLeaf::Update(void)
 	// アリを取得
 	const auto& Array = m_pBlackBoard->GetValue<CArray*>("Array");
 
-	// トップアリを取得
-	const auto& TopAntPos = m_pBlackBoard->GetValue<D3DXVECTOR3>("TopPos");
-
 	// 追従する関数を実行する
-	Array->FollowTop(TopAntPos);
+	Array->FollowDestination(m_pBlackBoard->GetValue<D3DXVECTOR3>("TopPos"));
 
 	// フラグを取得
 	bool IsSetPoint = m_pBlackBoard->GetValue<bool>("SetPoint");

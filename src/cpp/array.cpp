@@ -171,6 +171,7 @@ void CArray::Update(void)
 	
 	// ブラックボードの毎フレーム更新
 	m_pBlackBoard->SetValue("TopPos", m_pTopAnt->GetPos());
+	m_pBlackBoard->SetValue("GetTopOrder", m_isGettingTopOrder);
 
 	// 基地に帰る
 	if (m_isReturn)

@@ -32,6 +32,16 @@ CNode* ArrayTree::CArrayBehaviorTree::SetArrayTreeNode(CBlackBoard* blackboard)
 	// トップをセレクターノードにする
 	auto TopRootNode = new CSelector(blackboard);
 
+	// Topからの命令が true の時
+	auto ChainTopAntSequence = new CSequence(blackboard);
+	{
+		// フラグ判定
+		ChainTopAntSequence->AddNode(new CHasTopOrderLeaf(blackboard));
+
+		// Top命令時の行動
+		ChainTopAntSequence->AddNode(new CFolllowTopLeaf(blackboard));
+	}
+
 	// Topからの命令がfalseの時
 	auto ChainAntSequence = new CSequence(blackboard);
 	{
@@ -58,8 +68,9 @@ CNode* ArrayTree::CArrayBehaviorTree::SetArrayTreeNode(CBlackBoard* blackboard)
 		ChainAntSequence->AddNode(FoodSequence);
 	}
 
-	// ツリーの一番上のルートノードに追加する
-	TopRootNode->AddNode(ChainAntSequence);
+	// Selector に追加
+	TopRootNode->AddNode(ChainTopAntSequence);	// トップのノード
+	TopRootNode->AddNode(ChainAntSequence);		// 餌獲得ループのノード
 
 	// 生成されたツリーノードのポインタを返す
 	return TopRootNode;

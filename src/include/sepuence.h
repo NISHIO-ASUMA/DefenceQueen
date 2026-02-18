@@ -32,29 +32,33 @@ public:
 
 	void Update() override
 	{
-		// 現在の子ノードの更新を実行する
 		m_ChildeNode[m_RanningIndex]->Update();
+		auto result = m_ChildeNode[m_RanningIndex]->get_node_result();
 
-		// ノードの結果を取得する
-		auto noderesult = m_ChildeNode[m_RanningIndex]->get_node_result();
-
-		// ノード状態が"成功"なら
-		if (noderesult == NodeInfo::NodeResult::Re_SUCCESS)
+		if (result == NodeInfo::NodeResult::Re_FAIL)
 		{
-			// 次のシーケンスのため番号を加算し、処理を返す
-			NodeIncrement();
+			m_NodeResult = NodeInfo::NodeResult::Re_FAIL;
+			Exit();
 			return;
 		}
 
-		// ノード状態が"失敗"なら
-		if (noderesult == NodeInfo::NodeResult::Re_FAIL)
+		if (result == NodeInfo::NodeResult::Re_SUCCESS)
 		{
-			// 終了処理実行
-			Exit();
+			NodeIncrement();
+
+			if (m_RanningIndex >= m_ChildeNode.size())
+			{
+				m_NodeResult = NodeInfo::NodeResult::Re_SUCCESS;
+				Exit();
+			}
+			else
+			{
+				m_NodeResult = NodeInfo::NodeResult::Re_RUNING;
+			}
+			return;
 		}
 
-		// ノードの状態に代入する
-		m_NodeResult = noderesult;
+		m_NodeResult = NodeInfo::NodeResult::Re_RUNING;
 	}
 
 private:
