@@ -98,6 +98,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
       <AdditionalIncludeDirectories>C:\Users\student\Desktop\Gitまとめ\DirectXの場所!\DefenceQueen\src\cpp;C:\Users\student\Desktop\Gitまとめ\DirectXの場所!\DefenceQueen\src\include;C:\Users\student\Desktop\Gitまとめ\DirectXの場所!\DefenceQueen\src\include\nlohmann</AdditionalIncludeDirectories>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -123,6 +124,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
       <AdditionalIncludeDirectories>C:\Users\student\Desktop\Gitまとめ\DirectXの場所!\DefenceQueen\src\cpp;C:\Users\student\Desktop\Gitまとめ\DirectXの場所!\DefenceQueen\src\include;C:\Users\student\Desktop\Gitまとめ\DirectXの場所!\DefenceQueen\src\include\nlohmann</AdditionalIncludeDirectories>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
