@@ -58,7 +58,12 @@ HRESULT CEventArea::Init(void)
 	CObject3D::Init();
 
 	// 矩形コライダー生成
-	m_pBoxCollider = CBoxCollider::Create(GetPos(), GetPos(), D3DXVECTOR3(Config::SIZE, Config::SIZE, Config::SIZE));
+	m_pBoxCollider = CBoxCollider::Create
+	(
+		GetPos(), 
+		GetPos(), 
+		D3DXVECTOR3(Config::SIZE, Config::SIZE, Config::SIZE)
+	);
 
 	return S_OK;
 }

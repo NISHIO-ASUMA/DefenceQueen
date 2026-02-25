@@ -86,7 +86,7 @@ HRESULT CGameTime::Init(void)
 		m_pNumberMinute[nCnt]->SetPos(m_pos);
 		m_pNumberMinute[nCnt]->Init(D3DXVECTOR3(m_pos.x + (fTexPos * Config::VALUE_FLOAT * nCnt), m_pos.y, 0.0f), fTexPos, m_fHeight);
 		m_pNumberMinute[nCnt]->SetSize(fTexPos, m_fHeight);
-		m_pNumberMinute[nCnt]->SetTexture("time.png");
+		m_pNumberMinute[nCnt]->SetTexture(Config::TEXNAME);
 	}
 
 	// 横に座標をずらす
@@ -102,7 +102,7 @@ HRESULT CGameTime::Init(void)
 		m_pNumberSecond[nCnt]->SetPos(m_pos);
 		m_pNumberSecond[nCnt]->Init(D3DXVECTOR3(m_pos.x + (fTexPos * 2.0f * nCnt), m_pos.y, 0.0f), fTexPos, m_fHeight);
 		m_pNumberSecond[nCnt]->SetSize(fTexPos, m_fHeight);
-		m_pNumberSecond[nCnt]->SetTexture("time.png");
+		m_pNumberSecond[nCnt]->SetTexture(Config::TEXNAME);
 	}
 
 	// 結果を返す
@@ -113,32 +113,21 @@ HRESULT CGameTime::Init(void)
 //=========================================================
 void CGameTime::Uninit(void)
 {
-	// 使った分破棄
 	for (int nCnt = 0; nCnt < Config::DIGIT_TIME; nCnt++)
 	{
 		// nullptrチェック
 		if (m_pNumberMinute[nCnt] != nullptr)
 		{
-			// 終了処理
 			m_pNumberMinute[nCnt]->Uninit();
-
-			// ポインタの破棄
 			delete m_pNumberMinute[nCnt];
-
-			// null初期化
 			m_pNumberMinute[nCnt] = nullptr;
 		}
 
 		// nullptrチェック
 		if (m_pNumberSecond[nCnt] != nullptr)
 		{
-			// 終了処理
 			m_pNumberSecond[nCnt]->Uninit();
-
-			// ポインタの破棄
 			delete m_pNumberSecond[nCnt];
-
-			// null初期化
 			m_pNumberSecond[nCnt] = nullptr;
 		}
 	}

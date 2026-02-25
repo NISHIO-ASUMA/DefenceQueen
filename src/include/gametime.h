@@ -64,6 +64,7 @@ private:
 		static constexpr int DIVIDE = 10;		// 桁分割の値
 		static constexpr float VALUE_WIDTH = 150.0f; // 横幅の増加分
 		static constexpr float VALUE_FLOAT = 2.0f; // ずらす基準値
+		static constexpr const char* TEXNAME = "time.png"; // テクスチャ名
 	};
 
 	void Second(void);		// 秒計算
