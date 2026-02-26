@@ -22,11 +22,11 @@ void CBranchNodeBase::Init()
 	if (IsCondition())
 	{
 		// インデックス初期化
-		m_nTrueIdx = BRANCH_NUM_TRUE;
+		m_nTrueIdx = static_cast<int>(BRANCH_NUM::BRANCH_NUM_TRUE);
 	}
 	else
 	{
-		m_nTrueIdx = BRANCH_NUM_FALSE;
+		m_nTrueIdx = static_cast<int>(BRANCH_NUM::BRANCH_NUM_FALSE);
 	}
 
 	// インデックスを使って対象ブランチのノードを初期化
@@ -37,11 +37,24 @@ void CBranchNodeBase::Init()
 //=========================================================
 void CBranchNodeBase::Update()
 {
-	// 対象ブランチの更新処理
-	m_pBranchNode[m_nTrueIdx]->Update();
+	// 判定だけ行う
+	bool isResult = IsCondition();
 
-	// ブランチの状態を反映させる
-	m_NodeResult = m_pBranchNode[m_nTrueIdx]->get_node_result();
+	// true / false のindex決定
+	m_nTrueIdx = isResult ? 
+		static_cast<int>(BRANCH_NUM::BRANCH_NUM_TRUE) : 
+		static_cast<int>(BRANCH_NUM::BRANCH_NUM_FALSE);
+
+	// 選ばれたノードを実行
+	if (m_pBranchNode[m_nTrueIdx] != nullptr)
+	{
+		m_pBranchNode[m_nTrueIdx]->Update();
+		m_NodeResult = m_pBranchNode[m_nTrueIdx]->get_node_result();
+	}
+	else
+	{
+		m_NodeResult = NodeInfo::NodeResult::Re_FAIL;
+	}
 }
 //=========================================================
 // 終了処理
@@ -55,5 +68,5 @@ void CBranchNodeBase::Exit()
 	m_pBranchNode[m_nTrueIdx]->Exit();
 
 	// インデックス番号を変更
-	m_nTrueIdx = BRANCH_NUM_FALSE;
+	m_nTrueIdx = static_cast<int>(BRANCH_NUM::BRANCH_NUM_FALSE);
 }

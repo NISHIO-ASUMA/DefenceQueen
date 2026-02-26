@@ -28,21 +28,19 @@
 #include "feedgetleaf.h"
 #include "returnnestleaf.h"
 #include "movetofeedleaf.h"
+#include "arrayusetoporder.h"
 
 //*******************************************************************
 // 仲間を動かすツリーノードを設定する処理
 //*******************************************************************
 CNode* ArrayTree::CArrayBehaviorTree::SetArrayTreeNode(CBlackBoard* blackboard)
 {
-	// トップをセレクターノードにする
-	auto TopRootNode = new CSelector(blackboard);
+	// トップをシーケンスノードにする
+	auto TopRootNode = new CSequence(blackboard);
 
 	// Topからの命令が true の時
 	auto ChainTopAntSequence = new CSequence(blackboard);
 	{
-		// フラグ判定
-		ChainTopAntSequence->AddNode(new CHasTopOrderLeaf(blackboard));
-
 		// Top命令時の行動
 		ChainTopAntSequence->AddNode(new CFolllowTopLeaf(blackboard));
 	}
@@ -50,13 +48,6 @@ CNode* ArrayTree::CArrayBehaviorTree::SetArrayTreeNode(CBlackBoard* blackboard)
 	// Topからの命令がfalseの時
 	auto ChainAntSequence = new CSequence(blackboard);
 	{
-		// インバーターに判別ノードを設定
-		ChainAntSequence->AddNode
-		(
-			new CInverter(blackboard, 
-			new CHasTopOrderLeaf(blackboard))
-		);
-
 		// 餌獲得ループのシーケンスノード
 		auto FoodSequence = new CSequence(blackboard);
 
@@ -73,9 +64,13 @@ CNode* ArrayTree::CArrayBehaviorTree::SetArrayTreeNode(CBlackBoard* blackboard)
 		ChainAntSequence->AddNode(FoodSequence);
 	}
 
-	// Selector に追加
-	TopRootNode->AddNode(ChainTopAntSequence);	// トップのノード
-	TopRootNode->AddNode(ChainAntSequence);		// 餌獲得ループのノード
+	//============================
+	// 全体命令の判別ノードを作成する
+	//============================
+	auto BranchTopsFlag = new CArrayUseTopOrder(blackboard, ChainTopAntSequence, ChainAntSequence);
+
+	// ツリーの一番上のシーケンスノードに追加
+	TopRootNode->AddNode(BranchTopsFlag);
 
 	// 生成されたツリーノードのポインタを返す
 	return TopRootNode;

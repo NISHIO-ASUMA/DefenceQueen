@@ -864,6 +864,9 @@
     <ClCompile Include="src\cpp\createjsonnomove.cpp">
       <Filter>ソース ファイル\JsonUtilty\Sepalationclass</Filter>
     </ClCompile>
+    <ClCompile Include="src\cpp\arrayusetoporder.cpp">
+      <Filter>ソース ファイル\Array_AI\Leaf</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\outline.h">
@@ -1402,6 +1405,9 @@
     </ClInclude>
     <ClInclude Include="src\include\createjsonnomove.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\arrayusetoporder.h">
+      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

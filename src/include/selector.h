@@ -52,7 +52,7 @@ public:
 			NodeIncrement();
 
 			// ‚Ü‚¾Žq‚ªŽc‚Á‚Ä‚é‚È‚ç RUNNING
-			if (m_RanningIndex < m_ChildeNode.size())
+			if (m_RanningIndex < static_cast<int>(m_ChildeNode.size()))
 			{
 				m_NodeResult = NodeInfo::NodeResult::Re_RUNING;
 				return;
