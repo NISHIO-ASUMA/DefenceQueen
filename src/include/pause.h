@@ -62,6 +62,7 @@ public:
 	static CPause* Create(const D3DXVECTOR3& pos, float fWidth, float fHeight, const D3DXCOLOR& col, int nType);
 
 private:
+
 	int m_nIdxTexture;	// テクスチャインデックス番号
 	int m_nPauseType;	// ポーズの種類
 };

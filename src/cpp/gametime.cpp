@@ -49,9 +49,9 @@ CGameTime* CGameTime::Create(const D3DXVECTOR3& pos, const float& fWidth, const 
 	if (pTime == nullptr) return nullptr;
 
 	// オブジェクト設定
-	pTime->m_fHeight = fHeight;
-	pTime->m_fWidth = fWidth;
-	pTime->m_pos = pos;
+	pTime->SetHeight(fHeight);
+	pTime->SetWidth(fWidth);
+	pTime->SetPos(pos);
 
 	// 初期化失敗時
 	if (FAILED(pTime->Init())) return nullptr;

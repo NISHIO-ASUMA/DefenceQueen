@@ -194,6 +194,7 @@
     <ClCompile Include="src\cpp\collision.cpp" />
     <ClCompile Include="src\cpp\collisionbox.cpp" />
     <ClCompile Include="src\cpp\collisionsphere.cpp" />
+    <ClCompile Include="src\cpp\createjsonblock.cpp" />
     <ClCompile Include="src\cpp\createjsonmeshdome.cpp" />
     <ClCompile Include="src\cpp\createjsonmeshfield.cpp" />
     <ClCompile Include="src\cpp\createjsonnomove.cpp" />
@@ -367,6 +368,7 @@
     <ClInclude Include="src\include\collisionbox.h" />
     <ClInclude Include="src\include\collisionsphere.h" />
     <ClInclude Include="src\include\compositenodebase.h" />
+    <ClInclude Include="src\include\createjsonblock.h" />
     <ClInclude Include="src\include\createjsonmeshdome.h" />
     <ClInclude Include="src\include\createjsonmeshfield.h" />
     <ClInclude Include="src\include\createjsonnomove.h" />

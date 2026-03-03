@@ -36,7 +36,6 @@ public:
 	struct InstanceData
 	{
 		D3DXMATRIX mtxworld; // ワールドマトリックス
-		int materialID;		 // マテリアルID
 	};
 
 	CRenderer();

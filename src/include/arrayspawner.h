@@ -161,7 +161,7 @@ private:
 	//*****************************
 	struct Config
 	{
-		static constexpr int ACTIVE_COUNT = 600; // アリをアクティブにする更新カウント
+		static constexpr int ACTIVE_COUNT = 60000; // アリをアクティブにする更新カウント
 	};
 
 	D3DXVECTOR3 m_SpawnBasePos;				// スポーンのベース座標

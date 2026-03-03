@@ -6,7 +6,7 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル宣言
+// インクルードファイル
 //*********************************************************
 #include "manager.h"
 #include "title.h"
@@ -34,6 +34,15 @@
 #include "instancemotionmanager.h"
 #include "jsonmanager.h"
 
+//*********************************************************
+// 定数名前空間宣言
+//*********************************************************
+namespace MANAGERBASE
+{
+	constexpr const char* OUTLINEFILE = "data/SHADER/Out_Line.hlsl";		// アウトラインシェーダーファイル
+	constexpr const char* INSTANCINGNAME = "data/SHADER/Instancing.hlsl";	// インスタンシングシェーダーファイル
+};
+
 //=========================================================
 // コンストラクタ
 //=========================================================
@@ -52,7 +61,7 @@ m_pXfileManager(nullptr),
 m_pMotionManager(nullptr),
 m_pModelManager(nullptr)
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
@@ -61,6 +70,14 @@ CManager::~CManager()
 {
 	
 }
+//=========================================================
+// インスタンス取得処理
+//=========================================================
+CManager* CManager::GetInstance(void)
+{
+	static CManager pManeger;
+	return &pManeger;
+};
 //=========================================================
 // マネージャーの初期化処理
 //=========================================================
@@ -123,11 +140,11 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	if (FAILED(m_pJsonManager->Init())) return E_FAIL;
 
 	// アウトラインクラス生成
-	COutLine::GetInstance()->Init("data/SHADER/Out_Line.hlsl");
+	COutLine::GetInstance()->Init(MANAGERBASE::OUTLINEFILE);
 
 	// インスタンシングクラス生成
 	CInstancing::GetInstance()->SetDeviceToInstancing(m_pRenderer->GetDevice());
-	CInstancing::GetInstance()->Init("data/SHADER/Instancing.hlsl");
+	CInstancing::GetInstance()->Init(MANAGERBASE::INSTANCINGNAME);
 
 	// ネットワーククラスの生成
 	m_pNetWork = std::make_unique<CNetWork>();

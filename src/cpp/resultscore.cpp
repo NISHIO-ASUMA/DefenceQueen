@@ -53,9 +53,9 @@ CResultScore* CResultScore::Create(const D3DXVECTOR3& pos, const float fWidth, c
 	if (pScore == nullptr) return nullptr;
 
 	// オブジェクト設定
-	pScore->m_pos = pos;
-	pScore->m_fWidth = fWidth;
-	pScore->m_fHeight = fHeight;
+	pScore->SetPos(pos);
+	pScore->SetWidth(fWidth);
+	pScore->SetHeight(fHeight);
 
 	// 初期化失敗時
 	if (FAILED(pScore->Init())) return nullptr;
@@ -152,9 +152,7 @@ void CResultScore::Save(void)
 	// バイナリ数値データを保存
 	m_pLoad->SaveInt(Config::SAVEFILE, m_nLoadScore);
 
-	//==============================
 	// 通信サーバー設定
-	//==============================
 	CNetWork* pNetWork = CManager::GetInstance()->GetNetWork();
 	if (!pNetWork) return;
 
@@ -175,8 +173,8 @@ void CResultScore::UpdateAnimScore(void)
 	if (m_nTimer < m_nDuration)
 	{
 		// イージング適用
-		float time = CEasing::SetEase(m_nTimer, m_nDuration);
-		float fRate = CEasing::EaseOutCubic(time);
+		float fEasetime = CEasing::SetEase(m_nTimer, m_nDuration);
+		float fRate = CEasing::EaseOutCubic(fEasetime);
 
 		// 現在スコアをイージングさせる
 		m_nCurrentScore = m_nStartScore + static_cast<int>(((m_nLoadScore - m_nStartScore) * fRate));

@@ -34,6 +34,7 @@ public:
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
+	HRESULT Load(void);
 
 	/// <summary>
 	/// 配列のサイズを取得する
@@ -49,13 +50,20 @@ public:
 	/// <returns></returns>
 	inline CBlock* GetBlock(const int nIdx) { return m_pBlocks[nIdx]; }
 
+	/// <summary>
+	/// ブロック生成処理
+	/// </summary>
+	/// <param name="pos">座標</param>
+	/// <param name="rot">角度</param>
+	/// <param name="scale">拡大率</param>
+	/// <param name="pModelName">生成ファイル名</param>
+	/// <returns></returns>
+	CBlock* CreateManager(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const char* pModelName);
+
 private:
 
 	static constexpr const char* FILE_NAME = "data/JSON/Map.json"; // ファイル名
 	static constexpr const char* RESULTFILE_NAME = "data/JSON/ResultMap.json"; // ファイル名
-
-	HRESULT Load(void);
-	CBlock* CreateManager(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale, const char* pModelName);
 
 	std::vector<CBlock*>m_pBlocks; // 配置するブロックの動的配列
 };

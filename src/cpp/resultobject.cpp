@@ -53,14 +53,14 @@ HRESULT CResultObject::Init(void)
 {
 	// マップ読み込み
 	m_pBlock = std::make_unique<CBlockManager>();
+	auto jsonManager = CManager::GetInstance()->GetJsonManager();
+	jsonManager->SetBlockManager(m_pBlock.get());
 	m_pBlock->Init();
+	m_pBlock->Load();
 
-	// リザルトで使うオブジェクトの読み込み
+	// リザルトシーンオブジェクトの読み込み
 	auto jsonmanager = CManager::GetInstance()->GetJsonManager();
 	jsonmanager->Load(RESULTOBJECT::LoadName);
-
-	// 女王アリ生成
-	//CQueen::Create(D3DXVECTOR3(0.0f, 30.0f, -5.0f), VECTOR3_NULL);
 
 	// リザルト表示スコア
 	m_pResultScoreManager = std::make_unique<CResultScoreManager>();

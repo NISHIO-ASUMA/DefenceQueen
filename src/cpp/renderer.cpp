@@ -6,7 +6,7 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル宣言
+// インクルードファイル
 //*********************************************************
 #include "renderer.h"
 #include "object.h"
@@ -21,6 +21,14 @@
 #include "instancemodel.h"
 #include "instancemodelmanager.h"
 #include "texture.h"
+
+//*********************************************************
+// 定数名前空間宣言
+//*********************************************************
+namespace RENDERINFO
+{
+	const UINT MAX_INSTANCE = 2048; // 最大インスタンス数
+};
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -41,7 +49,7 @@ m_fps(NULL)
 //=========================================================
 CRenderer::~CRenderer()
 {
-	// 無し
+	
 }
 //=========================================================
 // レンダラー初期化処理
@@ -49,7 +57,7 @@ CRenderer::~CRenderer()
 HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 {
 	// ディスプレイモード
-	D3DDISPLAYMODE d3ddm;			
+	D3DDISPLAYMODE d3ddm = {};
 
 	// Direct3Dオブジェクトの生成
 	m_pD3D = Direct3DCreate9(D3D_SDK_VERSION);
@@ -65,20 +73,20 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 	}
 
 	// デバイスのプレゼンテーションのパラメーターを設定
-	ZeroMemory(&m_d3dpp, sizeof(m_d3dpp));						//パラメーターの0クリア
+	ZeroMemory(&m_d3dpp, sizeof(m_d3dpp));							//パラメーターの0クリア
 
-	m_d3dpp.BackBufferWidth = SCREEN_WIDTH;						// ゲーム画面サイズ(幅)
-	m_d3dpp.BackBufferHeight = SCREEN_HEIGHT;					// ゲーム画面サイズ(高さ)
-	m_d3dpp.BackBufferFormat = d3ddm.Format;					// バックバッファの形式
-	m_d3dpp.BackBufferCount = 1;								// バックバッファの数
-	m_d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;					// ダブルバッファの切り替え(映像信号に同期)
-	m_d3dpp.EnableAutoDepthStencil = TRUE;						// デプスバッファとステンシルバッファを作成
-	m_d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;				// デプスバッファとして16bitを使用
-	m_d3dpp.Windowed = bWindow;									// ウインドウモード
+	m_d3dpp.BackBufferWidth = SCREEN_WIDTH;							// ゲーム画面サイズ(幅)
+	m_d3dpp.BackBufferHeight = SCREEN_HEIGHT;						// ゲーム画面サイズ(高さ)
+	m_d3dpp.BackBufferFormat = d3ddm.Format;						// バックバッファの形式
+	m_d3dpp.BackBufferCount = 1;									// バックバッファの数
+	m_d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;						// ダブルバッファの切り替え(映像信号に同期)
+	m_d3dpp.EnableAutoDepthStencil = TRUE;							// デプスバッファとステンシルバッファを作成
+	m_d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;					// デプスバッファとして16bitを使用
+	m_d3dpp.Windowed = bWindow;										// ウインドウモード
 	m_d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;	// リフレッシュレート
-	m_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;	// インターバル
+	m_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;		// インターバル
 
-	// Direct3Dデバイスの生成(描画処理と頂点処理をハードウェアで行う)
+	// Direct3Dデバイスの生成 (描画処理と頂点処理をハードウェアで行う)
 	if (FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT,
 		D3DDEVTYPE_HAL,
 		hWnd,
@@ -86,7 +94,7 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 		&m_d3dpp,
 		&m_pD3DDevice)))
 	{
-		// Direct3Dデバイスの生成(描画処理はハードウェア,頂点処理をCPUで行う)
+		// Direct3Dデバイスの生成 (描画処理はハードウェア,頂点処理をCPUで行う)
 		if (FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT,
 			D3DDEVTYPE_HAL,
 			hWnd,
@@ -94,7 +102,7 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 			&m_d3dpp,
 			&m_pD3DDevice)))
 		{
-			// Direct3Dデバイスの生成(描画処理,頂点処理をCPUで行う)
+			// Direct3Dデバイスの生成 (描画処理,頂点処理をCPUで行う)
 			if (FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT,
 				D3DDEVTYPE_REF,
 				hWnd,
@@ -128,13 +136,10 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 	m_pDebug = new CDebugproc;
 	m_pDebug->Init();
 
-	// 最大インスタンス数
-	const UINT MAX_INSTANCE = 2048;
-
 	// インスタンシング用頂点バッファ生成
 	HRESULT hr = m_pD3DDevice->CreateVertexBuffer
 	(
-		sizeof(InstanceData) * MAX_INSTANCE,
+		sizeof(InstanceData) * RENDERINFO::MAX_INSTANCE,
 		D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY,
 		0,
 		D3DPOOL_DEFAULT,
@@ -233,9 +238,9 @@ void CRenderer::Draw(void)
 		// 全オブジェクト描画
 		CObject::DrawAll();
 
-		//************************
+		//*****************************
 		// インスタンシングのDrawCall
-		//************************
+		//*****************************
 		DrawInstancingAll();
 
 		// シーン取得

@@ -21,6 +21,7 @@
 // 前方宣言
 //*********************************************************
 class CJsonCreator;
+class CBlockManager;
 
 //*********************************************************
 // jsonを一括管理するクラスを定義
@@ -36,7 +37,12 @@ public:
 	HRESULT Init(void);
 	void Uninit(void);
 
+	void SetBlockManager(CBlockManager* pManager) { m_pBlockManager = pManager; }
+	CBlockManager* GetBlockManager(void){ return m_pBlockManager; }
+
 private:
 
 	std::unordered_map<std::string, std::unique_ptr<CJsonCreator>> m_Creator; // 生成するオブジェクトのマップ配列
+
+	CBlockManager* m_pBlockManager = nullptr; // ブロックマネージャーのポインタ
 };

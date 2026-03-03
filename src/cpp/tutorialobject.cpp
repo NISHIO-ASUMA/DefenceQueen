@@ -62,7 +62,9 @@ HRESULT CTutorialObject::Init(void)
 
 	// ステージマップ読み込み
 	m_pBlockManager = std::make_unique<CBlockManager>();
+	jsonmanager->SetBlockManager(m_pBlockManager.get());
 	m_pBlockManager->Init();
+	m_pBlockManager->Load();
 
 	// チュートリアルトップアリの生成
 	m_pTopAnt = CTutoTopAnt::Create(TUTORIALOBJECT::TopAntPos);

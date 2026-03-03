@@ -9,6 +9,8 @@
 // インクルードファイル
 //*********************************************************
 #include "blockmanager.h"
+#include "jsonmanager.h"
+#include "manager.h"
 #include "json.hpp"
 #include <fstream>
 #include <iostream>
@@ -57,9 +59,6 @@ HRESULT CBlockManager::Init(void)
 	// 配列のクリア
 	m_pBlocks.clear();
 
-	// ファイル読み込み
-	Load();
-
 	return S_OK;
 }
 //=========================================================
@@ -82,6 +81,11 @@ void CBlockManager::Update(void)
 //=========================================================
 HRESULT CBlockManager::Load(void)
 {
+	// jsonファイル読み込み
+	auto jsonmanager = CManager::GetInstance()->GetJsonManager();
+	jsonmanager->Load(FILE_NAME);
+
+#if 0
 	// 開くファイル
 	std::ifstream file(FILE_NAME);
 
@@ -146,6 +150,6 @@ HRESULT CBlockManager::Load(void)
 		// 実際のブロック生成
 		CreateManager(pos, rot, size, filepath.c_str());
 	}
-
+#endif
 	return S_OK;
 }

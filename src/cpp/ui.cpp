@@ -130,6 +130,7 @@ void CUi::Draw(void)
 	// 親クラスのの描画
 	CObject2D::Draw();
 
+	// αテスト有効時
 	if (m_isAlphaTest)
 	{
 		// 設定を元に戻す
@@ -145,28 +146,28 @@ void CUi::UpdateAlphaEnable(void)
 	if (m_nAlphaCnt >= m_nAlphaFrame)
 	{
 		// 最終的に透明にして止める
-		SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));
+		SetCol(COLOR_CLEAR);
 		m_isAlphaEnable = false;
 		return;
 	}
 
 	// 補完係数を計算する
-	float mathAlpha = static_cast<float>(m_nAlphaCnt) / static_cast<float>(m_nAlphaFrame);
-	float alpha = 0.0f;
+	float fMathAlpha = static_cast<float>(m_nAlphaCnt) / static_cast<float>(m_nAlphaFrame);
+	float fAlpha = 0.0f;
 
 	// フェードイン
-	if (mathAlpha < 0.5f)
+	if (fMathAlpha < 0.5f)
 	{
-		alpha = mathAlpha * 2.0f;
+		fAlpha = fMathAlpha * 2.0f;
 	}
 	// フェードアウト
 	else
 	{
-		alpha = (1.0f - mathAlpha) * 2.0f;
+		fAlpha = (1.0f - fMathAlpha) * 2.0f;
 	}
 
 	// オブジェクトのカラーに設定
-	SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, alpha));
+	SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, fAlpha));
 
 	// カウンターを加算
 	m_nAlphaCnt++;

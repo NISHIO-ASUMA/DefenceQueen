@@ -867,6 +867,9 @@
     <ClCompile Include="src\cpp\arrayusetoporder.cpp">
       <Filter>ソース ファイル\Array_AI\Leaf</Filter>
     </ClCompile>
+    <ClCompile Include="src\cpp\createjsonblock.cpp">
+      <Filter>ソース ファイル\JsonUtilty\Sepalationclass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\outline.h">
@@ -1400,14 +1403,17 @@
     <ClInclude Include="src\include\loseresultmanager.h">
       <Filter>ヘッダー ファイル\Scenes\SceneManager</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\createjsoncharactor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\createjsonnomove.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\arrayusetoporder.h">
       <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\createjsonnomove.h">
+      <Filter>ヘッダー ファイル\JsonUtility\Sepalation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\createjsoncharactor.h">
+      <Filter>ヘッダー ファイル\JsonUtility\Sepalation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\createjsonblock.h">
+      <Filter>ヘッダー ファイル\JsonUtility\Sepalation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -244,7 +244,10 @@ void CGameSceneObject::CreatePointer(void)
 
 	// ブロックマネージャー生成
 	m_pBlocks = std::make_unique<CBlockManager>();
+	auto jsonManager = CManager::GetInstance()->GetJsonManager();
+	jsonManager->SetBlockManager(m_pBlocks.get());
 	m_pBlocks->Init();
+	m_pBlocks->Load();
 
 	// タイマー生成
 	m_pTimer = CGameTime::Create(GAMEOBJECT::TimerPos);

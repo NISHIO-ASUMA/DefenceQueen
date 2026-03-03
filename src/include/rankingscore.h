@@ -36,7 +36,10 @@ public:
 	void Uninit(void) override;
 	void Update(void) override;
 	void Draw(void) override;
-	void Load(void);
+
+	inline void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	inline void SetWidth(const float& fWidth) { m_fWidth = fWidth; }
+	inline void SetHeight(const float& fHeight) { m_fHeight = fHeight; }
 
 	/// <summary>
 	/// ポインタ生成処理
@@ -59,16 +62,17 @@ private:
 	//*************************************
 	struct Config
 	{
-		static constexpr int RANKSCOREDIGIT = 8; // 表示桁数
-		static constexpr int RANKING_MAX = 5;	// ランキング数
-		static constexpr int DIGITNUM = 10;		// 分割桁数
-		static constexpr float POS_Y_VALUE = 65.0f;	// ずらすY座標値
-		static constexpr float POS_WIDTH_VALUE = 2.0f;	// ずらす横幅乗算
-		static constexpr const char* TEXNAME = "time.png"; // テクスチャ名
+		static constexpr int RANKSCOREDIGIT = 8;			// 表示桁数
+		static constexpr int RANKING_MAX = 5;				// ランキング数
+		static constexpr int DIGITNUM = 10;					// 分割桁数
+		static constexpr float POS_Y_VALUE = 65.0f;			// ずらすY座標値
+		static constexpr float POS_WIDTH_VALUE = 2.0f;		// ずらす横幅乗算
+		static constexpr const char* TEXNAME = "time.png";	// テクスチャ名
 	};
 
+	void Load(void);										// 外部読み込み処理
 
-	std::array<int, Config::RANKING_MAX>m_aRankData;	// スコア配列
+	std::array<int, Config::RANKING_MAX>m_aRankData;				  // スコア配列
 	CNumber* m_apNumber[Config::RANKING_MAX][Config::RANKSCOREDIGIT]; // 各スコアと桁数
 
 	D3DXVECTOR3 m_pos;		// 座標

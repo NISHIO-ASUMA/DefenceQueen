@@ -41,7 +41,11 @@ public:
 	void AddScore(int nValue);
 	void DeleteScore(void);
 	void SaveScore(void);
+
 	inline void SetScore(const int& nDestScore) { m_nScore = nDestScore; }
+	inline void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	inline void SetWidth(const float& fWidth) { m_fWidth = fWidth; }
+	inline void SetHeight(const float& fHeight) { m_fHeight = fHeight; }
 
 	inline int GetScore(void) const { return m_nScore; }
 	inline D3DXVECTOR3 GetPos(void) const { return m_pos; }
@@ -67,11 +71,11 @@ private:
 	//*************************
 	struct Config
 	{
-		static constexpr int NUM_SCORE = 8; // 桁数
-		static constexpr int NUM_DIGIT = 10; // 表示する分割桁数の値
-		static constexpr float DIGIT_VALUE = 2.0f; // 加算量
-		static constexpr const char* SAVE_NAME = "data/SCORE/GameScore.bin"; // 書き出しファイル名
-		static constexpr const char* TEX_NAME = "number003.png"; // テクスチャ名
+		static constexpr int NUM_SCORE = 8;										// 桁数
+		static constexpr int NUM_DIGIT = 10;									// 表示する分割桁数の値
+		static constexpr float DIGIT_VALUE = 2.0f;								// 加算量
+		static constexpr const char* SAVE_NAME = "data/SCORE/GameScore.bin";	// 書き出しファイル名
+		static constexpr const char* TEX_NAME = "number003.png";				// テクスチャ名
 	};
 
 	D3DXCOLOR m_col;	// カラー

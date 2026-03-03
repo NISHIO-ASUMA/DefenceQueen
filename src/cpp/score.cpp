@@ -10,11 +10,11 @@
 //*********************************************************
 #include "score.h"
 #include "manager.h"
+#include "load.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
-#include "load.h"
 
 //=========================================================
 // コンストラクタ
@@ -48,9 +48,9 @@ CScore* CScore::Create(const D3DXVECTOR3& pos, const float& fWidth, const float&
 	if (pScore == nullptr) return nullptr;
 
 	// オブジェクト設定
-	pScore->m_pos = pos;
-	pScore->m_fWidth = fWidth;
-	pScore->m_fHeight = fHeight;
+	pScore->SetPos(pos);
+	pScore->SetWidth(fWidth);
+	pScore->SetHeight(fHeight);
 
 	// 初期化失敗時
 	if (FAILED(pScore->Init())) return nullptr;

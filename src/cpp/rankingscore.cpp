@@ -50,9 +50,9 @@ CRankingScore* CRankingScore::Create(const D3DXVECTOR3& pos, float fWidth, float
 	if (pRankScore == nullptr) return nullptr;
 
 	// オブジェクト設定
-	pRankScore->m_pos = pos; 
-	pRankScore->m_fWidth = fWidth;
-	pRankScore->m_fHeight = fHeight;
+	pRankScore->SetPos(pos);
+	pRankScore->SetWidth(fWidth);
+	pRankScore->SetHeight(fHeight);
 
 	// 初期化失敗時
 	if (FAILED(pRankScore->Init())) return nullptr;

@@ -13,6 +13,17 @@
 #include "texture.h"
 #include "pausemanager.h"
 
+//*********************************************************
+// 定数名前空間
+//*********************************************************
+namespace PAUSEBASE
+{
+	const char* BACKTEXTURE = "data/TEXTURE/PauseBack.png";			// 背景の半透明ポリゴン
+	const char* QUITMENU = "data/TEXTURE/pause_quit.png";			// タイトル選択ポリゴン
+	const char* RETRYMENU = "data/TEXTURE/pause_retry.png";			// リトライ選択ポリゴン
+	const char* CONTINUEMENU = "data/TEXTURE/pause_continue.png";	// ゲーム継続選択ポリゴン
+};
+
 //=========================================================
 // コンストラクタ
 //=========================================================
@@ -119,19 +130,19 @@ void CPause::SetTexture(void)
 	switch (m_nPauseType)
 	{
 	case MENU_BACK: // 背景
-		m_nIdxTexture = pTexture->Register("data/TEXTURE/PauseBack.png"); 
+		m_nIdxTexture = pTexture->Register(PAUSEBASE::BACKTEXTURE);
 		break;
 
 	case MENU_RETRY: // リトライ選択時
-		m_nIdxTexture = pTexture->Register("data/TEXTURE/pause_retry.png"); 
+		m_nIdxTexture = pTexture->Register(PAUSEBASE::RETRYMENU);
 		break;
 
 	case MENU_CONTINUE: // コンテニュー選択時
-		m_nIdxTexture = pTexture->Register("data/TEXTURE/pause_continue.png");
+		m_nIdxTexture = pTexture->Register(PAUSEBASE::CONTINUEMENU);
 		break;
 
 	case MENU_QUIT: // クイット選択時
-		m_nIdxTexture = pTexture->Register("data/TEXTURE/pause_quit.png"); 
+		m_nIdxTexture = pTexture->Register(PAUSEBASE::QUITMENU);
 		break;
 
 	default:

@@ -35,6 +35,10 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 
+	inline void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	inline void SetWidth(const float& fWidth) { m_fWidth = fWidth; }
+	inline void SetHeight(const float& fHeight) { m_fHeight = fHeight; }
+
 	inline int GetToAll(void) const { return m_nAllTime; }
 	inline int GetToCurrent(void) const { return m_nSecond; }
 

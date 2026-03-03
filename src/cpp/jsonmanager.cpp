@@ -17,6 +17,7 @@
 #include "createjsonmeshfield.h"
 #include "createjsonmeshdome.h"
 #include "createjsoncharactor.h"
+#include "createjsonblock.h"
 
 //*********************************************************
 // json空間を使用
@@ -32,6 +33,7 @@ namespace PATH_TAGNAME
 	constexpr const char* MESHDOME	= "MeshDome";	// メッシュドームパラメータ
 	constexpr const char* MESHFIELD = "MeshField";	// メッシュフィールドパラメータ
 	constexpr const char* CHARACTOR = "Charactor";	// メッシュフィールドパラメータ
+	constexpr const char* BLOCK		= "Block";		// ブロックパラメータ
 
 };
 
@@ -59,6 +61,7 @@ HRESULT CJsonManager::Init(void)
 	m_Creator[PATH_TAGNAME::MESHFIELD] = std::make_unique<CJsonCreateMeshField>();
 	m_Creator[PATH_TAGNAME::MESHDOME] = std::make_unique<CJsonCreateMeshDome>();
 	m_Creator[PATH_TAGNAME::CHARACTOR] = std::make_unique<CJsonCreateCharactor>();
+	m_Creator[PATH_TAGNAME::BLOCK] = std::make_unique<CJsonCreateBlock>();
 
 	return S_OK;
 }

@@ -61,6 +61,7 @@
 
 
 #define COLOR_BLACK (D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f))		// çï
+#define COLOR_CLEAR (D3DXCOLOR(1.0f,1.0f,1.0f,0.0f))		// ìßñæ
 #define COLOR_WHITE (D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f))		// îí
 #define COLOR_RED	(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f))		// ê‘
 #define COLOR_GREEN (D3DXCOLOR(0.0f, 1.0f, 0.0f, 0.75f))	// óŒ

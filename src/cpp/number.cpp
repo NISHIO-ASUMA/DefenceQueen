@@ -28,7 +28,7 @@ m_TexV(NULL),
 n_nColorCount(NULL),
 m_isUse(true)
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
@@ -83,8 +83,8 @@ HRESULT CNumber::Init(D3DXVECTOR3 pos,float fwidth,float fheight)
 	//テクスチャ座標の設定
 	pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
 	pVtx[1].tex = D3DXVECTOR2(Config::DIGIT_VALUE, 0.0f);
-	pVtx[2].tex = D3DXVECTOR2(0.0f, 1.0f);
-	pVtx[3].tex = D3DXVECTOR2(Config::DIGIT_VALUE, 1.0f);
+	pVtx[2].tex = D3DXVECTOR2(0.0f, Config::END_FLOAT);
+	pVtx[3].tex = D3DXVECTOR2(Config::DIGIT_VALUE, Config::END_FLOAT);
 
 	//頂点バッファをアンロック
 	m_pVtxBuff->Unlock();
@@ -252,8 +252,8 @@ void CNumber::SetDigit(int nDigit)
 	// テクスチャ座標の設定
 	pVtx[0].tex = D3DXVECTOR2(fTexU, 0.0f);
 	pVtx[1].tex = D3DXVECTOR2(fTexU + Config::DIGIT_VALUE, 0.0f);
-	pVtx[2].tex = D3DXVECTOR2(fTexU, 1.0f);
-	pVtx[3].tex = D3DXVECTOR2(fTexU + Config::DIGIT_VALUE, 1.0f);
+	pVtx[2].tex = D3DXVECTOR2(fTexU, Config::END_FLOAT);
+	pVtx[3].tex = D3DXVECTOR2(fTexU + Config::DIGIT_VALUE, Config::END_FLOAT);
 
 	// 頂点バッファのアンロック
 	m_pVtxBuff->Unlock();

@@ -40,6 +40,10 @@ public:
 	void Save(void);
 	void SetAnimScore(const int& nDestScore);
 
+	inline void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
+	inline void SetWidth(const float& fWidth) { m_fWidth = fWidth; }
+	inline void SetHeight(const float& fHeight) { m_fHeight = fHeight; }
+
 	/// <summary>
 	/// ポインタ生成処理
 	/// </summary>
@@ -58,13 +62,13 @@ private:
 	//********************************
 	struct Config
 	{
-		static constexpr int NUM_SCORE = 8;		// 表示桁数
-		static constexpr int NUM_DIGIT = 10;	// 計算桁数
-		static constexpr int WRITE_SCORE = 5;	// 書き出し数
-		static constexpr int MAX_ANIMTIME = 180; // 最大継続時間
-		static constexpr float POSX_VALUE = 2.0f;// X座標加算値
+		static constexpr int NUM_SCORE = 8;					// 表示桁数
+		static constexpr int NUM_DIGIT = 10;				// 計算桁数
+		static constexpr int WRITE_SCORE = 5;				// 書き出し数
+		static constexpr int MAX_ANIMTIME = 180;			// 最大継続時間
+		static constexpr float POSX_VALUE = 2.0f;			// X座標加算値
 		static constexpr const char* SAVEFILE = "data/SCORE/ResultScore.bin"; // 書き出すファイル名
-		static constexpr const char* TEXNAME = "time.png"; // テクスチャ名
+		static constexpr const char* TEXNAME = "time.png";	// テクスチャ名
 
 	};
 
