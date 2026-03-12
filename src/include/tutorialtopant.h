@@ -80,7 +80,7 @@ private:
 		static constexpr const char* MOTION_NAME = "data/MOTION/Top/Top_Motion.txt";	 // モーションパス
 	};
 
-	std::unique_ptr<CSphereCollider>m_pSphereCollider; // 球形コライダー
+	std::unique_ptr<CSphereCollider>m_pSphereCollider;	// 球形コライダー
 	std::unique_ptr<CBoxCollider>m_pColliderBox;		// 矩形コライダー
 
 	CCircle3D* m_pCircleObj;			// 円形範囲選択オブジェクト

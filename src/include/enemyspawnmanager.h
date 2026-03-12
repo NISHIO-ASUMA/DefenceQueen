@@ -37,7 +37,10 @@ namespace Enemy_Spawn
 		{ 1175.0f,0.0f,-308.0f },
 		{ -1175.0f,0.0f,320.0f },
 		{ -1175.0f,0.0f,-320.0f }
+
 	};
+
+	static constexpr const char* PATH = "STAGEOBJ/EnemySpawn.x"; // ÉÇÉfÉãê∂ê¨ÉpÉX
 };
 
 //*********************************************************

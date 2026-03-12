@@ -186,7 +186,6 @@
     <ClCompile Include="src\cpp\boxtospherecollision.cpp" />
     <ClCompile Include="src\cpp\branchnodebase.cpp" />
     <ClCompile Include="src\cpp\camera.cpp" />
-    <ClCompile Include="src\cpp\charactorparam.cpp" />
     <ClCompile Include="src\cpp\chasedestination.cpp" />
     <ClCompile Include="src\cpp\checkneardestination.cpp" />
     <ClCompile Include="src\cpp\circle3d.cpp" />
@@ -359,7 +358,6 @@
     <ClInclude Include="src\include\boxtospherecollision.h" />
     <ClInclude Include="src\include\branchnodebase.h" />
     <ClInclude Include="src\include\camera.h" />
-    <ClInclude Include="src\include\charactorparam.h" />
     <ClInclude Include="src\include\chasedestination.h" />
     <ClInclude Include="src\include\checkneardestination.h" />
     <ClInclude Include="src\include\circle3d.h" />

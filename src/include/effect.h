@@ -36,7 +36,10 @@ public:
 	static CEffect* Create(D3DXVECTOR3 pos, D3DXCOLOR col, D3DXVECTOR3 move, int nLife, float fRadius);
 
 private:
+
 	int m_nLife;		// Žõ–½
 	float m_fRadius;	// ”¼Œa
 	D3DXVECTOR3 m_move;	// ˆÚ“®—Ê
+
+
 };

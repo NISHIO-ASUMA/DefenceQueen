@@ -32,8 +32,14 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CTutoTopAnt::CTutoTopAnt(int nPriority) : CMoveCharactor(nPriority),m_pColliderBox(nullptr),m_isBranchSet(false),
-m_fSeparationRadius(NULL), m_isHPressing(false), m_DestPos(VECTOR3_NULL),m_pPutSign(nullptr),m_pSeparationSign(nullptr),
+CTutoTopAnt::CTutoTopAnt(int nPriority) : CMoveCharactor(nPriority),
+m_pColliderBox(nullptr),
+m_isBranchSet(false),
+m_fSeparationRadius(NULL), 
+m_isHPressing(false),
+m_DestPos(VECTOR3_NULL),
+m_pPutSign(nullptr),
+m_pSeparationSign(nullptr),
 m_pPoint(nullptr)
 {
 	

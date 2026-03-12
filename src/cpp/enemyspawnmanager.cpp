@@ -40,7 +40,7 @@ HRESULT CEnemySpawnManager::Init(void)
 		m_pSpawners[nCnt] = CEnemySpawner::Create(SpawnPos[nCnt]);
 
 		// オブジェクト配置
-		CBlock::Create(SpawnPos[nCnt], VECTOR3_NULL, INITSCALE, "STAGEOBJ/EnemySpawn.x");
+		CBlock::Create(SpawnPos[nCnt], VECTOR3_NULL, INITSCALE, PATH);
 	}
 
 	return S_OK;

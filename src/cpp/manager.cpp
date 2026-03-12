@@ -46,8 +46,7 @@ namespace MANAGERBASE
 //=========================================================
 // コンストラクタ
 //=========================================================
-CManager::CManager() :
-m_pCamera(nullptr),
+CManager::CManager() : m_pCamera(nullptr),
 m_pFade(nullptr),
 m_pInputKeyboard(nullptr),
 m_pInputMouse(nullptr),
@@ -59,7 +58,8 @@ m_pSound(nullptr),
 m_pTexture(nullptr),
 m_pXfileManager(nullptr),
 m_pMotionManager(nullptr),
-m_pModelManager(nullptr)
+m_pModelManager(nullptr),
+m_pJsonManager(nullptr)
 {
 	
 }

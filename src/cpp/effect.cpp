@@ -16,7 +16,7 @@
 //=========================================================
 CEffect::CEffect(int nPriority) : CBillboard(nPriority),
 m_nLife(NULL),
-m_fRadius(0.0f),
+m_fRadius(NULL),
 m_move(VECTOR3_NULL)
 {
 	// ’l‚ÌƒNƒŠƒA

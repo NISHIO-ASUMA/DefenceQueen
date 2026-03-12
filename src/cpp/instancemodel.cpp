@@ -16,6 +16,14 @@
 #include "instancing.h"
 #include "pausemanager.h"
 
+//*********************************************************
+// 定数名前空間
+//*********************************************************
+namespace INSTANCINGINFO
+{
+	constexpr int MAX_UPDATECOUNT = 2; // 更新フレーム
+}
+
 //=========================================================
 // コンストラクタ
 //=========================================================
@@ -27,11 +35,14 @@ m_pos(VECTOR3_NULL),
 m_rot(VECTOR3_NULL),
 m_offPos(VECTOR3_NULL),
 m_offRot(VECTOR3_NULL),
+m_prevPos(VECTOR3_NULL),
+m_nextPos(VECTOR3_NULL),
+m_prevRot(VECTOR3_NULL),
+m_nextRot(VECTOR3_NULL),
 m_scale(INITSCALE),
+m_interp(NULL),
 m_isShadow(false),
-m_isInst(false),
-m_mtxworld{},
-m_Locla{}
+m_mtxworld{}
 {
 }
 //=========================================================
@@ -150,7 +161,7 @@ void CInstanceModel::Update(const D3DXMATRIX& mtx)
 	const auto& Rendere = CManager::GetInstance()->GetRenderer();
 
 	// 30fps更新
-	if (++m_nUpdateCount >= MAX_UPDATECOUNT)
+	if (++m_nUpdateCount >= INSTANCINGINFO::MAX_UPDATECOUNT)
 	{
 		// カウントを初期化
 		m_nUpdateCount = 0;
@@ -168,7 +179,7 @@ void CInstanceModel::Update(const D3DXMATRIX& mtx)
 	}
 
 	// 毎フレーム補間する
-	m_interp = min(m_interp + 1.0f / MAX_UPDATECOUNT, 1.0f);
+	m_interp = min(m_interp + 1.0f / INSTANCINGINFO::MAX_UPDATECOUNT, 1.0f);
 	float fDis = m_interp;
 
 	D3DXVECTOR3 ipos = m_prevPos + (m_nextPos - m_prevPos) * fDis;
@@ -305,10 +316,20 @@ void CInstanceModel::SetModelPass(const char* pModelName)
 	m_nModelIdx = InstModelManager->Register(pModelName);
 }
 //=========================================================
-// 親設定
+// ターゲットの座標に設定
 //=========================================================
-void CInstanceModel::SetParent(CInstanceModel* pModel)
+void CInstanceModel::SetTargetPos(const D3DXVECTOR3& pos)
 {
-	// 親モデルを設定する
-	m_pParent = pModel;
+	m_prevPos = m_nextPos;
+	m_nextPos = pos;
+	m_interp = 0.0f;
+}
+//=========================================================
+// ターゲットの角度に設定
+//=========================================================
+void CInstanceModel::SetTargetRot(const D3DXVECTOR3& rot)
+{
+	m_prevRot = m_nextRot;
+	m_nextRot = rot;
+	m_interp = 0.0f;
 }

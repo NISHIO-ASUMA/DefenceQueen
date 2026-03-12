@@ -138,9 +138,6 @@ void CMoveCharactor::Update(void)
 	// 計算用のマトリックスを宣言
 	D3DXMATRIX mtxRot, mtxTrans, mtxScal;
 
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxworld);
-
 	// 大きさを反映
 	D3DXMatrixScaling(&mtxScal, m_scale.x, m_scale.y, m_scale.z);
 

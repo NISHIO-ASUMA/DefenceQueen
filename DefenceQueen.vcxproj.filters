@@ -540,9 +540,6 @@
     <ClCompile Include="src\cpp\motionmanager.cpp">
       <Filter>ソース ファイル\Charactor\Motion</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\charactorparam.cpp">
-      <Filter>ソース ファイル\Charactor\Param</Filter>
-    </ClCompile>
     <ClCompile Include="src\cpp\parameter.cpp">
       <Filter>ソース ファイル\Charactor\Param</Filter>
     </ClCompile>
@@ -1248,9 +1245,6 @@
       <Filter>ヘッダー ファイル\Charactor\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="src\include\parameter.h">
-      <Filter>ヘッダー ファイル\Charactor\Param</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\charactorparam.h">
       <Filter>ヘッダー ファイル\Charactor\Param</Filter>
     </ClInclude>
     <ClInclude Include="src\include\arrayspawner.h">
