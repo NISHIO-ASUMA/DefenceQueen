@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "meshpiler.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "texture.h"
 #include "manager.h"
 #include "template.h"
@@ -27,24 +31,23 @@ namespace PILERINFO
 };
 
 //=========================================================
-// オーバーロードコンストラクタ
+// コンストラクタ
 //=========================================================
 CMeshPiler::CMeshPiler(int nPriority) : CObject(nPriority),
 m_pIdx(nullptr),
 m_pVtx(nullptr),
 m_pos(VECTOR3_NULL),
 m_rot(VECTOR3_NULL),
-m_MeshPiler{}
+m_MeshPiler{},
+m_mtxWorld{}
 {
-	// 値のクリア処理
-	D3DXMatrixIdentity(&m_mtxWorld);
 }
 //=========================================================
 // デストラクタ
 //=========================================================
 CMeshPiler::~CMeshPiler()
 {
-	// 無し
+	
 }
 //=========================================================
 // 生成処理
@@ -266,6 +269,18 @@ void CMeshPiler::Update(void)
 		// アンロック
 		m_pVtx->Unlock();
 	}
+
+	//計算用のマトリックスを宣言
+	D3DXMATRIX mtxRot, mtxTrans;
+
+	//向きを反映
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
+
+	//位置を反映
+	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
+
+	// マトリックスの行列計算
+	m_mtxWorld = mtxRot * mtxTrans;
 }
 //=========================================================
 // 描画処理
@@ -274,20 +289,6 @@ void CMeshPiler::Draw(void)
 {
 	// デバイスのポインタ
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
-
-	//計算用のマトリックスを宣言
-	D3DXMATRIX mtxRot, mtxTrans;
-
-	//ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxWorld);
-
-	//向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
-
-	//位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
 
 	//ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
@@ -303,6 +304,7 @@ void CMeshPiler::Draw(void)
 
 	// テクスチャ読み込み
 	CTexture* pTexture = CManager::GetInstance()->GetTexture();
+	if (pTexture == nullptr) return;
 
 	// テクスチャセット
 	pDevice->SetTexture(0, pTexture->GetAddress(m_MeshPiler.nTexIdx));
@@ -328,7 +330,7 @@ bool CMeshPiler::Collision(D3DXVECTOR3* CollisionPos)
 
 	// 高さ範囲をチェック
 	float fMinY = NowPos.y;
-	float fMaxY = NowPos.y + PILERINFO::VALUEHEIGHT;	// 現在の高さまで
+	float fMaxY = NowPos.y + PILERINFO::VALUEHEIGHT;
 
 	if (fRangeXZ < PILERINFO::COLLISIONRADIUS &&
 		CollisionPos->y >= fMinY && CollisionPos->y <= fMaxY)

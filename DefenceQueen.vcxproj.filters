@@ -232,9 +232,6 @@
     <Filter Include="ヘッダー ファイル\Particle">
       <UniqueIdentifier>{c0743c96-1f32-4522-bcf9-6937cd64a4eb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\AI_System\Base_Sample">
-      <UniqueIdentifier>{93289a51-ec9d-451f-9d53-43325f00bd53}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\AI_System\Branch">
       <UniqueIdentifier>{8908c6a1-e885-4f33-b6f9-58a55fe68c6b}</UniqueIdentifier>
     </Filter>
@@ -402,9 +399,6 @@
     <ClCompile Include="src\cpp\ui.cpp">
       <Filter>ソース ファイル\2DUI</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\workerui.cpp">
-      <Filter>ソース ファイル\2DUI</Filter>
-    </ClCompile>
     <ClCompile Include="src\cpp\eventarea.cpp">
       <Filter>ソース ファイル\3D</Filter>
     </ClCompile>
@@ -420,32 +414,11 @@
     <ClCompile Include="src\cpp\signalui.cpp">
       <Filter>ソース ファイル\3D</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\behaviortree.cpp">
-      <Filter>ソース ファイル\AI_System\Base_Sample</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\chasedestination.cpp">
-      <Filter>ソース ファイル\AI_System\Base_Sample</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\checkneardestination.cpp">
-      <Filter>ソース ファイル\AI_System\Base_Sample</Filter>
-    </ClCompile>
     <ClCompile Include="src\cpp\branchnodebase.cpp">
       <Filter>ソース ファイル\AI_System\Branch</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\arraybehaviortree.cpp">
       <Filter>ソース ファイル\Array_AI\Base_tree</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arrayattackleaf.cpp">
-      <Filter>ソース ファイル\Array_AI\Leaf</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arraychecknear.cpp">
-      <Filter>ソース ファイル\Array_AI\Leaf</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arraygetfeedleaf.cpp">
-      <Filter>ソース ファイル\Array_AI\Leaf</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arraywaitleaf.cpp">
-      <Filter>ソース ファイル\Array_AI\Leaf</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\attackenemyleaf.cpp">
       <Filter>ソース ファイル\Array_AI\Leaf</Filter>
@@ -454,9 +427,6 @@
       <Filter>ソース ファイル\Array_AI\Leaf</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\folllowtopleaf.cpp">
-      <Filter>ソース ファイル\Array_AI\Leaf</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\hastoporderleaf.cpp">
       <Filter>ソース ファイル\Array_AI\Leaf</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\movetofeedleaf.cpp">
@@ -567,12 +537,6 @@
     <ClCompile Include="src\cpp\tutorialtopant.cpp">
       <Filter>ソース ファイル\Charactor\TutorialCharactor</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\worker.cpp">
-      <Filter>ソース ファイル\Charactor\Worker</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\workermanager.cpp">
-      <Filter>ソース ファイル\Charactor\Worker</Filter>
-    </ClCompile>
     <ClCompile Include="src\cpp\effect.cpp">
       <Filter>ソース ファイル\Effect</Filter>
     </ClCompile>
@@ -624,9 +588,6 @@
     <ClCompile Include="src\cpp\eventareamanager.cpp">
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\feedmanager.cpp">
-      <Filter>ソース ファイル\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="src\cpp\gamewallmanager.cpp">
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
@@ -643,9 +604,6 @@
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\titlewallmanager.cpp">
-      <Filter>ソース ファイル\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\workeruimanager.cpp">
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\xfilemanager.cpp">
@@ -1028,9 +986,6 @@
     <ClInclude Include="src\include\ui.h">
       <Filter>ヘッダー ファイル\2DUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\workerui.h">
-      <Filter>ヘッダー ファイル\2DUI</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\score.h">
       <Filter>ヘッダー ファイル\2DUI</Filter>
     </ClInclude>
@@ -1115,9 +1070,6 @@
     <ClInclude Include="src\include\xfilemanager.h">
       <Filter>ヘッダー ファイル\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\workeruimanager.h">
-      <Filter>ヘッダー ファイル\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\titlewallmanager.h">
       <Filter>ヘッダー ファイル\Manager</Filter>
     </ClInclude>
@@ -1193,23 +1145,8 @@
     <ClInclude Include="src\include\modelmanager.h">
       <Filter>ヘッダー ファイル\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\feedmanager.h">
-      <Filter>ヘッダー ファイル\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\arraybehaviortree.h">
       <Filter>ヘッダー ファイル\Array_AI\Base_tree</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\arrayattackleaf.h">
-      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\arraychecknear.h">
-      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\arraygetfeedleaf.h">
-      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\arraywaitleaf.h">
-      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
     </ClInclude>
     <ClInclude Include="src\include\attackenemyleaf.h">
       <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
@@ -1271,12 +1208,6 @@
     <ClInclude Include="src\include\tutorialtopant.h">
       <Filter>ヘッダー ファイル\Charactor\TutoCharactor</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\worker.h">
-      <Filter>ヘッダー ファイル\Charactor\Worker</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\workermanager.h">
-      <Filter>ヘッダー ファイル\Charactor\Worker</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\signalui.h">
       <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
@@ -1297,9 +1228,6 @@
     </ClInclude>
     <ClInclude Include="src\include\eventarea.h">
       <Filter>ヘッダー ファイル\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\behaviortree.h">
-      <Filter>ヘッダー ファイル\AI_System\Base_Tree</Filter>
     </ClInclude>
     <ClInclude Include="src\include\folllowtopleaf.h">
       <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
@@ -1339,9 +1267,6 @@
     </ClInclude>
     <ClInclude Include="src\include\decorator.h">
       <Filter>ヘッダー ファイル\AI_System\Decorator</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\hastoporderleaf.h">
-      <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
     </ClInclude>
     <ClInclude Include="src\include\sepalationsign.h">
       <Filter>ヘッダー ファイル\3D</Filter>

@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "array.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "parameter.h"
 #include "manager.h"
 #include "spherecollider.h"
@@ -22,9 +26,7 @@
 #include "arrayspawnmanager.h"
 #include "arrayspawner.h"
 #include "topant.h"
-#include "player.h"
 #include "separationant.h"
-#include "feedmanager.h"
 #include "feed.h"
 #include "arraybehaviortree.h"
 #include "node.h"
@@ -64,7 +66,7 @@ m_MoveDestPos(VECTOR3_NULL),
 m_ActivePos(VECTOR3_NULL),
 m_nListGroupId(NULL)
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
@@ -291,7 +293,6 @@ void CArray::FollowDestination(const D3DXVECTOR3& DestPos)
 
 		// 移動モーションにセット
 		m_pMotion->SetMotion(CArray::MOTION_MOVE);
-
 		return;
 	}
 

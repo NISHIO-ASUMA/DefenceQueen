@@ -33,7 +33,7 @@ public:
 	//**************************
 	enum class BRANCH_NUM
 	{
-		BRANCH_NUM_TRUE = 0,
+		BRANCH_NUM_TRUE,
 		BRANCH_NUM_FALSE,
 		BRANCH_NUM_MAX
 	};
@@ -52,6 +52,9 @@ public:
 		m_pBranchNode[1] = FalseNode;
 	};
 
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
 	virtual ~CBranchNodeBase()
 	{
 		// 配列をクリア

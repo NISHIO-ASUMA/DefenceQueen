@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "meshcylinder.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 #include "texture.h"
 #include "debugproc.h"
@@ -21,17 +25,16 @@ m_pIdx(nullptr),
 m_pVtx(nullptr),
 m_pos(VECTOR3_NULL),
 m_rot(VECTOR3_NULL),
-m_Cylinder{}
+m_Cylinder{},
+m_mtxWorld{}
 {
-	// 値のクリア処理
-	D3DXMatrixIdentity(&m_mtxWorld);
 }
 //=========================================================
 // デストラクタ
 //=========================================================
 CMeshCylinder::~CMeshCylinder()
 {
-	// 無し
+	
 }
 //=========================================================
 // 生成処理
@@ -191,16 +194,14 @@ void CMeshCylinder::Update(void)
 	// 計算用のマトリックスを宣言
 	D3DXMATRIX mtxRot, mtxTrans;
 
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxWorld);
-
 	// 向きを反映
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 
 	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+
+	// マトリックスにかけ合わせる
+	m_mtxWorld = mtxRot * mtxTrans;
 }
 //=========================================================
 // 描画処理
@@ -210,7 +211,7 @@ void CMeshCylinder::Draw(void)
 	// デバイスのポインタ
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
-	// ゼットテスト
+	// Zテスト
 	pDevice->SetRenderState(D3DRS_CULLMODE, TRUE);
 	pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
@@ -229,6 +230,7 @@ void CMeshCylinder::Draw(void)
 
 	// テクスチャ読み込み
 	CTexture* pTexture = CManager::GetInstance()->GetTexture();
+	if (pTexture == nullptr) return;
 
 	// テクスチャセット
 	pDevice->SetTexture(0, pTexture->GetAddress(m_Cylinder.nTexIdx));

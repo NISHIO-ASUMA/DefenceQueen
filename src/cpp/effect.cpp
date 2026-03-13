@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "effect.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 
 //=========================================================
@@ -19,14 +23,14 @@ m_nLife(NULL),
 m_fRadius(NULL),
 m_move(VECTOR3_NULL)
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
 //=========================================================
 CEffect::~CEffect()
 {
-	// 無し
+	
 }
 //=========================================================
 // 生成処理
@@ -44,7 +48,7 @@ CEffect* CEffect::Create(D3DXVECTOR3 pos, D3DXCOLOR col, D3DXVECTOR3 move, int n
 	pEffect->SetSize(fRadius, fRadius);
 	pEffect->SetPos(pos);
 	pEffect->SetCol(col);
-	pEffect->SetTexture("effect000.jpg");
+	pEffect->SetTexture(Config::TEXNAME);
 
 	// 半径を代入
 	pEffect->SetLife(nLife);
@@ -89,14 +93,11 @@ void CEffect::Update(void)
 	// 移動量の更新
 	Effectpos += m_move;
 
-	// 減算する値を設定
-	const float fDecPow = 0.005f;
-
 	// 半径をデクリメント
-	m_fRadius -= fDecPow;
+	m_fRadius -= Config::DecPaw;
 
 	// α値を減少
-	col.a -= fDecPow;
+	col.a -= Config::DecPaw;
 
 	// 座標をセットする
 	SetPos(Effectpos);
@@ -105,10 +106,7 @@ void CEffect::Update(void)
 	SetCol(col);
 
 	// 0以下なら
-	if (m_fRadius <= 0.0f)
-	{
-		m_fRadius = 0.0f;
-	}
+	if (m_fRadius <= 0.0f) m_fRadius = 0.0f;
 
 	// サイズセット
 	SetSize(m_fRadius, m_fRadius);

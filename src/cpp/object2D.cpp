@@ -6,17 +6,25 @@
 //==========================================================
 
 //**********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //**********************************************************
 #include "object2D.h"
-#include "renderer.h"
-#include "manager.h"
-#include "template.h"
-#include "texture.h"
+
+//**********************************************************
+// システムインクルードファイル
+//**********************************************************
 #include <string>
 
+//**********************************************************
+// インクルードファイル
+//**********************************************************
+#include "manager.h"
+#include "renderer.h"
+#include "template.h"
+#include "texture.h"
+
 //=========================================================
-// オーバーロードコンストラクタ
+// コンストラクタ
 //=========================================================
 CObject2D::CObject2D(int nPriority) : CObject(nPriority),
 m_pTexture(nullptr),
@@ -38,14 +46,14 @@ m_nAnchorType(ANCHORTYPE_NONE)
 //=========================================================
 CObject2D::~CObject2D()
 {
-	// 無し
+	
 }
 //=========================================================
 // 生成処理
 //=========================================================
 CObject2D* CObject2D::Create(void)
 {
-	// ポインタ宣言
+	// インスタンス生成
 	CObject2D* pObject2D;
 
 	// インスタンス生成
@@ -57,7 +65,7 @@ CObject2D* CObject2D::Create(void)
 	return pObject2D;
 }
 //=========================================================
-// オブジェクト2D初期化処理
+// 初期化処理
 //=========================================================
 HRESULT CObject2D::Init(void)
 {
@@ -108,7 +116,7 @@ HRESULT CObject2D::Init(void)
 	return S_OK;
 }
 //=========================================================
-// オブジェクト2D終了処理
+// 終了処理
 //=========================================================
 void CObject2D::Uninit(void)
 {
@@ -129,26 +137,26 @@ void CObject2D::Uninit(void)
 	CObject::Release();
 }
 //=========================================================
-// オブジェクト2D更新処理
+// 更新処理
 //=========================================================
 void CObject2D::Update(void)
 {
 	// アンカーの種類を取得
 	switch (m_nAnchorType)
 	{
-	case ANCHORTYPE_NONE: // 何もない
+	case ANCHORTYPE_NONE:		// 何もない
 		SetCenter();
 		break;
 
-	case ANCHORTYPE_CENTER: // 中心点
+	case ANCHORTYPE_CENTER:		// 中心点
 		SetCenter();
 		break;
 
-	case ANCHORTYPE_LEFTSIDE: // 左基準点
+	case ANCHORTYPE_LEFTSIDE:	// 左基準点
 		SetLeft();
 		break;
 
-	case ANCHORTYPE_RIGHTSIDE: // 右基準点
+	case ANCHORTYPE_RIGHTSIDE:	// 右基準点
 		SetRight();
 		break;
 
@@ -157,7 +165,7 @@ void CObject2D::Update(void)
 	}
 }
 //=========================================================
-// オブジェクト2D描画処理
+// 描画処理
 //=========================================================
 void CObject2D::Draw(void)
 {
@@ -283,7 +291,7 @@ void CObject2D::SetFlash(const int nFirstcount, const int nEndcount, const D3DXC
 void CObject2D::SetCenter(void)
 {
 	// 頂点情報のポインタ
-	VERTEX_2D* pVtx;
+	VERTEX_2D* pVtx = nullptr;
 
 	// 頂点バッファをロックし,頂点情報へのポインタを取得
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
@@ -294,7 +302,7 @@ void CObject2D::SetCenter(void)
 	pVtx[2].pos = D3DXVECTOR3(m_pos.x - m_fWidth, m_pos.y + m_fHeight, 0.0f);
 	pVtx[3].pos = D3DXVECTOR3(m_pos.x + m_fWidth, m_pos.y + m_fHeight, 0.0f);
 
-	// rhwの設定( 1.0fで固定 )
+	// rhwの設定
 	pVtx[0].rhw =
 	pVtx[1].rhw =
 	pVtx[2].rhw =
@@ -321,7 +329,7 @@ void CObject2D::SetCenter(void)
 void CObject2D::SetLeft(void)
 {
 	// 頂点情報のポインタ
-	VERTEX_2D* pVtx;
+	VERTEX_2D* pVtx = nullptr;
 
 	// 頂点バッファをロックし,頂点情報へのポインタを取得
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
@@ -332,7 +340,7 @@ void CObject2D::SetLeft(void)
 	pVtx[2].pos = D3DXVECTOR3(m_pos.x, m_pos.y + m_fHeight, 0.0f);
 	pVtx[3].pos = D3DXVECTOR3(m_pos.x + m_fWidth, m_pos.y + m_fHeight, 0.0f);
 
-	// rhwの設定( 1.0fで固定 )
+	// rhwの設定
 	pVtx[0].rhw =
 	pVtx[1].rhw =
 	pVtx[2].rhw =
@@ -359,7 +367,7 @@ void CObject2D::SetLeft(void)
 void CObject2D::SetRight(void)
 {
 	// 頂点情報のポインタ
-	VERTEX_2D* pVtx;
+	VERTEX_2D* pVtx = nullptr;
 
 	// 頂点バッファをロックし,頂点情報へのポインタを取得
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
@@ -370,7 +378,7 @@ void CObject2D::SetRight(void)
 	pVtx[2].pos = D3DXVECTOR3(m_pos.x - m_fWidth, m_pos.y + m_fHeight, 0.0f);
 	pVtx[3].pos = D3DXVECTOR3(m_pos.x, m_pos.y + m_fHeight, 0.0f);
 
-	// rhwの設定(1.0fで固定)
+	// rhwの設定
 	pVtx[0].rhw =
 	pVtx[1].rhw =
 	pVtx[2].rhw =

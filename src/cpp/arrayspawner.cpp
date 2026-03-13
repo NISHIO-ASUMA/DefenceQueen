@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "arrayspawner.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "array.h"
 #include "arraymanager.h"
 #include "topant.h"
@@ -18,8 +22,7 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CArraySpawner::CArraySpawner() :
-m_SpawnBasePos(VECTOR3_NULL),
+CArraySpawner::CArraySpawner() : m_SpawnBasePos(VECTOR3_NULL),
 m_nStockArrays(NULL), 
 m_nActiveCount(NULL),
 m_nGetSepaltioncnt(NULL),
@@ -39,7 +42,14 @@ CArraySpawner::~CArraySpawner()
 //=========================================================
 // 生成関数
 //=========================================================
-CArraySpawner* CArraySpawner::Create(const D3DXVECTOR3& pos, const int nMaxArray, CArrayManager* pManager, const D3DXVECTOR3& MovePos,const int& nSepalations)
+CArraySpawner* CArraySpawner::Create
+(
+	const D3DXVECTOR3& pos, 
+	const int nMaxArray, 
+	CArrayManager* pManager, 
+	const D3DXVECTOR3& MovePos,
+	const int& nSepalations
+)
 {
 	// インスタンス生成
 	CArraySpawner* pSpawner = new CArraySpawner;
@@ -175,7 +185,7 @@ void CArraySpawner::SetMaxArray(const int& nMaxArray)
 //=========================================================
 CArray* CArraySpawner::GetTopArray() const
 {
-	return m_AssignedArrays[0]; // 先頭の配列
+	return m_AssignedArrays[0];
 }
 //=========================================================
 // 動いているアリの最後尾を返す

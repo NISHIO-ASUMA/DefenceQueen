@@ -6,12 +6,20 @@
 //=========================================================
 
 //*********************************************************
-// インクルードガード
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "move3dobject.h"
+
+//*********************************************************
+// システムインクルードファイル
+//*********************************************************
+#include <string>
+
+//*********************************************************
+// インクルードガード
+//*********************************************************
 #include "manager.h"
 #include "texture.h"
-#include <string>
 
 //=========================================================
 // コンストラクタ
@@ -25,10 +33,10 @@ m_pos(VECTOR3_NULL),
 m_posOld(VECTOR3_NULL),
 m_rot(VECTOR3_NULL),
 m_pVtxBuff(nullptr),
-m_nIdxTexture(-1)
+m_nIdxTexture(-1),
+m_mtxWorld{}
 {
-	// 値のクリア
-	D3DXMatrixIdentity(&m_mtxWorld);
+	
 }
 //=========================================================
 // デストラクタ
@@ -42,7 +50,7 @@ CMove3DObject::~CMove3DObject()
 //=========================================================
 HRESULT CMove3DObject::Init(void)
 {
-	// デバイスポインタを宣言
+	// デバイスポインタ
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// 頂点バッファの生成
@@ -69,7 +77,7 @@ HRESULT CMove3DObject::Init(void)
 	pVtx[0].nor =
 	pVtx[1].nor =
 	pVtx[2].nor =
-	pVtx[3].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);		// 法線情報
+	pVtx[3].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 
 	// 頂点カラーの設定
 	pVtx[0].col =
@@ -116,16 +124,16 @@ void CMove3DObject::Update(void)
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 	// 頂点座標の設定
-	pVtx[0].pos = D3DXVECTOR3(-m_fWidth, m_fHeight, m_fWidth);	// 1つ目の頂点情報
-	pVtx[1].pos = D3DXVECTOR3(m_fWidth, m_fHeight, m_fWidth);	// 2つ目の頂点情報
-	pVtx[2].pos = D3DXVECTOR3(-m_fWidth, m_fHeight, -m_fWidth);	// 3つ目の頂点情報
-	pVtx[3].pos = D3DXVECTOR3(m_fWidth, m_fHeight, -m_fWidth);	// 4つ目の頂点情報
+	pVtx[0].pos = D3DXVECTOR3(-m_fWidth, m_fHeight, m_fWidth);
+	pVtx[1].pos = D3DXVECTOR3(m_fWidth, m_fHeight, m_fWidth);
+	pVtx[2].pos = D3DXVECTOR3(-m_fWidth, m_fHeight, -m_fWidth);
+	pVtx[3].pos = D3DXVECTOR3(m_fWidth, m_fHeight, -m_fWidth);
 
 	// 各頂点の法線(ベクトル)の設定
 	pVtx[0].nor =
 	pVtx[1].nor =
 	pVtx[2].nor =
-	pVtx[3].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);		// 法線情報
+	pVtx[3].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 
 	// 頂点カラーの設定
 	pVtx[0].col =
@@ -145,16 +153,14 @@ void CMove3DObject::Update(void)
 	// 計算用のマトリックスを宣言
 	D3DXMATRIX mtxRot, mtxTrans;
 
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxWorld);
-
 	// 向きを反映
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 
 	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+
+	// マトリックスの行列計算
+	m_mtxWorld = mtxRot * mtxTrans;
 }
 //=========================================================
 // 描画処理

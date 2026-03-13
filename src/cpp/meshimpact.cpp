@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "meshimpact.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 #include "debugproc.h"
 #include "player.h"
@@ -29,7 +33,7 @@ namespace IMPACTINFO
 }
 
 //=========================================================
-// オーバーロードコンストラクタ
+// コンストラクタ
 //=========================================================
 CMeshImpact::CMeshImpact(int nPriority) : CObject(nPriority),
 m_pIdx(nullptr),
@@ -37,10 +41,9 @@ m_pVtx(nullptr),
 m_pos(VECTOR3_NULL),
 m_rot(VECTOR3_NULL),
 m_col(D3DCOLOR_RGBA(0, 185, 46, 255)),
-m_MeshImpact{}
+m_MeshImpact{},
+m_mtxWorld{}
 {
-	// 値のクリア
-	D3DXMatrixIdentity(&m_mtxWorld);
 }
 //=========================================================
 // デストラクタ
@@ -65,6 +68,7 @@ CMeshImpact* CMeshImpact::Create(D3DXVECTOR3 pos, int nLife, float fOutRadius, f
 	pMesh->m_MeshImpact.nLife = nLife;			// 継続時間
 	pMesh->m_MeshImpact.fSpeed = fSpeed;		// 拡散速度
 	pMesh->m_MeshImpact.DecAlpha = pMesh->m_col.a / nLife; // αの減少値
+
 	pMesh->SetObjType(TYPE_MESH);				// オブジェクトのタイプを設定
 
 	// 初期化失敗
@@ -306,6 +310,18 @@ void CMeshImpact::Update(void)
 		// 処理を返す
 		return;
 	}
+
+	// 計算用のマトリックスを宣言
+	D3DXMATRIX mtxRot, mtxTrans;
+
+	// 向きを反映
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
+
+	// 位置を反映
+	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
+
+	// マトリックスの行列計算
+	m_mtxWorld = mtxRot * mtxTrans;
 }
 //=========================================================
 // 描画処理
@@ -315,9 +331,6 @@ void CMeshImpact::Draw(void)
 	// デバイスのポインタ
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
-	// 計算用のマトリックスを宣言
-	D3DXMATRIX mtxRot, mtxTrans;
-
 	// Zテストを適用
 	pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_ALWAYS);
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
@@ -326,17 +339,6 @@ void CMeshImpact::Draw(void)
 	pDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
 	pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
-
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxWorld);
-
-	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
-
-	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
 
 	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
@@ -365,9 +367,11 @@ void CMeshImpact::Draw(void)
 	pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
+#ifdef _DEBUG
 	// デバッグフォント
 	CDebugproc::Print("衝撃波の座標 { %.2f,%.2f,%.2f }", m_pos.x, m_pos.y, m_pos.z);
-	CDebugproc::Draw(1000,180);
+	CDebugproc::Draw(1000, 180);
+#endif // _DEBUG
 }
 //=========================================================
 // 当たり判定処理

@@ -6,14 +6,13 @@
 //===================================================================
 
 //*******************************************************************
-// TODO : ここに一個ブランチノードベースを継承したノードを一個入れると解決するはず
-// 
+// クラス定義ヘッダーファイル
 //*******************************************************************
+#include "arraybehaviortree.h"
 
 //*******************************************************************
 // インクルードファイル
 //*******************************************************************
-#include "arraybehaviortree.h"
 #include "node.h"
 #include "blackboard.h"
 #include "inverter.h"
@@ -21,7 +20,6 @@
 #include "alwayssuccess.h"
 #include "alwaysfail.h"
 #include "selector.h"
-#include "hastoporderleaf.h"
 #include "folllowtopleaf.h"
 #include "waitorderleaf.h"
 #include "attackenemyleaf.h"
@@ -30,9 +28,9 @@
 #include "movetofeedleaf.h"
 #include "arrayusetoporder.h"
 
-//*******************************************************************
+//===================================================================
 // 仲間を動かすツリーノードを設定する処理
-//*******************************************************************
+//===================================================================
 CNode* ArrayTree::CArrayBehaviorTree::SetArrayTreeNode(CBlackBoard* blackboard)
 {
 	// トップをシーケンスノードにする
@@ -64,9 +62,9 @@ CNode* ArrayTree::CArrayBehaviorTree::SetArrayTreeNode(CBlackBoard* blackboard)
 		ChainAntSequence->AddNode(FoodSequence);
 	}
 
-	//============================
+	//=================================
 	// 全体命令の判別ノードを作成する
-	//============================
+	//=================================
 	auto BranchTopsFlag = new CArrayUseTopOrder(blackboard, ChainTopAntSequence, ChainAntSequence);
 
 	// ツリーの一番上のシーケンスノードに追加

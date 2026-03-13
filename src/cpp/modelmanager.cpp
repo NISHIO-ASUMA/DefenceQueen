@@ -6,18 +6,26 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "modelmanager.h"
+
+//*********************************************************
+// システムインクルードファイル
+//*********************************************************
 #include "json.hpp"
+#include <fstream>
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 #include "texture.h"
-#include <fstream>
 
 //*********************************************************
 // 使用名前空間
 //*********************************************************
-using json = nlohmann::json; // jsonファイルストリーム
+using json = nlohmann::json;
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -121,9 +129,9 @@ int CModelManager::Register(const char* pModelName)
 	ModelManagerInfo NewModelInfo = {};
 	NewModelInfo.FilePath = pModelName;
 
-	//===============================================================
+	//=================================================
 	// モデル読み込み
-	//===============================================================
+	//=================================================
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 	if (!pDevice)
 		return -1;
@@ -150,9 +158,9 @@ int CModelManager::Register(const char* pModelName)
 		return -1;
 	}
 
-	//===============================================================
+	//=================================================
 	// テクスチャ登録
-	//===============================================================
+	//=================================================
 	NewModelInfo.pTexture.clear();
 	NewModelInfo.pTexture.resize(NewModelInfo.dwNumMat);
 
@@ -241,7 +249,6 @@ HRESULT CModelManager::LoadJson(void)
 		m_nNumAll++;
 	}
 
-	// 初期化結果を返す
 	return S_OK;
 }
 //=========================================================
@@ -253,9 +260,9 @@ void CModelManager::LoadModel(const char* pModelName, bool& LoadFlags)
 	ModelManagerInfo NewModelInfo = {};
 	NewModelInfo.FilePath = pModelName;
 
-	//===============================================================
+	//===============================================
 	// モデル読み込み
-	//===============================================================
+	//===============================================
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 	if (!pDevice) return;
 
@@ -281,10 +288,10 @@ void CModelManager::LoadModel(const char* pModelName, bool& LoadFlags)
 		return;
 	}
 
-	//===============================================================
+	//===============================================
 	// 法線のスムース化を実行
-	//===============================================================
-	LPD3DXMESH pTempMesh = NewModelInfo.pMesh; // 一時メッシュ
+	//===============================================
+	LPD3DXMESH pTempMesh = NewModelInfo.pMesh;
 	std::vector<DWORD> adjacency;
 
 	// 隣接情報用バッファ確保
@@ -342,9 +349,9 @@ void CModelManager::LoadModel(const char* pModelName, bool& LoadFlags)
 	NewModelInfo.modelData.vtxCount = NewModelInfo.pMesh->GetNumVertices();
 	NewModelInfo.modelData.PrimCount = NewModelInfo.pMesh->GetNumFaces();
 
-	//===============================================================
+	//===============================================
 	// テクスチャ登録
-	//===============================================================
+	//===============================================
 	NewModelInfo.pTexture.clear();
 	NewModelInfo.pTexture.resize(NewModelInfo.dwNumMat);
 

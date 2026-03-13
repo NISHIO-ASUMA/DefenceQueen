@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル宣言
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "motion.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "template.h"
 #include "debugproc.h"
 #include "motionmanager.h"
@@ -17,43 +21,39 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CMotion::CMotion()
+CMotion::CMotion() : m_nCounterMotion(NULL),
+m_nKey(NULL),
+m_motiontype(NULL),
+m_nNextKey(NULL),
+m_nAllFrameCount(NULL),
+m_nNumAllFrame(NULL),
+m_motiontypeBlend(NULL),
+m_nFrameBlend(NULL),
+m_nKeyBlend(NULL),
+m_nNextKeyBlend(NULL),
+m_nMotionIdx(-1),
+m_isFinishMotion(false),
+m_isFirstMotion(false),
+m_isBlendMotion(false)
 {
-	// 値のクリア
-	m_nCounterMotion = NULL;
-	m_nKey = NULL;
-	m_nNumKey = NULL;
-	m_motiontype = NULL;
-	m_type = NULL;
-	m_nNextKey = NULL;
-	m_nNumModels = NULL;
-	m_nAllFrameCount = NULL;
-	m_nNumAllFrame = NULL;
-
-	m_motiontypeBlend = NULL;
-	m_nFrameBlend = NULL;
-	m_nCounterBlend = NULL;
-	m_nKeyBlend = NULL;
-	m_nNextKeyBlend = NULL;
-
-	m_isLoopMotion = false;
-	m_isBlendMotion = false;
-	m_isFinishMotion = false;
-	m_isFirstMotion = false;
-
-	m_nMotionIdx = -1;
 }
 //=========================================================
 // デストラクタ
 //=========================================================
 CMotion::~CMotion()
 {
-	// 無し
+	
 }
 //=========================================================
 // モーション読み込み関数
 //=========================================================
-std::unique_ptr<CMotion> CMotion::Load(const char* pFilename, std::vector<CModel*>& pModel, int nDestMotions,const bool isShadow)
+std::unique_ptr<CMotion> CMotion::Load
+(
+	const char* pFilename, 
+	std::vector<CModel*>& pModel, 
+	int nDestMotions,
+	const bool isShadow
+)
 {
 	// モーションのユニークポインタ生成
 	auto pMotion = std::make_unique<CMotion>();
@@ -81,12 +81,8 @@ void CMotion::RegisterPath(const char* pMotionName, std::vector<CModel*>& pModel
 //============================================================
 void CMotion::SetMotion(int motiontype)
 {
-	// ここはmotiontypeに渡された番号を取得する
-	if (m_motiontype == motiontype)
-	{
-		// 同じだったら
-		return;
-	}
+	// 一致していたら
+	if (m_motiontype == motiontype) return;
 
 	// 代入
 	m_motiontype = motiontype;
@@ -96,16 +92,12 @@ void CMotion::SetMotion(int motiontype)
 	m_isFinishMotion = false;
 }
 //=================================================================
-// モーションセット情報
+// ブレンドモーションセット情報
 //=================================================================
 void CMotion::SetMotion(int nMotionType, bool isBlend, int nBlendFrame)
 {
-	// ここはmotiontypeに渡された番号を取得する
-	if (m_motiontype == nMotionType)
-	{
-		// 同じだったら
-		return;
-	}
+	// 一致していたら
+	if (m_motiontype == nMotionType) return;
 
 	// ブレンドが有効化
 	if (isBlend == true)
@@ -125,12 +117,8 @@ void CMotion::SetMotion(int nMotionType, bool isBlend, int nBlendFrame)
 	// モーションブレンドがない
 	else
 	{
-		// ここはmotiontypeに渡された番号を取得する
-		if (m_motiontype == nMotionType)
-		{
-			// 同じだったら
-			return;
-		}
+		// 一致していたら
+		if (m_motiontype == nMotionType) return;
 
 		// 代入
 		m_motiontype = nMotionType;
@@ -158,8 +146,6 @@ void CMotion::Update(std::vector<CModel*> pModel)
 	{
 		// 警告表示
 		MessageBox(GetActiveWindow(), "モデルが存在しません", "キャラクターエラー", MB_OK);
-
-		// 下の処理に入らないようにする
 		return;
 	}
 

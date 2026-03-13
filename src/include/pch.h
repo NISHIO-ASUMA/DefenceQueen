@@ -26,6 +26,8 @@
 #include <assert.h>					// アサート関数ヘッダー
 #include <stdlib.h>
 #include <cstdio>
+#include <time.h>
+#include <crtdbg.h>
 
 //*********************************************************
 // ライブラリのリンク宣言

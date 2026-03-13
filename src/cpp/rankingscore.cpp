@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "rankingscore.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "number.h"
 #include "network.h"
 #include "manager.h"
@@ -132,19 +136,19 @@ void CRankingScore::Uninit(void)
 void CRankingScore::Update(void)
 {
 	// スコアの桁数更新
-	for (int rank = 0; rank < Config::RANKING_MAX; rank++)
+	for (int nRank = 0; nRank < Config::RANKING_MAX; nRank++)
 	{
 		// 現在のスコアを格納
-		int nScore = m_aRankData[rank];
+		int nScore = m_aRankData[nRank];
 
-		for (int digit = 0; digit < Config::RANKSCOREDIGIT; digit++)
+		for (int nDigit = 0; nDigit < Config::RANKSCOREDIGIT; nDigit++)
 		{
 			// 1桁ずつ取り出す
 			int nNum = nScore % Config::DIGITNUM;
 			nScore /= Config::DIGITNUM;
 
 			// 桁更新
-			m_apNumber[rank][digit]->SetDigit(nNum);
+			m_apNumber[nRank][nDigit]->SetDigit(nNum);
 		}
 	}
 }

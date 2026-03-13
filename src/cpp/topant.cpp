@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "topant.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "boxcollider.h"
 #include "collisionbox.h"
 #include "gamesceneobject.h"
@@ -23,7 +27,6 @@
 #include "arraymanager.h"
 #include "spherecollider.h"
 #include "collisionsphere.h"
-#include "feedmanager.h"
 #include "feed.h"
 #include "boxtospherecollision.h"
 #include "feedsignal.h"
@@ -101,7 +104,7 @@ HRESULT CTopAnt::Init(void)
 	m_pSeparationSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::OffPosY, GetPos().z),"Sepalation.png");
 
 	// 置き配置UI生成
-	m_pPutSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::OffPosY, GetPos().z), "PutAnt.png");
+	m_pPutSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::OffPosY, GetPos().z));
 
 	// 矢印生成
 	m_pPoint = CPointObj::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::OffPosY, GetPos().z), D3DXVECTOR3(-90.0f,0.0f,0.0f));
@@ -127,6 +130,10 @@ void CTopAnt::Uninit(void)
 //=========================================================
 void CTopAnt::Update(void)
 {
+	// アリ管理クラスにに通知
+	const auto& pManager = CGameSceneObject::GetInstance()->GetArrayManager();
+	if (!pManager) return;
+
 	// 座標取得
 	D3DXVECTOR3 pos = GetPos();
 	D3DXVECTOR3 oldPos = GetOldPos();
@@ -138,9 +145,6 @@ void CTopAnt::Update(void)
 	// キー入力での移動関数
 	Moving(pPad, pKey);
 	MovePad(pPad);
-
-	// アリ管理クラスにに通知
-	const auto& pManager = CGameSceneObject::GetInstance()->GetArrayManager();
 	
 	// オブジェクトの座標更新
 	CMoveCharactor::UpdatePosition();
@@ -577,8 +581,6 @@ bool CTopAnt::CollisionArea(CArrayManager * pManager)
 			// Enterキー入力 or Aボタン入力で仲間をポイントに置く
 			if (pKey->GetTrigger(DIK_RETURN) || pPad->GetPress(CJoyPad::JOYKEY_A))
 			{
-				// アリの命令変更
-
 				// 味方をエリア内に配置
 				pManager->PuttingArea(Area->GetPos());
 			}

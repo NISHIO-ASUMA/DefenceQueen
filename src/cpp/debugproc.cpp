@@ -6,11 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "debugproc.h"
-#include <time.h>
-#include <cstdio>
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 #include "input.h"
 
@@ -44,13 +46,21 @@ HRESULT CDebugproc::Init(void)
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// デバッグ表示用のフォントを設定
-	D3DXCreateFont(pDevice, FONTSIZE, 0, 0, 0,
+	D3DXCreateFont
+	(
+		pDevice, 
+		FONTSIZE, 
+		0, 
+		0, 
+		0,
 		FALSE,
 		DEFAULT_CHARSET,
 		OUT_DEFAULT_PRECIS,
 		DEFAULT_QUALITY,
 		DEFAULT_PITCH,
-		"Terminal", &m_pFont);
+		"Terminal", 
+		&m_pFont
+	);
 
 	// 文字列クリア
 	memset(m_aStr, 0, sizeof(m_aStr));

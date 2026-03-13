@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "objectX.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 #include "xfilemanager.h"
 #include "texture.h"
@@ -19,8 +23,8 @@
 //*********************************************************
 namespace ObjectX
 {
-	const D3DXCOLOR SHADOW_COLOR = { 0.0f, 0.0f, 0.0f, 0.35f }; // シャドウマトリックスのカラー
-	const D3DXVECTOR4 LIGHT_DIR = { 0.2f, -0.63f, 0.12f, 0.0f }; // ライトの法線
+	const D3DXCOLOR SHADOW_COLOR = { 0.0f, 0.0f, 0.0f, 0.35f };		// シャドウマトリックスのカラー
+	const D3DXVECTOR4 LIGHT_DIR = { 0.2f, -0.63f, 0.12f, 0.0f };	// ライトの法線
 }
 
 //=========================================================
@@ -37,21 +41,14 @@ m_col(V_COLOR_WHITE),
 m_nIdxModel(-1),
 m_OutLineColor(OUTLINE_COLOR)
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
 //=========================================================
 CObjectX::~CObjectX()
 {
-	// 無し
-}
-//=========================================================
-// アウトラインカラー設定関数
-//=========================================================
-inline void CObjectX::SetOutLineColor(const D3DXVECTOR4& color)
-{
-	m_OutLineColor = color;
+	
 }
 //=========================================================
 // 生成処理
@@ -94,7 +91,9 @@ void CObjectX::Uninit(void)
 //=========================================================
 void CObjectX::Update(void)
 {
-	// 無し
+	// インデックスが-1なら
+	if (m_nIdxModel == -1)
+		return;
 }
 //=========================================================
 // 描画処理
@@ -291,20 +290,18 @@ void CObjectX::DrawOutLine(const D3DXVECTOR4& color)
 	// 計算用のマトリックスを宣言
 	D3DXMATRIX mtxScale, mtxRot, mtxTrans;
 
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxWorld);
-
 	// 拡大率を反映
 	D3DXMatrixScaling(&mtxScale, m_Scale.x, m_Scale.y, m_Scale.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxScale);
 
 	// 向きを反映
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 
 	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+
+	// マトリックス行列を計算する
+	m_mtxWorld = mtxScale * mtxRot * mtxTrans;
+
 	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
 
@@ -328,14 +325,21 @@ void CObjectX::SetFilePass(const char* pFilePass)
 {
 	// マネージャー取得
 	CXfileManager* pXMgr = CManager::GetInstance()->GetXManager();
+	if (pXMgr == nullptr) return;
 
-	if (pXMgr != nullptr)
-	{
-		// パス連結
-		std::string ModelName = "data/MODEL/";
-		ModelName += pFilePass;
+	// パス連結
+	std::string ModelName = "data/MODEL/";
+	ModelName += pFilePass;
 
-		// モデルを登録
-		m_nIdxModel = pXMgr->Register(ModelName.c_str());
-	}
+	int n = 0;
+
+	// モデルを登録
+	m_nIdxModel = pXMgr->Register(ModelName.c_str());
+}
+//=========================================================
+// アウトラインカラー設定関数
+//=========================================================
+inline void CObjectX::SetOutLineColor(const D3DXVECTOR4& color)
+{
+	m_OutLineColor = color;
 }

@@ -6,23 +6,27 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "meshfield.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 #include "texture.h"
 
-//*********************************************************
-// 定数宣言
-//*********************************************************
-namespace MESHFIELD
-{
-	constexpr int XVTX = 5; // X方向の分割数
-	constexpr int ZVTX = 5; // Z方向の分割数
-	constexpr int VERTEX = ((XVTX + 1) * (ZVTX + 1)); // 頂点数
-	constexpr int POLYGON = (((XVTX * ZVTX) * 2)) + (4 * (ZVTX - 1)); // ポリゴン数
-	constexpr int INDEX = POLYGON + 2; // インデックス数
-};
+////*********************************************************
+//// 定数宣言
+////*********************************************************
+//namespace MESHFIELD
+//{
+//	constexpr int XVTX = 5;								// X方向の分割数
+//	constexpr int ZVTX = 5;								// Z方向の分割数
+//	constexpr int VERTEX = ((XVTX + 1) * (ZVTX + 1));	// 頂点数
+//	constexpr int POLYGON = (((XVTX * ZVTX) * 2)) + (4 * (ZVTX - 1)); // ポリゴン数
+//	constexpr int INDEX = POLYGON + 2;					// インデックス数
+//};
 
 //=========================================================
 // コンストラクタ
@@ -32,17 +36,16 @@ m_pIdx(nullptr),
 m_pVtx(nullptr),
 m_pos(VECTOR3_NULL),
 m_rot(VECTOR3_NULL),
-m_MeshFiled{}
+m_MeshFiled{},
+m_mtxWorld{}
 {
-	// 値のクリア処理
-	D3DXMatrixIdentity(&m_mtxWorld);
 }
 //=========================================================
 // デストラクタ
 //=========================================================
 CMeshField::~CMeshField()
 {
-	// 無し
+	
 }
 //=========================================================
 // 生成処理
@@ -51,8 +54,6 @@ CMeshField* CMeshField::Create(D3DXVECTOR3 pos, float fRadiusX, float fRadiusZ, 
 {
 	// インスタンス生成
 	CMeshField* pMeshField = new CMeshField;
-
-	// nullptrだったら
 	if (pMeshField == nullptr) return nullptr;
 
 	// オブジェクト設定
@@ -296,16 +297,14 @@ void CMeshField::Draw(void)
 	// 計算用のマトリックスを宣言
 	D3DXMATRIX mtxRot, mtxTrans;
 
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxWorld);
-
 	// 向きを反映
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 
 	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+
+	// マトリックスの行列計算
+	m_mtxWorld = mtxRot * mtxTrans;
 
 	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);

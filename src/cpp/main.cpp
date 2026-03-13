@@ -6,10 +6,13 @@
 //=========================================================
 
 //*********************************************************
+// クラス定義ヘッダーファイル
+//*********************************************************
+#include "main.h"
+
+//*********************************************************
 // インクルードファイル
 //*********************************************************
-#include <crtdbg.h>
-#include "main.h"
 #include "renderer.h"
 #include "manager.h"
 #include "debugproc.h"
@@ -93,13 +96,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE /*hInstancePrev
 	dwCurrentTime = 0;					// 初期化
 	dwExecLastTime = timeGetTime();		// 現在時刻を保存
 
-	//ウインドウの表示
-	ShowWindow(hWnd, nCmdShow);	// ウインドウの表示状態の設定
-	UpdateWindow(hWnd);			// クライアント領域の更新
+	ShowWindow(hWnd, nCmdShow);			// ウインドウの表示状態の設定
+	UpdateWindow(hWnd);					// クライアント領域の更新
 
 	// 初期化
-	DWORD dwFrameCount = 0;					// フレームカウント
-	DWORD dwFPSLastTime = timeGetTime();	// 最後にFPSを計測した時刻
+	DWORD dwFrameCount = 0;				// フレームカウント
+	DWORD dwFPSLastTime = timeGetTime();// 最後にFPSを計測した時刻
 
 	// メッセージループ
 	while (1)
@@ -218,7 +220,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 	case WM_MOUSEWHEEL: // マウスのホイール判定
 	{
-#ifdef NDEBUG
+#ifdef _DEBUG
 		// ローカル変数
 		int zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
 
@@ -228,10 +230,10 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	}
 	break;
 
-	case WM_KEYDOWN:				// キー押下のメッセージ
+	case WM_KEYDOWN: // キー押下のメッセージ
 		switch (wParam)
 		{
-		case VK_ESCAPE:				// [ESC]キーが押された
+		case VK_ESCAPE: // [ESC]キーが押された
 			nID = MessageBox(hWnd, "終了しますか?", "終了メッセージ", MB_YESNO);
 
 			if (nID == IDYES)
@@ -240,25 +242,26 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				DestroyWindow(hWnd);
 
 				// サーバーにメッセージ送信
-				if (NetWork->Connect("127.0.0.1", 22333))
+				if (NetWork->Connect())
 				{
 					NetWork->SendInt(EXIT_MESSAGE);
 				}
 			}
 			else
 			{
-				return 0;			// 返す
+				return 0;
 			}
 			break;
 
-		case VK_F11:
-			pProc.ToggleFullScreen(hWnd);	// F11でフルスクリーン
+		case VK_F11: // [F11]キーが押された
+			pProc.ToggleFullScreen(hWnd);	// フルスクリーン処理
 			break;
 		}
 		break;
 	}
 
-	return DefWindowProc(hWnd, uMsg, wParam, lParam);// 既定の処理を繰り返す
+	// 既定の処理を繰り返す
+	return DefWindowProc(hWnd, uMsg, wParam, lParam); 
 }
 
 //=================================================================

@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "enemy.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "parameter.h"
 #include "motion.h"
 #include "shadowstencil.h"
@@ -17,13 +21,11 @@
 #include "collisionsphere.h"
 #include "blackboard.h"
 #include "node.h"
-#include "behaviortree.h"
 #include "gamesceneobject.h"
 #include "enemybehaviortree.h"
 #include "queen.h"
 #include "template.h"
 #include "input.h"
-#include "feedmanager.h"
 #include "feed.h"
 #include "enemymanager.h"
 #include "gamewallmanager.h"
@@ -37,7 +39,7 @@
 //*********************************************************
 namespace EnemyInfo
 {
-	constexpr float HitRange = 60.0f; // 球形範囲
+	constexpr float HitRange = 60.0f;	// 球形範囲
 	constexpr float StopRange = 10.0f;	// 停止範囲
 	constexpr float MoveSpeed = 1.0f;	// 移動速度
 	const char* MOTION_NAME = "data/MOTION/Enemy/Enemy_Motion.txt"; // モーションパス
@@ -55,14 +57,14 @@ m_isActive(false),
 m_isDestQueen(false),
 m_isDestFeed(false)
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
 //=========================================================
 CEnemy::~CEnemy()
 {
-	// 無し
+	
 }
 //=========================================================
 // 生成処理

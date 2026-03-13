@@ -11,7 +11,7 @@
 #pragma once 
 
 //*********************************************************
-// インクルードファイル宣言
+// インクルードファイル
 //*********************************************************
 #include "object2D.h"
 
@@ -38,7 +38,13 @@ public:
 	/// <param name="fHeight">高さ</param>
 	/// <param name="pFileName">テクスチャファイル名</param>
 	/// <returns></returns>
-	static CTutorialUi* Create(const D3DXVECTOR3& pos, const float& fWidth, const float& fHeight,const char * pFileName);
+	static CTutorialUi* Create
+	(
+		const D3DXVECTOR3& pos, 
+		const float& fWidth, 
+		const float& fHeight,
+		const char * pFileName
+	);
 
 private:
 };

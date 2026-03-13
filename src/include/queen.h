@@ -69,6 +69,7 @@ private:
 		static constexpr int Hp = 100;			 // 体力値
 		static constexpr float HitRange = 80.0f; // コリジョン半径
 		static constexpr const char* SCRIPT = "data/MOTION/Queen/Queen_Motion.txt"; // ロードファイル名
+		static constexpr const char* SAVEFILE = "data/SCORE/QueenLastHp.bin";		// スコアファイル名
 	};
 
 	std::unique_ptr<CParameter>m_pParameter;			// パラメータークラスポインタ

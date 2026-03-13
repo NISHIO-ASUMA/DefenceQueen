@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "model.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 #include "texture.h"
 #include "modelmanager.h"
@@ -17,7 +21,7 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CModel::CModel() :m_pParent(nullptr),
+CModel::CModel() : m_pParent(nullptr),
 m_pTexture(nullptr),
 m_nModelIdx(-1),
 m_pos(VECTOR3_NULL),
@@ -30,19 +34,19 @@ m_isShadow(false),
 m_Isinstancing(false),
 m_mtxworld{}
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
 //=========================================================
 CModel::~CModel()
 {
-	// 無し
+	
 }
 //=========================================================
 // 初期化処理
 //=========================================================
-HRESULT CModel::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot,const char * pFilename,const bool isShadow)
+HRESULT CModel::Init(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot,const char * pFilename,const bool isShadow)
 {
 	// モデルセット
 	SetModelPass(pFilename);
@@ -64,7 +68,13 @@ HRESULT CModel::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot,const char * pFilename,con
 //=========================================================
 // 生成処理
 //=========================================================
-CModel* CModel::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, const char* pFilename,const bool isShadow)
+CModel* CModel::Create
+(
+	const D3DXVECTOR3 &pos, 
+	const D3DXVECTOR3 &rot, 
+	const char* pFilename,
+	const bool isShadow
+)
 {
 	// インスタンス生成
 	CModel* pModel = new CModel;
@@ -81,7 +91,7 @@ CModel* CModel::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, const char* pFilename,c
 //=========================================================
 void CModel::Uninit(void)
 {
-	// 無し
+	
 }
 //=========================================================
 // 更新処理

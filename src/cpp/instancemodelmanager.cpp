@@ -6,13 +6,21 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "instancemodelmanager.h"
+
+//*********************************************************
+// システムインクルードファイル
+//*********************************************************
+#include <fstream>
 #include "json.hpp"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 #include "texture.h"
-#include <fstream>
 
 //*********************************************************
 // 使用名前空間
@@ -226,10 +234,7 @@ HRESULT CInstanceModelManager::LoadJson(void)
 
 		// jsonからファイルパス取得
 		std::string filePath = entry["Model"].get<std::string>();
-
-		// 指定文字がなかったら
-		if (!entry.contains("Instancing"))continue;
-
+		if (!entry.contains("Instancing")) continue;
 		if (filePath.empty()) continue;
 
 		// モデル読み込み
@@ -282,7 +287,7 @@ void CInstanceModelManager::LoadModel(const char* pModelName)
 	//===============================================================
 	// 法線のスムース化を実行
 	//===============================================================
-	LPD3DXMESH pTempMesh = NewModelInfo.pMesh; // 一時メッシュ
+	LPD3DXMESH pTempMesh = NewModelInfo.pMesh;
 	std::vector<DWORD> adjacency;
 
 	// 隣接情報用バッファ確保
@@ -367,7 +372,9 @@ void CInstanceModelManager::LoadModel(const char* pModelName)
 			//=========================
 			NewModelInfo.Materials[nCnt] = pMat[nCnt].MatD3D;
 
+			//=========================
 			// カラー登録
+			//=========================
 			NewModelInfo.Materials[nCnt].Ambient = NewModelInfo.Materials[nCnt].Diffuse;
 
 			//=========================

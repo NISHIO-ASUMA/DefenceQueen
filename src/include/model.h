@@ -36,13 +36,13 @@ public:
 	CModel();
 	~CModel();
 
-	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot, const char* pFilename,const bool isShadow);
+	HRESULT Init(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, const char* pFilename,const bool isShadow);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 
 	void DrawMtxShadow(void);
-	void DrawOutLine(const D3DXVECTOR4& color = D3DXVECTOR4(0.0f,0.0f,0.0f,1.0f),const float fOutLinewidth = 0.44f); 
+	void DrawOutLine(const D3DXVECTOR4& color = D3DXVECTOR4(0.0f,0.0f,0.0f,1.0f),const float fOutLinewidth = 0.45f); 
 	void SetModelPass(const char* pModelName);
 	void SetParent(CModel* pModel);
 
@@ -60,7 +60,21 @@ public:
 	inline int GetModelIdx(void) const { return m_nModelIdx; }
 	inline bool GetIsInstansing(void) const { return m_Isinstancing; }
 
-	static CModel* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, const char* pFilename,const bool isShadow);
+	/// <summary>
+	/// 生成処理
+	/// </summary>
+	/// <param name="pos">生成座標</param>
+	/// <param name="rot">角度</param>
+	/// <param name="pFilename">ファイル名</param>
+	/// <param name="isShadow">影の使用</param>
+	/// <returns></returns>
+	static CModel* Create
+	(
+		const D3DXVECTOR3& pos, 
+		const D3DXVECTOR3& rot, 
+		const char* pFilename,
+		const bool isShadow
+	);
 
 private:
 

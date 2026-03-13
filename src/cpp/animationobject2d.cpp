@@ -6,14 +6,22 @@
 //===================================================================
 
 //*******************************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*******************************************************************
 #include "animationobject2d.h"
+
+//*******************************************************************
+// システムインクルードファイル
+//*******************************************************************
+#include <string>
+
+//*******************************************************************
+// インクルードファイル
+//*******************************************************************
 #include "manager.h"
 #include "renderer.h"
 #include "texture.h"
 #include "template.h"
-#include <string>
 
 //===================================================================
 // コンストラクタ
@@ -46,19 +54,19 @@ CAnimationObject2D::~CAnimationObject2D()
 //===================================================================
 CAnimationObject2D* CAnimationObject2D::Create(const D3DXVECTOR3& pos, const float fWidth, const float fHeight, const char* pTexName)
 {
-    // インスタンス生成
-    CAnimationObject2D* pAnim2D = new CAnimationObject2D;
-    if (pAnim2D == nullptr) return nullptr;
+	// インスタンス生成
+	CAnimationObject2D* pAnim2D = new CAnimationObject2D;
+	if (pAnim2D == nullptr) return nullptr;
 
-    // 初期化失敗時
-    if (FAILED(pAnim2D->Init())) return nullptr;
+	// 初期化失敗時
+	if (FAILED(pAnim2D->Init())) return nullptr;
 
-    // オブジェクト設定
-    pAnim2D->SetPos(pos);
-    pAnim2D->SetSize(fWidth, fHeight);
-    pAnim2D->SetTexture(pTexName);
+	// オブジェクト設定
+	pAnim2D->SetPos(pos);
+	pAnim2D->SetSize(fWidth, fHeight);
+	pAnim2D->SetTexture(pTexName);
 
-    return pAnim2D;
+	return pAnim2D;
 }
 //===================================================================
 // 初期化処理

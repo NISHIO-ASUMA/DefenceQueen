@@ -6,15 +6,23 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "motionmanager.h"
-#include "motion.h"
-#include "model.h"
+
+//*********************************************************
+// システムインクルードファイル
+//*********************************************************
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <sstream>
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
+#include "motion.h"
+#include "model.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -138,7 +146,7 @@ void CMotionManager::LoadMotion(const char* pFileName, std::vector<CModel*>& pMo
 	int nIdx = 0;
 	int nCntMotion = 0;
 
-	// この引数に読み込むモーション総数を設定してm_amotionInfoでリサイズする
+	// モーション情報のサイズを設定
 	m_FileData.back().m_aMotionInfo.resize(nDestMotion);
 
 	// 最大モーション数を保持する
@@ -393,13 +401,13 @@ void CMotionManager::SetPartsMotion(std::ifstream& file, int nCntMotion)
 			// nNumKeyを代入
 			m_FileData.back().m_aMotionInfo[nCntMotion].nNumKey = numKeys;
 
-			// 上の処理でそのモーションのキー全体が上の処理でわかるのでその分のサイズを設定
+			// キー全体のサイズを設定
 			m_FileData.back().m_aMotionInfo[nCntMotion].aKeyInfo.resize(numKeys);
 
 			//	キー数の上限に達するまで
 			while (nCntKey < numKeys)
 			{
-				// aKeyInfoのサイズがわかったらキーごとにあるパーツの情報をakeyにサイズセットをしてメモリ確保
+				// キーごとのパーツのサイズセット
 				m_FileData.back().m_aMotionInfo[nCntMotion].aKeyInfo[nCntKey].aKey.resize(m_FileData.back().nNumModel);
 
 				// キー情報の設定
@@ -487,7 +495,15 @@ void CMotionManager::SetKey(std::ifstream& file,int nCntMotion, int nCntKey)
 //=================================================================
 // キーごとの情報設定
 //=================================================================
-void CMotionManager::SetKeyDate(std::istringstream& ss, const std::string& param,int nCntMotion, int nCntKey, int& posKeyIndex, int& rotKeyIndex)
+void CMotionManager::SetKeyDate
+(
+	std::istringstream& ss, 
+	const std::string& param,
+	int nCntMotion, 
+	int nCntKey, 
+	int& posKeyIndex, 
+	int& rotKeyIndex
+)
 {
 	// 読み込み用1行分のバッファ
 	std::string eq;

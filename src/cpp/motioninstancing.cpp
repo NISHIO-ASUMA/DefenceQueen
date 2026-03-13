@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル宣言
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "motioninstancing.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "template.h"
 #include "debugproc.h"
 #include "motionmanager.h"
@@ -39,7 +43,7 @@ m_nMotionIdx(-1)
 //=========================================================
 CMotionInstancing::~CMotionInstancing()
 {
-	// 無し
+	
 }
 //=========================================================
 // モーション読み込み関数
@@ -72,12 +76,8 @@ void CMotionInstancing::RegisterPath(const char* pMotionName, std::vector<CInsta
 //============================================================
 void CMotionInstancing::SetMotion(int motiontype)
 {
-	// ここはmotiontypeに渡された番号を取得する
-	if (m_motiontype == motiontype)
-	{
-		// 同じだったら
-		return;
-	}
+	// 一緒の番号だったら
+	if (m_motiontype == motiontype) return;
 
 	// 値をセットする
 	m_motiontype = motiontype;
@@ -91,12 +91,8 @@ void CMotionInstancing::SetMotion(int motiontype)
 //=================================================================
 void CMotionInstancing::SetMotion(int nMotionType, bool isBlend, int nBlendFrame)
 {
-	// ここはmotiontypeに渡された番号を取得する
-	if (m_motiontype == nMotionType)
-	{
-		// 同じだったら
-		return;
-	}
+	// 一緒の番号だったら
+	if (m_motiontype == nMotionType) return;
 
 	// ブレンドが有効化
 	if (isBlend == true)
@@ -117,11 +113,7 @@ void CMotionInstancing::SetMotion(int nMotionType, bool isBlend, int nBlendFrame
 	else
 	{
 		// ここはmotiontypeに渡された番号を取得する
-		if (m_motiontype == nMotionType)
-		{
-			// 同じだったら
-			return;
-		}
+		if (m_motiontype == nMotionType) return;
 
 		// 代入
 		m_motiontype = nMotionType;

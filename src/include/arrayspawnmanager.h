@@ -82,5 +82,13 @@ public:
 
 private:
 
+	//**********************************
+	// 定数構造体
+	//**********************************
+	struct Config
+	{
+		static constexpr const char* MODELPATH = "STAGEOBJ/SpawnBase.x"; // モデルパス
+	};
+
 	std::array<CArraySpawner*, SpawnManager::NUM_ARRAYSPAWNER>m_pArraySpawner; // 仲間アリのスポナー配列
 };

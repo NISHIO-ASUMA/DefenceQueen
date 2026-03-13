@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "movecharactor.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "model.h"
 #include "shadowstencil.h"
 #include "manager.h"
@@ -164,8 +168,11 @@ void CMoveCharactor::Draw(void)
 	// デバイス取得
 	auto Rendere = CManager::GetInstance()->GetRenderer();
 	LPDIRECT3DDEVICE9 pDevice = Rendere->GetDevice();
+
+	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxworld);
 
+	// モデルの描画
 	for (auto& model : m_pModel)
 	{
 		model->Draw();
@@ -187,7 +194,7 @@ void CMoveCharactor::Draw(void)
 	// アウトラインシェーダー関数
 	for (auto& model : m_pModel)
 	{
-		model->DrawOutLine(D3DXVECTOR4(0.0f,0.0f,0.0f,1.0f),0.45f);
+		model->DrawOutLine();
 	}
 
 	// シェーダー終了

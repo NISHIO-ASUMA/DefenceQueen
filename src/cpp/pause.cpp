@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "pause.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 #include "texture.h"
 #include "pausemanager.h"
@@ -18,10 +22,10 @@
 //*********************************************************
 namespace PAUSEBASE
 {
-	const char* BACKTEXTURE = "data/TEXTURE/PauseBack.png";			// 背景の半透明ポリゴン
-	const char* QUITMENU = "data/TEXTURE/pause_quit.png";			// タイトル選択ポリゴン
-	const char* RETRYMENU = "data/TEXTURE/pause_retry.png";			// リトライ選択ポリゴン
-	const char* CONTINUEMENU = "data/TEXTURE/pause_continue.png";	// ゲーム継続選択ポリゴン
+	constexpr const char* BACKTEXTURE = "data/TEXTURE/PauseBack.png";			// 背景の半透明ポリゴン
+	constexpr const char* QUITMENU = "data/TEXTURE/pause_quit.png";			// タイトル選択ポリゴン
+	constexpr const char* RETRYMENU = "data/TEXTURE/pause_retry.png";			// リトライ選択ポリゴン
+	constexpr const char* CONTINUEMENU = "data/TEXTURE/pause_continue.png";	// ゲーム継続選択ポリゴン
 };
 
 //=========================================================
@@ -38,7 +42,7 @@ m_nPauseType(NULL)
 //=========================================================
 CPause::~CPause()
 {
-	// 無し
+	
 }
 //=========================================================
 // 生成処理
@@ -122,18 +126,16 @@ void CPause::SetTexture(void)
 {
 	// テクスチャポインタをマネージャーから取得
 	CTexture* pTexture = CManager::GetInstance()->GetTexture();
-
-	// nullだったらここで処理終了
 	if (pTexture == nullptr) return;
 
 	// 種類によってテクスチャ割り当てを切り替える
 	switch (m_nPauseType)
 	{
-	case MENU_BACK: // 背景
+	case MENU_BACK:		// 背景
 		m_nIdxTexture = pTexture->Register(PAUSEBASE::BACKTEXTURE);
 		break;
 
-	case MENU_RETRY: // リトライ選択時
+	case MENU_RETRY:	// リトライ選択時
 		m_nIdxTexture = pTexture->Register(PAUSEBASE::RETRYMENU);
 		break;
 
@@ -141,7 +143,7 @@ void CPause::SetTexture(void)
 		m_nIdxTexture = pTexture->Register(PAUSEBASE::CONTINUEMENU);
 		break;
 
-	case MENU_QUIT: // クイット選択時
+	case MENU_QUIT:		// クイット選択時
 		m_nIdxTexture = pTexture->Register(PAUSEBASE::QUITMENU);
 		break;
 

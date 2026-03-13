@@ -70,13 +70,10 @@ public:
 
 private:
 
-	int m_nNumModels;		// モデル総数
-	int m_nNumKey;			// キーの総数
-	int m_nKey;				// 現在のキーNo
 	int m_nCounterMotion;	// モーションのカウンター
-	int m_nNextKey;			// 次のキー
+	int m_nKey;				// 現在のキーNo
 	int m_motiontype;		// モーションタイプ
-	int m_type;
+	int m_nNextKey;			// 次のキー
 	int m_nMotionIdx;		// モーションファイル番号
 
 	int m_motiontypeBlend;	// ブレンドの種類
@@ -90,7 +87,6 @@ private:
 	bool m_isBlendMotion;	// ブレンドがあるかどうか
 	bool m_isFinishMotion;	// モーションが終わったかどうか
 	bool m_isFirstMotion;	// モーションが始まったフラグ
-	bool m_isLoopMotion;	// ループするかどうか
 
 	static constexpr int NEUTRAL = 0; // ニュートラル番号
 

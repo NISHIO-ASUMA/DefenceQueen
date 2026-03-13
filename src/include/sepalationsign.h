@@ -38,7 +38,7 @@ public:
 	/// <param name="pos">生成座標</param>
 	/// <param name="pTexName">テクスチャ名</param>
 	/// <returns></returns>
-	static CSepalationSign* Create(const D3DXVECTOR3& pos, const char* pTexName);
+	static CSepalationSign* Create(const D3DXVECTOR3& pos, const char* pTexName = "PutAnt.png");
 
 private:
 

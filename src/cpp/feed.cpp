@@ -16,8 +16,6 @@
 #include "gamesceneobject.h"
 #include "manager.h"
 #include "xfilemanager.h"
-#include "feedmanager.h"
-#include "worker.h"
 #include "boxcollider.h"
 #include "collisionbox.h"
 #include "easing.h"

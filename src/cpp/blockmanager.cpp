@@ -6,20 +6,28 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "blockmanager.h"
-#include "jsonmanager.h"
-#include "manager.h"
+
+//*********************************************************
+// システムインクルードファイル
+//*********************************************************
 #include "json.hpp"
 #include <fstream>
 #include <iostream>
 #include <sstream>
 
 //*********************************************************
+// インクルードファイル
+//*********************************************************
+#include "jsonmanager.h"
+#include "manager.h"
+
+//*********************************************************
 // 使用名前空間
 //*********************************************************
-using json = nlohmann::json; // jsonオブジェクト
+using json = nlohmann::json;
 
 //=========================================================
 // コンストラクタ
@@ -43,11 +51,8 @@ CBlock* CBlockManager::CreateManager(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTO
 	// インスタンス生成
 	CBlock* pNewBlock = CBlock::Create(pos, rot, scale, pModelName);
 
-	if (pNewBlock)
-	{
-		// 配列に追加
-		m_pBlocks.push_back(pNewBlock);
-	}
+	// 配列に追加
+	if (pNewBlock) m_pBlocks.push_back(pNewBlock);
 
 	return pNewBlock;
 }
@@ -74,7 +79,7 @@ void CBlockManager::Uninit(void)
 //=========================================================
 void CBlockManager::Update(void)
 {
-	// 無し
+	
 }
 //=========================================================
 // json読み込み
@@ -85,71 +90,5 @@ HRESULT CBlockManager::Load(void)
 	auto jsonmanager = CManager::GetInstance()->GetJsonManager();
 	jsonmanager->Load(FILE_NAME);
 
-#if 0
-	// 開くファイル
-	std::ifstream file(FILE_NAME);
-
-	// 開け無かった
-	if (!file.is_open())
-	{
-		// 例外
-		MessageBox(GetActiveWindow(), "ファイルの読み込みに失敗しました", "エラー", MB_OK | MB_ICONERROR);
-
-		// 終了
-		return E_FAIL;
-	}
-
-	// jsonデータをセットする
-	json j;
-	file >> j;
-
-	// ファイルを閉じる
-	file.close();
-
-	// 既存のブロックを消す
-	for (auto block : m_pBlocks)
-	{
-		if (block != nullptr)
-		{
-			// ブロックの終了処理
-			block->Uninit();
-		}
-	}
-
-	// 動的配列を空にする
-	m_pBlocks.clear();
-
-	// SetObjectsの配列を回す
-	for (const auto& b : j["SetObjects"])
-	{
-		// ファイルパス
-		std::string filepath = b["filepath"];
-		int idx = b["idx"];
-
-		// 座標
-		D3DXVECTOR3 pos(
-			b["pos"][0],
-			b["pos"][1],
-			b["pos"][2]
-		);
-
-		// 角度
-		D3DXVECTOR3 rot(
-			b["rot"][0],
-			b["rot"][1],
-			b["rot"][2]
-		);
-
-		// サイズ
-		D3DXVECTOR3 size(
-			b["scale"][0],
-			b["scale"][1],
-			b["scale"][2]
-		);
-
-		// 実際のブロック生成
-		CreateManager(pos, rot, size, filepath.c_str());
-	}
-#endif
 	return S_OK;
 }

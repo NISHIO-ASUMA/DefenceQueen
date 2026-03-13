@@ -6,7 +6,7 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "sound.h"
 
@@ -22,14 +22,12 @@ namespace SOUND
 //=========================================================
 // コンストラクタ
 //=========================================================
-CSound::CSound()
+CSound::CSound() : m_SoundInterval(NULL),
+m_SoundCount(NULL),
+m_pXAudio2(nullptr),
+m_pMasteringVoice(nullptr)
 {
 	// 値のクリア
-	m_SoundInterval = 0;
-	m_SoundCount = 0;
-	m_pXAudio2 = NULL;
-	m_pMasteringVoice = NULL;
-
 	for (int nCnt = 0; nCnt < SOUND_LABEL_MAX; nCnt++)
 	{
 		m_apDataAudio[nCnt] = nullptr;

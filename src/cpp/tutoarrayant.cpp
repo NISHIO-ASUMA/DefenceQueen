@@ -1,14 +1,18 @@
 //=========================================================
 //
-// チュートリアルの仲間アリの処理クラス [ tutoarrayant.cpp ]
+// チュートリアルの仲間アリのクラス [ tutoarrayant.cpp ]
 // Author: Asuma Nishio
 // 
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "tutoarrayant.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "spherecollider.h"
 #include "collisionsphere.h"
 #include "tutorialobject.h"
@@ -67,7 +71,7 @@ HRESULT CTutoArrayAnt::Init(void)
 	SetObjType(CObject::TYPE_ARRAY);
 
 	// モーションセット
-	MotionLoad("data/MOTION/Array/Array_Motion.txt", MOTION_MAX, true);
+	MotionLoad(Config::MOTION_NAME, MOTION_MAX, true);
 
 	// スフィアコライダー生成
 	m_pSphereCollider = CSphereCollider::Create(GetPos(), Config::MAX_RADIUS);
@@ -90,9 +94,6 @@ void CTutoArrayAnt::Uninit(void)
 //=========================================================
 void CTutoArrayAnt::Update(void)
 {
-	// 現在座標の取得
-	auto Pos = GetPos();
-
 	// 追従フラグが有効なら
 	if (m_isTopFollow)
 	{

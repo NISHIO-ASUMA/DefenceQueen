@@ -61,7 +61,8 @@ private:
 	//**************************************
 	struct Config
 	{
-		static constexpr float MOVE = 3.0f; // ˆÚ“®—Ê
+		static constexpr float MOVE = 3.0f;		// ˆÚ“®—Ê
+		static constexpr float HitRange = 30.0f;// ƒRƒŠƒWƒ‡ƒ“”¼Œa
 		static constexpr const char* SCRIPT = "data/MOTION/Array/Title_Array.txt";
 	};
 

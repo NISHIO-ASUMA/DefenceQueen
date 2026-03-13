@@ -6,14 +6,15 @@
 //=========================================================
 
 //*********************************************************
-// インクルードガード
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "network.h"
 
 //=========================================================
 // コンストラクタ
 //=========================================================
-CNetWork::CNetWork() : m_sock(INVALID_SOCKET),m_isConnected(false)
+CNetWork::CNetWork() : m_sock(INVALID_SOCKET),
+m_isConnected(false)
 {
 
 }
@@ -182,8 +183,6 @@ bool CNetWork::RecvInt(int* pOutData)
 		// 要素を更新
 		nReceived += nRecvData;
 	}
-
-	//m_isConnected = false;
 
 	return true;
 }

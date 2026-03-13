@@ -12,14 +12,10 @@
 #include "ui.h"
 #include "meshfield.h"
 #include "blockmanager.h"
-#include "feedmanager.h"
 #include "feed.h"
 #include "gametime.h"
 #include "enemy.h"
 #include "array.h"
-#include "workeruimanager.h"
-#include "worker.h"
-#include "workermanager.h"
 #include "arraymanager.h"
 #include "enemyspawner.h"
 #include "arrayspawnmanager.h"
@@ -58,12 +54,10 @@ namespace GAMEOBJECT
 //=========================================================
 // コンストラクタ
 //=========================================================
-CGameSceneObject::CGameSceneObject() : 
-m_pBlocks(nullptr),
+CGameSceneObject::CGameSceneObject() : m_pBlocks(nullptr),
 m_pTimer(nullptr),
 m_pScore(nullptr),
 m_pArrayManager(nullptr),
-m_pWorkUi(nullptr),
 m_pQueen(nullptr),
 m_pSpawn(nullptr),
 m_pArraySpawn(nullptr),
@@ -86,10 +80,7 @@ CGameSceneObject::~CGameSceneObject()
 CGameSceneObject* CGameSceneObject::GetInstance(void)
 {
 	// nullなら
-	if (m_pInstance == nullptr)
-	{
-		m_pInstance = new CGameSceneObject;
-	}
+	if (m_pInstance == nullptr) m_pInstance = new CGameSceneObject;
 
 	// インスタンスを返す
 	return m_pInstance;
@@ -119,17 +110,11 @@ HRESULT CGameSceneObject::Init(void)
 //=========================================================
 void CGameSceneObject::Uninit(void)
 {
-	// 餌管理クラスの破棄
-	m_pFeed.reset();
-
 	// 配置オブジェクトクラスの破棄
 	m_pBlocks.reset();
 
 	// 仲間アリの破棄
 	m_pArrayManager.reset();
-
-	// 働き司令塔アリの破棄
-	m_pWorkerManager.reset();
 
 	// 敵スポナー破棄
 	m_pSpawn.reset();
@@ -145,9 +130,6 @@ void CGameSceneObject::Uninit(void)
 
 	// 世界の壁の破棄
 	m_pWallManager.reset();
-
-	// ui処理
-	m_pWorkUi.reset();
 
 	// マップの餌
 	m_pBasemapFeed.reset();
@@ -173,22 +155,10 @@ void CGameSceneObject::Update(void)
 		m_pArrayManager->Update();
 	}
 
-	// 働きアリuiクラスの更新
-	if (m_pWorkUi)
-	{
-		m_pWorkUi->Update();
-	}
-
 	// 仲間アリのスポナー情報更新
 	if (m_pArraySpawn)
 	{
 		m_pArraySpawn->Update();
-	}
-
-	// 働きアリの更新
-	if (m_pWorkerManager)
-	{
-		m_pWorkerManager->Update();
 	}
 
 	// 敵の更新
@@ -246,6 +216,8 @@ void CGameSceneObject::CreatePointer(void)
 	m_pBlocks = std::make_unique<CBlockManager>();
 	auto jsonManager = CManager::GetInstance()->GetJsonManager();
 	jsonManager->SetBlockManager(m_pBlocks.get());
+
+	// ブロックマネージャー初期化
 	m_pBlocks->Init();
 	m_pBlocks->Load();
 
@@ -255,10 +227,6 @@ void CGameSceneObject::CreatePointer(void)
 	// マップの標準の餌生成
 	m_pBasemapFeed = std::make_unique<CBaseMapFeed>();
 	m_pBasemapFeed->Init();
-
-	// 餌の管理クラスを生成
-	m_pFeed = std::make_unique<CFeedManager>();
-	m_pFeed->Init();
 
 	// 仲間アリの大軍を生成
 	m_pArrayManager = std::make_unique<CArrayManager>();
@@ -285,4 +253,5 @@ void CGameSceneObject::CreatePointer(void)
 	// 世界の壁管理クラスの生成
 	m_pWallManager = std::make_unique<CGameWallManager>();
 	m_pWallManager->Init();
+
 }

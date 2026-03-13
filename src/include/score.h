@@ -87,5 +87,5 @@ private:
 	int m_nScore;		// スコア保持用
 
 	std::array<CNumber*, Config::NUM_SCORE>m_apNumber;	// 桁数分のナンバーのポインタ
-	std::unique_ptr<CLoad>m_pLoad;	// ユニークポインタ
+	std::unique_ptr<CLoad>m_pLoad;						// ユニークポインタ
 };

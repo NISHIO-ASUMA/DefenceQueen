@@ -51,11 +51,16 @@ public:
 	/// <param name="fWidth">横幅</param>
 	/// <param name="fHeight">高さ</param>
 	/// <returns></returns>
-	static CResultScore* Create(const D3DXVECTOR3& pos, const float fWidth, const float fHeight);
+	static CResultScore* Create
+	(
+		const D3DXVECTOR3& pos, 
+		const float fWidth, 
+		const float fHeight
+	);
 
 private:
 
-	void UpdateAnimScore(void); // アニメーションスコア更新関数
+	void UpdateAnimScore(void);								// アニメーションスコア更新関数
 
 	//********************************
 	// 定数構造体宣言
@@ -67,13 +72,13 @@ private:
 		static constexpr int WRITE_SCORE = 5;				// 書き出し数
 		static constexpr int MAX_ANIMTIME = 180;			// 最大継続時間
 		static constexpr float POSX_VALUE = 2.0f;			// X座標加算値
-		static constexpr const char* SAVEFILE = "data/SCORE/ResultScore.bin"; // 書き出すファイル名
 		static constexpr const char* TEXNAME = "time.png";	// テクスチャ名
+		static constexpr const char* SAVEFILE = "data/SCORE/ResultScore.bin"; // 書き出すファイル名
 
 	};
 
-	std::array<CNumber*,Config::NUM_SCORE>m_pNumber;	// 桁数分のナンバーのポインタ配列
-	std::unique_ptr<CLoad>m_pLoad;						// 読み込みクラスのユニークポインタ
+	std::array<CNumber*,Config::NUM_SCORE>m_pNumber;		// 桁数分のナンバーのポインタ配列
+	std::unique_ptr<CLoad>m_pLoad;							// 読み込みクラスのユニークポインタ
 
 	D3DXVECTOR3 m_pos;	// 座標
 	float m_fWidth;		// 横幅

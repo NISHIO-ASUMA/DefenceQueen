@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "instancemodel.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 #include "texture.h"
 #include "renderer.h"
@@ -94,7 +98,7 @@ HRESULT CInstanceModel::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot, const char* pFile
 //=========================================================
 void CInstanceModel::Uninit(void)
 {
-	// 無し
+
 }
 //=========================================================
 // 更新処理
@@ -157,7 +161,7 @@ void CInstanceModel::Update(const D3DXMATRIX& mtx)
 #else
 	if (m_nModelIdx == -1) return;
 
-	// レンダラーからデバイス取得
+	// デバイス取得
 	const auto& Rendere = CManager::GetInstance()->GetRenderer();
 
 	// 30fps更新

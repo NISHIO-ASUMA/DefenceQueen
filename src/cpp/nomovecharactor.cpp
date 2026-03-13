@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "nomovecharactor.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "motion.h"
 #include "shadowstencil.h"
 #include "manager.h"
@@ -112,7 +116,8 @@ void CNoMoveCharactor::Update(void)
 
 #ifdef NDEBUG
 	// モーションの更新処理
-	m_pMotion->Update(m_pModel);
+	if (m_pMotion)
+		m_pMotion->Update(m_pModel);
 #endif // _NDEBUG
 }
 //=========================================================
@@ -164,6 +169,6 @@ void CNoMoveCharactor::Draw(void)
 //=========================================================
 void CNoMoveCharactor::MotionLoad(const char* pScriptName, int nDestMotions,const bool isShadow)
 {
-	// ポインタを取得する
+	// モーションのポインタを取得する
 	m_pMotion = CMotion::Load(pScriptName, m_pModel, nDestMotions, isShadow);
 }

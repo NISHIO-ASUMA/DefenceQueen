@@ -14,7 +14,6 @@
 // インクルードファイル
 //*******************************************************************
 #include "state.h"
-#include "worker.h"
 
 //*******************************************************************
 // 指示アリに対する状態管理基底クラスを定義
@@ -44,10 +43,9 @@ public:
 	int GetID() const override { return m_ID; }
 
 	void SetID(ID id) { m_ID = id; }
-	void SetOwner(CWorker* pWorker) { m_pWorker = pWorker; }
 
 protected:
-	CWorker* m_pWorker;	// 指示アリのポインタ
+	//CWorker* m_pWorker;	// 指示アリのポインタ
 
 private:
 	ID m_ID;		// 列挙型IDのポインタ

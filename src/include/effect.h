@@ -37,9 +37,16 @@ public:
 
 private:
 
+	//******************************
+	// 定数構造体
+	//******************************
+	struct Config
+	{
+		static constexpr const char* TEXNAME = "effect.jpg"; // テクスチャパス
+		static constexpr float DecPaw = 0.005f;				 // 減算値
+	};
+
 	int m_nLife;		// 寿命
 	float m_fRadius;	// 半径
 	D3DXVECTOR3 m_move;	// 移動量
-
-
 };

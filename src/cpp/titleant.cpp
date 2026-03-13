@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "titleant.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "template.h"
 #include "boxtospherecollision.h"
 #include "titlewallmanager.h"
@@ -20,7 +24,8 @@
 //=========================================================
 // コンストラクタ
 //=========================================================
-CTitleAnt::CTitleAnt(int nPriority) : CInstancingCharactor(nPriority),m_pCollider(nullptr)
+CTitleAnt::CTitleAnt(int nPriority) : CInstancingCharactor(nPriority),
+m_pCollider(nullptr)
 {
 
 }
@@ -34,7 +39,12 @@ CTitleAnt::~CTitleAnt()
 //=========================================================
 // 生成処理
 //=========================================================
-CTitleAnt* CTitleAnt::Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& destpos,const D3DXVECTOR3& rot)
+CTitleAnt* CTitleAnt::Create
+(
+	const D3DXVECTOR3& pos, 
+	const D3DXVECTOR3& destpos,
+	const D3DXVECTOR3& rot
+)
 {
 	// インスタンス生成
 	CTitleAnt * pAnt = new CTitleAnt;
@@ -63,7 +73,7 @@ HRESULT CTitleAnt::Init(void)
 	MotionLoad(Config::SCRIPT,MOTION_MAX,false);
 
 	// コライダー生成
-	m_pCollider = CSphereCollider::Create(GetPos(), 30.0f);
+	m_pCollider = CSphereCollider::Create(GetPos(), Config::HitRange);
 	return S_OK;
 }
 //=========================================================
@@ -86,16 +96,16 @@ void CTitleAnt::Update(void)
 	D3DXVECTOR3 pos = GetPos();
 
 	// 目的地に向かって移動する
-	D3DXVECTOR3 dest = GetDestPos() - pos;
+	D3DXVECTOR3 Dest = GetDestPos() - pos;
 
 	// ベクトルを正規化する
-	D3DXVec3Normalize(&dest, &dest);
+	D3DXVec3Normalize(&Dest, &Dest);
 
 	// 移動速度
-	dest *= Config::MOVE;
+	Dest *= Config::MOVE;
 
 	// 向きを算出
-	float angleY = atan2(-dest.x, -dest.z);
+	float angleY = atan2(-Dest.x, -Dest.z);
 	D3DXVECTOR3 rot = GetRotDest();
 
 	// 正規化する
@@ -103,7 +113,7 @@ void CTitleAnt::Update(void)
 
 	// キャラクターにセットする
 	SetRotDest(rot);
-	SetMove(dest);
+	SetMove(Dest);
 
 	// モーション変更
 	GetMotion()->SetMotion(MOTION_MOVE);
@@ -123,7 +133,7 @@ void CTitleAnt::Update(void)
 
 	for (int nCnt = 0; nCnt < Wall->GetSize(); nCnt++)
 	{
-		// 単体を取得する
+		// 壁単体を取得する
 		auto wallobj = Wall->GetGameWall(nCnt);
 
 		// 当たったら

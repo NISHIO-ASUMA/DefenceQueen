@@ -6,12 +6,20 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "billboard.h"
+
+//*********************************************************
+// システムインクルードファイル
+//*********************************************************
+#include <string>
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 #include "texture.h"
-#include <string>
 
 //=========================================================
 // コンストラクタ
@@ -147,7 +155,7 @@ void CBillboard::Update(void)
 	pVtx[0].nor = 
 	pVtx[1].nor = 
 	pVtx[2].nor = 
-	pVtx[3].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);	// 法線情報
+	pVtx[3].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
 
 	// 頂点カラーの設定
 	pVtx[0].col = 
@@ -325,9 +333,6 @@ void CBillboard::Flash(const int nMaxFlashTime, const int Digittime)
 	if (m_FlashCount == Digittime)		
 	{
 		// 頂点カラーの設定
-		col = 
-		col = 
-		col = 
 		col = COLOR_GLAY;
 
 		// カラーセット
@@ -336,9 +341,6 @@ void CBillboard::Flash(const int nMaxFlashTime, const int Digittime)
 	else if (m_FlashCount == nMaxFlashTime)	// 最大継続時間と一致したとき
 	{
 		// 頂点カラーの設定
-		col = 
-		col = 
-		col = 
 		col = COLOR_WHITE;
 
 		// カラーセット

@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "meshdome.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 #include "texture.h"
 
@@ -21,17 +25,17 @@ m_pVtx(nullptr),
 m_pos(VECTOR3_NULL),
 m_rot(VECTOR3_NULL),
 m_nRadius(NULL),
-m_nTexIdx(NULL)
+m_nTexIdx(NULL),
+m_mtxWorld{}
 {
-	// 値のクリア処理
-	D3DXMatrixIdentity(&m_mtxWorld);
+
 }
 //=========================================================
 // デストラクタ
 //=========================================================
 CMeshDome::~CMeshDome()
 {
-	// 無し
+
 }
 //=========================================================
 // 生成処理
@@ -93,14 +97,16 @@ HRESULT CMeshDome::Init(void)
 			float angleV = 90.0f * ((float)nCntV / MeshDome_Z_BLOCK);
 
 			// 頂点の位置を設定
-			pVtx[nCntV * (MeshDome_X_BLOCK + 1) + nCntH].pos = D3DXVECTOR3(
+			pVtx[nCntV * (MeshDome_X_BLOCK + 1) + nCntH].pos = D3DXVECTOR3
+			(
 				sinf(D3DXToRadian(angleH)) * m_nRadius * cosf(D3DXToRadian(angleV)), // X座標
 				m_nRadius * sinf(D3DXToRadian(angleV)),								 // Y座標
 				cosf(D3DXToRadian(angleH)) * m_nRadius * cosf(D3DXToRadian(angleV))  // Z座標
 			);
 
 			// 法線を計算
-			D3DXVECTOR3 normal = D3DXVECTOR3(
+			D3DXVECTOR3 normal = D3DXVECTOR3
+			(
 				pVtx[nCntV * (MeshDome_X_BLOCK + 1) + nCntH].pos.x / m_nRadius,
 				pVtx[nCntV * (MeshDome_X_BLOCK + 1) + nCntH].pos.y / m_nRadius,
 				pVtx[nCntV * (MeshDome_X_BLOCK + 1) + nCntH].pos.z / m_nRadius
@@ -116,9 +122,10 @@ HRESULT CMeshDome::Init(void)
 			pVtx[nCntV * (MeshDome_X_BLOCK + 1) + nCntH].col = COLOR_WHITE;
 
 			// テクスチャ座標を設定
-			pVtx[nCntV * (MeshDome_X_BLOCK + 1) + nCntH].tex = D3DXVECTOR2(
-				(float)nCntH / MeshDome_X_BLOCK,						// U座標（円周方向）
-				1.0f - (float)nCntV / MeshDome_Z_BLOCK					// V座標（高さ方向）
+			pVtx[nCntV * (MeshDome_X_BLOCK + 1) + nCntH].tex = D3DXVECTOR2
+			(
+				static_cast<float>(nCntH) / MeshDome_X_BLOCK,						// U座標（円周方向）
+				1.0f - static_cast<float>(nCntV) / MeshDome_Z_BLOCK					// V座標（高さ方向）
 			);
 		}
 	}
@@ -187,7 +194,17 @@ void CMeshDome::Uninit(void)
 //=========================================================
 void CMeshDome::Update(void)
 {
-	// 無し
+	// 計算用のマトリックス
+	D3DXMATRIX mtxRot, mtxTrans;
+
+	// 向きを反映
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
+
+	// 位置を反映
+	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
+
+	// マトリックスの行列計算
+	m_mtxWorld = mtxRot * mtxTrans;
 }
 //=========================================================
 // 描画処理
@@ -206,17 +223,6 @@ void CMeshDome::Draw(void)
 	// テクスチャセット
 	pDevice->SetTexture(0, pTexture->GetAddress(m_nTexIdx));
 
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxWorld);
-
-	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
-
-	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
-
 	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
 
@@ -233,7 +239,8 @@ void CMeshDome::Draw(void)
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	// 描画
-	pDevice->DrawIndexedPrimitive(
+	pDevice->DrawIndexedPrimitive
+	(
 		D3DPT_TRIANGLELIST,
 		0,
 		0,

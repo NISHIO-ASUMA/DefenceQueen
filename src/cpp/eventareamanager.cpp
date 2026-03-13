@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "eventareamanager.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "gamesceneobject.h"
 #include "gametime.h"
 #include "eventarea.h"
@@ -78,6 +82,7 @@ CEventAreaManager::~CEventAreaManager()
 //=========================================================
 HRESULT CEventAreaManager::Init(void)
 {
+	// 配列のクリア
 	m_pAreas.clear();
 	m_pFeeds.clear();
 
@@ -90,7 +95,6 @@ void CEventAreaManager::Uninit(void)
 {
 	// 配列をクリア
 	m_pAreas.clear();
-
 	m_pFeeds.clear();
 }
 //=========================================================
@@ -141,10 +145,7 @@ void CEventAreaManager::Erase(CEventArea* pArea)
 	auto DeleteDestObj = std::find(m_pAreas.begin(), m_pAreas.end(), pArea);
 
 	// もし最後尾なら
-	if (DeleteDestObj == m_pAreas.end())
-	{
-		return;
-	}
+	if (DeleteDestObj == m_pAreas.end()) return;
 
 	// 自身の削除
 	(*DeleteDestObj)->Uninit();
@@ -161,10 +162,7 @@ void CEventAreaManager::EraseFeed(CFeed* pFeed)
 	auto DeleteDestObj = std::find(m_pFeeds.begin(), m_pFeeds.end(), pFeed);
 
 	// もし最後尾なら
-	if (DeleteDestObj == m_pFeeds.end())
-	{
-		return;
-	}
+	if (DeleteDestObj == m_pFeeds.end()) return;
 
 	// 自身の削除
 	(*DeleteDestObj)->Uninit();

@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "enemyspawner.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "enemy.h"
 #include "gamesceneobject.h"
 #include "gametime.h"
@@ -18,7 +22,7 @@
 //=========================================================
 CEnemySpawner::CEnemySpawner() : m_Activepos(VECTOR3_NULL)
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
@@ -36,7 +40,7 @@ CEnemySpawner* CEnemySpawner::Create(const D3DXVECTOR3& Activepos)
 	CEnemySpawner* pSpawn = new CEnemySpawner;
 	if (pSpawn == nullptr) return nullptr;
 
-	// 引数設定
+	// 座標の設定
 	pSpawn->SetPos(Activepos);
 
 	// 初期化失敗時

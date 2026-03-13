@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "camera.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 #include "input.h"
 #include "debugproc.h"
@@ -22,6 +26,10 @@ namespace CAMERAINFO
 	constexpr float MAX_VIEWUP = 3.0f;			// カメラの角度制限値
 	constexpr float MAX_VIEWDOWN = 0.1f;		// カメラの角度制限値
 	constexpr float NorRot = D3DX_PI * 2.0f;	// 正規化値
+
+	const D3DXVECTOR3 InitPos = { 0.0f, 1450.0f, -1350.0f }; // カメラ初期座標
+	const D3DXVECTOR3 InitRot = { D3DX_PI * 0.6f, 0.0f, 0.0f }; // カメラ初期角度
+	const D3DXVECTOR3 InitVecU = { 0.0f, 1.0f, 0.0f };		 // 初期ベクトル
 }
 
 //=========================================================
@@ -43,10 +51,10 @@ CCamera::~CCamera()
 //=========================================================
 HRESULT CCamera::Init(void)
 {
-	m_pCamera.posV = D3DXVECTOR3(0.0f, 1450.0f, -1350.0f);		// カメラの位置
-	m_pCamera.posR = VECTOR3_NULL;								// カメラの見ている位置
-	m_pCamera.vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);				// 上方向ベクトル
-	m_pCamera.rot = D3DXVECTOR3(D3DX_PI * 0.6f, 0.0f, 0.0f);	// 角度
+	m_pCamera.posV = CAMERAINFO::InitPos;	// カメラの位置
+	m_pCamera.posR = VECTOR3_NULL;			// カメラの見ている位置
+	m_pCamera.vecU = CAMERAINFO::InitVecU;	// 上方向ベクトル
+	m_pCamera.rot = CAMERAINFO::InitRot;	// 角度
 
 	// 距離を計算
 	float fRotx = m_pCamera.posV.x - m_pCamera.posR.x;
@@ -104,7 +112,6 @@ void CCamera::Update(void)
 	{// D3DX_PIより小さくなったら
 		m_pCamera.rot.y += CAMERAINFO::NorRot;
 	}
-
 #endif
 }
 //=========================================================
@@ -151,7 +158,6 @@ void CCamera::SetCamera(void)
 	CDebugproc::Print("Camera : Rot [ %.2f, %.2f, %.2f ]\n", m_pCamera.rot.x, m_pCamera.rot.y, m_pCamera.rot.z);
 	CDebugproc::Draw(0, 80);
 #endif // _DEBUG
-
 }
 //==============================================================
 // タイトルカメラ
@@ -288,7 +294,7 @@ void CCamera::WheelMouse(int nDelta)
 	}
 
 	if (m_pCamera.fDistance <= 50.0f)
-	{// 250.0f以下なら
+	{// 50.0f以下なら
 		m_pCamera.fDistance = 50.0f;
 	}
 

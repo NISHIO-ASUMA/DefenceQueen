@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "titleantmanager.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "titleant.h"
 
 //*********************************************************
@@ -16,10 +20,8 @@
 //*********************************************************
 namespace SPAWNINFO
 {
-	// 出現択数
-	constexpr int NUM_POS = 2;
-
-	constexpr int MAX_COUNT = 120;
+	constexpr int NUM_POS	= 2;	// 生成される座標の数
+	constexpr int MAX_COUNT = 120;	// 生成間隔
 
 	// 出現座標
 	const D3DXVECTOR3 ActivePos[NUM_POS]
@@ -39,7 +41,8 @@ namespace SPAWNINFO
 //=========================================================
 // コンストラクタ
 //=========================================================
-CTitleAntManager::CTitleAntManager() : m_pAnts{}, m_nCreateCount(NULL)
+CTitleAntManager::CTitleAntManager() : m_pAnts{}, 
+m_nCreateCount(NULL)
 {
 
 }
@@ -57,7 +60,6 @@ HRESULT CTitleAntManager::Init(void)
 {
 	// 配列の要素をクリアする
 	m_pAnts.clear();
-
 	return S_OK;
 }
 //=========================================================
@@ -73,10 +75,9 @@ void CTitleAntManager::Uninit(void)
 //=========================================================
 void CTitleAntManager::Update(void)
 {
-	// 配列に要素を追加していく
+	// カウントを加算
 	m_nCreateCount++;
 
-#if 1
 	if (m_nCreateCount >= SPAWNINFO::MAX_COUNT)
 	{
 		// 配列に追加する
@@ -86,5 +87,4 @@ void CTitleAntManager::Update(void)
 		// カウント初期化
 		m_nCreateCount = 0;
 	}
-#endif
 }

@@ -6,9 +6,13 @@
 //===================================================================
 
 //*******************************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*******************************************************************
 #include "instancingcharactor.h"
+
+//*******************************************************************
+// インクルードファイル
+//*******************************************************************
 #include "manager.h"
 #include "blackboard.h"
 #include "node.h"
@@ -36,25 +40,16 @@ m_pShadowS{},
 m_fMoveValue(NULL),
 m_isStencilUse(false),
 m_isOutLine(false),
-m_isInstancing(false)
+m_isInstancing(false),
+m_mtxworld{}
 {
-	// 値のクリア
-	D3DXMatrixIdentity(&m_mtxworld);
 }
 //===================================================================
 // デストラクタ
 //===================================================================
 CInstancingCharactor::~CInstancingCharactor()
 {
-	// 無し
-}
-//===================================================================
-// モーションスクリプト読み込み処理
-//===================================================================
-void CInstancingCharactor::MotionLoad(const char* pScriptName, int nDestMotions, const bool isShadow)
-{
-	// モーションのポインタを取得する
-	m_pMotion = CMotionInstancing::Load(pScriptName, m_pModel, nDestMotions, isShadow);
+	
 }
 //===================================================================
 // 初期化処理
@@ -206,4 +201,12 @@ void CInstancingCharactor::UpdatePosition(void)
 {
 	m_posOld = m_pos;
 	m_pos += m_move;
+}
+//===================================================================
+// モーションスクリプト読み込み処理
+//===================================================================
+void CInstancingCharactor::MotionLoad(const char* pScriptName, int nDestMotions, const bool isShadow)
+{
+	// モーションのポインタを取得する
+	m_pMotion = CMotionInstancing::Load(pScriptName, m_pModel, nDestMotions, isShadow);
 }

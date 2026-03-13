@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "queen.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "collisionsphere.h"
 #include "spherecollider.h"
 #include "parameter.h"
@@ -32,7 +36,7 @@ m_pStateMachine(nullptr),
 m_pLoad(nullptr),
 m_isUse(false)
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
@@ -156,7 +160,7 @@ void CQueen::Hit(const int nDamage)
 		// 体力を0にする
 		m_pParameter->SetHp(NULL);
 
-		// ここでポインタを破棄
+		// ポインタを破棄
 		CGameSceneObject::GetInstance()->DeleteQueen();
 
 		// 処理終了
@@ -182,7 +186,7 @@ void CQueen::Hit(const int nDamage)
 void CQueen::SaveHp(void)
 {
 	// 数値をバイナリ書き出しする
-	m_pLoad->SaveInt("data/SCORE/QueenLastHp.bin", m_pParameter->GetHp());
+	m_pLoad->SaveInt(QueenInfo::SAVEFILE, m_pParameter->GetHp());
 }
 //=========================================================
 // 当たり判定処理

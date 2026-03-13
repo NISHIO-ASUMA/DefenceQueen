@@ -13,7 +13,7 @@
 //===================================================================
 // コンストラクタ
 //===================================================================
-CWorkerStateBase::CWorkerStateBase() : m_pWorker(nullptr),m_ID(ID_NEUTRAL)
+CWorkerStateBase::CWorkerStateBase() : m_ID(ID_NEUTRAL)
 {
 
 }

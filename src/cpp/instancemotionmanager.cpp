@@ -57,7 +57,13 @@ void CInstanceMotionManager::UnLoad(void)
 //=========================================================
 // モーションファイルの登録処理
 //=========================================================
-int CInstanceMotionManager::Register(const char* pFileName, std::vector<CInstanceModel*>& pModel, int nDestMotion, bool isShadow)
+int CInstanceMotionManager::Register
+(
+	const char* pFileName, 
+	std::vector<CInstanceModel*>& pModel, 
+	int nDestMotion, 
+	bool isShadow
+)
 {
 	// もしすでにファイルが登録されていたら
 	for (int nCnt = 0; nCnt < static_cast<int>(m_FileData.size()); nCnt++)
@@ -122,7 +128,13 @@ int CInstanceMotionManager::Register(const char* pFileName, std::vector<CInstanc
 //=========================================================
 // 実際のモーション読み込み処理
 //=========================================================
-void CInstanceMotionManager::LoadMotion(const char* pFileName, std::vector<CInstanceModel*>& pModel, int nDestMotion, bool isShadow)
+void CInstanceMotionManager::LoadMotion
+(
+	const char* pFileName, 
+	std::vector<CInstanceModel*>& pModel, 
+	int nDestMotion, 
+	bool isShadow
+)
 {
 	// 読み込むファイルを設定する
 	std::ifstream file(pFileName);
@@ -142,7 +154,7 @@ void CInstanceMotionManager::LoadMotion(const char* pFileName, std::vector<CInst
 	int nIdx = 0;
 	int nCntMotion = 0;
 
-	// この引数に読み込むモーション総数を設定してこれの分だけm_amotionInfoでリサイズする
+	// モーション情報のサイズを設定
 	m_FileData.back().m_aMotionInfo.resize(nDestMotion);
 
 	// 最大モーション数を保持する
@@ -221,7 +233,13 @@ int CInstanceMotionManager::SetModels(std::istringstream& iss)
 //=========================================================
 // モデルファイル名をセットする
 //=========================================================
-void CInstanceMotionManager::SetModelFile(std::istringstream& iss, std::vector<CInstanceModel*>& pModel, int nCnt, const bool isShadow)
+void CInstanceMotionManager::SetModelFile
+(
+	std::istringstream& iss, 
+	std::vector<CInstanceModel*>& pModel, 
+	int nCnt, 
+	const bool isShadow
+)
 {
 	// 文字列設定
 	std::string eq, filename;
@@ -397,13 +415,13 @@ void CInstanceMotionManager::SetPartsMotion(std::ifstream& file, int nCntMotion)
 			// nNumKeyを代入
 			m_FileData.back().m_aMotionInfo[nCntMotion].nNumKey = numKeys;
 
-			// 上の処理でそのモーションのキー全体が上の処理でわかるのでその分のサイズを設定
+			// キー全体のサイズを設定
 			m_FileData.back().m_aMotionInfo[nCntMotion].aKeyInfo.resize(numKeys);
 
 			//	キー数の上限に達するまで
 			while (nCntKey < numKeys)
 			{
-				// aKeyInfoのサイズがわかったらキーごとにあるパーツの情報をakeyにサイズセットをして箱を確保してあげる
+				// キーごとのサイズセット
 				m_FileData.back().m_aMotionInfo[nCntMotion].aKeyInfo[nCntKey].aKey.resize(m_FileData.back().nNumModel);
 
 				// キー情報の設定
@@ -491,7 +509,15 @@ void CInstanceMotionManager::SetKey(std::ifstream& file, int nCntMotion, int nCn
 //=================================================================
 // キーごとの情報設定
 //=================================================================
-void CInstanceMotionManager::SetKeyDate(std::istringstream& ss, const std::string& param, int nCntMotion, int nCntKey, int& posKeyIndex, int& rotKeyIndex)
+void CInstanceMotionManager::SetKeyDate
+(
+	std::istringstream& ss, 
+	const std::string& param, 
+	int nCntMotion, 
+	int nCntKey, 
+	int& posKeyIndex, 
+	int& rotKeyIndex
+)
 {
 	// 読み込み用1行分のバッファ
 	std::string eq;

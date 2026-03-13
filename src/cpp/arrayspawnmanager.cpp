@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "arrayspawnmanager.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "arraymanager.h"
 #include "arrayspawner.h"
 #include "debugproc.h"
@@ -51,10 +55,22 @@ HRESULT CArraySpawnManager::Init(CArrayManager* pManager)
 		int nIdx = nSepalation * nCnt;
 
 		// スポナーを生成 ( スポナー座標,仲間のストック数,アリ管理マネージャーポインタ )
-		m_pArraySpawner[nCnt] = CArraySpawner::Create(SpawnManager::POS[nCnt], NUM_CREATEARRAY, pManager, SpawnManager::BasePos[nCnt], nIdx);
+		m_pArraySpawner[nCnt] = CArraySpawner::Create
+		(
+			SpawnManager::POS[nCnt], 
+			NUM_CREATEARRAY, 
+			pManager, 
+			SpawnManager::BasePos[nCnt], 
+			nIdx
+		);
 
 		// スポーンポイントのオブジェクト生成
-		CObjectX::Create("STAGEOBJ/SpawnBase.x", SpawnManager::POS[nCnt],SpawnManager::ROTVALUE[nCnt]);
+		CObjectX::Create
+		(
+			Config::MODELPATH,
+			SpawnManager::POS[nCnt],
+			SpawnManager::ROTVALUE[nCnt]
+		);
 
 		// アクティブなアリを加算
 		pManager->CountActiveArrays(m_pArraySpawner[nCnt]->GetStockArray());
@@ -71,7 +87,7 @@ void CArraySpawnManager::Uninit(void)
 	{
 		if (m_pArraySpawner[nCnt])
 		{
-			// ポインタの破棄とnull初期化
+			// ポインタの破棄
 			delete m_pArraySpawner[nCnt];
 			m_pArraySpawner[nCnt] = nullptr;
 		}
