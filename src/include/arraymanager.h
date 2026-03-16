@@ -11,7 +11,7 @@
 #pragma once
 
 //*********************************************************
-// インクルードファイル
+// システムインクルードファイル
 //*********************************************************
 #include <vector>
 
@@ -109,8 +109,8 @@ private:
 	//**********************
 	struct ArrayConfig
 	{
-		static constexpr int LIFE = 1; // 体力値
-		static constexpr int ALLARRAYS = 200; // 最大使用数
+		static constexpr int LIFE		= 1;	// 体力値
+		static constexpr int ALLARRAYS  = 200;	// 最大使用数
 	};
 
 	std::vector<CArray*>m_pArrays;		// 動的配列

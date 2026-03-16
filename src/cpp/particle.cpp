@@ -6,14 +6,30 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "particle.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 #include "effect.h"
 
+//*********************************************************
+// 定数名前空間
+//*********************************************************
+namespace PARTICLEINFO
+{
+	constexpr int RAND_MAXVALUE		= 629;		// 最大ランダム数
+	constexpr int RAND_MINVALUE		= 314;		// 最小ランダム数
+	constexpr int DIGIT_LIFE		= 10;		// 寿命を割る値
+	constexpr float DIGIT_RAND		= 100.0f;	// ランダム値を割る値
+	constexpr float DIGIT_LENGTH	= 10.0f;	// 飛散距離の割る値
+};
+
 //=========================================================
-// オーバーロードコンストラクタ
+// コンストラクタ
 //=========================================================
 CParticle::CParticle(int nPriority) : CObject(nPriority),
 m_pos(VECTOR3_NULL),
@@ -23,7 +39,7 @@ m_nMaxParticle(NULL),
 m_nLife(NULL),
 m_nRadius(NULL)
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
@@ -35,9 +51,17 @@ CParticle::~CParticle()
 //=========================================================
 // 生成処理
 //=========================================================
-CParticle* CParticle::Create(D3DXVECTOR3 pos, D3DXCOLOR col, int nMaxParticle,int nRadius,int nLength,int nLife)
+CParticle* CParticle::Create
+(
+	const D3DXVECTOR3& pos, 
+	const D3DXCOLOR& col, 
+	const int& nMaxParticle, 
+	const int& nRadius, 
+	const int& nLength, 
+	const int& nLife
+)
 {
-	// パーティクルのポインタを宣言
+	// インスタンス生成
 	CParticle* pParticle = new CParticle;
 	if (pParticle == nullptr) return nullptr;
 
@@ -80,7 +104,7 @@ void CParticle::Uninit(void)
 //=========================================================
 void CParticle::Update(void)
 {
-	//カラーの設定
+	// カラーの設定
 	D3DXCOLOR col = m_col;
 
 	// 座標を取得
@@ -90,11 +114,11 @@ void CParticle::Update(void)
 	for (int nCntApper = 0; nCntApper < m_nMaxParticle; nCntApper++)
 	{
 		// 移動量の設定
-		float fAngelX = static_cast<float>(rand() % 629 - 314) / 100.0f;
-		float fAngelY = static_cast<float>(rand() % 629 - 314) / 100.0f;
+		float fAngelX = static_cast<float>(rand() % PARTICLEINFO::RAND_MAXVALUE - PARTICLEINFO::RAND_MINVALUE) / PARTICLEINFO::DIGIT_RAND;
+		float fAngelY = static_cast<float>(rand() % PARTICLEINFO::RAND_MAXVALUE - PARTICLEINFO::RAND_MINVALUE) / PARTICLEINFO::DIGIT_RAND;
 
 		// 長さ設定
-		float fLength = (static_cast<float>(rand() % m_nLength) / 10.0f);
+		float fLength = (static_cast<float>(rand() % m_nLength) / PARTICLEINFO::DIGIT_LENGTH);
 
 		// 移動量変数
 		D3DXVECTOR3 Move = VECTOR3_NULL;
@@ -105,10 +129,10 @@ void CParticle::Update(void)
 		Move.z = sinf(fAngelX) * cosf(fAngelY) * fLength;
 
 		//半径の設定
-		float fRadius = (static_cast<float>(rand() % m_nRadius) / 10.0f + 0.7f);
+		float fRadius = (static_cast<float>(rand() % m_nRadius) / PARTICLEINFO::DIGIT_LENGTH + 0.7f);
 
 		// 寿命の設定
-		int nLife = (static_cast<float>(rand() % m_nLife) / 10);
+		int nLife = (static_cast<float>(rand() % m_nLife) / PARTICLEINFO::DIGIT_LIFE);
 
 		// エフェクト生成
 		CEffect* pEffect = CEffect::Create(pos, col, Move, nLife, fRadius);
@@ -127,5 +151,5 @@ void CParticle::Update(void)
 //=========================================================
 void CParticle::Draw(void)
 {
-	// 無し
+	
 }

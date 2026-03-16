@@ -33,10 +33,14 @@ public:
 	/// <summary>
 	/// 球形同士の当たり判定関数
 	/// </summary>
-	/// <param name="thisCollider">自分が持ってるコライダー</param>
-	/// <param name="otherCollider">判定先のコライダー</param>
+	/// <param name="thisCollider">自分が持ってる球コライダー</param>
+	/// <param name="otherCollider">判定先の球コライダー</param>
 	/// <returns></returns>
-	static bool Collision(CSphereCollider * thisCollider, CSphereCollider * otherCollider);
+	static bool Collision
+	(
+		CSphereCollider * thisCollider, 
+		CSphereCollider * otherCollider
+	);
 
 private:
 

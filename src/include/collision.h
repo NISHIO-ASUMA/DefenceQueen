@@ -38,7 +38,13 @@ public:
 	inline D3DXVECTOR3 GetPos(void) const { return m_pos; }
 	inline TYPE GetType(void) const { return m_Type; }
 
-	static CCollision* Create(D3DXVECTOR3 pos, TYPE Type);
+	/// <summary>
+	/// ¶¬ˆ—
+	/// </summary>
+	/// <param name="pos">¶¬À•W</param>
+	/// <param name="Type">í—Ş</param>
+	/// <returns></returns>
+	static CCollision* Create(const D3DXVECTOR3& pos, TYPE Type);
 
 private:
 	D3DXVECTOR3 m_pos;	// ”»’è‚·‚éÀ•W

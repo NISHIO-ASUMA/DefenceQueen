@@ -11,12 +11,12 @@
 #pragma once
 
 //*********************************************************
-// インクルードファイル宣言
+// インクルードファイル
 //*********************************************************
 #include "billboard.h"
 
 //*********************************************************
-// エフェクトクラスを定義
+// 柱状エフェクトクラスを定義
 //*********************************************************
 class CEffectPiler : public CBillboard
 {
@@ -30,7 +30,21 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 
-	static CEffectPiler* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fRadius, int nLife);
+	/// <summary>
+	/// 生成処理
+	/// </summary>
+	/// <param name="pos">生成座標</param>
+	/// <param name="rot">角度</param>
+	/// <param name="fRadius">半径</param>
+	/// <param name="nLife">寿命</param>
+	/// <returns></returns>
+	static CEffectPiler* Create
+	(
+		const D3DXVECTOR3& pos, 
+		const D3DXVECTOR3& rot, 
+		const float& fRadius, 
+		const int& nLife
+	);
 
 private:
 	int m_nLife;		// 体力

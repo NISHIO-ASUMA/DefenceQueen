@@ -48,7 +48,19 @@ public:
 	inline D3DCOLORVALUE GetCol(void) const { return m_col; }
 	inline int GetModelIdx(void) const { return m_nIdxModel; }
 	
-	static CObjectX* Create(const char* pModelName, const D3DXVECTOR3& pos, const D3DXVECTOR3& rot = VECTOR3_NULL);
+	/// <summary>
+	/// 生成処理
+	/// </summary>
+	/// <param name="pModelName">モデルファイル名</param>
+	/// <param name="pos">生成座標</param>
+	/// <param name="rot">角度</param>
+	/// <returns></returns>
+	static CObjectX* Create
+	(
+		const char* pModelName, 
+		const D3DXVECTOR3& pos, 
+		const D3DXVECTOR3& rot = VECTOR3_NULL
+	);
 
 private:
 

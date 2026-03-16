@@ -11,10 +11,14 @@
 #pragma once
 
 //*********************************************************
+// システムインクルードファイル
+//*********************************************************
+#include <vector>
+
+//*********************************************************
 // インクルードファイル
 //*********************************************************
 #include "block.h"
-#include <vector>
 
 //*********************************************************
 // 前方宣言
@@ -62,8 +66,7 @@ public:
 
 private:
 
-	static constexpr const char* FILE_NAME = "data/JSON/Map.json"; // ファイル名
-	static constexpr const char* RESULTFILE_NAME = "data/JSON/ResultMap.json"; // ファイル名
+	static constexpr const char* FILE_NAME = "data/JSON/Map.json";				// ファイル名
 
 	std::vector<CBlock*>m_pBlocks; // 配置するブロックの動的配列
 };

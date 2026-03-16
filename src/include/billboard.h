@@ -46,7 +46,23 @@ public:
 	inline float GetWidth(void) const { return m_fWidth; }
 	inline float GetHeight(void) const { return m_fHeight; }
 
-	static CBillboard* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, float fWidth, float fHeight, const char* pTexName);
+	/// <summary>
+	/// 生成処理
+	/// </summary>
+	/// <param name="pos">生成処理</param>
+	/// <param name="rot">角度</param>
+	/// <param name="fWidth">横幅</param>
+	/// <param name="fHeight">高さ</param>
+	/// <param name="pTexName">テクスチャファイル名</param>
+	/// <returns></returns>
+	static CBillboard* Create
+	(
+		const D3DXVECTOR3& pos, 
+		const D3DXVECTOR3& rot, 
+		float fWidth, 
+		float fHeight, 
+		const char* pTexName
+	);
 
 private:
 
@@ -56,10 +72,10 @@ private:
 	D3DXCOLOR m_col;	// 色情報
 	D3DXMATRIX m_mtxWorld;	// ワールドマトリックス
 
-	int m_nIdxTexture;	// テクスチャインデックス
-	int m_FlashCount;	// 点滅間隔
-	int m_nCountAnim;	// アニメ―ション間隔
-	int m_nPatterAnim;	// アニメ―ションパターン
+	int m_nIdxTexture;			// テクスチャインデックス
+	int m_FlashCount;			// 点滅間隔
+	int m_nCountAnim;			// アニメ―ション間隔
+	int m_nPatterAnim;			// アニメ―ションパターン
 	float m_fHeight, m_fWidth;	// 横幅,高さ
 	bool m_isTests;				// Zテストするかどうか
 };

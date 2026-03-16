@@ -6,33 +6,29 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "gamesceneobject.h"
-#include "ui.h"
-#include "meshfield.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
+#include "manager.h"
+#include "input.h"
 #include "blockmanager.h"
-#include "feed.h"
 #include "gametime.h"
-#include "enemy.h"
-#include "array.h"
 #include "arraymanager.h"
 #include "enemyspawner.h"
 #include "arrayspawnmanager.h"
 #include "topant.h"
 #include "score.h"
-#include "manager.h"
-#include "input.h"
 #include "queen.h"
 #include "enemyspawnmanager.h"
-#include "meshdome.h"
 #include "enemymanager.h"
 #include "gamemanager.h"
 #include "gamewallmanager.h"
-#include "meshcylinder.h"
-#include "basemapfeed.h"
-#include "eventarea.h"
 #include "eventareamanager.h"
+#include "basemapfeed.h"
 #include "jsonmanager.h"
 
 //*********************************************************

@@ -11,7 +11,7 @@
 #pragma once
 
 //*******************************************************************
-// インクルードファイル
+// システムインクルードファイル
 //*******************************************************************
 #include <string>
 #include <vector>
@@ -89,14 +89,14 @@ public:
 	{
 		std::string FilePath;				// ファイル名
 		std::vector<CInstanceModel*>apModel; // モデルインデックス
-		std::vector<std::string>Modelpath; // モデルパス
+		std::vector<std::string>Modelpath;	// モデルパス
 		std::vector<int>nParentId;			// idセット
 		std::vector<D3DXVECTOR3>offpos;		// オフセット座標
 		std::vector<D3DXVECTOR3>offrot;		// オフセット角度
 		std::vector<INFO> m_aMotionInfo;	// モーション情報
 		std::vector<MOTION_CACHEDATA> cache; // モーションキャッシュ用データ配列
-		int nNumModel;						// 最大モデル数
-		int nNumMotion;						// 最大モーション数
+		int nNumModel;						 // 最大モデル数
+		int nNumMotion;						 // 最大モーション数
 	};
 
 	CInstanceMotionManager();

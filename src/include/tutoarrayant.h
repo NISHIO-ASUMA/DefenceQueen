@@ -11,10 +11,14 @@
 #pragma once
 
 //*********************************************************
+// システムインクルードファイル
+//*********************************************************
+#include <memory>
+
+//*********************************************************
 // インクルードファイル
 //*********************************************************
 #include "movecharactor.h"
-#include <memory>
 
 //*********************************************************
 // 前方宣言
@@ -62,10 +66,10 @@ private:
 	//**********************
 	struct Config
 	{
-		static constexpr float SPEED = 2.0f;											 // 移動速度
-		static constexpr float MAX_RADIUS = 40.0f;										 // 最大範囲
-		static constexpr float MAX_DISTANCE = 60.0f;									 // 近づける距離
-		static constexpr float NorRot = D3DX_PI * 2.0f;									 // 回転補正
+		static constexpr float SPEED			= 2.0f;									 // 移動速度
+		static constexpr float MAX_RADIUS		= 40.0f;								 // 最大範囲
+		static constexpr float MAX_DISTANCE		= 60.0f;								 // 近づける距離
+		static constexpr float NorRot			= D3DX_PI * 2.0f;						 // 回転補正
 		static constexpr const char* MOTION_NAME = "data/MOTION/Array/Array_Motion.txt"; // モーションパス
 	};
 

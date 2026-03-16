@@ -109,9 +109,6 @@
     <Filter Include="ヘッダー ファイル\AI_System\Base">
       <UniqueIdentifier>{5b51c14b-10d4-4cfc-839a-fb4f02b2c5cf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\AI_System\Composite">
-      <UniqueIdentifier>{b4da949d-efdd-4165-84d5-2f54e4d63d83}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\AI_System\Sequence">
       <UniqueIdentifier>{3d4bd187-580f-4db3-b7ec-2f3868765f0e}</UniqueIdentifier>
     </Filter>
@@ -130,9 +127,6 @@
     <Filter Include="ヘッダー ファイル\AI_System\LeafNode">
       <UniqueIdentifier>{69408f50-d5f7-470c-bbce-9445bcd804eb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\AI_System\Default">
-      <UniqueIdentifier>{fa2b6397-f9de-4222-9e1a-a3d7a8cead3d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\AI_System\LeafNode\Base">
       <UniqueIdentifier>{33062f8d-57d1-4b17-b998-1e596186f966}</UniqueIdentifier>
     </Filter>
@@ -141,9 +135,6 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\AI_System\Base_Tree">
       <UniqueIdentifier>{50870cdd-64fe-4a8c-88db-e53271f40e2a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\AI_System\LeafNode\Samples">
-      <UniqueIdentifier>{77874f6c-146d-4f5a-9097-f9f3ae5eff9e}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\AI_System">
       <UniqueIdentifier>{efd565b5-8c37-4df0-a2c6-c3b420a5a3cb}</UniqueIdentifier>
@@ -252,9 +243,6 @@
     </Filter>
     <Filter Include="ソース ファイル\Charactor\Worker">
       <UniqueIdentifier>{0eb2ba27-7e22-45ef-a380-9d87afc76920}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Charactor\Worker">
-      <UniqueIdentifier>{bb2bb065-46e1-4991-be1b-5ed4ca8df153}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Mesh">
       <UniqueIdentifier>{a2b0f7d6-bb19-4b22-858f-354099a99d86}</UniqueIdentifier>
@@ -370,6 +358,9 @@
     <Filter Include="ヘッダー ファイル\JsonUtility\Sepalation">
       <UniqueIdentifier>{fc747fc8-cf13-4c40-a7a8-aafe37f54782}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\AI_System\Composite">
+      <UniqueIdentifier>{b4da949d-efdd-4165-84d5-2f54e4d63d83}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cpp\gauge.cpp">
@@ -426,7 +417,7 @@
     <ClCompile Include="src\cpp\feedgetleaf.cpp">
       <Filter>ソース ファイル\Array_AI\Leaf</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\folllowtopleaf.cpp">
+    <ClCompile Include="src\cpp\followtopleaf.cpp">
       <Filter>ソース ファイル\Array_AI\Leaf</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\movetofeedleaf.cpp">
@@ -589,9 +580,6 @@
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\gamewallmanager.cpp">
-      <Filter>ソース ファイル\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\gimmickmanager.cpp">
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\modelmanager.cpp">
@@ -1079,9 +1067,6 @@
     <ClInclude Include="src\include\gamewallmanager.h">
       <Filter>ヘッダー ファイル\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\gimmickmanager.h">
-      <Filter>ヘッダー ファイル\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\eventareamanager.h">
       <Filter>ヘッダー ファイル\Manager</Filter>
     </ClInclude>
@@ -1229,7 +1214,7 @@
     <ClInclude Include="src\include\eventarea.h">
       <Filter>ヘッダー ファイル\3D</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\folllowtopleaf.h">
+    <ClInclude Include="src\include\followtopleaf.h">
       <Filter>ヘッダー ファイル\Array_AI\Leaf</Filter>
     </ClInclude>
     <ClInclude Include="src\include\blackboard.h">
@@ -1279,18 +1264,6 @@
     </ClInclude>
     <ClInclude Include="src\include\targetselector.h">
       <Filter>ヘッダー ファイル\AI_System\Selector</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\chasedestination.h">
-      <Filter>ヘッダー ファイル\AI_System\LeafNode\Samples</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\waitorderleaf.h">
-      <Filter>ヘッダー ファイル\AI_System\LeafNode\Samples</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\waitleaf.h">
-      <Filter>ヘッダー ファイル\AI_System\LeafNode\Samples</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\checkneardestination.h">
-      <Filter>ヘッダー ファイル\AI_System\LeafNode\Samples</Filter>
     </ClInclude>
     <ClInclude Include="src\include\circle3d.h">
       <Filter>ヘッダー ファイル\3D</Filter>

@@ -16,14 +16,14 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <windows.h>
-#include "d3dx9.h"					// 描画処理に必要
+#include "d3dx9.h"
 #include "d3d9.h"
-#define DIRECTINPUT_VERSION (0x0800)// ビルド時警告対処用のマクロ
-#include "dinput.h"					// 入力処理に必要
-#include "Xinput.h"					// ジョイパッド処理に必要
+#define DIRECTINPUT_VERSION (0x0800)
+#include "dinput.h"
+#include "Xinput.h"
 #include "xaudio2.h"
 #include <Shlwapi.h>
-#include <assert.h>					// アサート関数ヘッダー
+#include <assert.h>
 #include <stdlib.h>
 #include <cstdio>
 #include <time.h>
@@ -33,11 +33,11 @@
 // ライブラリのリンク宣言
 //*********************************************************
 #pragma comment(lib,"ws2_32.lib")
-#pragma comment(lib,"d3d9.lib")		// 描画処理に必要
-#pragma comment(lib,"d3dx9.lib")	// [ d3d9.lib ]の拡張ライブラリ
-#pragma comment(lib,"dxguid.lib")	// DirectXコンポーネント(部品)使用に必要
+#pragma comment(lib,"d3d9.lib")
+#pragma comment(lib,"d3dx9.lib")
+#pragma comment(lib,"dxguid.lib")
 #pragma comment(lib,"dinput8.lib")
-#pragma comment(lib,"xinput.lib")	// ジョイパッド処理に必要
+#pragma comment(lib,"xinput.lib")
 #pragma comment(lib,"Winmm.lib")
 #pragma comment(lib,"shlwapi.lib")
 

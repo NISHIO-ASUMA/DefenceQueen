@@ -331,8 +331,6 @@ void CObjectX::SetFilePass(const char* pFilePass)
 	std::string ModelName = "data/MODEL/";
 	ModelName += pFilePass;
 
-	int n = 0;
-
 	// ƒ‚ƒfƒ‹‚ð“o˜^
 	m_nIdxModel = pXMgr->Register(ModelName.c_str());
 }

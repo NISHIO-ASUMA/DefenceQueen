@@ -33,7 +33,23 @@ public:
 	void SetLife(int nLife) { m_nLife = nLife; }
 	int GetLife(void) { return m_nLife; }
 
-	static CEffect* Create(D3DXVECTOR3 pos, D3DXCOLOR col, D3DXVECTOR3 move, int nLife, float fRadius);
+	/// <summary>
+	/// ¶¬ˆ—
+	/// </summary>
+	/// <param name="pos">¶¬À•W</param>
+	/// <param name="col">F</param>
+	/// <param name="move">ˆÚ“®—Ê</param>
+	/// <param name="nLife">õ–½</param>
+	/// <param name="fRadius">”¼Œa</param>
+	/// <returns></returns>
+	static CEffect* Create
+	(
+		const D3DXVECTOR3& pos, 
+		const D3DXCOLOR& col,
+		const D3DXVECTOR3& move,
+		const int& nLife,
+		const float& fRadius
+	);
 
 private:
 

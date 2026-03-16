@@ -11,7 +11,7 @@
 #pragma once
 
 //*********************************************************
-// インクルードファイル
+// システムインクルードファイル
 //*********************************************************
 #include <string>
 #include <vector>
@@ -62,7 +62,7 @@ private:
 		static constexpr const char* LOAD_NAME = "data/JSON/Texture.json"; // 読み込むファイル名
 	};
 
-	HRESULT LoadJson(void);						 // json読み込み関数
+	HRESULT LoadJson(void);			 // json読み込み関数
 
 	std::vector<TEXDATA>m_pTextures; // テクスチャの動的配列
 };

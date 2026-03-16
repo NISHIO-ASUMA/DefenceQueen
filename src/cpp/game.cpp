@@ -6,11 +6,14 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "game.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
-#include "debugproc.h"
 #include "gamemanager.h"
 #include "gamesceneobject.h"
 #include "gamestate.h"
@@ -19,7 +22,10 @@
 #include "result.h"
 #include "fade.h"
 #include "gametime.h"
-#include "queen.h"
+
+#ifdef _DEBUG
+#include "debugproc.h"
+#endif // _DEBUG
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -138,7 +144,7 @@ void CGame::Update(void)
 		}
 
 		// ゲーム終了フラグが有効なら
-		if (CGameManager::GetInstance()->GetIsGameEnd() == true)
+		if (CGameManager::GetInstance()->GetIsGameEnd())
 		{
 			// ゲーム敗北状態に設定
 			m_pState->SetProgress(CGameState::PROGRESS_LOSE);
@@ -148,7 +154,7 @@ void CGame::Update(void)
 
 #ifdef _DEBUG
 	// 画面遷移デバッグキー
-	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_F4))
+	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_F5))
 	{
 		// 画面遷移
 		auto fade = CManager::GetInstance()->GetFade();

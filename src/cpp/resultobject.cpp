@@ -6,23 +6,22 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "resultobject.h"
-#include "ui.h"
-#include "resultscore.h"
-#include "meshfield.h"
-#include "queen.h"
-#include "meshdome.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
+#include "manager.h"
 #include "resultscoremanager.h"
 #include "blockmanager.h"
-#include "manager.h"
 #include "jsonmanager.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
 //*********************************************************
-CResultObject* CResultObject::m_pInstance = nullptr; // シングルトン変数
+CResultObject* CResultObject::m_pInstance = nullptr;				// シングルトン変数
 
 //*********************************************************
 // 定数宣言空間
@@ -55,6 +54,7 @@ HRESULT CResultObject::Init(void)
 	m_pBlock = std::make_unique<CBlockManager>();
 	auto jsonManager = CManager::GetInstance()->GetJsonManager();
 	jsonManager->SetBlockManager(m_pBlock.get());
+
 	m_pBlock->Init();
 	m_pBlock->Load();
 

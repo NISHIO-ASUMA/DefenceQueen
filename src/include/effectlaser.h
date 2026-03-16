@@ -30,7 +30,25 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 
-	static CEffectLaser* Create(D3DXVECTOR3 pos, D3DXVECTOR3 Endpos,D3DXCOLOR col, D3DXVECTOR3 move, int nLife, float fRadius);
+	/// <summary>
+	/// 生成処理
+	/// </summary>
+	/// <param name="pos">生成座標</param>
+	/// <param name="Endpos">終端座標</param>
+	/// <param name="col">色</param>
+	/// <param name="move">移動量</param>
+	/// <param name="nLife">寿命</param>
+	/// <param name="fRadius">半径</param>
+	/// <returns></returns>
+	static CEffectLaser* Create
+	(
+		const D3DXVECTOR3& pos, 
+		const D3DXVECTOR3& Endpos,
+		const D3DXCOLOR& col, 
+		const D3DXVECTOR3& move, 
+		const int& nLife, 
+		const float& fRadius
+	);
 
 private:
 	int m_nLife;		  // 体力

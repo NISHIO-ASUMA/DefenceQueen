@@ -22,19 +22,27 @@ m_fLength(0.0f),
 m_fRadius(0.0f),
 m_move(VECTOR3_NULL)
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
 //=========================================================
 CEffectLaser::~CEffectLaser()
 {
-	// 無し
+	
 }
 //=========================================================
 // 生成処理
 //=========================================================
-CEffectLaser* CEffectLaser::Create(D3DXVECTOR3 pos, D3DXVECTOR3 Endpos, D3DXCOLOR col, D3DXVECTOR3 move, int nLife, float fRadius)
+CEffectLaser* CEffectLaser::Create
+(
+	const D3DXVECTOR3& pos, 
+	const D3DXVECTOR3& Endpos, 
+	const D3DXCOLOR& col, 
+	const D3DXVECTOR3& move, 
+	const int& nLife, 
+	const float& fRadius
+)
 {
 	// インスタンス生成
 	CEffectLaser* pLaser = new CEffectLaser;

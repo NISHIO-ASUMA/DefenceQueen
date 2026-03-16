@@ -6,28 +6,19 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル宣言
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "gamemanager.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
-#include "debugproc.h"
-#include "result.h"
 #include "sound.h"
-#include "game.h"
 #include "input.h"
 #include "fade.h"
-#include "blockmanager.h"
-#include "gamesceneobject.h"
-#include "loseresult.h"
+#include "result.h"
 
-//=========================================================
-// インスタンス取得
-//=========================================================
-CGameManager* CGameManager::GetInstance(void)
-{
-	static CGameManager pInstance;
-	return &pInstance;
-}
 //=========================================================
 // コンストラクタ
 //=========================================================
@@ -42,6 +33,14 @@ CGameManager::~CGameManager()
 {
 	// 終了処理
 	Uninit();
+}
+//=========================================================
+// インスタンス取得
+//=========================================================
+CGameManager* CGameManager::GetInstance(void)
+{
+	static CGameManager pInstance;
+	return &pInstance;
 }
 //=========================================================
 // 初期化処理
@@ -70,7 +69,7 @@ void CGameManager::Uninit(void)
 //=========================================================
 void CGameManager::Update(void)
 {
-#ifdef NDEBUG
+#ifdef _DEBUG
 	// 画面遷移
 	if (CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_2))
 	{

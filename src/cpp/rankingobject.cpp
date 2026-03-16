@@ -6,11 +6,15 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "rankingobject.h"
-#include "rankingscore.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
+#include "rankingscore.h"
 #include "jsonmanager.h"
 
 //*********************************************************
@@ -75,10 +79,7 @@ void CRankingObject::Uninit(void)
 CRankingObject* CRankingObject::GetInstance(void)
 {
 	// nullなら
-	if (m_pInstance == nullptr)
-	{
-		m_pInstance = new CRankingObject;
-	}
+	if (m_pInstance == nullptr) m_pInstance = new CRankingObject;
 
 	// 生成されたインスタンスを返す
 	return m_pInstance;

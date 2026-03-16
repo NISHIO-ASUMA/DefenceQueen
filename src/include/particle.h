@@ -11,10 +11,14 @@
 #pragma once 
 
 //*********************************************************
+// システムインクルードファイル
+//*********************************************************
+#include <vector>
+
+//*********************************************************
 // インクルードファイル
 //*********************************************************
 #include "object.h"
-#include <vector>
 
 //*********************************************************
 // 前方宣言
@@ -36,9 +40,28 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 
-	static CParticle* Create(D3DXVECTOR3 pos, D3DXCOLOR col, int nMaxParticle, int nRadius, int nLength, int nLife);
+	/// <summary>
+	/// 生成処理
+	/// </summary>
+	/// <param name="pos">生成座標</param>
+	/// <param name="col">色</param>
+	/// <param name="nMaxParticle">最大放出量</param>
+	/// <param name="nRadius">半径</param>
+	/// <param name="nLength">飛散距離</param>
+	/// <param name="nLife">寿命</param>
+	/// <returns></returns>
+	static CParticle* Create
+	(
+		const D3DXVECTOR3& pos, 
+		const D3DXCOLOR& col, 
+		const int& nMaxParticle, 
+		const int& nRadius, 
+		const int& nLength, 
+		const int& nLife
+	);
 
 private:
+
 	std::vector<CEffect*> m_pEffect; // エフェクト配列
 
 	D3DXVECTOR3 m_pos;	// 座標

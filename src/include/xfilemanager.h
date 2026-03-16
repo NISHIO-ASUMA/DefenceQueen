@@ -11,7 +11,7 @@
 #pragma once
 
 //*********************************************************
-// インクルードファイル
+// システムインクルードファイル
 //*********************************************************
 #include <string>
 #include <vector>
@@ -68,9 +68,8 @@ private:
 	HRESULT LoadJson(void);					// jsonfile読み込み関数
 	void LoadModel(const char* pModelName); // モデル登録関数
 
-	std::vector<XFILEDATA>m_aFileData;	// モデルデータ管理配列
+	std::vector<XFILEDATA>m_aFileData;		// モデルデータ管理配列
 
-	static int m_nNumAll;				// モデルの総数
-
-	static constexpr const char* LOAD_NAME = "data/JSON/XFile.json";
+	static int m_nNumAll;					// モデルの総数
+	static constexpr const char* LOAD_NAME = "data/JSON/XFile.json"; // jsonファイル名
 };

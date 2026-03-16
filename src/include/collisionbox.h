@@ -37,8 +37,12 @@ public:
 	/// <param name="OtherCollider">判定先の矩形コライダー</param>
 	/// <param name="ExtrusionPos">ヒット時の押し出し座標</param>
 	/// <returns></returns>
-	static bool Collision(CBoxCollider* thisCollider, CBoxCollider* OtherCollider,D3DXVECTOR3 * ExtrusionPos);
+	static bool Collision
+	(
+		CBoxCollider* thisCollider, 
+		CBoxCollider* OtherCollider,
+		D3DXVECTOR3 * ExtrusionPos
+	);
 
 private:
 };
-

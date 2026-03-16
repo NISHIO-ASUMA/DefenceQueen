@@ -58,13 +58,13 @@ public:
 
 private:
 
-	void UpdateAlphaEnable(void); // 点滅関数
+	void UpdateAlphaEnable(void);	// 点滅関数
 
-	int m_nFlashFrame;		// 点滅間隔
-	int m_nAlphaFrame;		// フェード全体のフレーム数
-	int m_nAlphaCnt;		// 現在のフレーム
+	int m_nFlashFrame;				// 点滅間隔
+	int m_nAlphaFrame;				// フェード全体のフレーム数
+	int m_nAlphaCnt;				// 現在のフレーム
 
-	bool m_isFlash;			// 点滅するかどうか
-	bool m_isAlphaEnable;	// 描画開始から透明度を触るかどうか
-	bool m_isAlphaTest;		// αテストするかどうか
+	bool m_isFlash;					// 点滅するかどうか
+	bool m_isAlphaEnable;			// 描画開始から透明度を触るかどうか
+	bool m_isAlphaTest;				// αテストするかどうか
 };

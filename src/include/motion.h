@@ -11,15 +11,19 @@
 #pragma once 
 
 //*********************************************************
-// インクルードファイル
+// システムインクルードファイル
 //*********************************************************
-#include "model.h"
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <vector>
 #include <memory>
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
+#include "model.h"
 
 //*********************************************************
 // 前方宣言
@@ -66,7 +70,13 @@ public:
 	/// <param name="nDestMotions">モーション数</param>
 	/// <param name="isShadow">マトリックスシャドウを使うかどうか</param>
 	/// <returns></returns>
-	static std::unique_ptr<CMotion>Load(const char* pFilename, std::vector<CModel*>& pModel, int nDestMotions, const bool isShadow);
+	static std::unique_ptr<CMotion>Load
+	(
+		const char* pFilename, 
+		std::vector<CModel*>& pModel, 
+		int nDestMotions, 
+		const bool isShadow
+	);
 
 private:
 

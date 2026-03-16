@@ -6,15 +6,23 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "loseresultmanager.h"
+
+//*********************************************************
+// システムインクルードファイル
+//*********************************************************
+#include <memory>
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
-#include "title.h"
 #include "input.h"
 #include "sound.h"
 #include "fade.h"
-#include <memory>
+#include "title.h"
 
 //=========================================================
 // コンストラクタ
@@ -66,8 +74,8 @@ void CLoseResultManager::Update(void)
 {
 	// キー入力でタイトルに戻る
 	if ((CManager::GetInstance()->GetInputKeyboard()->GetTrigger(DIK_RETURN) ||
-		CManager::GetInstance()->GetJoyPad()->GetTrigger(CManager::GetInstance()->GetJoyPad()->JOYKEY_START) ||
-		CManager::GetInstance()->GetJoyPad()->GetTrigger(CManager::GetInstance()->GetJoyPad()->JOYKEY_A)))
+		 CManager::GetInstance()->GetJoyPad()->GetTrigger(CManager::GetInstance()->GetJoyPad()->JOYKEY_START) ||
+		 CManager::GetInstance()->GetJoyPad()->GetTrigger(CManager::GetInstance()->GetJoyPad()->JOYKEY_A)))
 	{
 		// ポインタ取得
 		CFade* pFade = CManager::GetInstance()->GetFade();

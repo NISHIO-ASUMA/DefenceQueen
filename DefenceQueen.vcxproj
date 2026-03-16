@@ -218,7 +218,7 @@
     <ClCompile Include="src\cpp\feed.cpp" />
     <ClCompile Include="src\cpp\feedgetleaf.cpp" />
     <ClCompile Include="src\cpp\feedsignal.cpp" />
-    <ClCompile Include="src\cpp\folllowtopleaf.cpp" />
+    <ClCompile Include="src\cpp\followtopleaf.cpp" />
     <ClCompile Include="src\cpp\game.cpp" />
     <ClCompile Include="src\cpp\gamemanager.cpp" />
     <ClCompile Include="src\cpp\gamesceneobject.cpp" />
@@ -226,7 +226,6 @@
     <ClCompile Include="src\cpp\gamewallmanager.cpp" />
     <ClCompile Include="src\cpp\gamewallmodel.cpp" />
     <ClCompile Include="src\cpp\gauge.cpp" />
-    <ClCompile Include="src\cpp\gimmickmanager.cpp" />
     <ClCompile Include="src\cpp\input.cpp" />
     <ClCompile Include="src\cpp\instancemodel.cpp" />
     <ClCompile Include="src\cpp\instancemodelmanager.cpp" />
@@ -340,8 +339,6 @@
     <ClInclude Include="src\include\boxtospherecollision.h" />
     <ClInclude Include="src\include\branchnodebase.h" />
     <ClInclude Include="src\include\camera.h" />
-    <ClInclude Include="src\include\chasedestination.h" />
-    <ClInclude Include="src\include\checkneardestination.h" />
     <ClInclude Include="src\include\circle3d.h" />
     <ClInclude Include="src\include\collider.h" />
     <ClInclude Include="src\include\collision.h" />
@@ -381,7 +378,7 @@
     <ClInclude Include="src\include\feed.h" />
     <ClInclude Include="src\include\feedgetleaf.h" />
     <ClInclude Include="src\include\feedsignal.h" />
-    <ClInclude Include="src\include\folllowtopleaf.h" />
+    <ClInclude Include="src\include\followtopleaf.h" />
     <ClInclude Include="src\include\game.h" />
     <ClInclude Include="src\include\gamemanager.h" />
     <ClInclude Include="src\include\gamesceneobject.h" />
@@ -390,7 +387,6 @@
     <ClInclude Include="src\include\gamewallmanager.h" />
     <ClInclude Include="src\include\gamewallmodel.h" />
     <ClInclude Include="src\include\gauge.h" />
-    <ClInclude Include="src\include\gimmickmanager.h" />
     <ClInclude Include="src\include\input.h" />
     <ClInclude Include="src\include\instancemodel.h" />
     <ClInclude Include="src\include\instancemodelmanager.h" />
@@ -485,8 +481,6 @@
     <ClInclude Include="src\include\tutorialtopant.h" />
     <ClInclude Include="src\include\tutorialui.h" />
     <ClInclude Include="src\include\ui.h" />
-    <ClInclude Include="src\include\waitleaf.h" />
-    <ClInclude Include="src\include\waitorderleaf.h" />
     <ClInclude Include="src\include\workerstatebase.h" />
     <ClInclude Include="src\include\workerstateneutral.h" />
     <ClInclude Include="src\include\xfilemanager.h" />

@@ -27,7 +27,7 @@ CCollision::~CCollision()
 //=========================================================
 // コリジョン生成処理
 //=========================================================
-CCollision* CCollision::Create(D3DXVECTOR3 pos, TYPE Type)
+CCollision* CCollision::Create(const D3DXVECTOR3& pos, TYPE Type)
 {
 	// インスタンス生成
 	CCollision* pCollision = new CCollision(Type);

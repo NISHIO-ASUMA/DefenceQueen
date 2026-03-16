@@ -35,4 +35,6 @@ public:
 private:
 
 	LPDIRECT3DVERTEXBUFFER9 m_pVtx;		// 頂点バッファ
+
+	static constexpr const char* MODELPATH = "STAGEOBJ/Shadowmodel.x"; // モデルパス
 };

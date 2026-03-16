@@ -6,7 +6,7 @@
 //=========================================================
 
 //*********************************************************
-// インクルーファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "spherecollider.h"
 
@@ -27,9 +27,13 @@ CSphereCollider::~CSphereCollider()
 //=========================================================
 // 球形コライダー生成処理
 //=========================================================
-std::unique_ptr<CSphereCollider>CSphereCollider::Create(D3DXVECTOR3 pos, float fRadius)
+std::unique_ptr<CSphereCollider>CSphereCollider::Create
+(
+	const D3DXVECTOR3& pos, 
+	const float& fRadius
+)
 {
-	// ユニークポインタ生成
+	// インスタンス生成
 	auto pSphere = std::make_unique<CSphereCollider>();
 	if (pSphere == nullptr) return nullptr;
 

@@ -6,15 +6,33 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "startscenemanager.h"
+
+//*********************************************************
+// システムインクルードファイル
+//*********************************************************
+#include <memory>
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 #include "fade.h"
 #include "title.h"
 #include "sound.h"
-#include <memory>
 #include "ui.h"
+
+//*********************************************************
+// 定数名前空間
+//*********************************************************
+namespace STARTOBJECT
+{
+	constexpr int SIZE = 300;
+	constexpr int ALPHAFRAME = 170;
+	constexpr const char* FILENAME = "startgameicon.png";
+};
 
 //=========================================================
 // コンストラクタ
@@ -44,7 +62,7 @@ CStartSceneManager* CStartSceneManager::GetInstance()
 HRESULT CStartSceneManager::Init(void)
 {
 	// ロゴUI生成
-	CUi::Create(CENTERPOS, 0, 300, 300, "startgameicon.png", false,true,170);
+	CUi::Create(CENTERPOS, 0, STARTOBJECT::SIZE, STARTOBJECT::SIZE, STARTOBJECT::FILENAME,false,true, STARTOBJECT::ALPHAFRAME);
 
 	// サウンド再生
 	auto Sound = CManager::GetInstance()->GetSound();

@@ -11,12 +11,16 @@
 #pragma once
 
 //*********************************************************
+// システムインクルードファイル
+//*********************************************************
+#include <memory>
+
+//*********************************************************
 // インクルードファイル
 //*********************************************************
 #include "model.h"
 #include "motion.h"
 #include "movecharactor.h"
-#include <memory>
 #include "instancingcharactor.h"
 
 //*********************************************************
@@ -30,7 +34,7 @@ class CBoxCollider;
 class CMotionInstancing;
 
 //*********************************************************
-// 敵1体関するクラスを定義
+// エネミークラスを定義
 //*********************************************************
 class CEnemy : public CInstancingCharactor
 {
@@ -81,9 +85,9 @@ private:
 	bool m_isDestFeed;		// 餌のフラグ
 	bool m_isDestQueen;		// 女王へのフラグ
 
-	CMotionInstancing* m_pMotion;				// モーションクラス
+	CMotionInstancing* m_pMotion;		// モーションクラス
 	CFeed* m_pTargetFeed;				// ターゲットの餌
 
-	std::unique_ptr<CSphereCollider>m_pSphereCollider; // 球形コライダー
-	std::unique_ptr<CParameter>m_pParameter;		 // パラメータクラス
+	std::unique_ptr<CSphereCollider>m_pSphereCollider;	// 球形コライダー
+	std::unique_ptr<CParameter>m_pParameter;			// パラメータクラス
 };

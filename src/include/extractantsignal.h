@@ -46,8 +46,8 @@ private:
 	//*****************************
 	struct Config
 	{
-		static constexpr float WIDTH = 60.0f;	// 横幅
-		static constexpr float HEIGHT = 40.0f;	// 高さ
+		static constexpr float WIDTH		 = 60.0f;		 // 横幅
+		static constexpr float HEIGHT		 = 40.0f;		 // 高さ
 		static constexpr const char* TEXNAME = "Signal.png"; // テクスチャ名
 	};
 

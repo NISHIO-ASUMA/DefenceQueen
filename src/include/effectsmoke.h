@@ -30,8 +30,21 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 
-	static CEffectSmoke* Create(const D3DXVECTOR3& pos, const D3DXCOLOR& col, int nLife, float fRadius);
-
+	/// <summary>
+	/// ¶¬ˆ—
+	/// </summary>
+	/// <param name="pos">¶¬À•W</param>
+	/// <param name="col">F</param>
+	/// <param name="nLife">õ–½</param>
+	/// <param name="fRadius">”¼Œa</param>
+	/// <returns></returns>
+	static CEffectSmoke* Create
+	(
+		const D3DXVECTOR3& pos, 
+		const D3DXCOLOR& col, 
+		int nLife, 
+		float fRadius
+	);
 private:
 	int m_nLife;		// ‘Ì—Í
 	float m_fRadius;	// ”¼Œa

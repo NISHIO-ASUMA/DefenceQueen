@@ -76,7 +76,7 @@ public:
 
 protected:
 
-	void Release(void); // ‰ğ•ú
+	void Release(void); // ‰ğ•úŠÖ”
 
 private:
 

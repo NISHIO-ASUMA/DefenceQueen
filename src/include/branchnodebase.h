@@ -77,5 +77,7 @@ protected:
 	virtual const bool IsCondition() = 0;	// 継承先のクラスに持つ
 
 	int m_nTrueIdx = -1;					// 条件を満たすノードのインデックス
-	CNode* m_pBranchNode[static_cast<int>(BRANCH_NUM::BRANCH_NUM_MAX)] = { nullptr,nullptr }; // true,falseの2つのノードのポインタ
+
+	// true,falseの2つのノードのポインタ
+	CNode* m_pBranchNode[static_cast<int>(BRANCH_NUM::BRANCH_NUM_MAX)] = { nullptr,nullptr }; 
 };

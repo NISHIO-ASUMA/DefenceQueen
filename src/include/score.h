@@ -11,12 +11,16 @@
 #pragma once 
 
 //*********************************************************
+// システムインクルードファイル
+//*********************************************************
+#include <memory>
+#include <array>
+
+//*********************************************************
 // インクルードファイル
 //*********************************************************
 #include "number.h"
 #include "object.h"
-#include <memory>
-#include <array>
 
 //*********************************************************
 // 前方宣言
@@ -71,20 +75,20 @@ private:
 	//*************************
 	struct Config
 	{
-		static constexpr int NUM_SCORE = 8;										// 桁数
-		static constexpr int NUM_DIGIT = 10;									// 表示する分割桁数の値
-		static constexpr float DIGIT_VALUE = 2.0f;								// 加算量
-		static constexpr const char* SAVE_NAME = "data/SCORE/GameScore.bin";	// 書き出しファイル名
-		static constexpr const char* TEX_NAME = "number003.png";				// テクスチャ名
+		static constexpr int NUM_SCORE			= 8;							// 桁数
+		static constexpr int NUM_DIGIT			= 10;							// 表示する分割桁数の値
+		static constexpr float DIGIT_VALUE		= 2.0f;							// 加算量
+		static constexpr const char* SAVE_NAME	= "data/SCORE/GameScore.bin";	// 書き出しファイル名
+		static constexpr const char* TEX_NAME	= "number003.png";				// テクスチャ名
 	};
 
 	D3DXCOLOR m_col;	// カラー
 	D3DXVECTOR3 m_pos;	// 座標
 	D3DXVECTOR3 m_rot;	// 角度
 	
+	int m_nScore;		// スコア保持用
 	float m_fWidth;		// 横幅
 	float m_fHeight;	// 高さ
-	int m_nScore;		// スコア保持用
 
 	std::array<CNumber*, Config::NUM_SCORE>m_apNumber;	// 桁数分のナンバーのポインタ
 	std::unique_ptr<CLoad>m_pLoad;						// ユニークポインタ

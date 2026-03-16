@@ -11,10 +11,14 @@
 #pragma once 
 
 //*********************************************************
+// システムインクルードファイル
+//*********************************************************
+#include <memory>
+
+//*********************************************************
 // インクルードファイル
 //*********************************************************
 #include "object3D.h"
-#include <memory>
 
 //*********************************************************
 // 前方宣言
@@ -53,9 +57,9 @@ private:
 	//****************************
 	struct Config
 	{
-		static constexpr float SIZE = 80.0f;	// コリジョンサイズ
-		static constexpr float WIDTH = 100.0f;	// 横幅
-		static constexpr float HEIGHT = 3.0f;	// 高さ
+		static constexpr float SIZE			 = 80.0f;		 // コリジョンサイズ
+		static constexpr float WIDTH		 = 100.0f;		 // 横幅
+		static constexpr float HEIGHT		 = 3.0f;		 // 高さ
 		static constexpr const char* TEXNAME = "Circle.png"; // テクスチャ名
 	};
 

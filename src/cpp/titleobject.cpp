@@ -6,28 +6,29 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "titleobject.h"
-#include "ui.h"
-#include "meshfield.h"
-#include "titleant.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
+#include "manager.h"
+#include "jsonmanager.h"
 #include "titlewallmanager.h"
 #include "titleantmanager.h"
-#include "jsonmanager.h"
-#include "manager.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
 //*********************************************************
-CTitleObject* CTitleObject::m_pInstance = nullptr; // シングルトン変数
+CTitleObject* CTitleObject::m_pInstance = nullptr;					// シングルトン変数
 
 //*********************************************************
 // 定数宣言空間
 //*********************************************************
 namespace TITLEOBJECT
 {
-	constexpr const char* LoadName = "data/JSON/Titleobject.json"; // 読み込むjsonファイル
+	constexpr const char* LoadName = "data/JSON/Titleobject.json";	// 読み込むjsonファイル
 };
 
 //=========================================================

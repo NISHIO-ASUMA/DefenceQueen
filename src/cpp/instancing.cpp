@@ -6,7 +6,7 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "instancing.h"
 
@@ -74,10 +74,13 @@ HRESULT CInstancing::Init(const char* pShaderFile)
 		if (pErr)
 		{
 			// エラーメッセージ表示
-			MessageBoxA(nullptr,
+			MessageBoxA
+			(
+				nullptr,
 				(char*)pErr->GetBufferPointer(),
 				pShaderFile,
-				MB_OK);
+				MB_OK
+			);
 
 			// 解放
 			pErr->Release();

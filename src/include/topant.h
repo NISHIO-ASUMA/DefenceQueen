@@ -11,10 +11,14 @@
 #pragma once
 
 //*********************************************************
+// システムインクルードファイル
+//*********************************************************
+#include <memory>
+
+//*********************************************************
 // インクルードファイル
 //*********************************************************
 #include "movecharactor.h"
-#include <memory>
 
 //*********************************************************
 // 前方宣言
@@ -32,7 +36,7 @@ class CPointObj;
 class CCircle3D;
 
 //*********************************************************
-// 各スポナーのトップのアリのクラスを定義
+// トップのアリのクラスを定義
 //*********************************************************
 class CTopAnt : public CMoveCharactor
 {
@@ -73,6 +77,12 @@ public:
 	bool GetIsReturnPos(void) const { return m_isReturnNumber; }
 	float GetSeparationRadius(void) { return m_fSeparationRadius; }
 
+	/// <summary>
+	/// 生成処理
+	/// </summary>
+	/// <param name="pos">生成座標</param>
+	/// <param name="rot">角度</param>
+	/// <returns></returns>
 	static CTopAnt* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
 
 private:
@@ -82,13 +92,13 @@ private:
 	//**********************
 	struct Config
 	{
-		static constexpr float SPEED = 3.0f;					 // 移動速度
-		static constexpr float MAX_RADIUS = 150.0f;				 // 最大範囲
-		static constexpr float NorRot = D3DX_PI * 2.0f;			 // 回転補正
-		static constexpr float Separation = 5.0f;				 // 範囲拡大
-		static constexpr float AddPosY = 180.0f;				 // 高さのオフセット
-		static constexpr float OffPosY = 240.0f;				 // 矢印の高さのオフセット
-		static constexpr const char* MOTION_NAME = "data/MOTION/Top/Top_Motion.txt";	 // モーションパス
+		static constexpr float SPEED			 = 3.0f;								// 移動速度
+		static constexpr float MAX_RADIUS		 = 150.0f;								// 最大範囲
+		static constexpr float NorRot			 = D3DX_PI * 2.0f;						// 回転補正
+		static constexpr float Separation		 = 5.0f;								// 範囲拡大
+		static constexpr float AddPosY			 = 180.0f;								// 高さのオフセット
+		static constexpr float OffPosY			 = 240.0f;								// 矢印の高さのオフセット
+		static constexpr const char* MOTION_NAME = "data/MOTION/Top/Top_Motion.txt";	// モーションパス
 	};
 
 	std::unique_ptr<CSphereCollider>m_pColliderSphere; // 球形コライダー

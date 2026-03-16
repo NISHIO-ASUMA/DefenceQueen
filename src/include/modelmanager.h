@@ -11,7 +11,7 @@
 #pragma once
 
 //*********************************************************
-// インクルードファイル
+// システムインクルードファイル
 //*********************************************************
 #include <string>
 #include <vector>
@@ -23,9 +23,9 @@ class CModelManager
 {
 public:
 
-	//*************************
+	//********************************
 	// インスタンシングデータ構造体
-	//*************************
+	//********************************
 	struct MODEL_DATA
 	{
 		LPDIRECT3DVERTEXBUFFER9 VtxBuffer;		// 頂点バッファ
@@ -34,19 +34,19 @@ public:
 		UINT PrimCount;							// ポリゴンカウント
 	};
 
-	//*************************
+	//********************************
 	// 読み込み用構造体
-	//*************************
+	//********************************
 	struct ModelManagerInfo
 	{
-		LPD3DXMESH pMesh;		// メッシュのポインタ
-		LPD3DXBUFFER pBuffMat;	// マテリアルのポインタ
-		DWORD dwNumMat;			// マテリアル数
-		std::vector<int>pTexture; // テクスチャの動的ポインタ
-		std::string FilePath;	// ファイル名
-		int nParnent;			// 親を持つ
-		bool isInstancing;		// インスタンシング判断
-		MODEL_DATA modelData;	// 構造体変数
+		LPD3DXMESH pMesh;			// メッシュのポインタ
+		LPD3DXBUFFER pBuffMat;		// マテリアルのポインタ
+		DWORD dwNumMat;				// マテリアル数
+		std::vector<int>pTexture;	// テクスチャの動的ポインタ
+		std::string FilePath;		// ファイル名
+		int nParnent;				// 親を持つ
+		bool isInstancing;			// インスタンシング判断
+		MODEL_DATA modelData;		// 構造体変数
 	};
 
 
@@ -79,7 +79,7 @@ public:
 
 private:
 
-	HRESULT LoadJson(void);					// jsonfile読み込み関数
+	HRESULT LoadJson(void);						// jsonfile読み込み関数
 	void LoadModel(const char* pModelName,bool &LoadFlags); // モデル登録関数
 
 	std::vector<ModelManagerInfo>m_aModelData;	// モデルデータ管理配列

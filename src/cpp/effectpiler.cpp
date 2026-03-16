@@ -30,7 +30,13 @@ CEffectPiler::~CEffectPiler()
 //=========================================================
 // 生成処理
 //=========================================================
-CEffectPiler* CEffectPiler::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fRadius, int nLife)
+CEffectPiler* CEffectPiler::Create
+(
+	const D3DXVECTOR3& pos, 
+	const D3DXVECTOR3& rot, 
+	const float& fRadius, 
+	const int& nLife
+)
 {
 	// インスタンス生成
 	CEffectPiler* pEffect = new CEffectPiler;

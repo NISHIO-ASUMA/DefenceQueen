@@ -22,9 +22,9 @@ class CCamera
 {
 public:
 
-	//**********************
+	//*************************
 	// カメラモード列挙型
-	//**********************
+	//*************************
 	enum MODE
 	{
 		MODE_NONE,
@@ -75,5 +75,5 @@ public:
 private:
 
 	Camera ClearDefault(void);	// クリア用関数
-	Camera m_pCamera;		// カメラ構造体変数
+	Camera m_pCamera;			// カメラ構造体変数
 };

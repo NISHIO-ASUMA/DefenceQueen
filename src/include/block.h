@@ -11,10 +11,14 @@
 #pragma once
 
 //*********************************************************
+// システムインクルードファイル
+//*********************************************************
+#include <memory>
+
+//*********************************************************
 // インクルードファイル
 //*********************************************************
 #include "objectX.h"
-#include <memory>
 
 //*********************************************************
 // 前方宣言
@@ -46,7 +50,13 @@ public:
 	/// <param name="scale">拡大率</param>
 	/// <param name="pModelName">モデルパス</param>
 	/// <returns></returns>
-	static CBlock* Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, const D3DXVECTOR3& scale, const char* pModelName);
+	static CBlock* Create
+	(
+		const D3DXVECTOR3& pos, 
+		const D3DXVECTOR3& rot, 
+		const D3DXVECTOR3& scale, 
+		const char* pModelName
+	);
 
 private:
 	std::unique_ptr<CBoxCollider> m_pCollider;	// 矩形のコライダー

@@ -69,11 +69,11 @@ public:
 	inline void SetAnchor(int Type = ANCHORTYPE_CENTER) { m_nAnchorType = Type; }
 	inline void SetDrawType(int nType) { m_nDrawType = nType; }
 
-	inline D3DXVECTOR3 GetPos(void) const { return m_pos; }	// Œ»İ‚ÌÀ•W‚ğæ“¾
-	inline D3DXVECTOR3 GetRot(void) const { return m_rot; }	// Œ»İ‚ÌŠp“x‚ğæ“¾
-	inline D3DXCOLOR GetCol(void) const { return m_col; }		// Œ»İ‚ÌF‚ğæ“¾
-	inline float GetWidth(void) const { return m_fWidth; }		// ‰¡•æ“¾
-	inline float GetHeight(void) const { return m_fHeight; }	// ‚‚³æ“¾
+	inline D3DXVECTOR3 GetPos(void) const { return m_pos; }	
+	inline D3DXVECTOR3 GetRot(void) const { return m_rot; }	
+	inline D3DXCOLOR GetCol(void) const { return m_col; }	
+	inline float GetWidth(void) const { return m_fWidth; }	
+	inline float GetHeight(void) const { return m_fHeight; }
 
 private:
 

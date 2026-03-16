@@ -1,6 +1,6 @@
 //===================================================================
 //
-// 目的の任意の場所に移動するノードの処理 [ chasedestination.h ]
+// トップアリを追従する末端ノード処理 [ followtopleaf.h ]
 // Author: Asuma Nishio
 //
 //===================================================================
@@ -8,7 +8,7 @@
 //*******************************************************************
 // インクルードガード
 //*******************************************************************
-#pragma once 
+#pragma once
 
 //*******************************************************************
 // インクルードファイル
@@ -16,28 +16,23 @@
 #include "leafnodebase.h"
 
 //*******************************************************************
-// 前方宣言
+// トップアリを追従する末端ノードクラスを定義
 //*******************************************************************
-class CBlackBoard;
-
-//*******************************************************************
-// 目的の場所に向かっていく移動ノードクラスを定義
-//*******************************************************************
-class CChaseDestinationLeaf : public CLeafNodeBase
+class CFollowTopLeaf : public CLeafNodeBase
 {
-
 public:
 
-	CChaseDestinationLeaf(CBlackBoard * blackboard);
-	~CChaseDestinationLeaf() = default;
+	CFollowTopLeaf(CBlackBoard* blackboard) : CLeafNodeBase(blackboard), m_Result(NodeInfo::NodeResult::Re_RUNING){};
+	~CFollowTopLeaf() = default;
 
-	void Update() override;
+	void Update(void) override;
 
 	NodeInfo::NodeResult get_node_result() const override
 	{
-		// 成功を返す
-		return NodeInfo::NodeResult::Re_SUCCESS;
+		return m_Result;
 	};
 
 private:
+
+	NodeInfo::NodeResult m_Result;
 };

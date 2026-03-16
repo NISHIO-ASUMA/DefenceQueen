@@ -35,7 +35,14 @@ CEffect::~CEffect()
 //=========================================================
 // 生成処理
 //=========================================================
-CEffect* CEffect::Create(D3DXVECTOR3 pos, D3DXCOLOR col, D3DXVECTOR3 move, int nLife, float fRadius)
+CEffect* CEffect::Create
+(
+	const D3DXVECTOR3& pos, 
+	const D3DXCOLOR& col, 
+	const D3DXVECTOR3& move, 
+	const int& nLife, 
+	const float& fRadius
+)
 {
 	// エフェクトポインタ
 	CEffect* pEffect = new CEffect;

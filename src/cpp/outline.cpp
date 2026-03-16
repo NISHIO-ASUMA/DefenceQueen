@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "outline.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 #include "renderer.h"
 
@@ -40,8 +44,8 @@ HRESULT COutLine::Init(const char* pShaderFile)
 	// シェーダーファイル読み込み
 	HRESULT hr = D3DXCreateEffectFromFile
 	(
-		pDevice,		// デバイス
-		pShaderFile,	// ファイル
+		pDevice,			// デバイス
+		pShaderFile,		// ファイル
 		nullptr,
 		nullptr,
 		D3DXSHADER_DEBUG,
@@ -56,10 +60,13 @@ HRESULT COutLine::Init(const char* pShaderFile)
 		if (pErr)
 		{
 			// エラーメッセージ表示
-			MessageBoxA(nullptr,
+			MessageBoxA
+			(
+				nullptr,
 				(char*)pErr->GetBufferPointer(),
 				"Out_Line.hlslが読み込めません",
-				MB_OK);
+				MB_OK
+			);
 			pErr->Release();
 		}
 

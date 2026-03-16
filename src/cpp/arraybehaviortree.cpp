@@ -20,7 +20,7 @@
 #include "alwayssuccess.h"
 #include "alwaysfail.h"
 #include "selector.h"
-#include "folllowtopleaf.h"
+#include "followtopleaf.h"
 #include "waitorderleaf.h"
 #include "attackenemyleaf.h"
 #include "feedgetleaf.h"
@@ -40,7 +40,7 @@ CNode* ArrayTree::CArrayBehaviorTree::SetArrayTreeNode(CBlackBoard* blackboard)
 	auto ChainTopAntSequence = new CSequence(blackboard);
 	{
 		// Top–½—ßŽž‚Ìs“®
-		ChainTopAntSequence->AddNode(new CFolllowTopLeaf(blackboard));
+		ChainTopAntSequence->AddNode(new CFollowTopLeaf(blackboard));
 	}
 
 	// Top‚©‚ç‚Ì–½—ß‚ªfalse‚ÌŽž

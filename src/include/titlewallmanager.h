@@ -11,7 +11,7 @@
 #pragma once
 
 //*********************************************************
-// インクルードファイル
+// システムインクルードファイル
 //*********************************************************
 #include <array>
 
@@ -54,7 +54,7 @@ private:
 	//**********************************
 	struct Config
 	{
-		static constexpr int NUM_WALL = 2;									// 最大生成数
+		static constexpr int NUM_WALL = 2;									 // 最大生成数
 		static constexpr const char* FILE_NAME = "data/JSON/Titlewall.json"; // ファイルパス
 	};
 

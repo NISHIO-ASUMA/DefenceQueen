@@ -11,7 +11,7 @@
 #pragma once
 
 //*********************************************************
-// インクルードファイル
+// システムインクルードファイル
 //*********************************************************
 #include <vector>
 #include <array>
@@ -138,7 +138,7 @@ public:
 	inline CSeparationAnt* GetSeparationAnt(void) { return m_pSeparationListAnt.get(); }
 
 	/// <summary>
-	/// ポインタ生成関数
+	/// 生成関数
 	/// </summary>
 	/// <param name="pos">出現座標</param>
 	/// <param name="nMaxArray">最大保持数</param>

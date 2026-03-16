@@ -6,20 +6,22 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "feed.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
+#include "manager.h"
+#include "xfilemanager.h"
 #include "spherecollider.h"
 #include "collisionsphere.h"
 #include "parameter.h"
-#include "gamemanager.h"
 #include "gamesceneobject.h"
-#include "manager.h"
-#include "xfilemanager.h"
 #include "boxcollider.h"
 #include "collisionbox.h"
 #include "easing.h"
-#include "particle.h"
 #include "particlepiler.h"
 #include "sound.h"
 #include "eventareamanager.h"
@@ -48,7 +50,7 @@ m_nLife(NULL),
 m_isAssing(false),
 m_ColType(COLTYPE_NONE)
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
@@ -148,10 +150,10 @@ void CFeed::Update(void)
 	// 座標を取得
 	D3DXVECTOR3 pos = GetPos();
 
-	// コライダー更新
+	// 球コライダー更新
 	m_pSphere->SetPos(pos);
 
-	// コライダー更新
+	// 矩形コライダー更新
 	m_pBoxCollider->SetPos(pos);
 
 	// カラーチェック関数

@@ -28,5 +28,4 @@ public:
 private:
 
 	const bool IsCondition() override;	// îªï ä÷êî
-
 };

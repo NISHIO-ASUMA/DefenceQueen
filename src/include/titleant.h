@@ -11,11 +11,15 @@
 #pragma once
 
 //*********************************************************
+// システムインクルードファイル
+//*********************************************************
+#include <memory>
+
+//*********************************************************
 // インクルードファイル
 //*********************************************************
 #include "movecharactor.h"
 #include "instancingcharactor.h"
-#include <memory>
 
 //*********************************************************
 // 前方宣言
@@ -61,11 +65,11 @@ private:
 	//**************************************
 	struct Config
 	{
-		static constexpr float MOVE = 3.0f;		// 移動量
-		static constexpr float HitRange = 30.0f;// コリジョン半径
-		static constexpr const char* SCRIPT = "data/MOTION/Array/Title_Array.txt";
+		static constexpr float MOVE			= 3.0f;		// 移動量
+		static constexpr float HitRange		= 30.0f;	// コリジョン半径
+		static constexpr const char* SCRIPT = "data/MOTION/Array/Title_Array.txt"; // スクリプト名
 	};
 
-	D3DXVECTOR3 m_DestPos;			// 目的座標
+	D3DXVECTOR3 m_DestPos;							// 目的座標
 	std::unique_ptr<CSphereCollider>m_pCollider;	// 球形コライダー
 };

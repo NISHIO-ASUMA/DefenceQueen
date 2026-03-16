@@ -6,9 +6,13 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "rankingmanager.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 #include "fade.h"
 #include "input.h"
@@ -70,10 +74,11 @@ void CRankingManager::Update(void)
 	{
 		// フェード取得
 		CFade* pFade = CManager::GetInstance()->GetFade();
-		if (pFade == nullptr) return;
-
-		// タイトルシーンに遷移
-		pFade->SetFade(std::make_unique<CTitle>());
-		return;
+		if (pFade != nullptr)
+		{
+			// タイトルシーンに遷移
+			pFade->SetFade(std::make_unique<CTitle>());
+			return;
+		}
 	}
 }

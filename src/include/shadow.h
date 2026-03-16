@@ -47,7 +47,7 @@ private:
 	//*****************************
 	struct Config
 	{
-		static constexpr float SIZE = 30.0f; // 大きさ
-		static constexpr const char* TEXNAME = "shadow00.jpg"; // テクスチャ名
+		static constexpr float SIZE			 = 30.0f;			// 大きさ
+		static constexpr const char* TEXNAME = "shadow00.jpg";  // テクスチャ名
 	};
 };

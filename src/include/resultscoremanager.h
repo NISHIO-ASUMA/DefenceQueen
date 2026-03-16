@@ -11,7 +11,7 @@
 #pragma once
 
 //*********************************************************
-// インクルードファイル
+// システムインクルードファイル
 //*********************************************************
 #include <array>
 #include <memory>
@@ -51,15 +51,15 @@ private:
 	//***************************
 	struct Config
 	{
-		static constexpr int IDX_FEED = 0;		// 餌スコアインデックス
-		static constexpr int IDX_QUEEN = 1;		// 防衛スコアインデックス
-		static constexpr int IDX_ALL = 2;		// 最終スコアインデックス
-		static constexpr int SCORELISTNUM = 3;	// 配列の最大数
+		static constexpr int IDX_FEED			  = 0;		// 餌スコアインデックス
+		static constexpr int IDX_QUEEN			  = 1;		// 防衛スコアインデックス
+		static constexpr int IDX_ALL			  = 2;		// 最終スコアインデックス
+		static constexpr int SCORELISTNUM		  = 3;		// 配列の最大数
 
-		static constexpr int MAX_MATHSCORE = 2000000; // 最大加算値
-		static constexpr int QUEEN_HP = 200;	// 基準の体力値
+		static constexpr int MAX_MATHSCORE		  = 2000000; // 最大加算値
+		static constexpr int QUEEN_HP			  = 200;	 // 基準の体力値
 
-		static constexpr const char* FEEDSCORE = "data/SCORE/GameScore.bin";		// ゲームのスコア
+		static constexpr const char* FEEDSCORE	  = "data/SCORE/GameScore.bin";		// ゲームのスコア
 		static constexpr const char* DEFENCESCORE = "data/SCORE/QueenLastHp.bin";	// 女王の体力スコア
 	};
 

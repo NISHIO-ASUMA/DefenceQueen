@@ -27,9 +27,9 @@ class CPause : public CObject2D
 {
 public:
 
-	//******************
+	//****************************
 	// 選択肢列挙型
-	//******************
+	//****************************
 	enum MENU
 	{
 		MENU_BACK,		// 背景
@@ -59,7 +59,14 @@ public:
 	/// <param name="col">カラー</param>
 	/// <param name="nType">メニューの種類</param>
 	/// <returns></returns>
-	static CPause* Create(const D3DXVECTOR3& pos, float fWidth, float fHeight, const D3DXCOLOR& col, int nType);
+	static CPause* Create
+	(
+		const D3DXVECTOR3& pos, 
+		float fWidth, 
+		float fHeight, 
+		const D3DXCOLOR& col, 
+		int nType
+	);
 
 private:
 

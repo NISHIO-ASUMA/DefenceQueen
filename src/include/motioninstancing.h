@@ -11,16 +11,20 @@
 #pragma once 
 
 //*********************************************************
-// インクルードファイル
+// システムインクルードファイル
 //*********************************************************
-#include "model.h"
-#include "instancemotionmanager.h"
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <vector>
 #include <memory>
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
+#include "model.h"
+#include "instancemotionmanager.h"
 
 //*********************************************************
 // 前方宣言
@@ -48,11 +52,11 @@ public:
 	//*******************************
 	struct MOTION_CACHE
 	{
-		int motionType; // モーションの種類
-		int key;		// モーションキー情報
-		int counter;	// フレームカウンター
-		bool isBlend;	// ブレンドフラグ
-		MOTION_CACHE_FRAME frame; // 構造体変数
+		int motionType;				// モーションの種類
+		int key;					// モーションキー情報
+		int counter;				// フレームカウンター
+		bool isBlend;				// ブレンドフラグ
+		MOTION_CACHE_FRAME frame;	// 構造体変数
 	};
 
 	CMotionInstancing();
@@ -116,6 +120,6 @@ private:
 	MOTION_CACHE m_cache;	// 構造体変数
 	bool m_cacheDirty;		// キャッシュフラグ
 
-	void MathMotionFrame(const CInstanceMotionManager::MOTIONFILE& info);
-	void ApplyCache(std::vector<CInstanceModel*>& pModel, const CInstanceMotionManager::MOTIONFILE& info);
+	void MathMotionFrame(const CInstanceMotionManager::MOTIONFILE& info); // フレーム計算関数
+	void ApplyCache(std::vector<CInstanceModel*>& pModel, const CInstanceMotionManager::MOTIONFILE& info); // 計算結果適用関数
 };

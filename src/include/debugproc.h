@@ -31,7 +31,7 @@ private:
 
 	static constexpr int FONTSIZE = 20;		// フォントサイズ
 
-	static LPD3DXFONT m_pFont;		// デバッグフォント
-	static char m_aStr[MAX_WORD];	// 文字列格納バッファ
-	static bool m_isUse;			// 使用しているかフラグ
+	static LPD3DXFONT m_pFont;				// デバッグフォント
+	static char m_aStr[MAX_WORD];			// 文字列格納バッファ
+	static bool m_isUse;					// 使用しているかフラグ
 };

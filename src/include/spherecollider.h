@@ -11,10 +11,14 @@
 #pragma once
 
 //*********************************************************
+// システムインクルードファイル
+//*********************************************************
+#include <memory>
+
+//*********************************************************
 // インクルードファイル
 //*********************************************************
 #include "collider.h"
-#include <memory>
 
 //*********************************************************
 // 球形コライダークラスを定義
@@ -29,7 +33,17 @@ public:
 	void SetRadius(float fRadius) { m_fRadius = fRadius; }
 	float GetRadius(void) { return m_fRadius; }
 
-	static std::unique_ptr<CSphereCollider>Create(D3DXVECTOR3 pos, float fRadius);
+	/// <summary>
+	/// 生成処理
+	/// </summary>
+	/// <param name="pos">座標</param>
+	/// <param name="fRadius">当たる半径</param>
+	/// <returns></returns>
+	static std::unique_ptr<CSphereCollider>Create
+	(
+		const D3DXVECTOR3& pos, 
+		const float& fRadius
+	);
 
 private:
 

@@ -56,7 +56,7 @@ private:
 
 	int m_nUpdateCount; // 更新フレームカウント
 
-	D3DXVECTOR3 m_prevPos, m_nextPos = { VECTOR3_NULL };
-	D3DXVECTOR3 m_prevRot, m_nextRot = { VECTOR3_NULL };
-	float m_interp = 0.0f;
+	D3DXVECTOR3 m_prevPos, m_nextPos;	// 前と次のフレームの座標
+	D3DXVECTOR3 m_prevRot, m_nextRot;	// 前と次のフレームの角度
+	float m_interp;						// 補完カウント
 };

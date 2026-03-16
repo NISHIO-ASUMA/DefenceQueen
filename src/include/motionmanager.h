@@ -11,7 +11,7 @@
 #pragma once
 
 //*********************************************************
-// インクルードファイル
+// システムインクルードファイル
 //*********************************************************
 #include <string>
 #include <vector>
@@ -24,7 +24,7 @@ class CMotion;
 class CModel;
 
 //*********************************************************
-// 管理クラスを定義
+// モーション管理クラスを定義
 //*********************************************************
 class CMotionManager
 {
@@ -67,9 +67,9 @@ public:
 	//*********************************
 	struct MOTIONFILE
 	{
-		std::string FilePath;	// ファイル名
-		std::vector<CModel*>apModel; // モデルインデックス
-		std::vector<std::string>Modelpath; // モデルパス
+		std::string FilePath;				// ファイル名
+		std::vector<CModel*>apModel;		// モデルインデックス
+		std::vector<std::string>Modelpath;	// モデルパス
 		std::vector<int>nParentId;			// idセット
 		std::vector<D3DXVECTOR3>offpos;		// オフセット座標
 		std::vector<D3DXVECTOR3>offrot;		// オフセット角度
@@ -93,7 +93,6 @@ public:
 	/// <param name="isShadow">影の描画フラグ</param>
 	/// <returns></returns>
 	int Register(const char* pFileName,std::vector<CModel*>& pModel,int nDestMotion,bool isShadow);
-
 
 	/// <summary>
 	/// 実際のモーションロードを行う
@@ -133,6 +132,6 @@ private:
 	// 静的変数
 	static int m_nNumAll;
 
-	//　ファイルパスを保持しておく配列
+	// ファイルパスを保持しておく配列
 	std::vector<MOTIONFILE>m_FileData;
 };

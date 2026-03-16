@@ -1,14 +1,18 @@
 //=========================================================
 //
-// パーティクルウィンドウ処理 [ particlepiler.h ]
+// 柱状パーティクル生成処理 [ particlepiler.cpp ]
 // Author: Asuma Nishio
 //
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "particlepiler.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
 #include "manager.h"
 #include "effect.h"
 
@@ -25,21 +29,30 @@ m_nRadius(NULL),
 m_fAngle(NULL),
 m_pEffect{}
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
 //=========================================================
 CParticlePiler::~CParticlePiler()
 {
-	// 無し
+	
 }
 //=========================================================
 // 生成処理
 //=========================================================
-CParticlePiler* CParticlePiler::Create(D3DXVECTOR3 pos, D3DXCOLOR col, int nMaxParticle, int nRadius, int nLength, int nLife,float fAngle)
+CParticlePiler* CParticlePiler::Create
+(
+	const D3DXVECTOR3& pos, 
+	const D3DXCOLOR& col, 
+	const int& nMaxParticle, 
+	const int& nRadius, 
+	const int& nLength, 
+	const int& nLife, 
+	const float& fAngle
+)
 {
-	// パーティクルのポインタを宣言
+	// インスタンス生成
 	CParticlePiler* pParticle = new CParticlePiler;
 	if (pParticle == nullptr) return nullptr;
 
@@ -55,7 +68,6 @@ CParticlePiler* CParticlePiler::Create(D3DXVECTOR3 pos, D3DXCOLOR col, int nMaxP
 	pParticle->m_nRadius = nRadius;
 	pParticle->m_fAngle = fAngle;
 
-	// ポインタを返す
 	return pParticle;
 }
 //=========================================================

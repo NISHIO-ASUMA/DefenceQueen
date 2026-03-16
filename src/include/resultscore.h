@@ -11,11 +11,15 @@
 #pragma once
 
 //*********************************************************
+// システムインクルードファイル
+//*********************************************************
+#include <memory>
+#include <array>
+
+//*********************************************************
 // インクルードファイル
 //*********************************************************
 #include "object.h"
-#include <memory>
-#include <array>
 
 //*********************************************************
 // 前方宣言
@@ -60,20 +64,20 @@ public:
 
 private:
 
-	void UpdateAnimScore(void);								// アニメーションスコア更新関数
+	void UpdateAnimScore(void);		// アニメーションスコア更新関数
 
 	//********************************
 	// 定数構造体宣言
 	//********************************
 	struct Config
 	{
-		static constexpr int NUM_SCORE = 8;					// 表示桁数
-		static constexpr int NUM_DIGIT = 10;				// 計算桁数
-		static constexpr int WRITE_SCORE = 5;				// 書き出し数
-		static constexpr int MAX_ANIMTIME = 180;			// 最大継続時間
-		static constexpr float POSX_VALUE = 2.0f;			// X座標加算値
-		static constexpr const char* TEXNAME = "time.png";	// テクスチャ名
-		static constexpr const char* SAVEFILE = "data/SCORE/ResultScore.bin"; // 書き出すファイル名
+		static constexpr int NUM_SCORE			= 8;							// 表示桁数
+		static constexpr int NUM_DIGIT			= 10;							// 計算桁数
+		static constexpr int WRITE_SCORE		= 5;							// 書き出し数
+		static constexpr int MAX_ANIMTIME		= 180;							// 最大継続時間
+		static constexpr float POSX_VALUE		= 2.0f;							// X座標加算値
+		static constexpr const char* TEXNAME	= "time.png";					// テクスチャ名
+		static constexpr const char* SAVEFILE	= "data/SCORE/ResultScore.bin"; // 書き出すファイル名
 
 	};
 

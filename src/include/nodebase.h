@@ -43,7 +43,6 @@ protected:
 	virtual void Exit() override {};
 
 	virtual NodeInfo::NodeResult get_node_result() const { return m_NodeResult; }
-
 	virtual int get_running_node_id() const override { return m_NodeId; }
 
 	CBlackBoard* m_pBlackBoard = nullptr;								// ブラックボードの変数

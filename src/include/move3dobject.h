@@ -11,7 +11,7 @@
 #pragma once
 
 //*********************************************************
-// インクルードファイル宣言
+// インクルードファイル
 //*********************************************************
 #include "object.h"
 
@@ -59,7 +59,7 @@ private:
 	D3DXVECTOR3 m_rot;		// 角度情報
 	D3DXCOLOR m_col;		// 色情報
 
-	int m_nIdxTexture;	// テクスチャインデックス
-	float m_fWidth;		// 横幅
-	float m_fHeight;	// 高さ
+	int m_nIdxTexture;		// テクスチャインデックス
+	float m_fWidth;			// 横幅
+	float m_fHeight;		// 高さ
 };

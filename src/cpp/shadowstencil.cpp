@@ -6,26 +6,30 @@
 //=========================================================
 
 //*********************************************************
-// インクルードファイル
+// クラス定義ヘッダーファイル
 //*********************************************************
 #include "shadowstencil.h"
-#include "Manager.h"
+
+//*********************************************************
+// インクルードファイル
+//*********************************************************
+#include "manager.h"
 #include "xfilemanager.h"
 
 //=========================================================
-// オーバーロードコンストラクタ
+// コンストラクタ
 //=========================================================
 CShadowStencil::CShadowStencil(int nPriority) : CObjectX(nPriority), 
 m_pVtx{}
 {
-	// 値のクリア
+	
 }
 //=========================================================
 // デストラクタ
 //=========================================================
 CShadowStencil::~CShadowStencil()
 {
-	// 無し
+	
 }
 //=========================================================
 // 生成処理
@@ -37,7 +41,7 @@ CShadowStencil* CShadowStencil::Create(const D3DXVECTOR3& pos, const D3DXVECTOR3
 	if (pShadowS == nullptr) return nullptr;
 
 	// オブジェクトX設定
-	pShadowS->SetFilePass("STAGEOBJ/Shadowmodel.x");
+	pShadowS->SetFilePass(MODELPATH);
 	pShadowS->SetPos(pos);
 	pShadowS->SetRot(rot);
 
@@ -114,7 +118,7 @@ void CShadowStencil::Uninit(void)
 //=========================================================
 void CShadowStencil::Update(void)
 {
-	// 無し
+	
 }
 //=========================================================
 // 描画処理
@@ -124,7 +128,6 @@ void CShadowStencil::Draw(void)
 	// デバイス取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
-//*****************************************************
 	// ステンシルテストを有効にする
 	pDevice->SetRenderState(D3DRS_STENCILENABLE, TRUE);
 
@@ -181,8 +184,6 @@ void CShadowStencil::Draw(void)
 	pDevice->SetRenderState(D3DRS_STENCILZFAIL, D3DSTENCILOP_KEEP); // ステンシルテスト合格,Zバッファ不合格
 	pDevice->SetRenderState(D3DRS_STENCILFAIL, D3DSTENCILOP_KEEP); // ステンシルテスト不合格
 
-//*****************************************************
-
 	// 頂点バッファをデータストリームに設定
 	pDevice->SetStreamSource(0, m_pVtx, 0, sizeof(VERTEX_2D));
 
@@ -195,9 +196,7 @@ void CShadowStencil::Draw(void)
 	// ポリゴンの描画
 	pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
 
-	//*******************************************************
-
-		// ステンシルテストを無効化にする
+	// ステンシルテストを無効化にする
 	pDevice->SetRenderState(D3DRS_STENCILENABLE, FALSE);
 
 	// Zバッファへの書き込みを有効化する
