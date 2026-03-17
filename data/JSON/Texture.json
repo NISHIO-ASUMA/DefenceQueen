@@ -27,10 +27,13 @@
   { "Texture": "data/TEXTURE/underbar.png" },
   { "Texture": "data/TEXTURE/PutAnt.png" },
   { "Texture": "data/TEXTURE/time.png" },
+  { "Texture": "data/TEXTURE/Skip.png" },
   { "Texture": "data/TEXTURE/result_logo.png" },
   { "Texture": "data/TEXTURE/EventFeed.png" },
   { "Texture": "data/TEXTURE/Sepalation.png" },
   { "Texture": "data/TEXTURE/worker_icon.jpg" },
   { "Texture": "data/TEXTURE/Scenemenu.jpg" },
-  { "Texture": "data/TEXTURE/Skip.png" }
+  { "Texture": "data/TEXTURE/Manual_Move.jpg" },
+  { "Texture": "data/TEXTURE/Manual_Sepalation.jpg" },
+  { "Texture": "data/TEXTURE/Manual_GoFeed.jpg" }
 ]

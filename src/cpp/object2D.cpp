@@ -227,7 +227,7 @@ void CObject2D::Draw(void)
 void CObject2D::SetUV(float TexU, float TexV)
 {
 	// 頂点情報のポインタ
-	VERTEX_2D* pVtx;
+	VERTEX_2D* pVtx = nullptr;
 
 	// 頂点バッファをロックし,頂点情報へのポインタを取得
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);

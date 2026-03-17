@@ -26,7 +26,7 @@ CObject* CObject::m_pTop[PRIORITY_MAX] = {};	// 先頭アドレス
 CObject* CObject::m_pCur[PRIORITY_MAX] = {};	// 最後尾アドレス
 
 //=========================================================
-// オーバーロードコンストラクタ
+// コンストラクタ
 //=========================================================
 CObject::CObject(int nPriority)
 {
@@ -133,7 +133,6 @@ void CObject::UpdateAll(void)
 			{
 				// 次のオブジェクトを代入
 				pObject = pObjeNext;
-
 				continue;
 			}
 

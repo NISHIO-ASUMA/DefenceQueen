@@ -30,6 +30,14 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 
+	inline void SetIsAlpha(const bool& isAlpha) { m_isAlpha = isAlpha; }
+	inline void SetIsActive(const bool& isActive) { m_isActive = isActive; }
+
+	bool GetIsAlpha(void) const { return m_isAlpha; }
+	bool GetIsActive(void) const { return m_isActive; }
+	bool GetIsCheck(void) const { return m_isCheck; }
+	bool GetIsFinish(void) const { return (m_isAlpha && m_fAlpha <= 0.0f); }
+
 	/// <summary>
 	/// ポインタ生成処理
 	/// </summary>
@@ -47,4 +55,19 @@ public:
 	);
 
 private:
+
+	//******************************
+	// 定数構造体
+	//******************************
+	struct Config
+	{
+		static constexpr float MOVE = 1.5f;			// 移動量
+		static constexpr float DECALPHA = 0.05f;	// α値減少量
+	};
+
+	bool m_isAlpha;		// 透明になったかどうか
+	bool m_isActive;	// 使用中かどうか
+	bool m_isCheck;		// セットポイントについたかどうか
+
+	float m_fAlpha;		// 透明度
 };

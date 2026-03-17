@@ -1,6 +1,6 @@
 //===================================================================
 //
-// ポインタブロックをJsonから生成する処理 [ createjsonblock.h ]
+// 通常ブロックをJsonから生成する処理 [ createjsonblocknormal.h ]
 // Author: Asuma Nishio
 //
 //===================================================================
@@ -16,14 +16,14 @@
 #include "jsoncreator.h"
 
 //*******************************************************************
-// ポインタブロックをJsonから生成するクラスを定義
+// 通常ブロックをJsonから生成するクラスを定義
 //*******************************************************************
-class CJsonCreateBlock : public CJsonCreator
+class CJsonCreateBlockNormal : public CJsonCreator
 {
 public:
 
-	CJsonCreateBlock() = default;
-	~CJsonCreateBlock() = default;
+	CJsonCreateBlockNormal() = default;
+	~CJsonCreateBlockNormal() = default;
 
 	/// <summary>
 	/// ブロックを生成するクラス

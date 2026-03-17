@@ -88,16 +88,16 @@ HRESULT CTutoTopAnt::Init(void)
 
 	// コライダー生成
 	m_pColliderBox = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(20.0f, 20.0f, 20.0f));
-	m_pSphereCollider = CSphereCollider::Create(GetPos(), 80.0f);
+	m_pSphereCollider = CSphereCollider::Create(GetPos(), Config::Hitting);
 
 	// 円形生成
-	m_pCircleObj = CCircle3D::Create(GetPos(), VECTOR3_NULL, m_fSeparationRadius, 3.0f, 0.0f);
+	m_pCircleObj = CCircle3D::Create(GetPos(), VECTOR3_NULL, m_fSeparationRadius, Config::Separation, 0.0f);
 
 	// 切り離しui生成
-	m_pSeparationSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 240.0f, GetPos().z), "Sepalation.png");
+	m_pSeparationSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::OffPosY, GetPos().z), "Sepalation.png");
 
 	// 置き配置UI生成
-	m_pPutSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + 240.0f, GetPos().z), "PutAnt.png");
+	m_pPutSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::OffPosY, GetPos().z), "PutAnt.png");
 
 	// 矢印生成
 	m_pPoint = CPointObj::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::OffPosY, GetPos().z), D3DXVECTOR3(-90.0f, 0.0f, 0.0f));
@@ -163,7 +163,7 @@ void CTutoTopAnt::Update(void)
 			m_pSeparationSign->SetIsDraw(false);
 
 			// サイズ初期化
-			m_pCircleObj->SetSize(0.0f, 3.0f);
+			m_pCircleObj->SetSize(0.0f, Config::Separation);
 
 			// 仲間の黒アリを取得する
 			auto ArrayAnt = CTutorialObject::GetInstance()->GetArrayAnt();
@@ -477,10 +477,10 @@ void CTutoTopAnt::Separation(void)
 
 	// オブジェクトのサイズ更新
 	m_pCircleObj->SetPos(pos);
-	m_pCircleObj->SetSize(m_fSeparationRadius, 3.0f);
+	m_pCircleObj->SetSize(m_fSeparationRadius, Config::Separation);
 
 	// サインの座標設定
-	m_pSeparationSign->SetPos(D3DXVECTOR3(pos.x, pos.y + 240.0f, pos.z));
+	m_pSeparationSign->SetPos(D3DXVECTOR3(pos.x, pos.y + Config::OffPosY, pos.z));
 }
 //=========================================================
 // 矩形の当たり判定処理

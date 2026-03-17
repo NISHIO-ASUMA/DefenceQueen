@@ -1,6 +1,6 @@
 //===================================================================
 //
-// ポインタブロックをJsonから生成する処理 [ createjsonblock.h ]
+// 移動キーのチュートリアルui状態処理 [ tutorialstatemove.h ]
 // Author: Asuma Nishio
 //
 //===================================================================
@@ -13,23 +13,19 @@
 //*******************************************************************
 // インクルードファイル
 //*******************************************************************
-#include "jsoncreator.h"
+#include "tutorialstatebase.h"
 
 //*******************************************************************
-// ポインタブロックをJsonから生成するクラスを定義
+// 移動キー入力状態クラスを定義
 //*******************************************************************
-class CJsonCreateBlock : public CJsonCreator
+class CTutorialStateMove : public CTutorialStateBase
 {
 public:
 
-	CJsonCreateBlock() = default;
-	~CJsonCreateBlock() = default;
+	CTutorialStateMove() = default;
+	~CTutorialStateMove() = default;
 
-	/// <summary>
-	/// ブロックを生成するクラス
-	/// </summary>
-	/// <param name="Jsondata">渡されるデータ</param>
-	void Create(const json& Jsondata) override;
-
-private:
+	bool OnCheck(void) override;
+	void OnStart(void) {};
+	void OnExit(void) {};
 };

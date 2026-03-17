@@ -26,6 +26,7 @@
 #include "createjsonmeshdome.h"
 #include "createjsoncharactor.h"
 #include "createjsonblock.h"
+#include "createjsonblocknormal.h"
 
 //*********************************************************
 // json空間を使用
@@ -37,12 +38,12 @@ using json = nlohmann::json;
 //*********************************************************
 namespace PATH_TAGNAME
 {
-	constexpr const char* UI		= "Ui";			// UIパラメータ
-	constexpr const char* MESHDOME	= "MeshDome";	// メッシュドームパラメータ
-	constexpr const char* MESHFIELD = "MeshField";	// メッシュフィールドパラメータ
-	constexpr const char* CHARACTOR = "Charactor";	// メッシュフィールドパラメータ
-	constexpr const char* BLOCK		= "Block";		// ブロックパラメータ
-
+	constexpr const char* UI			= "Ui";			// UIパラメータ
+	constexpr const char* MESHDOME		= "MeshDome";	// メッシュドームパラメータ
+	constexpr const char* MESHFIELD		= "MeshField";	// メッシュフィールドパラメータ
+	constexpr const char* CHARACTOR		= "Charactor";	// メッシュフィールドパラメータ
+	constexpr const char* BLOCK			= "Block";		// ブロックパラメータ
+	constexpr const char* NORMALBLOCK	= "NormalBlock";	// 通常ブロックパラメータ
 };
 
 //=========================================================
@@ -70,6 +71,7 @@ HRESULT CJsonManager::Init(void)
 	m_Creator[PATH_TAGNAME::MESHDOME] = std::make_unique<CJsonCreateMeshDome>();
 	m_Creator[PATH_TAGNAME::CHARACTOR] = std::make_unique<CJsonCreateCharactor>();
 	m_Creator[PATH_TAGNAME::BLOCK] = std::make_unique<CJsonCreateBlock>();
+	m_Creator[PATH_TAGNAME::NORMALBLOCK] = std::make_unique<CJsonCreateBlockNormal>();
 
 	return S_OK;
 }

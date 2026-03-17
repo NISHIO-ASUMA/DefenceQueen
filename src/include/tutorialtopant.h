@@ -77,6 +77,7 @@ private:
 		static constexpr float NorRot			 = D3DX_PI * 2.0f;						// 回転補正
 		static constexpr float Separation		 = 3.0f;								// 範囲拡大
 		static constexpr float OffPosY			 = 240.0f;								// オフセット
+		static constexpr float Hitting			 = 80.0f;								// コリジョン半径
 		static constexpr const char* MOTION_NAME = "data/MOTION/Top/Top_Motion.txt";	// モーションパス
 	};
 

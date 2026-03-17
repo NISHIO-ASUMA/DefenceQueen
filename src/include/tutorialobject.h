@@ -36,6 +36,7 @@ public:
 
 	HRESULT Init(void);
 	void Uninit(void);
+	void Update(void);
 
 	inline CBlockManager* GetBlockManager(void) const { return m_pBlockManager.get(); }
 	inline CTutoArrayAnt* GetArrayAnt(void) { return m_pArrayAnt; }
@@ -46,12 +47,12 @@ public:
 
 private:
 
-	CTutorialObject();								// コンストラクタ
-
 	static CTutorialObject* m_pInstance;			// シングルトン変数
 
+	CTutorialObject();								// コンストラクタ
+
 	std::unique_ptr<CBlockManager>m_pBlockManager;	// ブロック管理クラス
-	CTutoTopAnt* m_pTopAnt;			// トップアリ
-	CTutoArrayAnt* m_pArrayAnt;		// 仲間の黒アリ
-	CFeed* m_pFeed;					// 餌のポインタ
+	CTutoTopAnt* m_pTopAnt;							// トップアリ
+	CTutoArrayAnt* m_pArrayAnt;						// 仲間の黒アリ
+	CFeed* m_pFeed;									// 餌のポインタ
 };

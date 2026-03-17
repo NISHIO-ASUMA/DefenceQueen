@@ -125,9 +125,6 @@ void CObjectX::Draw(void)
 	// 現在のマテリアルを保存
 	D3DMATERIAL9 matDef;
 
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxWorld);
-
 	// 拡大率を反映
 	D3DXMatrixScaling(&mtxScale, m_Scale.x, m_Scale.y, m_Scale.z);
 
@@ -305,18 +302,11 @@ void CObjectX::DrawOutLine(const D3DXVECTOR4& color)
 	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
 
-	// マテリアルが取得できたら
-	if (model.pBuffMat)
-	{
-		for (int nCnt = 0; nCnt < static_cast<int>(model.dwNumMat); nCnt++)
-		{
-			// シェーダーパラメーター設定
-			COutLine::GetInstance()->SetParameter(Config::OUTLINE_SIZE, color, m_mtxWorld);
+	// シェーダーパラメーター設定
+	COutLine::GetInstance()->SetParameter(Config::OUTLINE_SIZE, color, m_mtxWorld);
 
-			// モデルの描画
-			model.pMesh->DrawSubset(nCnt);
-		}
-	}
+	// モデルの描画
+	model.pMesh->DrawSubset(0);
 }
 //=========================================================
 // 新規モデル登録

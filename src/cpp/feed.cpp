@@ -31,9 +31,9 @@
 //*********************************************************
 namespace FEEDINFO
 {
-	constexpr int LIFE = 25;			// 基底体力値
-	constexpr int COL_COUNT_MAX = 30;	// 点滅させる総フレーム
-	constexpr float BLINK_SPEED = 1.2f; // sinの速度
+	constexpr int LIFE			= 25;	 // 基底体力値
+	constexpr int COL_COUNT_MAX = 30;	 // 点滅させる総フレーム
+	constexpr float BLINK_SPEED = 1.2f;  // sinの速度
 };
 
 //=========================================================

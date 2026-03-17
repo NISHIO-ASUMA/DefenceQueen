@@ -361,6 +361,12 @@
     <Filter Include="ヘッダー ファイル\AI_System\Composite">
       <UniqueIdentifier>{b4da949d-efdd-4165-84d5-2f54e4d63d83}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\State\Tutorial">
+      <UniqueIdentifier>{bd434c59-e398-4195-b9a5-f13a6fc6f591}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\State\Tutorial">
+      <UniqueIdentifier>{c01f09e8-79b4-4bd1-b588-67a7bac043c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cpp\gauge.cpp">
@@ -812,6 +818,21 @@
     </ClCompile>
     <ClCompile Include="src\cpp\createjsonblock.cpp">
       <Filter>ソース ファイル\JsonUtilty\Sepalationclass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\createjsonblocknormal.cpp">
+      <Filter>ソース ファイル\JsonUtilty\Sepalationclass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\tutorialuimanager.cpp">
+      <Filter>ソース ファイル\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\tutorialstatemove.cpp">
+      <Filter>ソース ファイル\State\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\tutorialstatesepalation.cpp">
+      <Filter>ソース ファイル\State\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\tutorialstatefeedorder.cpp">
+      <Filter>ソース ファイル\State\Tutorial</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1306,6 +1327,24 @@
     </ClInclude>
     <ClInclude Include="src\include\createjsonblock.h">
       <Filter>ヘッダー ファイル\JsonUtility\Sepalation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\createjsonblocknormal.h">
+      <Filter>ヘッダー ファイル\JsonUtility\Sepalation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tutorialuimanager.h">
+      <Filter>ヘッダー ファイル\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tutorialstatebase.h">
+      <Filter>ヘッダー ファイル\State\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tutorialstatemove.h">
+      <Filter>ヘッダー ファイル\State\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tutorialstatesepalation.h">
+      <Filter>ヘッダー ファイル\State\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tutorialstatefeedorder.h">
+      <Filter>ヘッダー ファイル\State\Tutorial</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

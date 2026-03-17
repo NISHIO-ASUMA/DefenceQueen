@@ -1,6 +1,6 @@
 //===================================================================
 //
-// ポインタブロックをJsonから生成する処理 [ createjsonblock.h ]
+// 餌命令キーのチュートリアルui状態処理 [ tutorialstatefeedorder.h ]
 // Author: Asuma Nishio
 //
 //===================================================================
@@ -13,23 +13,19 @@
 //*******************************************************************
 // インクルードファイル
 //*******************************************************************
-#include "jsoncreator.h"
+#include "tutorialstatebase.h"
 
 //*******************************************************************
-// ポインタブロックをJsonから生成するクラスを定義
+// 餌命令キー入力状態クラスを定義
 //*******************************************************************
-class CJsonCreateBlock : public CJsonCreator
+class CTutorialStateFeedOrder : public CTutorialStateBase
 {
 public:
 
-	CJsonCreateBlock() = default;
-	~CJsonCreateBlock() = default;
+	CTutorialStateFeedOrder() = default;
+	~CTutorialStateFeedOrder() = default;
 
-	/// <summary>
-	/// ブロックを生成するクラス
-	/// </summary>
-	/// <param name="Jsondata">渡されるデータ</param>
-	void Create(const json& Jsondata) override;
-
-private:
+	bool OnCheck(void) override;
+	void OnStart(void) {};
+	void OnExit(void) {};
 };

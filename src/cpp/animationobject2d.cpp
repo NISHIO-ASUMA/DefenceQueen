@@ -52,7 +52,13 @@ CAnimationObject2D::~CAnimationObject2D()
 //===================================================================
 // 生成処理
 //===================================================================
-CAnimationObject2D* CAnimationObject2D::Create(const D3DXVECTOR3& pos, const float fWidth, const float fHeight, const char* pTexName)
+CAnimationObject2D* CAnimationObject2D::Create
+(
+	const D3DXVECTOR3& pos, 
+	const float fWidth, 
+	const float fHeight, 
+	const char* pTexName
+)
 {
 	// インスタンス生成
 	CAnimationObject2D* pAnim2D = new CAnimationObject2D;

@@ -1,6 +1,6 @@
 //===================================================================
 //
-// ポインタブロックをJsonから生成する処理 [ createjsonblock.h ]
+// 分断キーのチュートリアルui状態処理 [ tutorialstatesepalation.h ]
 // Author: Asuma Nishio
 //
 //===================================================================
@@ -13,23 +13,18 @@
 //*******************************************************************
 // インクルードファイル
 //*******************************************************************
-#include "jsoncreator.h"
+#include "tutorialstatebase.h"
 
 //*******************************************************************
-// ポインタブロックをJsonから生成するクラスを定義
+// 分断キー入力状態クラスを定義
 //*******************************************************************
-class CJsonCreateBlock : public CJsonCreator
+class CTutorialStateSepalation : public CTutorialStateBase
 {
 public:
+	CTutorialStateSepalation() = default;
+	~CTutorialStateSepalation() = default;
 
-	CJsonCreateBlock() = default;
-	~CJsonCreateBlock() = default;
-
-	/// <summary>
-	/// ブロックを生成するクラス
-	/// </summary>
-	/// <param name="Jsondata">渡されるデータ</param>
-	void Create(const json& Jsondata) override;
-
-private:
+	bool OnCheck(void) override;
+	void OnStart(void) {};
+	void OnExit(void) {};
 };

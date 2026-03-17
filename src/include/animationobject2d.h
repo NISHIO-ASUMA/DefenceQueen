@@ -29,10 +29,9 @@ public:
 	void Uninit(void) override;
 	void Update(void) override;
 	void Draw(void) override;
+
 	void SetFlash(const int nFirstcount, const int nEndcount, const D3DXCOLOR& col);
 	void SetTexture(const char* pRegisterName);
-
-	static CAnimationObject2D* Create(const D3DXVECTOR3& pos,const float fWidth,const float fHeight,const char * pTexName);
 
 	inline void SetPos(const D3DXVECTOR3& pos) { m_pos = pos; }
 	inline void SetRot(const D3DXVECTOR3& rot) { m_rot = rot; }
@@ -47,6 +46,22 @@ public:
 	inline D3DXCOLOR GetCol(void) const { return m_col; }		// 色を取得
 	inline float GetWidth(void) const { return m_fWidth; }		// 横幅を取得
 	inline float GetHeight(void) const { return m_fHeight; }	// 高さを取得
+
+	/// <summary>
+	/// 生成処理
+	/// </summary>
+	/// <param name="pos">生成座標</param>
+	/// <param name="fWidth">横幅</param>
+	/// <param name="fHeight">高さ</param>
+	/// <param name="pTexName">テクスチャ名</param>
+	/// <returns></returns>
+	static CAnimationObject2D* Create
+	(
+		const D3DXVECTOR3& pos,
+		const float fWidth,
+		const float fHeight,
+		const char * pTexName
+	);
 
 private:
 

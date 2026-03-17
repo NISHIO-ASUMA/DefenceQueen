@@ -20,6 +20,7 @@
 #include "tutorialtopant.h"
 #include "feed.h"
 #include "jsonmanager.h"
+#include "tutorialuimanager.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -40,8 +41,7 @@ namespace TUTORIALOBJECT
 //=========================================================
 // コンストラクタ
 //=========================================================
-CTutorialObject::CTutorialObject() :
-m_pBlockManager(nullptr),
+CTutorialObject::CTutorialObject() : m_pBlockManager(nullptr),
 m_pTopAnt(nullptr),
 m_pArrayAnt(nullptr),
 m_pFeed(nullptr)
@@ -67,6 +67,7 @@ HRESULT CTutorialObject::Init(void)
 	// ステージマップ読み込み
 	m_pBlockManager = std::make_unique<CBlockManager>();
 	jsonmanager->SetBlockManager(m_pBlockManager.get());
+
 	m_pBlockManager->Init();
 	m_pBlockManager->Load();
 
@@ -78,6 +79,10 @@ HRESULT CTutorialObject::Init(void)
 
 	// 餌を生成
 	m_pFeed = CFeed::Create(TUTORIALOBJECT::FeedPos, VECTOR3_NULL, INITSCALE);
+
+	// チュートリアルuiマネージャー
+	CTutorialUiManager::GetInstance()->Init();
+
 	return S_OK;
 }
 //=========================================================
@@ -88,6 +93,9 @@ void CTutorialObject::Uninit(void)
 	// ブロックマネージャーポインタの破棄
 	m_pBlockManager.reset();
 
+	// uiマネージャーの終了
+	CTutorialUiManager::GetInstance()->Uninit();
+
 	// インスタンスの破棄
 	if (m_pInstance)
 	{
@@ -96,16 +104,20 @@ void CTutorialObject::Uninit(void)
 	}
 }
 //=========================================================
+// 更新処理
+//=========================================================
+void CTutorialObject::Update(void)
+{
+	// uiマネージャーの更新
+	CTutorialUiManager::GetInstance()->Update();
+}
+//=========================================================
 // インスタンス取得
 //=========================================================
 CTutorialObject* CTutorialObject::GetInstance(void)
 {
 	// nullなら
-	if (m_pInstance == nullptr)
-	{
-		// インスタンス生成
-		m_pInstance = new CTutorialObject;
-	}
+	if (m_pInstance == nullptr) m_pInstance = new CTutorialObject;
 
 	// インスタンスを返す
 	return m_pInstance;

@@ -62,6 +62,9 @@ void CTutorial::Update(void)
 {
 	// チュートリアルマネージャー更新
 	CTutorialManager::GetInstance()->Update();
+
+	// チュートリアルオブジェクト更新
+	CTutorialObject::GetInstance()->Update();
 }
 //=========================================================
 // 描画処理

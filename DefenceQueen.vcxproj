@@ -187,6 +187,7 @@
     <ClCompile Include="src\cpp\collisionbox.cpp" />
     <ClCompile Include="src\cpp\collisionsphere.cpp" />
     <ClCompile Include="src\cpp\createjsonblock.cpp" />
+    <ClCompile Include="src\cpp\createjsonblocknormal.cpp" />
     <ClCompile Include="src\cpp\createjsonmeshdome.cpp" />
     <ClCompile Include="src\cpp\createjsonmeshfield.cpp" />
     <ClCompile Include="src\cpp\createjsonnomove.cpp" />
@@ -311,8 +312,12 @@
     <ClCompile Include="src\cpp\tutorial.cpp" />
     <ClCompile Include="src\cpp\tutorialmanager.cpp" />
     <ClCompile Include="src\cpp\tutorialobject.cpp" />
+    <ClCompile Include="src\cpp\tutorialstatefeedorder.cpp" />
+    <ClCompile Include="src\cpp\tutorialstatemove.cpp" />
+    <ClCompile Include="src\cpp\tutorialstatesepalation.cpp" />
     <ClCompile Include="src\cpp\tutorialtopant.cpp" />
     <ClCompile Include="src\cpp\tutorialui.cpp" />
+    <ClCompile Include="src\cpp\tutorialuimanager.cpp" />
     <ClCompile Include="src\cpp\ui.cpp" />
     <ClCompile Include="src\cpp\waitorderleaf.cpp" />
     <ClCompile Include="src\cpp\workerstatebase.cpp" />
@@ -346,6 +351,7 @@
     <ClInclude Include="src\include\collisionsphere.h" />
     <ClInclude Include="src\include\compositenodebase.h" />
     <ClInclude Include="src\include\createjsonblock.h" />
+    <ClInclude Include="src\include\createjsonblocknormal.h" />
     <ClInclude Include="src\include\createjsonmeshdome.h" />
     <ClInclude Include="src\include\createjsonmeshfield.h" />
     <ClInclude Include="src\include\createjsonnomove.h" />
@@ -478,8 +484,13 @@
     <ClInclude Include="src\include\tutorial.h" />
     <ClInclude Include="src\include\tutorialmanager.h" />
     <ClInclude Include="src\include\tutorialobject.h" />
+    <ClInclude Include="src\include\tutorialstatebase.h" />
+    <ClInclude Include="src\include\tutorialstatefeedorder.h" />
+    <ClInclude Include="src\include\tutorialstatemove.h" />
+    <ClInclude Include="src\include\tutorialstatesepalation.h" />
     <ClInclude Include="src\include\tutorialtopant.h" />
     <ClInclude Include="src\include\tutorialui.h" />
+    <ClInclude Include="src\include\tutorialuimanager.h" />
     <ClInclude Include="src\include\ui.h" />
     <ClInclude Include="src\include\workerstatebase.h" />
     <ClInclude Include="src\include\workerstateneutral.h" />

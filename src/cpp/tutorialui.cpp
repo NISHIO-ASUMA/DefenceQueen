@@ -15,10 +15,22 @@
 //*********************************************************
 #include "manager.h"
 
+//*********************************************************
+// 定数名前空間
+//*********************************************************
+namespace TutorialUi
+{
+	const D3DXVECTOR3 DestPos = { 1080.0f,80.0f,0.0f };
+};
+
 //=========================================================
 // コンストラクタ
 //=========================================================
-CTutorialUi::CTutorialUi(int nPriority) : CObject2D(nPriority)
+CTutorialUi::CTutorialUi(int nPriority) : CObject2D(nPriority),
+m_isAlpha(false),
+m_isActive(false),
+m_isCheck(false),
+m_fAlpha(1.0f)
 {
 
 }
@@ -32,7 +44,13 @@ CTutorialUi::~CTutorialUi()
 //=========================================================
 // 生成処理
 //=========================================================
-CTutorialUi* CTutorialUi::Create(const D3DXVECTOR3& pos, const float& fWidth, const float& fHeight, const char* pFileName)
+CTutorialUi* CTutorialUi::Create
+(
+	const D3DXVECTOR3& pos,
+	const float& fWidth,
+	const float& fHeight,
+	const char* pFileName
+)
 {
 	// インスタンス生成
 	CTutorialUi* pTutoUi = new CTutorialUi;
@@ -71,6 +89,43 @@ void CTutorialUi::Uninit(void)
 //=========================================================
 void CTutorialUi::Update(void)
 {
+	if (!m_isActive) return;
+
+	// フェードアウト中
+	if (m_isAlpha)
+	{
+		m_fAlpha -= Config::DECALPHA;
+		SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, m_fAlpha));
+
+		if (m_fAlpha <= 0.0f)
+		{
+			m_fAlpha = 0.0f;
+			SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, m_fAlpha));
+			m_isActive = false;
+			return;
+		}
+	}
+
+	// 座標取得
+	auto pos = GetPos();
+
+	// x座標を比較し目的座標へ移動
+	if (pos.x > TutorialUi::DestPos.x)
+	{
+		pos.x -= Config::MOVE;
+
+		if (pos.x < TutorialUi::DestPos.x)
+		{
+			pos.x = TutorialUi::DestPos.x;
+			SetPos(pos);
+			m_isCheck = true;
+			return;
+		}
+	}
+
+	// 座標を設定
+	SetPos(pos);
+
 	// オブジェクト2Dの更新処理
 	CObject2D::Update();
 }
@@ -79,6 +134,8 @@ void CTutorialUi::Update(void)
 //=========================================================
 void CTutorialUi::Draw(void)
 {
+	if (!m_isActive) return;
+
 	// オブジェクト2Dの描画処理
 	CObject2D::Draw();
 }
