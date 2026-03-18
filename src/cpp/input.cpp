@@ -440,9 +440,9 @@ bool CJoyPad::GetLeftStick(void)
 	bool isLstick = false;
 
 	// スティックの入力値がしきい値を超えていなければ
-	if (m_joyKeyState.Gamepad.sThumbLX >=  LSTICK::PREVSTICK  ||
-		m_joyKeyState.Gamepad.sThumbLX <= -LSTICK::PREVSTICK  ||
-		m_joyKeyState.Gamepad.sThumbLY >=  LSTICK::PREVSTICK  ||
+	if (m_joyKeyState.Gamepad.sThumbLX >=  LSTICK::PREVSTICK ||
+		m_joyKeyState.Gamepad.sThumbLX <= -LSTICK::PREVSTICK ||
+		m_joyKeyState.Gamepad.sThumbLY >=  LSTICK::PREVSTICK ||
 		m_joyKeyState.Gamepad.sThumbLY <= -LSTICK::PREVSTICK)
 	{
 		isLstick = true;
@@ -482,7 +482,8 @@ HRESULT CInputMouse::Init(HINSTANCE hInstance, HWND hWnd)
 	if (FAILED(m_pInput->CreateDevice(
 		GUID_SysMouse,
 		&m_pDevice,
-		NULL)))
+		NULL))
+	)
 	{
 		return E_FAIL;
 	}
@@ -496,7 +497,8 @@ HRESULT CInputMouse::Init(HINSTANCE hInstance, HWND hWnd)
 	// 協調モードの設定
 	if (FAILED(m_pDevice->SetCooperativeLevel(
 		hWnd,
-		DISCL_NONEXCLUSIVE | DISCL_FOREGROUND)))
+		DISCL_NONEXCLUSIVE | DISCL_FOREGROUND))
+	)
 	{
 		return E_FAIL;
 	}
@@ -613,7 +615,6 @@ bool CInputMouse::GetState(DIMOUSESTATE* mouseState)
 {
 	// 入力デバイスを取得
 	LPDIRECTINPUTDEVICE8 pMouse = GetInputDevice();
-
 	if (pMouse == nullptr)
 	{
 		return false;

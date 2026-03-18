@@ -55,10 +55,13 @@ int CLoad::LoadInt(const char* loadfilename)
 	// 読み込み失敗チェック
 	if (Openfile.fail())
 	{
-		MessageBox(GetActiveWindow(),
+		MessageBox
+		(
+			GetActiveWindow(),
 			"エラー発生",
 			"データの読み込みに失敗しました!( 関数 : LoadInt )",
-			MB_OK);
+			MB_OK
+		);
 
 		return -1;
 	}

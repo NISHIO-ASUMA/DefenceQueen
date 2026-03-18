@@ -61,7 +61,6 @@
 #define HALFHEIGHT (SCREEN_HEIGHT * 0.5f)					// スクリーンの高さの半分
 #define HALF (0.5f)											// 半分の値
 
-
 #define COLOR_BLACK (D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f))		// 黒
 #define COLOR_CLEAR (D3DXCOLOR(1.0f,1.0f,1.0f,0.0f))		// 透明
 #define COLOR_WHITE (D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f))		// 白
