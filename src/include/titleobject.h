@@ -18,8 +18,8 @@
 //*********************************************************
 // 前方宣言
 //*********************************************************
-class CTitleWallManager;
 class CTitleAntManager;
+class CWorldWallManager;
 
 //*********************************************************
 // タイトルオブジェクト管理クラスを定義
@@ -36,7 +36,7 @@ public:
 	
 	static CTitleObject* GetInstance(void);
 
-	inline CTitleWallManager* GetWallManager(void) const { return m_pWallManager.get(); }
+	inline CWorldWallManager* GetWallManager(void) const { return m_pWallManager.get(); }
 	
 private:
 
@@ -44,7 +44,7 @@ private:
 
 	static CTitleObject* m_pInstance; // シングルトン変数
 
-	std::unique_ptr<CTitleWallManager>m_pWallManager; // 壁管理クラスポインタ
+	std::unique_ptr<CWorldWallManager>m_pWallManager; // 壁管理クラスポインタ
 	std::unique_ptr<CTitleAntManager>m_pTitleAntManager; // タイトルのアリを管理する
 
 };

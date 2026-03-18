@@ -187,7 +187,7 @@ void CTopAnt::Update(void)
 			m_pSeparationSign->SetIsDraw(false);
 
 			// サイズ初期化
-			m_pCircleObj->SetSize(0.0f, 3.0f);
+			m_pCircleObj->SetSize(0.0f, Config::SPEED);
 
 			// 切り離しを伝える
 			if (pManager)
@@ -498,10 +498,10 @@ void CTopAnt::Separation(void)
 
 	// オブジェクトのサイズ更新
 	m_pCircleObj->SetPos(pos);
-	m_pCircleObj->SetSize(m_fSeparationRadius, 3.0f);
+	m_pCircleObj->SetSize(m_fSeparationRadius, Config::SPEED);
 
 	// サインの座標設定
-	m_pSeparationSign->SetPos(D3DXVECTOR3(pos.x,pos.y + 240.0f,pos.z));
+	m_pSeparationSign->SetPos(D3DXVECTOR3(pos.x,pos.y + Config::OffPosY,pos.z));
 }
 //=========================================================
 // 矩形の当たり判定処理

@@ -27,7 +27,6 @@ class CBaseMapFeed
 {
 public:
 
-	CBaseMapFeed();
 	~CBaseMapFeed();
 
 	HRESULT Init(void);
@@ -47,7 +46,16 @@ public:
 	/// <returns></returns>
 	inline int GetFeedArraySize(void) const { return static_cast<int>(m_pBaseFeeds.max_size()); }
 
+	/// <summary>
+	/// インスタンス取得
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
+	static CBaseMapFeed* GetInstance(void);
+
 private:
+
+	CBaseMapFeed();
 
 	static constexpr int NUM_BASEFEED = 4;			// 配置最大数
 	std::array<CFeed*, NUM_BASEFEED>m_pBaseFeeds;	// 餌の配列

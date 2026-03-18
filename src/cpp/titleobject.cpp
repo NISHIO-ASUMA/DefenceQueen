@@ -15,8 +15,8 @@
 //*********************************************************
 #include "manager.h"
 #include "jsonmanager.h"
-#include "titlewallmanager.h"
 #include "titleantmanager.h"
+#include "worldwallmanager.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -28,7 +28,8 @@ CTitleObject* CTitleObject::m_pInstance = nullptr;					// シングルトン変数
 //*********************************************************
 namespace TITLEOBJECT
 {
-	constexpr const char* LoadName = "data/JSON/Titleobject.json";	// 読み込むjsonファイル
+	constexpr const char* LoadName = "data/JSON/Titleobject.json";		// 読み込むjsonファイル
+	constexpr const char* WallName = "data/JSON/TitleWorldWall.json";	// 壁のjsonファイル
 };
 
 //=========================================================
@@ -52,12 +53,13 @@ CTitleObject::~CTitleObject()
 HRESULT CTitleObject::Init(void)
 {
 	// タイトルで使うオブジェクトの読み込み
-	auto jsonmanager = CManager::GetInstance()->GetJsonManager();
-	jsonmanager->Load(TITLEOBJECT::LoadName);
+	auto JsonManager = CManager::GetInstance()->GetJsonManager();
+	JsonManager->Load(TITLEOBJECT::LoadName);
 
 	// 見えない壁生成
-	m_pWallManager = std::make_unique<CTitleWallManager>();
-	m_pWallManager->Init();
+	m_pWallManager = std::make_unique<CWorldWallManager>();
+	JsonManager->SetWorldWallManager(m_pWallManager.get());
+	m_pWallManager->Init(TITLEOBJECT::WallName);
 
 	// タイトルのアリ生成
 	m_pTitleAntManager = std::make_unique<CTitleAntManager>();
@@ -97,11 +99,7 @@ void CTitleObject::Update(void)
 CTitleObject* CTitleObject::GetInstance(void)
 {
 	// nullなら
-	if (m_pInstance == nullptr)
-	{
-		// インスタンス生成
-		m_pInstance = new CTitleObject;
-	}
+	if (m_pInstance == nullptr) m_pInstance = new CTitleObject;
 
 	// シングルトンを返す
 	return m_pInstance;

@@ -1,6 +1,6 @@
 //===================================================================
 //
-// インスタンシングして動くキャラクタークラス [ instancingcharactor.h ]
+// インスタンシングキャラクタークラス [ instancingcharactor.h ]
 // Author: Asuma Nishio
 //
 //===================================================================
@@ -20,7 +20,6 @@
 // インクルードファイル
 //*******************************************************************
 #include "object.h"
-#include "motion.h"
 
 //*******************************************************************
 // 前方宣言
@@ -85,7 +84,7 @@ private:
 
 	std::unique_ptr<CMotionInstancing>m_pMotion;	// モーションポインタ
 	std::vector<CInstanceModel*>m_pModel;			// モデルクラスの動的配列
-	CShadowStencil* m_pShadowS;							// ステンシルシャドウクラスのポインタ
+	CShadowStencil* m_pShadowS;						// ステンシルシャドウクラスのポインタ
 
 	float m_fMoveValue;		// 移動加算値
 	bool m_isStencilUse;	// ステンシルシャドウを使うか

@@ -39,9 +39,9 @@ class CArray : public CInstancingCharactor
 {
 public:
 
-	//************************
+	//******************************
 	// モーションの種類列挙型
-	//************************
+	//******************************
 	enum MOTION
 	{
 		MOTION_NEUTRAL,
@@ -59,7 +59,7 @@ public:
 
 	void OnSeparation(void);
 	void FollowDestination(const D3DXVECTOR3& DestPos);
-	void FollowTop(D3DXVECTOR3 vpos);
+	void FollowTop(const D3DXVECTOR3& vpos);
 	void ArrayFollow(void);
 	void SpawnReturn(void);
 	void NodeSetting(void);
@@ -100,25 +100,37 @@ public:
 	inline bool GetIsAttackMode(void) const { return m_isAttackMode; }
 	inline bool GetIsSetPoint(void) const { return m_isSetPoint; }
 
-	static CArray* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,const int nLife);
+	/// <summary>
+	/// 生成処理
+	/// </summary>
+	/// <param name="pos">生成座標</param>
+	/// <param name="rot">角度</param>
+	/// <param name="nLife">体力</param>
+	/// <returns></returns>
+	static CArray* Create
+	(
+		const D3DXVECTOR3& pos, 
+		const D3DXVECTOR3& rot,
+		const int& nLife
+	);
 
 private:
 
-	//***********************
+	//****************************
 	// 定数構造体
-	//***********************
+	//****************************
 	struct Arrayinfo
 	{
-		static constexpr float MoveSpeed = 2.5f;		// 移動速度
-		static constexpr float SphereRange = 60.0f;		// 球形範囲
+		static constexpr float MoveSpeed	  = 2.5f;	// 移動速度
+		static constexpr float SphereRange	  = 60.0f;	// 球形範囲
 		static constexpr float ARRAY_DISTANCE = 80.0f;	// 仲間アリとの距離
-		static constexpr float TOP_DISTANCE = 60.0f;	// 先頭のアリとの距離
-		static constexpr float STOP_DISTANCE = 10.0f;	// 停止距離
+		static constexpr float TOP_DISTANCE	  = 60.0f;	// 先頭のアリとの距離
+		static constexpr float STOP_DISTANCE  = 10.0f;	// 停止距離
 
-		static constexpr int SCORE_UP = 1500;			// スコアの加算量
-		static constexpr int BASESCORE_UP = 10;			// スコアの加算量
-		static constexpr int Damage = 1;				// ダメージ値
-		static constexpr const char* SCRIPT = "data/MOTION/Array/Array_Motion.txt"; // モーションスクリプトファイル
+		static constexpr int SCORE_UP		  = 1500;	// スコアの加算量
+		static constexpr int BASESCORE_UP	  = 10;		// スコアの加算量
+		static constexpr int Damage			  = 1;		// ダメージ値
+		static constexpr const char* SCRIPT	  = "data/MOTION/Array/Array_Motion.txt"; // モーションスクリプトファイル
 	};
 
 	int m_nListGroupId;					// 自身が動いているidのリスト番号
@@ -143,8 +155,8 @@ private:
 	CExtractAntSignal* m_pAntSignal;	// ターゲット変更サインオブジェクト
 
 	std::unique_ptr<CSphereCollider>m_pSphereCollider;	// 球形のコライダー
-	std::unique_ptr<CParameter>m_pParameter;	// パラメータークラスポインタ
-	CBoxCollider* m_pBoxCollider;		// 矩形のコライダー
+	std::unique_ptr<CParameter>m_pParameter;			// パラメータークラスポインタ
+
 	CArray* m_pFollowTarget;			// 一個前の自身のポインタ
 	CTopAnt* m_pTopAnt;					// 追従対象のトップアリのポインタ
 };

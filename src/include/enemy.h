@@ -75,7 +75,19 @@ public:
 	inline CParameter* GetParameter(void) const { return m_pParameter.get(); }
 	inline CSphereCollider* GetCollider(void) const { return m_pSphereCollider.get(); }
 
-	static CEnemy* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot,int nLife);
+	/// <summary>
+	/// ¶¬ˆ—
+	/// </summary>
+	/// <param name="pos">¶¬À•W</param>
+	/// <param name="rot">Šp“x</param>
+	/// <param name="nLife">‘Ì—Í</param>
+	/// <returns></returns>
+	static CEnemy* Create
+	(
+		const D3DXVECTOR3& pos, 
+		const D3DXVECTOR3& rot,
+		const int& nLife
+	);
 
 private:
 

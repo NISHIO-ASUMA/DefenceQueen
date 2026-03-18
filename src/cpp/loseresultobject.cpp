@@ -25,7 +25,7 @@ CLoseResultObject* CLoseResultObject::m_pInstance = nullptr; // シングルトン変数
 //*********************************************************
 namespace LOSERESULTOBJECT
 {
-	constexpr float Height = 60.0f;							// UIの高さ
+	constexpr float Height		  = 60.0f;					// UIの高さ
 	constexpr const char* TexName = "result_loselogo.png";	// テクスチャ名
 };
 

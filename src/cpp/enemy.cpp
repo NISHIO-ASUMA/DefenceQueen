@@ -28,21 +28,21 @@
 #include "input.h"
 #include "feed.h"
 #include "enemymanager.h"
-#include "gamewallmanager.h"
 #include "boxtospherecollision.h"
 #include "gamewallmodel.h"
 #include "motioninstancing.h"
 #include "eventareamanager.h"
+#include "worldwallmanager.h"
 
 //*********************************************************
 // 定数宣言空間
 //*********************************************************
 namespace EnemyInfo
 {
-	constexpr float HitRange = 60.0f;	// 球形範囲
+	constexpr float HitRange  = 60.0f;	// 球形範囲
 	constexpr float StopRange = 10.0f;	// 停止範囲
 	constexpr float MoveSpeed = 1.0f;	// 移動速度
-	const char* MOTION_NAME = "data/MOTION/Enemy/Enemy_Motion.txt"; // モーションパス
+	const char* MOTION_NAME	  = "data/MOTION/Enemy/Enemy_Motion.txt"; // モーションパス
 };
 
 //=========================================================
@@ -69,7 +69,7 @@ CEnemy::~CEnemy()
 //=========================================================
 // 生成処理
 //=========================================================
-CEnemy* CEnemy::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nLife)
+CEnemy* CEnemy::Create(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, const int& nLife)
 {
 	// インスタンス生成
 	CEnemy* pEnemy = new CEnemy;
@@ -240,7 +240,7 @@ void CEnemy::MoveToFeed(void)
 
 	// ベクトルを正規化する
 	D3DXVec3Normalize(&vec, &vec);
-	vec *= EnemyInfo::MoveSpeed; // 移動速度
+	vec *= EnemyInfo::MoveSpeed;
 
 	// 向き
 	float angleY = atan2(-vec.x, -vec.z);
@@ -359,7 +359,7 @@ void CEnemy::CollisionFeed(void)
 			feed->DecLife(1);
 
 			// 管理クラスの配列の要素を消す
-			CGameSceneObject::GetInstance()->GetEnemyManager()->Erase(this);
+			CEnemyManager::GetInstance()->Erase(this);
 
 			// 自身の破棄
 			Uninit();
@@ -388,7 +388,7 @@ void CEnemy::CollisionQueen(void)
 		Queen->Hit(1);
 
 		// 管理クラスの配列の要素を消す
-		CGameSceneObject::GetInstance()->GetEnemyManager()->Erase(this);
+		CEnemyManager::GetInstance()->Erase(this);
 
 		// 自身の破棄
 		Uninit();
@@ -402,21 +402,21 @@ void CEnemy::CollisionQueen(void)
 void CEnemy::CollisionWall(void)
 {
 	// 世界の壁の取得
-	CGameWallManager* WallManager = CGameSceneObject::GetInstance()->GetGameWall();
+	auto WallManager = CGameSceneObject::GetInstance()->GetWorldWall();
 	if (WallManager == nullptr) return;
 
 	// サイズで判断する
 	for (int nCnt = 0; nCnt < WallManager->GetSize(); nCnt++)
 	{
 		// 各配列から取得
-		auto Wall = WallManager->GetGameWall(nCnt);
+		auto Wall = WallManager->GetWorldWall(nCnt);
 		if (Wall == nullptr) return;
 
 		// 当たったら
 		if (CollisionBoxToSphere(Wall->GetCollider()))
 		{
 			// 管理クラスの配列の要素を消す
-			CGameSceneObject::GetInstance()->GetEnemyManager()->Erase(this);
+			CEnemyManager::GetInstance()->Erase(this);
 
 			// 自身の破棄
 			Uninit();
@@ -431,7 +431,7 @@ void CEnemy::CollisionWall(void)
 bool CEnemy::Collision(CSphereCollider* pOther)
 {
 	// nulなら処理しない
-	if (pOther == nullptr) return false;
+	if (m_pSphereCollider == nullptr) return false;
 
 	// 球形同士の当たり判定
 	return CCollisionSphere::Collision(m_pSphereCollider.get(),pOther);
@@ -441,6 +441,10 @@ bool CEnemy::Collision(CSphereCollider* pOther)
 //==========================================================
 bool CEnemy::CollisionBoxToSphere(CBoxCollider* pOther)
 {
+	// nulなら処理しな
+	if (m_pSphereCollider == nullptr) return false;
+
+	// 球と矩形の当たり判定
 	return CBoxToSphereCollision::Collision(pOther,m_pSphereCollider.get());
 }
 //=========================================================

@@ -33,14 +33,18 @@ public:
 	HRESULT Init(void);
 	void Uninit(void);
 
+	/// <summary>
+	/// インスタンス取得処理
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
 	static CResultObject* GetInstance(void);
 
 private:
 
-	CResultObject();					// コンストラクタ
+	CResultObject();
 
 	static CResultObject* m_pInstance;	// シングルトン変数
 
-	std::unique_ptr<CResultScoreManager>m_pResultScoreManager; // スコア管理クラス
-	std::unique_ptr<CBlockManager>m_pBlock;		// ステージマップ
+	std::unique_ptr<CBlockManager>m_pBlock;						// ステージマップ
 };

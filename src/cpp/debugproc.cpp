@@ -28,14 +28,14 @@ bool CDebugproc::m_isUse = false;			// 使用しているか
 //=========================================================
 CDebugproc::CDebugproc()
 {
-	// 無し
+
 }
 //=========================================================
 // デストラクタ
 //=========================================================
 CDebugproc::~CDebugproc()
 {
-	// 無し
+
 }
 //=========================================================
 // デバッグプロセスの初期化処理
@@ -50,15 +50,15 @@ HRESULT CDebugproc::Init(void)
 	(
 		pDevice, 
 		FONTSIZE, 
-		0, 
-		0, 
+		0,
+		0,
 		0,
 		FALSE,
 		DEFAULT_CHARSET,
 		OUT_DEFAULT_PRECIS,
 		DEFAULT_QUALITY,
 		DEFAULT_PITCH,
-		"Terminal", 
+		"Terminal",
 		&m_pFont
 	);
 

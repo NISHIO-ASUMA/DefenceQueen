@@ -34,6 +34,14 @@ CEnemyManager::~CEnemyManager()
 	Uninit();
 }
 //=========================================================
+// インスタンス取得処理
+//=========================================================
+CEnemyManager* CEnemyManager::GetInstance(void)
+{
+	static CEnemyManager Instance;
+	return &Instance;
+}
+//=========================================================
 // 初期化処理
 //=========================================================
 HRESULT CEnemyManager::Init(void)
@@ -118,10 +126,7 @@ void CEnemyManager::Erase(CEnemy* pEnemy)
 	auto DeleteDestObj = std::find(m_pEnemys.begin(), m_pEnemys.end(), pEnemy);
 
 	// もし要素の最後尾なら
-	if (DeleteDestObj == m_pEnemys.end())
-	{
-		return;
-	}
+	if (DeleteDestObj == m_pEnemys.end()) return;
 
 	// 要素を削除
 	(*DeleteDestObj)->Uninit();

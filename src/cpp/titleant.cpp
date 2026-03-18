@@ -15,7 +15,7 @@
 //*********************************************************
 #include "template.h"
 #include "boxtospherecollision.h"
-#include "titlewallmanager.h"
+#include "worldwallmanager.h"
 #include "gamewallmodel.h"
 #include "titleobject.h"
 #include "spherecollider.h"
@@ -134,7 +134,7 @@ void CTitleAnt::Update(void)
 	for (int nCnt = 0; nCnt < Wall->GetSize(); nCnt++)
 	{
 		// •Ç’P‘Ì‚ðŽæ“¾‚·‚é
-		auto wallobj = Wall->GetGameWall(nCnt);
+		auto wallobj = Wall->GetWorldWall(nCnt);
 
 		// “–‚½‚Á‚½‚ç
 		if (Collision(wallobj->GetCollider()))

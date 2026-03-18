@@ -21,6 +21,7 @@
 #include "feed.h"
 #include "jsonmanager.h"
 #include "tutorialuimanager.h"
+#include "worldwallmanager.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -32,10 +33,10 @@ CTutorialObject* CTutorialObject::m_pInstance = nullptr; // シングルトン変数
 //*********************************************************
 namespace TUTORIALOBJECT
 {
-	const D3DXVECTOR3 TopAntPos = { 0.0f, 0.0f, -450.0f }; // 操作アリ座標
-	const D3DXVECTOR3 ArrayAntPos = { 350.0f, 0.0f, 0.0f };// 仲間アリ座標
-	const D3DXVECTOR3 FeedPos = { -500.0f, 0.0f, 0.0f };   // 餌座標
-	constexpr const char* LoadName = "data/JSON/Tutorialobject.json"; // 読み込みjsonファイル
+	const D3DXVECTOR3 TopAntPos		= { 0.0f, 0.0f, -450.0f };	// 操作アリ座標
+	const D3DXVECTOR3 ArrayAntPos	= { 350.0f, 0.0f, 0.0f };	// 仲間アリ座標
+	const D3DXVECTOR3 FeedPos		= { -500.0f, 0.0f, 0.0f };	// 餌座標
+	constexpr const char* LoadName	= "data/JSON/Tutorialobject.json"; // 読み込みjsonファイル
 };
 
 //=========================================================
@@ -43,6 +44,7 @@ namespace TUTORIALOBJECT
 //=========================================================
 CTutorialObject::CTutorialObject() : m_pBlockManager(nullptr),
 m_pTopAnt(nullptr),
+m_pWorldWall(nullptr),
 m_pArrayAnt(nullptr),
 m_pFeed(nullptr)
 {
@@ -61,15 +63,13 @@ CTutorialObject::~CTutorialObject()
 HRESULT CTutorialObject::Init(void)
 {
 	// チュートリアルで使うオブジェクトの読み込み
-	auto jsonmanager = CManager::GetInstance()->GetJsonManager();
-	jsonmanager->Load(TUTORIALOBJECT::LoadName);
+	auto JsonManager = CManager::GetInstance()->GetJsonManager();
+	JsonManager->Load(TUTORIALOBJECT::LoadName);
 
 	// ステージマップ読み込み
 	m_pBlockManager = std::make_unique<CBlockManager>();
-	jsonmanager->SetBlockManager(m_pBlockManager.get());
-
+	JsonManager->SetBlockManager(m_pBlockManager.get());
 	m_pBlockManager->Init();
-	m_pBlockManager->Load();
 
 	// チュートリアルトップアリの生成
 	m_pTopAnt = CTutoTopAnt::Create(TUTORIALOBJECT::TopAntPos);
@@ -92,6 +92,9 @@ void CTutorialObject::Uninit(void)
 {
 	// ブロックマネージャーポインタの破棄
 	m_pBlockManager.reset();
+
+	// 世界の壁の破棄
+	m_pWorldWall.reset();
 
 	// uiマネージャーの終了
 	CTutorialUiManager::GetInstance()->Uninit();

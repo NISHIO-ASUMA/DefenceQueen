@@ -26,7 +26,6 @@
 class CParameter;
 class CStateMachine;
 class CSphereCollider;
-class CMotion;
 class CLoad;
 
 //*********************************************************
@@ -80,7 +79,5 @@ private:
 	std::unique_ptr<CLoad>m_pLoad;						// 情報外部書き出しクラスのポインタ
 	std::unique_ptr<CStateMachine>m_pStateMachine;		// ステート基底クラスのポインタ
 	std::unique_ptr<CSphereCollider>m_pSphereCollider;	// 円形のコライダー
-
-	CMotion* m_pMotion;	// モーションポインタ
 	bool m_isUse;		// 使うかどうかのフラグ
 };

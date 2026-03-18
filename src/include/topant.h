@@ -42,9 +42,9 @@ class CTopAnt : public CMoveCharactor
 {
 public:
 
-	//********************
-	// モーションの種類
-	//********************
+	//**************************
+	// モーションの種類列挙型
+	//**************************
 	enum MOTION
 	{
 		NEUTRAL,
@@ -105,9 +105,9 @@ private:
 	std::unique_ptr<CBoxCollider>m_pColliderBox;	   // 矩形コライダー
 
 	CCircle3D* m_pCircleObj;			// 円形オブジェクト
-	CSepalationSign* m_pSeparationSign; // 切り離し表示サイン
-	CSepalationSign* m_pPutSign;		// 置いていく表示
 	CPointObj* m_pPoint;				// 矢印オブジェクト
+	CSepalationSign* m_pSeparationSign; // 引き連れ表示サイン
+	CSepalationSign* m_pPutSign;		// 置いていく表示
 
 	D3DXVECTOR3 m_DestPos;				// 座標設置用
 	bool m_isSetPostion;				// アリをおいていくかどうか

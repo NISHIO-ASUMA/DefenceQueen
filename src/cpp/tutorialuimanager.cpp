@@ -28,11 +28,11 @@ namespace TUTORIALUIMANAGER
 {
 	const D3DXVECTOR3 ActivePos = { 1400.0f,110.0f,0.0f };	// 出現座標
 
-	constexpr int MAX_SIZE = 3;							// 最大テクスチャ枚数
-	constexpr float WIDTH = 180.0f;						// 横幅
-	constexpr float HEIGHT = 100.0f;					// 高さ
+	constexpr int MAX_SIZE = 3;								// 最大テクスチャ枚数
+	constexpr float WIDTH = 180.0f;							// 横幅
+	constexpr float HEIGHT = 100.0f;						// 高さ
 
-	constexpr const char* TEXTURELIST[MAX_SIZE] =		// テクスチャリスト
+	constexpr const char* TEXTURELIST[MAX_SIZE] =			// テクスチャリスト
 	{
 		"Manual_Move.jpg",
 		"Manual_Sepalation.jpg",
@@ -151,6 +151,9 @@ void CTutorialUiManager::Erase(CTutorialUi* pUi)
 
 	// 破棄
 	(*EraseObject)->Uninit();
+
+	// 対象先をnullにする
+	pUi = nullptr;
 
 	// リストの修正
 	EraseObject = m_pUiList.erase(EraseObject);

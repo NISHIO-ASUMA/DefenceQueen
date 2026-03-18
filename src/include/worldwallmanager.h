@@ -1,6 +1,6 @@
 //=========================================================
 //
-// タイトル画面の壁複数管理クラス [ titlewallmanager.h ]
+// 世界の壁を複数管理するクラス [ worldwallmanager.h ]
 // Author: Asuma Nishio
 //
 //=========================================================
@@ -13,7 +13,7 @@
 //*********************************************************
 // システムインクルードファイル
 //*********************************************************
-#include <array>
+#include <vector>
 
 //*********************************************************
 // 前方宣言
@@ -21,16 +21,16 @@
 class CGameWallModel;
 
 //*********************************************************
-// タイトルの壁を管理するクラスを定義
+// 世界の壁一括管理クラスを定義
 //*********************************************************
-class CTitleWallManager
+class CWorldWallManager
 {
 public:
 
-	CTitleWallManager();
-	~CTitleWallManager();
+	CWorldWallManager();
+	~CWorldWallManager();
 
-	HRESULT Init(void);
+	HRESULT Init(const char * pLoadName);
 	void Uninit(void);
 
 	/// <summary>
@@ -38,28 +38,32 @@ public:
 	/// </summary>
 	/// <param name="nIdx">取得する番号</param>
 	/// <returns></returns>
-	CGameWallModel* GetGameWall(const int nIdx) const { return m_pWall[nIdx]; }
+	CGameWallModel* GetWorldWall(const int nIdx) const { return m_pWall[nIdx]; }
 
 	/// <summary>
 	/// 配列のサイズを返す
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
-	inline int GetSize(void) const { return static_cast<int>(m_pWall.max_size()); }
+	inline int GetSize(void) const { return static_cast<int>(m_pWall.size()); }
+
+	/// <summary>
+	/// 生成処理
+	/// </summary>
+	/// <param name="pos">生成座標</param>
+	/// <param name="rot">角度</param>
+	/// <param name="scale">拡大率</param>
+	/// <param name="pModelName">モデルファイル名</param>
+	/// <returns></returns>
+	CGameWallModel* CreateManager
+	(
+		const D3DXVECTOR3& pos, 
+		const D3DXVECTOR3& rot, 
+		const D3DXVECTOR3& scale, 
+		const char* pModelName
+	);
 
 private:
 
-	//**********************************
-	// 定数構造体宣言
-	//**********************************
-	struct Config
-	{
-		static constexpr int NUM_WALL = 2;									 // 最大生成数
-		static constexpr const char* FILE_NAME = "data/JSON/Titlewall.json"; // ファイルパス
-	};
-
-
-	void LoadJson(void); // json関数
-
-	std::array<CGameWallModel*, Config::NUM_WALL>m_pWall;					// 確保する配列情報
+	std::vector<CGameWallModel*>m_pWall;		// 確保する配列情報
 };

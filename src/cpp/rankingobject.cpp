@@ -27,10 +27,10 @@ CRankingObject* CRankingObject::m_pInstance = nullptr; // シングルトン変数
 //*********************************************************
 namespace RANKINGOBJECT
 {
-	const D3DXVECTOR3 ScorePos = { 870.0f, 160.0f, 0.0f };	// ランキングスコアの座標
-	constexpr float ScoreWidth = 250.0f;					// ポリゴンの横幅
-	constexpr float ScoreHeight = 40.0f;					// ポリゴンの高さ
-	constexpr const char* LoadName = "data/JSON/Rankingobject.json"; // 読み込むjsonファイル
+	const D3DXVECTOR3 ScorePos		= { 870.0f, 160.0f, 0.0f };	// ランキングスコアの座標
+	constexpr float ScoreWidth		= 250.0f;					// ポリゴンの横幅
+	constexpr float ScoreHeight		= 40.0f;					// ポリゴンの高さ
+	constexpr const char* LoadName	= "data/JSON/Rankingobject.json"; // 読み込むjsonファイル
 };
 
 //=========================================================

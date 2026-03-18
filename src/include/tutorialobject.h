@@ -24,6 +24,7 @@ class CTutoArrayAnt;
 class CBlock;
 class CFeed;
 class CEventArea;
+class CWorldWallManager;
 
 //*********************************************************
 // チュートリアルで使うオブジェクトを管理するクラスを定義
@@ -47,11 +48,13 @@ public:
 
 private:
 
+	CTutorialObject();
+
 	static CTutorialObject* m_pInstance;			// シングルトン変数
 
-	CTutorialObject();								// コンストラクタ
-
 	std::unique_ptr<CBlockManager>m_pBlockManager;	// ブロック管理クラス
+	std::unique_ptr<CWorldWallManager>m_pWorldWall;	// 壁管理クラス
+
 	CTutoTopAnt* m_pTopAnt;							// トップアリ
 	CTutoArrayAnt* m_pArrayAnt;						// 仲間の黒アリ
 	CFeed* m_pFeed;									// 餌のポインタ

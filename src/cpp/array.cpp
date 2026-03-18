@@ -47,12 +47,10 @@ CArray::CArray(int nPriority) : CInstancingCharactor(nPriority),
 m_pSphereCollider(nullptr),
 m_pMotion(nullptr),
 m_pParameter(nullptr),
-m_pBoxCollider(nullptr),
 m_pFollowTarget(nullptr),
 m_pTopAnt(nullptr),
 m_pAntSignal(nullptr),
 m_isActive(false),
-m_isMove(true),
 m_isTopAntFollow(false),
 m_isHit(false),
 m_isReturn(false),
@@ -62,6 +60,7 @@ m_isCheckNearFeed(false),
 m_isAttackMode(false),
 m_isGettingTopOrder(false),
 m_isSetPoint(false),
+m_isMove(true),
 m_MoveDestPos(VECTOR3_NULL),
 m_ActivePos(VECTOR3_NULL),
 m_nListGroupId(NULL)
@@ -78,7 +77,12 @@ CArray::~CArray()
 //=========================================================
 // 生成処理
 //=========================================================
-CArray* CArray::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot,const int nLife)
+CArray* CArray::Create
+(
+	const D3DXVECTOR3& pos, 
+	const D3DXVECTOR3& rot,
+	const int& nLife
+)
 {
 	// インスタンス生成
 	CArray* pArray = new CArray;
@@ -315,7 +319,7 @@ void CArray::FollowDestination(const D3DXVECTOR3& DestPos)
 //=========================================================
 // トップのアリを追従する関数
 //=========================================================
-void CArray::FollowTop(D3DXVECTOR3 vpos)
+void CArray::FollowTop(const D3DXVECTOR3& vpos)
 {
 	if (!m_isMove) return;
 
@@ -514,21 +518,20 @@ void CArray::CollsionAll(void)
 void CArray::CollisionEnemy(void)
 {
 	// マップ内の敵の当たり判定
-	CEnemyManager* pEnemyManager = CGameSceneObject::GetInstance()->GetEnemyManager();
-	if (pEnemyManager == nullptr) return;
+	auto instance  = CEnemyManager::GetInstance();
 
 	// 最大の物と判定
-	for (int nCnt = 0; nCnt < pEnemyManager->GetSize(); nCnt++)
+	for (int nCnt = 0; nCnt < instance->GetSize(); nCnt++)
 	{
 		// 単体取得
-		auto Enemy = pEnemyManager->GetEnemyIdx(nCnt);
+		auto Enemy = instance->GetEnemyIdx(nCnt);
 		if (!Enemy->GetIsActive()) continue;
 
 		// 球形同士の当たり判定を実行
 		if (Colision(Enemy->GetCollider()))
 		{
 			// 管理クラスの配列の要素を消す
-			CGameSceneObject::GetInstance()->GetEnemyManager()->Erase(Enemy);
+			instance->Erase(Enemy);
 
 			// 敵の終了
 			Enemy->Uninit();
@@ -593,14 +596,13 @@ void CArray::CollisionEventFeed(void)
 //=========================================================
 void CArray::CollisionBase(void)
 {
-	// 配列を取得する
-	CBaseMapFeed* BaseFeed = CGameSceneObject::GetInstance()->GetBaseMapFeed();
-	if (BaseFeed == nullptr) return;
+	// ベースの配列を取得する
+	auto instance = CBaseMapFeed::GetInstance();
 
-	for (int nCnt = 0; nCnt < BaseFeed->GetFeedArraySize(); nCnt++)
+	for (int nCnt = 0; nCnt < instance->GetFeedArraySize(); nCnt++)
 	{
 		// 各餌の要素を取得する
-		auto Feed = BaseFeed->GetFeedIdx(nCnt);
+		auto Feed = instance->GetFeedIdx(nCnt);
 
 		// 有効なら
 		if (Colision(Feed->GetCollider()))

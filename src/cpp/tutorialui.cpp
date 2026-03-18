@@ -20,7 +20,7 @@
 //*********************************************************
 namespace TutorialUi
 {
-	const D3DXVECTOR3 DestPos = { 1080.0f,80.0f,0.0f };
+	const D3DXVECTOR3 DestPos = { 1080.0f,110.0f,0.0f }; // ñ⁄ìIç¿ïW
 };
 
 //=========================================================
@@ -101,8 +101,6 @@ void CTutorialUi::Update(void)
 		{
 			m_fAlpha = 0.0f;
 			SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, m_fAlpha));
-			m_isActive = false;
-			return;
 		}
 	}
 
@@ -114,7 +112,7 @@ void CTutorialUi::Update(void)
 	{
 		pos.x -= Config::MOVE;
 
-		if (pos.x < TutorialUi::DestPos.x)
+		if (pos.x <= TutorialUi::DestPos.x)
 		{
 			pos.x = TutorialUi::DestPos.x;
 			SetPos(pos);

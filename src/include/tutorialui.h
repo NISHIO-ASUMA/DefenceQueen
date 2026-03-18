@@ -48,8 +48,8 @@ public:
 	/// <returns></returns>
 	static CTutorialUi* Create
 	(
-		const D3DXVECTOR3& pos, 
-		const float& fWidth, 
+		const D3DXVECTOR3& pos,
+		const float& fWidth,
 		const float& fHeight,
 		const char * pFileName
 	);
@@ -61,13 +61,12 @@ private:
 	//******************************
 	struct Config
 	{
-		static constexpr float MOVE = 1.5f;			// 移動量
-		static constexpr float DECALPHA = 0.05f;	// α値減少量
+		static constexpr float MOVE = 2.0f;			// 移動量
+		static constexpr float DECALPHA = 0.03f;	// α値減少量
 	};
 
 	bool m_isAlpha;		// 透明になったかどうか
 	bool m_isActive;	// 使用中かどうか
 	bool m_isCheck;		// セットポイントについたかどうか
-
 	float m_fAlpha;		// 透明度
 };

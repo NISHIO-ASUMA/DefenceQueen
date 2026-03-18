@@ -27,7 +27,6 @@ class CEnemyManager
 {
 public:
 
-	CEnemyManager();
 	~CEnemyManager();
 
 	HRESULT Init(void);
@@ -61,19 +60,28 @@ public:
 	/// <param name="pEnemy">敵のポインタ</param>
 	void Erase(CEnemy* pEnemy);
 
+	/// <summary>
+	/// インスタンス取得処理
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
+	static 	CEnemyManager* GetInstance(void);
+
 private:
+
+	CEnemyManager();
 
 	//*******************************
 	// 定数構造体宣言
 	//*******************************
 	struct Config
 	{
-		static constexpr int NUM_ENEMY = 100;		// 最大数
-		static constexpr int LIFE = 1;				// 体力値
-		static constexpr int SPAWM_INTERBAL = 10;	// 生成インターバル
-		static constexpr int RANDOM_VALUE_MAX = 20; // 生成ランダム最大値
-		static constexpr int RANDOM_VALUE_MIN = 5; // 生成ランダム最小値
-		static constexpr float SPEED = 3.0f;		// 移動速度
+		static constexpr int NUM_ENEMY			= 100;		// 最大数
+		static constexpr int LIFE				= 1;		// 体力値
+		static constexpr int SPAWM_INTERBAL		= 10;		// 生成インターバル
+		static constexpr int RANDOM_VALUE_MAX	= 20;		// 生成ランダム最大値
+		static constexpr int RANDOM_VALUE_MIN	= 5;		// 生成ランダム最小値
+		static constexpr float SPEED			= 3.0f;		// 移動速度
 	};
 
 	std::vector<CEnemy*>m_pEnemys;	// 敵の動的配列

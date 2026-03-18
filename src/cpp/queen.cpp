@@ -30,7 +30,6 @@
 //=========================================================
 CQueen::CQueen(int nPriority) : CNoMoveCharactor(nPriority),
 m_pSphereCollider(nullptr),
-m_pMotion(nullptr),
 m_pParameter(nullptr),
 m_pStateMachine(nullptr),
 m_pLoad(nullptr),
@@ -89,9 +88,6 @@ HRESULT CQueen::Init(void)
 	m_pSphereCollider = std::make_unique<CSphereCollider>();
 	m_pSphereCollider->SetPos(GetPos());
 	m_pSphereCollider->SetRadius(QueenInfo::HitRange);
-
-	// モーション取得
-	m_pMotion = CNoMoveCharactor::GetMotion();
 
 	// 使用する
 	SetIsUse(true);

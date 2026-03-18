@@ -192,6 +192,7 @@
     <ClCompile Include="src\cpp\createjsonmeshfield.cpp" />
     <ClCompile Include="src\cpp\createjsonnomove.cpp" />
     <ClCompile Include="src\cpp\createjsonui.cpp" />
+    <ClCompile Include="src\cpp\createjsonwall.cpp" />
     <ClCompile Include="src\cpp\debugproc.cpp" />
     <ClCompile Include="src\cpp\easing.cpp" />
     <ClCompile Include="src\cpp\effect.cpp" />
@@ -224,7 +225,6 @@
     <ClCompile Include="src\cpp\gamemanager.cpp" />
     <ClCompile Include="src\cpp\gamesceneobject.cpp" />
     <ClCompile Include="src\cpp\gamestate.cpp" />
-    <ClCompile Include="src\cpp\gamewallmanager.cpp" />
     <ClCompile Include="src\cpp\gamewallmodel.cpp" />
     <ClCompile Include="src\cpp\gauge.cpp" />
     <ClCompile Include="src\cpp\input.cpp" />
@@ -306,7 +306,6 @@
     <ClCompile Include="src\cpp\titleantmanager.cpp" />
     <ClCompile Include="src\cpp\titlemanager.cpp" />
     <ClCompile Include="src\cpp\titleobject.cpp" />
-    <ClCompile Include="src\cpp\titlewallmanager.cpp" />
     <ClCompile Include="src\cpp\topant.cpp" />
     <ClCompile Include="src\cpp\tutoarrayant.cpp" />
     <ClCompile Include="src\cpp\tutorial.cpp" />
@@ -322,6 +321,7 @@
     <ClCompile Include="src\cpp\waitorderleaf.cpp" />
     <ClCompile Include="src\cpp\workerstatebase.cpp" />
     <ClCompile Include="src\cpp\workerstateneutral.cpp" />
+    <ClCompile Include="src\cpp\worldwallmanager.cpp" />
     <ClCompile Include="src\cpp\xfilemanager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -356,6 +356,7 @@
     <ClInclude Include="src\include\createjsonmeshfield.h" />
     <ClInclude Include="src\include\createjsonnomove.h" />
     <ClInclude Include="src\include\createjsonui.h" />
+    <ClInclude Include="src\include\createjsonwall.h" />
     <ClInclude Include="src\include\debugproc.h" />
     <ClInclude Include="src\include\decorator.h" />
     <ClInclude Include="src\include\easing.h" />
@@ -390,7 +391,6 @@
     <ClInclude Include="src\include\gamesceneobject.h" />
     <ClInclude Include="src\include\gamestate.h" />
     <ClInclude Include="src\include\gametime.h" />
-    <ClInclude Include="src\include\gamewallmanager.h" />
     <ClInclude Include="src\include\gamewallmodel.h" />
     <ClInclude Include="src\include\gauge.h" />
     <ClInclude Include="src\include\input.h" />
@@ -478,7 +478,6 @@
     <ClInclude Include="src\include\titleantmanager.h" />
     <ClInclude Include="src\include\titlemanager.h" />
     <ClInclude Include="src\include\titleobject.h" />
-    <ClInclude Include="src\include\titlewallmanager.h" />
     <ClInclude Include="src\include\topant.h" />
     <ClInclude Include="src\include\tutoarrayant.h" />
     <ClInclude Include="src\include\tutorial.h" />
@@ -494,6 +493,7 @@
     <ClInclude Include="src\include\ui.h" />
     <ClInclude Include="src\include\workerstatebase.h" />
     <ClInclude Include="src\include\workerstateneutral.h" />
+    <ClInclude Include="src\include\worldwallmanager.h" />
     <ClInclude Include="src\include\xfilemanager.h" />
   </ItemGroup>
   <ItemGroup>

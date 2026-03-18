@@ -59,7 +59,14 @@ CBaseMapFeed::CBaseMapFeed() : m_pBaseFeeds{}
 //=========================================================
 CBaseMapFeed::~CBaseMapFeed()
 {
-	Uninit();
+}
+//=========================================================
+// ƒVƒ“ƒOƒ‹ƒgƒ“æ“¾ˆ—
+//=========================================================
+CBaseMapFeed* CBaseMapFeed::GetInstance(void)
+{
+	static CBaseMapFeed Instance;
+	return &Instance;
 }
 //=========================================================
 // ‰Šú‰»ˆ—

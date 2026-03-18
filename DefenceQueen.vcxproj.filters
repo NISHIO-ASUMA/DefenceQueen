@@ -241,9 +241,6 @@
     <Filter Include="ヘッダー ファイル\State\Worker">
       <UniqueIdentifier>{b342d1c0-e1b9-4e90-ba94-d61c9f08632d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Charactor\Worker">
-      <UniqueIdentifier>{0eb2ba27-7e22-45ef-a380-9d87afc76920}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Mesh">
       <UniqueIdentifier>{a2b0f7d6-bb19-4b22-858f-354099a99d86}</UniqueIdentifier>
     </Filter>
@@ -585,9 +582,6 @@
     <ClCompile Include="src\cpp\eventareamanager.cpp">
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\gamewallmanager.cpp">
-      <Filter>ソース ファイル\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="src\cpp\modelmanager.cpp">
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
@@ -595,9 +589,6 @@
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\resultscoremanager.cpp">
-      <Filter>ソース ファイル\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\titlewallmanager.cpp">
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\xfilemanager.cpp">
@@ -833,6 +824,12 @@
     </ClCompile>
     <ClCompile Include="src\cpp\tutorialstatefeedorder.cpp">
       <Filter>ソース ファイル\State\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\createjsonwall.cpp">
+      <Filter>ソース ファイル\JsonUtilty\Sepalationclass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\worldwallmanager.cpp">
+      <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1079,13 +1076,7 @@
     <ClInclude Include="src\include\xfilemanager.h">
       <Filter>ヘッダー ファイル\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\titlewallmanager.h">
-      <Filter>ヘッダー ファイル\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\resultscoremanager.h">
-      <Filter>ヘッダー ファイル\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\gamewallmanager.h">
       <Filter>ヘッダー ファイル\Manager</Filter>
     </ClInclude>
     <ClInclude Include="src\include\eventareamanager.h">
@@ -1345,6 +1336,12 @@
     </ClInclude>
     <ClInclude Include="src\include\tutorialstatefeedorder.h">
       <Filter>ヘッダー ファイル\State\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\createjsonwall.h">
+      <Filter>ヘッダー ファイル\JsonUtility\Sepalation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\worldwallmanager.h">
+      <Filter>ヘッダー ファイル\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -19,7 +19,6 @@
 // 前方宣言
 //*********************************************************
 class CBlockManager;
-class CEnemyManager;
 class CGameTime;
 class CEnemy;
 class CArrayManager;
@@ -29,9 +28,8 @@ class CEnemySpawner;
 class CScore;
 class CEnemySpawnManager;
 class CEnemyManager;
-class CGameWallManager;
 class CTopAnt;
-class CBaseMapFeed;
+class CWorldWallManager;
 
 //*********************************************************
 // ゲームシーンで使うオブジェクト管理クラスを定義
@@ -55,14 +53,17 @@ public:
 	CTopAnt* GetTopAnt(void) const { return m_pTopAnt; }
 
 	CEnemySpawner* GetEnemySpawn(void) const { return m_pSpawn.get(); }
-	CBaseMapFeed* GetBaseMapFeed(void) const { return m_pBasemapFeed.get(); }
-	CGameWallManager* GetGameWall(void) const { return m_pWallManager.get(); }
-	CEnemyManager* GetEnemyManager(void) const { return m_pEnemyManager.get(); }
 	CBlockManager* GetBlockManager(void) const { return m_pBlocks.get(); }
 	CArrayManager* GetArrayManager(void) const { return m_pArrayManager.get(); }
 	CArraySpawnManager* GetArraySpawn(void) const { return m_pArraySpawn.get(); }
+	CWorldWallManager* GetWorldWall(void)const { return m_pWorldWallManager.get(); }
 	CEnemySpawnManager* GetEnemySpawnManager(void) const { return m_pEnemySpawnManager.get(); }
 
+	/// <summary>
+	/// インスタンス取得処理
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
 	static CGameSceneObject* GetInstance(void);
 
 private:
@@ -82,7 +83,5 @@ private:
 	std::unique_ptr<CEnemySpawner>m_pSpawn;					// スポーン管理クラス
 	std::unique_ptr<CArraySpawnManager>m_pArraySpawn;		// 仲間スポーン管理クラス
 	std::unique_ptr<CEnemySpawnManager>m_pEnemySpawnManager;// 敵スポーン管理
-	std::unique_ptr<CEnemyManager>m_pEnemyManager;			// 敵管理クラス
-	std::unique_ptr<CGameWallManager>m_pWallManager;		// ゲームの壁管理
-	std::unique_ptr<CBaseMapFeed>m_pBasemapFeed;			// マップの標準の餌管理クラス
+	std::unique_ptr<CWorldWallManager>m_pWorldWallManager;	// 世界の壁管理クラスのポインタ
 };

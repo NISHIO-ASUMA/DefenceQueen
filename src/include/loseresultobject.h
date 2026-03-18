@@ -22,6 +22,11 @@ public:
 	HRESULT Init(void);
 	void Uninit(void);
 
+	/// <summary>
+	/// インスタンス取得処理
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
 	static CLoseResultObject* GetInstance(void);
 
 private:

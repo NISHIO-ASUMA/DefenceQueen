@@ -26,25 +26,26 @@
 #include "enemyspawnmanager.h"
 #include "enemymanager.h"
 #include "gamemanager.h"
-#include "gamewallmanager.h"
 #include "eventareamanager.h"
 #include "basemapfeed.h"
 #include "jsonmanager.h"
+#include "worldwallmanager.h"
 
 //*********************************************************
 // 静的メンバ変数
 //*********************************************************
-CGameSceneObject* CGameSceneObject::m_pInstance = nullptr; // シングルトン変数
+CGameSceneObject* CGameSceneObject::m_pInstance = nullptr;			// シングルトン変数
 
 //*********************************************************
 // 定数名前空間
 //*********************************************************
 namespace GAMEOBJECT
 {
-	const D3DXVECTOR3 TimerPos = { 1020.0f,60.0f,0.0f };	// タイマーの座標
-	const D3DXVECTOR3 TopAntPos = { 0.0f, 0.0f, -450.0f };	// 操作アリの座標
-	const D3DXVECTOR3 QueenPos = { 0.0f, 55.0f, 0.0f };		// 女王アリの座標
-	constexpr const char* LoadName = "data/JSON/Gameobject.json"; // 読み込みjsonファイル名
+	const D3DXVECTOR3 TimerPos		= { 1020.0f,60.0f,0.0f };		// タイマーの座標
+	const D3DXVECTOR3 TopAntPos		= { 0.0f, 0.0f, -450.0f };		// 操作アリの座標
+	const D3DXVECTOR3 QueenPos		= { 0.0f, 55.0f, 0.0f };		// 女王アリの座標
+	constexpr const char* LoadName	= "data/JSON/Gameobject.json";	// 読み込みjsonファイル名
+	constexpr const char* WallName	= "data/JSON/GameWall.json";	// 読み込みjsonファイル名
 };
 
 //=========================================================
@@ -59,9 +60,9 @@ m_pSpawn(nullptr),
 m_pArraySpawn(nullptr),
 m_pTopAnt(nullptr),
 m_pEnemySpawnManager(nullptr),
-m_pEnemyManager(nullptr),
-m_pWallManager(nullptr)
+m_pWorldWallManager(nullptr)
 {
+
 }
 //=========================================================
 // デストラクタ
@@ -96,6 +97,9 @@ HRESULT CGameSceneObject::Init(void)
 	// 各種ポインタクラスの生成
 	CreatePointer();
 
+	// 敵管理クラスの生成
+	CEnemyManager::GetInstance()->Init();
+
 	// スコア初期化
 	m_pScore->DeleteScore();
 
@@ -106,7 +110,7 @@ HRESULT CGameSceneObject::Init(void)
 //=========================================================
 void CGameSceneObject::Uninit(void)
 {
-	// 配置オブジェクトクラスの破棄
+	// ブロック管理クラスの破棄
 	m_pBlocks.reset();
 
 	// 仲間アリの破棄
@@ -121,14 +125,14 @@ void CGameSceneObject::Uninit(void)
 	// 敵のスポナー管理クラス
 	m_pEnemySpawnManager.reset();
 
-	// 敵管理の破棄
-	m_pEnemyManager.reset();
-
 	// 世界の壁の破棄
-	m_pWallManager.reset();
+	m_pWorldWallManager.reset();
 
-	// マップの餌
-	m_pBasemapFeed.reset();
+	// 敵管理クラスの破棄
+	CEnemyManager::GetInstance()->Uninit();
+
+	// マップ標準の餌の破棄
+	CBaseMapFeed::GetInstance()->Uninit();
 
 	// イベント破棄
 	CEventAreaManager::GetInstance()->Uninit();
@@ -157,11 +161,8 @@ void CGameSceneObject::Update(void)
 		m_pArraySpawn->Update();
 	}
 
-	// 敵の更新
-	if (m_pEnemyManager)
-	{
-		//m_pEnemyManager->Update();
-	}
+	//// 敵管理クラスの更新
+	//CEnemyManager::GetInstance()->Update();
 
 	// イベント更新
 	CEventAreaManager::GetInstance()->Update();
@@ -212,17 +213,13 @@ void CGameSceneObject::CreatePointer(void)
 	m_pBlocks = std::make_unique<CBlockManager>();
 	auto jsonManager = CManager::GetInstance()->GetJsonManager();
 	jsonManager->SetBlockManager(m_pBlocks.get());
-
-	// ブロックマネージャー初期化
 	m_pBlocks->Init();
-	m_pBlocks->Load();
 
 	// タイマー生成
 	m_pTimer = CGameTime::Create(GAMEOBJECT::TimerPos);
 
 	// マップの標準の餌生成
-	m_pBasemapFeed = std::make_unique<CBaseMapFeed>();
-	m_pBasemapFeed->Init();
+	CBaseMapFeed::GetInstance()->Init();
 
 	// 仲間アリの大軍を生成
 	m_pArrayManager = std::make_unique<CArrayManager>();
@@ -242,12 +239,8 @@ void CGameSceneObject::CreatePointer(void)
 	// スコア生成
 	m_pScore = CScore::Create(VECTOR3_NULL);
 
-	// 敵管理クラスの生成
-	m_pEnemyManager = std::make_unique<CEnemyManager>();
-	m_pEnemyManager->Init();
-
 	// 世界の壁管理クラスの生成
-	m_pWallManager = std::make_unique<CGameWallManager>();
-	m_pWallManager->Init();
-
+	m_pWorldWallManager = std::make_unique<CWorldWallManager>();
+	jsonManager->SetWorldWallManager(m_pWorldWallManager.get());
+	m_pWorldWallManager->Init(GAMEOBJECT::WallName);
 }
