@@ -209,11 +209,12 @@ void CBillboard::Draw(void)
 
 	// 向きを反映
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 
 	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+
+	// 行列計算
+	m_mtxWorld = mtxRot * mtxTrans;
 
 	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
@@ -299,7 +300,6 @@ void CBillboard::SetAnim(const int nMaxPattern,const int nMaxAnimCount,float fTe
 	if (m_nCountAnim >= nMaxAnimCount)
 	{
 		m_nCountAnim = NULL;	// カウンターを初期値に戻す
-
 		m_nPatterAnim++;		// パターンナンバーを更新
 
 		// テクスチャ座標更新
@@ -309,7 +309,7 @@ void CBillboard::SetAnim(const int nMaxPattern,const int nMaxAnimCount,float fTe
 	// パターンナンバーが最大値より大きくなった時
 	if (m_nPatterAnim > nMaxPattern)
 	{
-		m_nPatterAnim = NULL;		// パターンナンバーを初期値に戻す
+		m_nPatterAnim = NULL;	// パターンナンバーを初期値に戻す
 	}
 }
 //=========================================================
@@ -338,7 +338,7 @@ void CBillboard::Flash(const int nMaxFlashTime, const int Digittime)
 		// カラーセット
 		SetCol(col);
 	}
-	else if (m_FlashCount == nMaxFlashTime)	// 最大継続時間と一致したとき
+	else if (m_FlashCount == nMaxFlashTime)	
 	{
 		// 頂点カラーの設定
 		col = COLOR_WHITE;

@@ -60,7 +60,7 @@ HRESULT CTutorialManager::Init(void)
 	if (pSound == nullptr) return E_FAIL;
 
 	// ƒTƒEƒ“ƒhÄ¶
-	//pSound->Play(CSound::SOUND_LABEL_TUTORIALBGM);
+	pSound->Play(CSound::SOUND_LABEL_TUTORIALBGM);
 
 	return S_OK;
 }

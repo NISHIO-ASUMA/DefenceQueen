@@ -81,7 +81,7 @@ int CTexture::Register(const char* pFileName)
 	if (!pFileName) return -1;
 
 	// すでにあるかチェック
-	for (int nCnt = 0; nCnt < m_pTextures.size(); nCnt++)
+	for (int nCnt = 0; nCnt < static_cast<int>(m_pTextures.size()); nCnt++)
 	{
 		// 登録されているならインデックスを返す
 		if (m_pTextures[nCnt].TexName == pFileName)

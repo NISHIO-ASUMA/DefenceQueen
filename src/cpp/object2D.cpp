@@ -312,7 +312,7 @@ void CObject2D::SetCenter(void)
 	pVtx[0].col =
 	pVtx[1].col =
 	pVtx[2].col =
-	pVtx[3].col = D3DXCOLOR(m_col);
+	pVtx[3].col = m_col;
 
 	//テクスチャ座標の設定
 	pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
@@ -388,7 +388,7 @@ void CObject2D::SetRight(void)
 	pVtx[0].col =
 	pVtx[1].col =
 	pVtx[2].col =
-	pVtx[3].col = D3DXCOLOR(m_col);
+	pVtx[3].col = m_col;
 
 	//テクスチャ座標の設定
 	pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);

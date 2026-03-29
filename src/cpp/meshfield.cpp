@@ -153,7 +153,7 @@ HRESULT CMeshField::Init(void)
 	// インデックスバッファのロック
 	m_pIdx->Lock(0, 0, (void**)&pIdx, 0);
 
-	WORD IndxNum = m_MeshFiled.nNumX + 1;// X
+	WORD IndxNum = static_cast<WORD>(m_MeshFiled.nNumX + 1);// X
 	WORD IdxCnt = 0;// 配列
 	WORD Num = 0;
 
@@ -258,7 +258,7 @@ void CMeshField::Update(void)
 	// インデックスバッファのロック
 	m_pIdx->Lock(0, 0, (void**)&pIdx, 0);
 
-	WORD IndxNum = m_MeshFiled.nNumX + 1;// X
+	WORD IndxNum = static_cast<WORD>(m_MeshFiled.nNumX + 1);// X
 
 	WORD IdxCnt = 0;// 配列
 

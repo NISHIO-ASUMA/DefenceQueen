@@ -170,7 +170,7 @@ void CObjectX::Draw(void)
 			int texIdx = model.pTexture[nCnt];
 
 			// テクスチャセット
-			pDevice->SetTexture(0, (texIdx >= 0) ? pTex->GetAddress(texIdx) : nullptr);
+			pDevice->SetTexture(0, (texIdx >= NULL) ? pTex->GetAddress(texIdx) : nullptr);
 
 			// モデルの描画
 			model.pMesh->DrawSubset(nCnt);
