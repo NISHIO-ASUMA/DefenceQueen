@@ -138,12 +138,13 @@ public:
 	inline CSeparationAnt* GetSeparationAnt(void) { return m_pSeparationListAnt.get(); }
 
 	/// <summary>
-	/// 生成関数
+	/// 生成処理
 	/// </summary>
-	/// <param name="pos">出現座標</param>
+	/// <param name="pos">生成座標</param>
 	/// <param name="nMaxArray">最大保持数</param>
 	/// <param name="pManager">管理クラスのポインタ</param>
-	/// <param name="MovePos">アリの移動先座標</param>
+	/// <param name="MovePos">移動先座標</param>
+	/// <param name="nSepalations">分割数</param>
 	/// <returns></returns>
 	static CArraySpawner* Create
 	(
@@ -170,9 +171,10 @@ private:
 	};
 
 	D3DXVECTOR3 m_SpawnBasePos;				// スポーンのベース座標
-	std::vector<CArray*> m_AssignedArrays;	// 自分の担当アリ
+	std::vector<CArray*>m_AssignedArrays;	// 自分の担当アリ
 	std::vector<CArray*>m_ReturnAntList;	// 帰ってきたアリたちの配列
 	std::unique_ptr<CSeparationAnt>m_pSeparationListAnt;	// 分隊を管理するポインタ
+
 	int m_nStockArrays;						// 1スポナーが保持できるアリの数
 	int m_nMySpawnIndexList;				// 自分のスポナーのインデックス
 	int m_nActiveCount;						// アクティブになるカウント

@@ -21,7 +21,8 @@
 //=========================================================
 CEventArea::CEventArea(int nPriority) : CObject3D(nPriority),
 m_isDraw(false),
-m_pBoxCollider(nullptr)
+m_pBoxCollider(nullptr),
+m_nIdx(-1)
 {
 
 }

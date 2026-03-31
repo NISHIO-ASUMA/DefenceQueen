@@ -24,8 +24,8 @@
 namespace EventManager
 {
 	constexpr int NUMPATH = 3;				// モデルの種類
-	constexpr int NUM_ACTIVEPOS = 4;		// イベントが起きる場所の数
 	constexpr float COLLISIONRANGE = 65.0f; // 餌の衝突判定半径
+	constexpr int ACTIVEPOS = 4;
 
 	const char* MODEL_NAME[NUMPATH]			// モデルパス配列	
 	{
@@ -34,23 +34,23 @@ namespace EventManager
 		"FEED/Solt.x"
 	};
 
-	const D3DXVECTOR3 EventPos[NUM_ACTIVEPOS] // 出現座標の値
+	const D3DXVECTOR3 EventPos[ACTIVEPOS] // 出現座標の値
 	{
-		{ 585.0f, 0.0f,-390.0f},
+		{ 0.0f, 0.0f,-390.0f},
 		{ 435.0f,0.0f, 30.0f},
 		{-530.0f,0.0f, -45.0f},
 		{ -5.0f, 0.0f, 400.0f}
 	};
 
-	const D3DXVECTOR3 EventFeedPos[NUM_ACTIVEPOS] // 出現餌の座標の値
+	const D3DXVECTOR3 EventFeedPos[ACTIVEPOS] // 出現餌の座標の値
 	{
-		{ 605.0f, 0.0f,-420.0f},
+		{ 0.0f, 0.0f, -360.0f},
 		{ 525.0f,0.0f,  30.0f},
 		{-600.0f,0.0f, -45.0f},
 		{ -35.0f,0.0f, 410.0f}
 	};
 
-	const int RANDOMHP[NUM_ACTIVEPOS] // 体力値配列
+	const int RANDOMHP[ACTIVEPOS] // 体力値配列
 	{
 		10,
 		20,
@@ -96,6 +96,12 @@ void CEventAreaManager::Uninit(void)
 	// 配列をクリア
 	m_pAreas.clear();
 	m_pFeeds.clear();
+
+	// フラグリセット
+	for (int nCnt = 0; nCnt < NUM_ACTIVEPOS; nCnt++)
+	{
+		m_isActivePos[nCnt] = false;
+	}
 }
 //=========================================================
 // 更新処理
@@ -109,30 +115,36 @@ void CEventAreaManager::Update(void)
 	const auto& Time = CGameSceneObject::GetInstance()->GetTime();
 	int nTime = Time->GetToAll();
 
-	// ランダム値を生成
-	int nRand = rand() % NUM_ACTIVEPOS;
-	int nPathRand = rand() % NUMPATH;
-
 	// 総ゲーム時間から計算
 	if (nTime % 5 == 0 && nTime != m_nLastEventTime)
 	{
-		// ランダムな座標
-		D3DXVECTOR3 ActivePos = EventPos[nRand];
+		// 全ての場所が埋まっていないか確認
+		if (m_pAreas.size() >= NUM_ACTIVEPOS) return;
 
-		// 判定エリアと餌を生成
-		CEventArea * area = CEventArea::Create(ActivePos);
-		CFeed * feed = CFeed::Create(EventFeedPos[nRand], VECTOR3_NULL, INITSCALE, MODEL_NAME[nPathRand], COLLISIONRANGE, RANDOMHP[nRand]);
+		// 空いているインデックスをランダムに決定
+		int nRand;
+		do 
+		{
+			nRand = rand() % NUM_ACTIVEPOS;
+		} while (m_isActivePos[nRand] == true); // すでに使われていたらやり直し
 
-		// オーナーに設定
+		// モデルパスを設定
+		int nPathRand = rand() % NUMPATH;
+
+		CEventArea* area = CEventArea::Create(EventPos[nRand]);
+		CFeed* feed = CFeed::Create(EventFeedPos[nRand], VECTOR3_NULL, INITSCALE, MODEL_NAME[nPathRand], COLLISIONRANGE, RANDOMHP[nRand]);
+
+		// インデックスを保存しておく
+		area->SetIdx(nRand);
+
+		// 配列に追加する
 		feed->SetOwnerArea(area);
-
-		// 餌イベントの配列に追加
 		m_pAreas.push_back(area);
-
-		// 餌オブジェクトを配置する
 		m_pFeeds.push_back(feed);
 
-		// 出現時間変更
+		// 使用中フラグを立てる
+		m_isActivePos[nRand] = true;
+
 		m_nLastEventTime = nTime;
 	}
 }
@@ -141,6 +153,18 @@ void CEventAreaManager::Update(void)
 //=========================================================
 void CEventAreaManager::Erase(CEventArea* pArea)
 {
+	// nullなら
+	if (pArea == nullptr) return;
+
+	// インデックス取得
+	int nIdx = pArea->GetIdx();
+
+	if (nIdx >= 0 && nIdx < NUM_ACTIVEPOS)
+	{
+		// 生成場所のフラグを無効化する
+		m_isActivePos[nIdx] = false; 
+	}
+
 	// 削除処理
 	auto DeleteDestObj = std::find(m_pAreas.begin(), m_pAreas.end(), pArea);
 

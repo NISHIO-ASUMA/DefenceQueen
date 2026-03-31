@@ -1,6 +1,6 @@
 //===================================================================
 //
-// 基地に帰還する末端ノード処理 [ returnnestleaf.cpp ]
+// イベント餌取得に関する判別末端ノード処理 [ eventfeedgetleaf.cpp ]
 // Author: Asuma Nishio
 //
 //===================================================================
@@ -8,7 +8,7 @@
 //*******************************************************************
 // クラス定義ヘッダーファイル
 //*******************************************************************
-#include "returnnestleaf.h"
+#include "eventfeedgetleaf.h"
 
 //*******************************************************************
 // インクルードファイル
@@ -16,19 +16,25 @@
 #include "array.h"
 
 //===================================================================
-// 基地に帰還する末端ノードの更新処理
+// 更新処理
 //===================================================================
-void CReturnNestLeaf::Update(void)
+void CEventFeedGetLeaf::Update(void)
 {
-	// アリを取得
-	const auto& Array = m_pBlackBoard->GetValue<CArray*>("Array");
-	if (!Array) m_Result = NodeInfo::NodeResult::Re_FAIL;
-	
-	// 基地に帰る関数を設定
-	Array->SpawnReturn();
+	// キャラクター取得
+	const auto& Ant = m_pBlackBoard->GetValue<CArray*>("Array");
 
-	// 到着判定
-	if (Array->GetIsAtBase())
+	// イベントの餌とのコリジョン関数
+	Ant->CollisionEventFeed();
+
+	// フラグ格納変数
+	bool IsReturn = false;
+
+	// キー情報が見つかったら判別フラグを取得
+	if (m_pBlackBoard->HasKeyData("ReturnSpawn"))
+		IsReturn = m_pBlackBoard->GetValue<bool>("ReturnSpawn");
+
+	// ノード結果を設定する
+	if (IsReturn)
 		m_Result = NodeInfo::NodeResult::Re_SUCCESS;
 	else
 		m_Result = NodeInfo::NodeResult::Re_RUNING;

@@ -49,6 +49,19 @@ public:
 		MOTION_MAX
 	};
 
+	//******************************
+	// 行動分岐の状態遷移クラス
+	//******************************
+	enum class ARRAY_STATE
+	{
+		NORMAL,		// 自律的に餌を探す（命令を受けていない）
+		FOLLOW,		// トップのアリ（黄色）に追従している
+		ASSAULT,	// ターゲット（餌）に向かって移動している
+		RETURN,		// 自身の出現ポイント（基地）に向かっている
+		MAX
+	};
+
+
 	CArray(int nPriority = static_cast<int>(CObject::PRIORITY::CHARACTOR));
 	~CArray();
 
@@ -63,7 +76,8 @@ public:
 	void ArrayFollow(void);
 	void SpawnReturn(void);
 	void NodeSetting(void);
-	
+	void MoveDest(void);
+
 	bool Colision(CSphereCollider* other);
 	void CollsionAll(void);
 	void CollisionEnemy(void);
@@ -84,12 +98,17 @@ public:
 	inline void SetActive(bool isFlags) { m_isActive = isFlags; }
 	inline void SetIsMove(bool isMove) { m_isMove = isMove; }
 	inline void SetTopFollow(bool isFollow) { m_isTopAntFollow = isFollow; }
-	inline void SetReturnSpawn(const bool& isReturn) { m_isReturn = isReturn; }
+	inline void SetReturnSpawn(const bool& isReturn);
 	inline void SetAtBase(const bool& isBase) { m_isAtBase = isBase; }
 	inline void SetIsStop(const bool& isStop) { m_isStop = isStop; }
+	inline void SetEnumState(ARRAY_STATE valuestate);
+
 
 	inline D3DXVECTOR3 GetActivePos(void) const { return m_ActivePos; }
+	inline D3DXVECTOR3 GetSavePos(void) const { return m_SaveDestPos; }
+
 	inline CExtractAntSignal* GetSignal(void) { return m_pAntSignal; }
+	inline ARRAY_STATE GetState(void) const { return m_State; }
 
 	inline bool GetActive(void) const { return m_isActive; }
 	inline bool GetMove(void) const { return m_isMove; }
@@ -122,9 +141,10 @@ private:
 	struct Arrayinfo
 	{
 		static constexpr float MoveSpeed	  = 2.5f;	// 移動速度
+		static constexpr float TopFollowSpeed = 3.5f;	// 追従速度
 		static constexpr float SphereRange	  = 60.0f;	// 球形範囲
 		static constexpr float ARRAY_DISTANCE = 80.0f;	// 仲間アリとの距離
-		static constexpr float TOP_DISTANCE	  = 60.0f;	// 先頭のアリとの距離
+		static constexpr float TOP_DISTANCE	  = 300.0f;	// 先頭のアリとの距離
 		static constexpr float STOP_DISTANCE  = 10.0f;	// 停止距離
 
 		static constexpr int SCORE_UP		  = 1500;	// スコアの加算量
@@ -132,6 +152,8 @@ private:
 		static constexpr int Damage			  = 1;		// ダメージ値
 		static constexpr const char* SCRIPT	  = "data/MOTION/Array/Array_Motion.txt"; // モーションスクリプトファイル
 	};
+
+private:
 
 	int m_nListGroupId;					// 自身が動いているidのリスト番号
 	int m_nStopCount;					// ストップカウント
@@ -159,4 +181,6 @@ private:
 
 	CArray* m_pFollowTarget;			// 一個前の自身のポインタ
 	CTopAnt* m_pTopAnt;					// 追従対象のトップアリのポインタ
+
+	ARRAY_STATE m_State;				// 状態管理クラス
 };

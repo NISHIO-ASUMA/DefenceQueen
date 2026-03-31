@@ -101,10 +101,10 @@ HRESULT CTopAnt::Init(void)
 	m_pCircleObj = CCircle3D::Create(GetPos(), VECTOR3_NULL, m_fSeparationRadius, 3.0f, 0.0f);
 
 	// 切り離しui生成
-	m_pSeparationSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::OffPosY, GetPos().z),"Sepalation.png");
+	m_pSeparationSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::AddPosY, GetPos().z),"Sepalation.png");
 
 	// 置き配置UI生成
-	m_pPutSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::OffPosY, GetPos().z));
+	m_pPutSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::AddPosY, GetPos().z));
 
 	// 矢印生成
 	m_pPoint = CPointObj::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::OffPosY, GetPos().z), D3DXVECTOR3(-90.0f,0.0f,0.0f));
@@ -126,7 +126,7 @@ void CTopAnt::Uninit(void)
 	CMoveCharactor::Uninit();
 }
 //=========================================================
-// 更新処理
+// BTを持っているアリに命令を出すキャラクター更新処理
 //=========================================================
 void CTopAnt::Update(void)
 {
@@ -253,9 +253,133 @@ void CTopAnt::Draw(void)
 #endif // _DEBUG
 }
 //=========================================================
+// 切り離す範囲を決める関数
+//=========================================================
+void CTopAnt::Separation(void)
+{
+	// 現在座標を取得
+	D3DXVECTOR3 pos = GetPos();
+
+	// 半径加算処理
+	m_fSeparationRadius += Config::Separation;
+
+	// 最大値超過時
+	if (m_fSeparationRadius >= Config::MAX_RADIUS)
+		m_fSeparationRadius = Config::MAX_RADIUS;
+
+	// 拡大されたサイズに設定する
+	SetSeparationRadius(m_fSeparationRadius);
+
+	// オブジェクトのサイズ更新
+	m_pCircleObj->SetPos(pos);
+	m_pCircleObj->SetSize(m_fSeparationRadius, Config::SPEED);
+
+	// サインの座標設定
+	m_pSeparationSign->SetPos(D3DXVECTOR3(pos.x,pos.y + Config::AddPosY,pos.z));
+}
+//=========================================================
+// 矩形の当たり判定処理
+//=========================================================
+bool CTopAnt::Collision(CBoxCollider* pOther, D3DXVECTOR3* pOutPos)
+{
+	// nullチェック
+	if (m_pColliderBox == nullptr) return false;
+
+	return CCollisionBox::Collision(m_pColliderBox.get(), pOther, pOutPos);
+}
+//=========================================================
+// 球形の当たり判定処理
+//=========================================================
+bool CTopAnt::CollisionSphere(CSphereCollider* pOther)
+{
+	// nullなら
+	if (m_pColliderSphere == nullptr) return false;
+	
+	return CCollisionSphere::Collision(m_pColliderSphere.get(), pOther);
+}
+//=========================================================
+// 球と矩形の当たり判定処理
+//=========================================================
+bool CTopAnt::CollisonT(CSphereCollider* pOther)
+{
+	// nullなら
+	if (m_pColliderBox == nullptr) return false;
+
+	return CBoxToSphereCollision::Collision(m_pColliderBox.get(), pOther);
+}
+//=========================================================
+// エリアとの当たり判定
+//=========================================================
+bool CTopAnt::CollisionArea(CArrayManager * pManager)
+{
+	// 入力デバイス取得
+	CJoyPad* pPad = CManager::GetInstance()->GetJoyPad();
+	CInputKeyboard* pKey = CManager::GetInstance()->GetInputKeyboard();
+
+	// エリア判定を取得する
+	auto AreaManagere = CEventAreaManager::GetInstance();
+	if (AreaManagere->GetSize() <= NULL)
+	{
+		// UI表示をオフにする
+		m_pPutSign->SetIsDraw(false);
+
+		// フラグを未使用にする
+		m_isSetPostion = false;
+		return false;
+	}
+
+	// 判別用フラグ
+	bool isHit = false;
+
+	// 最大数と判定をする
+	for (int nCnt = 0; nCnt < AreaManagere->GetSize(); nCnt++)
+	{
+		// 生成されて無かったら
+		if (m_pColliderSphere == nullptr) continue;
+
+		// 配列の各要素を取得
+		auto Area = AreaManagere->GetIdx(nCnt);
+
+		// 当たり判定関数
+		if (Area->Collision(m_pColliderSphere.get()))
+		{
+			// UI表示をする
+			m_pPutSign->SetIsDraw(true);
+
+			// アリ配置フラグを有効化する
+			m_isSetPostion = true;
+
+			// サインの座標設定
+			m_pPutSign->SetPos(D3DXVECTOR3(GetPos().x, GetPos().y + Config::AddPosY, GetPos().z));
+
+			// Enterキー入力 or Aボタン入力で仲間をポイントに置く
+			if (pKey->GetTrigger(DIK_RETURN) || pPad->GetPress(CJoyPad::JOYKEY_A))
+			{
+				// 味方をエリア内に配置
+				pManager->PuttingArea(Area->GetPos());
+			}
+
+			isHit = true;
+			break;
+		}
+	}
+
+	// 当たってないなら
+	if (!isHit)
+	{
+		// UI表示をオフにする
+		m_pPutSign->SetIsDraw(false);
+
+		// フラグを未使用にする
+		m_isSetPostion = false;
+	}
+
+	return isHit;
+}
+//=========================================================
 // キー入力移動
 //=========================================================
-void CTopAnt::Moving(CJoyPad * pPad,CInputKeyboard * pKey)
+void CTopAnt::Moving(CJoyPad* pPad, CInputKeyboard* pKey)
 {
 	// 移動量を取得
 	D3DXVECTOR3 move = GetMove();
@@ -402,11 +526,11 @@ void CTopAnt::Moving(CJoyPad * pPad,CInputKeyboard * pKey)
 	SetRot(rot);
 	SetRotDest(rotdest);
 	SetMove(move);
- }
+}
 //=========================================================
 // パッド入力移動
 //=========================================================
-void CTopAnt::MovePad(CJoyPad * pPad)
+void CTopAnt::MovePad(CJoyPad* pPad)
 {
 	// 移動量を取得
 	D3DXVECTOR3 move = GetMove();
@@ -477,128 +601,4 @@ void CTopAnt::MovePad(CJoyPad * pPad)
 	// 適用
 	SetMove(move);
 	SetRotDest(rotdest);
-}
-//=========================================================
-// 切り離す範囲を決める関数
-//=========================================================
-void CTopAnt::Separation(void)
-{
-	// 現在座標を取得
-	D3DXVECTOR3 pos = GetPos();
-
-	// 半径加算処理
-	m_fSeparationRadius += Config::Separation;
-
-	// 最大値超過時
-	if (m_fSeparationRadius >= Config::MAX_RADIUS)
-		m_fSeparationRadius = Config::MAX_RADIUS;
-
-	// 拡大されたサイズに設定する
-	SetSeparationRadius(m_fSeparationRadius);
-
-	// オブジェクトのサイズ更新
-	m_pCircleObj->SetPos(pos);
-	m_pCircleObj->SetSize(m_fSeparationRadius, Config::SPEED);
-
-	// サインの座標設定
-	m_pSeparationSign->SetPos(D3DXVECTOR3(pos.x,pos.y + Config::OffPosY,pos.z));
-}
-//=========================================================
-// 矩形の当たり判定処理
-//=========================================================
-bool CTopAnt::Collision(CBoxCollider* pOther, D3DXVECTOR3* pOutPos)
-{
-	// nullチェック
-	if (m_pColliderBox == nullptr) return false;
-
-	return CCollisionBox::Collision(m_pColliderBox.get(), pOther, pOutPos);
-}
-//=========================================================
-// 球形の当たり判定処理
-//=========================================================
-bool CTopAnt::CollisionSphere(CSphereCollider* pOther)
-{
-	// nullなら
-	if (m_pColliderSphere == nullptr) return false;
-	
-	return CCollisionSphere::Collision(m_pColliderSphere.get(), pOther);
-}
-//=========================================================
-// 球と矩形の当たり判定処理
-//=========================================================
-bool CTopAnt::CollisonT(CSphereCollider* pOther)
-{
-	// nullなら
-	if (m_pColliderBox == nullptr) return false;
-
-	return CBoxToSphereCollision::Collision(m_pColliderBox.get(), pOther);
-}
-//=========================================================
-// エリアとの当たり判定
-//=========================================================
-bool CTopAnt::CollisionArea(CArrayManager * pManager)
-{
-	// 入力デバイス取得
-	CJoyPad* pPad = CManager::GetInstance()->GetJoyPad();
-	CInputKeyboard* pKey = CManager::GetInstance()->GetInputKeyboard();
-
-	// エリア判定を取得する
-	auto AreaManagere = CEventAreaManager::GetInstance();
-	if (AreaManagere->GetSize() <= NULL)
-	{
-		// UI表示をオフにする
-		m_pPutSign->SetIsDraw(false);
-
-		// フラグを未使用にする
-		m_isSetPostion = false;
-		return false;
-	}
-
-	// 判別用フラグ
-	bool isHit = false;
-
-	// 最大数と判定をする
-	for (int nCnt = 0; nCnt < AreaManagere->GetSize(); nCnt++)
-	{
-		// 生成されて無かったら
-		if (m_pColliderSphere == nullptr) continue;
-
-		// 配列の各要素を取得
-		auto Area = AreaManagere->GetIdx(nCnt);
-
-		// 当たり判定関数
-		if (Area->Collision(m_pColliderSphere.get()))
-		{
-			// UI表示をする
-			m_pPutSign->SetIsDraw(true);
-
-			// アリ配置フラグを有効化する
-			m_isSetPostion = true;
-
-			// サインの座標設定
-			m_pPutSign->SetPos(D3DXVECTOR3(GetPos().x, GetPos().y + 240.0f, GetPos().z));
-
-			// Enterキー入力 or Aボタン入力で仲間をポイントに置く
-			if (pKey->GetTrigger(DIK_RETURN) || pPad->GetPress(CJoyPad::JOYKEY_A))
-			{
-				// 味方をエリア内に配置
-				pManager->PuttingArea(Area->GetPos());
-			}
-
-			isHit = true;
-			break;
-		}
-	}
-
-	// 当たってないなら
-	if (!isHit)
-	{
-		// UI表示をオフにする
-		m_pPutSign->SetIsDraw(false);
-
-		// フラグを未使用にする
-		m_isSetPostion = false;
-	}
-
-	return isHit;
 }

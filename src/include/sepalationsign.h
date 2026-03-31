@@ -47,7 +47,8 @@ private:
 	//******************************
 	struct Config
 	{
-		static constexpr float SIZE = 70.0f; // 描画のサイズ
+		static constexpr float SIZEX = 80.0f; // 描画のサイズ
+		static constexpr float SIZEY = 100.0f; // 描画のサイズ
 	};
 
 	bool m_isDraw;		// 描画フラグ

@@ -53,7 +53,8 @@ public:
 	(
 		const D3DXVECTOR3& pos,
 		const float& fWidth = 60.0f,
-		const float& fHeight = 40.0f);
+		const float& fHeight = 40.0f
+	);
 
 private:
 
@@ -62,13 +63,17 @@ private:
 	//************************************
 	struct Config
 	{
-		static constexpr int DIGIT_TIME			= 2;		  // 桁数
-		static constexpr int NUMTIME			= 90;		  // 最大タイマー
-		static constexpr int CARVETIME			= 60;		  // カウント上限
-		static constexpr int DIVIDE				= 10;		  // 桁分割の値
 		static constexpr float VALUE_WIDTH		= 150.0f;	  // 横幅の増加分
 		static constexpr float VALUE_FLOAT		= 2.0f;		  // ずらす基準値
 		static constexpr const char* TEXNAME	= "time.png"; // テクスチャ名
+		static constexpr int DIGIT_TIME			= 2;		  // 桁数
+		static constexpr int DIVIDE				= 10;		  // 桁分割の値
+		static constexpr int CARVETIME			= 60;		  // カウント上限
+#ifdef _DEBUG
+		static constexpr int NUMTIME			= 600;		  // 最大タイマー
+#else
+		static constexpr int NUMTIME			= 150;		  // 最大タイマー
+#endif // _DEBUG
 	};
 
 	void Second(void);		// 秒計算

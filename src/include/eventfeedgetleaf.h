@@ -1,6 +1,6 @@
 //===================================================================
 //
-// 命令分岐をする判断ノードクラス [ arrayusetoporder.h ]
+// イベント餌取得に関する判別末端ノード処理 [ eventfeedgetleaf.h ]
 // Author: Asuma Nishio
 //
 //===================================================================
@@ -13,21 +13,26 @@
 //*******************************************************************
 // インクルードファイル
 //*******************************************************************
-#include "branchnodebase.h"
+#include "leafnodebase.h"
 
 //*******************************************************************
-// 命令分岐をする判断ノードのクラスを定義
+// イベント餌取得判別末端ノード処理クラスを定義
 //*******************************************************************
-class CArrayUseTopOrder : public CBranchNodeBase
+class CEventFeedGetLeaf : public CLeafNodeBase
 {
 public:
 
-	CArrayUseTopOrder(CBlackBoard* blackboard,CNode * TrueNode,CNode * FalseNode);
-	~CArrayUseTopOrder() = default;
+	CEventFeedGetLeaf(CBlackBoard* blackboard) : CLeafNodeBase(blackboard), m_Result(NodeInfo::NodeResult::Re_RUNING) {};
+	~CEventFeedGetLeaf() = default;
 
-	void Update(void) override;
+	void Update(void);
+
+	NodeInfo::NodeResult get_node_result() const override
+	{
+		// 判別結果を返す
+		return 	m_Result;
+	};
 
 private:
-
-	const bool IsCondition() override;	// 判別関数
+	NodeInfo::NodeResult m_Result; // ノード判別フラグ
 };

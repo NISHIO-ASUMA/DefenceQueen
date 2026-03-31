@@ -247,7 +247,7 @@ void CRenderer::Draw(void)
 		DrawInstancingAll();
 
 		// シーン取得
-		CScene*pScene = CManager::GetInstance()->GetSceneRaw();
+		CScene* pScene = CManager::GetInstance()->GetSceneRaw();
 
 		// シーンの描画
 		if (pScene != nullptr) pScene->Draw();

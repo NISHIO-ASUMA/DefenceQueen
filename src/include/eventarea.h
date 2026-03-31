@@ -43,6 +43,9 @@ public:
 
 	bool Collision(CSphereCollider* pOther);
 
+	void SetIdx(const int& nIdx) { m_nIdx = nIdx; }
+	int GetIdx(void) const { return m_nIdx; }
+
 	/// <summary>
 	/// ポインタ生成処理
 	/// </summary>
@@ -64,5 +67,7 @@ private:
 	};
 
 	std::unique_ptr<CBoxCollider>m_pBoxCollider;	// 矩形のコライダー
+	int m_nIdx;										// 自身のインデックス
 	bool m_isDraw;									// 描画するかどうか
+
 };

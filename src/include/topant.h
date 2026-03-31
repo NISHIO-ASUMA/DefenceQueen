@@ -96,8 +96,8 @@ private:
 		static constexpr float MAX_RADIUS		 = 150.0f;								// 最大範囲
 		static constexpr float NorRot			 = D3DX_PI * 2.0f;						// 回転補正
 		static constexpr float Separation		 = 5.0f;								// 範囲拡大
-		static constexpr float AddPosY			 = 180.0f;								// 高さのオフセット
-		static constexpr float OffPosY			 = 240.0f;								// 矢印の高さのオフセット
+		static constexpr float AddPosY			 = 240.0f;								// 高さのオフセット
+		static constexpr float OffPosY			 = 140.0f;								// 矢印の高さのオフセット
 		static constexpr const char* MOTION_NAME = "data/MOTION/Top/Top_Motion.txt";	// モーションパス
 	};
 

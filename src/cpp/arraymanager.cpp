@@ -189,6 +189,9 @@ void CArrayManager::ApplySeparation(const D3DXVECTOR3& CenterPos, float fRadius)
 
 		if (fDis < fRadius)
 		{
+			// ステートを[追従]に変更する
+			pArray->SetEnumState(CArray::ARRAY_STATE::FOLLOW);
+
 			// 命令を有効化
 			pArray->SetIsTopOrder(true);
 			pArray->GetSignal()->SetisDraw(false);
@@ -212,12 +215,20 @@ void CArrayManager::PuttingArea(const D3DXVECTOR3& putpos)
 	{
 		// nullなら
 		if (!pArray) continue;
-		if (!pArray->GetIsTopOrder()) continue;
-		if (!pArray->GetMove()) continue;
+		//if (!pArray->GetIsTopOrder()) continue;
+		//if (!pArray->GetMove()) continue;
 
-		// 対象のアリに命令を実行
-		pArray->SetIsTopOrder(false);
-		pArray->FollowDestination(putpos);
+		// 命令中（FOLLOW）のアリだけが対象
+		if (pArray->GetState() != CArray::ARRAY_STATE::FOLLOW) continue;
+
+		// ステートを餌獲得モードに変更
+		pArray->SetEnumState(CArray::ARRAY_STATE::ASSAULT);
+
+		// 目的地を設定
+		pArray->SetDestPos(putpos);
+
+		// フラグ設定
+		pArray->SetIsPointFlag(true);
 	}
 }
 //=========================================================
@@ -226,29 +237,6 @@ void CArrayManager::PuttingArea(const D3DXVECTOR3& putpos)
 void CArrayManager::CountActiveArrays(const int& nCountArrays)
 {
 	m_nActiveAll += nCountArrays;
-}
-//=========================================================
-// トップの命令を受けているアリの数を返す
-//=========================================================
-int CArrayManager::GetIsFollowtopArrays(void)
-{
-	// サイズカウント用変数
-	int nCnt = 0;
-
-	// 最大サイズから判別する
-	for (auto Ant : m_pArrays)
-	{
-		// アクティブじゃないなら
-		if (!Ant->GetActive()) continue;
-
-		// オーダーを受けていなかったら
-		if (!Ant->GetIsTopOrder()) continue;
-
-		// カウントを加算
-		nCnt++;
-	}
-
-	return nCnt;
 }
 //=========================================================
 // フラグをセットする

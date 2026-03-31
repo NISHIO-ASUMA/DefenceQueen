@@ -63,7 +63,8 @@ m_isSetPoint(false),
 m_isMove(true),
 m_MoveDestPos(VECTOR3_NULL),
 m_ActivePos(VECTOR3_NULL),
-m_nListGroupId(NULL)
+m_nListGroupId(NULL),
+m_State(ARRAY_STATE::NORMAL)
 {
 	
 }
@@ -168,29 +169,19 @@ void CArray::Uninit(void)
 	CInstancingCharactor::Uninit();
 }
 //=========================================================
-// 更新処理
+// BTがあるキャラクター更新処理
 //=========================================================
 void CArray::Update(void)
 {
 	// falseなら通さない
 	if (!m_isActive) return;
 	
+	// 状態管理の設定
+	m_pBlackBoard->SetValue<CArray::ARRAY_STATE>("CurrentState", m_State);
+
 	// ブラックボードの毎フレーム更新
 	m_pBlackBoard->SetValue("TopPos", m_pTopAnt->GetPos());
 	m_pBlackBoard->SetValue("GetTopOrder", m_isGettingTopOrder);
-
-	// 基地に帰る
-	if (m_isReturn)
-	{
-		// 判定フラグ初期化
-		m_isHit = false;
-
-		// モーション変更
-		m_pMotion->SetMotion(MOTION_MOVE);
-
-		// 基地に帰る
-		SpawnReturn();
-	}
 
 	// ツリーノードの更新処理
 	m_pBehaviorTree->Update();
@@ -242,14 +233,6 @@ void CArray::FollowDestination(const D3DXVECTOR3& DestPos)
 		return;
 	}
 	
-	// 命令フラグが有効なら
-	if (m_isGettingTopOrder)
-	{
-		// 追従切り替え
-		FollowTop(m_pBlackBoard->GetValue<D3DXVECTOR3>("TopPos"));
-		return;
-	}
-
 	// 目的地までの距離を算出
 	D3DXVECTOR3 moveVec = DestPos - GetPos();
 	float distToDest = D3DXVec3Length(&moveVec);
@@ -321,6 +304,10 @@ void CArray::FollowDestination(const D3DXVECTOR3& DestPos)
 //=========================================================
 void CArray::FollowTop(const D3DXVECTOR3& vpos)
 {
+	// ステートが [FOLLOW] ではないなら、何もしない
+	if (m_State != ARRAY_STATE::FOLLOW) return;
+
+	// 移動じゃなかったら返す
 	if (!m_isMove) return;
 
 	// 目的地までの距離を算出
@@ -340,7 +327,7 @@ void CArray::FollowTop(const D3DXVECTOR3& vpos)
 	{
 		// 目的地へ直接移動
 		D3DXVec3Normalize(&moveVec, &moveVec);
-		moveVec *= Arrayinfo::MoveSpeed;
+		moveVec *= Arrayinfo::TopFollowSpeed;
 
 		// 目的角を計算
 		float fAngle = atan2(-moveVec.x, -moveVec.z);
@@ -439,30 +426,90 @@ void CArray::SpawnReturn(void)
 		// 移動モーションに変更
 		m_pMotion->SetMotion(CArray::MOTION_NEUTRAL);
 
-		// 基地についたので帰還モード解除
-		SetReturnSpawn(false);
+		// ステートを「NORMAL」にリセット
+		SetEnumState(CArray::ARRAY_STATE::NORMAL);
 
-		// 基地到着
-		SetAtBase(true);
-		SetIsTopOrder(false);
-
-		// 行動フラグ完全リセット
-		m_isMove = true;
+		// boolクリア
 		m_isGettingTopOrder = false;
+		m_isReturn = false;
 		m_isSetPoint = false;
-		m_isAttackMode = false;
 		m_isCheckNearFeed = false;
 		m_isHit = false;
 
-		// Blackboardもリセット
-		m_pBlackBoard->SetValue("GetTopOrder", false);
-		m_pBlackBoard->SetValue("SetPoint", false);
-		m_pBlackBoard->SetValue("AttackMode", false);
-		m_pBlackBoard->SetValue("CheckNearFeed", false);
+		// 基地到着
+		SetAtBase(true);
 
-		// ターゲットに向かう関数を設定
-		FollowDestination(m_MoveDestPos);
+		// Blackboardも初期化
+		m_pBlackBoard->SetValue<bool>("GetTopOrder", false);
+		m_pBlackBoard->SetValue<bool>("ReturnSpawn", false);
+		m_pBlackBoard->SetValue<bool>("SetPoint", false);
+		m_pBlackBoard->SetValue<bool>("CheckNearFeed", false);
+		return;
 	}
+}
+//=========================================================
+// 対象座標に向かう処理
+//=========================================================
+void CArray::MoveDest(void)
+{
+	// 目的地までの距離を算出
+	D3DXVECTOR3 moveVec = m_MoveDestPos - GetPos();
+	float distToDest = D3DXVec3Length(&moveVec);
+
+	// 目的地が近いなら隊列を切って直接目的地へ
+	if (distToDest < Arrayinfo::ARRAY_DISTANCE)
+	{
+		// 到着したら止まる
+		if (distToDest < 5.0f)
+		{
+			// 待機モーションに設定
+			m_pMotion->SetMotion(CArray::MOTION_NEUTRAL);
+
+			// 近くの餌判定
+			if (!m_isCheckNearFeed)
+			{
+				m_isCheckNearFeed = true;
+				m_pBlackBoard->SetValue("CheckNearFeed", m_isCheckNearFeed);
+			}
+
+			return;
+		}
+
+		// 目的地へ直接移動
+		D3DXVec3Normalize(&moveVec, &moveVec);
+		moveVec *= Arrayinfo::MoveSpeed;
+
+		float fAngle = atan2(-moveVec.x, -moveVec.z);
+		D3DXVECTOR3 Rotdest = GetRotDest();
+
+		// 正規化
+		Rotdest.y = NormalAngle(fAngle);
+
+		// 値をセット
+		SetRotDest(Rotdest);
+
+		// 移動量を加算
+		SetMove(moveVec);
+
+		// 移動モーションにセット
+		m_pMotion->SetMotion(CArray::MOTION_MOVE);
+		return;
+	}
+
+	// 単独で目的に向かう
+	D3DXVec3Normalize(&moveVec, &moveVec);
+	moveVec *= Arrayinfo::MoveSpeed;
+
+	float angle = atan2(-moveVec.x, -moveVec.z);
+	D3DXVECTOR3 rotdest = GetRotDest();
+	rotdest.y = NormalAngle(angle);
+	SetRotDest(rotdest);
+
+	// キャラクターの移動量に設定
+	SetMove(moveVec);
+
+	// 移動モーションに設定
+	m_pMotion->SetMotion(CArray::MOTION_MOVE);
 }
 //=========================================================
 // ノードを設定する
@@ -480,6 +527,7 @@ void CArray::NodeSetting(void)
 	m_pBlackBoard->SetValue<CTopAnt*>("TopAnt",m_pTopAnt);				 // トップアリのポインタ
 	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayDestPos", m_MoveDestPos); // 目的座標
 	m_pBlackBoard->SetValue<D3DXVECTOR3>("TopPos", m_pTopAnt->GetPos()); // 目的座標
+	m_pBlackBoard->SetValue<CArray::ARRAY_STATE>("CurrentState", m_State);		 // 状態遷移
 
 	m_pBlackBoard->SetValue<bool>("ReturnSpawn", m_isReturn);			 // 基地に帰るフラグ
 	m_pBlackBoard->SetValue<bool>("GetTopOrder", m_isGettingTopOrder);	 // トップからの命令取得
@@ -509,8 +557,6 @@ void CArray::CollsionAll(void)
 {
 	if (m_isGettingTopOrder)
 		CollisionEnemy();
-
-	CollisionEventFeed();
 }
 //=========================================================
 // 敵との当たり判定関数
@@ -572,21 +618,15 @@ void CArray::CollisionEventFeed(void)
 			// スコアを加算
 			CGameSceneObject::GetInstance()->GetScore()->AddScore(Arrayinfo::SCORE_UP);
 
-			// 通常行動は停止
-			m_isGettingTopOrder = false;
+			// ステートを「RETURN」に変更
+			SetEnumState(CArray::ARRAY_STATE::RETURN);
 
-			// 帰還モード突入
-			m_isReturn = true;
-			
-			// 移動は許可
-			m_isMove = true;
-
-			// ヒット判定
-			m_isHit = true;
-
-			// モーション変更
-			m_pMotion->SetMotion(MOTION_MOVE);
-
+			// 基地に帰るフラグを有効化し、ブラックボードを更新する
+			if (!m_isReturn)
+			{
+				m_isReturn = true;
+				m_pBlackBoard->SetValue("ReturnSpawn", m_isReturn);
+			}
 			break;
 		}
 	}
@@ -644,9 +684,6 @@ void CArray::SetIsTopOrder(const bool& isToporder)
 //=========================================================
 void CArray::SetIsPointFlag(const bool& isSetpoint)
 {
-	// ニュートラルモーションに変更
-	m_pMotion->SetMotion(MOTION_NEUTRAL, true, 10);
-
 	// フラグ変更
 	m_isSetPoint = isSetpoint;
 
@@ -663,4 +700,24 @@ void CArray::SetIsAtackMode(const bool& isMode)
 
 	// 値を再設定
 	m_pBlackBoard->SetValue("AttackMode", m_isAttackMode);
+}
+//=========================================================
+// 帰還命令
+//=========================================================
+void CArray::SetReturnSpawn(const bool& isReturn)
+{
+	m_isReturn = isReturn;
+
+	m_pBlackBoard->SetValue<bool>("ReturnSpawn", m_isReturn);
+}
+//=========================================================
+// 状態遷移を設定する
+//=========================================================
+void CArray::SetEnumState(ARRAY_STATE valuestate)
+{
+	// 変更
+	m_State = valuestate;
+
+	// 状態設定
+	m_pBlackBoard->SetValue<CArray::ARRAY_STATE>("CurrentState", m_State);
 }

@@ -23,14 +23,14 @@ void CFollowTopLeaf::Update(void)
 	// アリを取得
 	const auto& Array = m_pBlackBoard->GetValue<CArray*>("Array");
 
+	// ステートが [ASSAULT] になっていたら次のステップに移行する
+	if (Array->GetState() == CArray::ARRAY_STATE::ASSAULT)
+	{
+		m_Result = NodeInfo::NodeResult::Re_SUCCESS;
+		return;
+	}
+
 	// 追従する関数を実行する
-	Array->FollowDestination(m_pBlackBoard->GetValue<D3DXVECTOR3>("TopPos"));
-
-	// フラグを取得
-	bool IsSetPoint = m_pBlackBoard->GetValue<bool>("SetPoint");
-
-	if (IsSetPoint)
-		m_Result = NodeInfo::NodeResult::Re_FAIL; // 次のノードへ移動
-	else
-		m_Result = NodeInfo::NodeResult::Re_RUNING; // 処理を継続
+	Array->FollowTop(m_pBlackBoard->GetValue<D3DXVECTOR3>("TopPos"));
+	m_Result = NodeInfo::NodeResult::Re_RUNING; // 処理を継続
 }

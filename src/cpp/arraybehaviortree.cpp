@@ -27,23 +27,39 @@
 #include "returnnestleaf.h"
 #include "movetofeedleaf.h"
 #include "arrayusetoporder.h"
+#include "topordertomoveleaf.h"
+#include "eventfeedgetleaf.h"
+#include "cleanreturnnestleaf.h"
 
 //===================================================================
 // 仲間を動かすツリーノードを設定する処理
 //===================================================================
 CNode* ArrayTree::CArrayBehaviorTree::SetArrayTreeNode(CBlackBoard* blackboard)
 {
-	// トップをシーケンスノードにする
+	// シーケンスノードを作成する
 	auto TopRootNode = new CSequence(blackboard);
 
+	//==================================================
 	// Topからの命令が true の時
+	//==================================================
 	auto ChainTopAntSequence = new CSequence(blackboard);
 	{
-		// Top命令時の行動
+		// 追従処理
 		ChainTopAntSequence->AddNode(new CFollowTopLeaf(blackboard));
+
+		// 切り離されて餌に向かう処理
+		ChainTopAntSequence->AddNode(new CTopOrderToMoveLeaf(blackboard));
+
+		// 餌獲得を判別する処理
+		ChainTopAntSequence->AddNode(new CEventFeedGetLeaf(blackboard));
+
+		// 自身が出てきた基地に帰還するノード処理
+		ChainTopAntSequence->AddNode(new CCleanReturnNestLeaf(blackboard));
 	}
 
+	//==================================================
 	// Topからの命令がfalseの時
+	//==================================================
 	auto ChainAntSequence = new CSequence(blackboard);
 	{
 		// 餌獲得ループのシーケンスノード

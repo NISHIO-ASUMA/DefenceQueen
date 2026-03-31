@@ -89,8 +89,12 @@ private:
 
 	CEventAreaManager();				// 格納コンストラクタ
 
+	static constexpr int NUM_ACTIVEPOS = 4;		// イベントが起きる場所の数
+
 	std::vector<CEventArea*>m_pAreas;	// ポイントエリアの管理配列
 	std::vector<CFeed*>m_pFeeds;		// イベント内の餌配列
 	int m_nLastEventTime;				// イベント時間
 	int m_nCreateidx;					// 生成インデックス
+
+	bool m_isActivePos[NUM_ACTIVEPOS];  // 判別配列
 };

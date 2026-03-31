@@ -22,6 +22,7 @@
 #include "jsonmanager.h"
 #include "tutorialuimanager.h"
 #include "worldwallmanager.h"
+#include "basemapfeed.h"
 
 //*********************************************************
 // 静的メンバ変数宣言
@@ -71,6 +72,12 @@ HRESULT CTutorialObject::Init(void)
 	JsonManager->SetBlockManager(m_pBlockManager.get());
 	m_pBlockManager->Init();
 
+	// チュートリアルuiマネージャー
+	CTutorialUiManager::GetInstance()->Init();
+
+	// 基準の餌を生成する
+	//CBaseMapFeed::GetInstance()->Init();
+
 	// チュートリアルトップアリの生成
 	m_pTopAnt = CTutoTopAnt::Create(TUTORIALOBJECT::TopAntPos);
 	
@@ -80,8 +87,6 @@ HRESULT CTutorialObject::Init(void)
 	// 餌を生成
 	m_pFeed = CFeed::Create(TUTORIALOBJECT::FeedPos, VECTOR3_NULL, INITSCALE);
 
-	// チュートリアルuiマネージャー
-	CTutorialUiManager::GetInstance()->Init();
 
 	return S_OK;
 }
@@ -98,6 +103,9 @@ void CTutorialObject::Uninit(void)
 
 	// uiマネージャーの終了
 	CTutorialUiManager::GetInstance()->Uninit();
+
+	// 基準の餌を破棄する
+	//CBaseMapFeed::GetInstance()->Uninit();
 
 	// インスタンスの破棄
 	if (m_pInstance)

@@ -87,7 +87,7 @@ HRESULT CTutoTopAnt::Init(void)
 	MotionLoad(Config::MOTION_NAME, MOTION_MAX, true);
 
 	// コライダー生成
-	m_pColliderBox = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(20.0f, 20.0f, 20.0f));
+	m_pColliderBox = CBoxCollider::Create(GetPos(), GetOldPos(), D3DXVECTOR3(30.0f, 30.0f, 30.0f));
 	m_pSphereCollider = CSphereCollider::Create(GetPos(), Config::Hitting);
 
 	// 円形生成
@@ -100,7 +100,7 @@ HRESULT CTutoTopAnt::Init(void)
 	m_pPutSign = CSepalationSign::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::OffPosY, GetPos().z), "PutAnt.png");
 
 	// 矢印生成
-	m_pPoint = CPointObj::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::OffPosY, GetPos().z), D3DXVECTOR3(-90.0f, 0.0f, 0.0f));
+	m_pPoint = CPointObj::Create(D3DXVECTOR3(GetPos().x, GetPos().y + Config::AllowPosY, GetPos().z), D3DXVECTOR3(-90.0f, 0.0f, 0.0f));
 
 	return S_OK;
 }
@@ -187,7 +187,7 @@ void CTutoTopAnt::Update(void)
 	D3DXVECTOR3 UpdatePos = GetPos();
 	
 	// 矢印の座標の更新
-	m_pPoint->SetPos(D3DXVECTOR3(UpdatePos.x, UpdatePos.y + Config::OffPosY, UpdatePos.z));
+	m_pPoint->SetPos(D3DXVECTOR3(UpdatePos.x, UpdatePos.y + Config::AllowPosY, UpdatePos.z));
 
 	// 球形コライダーの位置更新
 	if (m_pSphereCollider) m_pSphereCollider->SetPos(UpdatePos);

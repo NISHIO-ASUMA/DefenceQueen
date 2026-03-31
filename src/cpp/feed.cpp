@@ -187,11 +187,11 @@ void CFeed::DecLife(const int& nDecValue)
 		// ポインタ取得
 		auto area = m_pOwnerArea;
 
+		// 動的配列内のエリアの要素を削除する
+		CEventAreaManager::GetInstance()->Erase(area);
+
 		// 動的配列内の餌の要素を削除する
 		CEventAreaManager::GetInstance()->EraseFeed(this);
-
-		// 動的配列内の要素を削除する
-		CEventAreaManager::GetInstance()->Erase(area);
 
 		// 自身の破棄
 		Uninit();

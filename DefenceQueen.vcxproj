@@ -182,6 +182,7 @@
     <ClCompile Include="src\cpp\branchnodebase.cpp" />
     <ClCompile Include="src\cpp\camera.cpp" />
     <ClCompile Include="src\cpp\circle3d.cpp" />
+    <ClCompile Include="src\cpp\cleanreturnnestleaf.cpp" />
     <ClCompile Include="src\cpp\collider.cpp" />
     <ClCompile Include="src\cpp\collision.cpp" />
     <ClCompile Include="src\cpp\collisionbox.cpp" />
@@ -215,6 +216,7 @@
     <ClCompile Include="src\cpp\enemywaitleaf.cpp" />
     <ClCompile Include="src\cpp\eventarea.cpp" />
     <ClCompile Include="src\cpp\eventareamanager.cpp" />
+    <ClCompile Include="src\cpp\eventfeedgetleaf.cpp" />
     <ClCompile Include="src\cpp\extractantsignal.cpp" />
     <ClCompile Include="src\cpp\fade.cpp" />
     <ClCompile Include="src\cpp\feed.cpp" />
@@ -307,6 +309,7 @@
     <ClCompile Include="src\cpp\titlemanager.cpp" />
     <ClCompile Include="src\cpp\titleobject.cpp" />
     <ClCompile Include="src\cpp\topant.cpp" />
+    <ClCompile Include="src\cpp\topordertomoveleaf.cpp" />
     <ClCompile Include="src\cpp\tutoarrayant.cpp" />
     <ClCompile Include="src\cpp\tutorial.cpp" />
     <ClCompile Include="src\cpp\tutorialmanager.cpp" />
@@ -345,6 +348,7 @@
     <ClInclude Include="src\include\branchnodebase.h" />
     <ClInclude Include="src\include\camera.h" />
     <ClInclude Include="src\include\circle3d.h" />
+    <ClInclude Include="src\include\cleanreturnnestleaf.h" />
     <ClInclude Include="src\include\collider.h" />
     <ClInclude Include="src\include\collision.h" />
     <ClInclude Include="src\include\collisionbox.h" />
@@ -380,6 +384,7 @@
     <ClInclude Include="src\include\enemywaitleaf.h" />
     <ClInclude Include="src\include\eventarea.h" />
     <ClInclude Include="src\include\eventareamanager.h" />
+    <ClInclude Include="src\include\eventfeedgetleaf.h" />
     <ClInclude Include="src\include\extractantsignal.h" />
     <ClInclude Include="src\include\fade.h" />
     <ClInclude Include="src\include\feed.h" />
@@ -479,6 +484,7 @@
     <ClInclude Include="src\include\titlemanager.h" />
     <ClInclude Include="src\include\titleobject.h" />
     <ClInclude Include="src\include\topant.h" />
+    <ClInclude Include="src\include\topordertomoveleaf.h" />
     <ClInclude Include="src\include\tutoarrayant.h" />
     <ClInclude Include="src\include\tutorial.h" />
     <ClInclude Include="src\include\tutorialmanager.h" />

@@ -37,7 +37,7 @@ CSepalationSign* CSepalationSign::Create(const D3DXVECTOR3& pos,const char * pTe
 	// オブジェクト設定
 	pSign->SetPos(pos);
 	pSign->SetRot(VECTOR3_NULL);
-	pSign->SetSize(Config::SIZE, Config::SIZE);
+	pSign->SetSize(Config::SIZEX, Config::SIZEY);
 	pSign->SetTexture(pTexName);
 
 	// 初期化失敗時

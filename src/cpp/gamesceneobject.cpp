@@ -131,7 +131,7 @@ void CGameSceneObject::Uninit(void)
 	// 敵管理クラスの破棄
 	CEnemyManager::GetInstance()->Uninit();
 
-	// マップ標準の餌の破棄
+	// マップの基準の餌の破棄
 	CBaseMapFeed::GetInstance()->Uninit();
 
 	// イベント破棄
@@ -161,9 +161,10 @@ void CGameSceneObject::Update(void)
 		m_pArraySpawn->Update();
 	}
 
-	//// 敵管理クラスの更新
-	//CEnemyManager::GetInstance()->Update();
-
+#ifdef _NDEBUG
+	// 敵管理クラスの更新
+	CEnemyManager::GetInstance()->Update();
+#endif // _NDEBUG
 	// イベント更新
 	CEventAreaManager::GetInstance()->Update();
 }
@@ -218,7 +219,7 @@ void CGameSceneObject::CreatePointer(void)
 	// タイマー生成
 	m_pTimer = CGameTime::Create(GAMEOBJECT::TimerPos);
 
-	// マップの標準の餌生成
+	// マップの基準の餌生成
 	CBaseMapFeed::GetInstance()->Init();
 
 	// 仲間アリの大軍を生成

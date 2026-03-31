@@ -98,8 +98,11 @@ public:
 	/// <param name="nCountArrays">ƒJƒEƒ“ƒg‚·‚é”</param>
 	void CountActiveArrays(const int& nCountArrays);
 
-	int GetIsFollowtopArrays(void);
-
+	/// <summary>
+	/// Å‘å”‚ğ•Ô‚·
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
 	inline int GetAllUseArrays(void) const { return ArrayConfig::ALLARRAYS; }
 
 private:

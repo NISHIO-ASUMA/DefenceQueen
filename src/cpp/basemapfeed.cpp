@@ -43,8 +43,8 @@ namespace BaseFeedInfo
 		"FEED/Suger.x"		// 砂糖モデル
 	};
 
-	constexpr int LIFE = 10000; // 体力値
-	constexpr float HitRange = 85.0f; // コリジョン値
+	constexpr int LIFE = 10000;			// 体力値
+	constexpr float HitRange = 85.0f;	// コリジョン値
 };
 
 //=========================================================
@@ -59,6 +59,7 @@ CBaseMapFeed::CBaseMapFeed() : m_pBaseFeeds{}
 //=========================================================
 CBaseMapFeed::~CBaseMapFeed()
 {
+	Uninit();
 }
 //=========================================================
 // シングルトン取得処理
