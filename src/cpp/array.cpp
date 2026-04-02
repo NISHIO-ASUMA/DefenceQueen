@@ -287,9 +287,12 @@ void CArray::FollowDestination(const D3DXVECTOR3& DestPos)
 	D3DXVec3Normalize(&moveVec, &moveVec);
 	moveVec *= Arrayinfo::MoveSpeed;
 
+	// 角度を計算する
 	float angle = atan2(-moveVec.x, -moveVec.z);
 	D3DXVECTOR3 rotdest = GetRotDest();
 	rotdest.y = NormalAngle(angle);
+
+	// 目的角の計算
 	SetRotDest(rotdest);
 
 	// キャラクターの移動量に設定
@@ -715,9 +718,9 @@ void CArray::SetReturnSpawn(const bool& isReturn)
 //=========================================================
 void CArray::SetEnumState(ARRAY_STATE valuestate)
 {
-	// 変更
+	// ステート変更
 	m_State = valuestate;
 
-	// 状態設定
+	// ブラックボードの更新
 	m_pBlackBoard->SetValue<CArray::ARRAY_STATE>("CurrentState", m_State);
 }

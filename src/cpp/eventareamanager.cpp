@@ -145,6 +145,7 @@ void CEventAreaManager::Update(void)
 		// 使用中フラグを立てる
 		m_isActivePos[nRand] = true;
 
+		// 生成時間を変更する1
 		m_nLastEventTime = nTime;
 	}
 }

@@ -91,6 +91,9 @@ HRESULT CTutorialUiManager::Init(void)
 	m_pStateList.push_back(std::make_unique<CTutorialStateSepalation>());
 	m_pStateList.push_back(std::make_unique<CTutorialStateFeedOrder>());
 
+	// インデックスを初期化
+	m_nStateIndex = NULL;
+
 	return S_OK;
 }
 //=========================================================

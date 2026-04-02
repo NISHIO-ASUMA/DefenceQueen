@@ -76,6 +76,12 @@ HRESULT CBaseMapFeed::Init(void)
 {
 	// 名前空間を使用
 	using namespace BaseFeedInfo;
+	
+	// null初期化
+	for (int nClear = 0; nClear < NUM_BASEFEED; nClear++)
+	{
+		m_pBaseFeeds[nClear] = nullptr;
+	}
 
 	// マップのベースの餌を生成する
 	for (int nCnt = 0; nCnt < NUM_BASEFEED; nCnt++)

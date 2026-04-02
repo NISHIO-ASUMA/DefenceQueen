@@ -78,9 +78,9 @@ public:
 
 private:
 
-	HRESULT LoadJson(void);					// jsonfile読み込み関数
-	void LoadModel(const char* pModelName);	// モデル登録関数
-
+	HRESULT LoadJson(void);							// jsonfile読み込み関数
+	void LoadModel(const char* pModelName);			// モデル登録関数
+	
 	std::vector<InstanceModelInfo>m_aModelInstData;	// モデルデータ管理配列
 	static int m_nNumAll;							// モデルの総数
 

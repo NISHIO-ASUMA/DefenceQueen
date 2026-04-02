@@ -64,7 +64,7 @@ HRESULT CInstancing::Init(const char* pShaderFile)
 		nullptr,
 		D3DXSHADER_DEBUG,
 		nullptr,
-		&m_pInstancing,		// エフェクトポインタ
+		&m_pInstancing,			// エフェクトポインタ
 		&pErr
 	);
 

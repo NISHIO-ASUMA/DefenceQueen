@@ -76,7 +76,7 @@ HRESULT CTutorialObject::Init(void)
 	CTutorialUiManager::GetInstance()->Init();
 
 	// 基準の餌を生成する
-	//CBaseMapFeed::GetInstance()->Init();
+	CBaseMapFeed::GetInstance()->Init();
 
 	// チュートリアルトップアリの生成
 	m_pTopAnt = CTutoTopAnt::Create(TUTORIALOBJECT::TopAntPos);

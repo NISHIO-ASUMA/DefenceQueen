@@ -39,10 +39,13 @@ public:
 	/// <summary>
 	/// シェーダーパラメーター設定
 	/// </summary>
-	/// <param name="Texture"></param>
-	/// <param name="color"></param>
-	void SetInstancingParam(const LPDIRECT3DTEXTURE9 &Texture = nullptr,
-							const D3DXVECTOR4 &color = D3DXVECTOR4(1.0f,1.0f,1.0f,1.0f));
+	/// <param name="Texture">テクスチャ</param>
+	/// <param name="color">カラー</param>
+	void SetInstancingParam
+	(
+		const LPDIRECT3DTEXTURE9 &Texture = nullptr,
+		const D3DXVECTOR4 &color = D3DXVECTOR4(1.0f,1.0f,1.0f,1.0f)
+	);
 
 	/// <summary>
 	/// インスタンス開始設定
@@ -53,22 +56,30 @@ public:
 	/// <param name="meshIB">インデックスバッファ</param>
 	/// <param name="instanceVB">インスタンスVB(stream1)</param>
 	/// <param name="instanceStride">インスタンス1要素サイズ</param>
-	void BeginInstancing(int instanceCount,
+	void BeginInstancing
+	(
+		int instanceCount,
 		LPDIRECT3DVERTEXBUFFER9 meshVB,
 		UINT meshStride,
 		LPDIRECT3DINDEXBUFFER9 meshIB,
 		LPDIRECT3DVERTEXBUFFER9 instanceVB,
-		UINT instanceStride);
+		UINT instanceStride
+	);
 
 	/// <summary>
 	/// DirectDeviceを取得する
 	/// </summary>
 	/// <param name="pDevice">レンダラーのD3Dデバイス</param>
-	inline void SetDeviceToInstancing(const LPDIRECT3DDEVICE9 pDevice)
+	inline void SetDeviceToInstancing(const LPDIRECT3DDEVICE9& pDevice)
 	{
 		m_pInstanceDevice = pDevice;
 	}
 
+	/// <summary>
+	/// インスタンス取得処理
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
 	static CInstancing* GetInstance(void)
 	{
 		static CInstancing pInstance;

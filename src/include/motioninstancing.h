@@ -64,6 +64,14 @@ public:
 
 	void Update(std::vector<CInstanceModel*> pModel);
 	void Debug(void);
+	
+	/// <summary>
+	/// フレーム間計算
+	/// </summary>
+	/// <param name="nStartMotion">開始モーション</param>
+	/// <param name="nEndMotion">終了カウント</param>
+	/// <param name="nMotionType">モーションの種類インデックス</param>
+	/// <returns></returns>
 	bool CheckFrame(int nStartMotion, int nEndMotion, int nMotionType);
 
 	void SetMotion(int motiontype);
@@ -95,6 +103,8 @@ public:
 private:
 
 	static constexpr int NEUTRAL = 0; // ニュートラル番号
+
+private:
 
 	int m_nNumModels;		// モデル総数
 	int m_nNumKey;			// キーの総数

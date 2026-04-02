@@ -30,6 +30,7 @@
 #include "basemapfeed.h"
 #include "jsonmanager.h"
 #include "worldwallmanager.h"
+#include "ui.h"
 
 //*********************************************************
 // Ã“Iƒƒ“ƒo•Ï”

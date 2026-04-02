@@ -54,6 +54,8 @@ private:
 	static constexpr int SELECT_END = 3;	// メニュー終了番号
 	static constexpr int SELECT_MAX = 4;	// 最大生成数
 
+private:
+
 	static bool m_isPause;			// ポーズかどうか
 	int m_nSelectIdx;				// セレクト番号
 	CPause* m_pPause[SELECT_MAX];	// ポーズクラスのポインタ配列

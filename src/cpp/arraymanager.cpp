@@ -215,10 +215,8 @@ void CArrayManager::PuttingArea(const D3DXVECTOR3& putpos)
 	{
 		// nullなら
 		if (!pArray) continue;
-		//if (!pArray->GetIsTopOrder()) continue;
-		//if (!pArray->GetMove()) continue;
 
-		// 命令中（FOLLOW）のアリだけが対象
+		// 命令中のアリだけが対象
 		if (pArray->GetState() != CArray::ARRAY_STATE::FOLLOW) continue;
 
 		// ステートを餌獲得モードに変更

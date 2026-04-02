@@ -48,7 +48,13 @@ CMotionInstancing::~CMotionInstancing()
 //=========================================================
 // モーション読み込み関数
 //=========================================================
-std::unique_ptr<CMotionInstancing> CMotionInstancing::Load(const char* pFilename, std::vector<CInstanceModel*>& pModel, int nDestMotions, const bool isShadow)
+std::unique_ptr<CMotionInstancing> CMotionInstancing::Load
+(
+	const char* pFilename,
+	std::vector<CInstanceModel*>& pModel, 
+	int nDestMotions, 
+	const bool isShadow
+)
 {
 	// モーションのユニークポインタ生成
 	auto pMotionInst = std::make_unique<CMotionInstancing>();
@@ -156,7 +162,11 @@ void CMotionInstancing::MathMotionFrame(const CInstanceMotionManager::MOTIONFILE
 //=========================================================
 // 結果の適用
 //=========================================================
-void CMotionInstancing::ApplyCache(std::vector<CInstanceModel*>& pModel, const CInstanceMotionManager::MOTIONFILE& info)
+void CMotionInstancing::ApplyCache
+(
+	std::vector<CInstanceModel*>& pModel, 
+	const CInstanceMotionManager::MOTIONFILE& info
+)
 {
 	// モーションの種類のフレーム取得
 	const auto& frame = info.cache[m_motiontype].Frames[m_nAllFrameCount];
@@ -182,7 +192,7 @@ void CMotionInstancing::ApplyCache(std::vector<CInstanceModel*>& pModel, const C
 //=================================================================
 void CMotionInstancing::Debug(void)
 {
-#ifdef _DEBUG
+#if 0
 	CDebugproc::Print("[現在フレームカウント] %d /  [ 最大モーションフレーム ] %d", m_nAllFrameCount, m_nNumAllFrame);
 	CDebugproc::Draw(800, 320);
 
