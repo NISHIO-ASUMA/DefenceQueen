@@ -30,7 +30,28 @@ void CFollowTopLeaf::Update(void)
 		return;
 	}
 
-	// 追従する関数を実行する
-	Array->FollowTop(m_pBlackBoard->GetValue<D3DXVECTOR3>("TopPos"));
-	m_Result = NodeInfo::NodeResult::Re_RUNING; // 処理を継続
+	// 目的地の決定
+	D3DXVECTOR3 targetPos;
+
+	// 自身に「前のアリ」が設定されているか確認
+	CArray* pTargetAnt = Array->GetPrevAnt();
+
+	if (pTargetAnt != nullptr)
+	{
+		// 前のアリの現在座標を目的地にする
+		targetPos = pTargetAnt->GetPos();
+
+		// 前のアリとの距離に応じて移動・停止を制御
+		// FollowTopを流用するか、仲間用のArrayFollowを呼ぶ
+		Array->FollowTop(targetPos);
+	}
+	else
+	{
+		// Blackboardにある黄色アリの座標を追う
+		targetPos = m_pBlackBoard->GetValue<D3DXVECTOR3>("TopPos");
+		Array->FollowTop(targetPos);
+	}
+
+	// 実行状態に設定
+	m_Result = NodeInfo::NodeResult::Re_RUNING;
 }

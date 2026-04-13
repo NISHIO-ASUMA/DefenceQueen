@@ -441,7 +441,7 @@ bool CEnemy::Collision(CSphereCollider* pOther)
 //==========================================================
 bool CEnemy::CollisionBoxToSphere(CBoxCollider* pOther)
 {
-	// nul‚È‚çˆ—‚µ‚È‚¢
+	// null‚È‚çˆ—‚µ‚È‚¢
 	if (m_pSphereCollider == nullptr) return false;
 
 	// ‹…‚Æ‹éŒ`‚Ì“–‚½‚è”»’è

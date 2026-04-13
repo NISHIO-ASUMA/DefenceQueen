@@ -204,7 +204,7 @@ void CRenderer::Update(void)
 	// 全オブジェクト更新処理
 	CObject::UpdateAll();
 
-#ifdef _DEBUG
+#ifdef NDEBUG
 
 	// キー入力情報取得
 	CInputKeyboard* pInput = CManager::GetInstance()->GetInputKeyboard();

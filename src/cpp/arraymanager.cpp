@@ -182,6 +182,9 @@ void CArrayManager::ApplySeparation(const D3DXVECTOR3& CenterPos, float fRadius)
 	{
 		if (!pArray) continue;
 
+		// RETURNなら命令を付与しない
+		if (pArray->GetState() == CArray::ARRAY_STATE::RETURN) continue;
+
 		D3DXVECTOR3 pos = pArray->GetPos();
 		D3DXVECTOR3 posdiff = CenterPos - pos;
 
@@ -204,6 +207,22 @@ void CArrayManager::ApplySeparation(const D3DXVECTOR3& CenterPos, float fRadius)
 			pArray->SetIsTopOrder(false);
 		}
 	}
+
+	// 隊列の生成処理
+	for (int nCnt = 0; nCnt < topAnts.size(); ++nCnt)
+	{
+		if (nCnt == 0)
+		{
+			// 隊列の先頭は「黄色アリ」を追うので、ターゲットは無し
+			// FollowTop() 内で m_pTopAnt を参照するようにする
+			topAnts[nCnt]->SetPrevAnt(nullptr);
+		}
+		else
+		{
+			// 2番目以降は自分の一つ前のアリをセット
+			topAnts[nCnt]->SetPrevAnt(topAnts[nCnt - 1]);
+		}
+	}
 }
 //=========================================================
 // エリア内に配置する関数
@@ -216,17 +235,12 @@ void CArrayManager::PuttingArea(const D3DXVECTOR3& putpos)
 		// nullなら
 		if (!pArray) continue;
 
-		// 命令中のアリだけが対象
-		if (pArray->GetState() != CArray::ARRAY_STATE::FOLLOW) continue;
-
 		// ステートを餌獲得モードに変更
-		pArray->SetEnumState(CArray::ARRAY_STATE::ASSAULT);
-
-		// 目的地を設定
-		pArray->SetDestPos(putpos);
-
-		// フラグ設定
-		pArray->SetIsPointFlag(true);
+		if (pArray->GetIsTopOrder())
+		{
+			pArray->SetEnumState(CArray::ARRAY_STATE::ASSAULT);
+			pArray->SetDestPos(putpos);
+		}
 	}
 }
 //=========================================================

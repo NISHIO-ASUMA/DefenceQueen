@@ -21,6 +21,7 @@
 //===================================================================
 void CTopOrderToMoveLeaf::Update(void)
 {
+
 	// ƒAƒŠ‚ðŽæ“¾
 	const auto& Array = m_pBlackBoard->GetValue<CArray*>("Array");
 	if (!Array) m_Result = NodeInfo::NodeResult::Re_FAIL;

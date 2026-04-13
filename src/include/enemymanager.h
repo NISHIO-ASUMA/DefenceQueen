@@ -76,10 +76,10 @@ private:
 	//*******************************
 	struct Config
 	{
-		static constexpr int NUM_ENEMY			= 100;		// 最大数
+		static constexpr int NUM_ENEMY			= 15;		// 最大数
 		static constexpr int LIFE				= 1;		// 体力値
 		static constexpr int SPAWM_INTERBAL		= 10;		// 生成インターバル
-		static constexpr int RANDOM_VALUE_MAX	= 20;		// 生成ランダム最大値
+		static constexpr int RANDOM_VALUE_MAX	= 15;		// 生成ランダム最大値
 		static constexpr int RANDOM_VALUE_MIN	= 5;		// 生成ランダム最小値
 		static constexpr float SPEED			= 3.0f;		// 移動速度
 	};

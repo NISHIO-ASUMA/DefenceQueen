@@ -33,7 +33,7 @@ class CMotionInstancing;
 class CExtractAntSignal;
 
 //*********************************************************
-// アリ一匹に対するクラスを定義
+// 仲間アリ一匹に対するクラスを定義
 //*********************************************************
 class CArray : public CInstancingCharactor
 {
@@ -77,6 +77,7 @@ public:
 	void SpawnReturn(void);
 	void NodeSetting(void);
 	void MoveDest(void);
+	void StackCheck(void);
 
 	bool Colision(CSphereCollider* other);
 	void CollsionAll(void);
@@ -103,12 +104,11 @@ public:
 	inline void SetIsStop(const bool& isStop) { m_isStop = isStop; }
 	inline void SetEnumState(ARRAY_STATE valuestate);
 
-
 	inline D3DXVECTOR3 GetActivePos(void) const { return m_ActivePos; }
 	inline D3DXVECTOR3 GetSavePos(void) const { return m_SaveDestPos; }
-
-	inline CExtractAntSignal* GetSignal(void) { return m_pAntSignal; }
+	inline CExtractAntSignal* GetSignal(void) const { return m_pAntSignal; }
 	inline ARRAY_STATE GetState(void) const { return m_State; }
+	CArray* GetPrevAnt(void) const { return m_pFollowTarget; }
 
 	inline bool GetActive(void) const { return m_isActive; }
 	inline bool GetMove(void) const { return m_isMove; }
@@ -141,12 +141,12 @@ private:
 	struct Arrayinfo
 	{
 		static constexpr float MoveSpeed	  = 2.5f;	// 移動速度
-		static constexpr float TopFollowSpeed = 3.5f;	// 追従速度
+		static constexpr float TopFollowSpeed = 3.0f;	// 追従速度
 		static constexpr float SphereRange	  = 60.0f;	// 球形範囲
-		static constexpr float ARRAY_DISTANCE = 80.0f;	// 仲間アリとの距離
-		static constexpr float TOP_DISTANCE	  = 300.0f;	// 先頭のアリとの距離
+		static constexpr float ARRAY_DISTANCE = 60.0f;	// 仲間アリとの距離
+		static constexpr float TOP_DISTANCE	  = 110.0f;	// 先頭のアリとの距離
 		static constexpr float STOP_DISTANCE  = 10.0f;	// 停止距離
-
+		static constexpr int STACKTIME = 180;
 		static constexpr int SCORE_UP		  = 1500;	// スコアの加算量
 		static constexpr int BASESCORE_UP	  = 10;		// スコアの加算量
 		static constexpr int Damage			  = 1;		// ダメージ値
@@ -156,7 +156,6 @@ private:
 private:
 
 	int m_nListGroupId;					// 自身が動いているidのリスト番号
-	int m_nStopCount;					// ストップカウント
 
 	bool m_isActive;					// 使用状態かどうか
 	bool m_isMove;						// 移動するかどうか

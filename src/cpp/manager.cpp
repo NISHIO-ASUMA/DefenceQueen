@@ -163,7 +163,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	m_pFade->SetFade(std::make_unique<CTutorial>());
 #else
 	// シーンセット
-	m_pFade->SetFade(std::make_unique<CTitle>());
+	m_pFade->SetFade(std::make_unique<CGame>());
 #endif // _DEBUG
 
 	// 乱数の種を一度宣言する

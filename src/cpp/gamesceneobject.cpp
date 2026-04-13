@@ -162,11 +162,12 @@ void CGameSceneObject::Update(void)
 		m_pArraySpawn->Update();
 	}
 
-#ifdef _NDEBUG
+#ifdef NDEBUG
 	// 敵管理クラスの更新
 	CEnemyManager::GetInstance()->Update();
 #endif // _NDEBUG
-	// イベント更新
+
+	// イベントの餌更新
 	CEventAreaManager::GetInstance()->Update();
 }
 //=========================================================

@@ -16,7 +16,7 @@
 #include "array.h"
 
 //===================================================================
-// 更新処理
+// イベントの餌を確保するノードの更新処理
 //===================================================================
 void CEventFeedGetLeaf::Update(void)
 {
@@ -33,9 +33,15 @@ void CEventFeedGetLeaf::Update(void)
 	if (m_pBlackBoard->HasKeyData("ReturnSpawn"))
 		IsReturn = m_pBlackBoard->GetValue<bool>("ReturnSpawn");
 
-	// ノード結果を設定する
+	// 餌獲得で終了
 	if (IsReturn)
+	{
+		// タイマーリセット
+		m_pBlackBoard->SetValue("WaitTimer", 0);
 		m_Result = NodeInfo::NodeResult::Re_SUCCESS;
+	}
 	else
+	{
 		m_Result = NodeInfo::NodeResult::Re_RUNING;
+	}
 }

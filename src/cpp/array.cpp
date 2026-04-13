@@ -183,6 +183,9 @@ void CArray::Update(void)
 	m_pBlackBoard->SetValue("TopPos", m_pTopAnt->GetPos());
 	m_pBlackBoard->SetValue("GetTopOrder", m_isGettingTopOrder);
 
+	// スタック管理処理
+	StackCheck();
+
 	// ツリーノードの更新処理
 	m_pBehaviorTree->Update();
 
@@ -194,9 +197,6 @@ void CArray::Update(void)
 
 	// コライダー座標の更新
 	m_pSphereCollider->SetPos(UpdatePos);
-
-	// 全判定関数
-	CollsionAll();
 
 	// キャラクターの更新
 	CInstancingCharactor::Update();
@@ -354,41 +354,50 @@ void CArray::FollowTop(const D3DXVECTOR3& vpos)
 //=========================================================
 void CArray::ArrayFollow(void)
 {
-	// 無かったら
-	if (!m_isReturn && !m_pFollowTarget) return;
+	if (m_State != ARRAY_STATE::FOLLOW) return;
 
-	// ターゲット座標を取得
-	D3DXVECTOR3 targetPos = m_pFollowTarget->GetPos();
-	D3DXVECTOR3 followVec = targetPos - GetPos();
-	float fDistance = D3DXVec3Length(&followVec);
-
-	if (fDistance > Arrayinfo::ARRAY_DISTANCE)
+	if (m_pFollowTarget == nullptr)
 	{
-		// ベクトルを正規化
-		D3DXVec3Normalize(&followVec, &followVec);
-		followVec *= Arrayinfo::MoveSpeed;
-
-		// 角度設定
-		float angleY = atan2(-followVec.x, -followVec.z);
-		D3DXVECTOR3 rotDest = GetRotDest();
-		rotDest.y = NormalAngle(angleY);
-
-		// 目的角に設定
-		SetRotDest(rotDest);
-
-		// 移動量を設定
-		SetMove(followVec);
-
-		// 移動モーションに変更
-		m_pMotion->SetMotion(CArray::MOTION_MOVE);
+		// 自分が隊列の先頭なら、黄色アリを直接追う
+		FollowTop(m_pTopAnt->GetPos());
 	}
 	else
 	{
-		// 停止
-		SetMove(VECTOR3_NULL);
+		// 前に仲間がいるなら、その仲間の座標を追う
+		D3DXVECTOR3 targetPos = m_pFollowTarget->GetPos();
 
-		// ニュートラルモーションに変更
-		m_pMotion->SetMotion(CArray::MOTION_NEUTRAL);
+		// ターゲット座標を取得
+		D3DXVECTOR3 followVec = targetPos - GetPos();
+		float fDistance = D3DXVec3Length(&followVec);
+
+		if (fDistance > Arrayinfo::ARRAY_DISTANCE)
+		{
+			// ベクトルを正規化
+			D3DXVec3Normalize(&followVec, &followVec);
+			followVec *= Arrayinfo::MoveSpeed;
+
+			// 角度設定
+			float angleY = atan2(-followVec.x, -followVec.z);
+			D3DXVECTOR3 rotDest = GetRotDest();
+			rotDest.y = NormalAngle(angleY);
+
+			// 目的角に設定
+			SetRotDest(rotDest);
+
+			// 移動量を設定
+			SetMove(followVec);
+
+			// 移動モーションに変更
+			m_pMotion->SetMotion(CArray::MOTION_MOVE);
+		}
+		else
+		{
+			// 停止
+			SetMove(VECTOR3_NULL);
+
+			// ニュートラルモーションに変更
+			m_pMotion->SetMotion(CArray::MOTION_NEUTRAL);
+		}
 	}
 }
 //=========================================================
@@ -439,10 +448,17 @@ void CArray::SpawnReturn(void)
 		m_isCheckNearFeed = false;
 		m_isHit = false;
 
-		// 基地到着
+		// 追従ターゲットをnullにする
+		if (m_pFollowTarget)
+		{
+			m_pFollowTarget = nullptr;
+		}
+
+		// 基地到着判定を設定
 		SetAtBase(true);
 
 		// Blackboardも初期化
+		m_pBlackBoard->SetValue<int>("WaitTimer", 0);
 		m_pBlackBoard->SetValue<bool>("GetTopOrder", false);
 		m_pBlackBoard->SetValue<bool>("ReturnSpawn", false);
 		m_pBlackBoard->SetValue<bool>("SetPoint", false);
@@ -463,7 +479,7 @@ void CArray::MoveDest(void)
 	if (distToDest < Arrayinfo::ARRAY_DISTANCE)
 	{
 		// 到着したら止まる
-		if (distToDest < 5.0f)
+		if (distToDest < 20.0f)
 		{
 			// 待機モーションに設定
 			m_pMotion->SetMotion(CArray::MOTION_NEUTRAL);
@@ -515,6 +531,49 @@ void CArray::MoveDest(void)
 	m_pMotion->SetMotion(CArray::MOTION_MOVE);
 }
 //=========================================================
+// 位置のスタック管理
+//=========================================================
+void CArray::StackCheck(void)
+{
+	// 3秒位置が変わらなかったら強制帰還させる処理
+	int stuckTimer = m_pBlackBoard->GetValue<int>("StuckTimer");
+	D3DXVECTOR3 prevPos = m_pBlackBoard->GetValue<D3DXVECTOR3>("PrevPos");
+	D3DXVECTOR3 currentPos = GetPos();
+
+	// 移動距離の計算
+	D3DXVECTOR3 diff = currentPos - prevPos;
+	float moveDist = D3DXVec3Length(&diff);
+
+	// ほとんど動いていない（0.01f未満）ならカウント
+	if (moveDist < 0.01f && !m_isAtBase)
+	{
+		stuckTimer++;
+	}
+	else
+	{
+		stuckTimer = 0;
+	}
+
+	// Blackboardを更新
+	m_pBlackBoard->SetValue("StuckTimer", stuckTimer);
+	m_pBlackBoard->SetValue("PrevPos", currentPos);
+
+	// 180フレームスタックしたら強制帰還
+	if (stuckTimer >= Arrayinfo::STACKTIME)
+	{
+		// 帰還命令を強制セット
+		SetEnumState(CArray::ARRAY_STATE::RETURN);
+		SetReturnSpawn(true);
+
+		// タイマーリセット
+		m_pBlackBoard->SetValue("StuckTimer", 0);
+
+		// このフレームのBT更新をスキップして位置更新へ飛ばす
+		CInstancingCharactor::UpdatePosition();
+		return;
+	}
+}
+//=========================================================
 // ノードを設定する
 //=========================================================
 void CArray::NodeSetting(void)
@@ -526,17 +585,20 @@ void CArray::NodeSetting(void)
 	m_pBlackBoard = new CBlackBoard;
 
 	// ブラックボードに情報をセットする
-	m_pBlackBoard->SetValue<CArray*>("Array", this);					 // 自身のポインタ
-	m_pBlackBoard->SetValue<CTopAnt*>("TopAnt",m_pTopAnt);				 // トップアリのポインタ
-	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayDestPos", m_MoveDestPos); // 目的座標
-	m_pBlackBoard->SetValue<D3DXVECTOR3>("TopPos", m_pTopAnt->GetPos()); // 目的座標
-	m_pBlackBoard->SetValue<CArray::ARRAY_STATE>("CurrentState", m_State);		 // 状態遷移
+	m_pBlackBoard->SetValue<CArray*>("Array", this);						// 自身のポインタ
+	m_pBlackBoard->SetValue<CTopAnt*>("TopAnt",m_pTopAnt);					// トップアリのポインタ
+	m_pBlackBoard->SetValue<D3DXVECTOR3>("ArrayDestPos", m_MoveDestPos);	// 目的座標
+	m_pBlackBoard->SetValue<D3DXVECTOR3>("TopPos", m_pTopAnt->GetPos());	// トップアリの座標
+	m_pBlackBoard->SetValue<CArray::ARRAY_STATE>("CurrentState", m_State);	// 状態遷移
 
-	m_pBlackBoard->SetValue<bool>("ReturnSpawn", m_isReturn);			 // 基地に帰るフラグ
-	m_pBlackBoard->SetValue<bool>("GetTopOrder", m_isGettingTopOrder);	 // トップからの命令取得
-	m_pBlackBoard->SetValue<bool>("AttackMode", m_isAttackMode);		 // 攻撃状態フラグ
-	m_pBlackBoard->SetValue<bool>("CheckNearFeed", m_isCheckNearFeed);	 // 餌近くの判別フラグ
-	m_pBlackBoard->SetValue<bool>("SetPoint", m_isSetPoint);			 // セットポイントフラグ
+	m_pBlackBoard->SetValue<int>("StuckTimer", 0);
+	m_pBlackBoard->SetValue<D3DXVECTOR3>("PrevPos", GetPos()); // 前回の座標を保存
+
+	m_pBlackBoard->SetValue<bool>("ReturnSpawn", m_isReturn);				// 基地に帰るフラグ
+	m_pBlackBoard->SetValue<bool>("GetTopOrder", m_isGettingTopOrder);		// トップからの命令取得
+	m_pBlackBoard->SetValue<bool>("AttackMode", m_isAttackMode);			// 攻撃状態フラグ
+	m_pBlackBoard->SetValue<bool>("CheckNearFeed", m_isCheckNearFeed);		// 餌近くの判別フラグ
+	m_pBlackBoard->SetValue<bool>("SetPoint", m_isSetPoint);				// セットポイントフラグ
 
 	// 仲間に使用するツリーノードにセットする
 	m_pBehaviorTree = CArrayBehaviorTree::SetArrayTreeNode(m_pBlackBoard);
@@ -559,7 +621,10 @@ bool CArray::Colision(CSphereCollider* other)
 void CArray::CollsionAll(void)
 {
 	if (m_isGettingTopOrder)
-		CollisionEnemy();
+	{
+		// 敵との当たり判定
+		//CollisionEnemy();
+	}
 }
 //=========================================================
 // 敵との当たり判定関数

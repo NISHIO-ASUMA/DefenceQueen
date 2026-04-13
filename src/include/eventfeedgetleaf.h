@@ -35,4 +35,6 @@ public:
 
 private:
 	NodeInfo::NodeResult m_Result; // ノード判別フラグ
+
+	static constexpr int MAXSTAYCOUNT = 180;
 };
