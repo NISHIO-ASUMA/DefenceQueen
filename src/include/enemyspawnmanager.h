@@ -55,6 +55,7 @@ public:
 
 	HRESULT Init(void);
 	void Uninit(void);
+	void Update(void);
 
 	/// <summary>
 	/// 各所のスポナーを取得する

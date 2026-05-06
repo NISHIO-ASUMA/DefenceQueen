@@ -68,9 +68,10 @@ void CEnemyManager::Uninit(void)
 //=========================================================
 void CEnemyManager::Update(void)
 {
-	// ここの生成処理変更する
-
-
+	// TODO : ここの生成処理変更する
+	// 
+	//
+	
 	// ゲームシーンのオブジェクト取得
 	auto GameSceneObject = CGameSceneObject::GetInstance();
 	int time = GameSceneObject->GetTime()->GetToAll();
