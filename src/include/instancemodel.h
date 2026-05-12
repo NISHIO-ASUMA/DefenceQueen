@@ -39,7 +39,7 @@ public:
 	inline void OffSetRot(const D3DXVECTOR3& offrot) { m_offRot = offrot; }
 	inline void SetMtxShadow(bool isShadow) { m_isShadow = isShadow; }
 
-	inline D3DXMATRIX GetMtxWorld(void) { return m_mtxworld; }
+	const D3DXMATRIX& GetMtxWorld(void) const { return m_mtxworld; }
 	inline int GetModelIdx(void) const { return m_nModelIdx; }
 
 	static CInstanceModel* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, const char* pFilename, const bool isShadow);

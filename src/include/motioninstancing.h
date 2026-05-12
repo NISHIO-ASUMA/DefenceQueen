@@ -62,7 +62,7 @@ public:
 	CMotionInstancing();
 	~CMotionInstancing();
 
-	void Update(std::vector<CInstanceModel*> pModel);
+	void Update(const std::vector<CInstanceModel*>& pModel);
 	void Debug(void);
 	
 	/// <summary>
@@ -131,5 +131,5 @@ private:
 	bool m_cacheDirty;		// キャッシュフラグ
 
 	void MathMotionFrame(const CInstanceMotionManager::MOTIONFILE& info); // フレーム計算関数
-	void ApplyCache(std::vector<CInstanceModel*>& pModel, const CInstanceMotionManager::MOTIONFILE& info); // 計算結果適用関数
+	void ApplyCache(const std::vector<CInstanceModel*>& pModel, const CInstanceMotionManager::MOTIONFILE& info); // 計算結果適用関数
 };

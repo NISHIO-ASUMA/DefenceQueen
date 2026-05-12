@@ -24,11 +24,7 @@
 // インクルードファイル
 //*********************************************************
 #include "model.h"
-
-//*********************************************************
-// 前方宣言
-//*********************************************************
-class CMotionManager;
+#include "motionmanager.h"
 
 //*********************************************************
 // モーションクラスを定義
@@ -40,9 +36,9 @@ public:
 	CMotion();
 	~CMotion();
 
-	void Update(std::vector<CModel*> pModel);
-	void UpdateCurrentMotion(CMotionManager * pMption,CModel** ppModel, int nModelCount);
-	void UpdateBlend(CMotionManager* pMption,CModel** ppModel, int nModelCount);
+	void Update(const std::vector<CModel*>& pModel);
+	void UpdateCurrentMotion(const CMotionManager::INFO& info, CModel* pModel, int idx, float fRate);
+	void UpdateBlend(const CMotionManager::MOTIONFILE& info, CModel* pModel, int idx, float fRate, float fBlendRate);
 	void Debug(void);
 	bool CheckFrame(int nStartMotion, int nEndMotion, int nMotionType);
 

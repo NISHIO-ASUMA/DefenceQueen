@@ -132,7 +132,7 @@ void CMotionInstancing::SetMotion(int nMotionType, bool isBlend, int nBlendFrame
 //=========================================================
 // モーション全体更新処理
 //=========================================================
-void CMotionInstancing::Update(std::vector<CInstanceModel*> pModel)
+void CMotionInstancing::Update(const std::vector<CInstanceModel*>& pModel)
 {
 	// モーションマネージャークラスからモーションデータ取得
 	const auto& manager = CManager::GetInstance()->GetInstMotionManager();
@@ -164,7 +164,7 @@ void CMotionInstancing::MathMotionFrame(const CInstanceMotionManager::MOTIONFILE
 //=========================================================
 void CMotionInstancing::ApplyCache
 (
-	std::vector<CInstanceModel*>& pModel, 
+	const std::vector<CInstanceModel*>& pModel, 
 	const CInstanceMotionManager::MOTIONFILE& info
 )
 {
